@@ -1,9 +1,7 @@
 ﻿namespace SwedbankPay.Client.Models.Response
 {
-    using SwedbankPay.Client.Models.Vipps.PaymentAPI.Request;
     using System;
     using SwedbankPay.Client.Models.Common;
-    using IdLink = SwedbankPay.Client.Models.Vipps.PaymentAPI.Response.IdLink;
 
     public class PaymentOrderResponse : IdLink
     {

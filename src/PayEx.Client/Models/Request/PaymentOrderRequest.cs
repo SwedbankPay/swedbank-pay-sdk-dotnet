@@ -1,6 +1,7 @@
 ﻿namespace SwedbankPay.Client.Models.Request
 {
     using System.Collections.Generic;
+    using SwedbankPay.Client.Models.Common;
 
     public class PaymentOrderRequest
     {

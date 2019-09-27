@@ -22,12 +22,12 @@ namespace Sample.AspNetCore
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IConfigureOptions<HttpClientFactoryOptions>, PayExClientConfigurator>();
+            //services.AddTransient<IConfigureOptions<HttpClientFactoryOptions>, PayExClientConfigurator>();
             services.AddScoped<ISelectClient, QueryStringSelector>();
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddPayExHttpClient(Configuration, Constants.Someaccount);
-            services.AddPayExHttpClient(Configuration, Constants.OtherAccount);
-            services.AddMvc();
+            //services.AddPayExHttpClient(Configuration, Constants.Someaccount);
+            //services.AddPayExHttpClient(Configuration, Constants.OtherAccount);
+            //services.AddMvc();
         }
         
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
