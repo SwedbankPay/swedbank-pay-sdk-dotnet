@@ -6,12 +6,12 @@
     using System;
     using SwedbankPay.Client.Models;
 
-    public class CouldNotPlacePaymentException : Exception
+    public class CouldNotUpdatePaymentOrderException : Exception
     {
         public ProblemsContainer Problems { get; }
         public PaymentOrderRequestContainer Payment { get; }
 
-        public CouldNotPlacePaymentException(PaymentOrderRequestContainer payment, ProblemsContainer problems) : base(problems.ToString())
+        public CouldNotUpdatePaymentOrderException(PaymentOrderRequestContainer payment, ProblemsContainer problems) : base(problems.ToString())
         {
             Problems = problems;
             Payment = payment;

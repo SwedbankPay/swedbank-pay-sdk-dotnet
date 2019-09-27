@@ -1,8 +1,8 @@
-﻿using System;
-
-namespace PayEx.Client
+﻿namespace SwedbankPay.Client
 {
-    public class PayExOptions
+    using System;
+
+    public class SwedbankPayOptions
     {
         public Uri ApiBaseUrl { get; set; }
         public string Token { get; set; }

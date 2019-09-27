@@ -1,6 +1,6 @@
-﻿namespace PayEx.Client.Models.Vipps.PaymentAPI.Request
+﻿namespace SwedbankPay.Client.Models.Common
 {
-    public class PayeeInfo
+    public class PayeeInfo : IdLink
     {
         /// <summary>
         ///     This is the unique id that identifies this payee (like merchant) set by PayEx.
@@ -16,6 +16,16 @@
         /// </summary>
         public string PayeeReference { get; set; }
 
-        public string PayeeName { get; set; } 
+        public string PayeeName { get; set; }
+
+        /// <summary>
+        /// A product category or number sent in from the payee/merchant. This is not validated by PayEx, but will be passed through the payment process and may be used in the settlement process.
+        /// </summary>
+        public string ProductCategory { get; set; }
+
+        /// <summary>
+        /// The order reference should reflect the order reference found in the merchant's systems.
+        /// </summary>
+        public string OrderReference { get; set; }
     }
 }

@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using PayEx.Client.Models.Vipps.PaymentAPI.Request;
-using PayEx.Client.Models.Vipps.PaymentAPI.Response;
-using PayEx.Client.Models.Vipps.TransactionAPI.Request;
-using PayEx.Client.Models.Vipps.TransactionAPI.Response;
-
-namespace PayEx.Client
+﻿namespace SwedbankPay.Client
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using SwedbankPay.Client.Models.Request.Transaction;
+    using SwedbankPay.Client.Models.Vipps.PaymentAPI.Request;
+    using SwedbankPay.Client.Models.Vipps.PaymentAPI.Response;
+    using SwedbankPay.Client.Models.Vipps.TransactionAPI.Response;
+
     public class PayExClient
     {
         private readonly PayExClientDynamic _dynamic;

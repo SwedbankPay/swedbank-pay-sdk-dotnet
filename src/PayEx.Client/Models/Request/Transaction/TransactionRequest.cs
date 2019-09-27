@@ -1,4 +1,4 @@
-﻿namespace PayEx.Client.Models.Vipps.TransactionAPI.Request
+﻿namespace SwedbankPay.Client.Models.Request.Transaction
 {
     public class TransactionRequest
     {

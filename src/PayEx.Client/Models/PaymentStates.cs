@@ -1,4 +1,4 @@
-﻿namespace PayEx.Client.Models
+﻿namespace SwedbankPay.Client.Models
 {
     public static class PaymentStates
     {

@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace PayEx.Client.Models.Vipps
+﻿namespace SwedbankPay.Client.Models
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
     public class ProblemsContainer
     {
         public ProblemsContainer()

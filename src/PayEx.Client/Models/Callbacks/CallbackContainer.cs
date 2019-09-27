@@ -1,4 +1,4 @@
-﻿namespace PayEx.Client.Models.Callbacks
+﻿namespace SwedbankPay.Client.Models.Callbacks
 {
     public class CallbackContainer
     {

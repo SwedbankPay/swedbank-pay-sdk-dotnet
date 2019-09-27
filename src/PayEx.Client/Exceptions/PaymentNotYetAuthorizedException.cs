@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace PayEx.Client.Exceptions
+﻿namespace SwedbankPay.Client.Exceptions
 {
+    using System;
+
     public class PaymentNotYetAuthorizedException : Exception
     {
         public string Id { get; }

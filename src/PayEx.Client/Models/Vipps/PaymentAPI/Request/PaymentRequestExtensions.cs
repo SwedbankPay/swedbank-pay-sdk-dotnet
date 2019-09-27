@@ -1,10 +1,10 @@
-﻿using System;
-
-namespace PayEx.Client.Models.Vipps.PaymentAPI.Request
+﻿namespace SwedbankPay.Client.Models.Vipps.PaymentAPI.Request
 {
+    using System;
+
     internal static class PaymentRequestExtensions
     {
-        internal static void SetRequiredMerchantInfo(this PaymentRequest payment, PayExOptions options)
+        internal static void SetRequiredMerchantInfo(this PaymentRequest payment, SwedbankPayOptions options)
         {
             payment.PayeeInfo.PayeeId = options.MerchantId;
             payment.PayeeInfo.PayeeName = options.MerchantName;

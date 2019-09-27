@@ -1,18 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Serialization;
-using PayEx.Client.Exceptions;
-using PayEx.Client.Models.Vipps;
-
-namespace PayEx.Client
+﻿namespace SwedbankPay.Client
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Net;
+    using System.Net.Http;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
+    using Newtonsoft.Json.Serialization;
+    using SwedbankPay.Client.Exceptions;
+    using SwedbankPay.Client.Models;
+    using SwedbankPay.Client.Models.Vipps;
+
     public class PayExHttpClient
     {
         private readonly HttpClient _client;

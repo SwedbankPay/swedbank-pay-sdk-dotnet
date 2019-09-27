@@ -1,9 +1,10 @@
-﻿using System;
-using PayEx.Client.Models.Vipps.PaymentAPI.Request;
-using PayEx.Client.Models.Vipps.TransactionAPI.Response;
-
-namespace PayEx.Client.Models.Vipps.PaymentAPI.Response
+﻿namespace SwedbankPay.Client.Models.Vipps.PaymentAPI.Response
 {
+    using System;
+    using SwedbankPay.Client.Models.Common;
+    using SwedbankPay.Client.Models.Vipps.PaymentAPI.Request;
+    using SwedbankPay.Client.Models.Vipps.TransactionAPI.Response;
+
     public class PaymentResponse
     {
         public string Id { get; set; }

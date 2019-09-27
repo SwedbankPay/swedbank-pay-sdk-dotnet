@@ -2,12 +2,13 @@
 using System.Net.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using PayEx.Client;
-using PayEx.Client.Models.Vipps.PaymentAPI.Common;
-using PayEx.Client.Models.Vipps.PaymentAPI.Request;
 
 namespace Sample.ConsoleApp
 {
+    using SwedbankPay.Client;
+    using SwedbankPay.Client.Models.Common;
+    using SwedbankPay.Client.Models.Vipps.PaymentAPI.Request;
+
     class Program
     {
         static void Main(string[] args)
@@ -16,22 +17,22 @@ namespace Sample.ConsoleApp
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-            var payExOptions = new PayExOptions();
+            var payExOptions = new SwedbankPayOptions();
             config.GetSection("payex:someAccount").Bind(payExOptions);
 
-            IOptions<PayExOptions> options = new OptionsWrapper<PayExOptions>(payExOptions);
+            IOptions<SwedbankPayOptions> options = new OptionsWrapper<SwedbankPayOptions>(payExOptions);
 
             IHttpClientFactory httpClientFactory = new HttpClientCreator(options.Value);
 
             ISelectClient clientSelector = new DummySelector();
 
 
-            IConfigureOptions<PayExOptions> optionsConfigurator = new ConfigureOptions<PayExOptions>(Conf(payExOptions));
+            IConfigureOptions<SwedbankPayOptions> optionsConfigurator = new ConfigureOptions<SwedbankPayOptions>(Conf(payExOptions));
             var configureOptionses = new []{ optionsConfigurator };
-            IPostConfigureOptions<PayExOptions> postoptionsConfigurator = new PostConfigureOptions<PayExOptions>(Constants.THECLIENTNAME,Conf(payExOptions));
+            IPostConfigureOptions<SwedbankPayOptions> postoptionsConfigurator = new PostConfigureOptions<SwedbankPayOptions>(Constants.THECLIENTNAME,Conf(payExOptions));
             var postConfigureOptionses = new []{ postoptionsConfigurator};
             
-            IOptionsSnapshot<PayExOptions> optionsSnap = new OptionsManager<PayExOptions>(new OptionsFactory<PayExOptions>(configureOptionses,postConfigureOptionses));
+            IOptionsSnapshot<SwedbankPayOptions> optionsSnap = new OptionsManager<SwedbankPayOptions>(new OptionsFactory<SwedbankPayOptions>(configureOptionses,postConfigureOptionses));
             var dynamic = new PayExClientDynamic(httpClientFactory, optionsSnap);
             var payExClient = new PayExClient(dynamic, clientSelector);
             var prices = new Price
@@ -49,17 +50,17 @@ namespace Sample.ConsoleApp
 
         }
 
-        private static Action<PayExOptions> Conf(PayExOptions payExOptions)
+        private static Action<SwedbankPayOptions> Conf(SwedbankPayOptions swedbankPayOptions)
         {
             return o =>
             {
-                o.ApiBaseUrl = payExOptions.ApiBaseUrl;
-                o.Token = payExOptions.Token;
-                o.MerchantId = payExOptions.MerchantId;
-                o.MerchantName = payExOptions.MerchantName;
-                o.CallBackUrl = payExOptions.CallBackUrl;
-                o.CancelPageUrl = payExOptions.CancelPageUrl;
-                o.CompletePageUrl = payExOptions.CompletePageUrl;
+                o.ApiBaseUrl = swedbankPayOptions.ApiBaseUrl;
+                o.Token = swedbankPayOptions.Token;
+                o.MerchantId = swedbankPayOptions.MerchantId;
+                o.MerchantName = swedbankPayOptions.MerchantName;
+                o.CallBackUrl = swedbankPayOptions.CallBackUrl;
+                o.CancelPageUrl = swedbankPayOptions.CancelPageUrl;
+                o.CompletePageUrl = swedbankPayOptions.CompletePageUrl;
             };
         }
     }
@@ -74,17 +75,17 @@ namespace Sample.ConsoleApp
 
     internal class HttpClientCreator : IHttpClientFactory
     {
-        private readonly PayExOptions _payExOptions;
+        private readonly SwedbankPayOptions _swedbankPayOptions;
 
-        public HttpClientCreator(PayExOptions payExOptions)
+        public HttpClientCreator(SwedbankPayOptions swedbankPayOptions)
         {
-            _payExOptions = payExOptions;
+            _swedbankPayOptions = swedbankPayOptions;
         }
         public HttpClient CreateClient(string name)
         {
             var httpClient = new HttpClient();
-            httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {_payExOptions.Token}");
-            httpClient.BaseAddress = _payExOptions.ApiBaseUrl;
+            httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {_swedbankPayOptions.Token}");
+            httpClient.BaseAddress = _swedbankPayOptions.ApiBaseUrl;
             return httpClient;
         }
     }

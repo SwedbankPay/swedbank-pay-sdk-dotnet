@@ -6,10 +6,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Http;
 using Microsoft.Extensions.Options;
-using PayEx.Client;
 
 namespace Sample.AspNetCore
 {
+    using SwedbankPay.Client;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)

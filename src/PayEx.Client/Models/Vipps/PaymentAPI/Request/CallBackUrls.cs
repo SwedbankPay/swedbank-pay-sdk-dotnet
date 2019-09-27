@@ -1,4 +1,4 @@
-﻿namespace PayEx.Client.Models.Vipps.PaymentAPI.Request
+﻿namespace SwedbankPay.Client.Models.Vipps.PaymentAPI.Request
 {
     public class CallBackUrls
     {

@@ -1,8 +1,9 @@
-﻿using System;
-using PayEx.Client.Models.Vipps;
-
-namespace PayEx.Client.Exceptions
+﻿namespace SwedbankPay.Client.Exceptions
 {
+    using System;
+    using SwedbankPay.Client.Models;
+    using SwedbankPay.Client.Models.Vipps;
+
     public class CouldNotReversePaymentException : Exception
     {
         public ProblemsContainer Problems { get; }

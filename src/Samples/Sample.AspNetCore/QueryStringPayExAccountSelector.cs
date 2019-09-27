@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Http;
-using PayEx.Client;
 
 namespace Sample.AspNetCore
 {
+    using SwedbankPay.Client;
+
     public class QueryStringSelector : ISelectClient
     {
         private readonly IHttpContextAccessor _contextAccessor;

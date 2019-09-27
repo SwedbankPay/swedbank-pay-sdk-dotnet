@@ -4,13 +4,14 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using PayEx.Client;
-using PayEx.Client.Models.Vipps.PaymentAPI.Common;
-using PayEx.Client.Models.Vipps.PaymentAPI.Request;
-using PayEx.Client.Models.Vipps.TransactionAPI.Request;
 
 namespace Sample.AspNetCore.Controllers
 {
+    using SwedbankPay.Client;
+    using SwedbankPay.Client.Models.Common;
+    using SwedbankPay.Client.Models.Request.Transaction;
+    using SwedbankPay.Client.Models.Vipps.PaymentAPI.Request;
+
     public class DefaultController : Controller
     {
         private readonly PayExClient _client;

@@ -1,4 +1,4 @@
-﻿namespace PayEx.Client.Models.Vipps.PaymentAPI.Response
+﻿namespace SwedbankPay.Client.Models.Response
 {
     public class HttpOperation
     {

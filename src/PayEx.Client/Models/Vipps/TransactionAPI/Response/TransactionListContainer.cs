@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace PayEx.Client.Models.Vipps.TransactionAPI.Response
+﻿namespace SwedbankPay.Client.Models.Vipps.TransactionAPI.Response
 {
+    using System.Collections.Generic;
+
     public class TransactionListContainer
     {
         public string Id { get; set; }

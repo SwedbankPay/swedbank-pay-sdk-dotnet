@@ -1,4 +1,4 @@
-namespace PayEx.Client
+namespace SwedbankPay.Client
 {
     public interface ISelectClient
     {

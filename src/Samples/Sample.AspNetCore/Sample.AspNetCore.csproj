@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\PayEx.Client\PayEx.Client.csproj" />
+    <ProjectReference Include="..\..\PayEx.Client\SwedbankPay.Client.csproj" />
   </ItemGroup>
 
 </Project>

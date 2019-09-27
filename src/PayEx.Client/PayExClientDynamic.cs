@@ -1,27 +1,27 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Options;
-using PayEx.Client.Exceptions;
-using PayEx.Client.Models.Vipps;
-using PayEx.Client.Models.Vipps.PaymentAPI.Request;
-using PayEx.Client.Models.Vipps.PaymentAPI.Response;
-using PayEx.Client.Models.Vipps.TransactionAPI.Request;
-using PayEx.Client.Models.Vipps.TransactionAPI.Response;
-
-namespace PayEx.Client
+namespace SwedbankPay.Client
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using SwedbankPay.Client.Exceptions;
+    using SwedbankPay.Client.Models;
+    using SwedbankPay.Client.Models.Request;
+    using SwedbankPay.Client.Models.Request.Transaction;
+    using SwedbankPay.Client.Models.Vipps;
+    using SwedbankPay.Client.Models.Vipps.PaymentAPI.Request;
+    using SwedbankPay.Client.Models.Vipps.PaymentAPI.Response;
+    using SwedbankPay.Client.Models.Vipps.TransactionAPI.Response;
+
     public class PayExClientDynamic
     {
         private readonly IHttpClientFactory _clientFactory;
         private const string PspVippsPaymentsBaseUrl = "/psp/vipps/payments/";
         private const string PspCreditCardPaymentsBaseUrl = "/psp/creditcard/payments/";
         private readonly ILogPayExHttpResponse _logger;
-        private readonly IOptionsSnapshot<PayExOptions> _optionFetcher;
+        private readonly IOptionsSnapshot<SwedbankPayOptions> _optionFetcher;
 
-        public PayExClientDynamic(IHttpClientFactory clientFactory, IOptionsSnapshot<PayExOptions> options, ILogPayExHttpResponse logger = null)
+        public PayExClientDynamic(IHttpClientFactory clientFactory, IOptionsSnapshot<SwedbankPayOptions> options, ILogPayExHttpResponse logger = null)
         {
             _clientFactory = clientFactory;
             _logger = logger ?? new NoOpLogger();
@@ -200,7 +200,7 @@ namespace PayEx.Client
             return new PayExHttpClient(httpClient, _logger);
         }
 
-        private PayExOptions Options(string clientName)
+        private SwedbankPayOptions Options(string clientName)
         {
             var payExOptions = _optionFetcher.Get(clientName);
             

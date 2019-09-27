@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-   <PackageId>PayEx.Client</PackageId>    
+   <PackageId>SwedbankPay.Client</PackageId>    
     <Authors>John Korsnes</Authors>
     <Description>
-        A client library for PayEx REST APIs
+        A client library for Swedbank Pay REST APIs
     </Description>
     <Copyright>John Korsnes, ice</Copyright>
     <PackageTags>payex client</PackageTags>    
@@ -13,13 +13,15 @@
     <RepositoryUrl>https://github.com/icenorge/payex.client</RepositoryUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/icenorge/payex.client/master/images/payex.250x250.png</PackageIconUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>Vipps payment handling. CreditCard payment handling.</PackageReleaseNotes>    
+    <PackageReleaseNotes>Vipps payment handling. CreditCard payment handling.</PackageReleaseNotes>
+    <AssemblyName>SwedbankPay.Client</AssemblyName>
+    <RootNamespace>SwedbankPay.Client</RootNamespace>    
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Http" Version="2.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.1.0" />
+    <PackageReference Include="RestSharp" Version="106.6.6" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\Vipps\PaymentAPI\Common\" />
   </ItemGroup>
 </Project>

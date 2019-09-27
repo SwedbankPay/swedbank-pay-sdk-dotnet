@@ -1,4 +1,4 @@
-﻿namespace PayEx.Client.Models.Vipps.PaymentAPI.Common
+﻿namespace SwedbankPay.Client.Models.Common
 {
     public class Price
     {

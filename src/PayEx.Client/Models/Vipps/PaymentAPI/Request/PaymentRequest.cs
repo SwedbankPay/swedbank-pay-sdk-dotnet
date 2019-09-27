@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using PayEx.Client.Models.Vipps.PaymentAPI.Common;
-
-namespace PayEx.Client.Models.Vipps.PaymentAPI.Request
+﻿namespace SwedbankPay.Client.Models.Vipps.PaymentAPI.Request
 {
+    using System.Collections.Generic;
+    using SwedbankPay.Client.Models.Common;
+
     public class PaymentRequest
     {
         public PaymentRequest(string useragent, string description, string payerReference, string payeeReference, params Price[] prices)

@@ -1,6 +1,6 @@
-﻿namespace PayEx.Client.Models.Vipps.TransactionAPI.Request
+﻿namespace SwedbankPay.Client.Models.Request.Transaction
 {
-    internal class TransactionRequestContainer
+    public class TransactionRequestContainer
     {
         public TransactionRequest Transaction { get; }
 
