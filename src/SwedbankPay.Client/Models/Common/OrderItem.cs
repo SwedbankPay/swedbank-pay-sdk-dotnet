@@ -29,6 +29,8 @@
         /// </summary>
         public string ItemUrl { get; set; }
 
+        public string ImageUrl { get; set; }
+
         /// <summary>
         /// The human readable description of the order item.
         /// </summary>
@@ -42,7 +44,7 @@
         /// <summary>
         /// The quantity of order items being purchased.
         /// </summary>
-        public string Quantity { get; set; }
+        public int Quantity { get; set; }
 
         /// <summary>
         /// The unit of the quantity, such as pcs, grams, or similar.

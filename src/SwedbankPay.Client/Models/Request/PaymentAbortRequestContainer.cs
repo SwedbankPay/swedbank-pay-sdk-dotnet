@@ -2,6 +2,6 @@
 {
     public class PaymentAbortRequestContainer
     {
-        public PaymentAbortRequest Payment { get; set; } = new PaymentAbortRequest();
+        public PaymentAbortRequest PaymentOrder { get; set; } = new PaymentAbortRequest();
     }
 }

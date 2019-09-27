@@ -1,0 +1,226 @@
+namespace SwedbankPay.Client.Tests
+{
+    using SwedbankPay.Client.Exceptions;
+    using SwedbankPay.Client.Models;
+    using SwedbankPay.Client.Models.Common;
+    using SwedbankPay.Client.Models.Request;
+    using SwedbankPay.Client.Models.Request.Transaction;
+
+    using System;
+    using System.Collections.Generic;
+
+    using Xunit;
+
+    public class PaymentOrderResourceTests
+    {
+        private SwedbankPayClient _sut;
+
+        [Fact]
+        public void CreatePaymentOrder_ShouldReturnPaymentOrderWithCorrectAmount()
+        {
+            var paymentOrderRequestContainer = CreatePaymentOrderRequestContainer();
+            var paymentOrderResponseContainer = _sut.PaymentOrders.CreatePaymentOrder(paymentOrderRequestContainer, PaymentOrderExpand.All);
+            Assert.NotNull(paymentOrderResponseContainer);
+            Assert.NotNull(paymentOrderResponseContainer.PaymentOrder);
+            Assert.Equal(30000, paymentOrderResponseContainer.PaymentOrder.Amount);
+        }
+
+
+        [Fact]
+        public void CreateAndGetPaymentOrder_ShouldReturnPaymentOrderWithSameAmount()
+        {
+            var paymentOrderRequestContainer = CreatePaymentOrderRequestContainer();
+            var paymentOrderResponseContainer = _sut.PaymentOrders.CreatePaymentOrder(paymentOrderRequestContainer, PaymentOrderExpand.All);
+            Assert.NotNull(paymentOrderResponseContainer);
+            Assert.NotNull(paymentOrderResponseContainer.PaymentOrder);
+            var amount = paymentOrderResponseContainer.PaymentOrder.Amount;
+
+            var paymentOrderResponseContainer2 = _sut.PaymentOrders.GetPaymentOrder(paymentOrderResponseContainer.PaymentOrder.Id);
+            Assert.NotNull(paymentOrderResponseContainer2);
+            Assert.NotNull(paymentOrderResponseContainer2.PaymentOrder);
+            Assert.Equal(amount, paymentOrderResponseContainer2.PaymentOrder.Amount);
+        }
+
+        [Fact]
+        public void CreateAndUpdatedPaymentOrder_ShouldReturnPaymentOrderWithNewAmounts()
+        {
+            var paymentOrderRequestContainer = CreatePaymentOrderRequestContainer();
+            var paymentOrderResponseContainer = _sut.PaymentOrders.CreatePaymentOrder(paymentOrderRequestContainer, PaymentOrderExpand.All);
+            Assert.NotNull(paymentOrderResponseContainer);
+            Assert.NotNull(paymentOrderResponseContainer.PaymentOrder);
+            var amount = paymentOrderResponseContainer.PaymentOrder.Amount;
+
+            var newAmount = 50000;
+            var newVatAmount = 10000;
+            var orderRequestContainer = new PaymentOrderRequestContainer
+            {
+                Paymentorder = new PaymentOrderRequest
+                {
+                    Amount = newAmount,
+                    VatAmount = newVatAmount
+                }
+            };
+
+            var paymentOrderResponseContainer2 = _sut.PaymentOrders.UpdatePaymentOrder(paymentOrderResponseContainer.PaymentOrder.Id, orderRequestContainer);
+            Assert.NotNull(paymentOrderResponseContainer2);
+            Assert.NotNull(paymentOrderResponseContainer2.PaymentOrder);
+            Assert.Equal(newAmount, paymentOrderResponseContainer2.PaymentOrder.Amount);
+            Assert.Equal(newVatAmount, paymentOrderResponseContainer2.PaymentOrder.VatAmount);
+        }
+
+        [Fact]
+        public void CreateAndCancelPaymentOrder_ShouldThrowNotYetAuthorizedException()
+        {
+            var paymentOrderRequestContainer = CreatePaymentOrderRequestContainer();
+            var paymentOrderResponseContainer = _sut.PaymentOrders.CreatePaymentOrder(paymentOrderRequestContainer, PaymentOrderExpand.All);
+
+            Assert.NotNull(paymentOrderResponseContainer);
+            Assert.NotNull(paymentOrderResponseContainer.PaymentOrder);
+
+            var transactionRequestContainer = new TransactionRequestContainer(new TransactionRequest
+            {
+                Description = "ABC123",
+                PayeeReference = "Cancelling parts of the total amount"
+            });
+
+            Assert.Throws<PaymentNotYetAuthorizedException>(() => _sut.PaymentOrders.CancelPaymentOrder(paymentOrderResponseContainer.PaymentOrder.Id, transactionRequestContainer));
+        }
+
+        [Fact]
+        public void CreateAndAbortPaymentOrder_ShouldReturnAbortedState()
+        {
+            var paymentOrderRequestContainer = CreatePaymentOrderRequestContainer();
+            var paymentOrderResponseContainer = _sut.PaymentOrders.CreatePaymentOrder(paymentOrderRequestContainer, PaymentOrderExpand.All);
+
+            Assert.NotNull(paymentOrderResponseContainer);
+            Assert.NotNull(paymentOrderResponseContainer.PaymentOrder);
+
+            var orderResponseContainer = _sut.PaymentOrders.AbortPaymentOrder(paymentOrderResponseContainer.PaymentOrder.Id);
+            Assert.NotNull(orderResponseContainer);
+            Assert.NotNull(orderResponseContainer.PaymentOrder);
+            Assert.Equal("Aborted", orderResponseContainer.PaymentOrder.State);
+        }
+
+        [Fact]
+        public void CreateAndCapturePaymentOrder_ShouldThrowNotYetAuthorizedException()
+        {
+            var paymentOrderRequestContainer = CreatePaymentOrderRequestContainer(100000, 25000);
+            var paymentOrderResponseContainer = _sut.PaymentOrders.CreatePaymentOrder(paymentOrderRequestContainer, PaymentOrderExpand.All);
+
+            Assert.NotNull(paymentOrderResponseContainer);
+            Assert.NotNull(paymentOrderResponseContainer.PaymentOrder);
+
+            var transactionRequest = new TransactionRequest
+            {
+                Amount = 10000,
+                Description = "Description",
+                PayeeReference = Guid.NewGuid().ToString(),
+                VatAmount = 2500,
+                OrderItems = new List<OrderItem>
+                {
+                    new OrderItem
+                    {
+                        Reference = "p1",
+                        Name = "Product1",
+                        Type = "Product",
+                        Class = "ProductGroup1",
+                        ItemUrl = "https://example.com/products/123",
+                        ImageUrl = "https://example.com/products/123.jpg",
+                        Description = "Product 1 description",
+                        DiscountDescription = "Volume discount",
+                        Quantity = 4,
+                        QuantityUnit = "pcs",
+                        UnitPrice = 300,
+                        DiscountPrice = 200,
+                        VatPercent = 2500,
+                        Amount = 1000,
+                        VatAmount = 250
+                    },
+                    new OrderItem
+                    {
+                        Reference = "p2",
+                        Name = "Product2",
+                        Type = "Product",
+                        Class = "ProductGroup1",
+                        Description = "Product 2 description",
+                        DiscountDescription = "Volume discount",
+                        Quantity = 1,
+                        QuantityUnit = "pcs",
+                        UnitPrice = 500,
+                        VatPercent = 2500,
+                        Amount = 500,
+                        VatAmount = 125
+                    }
+                }
+            };
+            var transactionRequestContainer = new TransactionRequestContainer(transactionRequest);
+            Assert.Throws<PaymentNotYetAuthorizedException>(() => _sut.PaymentOrders.Capture(paymentOrderResponseContainer.PaymentOrder.Id, transactionRequestContainer));
+        }
+
+        [Fact]
+        public void GetUnknownPaymentOrder_ShouldThrowCouldNotFindPaymentException()
+        {
+            var id = "/psp/paymentorders/56a45c8a-9605-437a-fb80-08d742822747";
+
+            Assert.Throws<CouldNotFindPaymentException>(() => _sut.PaymentOrders.GetPaymentOrder(id));
+            //Assert. NotNull(paymentOrderResponseContainer);
+            //Assert.NotNull(paymentOrderResponseContainer.PaymentOrder);
+
+            //var transactionResponse = _sut.PaymentOrders.Reversal(id, new TransactionRequestContainer(new TransactionRequest
+            //{
+            //    Amount = 100,
+            //    VatAmount = 25,
+            //    PayeeReference = Guid.NewGuid().ToString(),
+            //    Description = "Description for transaction",
+            //}));
+
+            //Assert.NotNull(transactionResponse);
+            //Assert.Equal("Completed", transactionResponse.State);
+        }
+
+        private PaymentOrderRequestContainer CreatePaymentOrderRequestContainer(long amount = 30000, long vatAmount = 7500)
+        {
+            var paymentOrderRequestContainer = new PaymentOrderRequestContainer
+            {
+                Paymentorder = new PaymentOrderRequest
+                {
+                    Amount = amount,
+                    VatAmount = vatAmount,
+                    Currency = "SEK",
+                    Description = "Description",
+                    Language = "sv-SE",
+                    UserAgent = "useragent",
+                    Urls = new Urls
+                    {
+                        TermsOfServiceUrl = null,
+                        CallbackUrl = null,
+                        CancelUrl = "https://payex.eu.ngrok.io/payment-canceled?orderGroupId={orderGroupId}",
+                        CompleteUrl = "https://payex.eu.ngrok.io/sv/checkout-sv/PayexCheckoutConfirmation/?orderGroupId={orderGroupId}",
+                        LogoUrl = null,
+                        HostUrls = new List<string> { { "https://payex.eu.ngrok.io" } }
+                    },
+                    PayeeInfo = new PayeeInfo
+                    {
+                        PayeeId = "91a4c8e0-72ac-425c-a687-856706f9e9a1",
+                        PayeeReference = DateTime.Now.Ticks.ToString(),
+                    },
+                }
+            };
+            return paymentOrderRequestContainer;
+        }
+
+        public PaymentOrderResourceTests()
+        {
+            var swedbankPayOptions = new SwedbankPayOptions
+            {
+                ApiBaseUrl = new Uri("https://api.externalintegration.payex.com"),
+                Token = "588431aa485611f8fce876731a1734182ca0c44fcad6b8d989e22f444104aadf",
+                CallBackUrl = new Uri("https://payex.eu.ngrok.io/payment-callback?orderGroupId={orderGroupId}"),
+                CompletePageUrl = new Uri("https://payex.eu.ngrok.io/sv/checkout-sv/PayexCheckoutConfirmation/?orderGroupId={orderGroupId}"),
+                CancelPageUrl = new Uri("https://payex.eu.ngrok.io/payment-canceled?orderGroupId={orderGroupId}")
+            };
+
+            _sut = new SwedbankPayClient(swedbankPayOptions);
+        }
+    }
+}

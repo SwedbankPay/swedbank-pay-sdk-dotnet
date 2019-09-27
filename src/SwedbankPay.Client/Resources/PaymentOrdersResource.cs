@@ -122,8 +122,7 @@
             var paymentOrderRequest = new PaymentAbortRequestContainer();
 
             Func<ProblemsContainer, Exception> onError = m => new CouldNotPostTransactionException(id, m);
-            var payload = new PaymentAbortRequestContainer();
-            var res = CreateInternalClient().HttpPatch<PaymentAbortRequestContainer, PaymentOrderResponseContainer>(url, onError, payload);
+            var res = CreateInternalClient().HttpPatch<PaymentAbortRequestContainer, PaymentOrderResponseContainer>(url, onError, paymentOrderRequest);
             return res;
         }
 
