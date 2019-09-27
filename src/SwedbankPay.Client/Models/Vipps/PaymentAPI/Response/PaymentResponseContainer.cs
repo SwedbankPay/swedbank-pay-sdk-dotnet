@@ -8,6 +8,10 @@
 
     public class PaymentResponseContainer
     {
+        public PaymentResponseContainer()
+        {
+        }
+
         public PaymentResponseContainer(PaymentResponse payment)
         {
             Payment = payment;

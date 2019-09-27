@@ -9,12 +9,12 @@
 
     public abstract class ResourceBase
     {
-        private readonly SwedbankPayOptions _swedbankPayOptions;
+        protected readonly SwedbankPayOptions SwedbankPayOptions;
         private readonly ILogPayExHttpResponse _logger;
 
         internal ResourceBase(SwedbankPayOptions swedbankPayOptions, ILogPayExHttpResponse logger)
         {
-            _swedbankPayOptions = swedbankPayOptions;
+            SwedbankPayOptions = swedbankPayOptions;
             _logger = logger;
         }
 
@@ -28,9 +28,9 @@
 
         internal SwedbankPayHttpClient CreateInternalClient()
         {
-            var client = new RestClient(new Uri(_swedbankPayOptions.ApiBaseUrl.ToString()))
+            var client = new RestClient(new Uri(SwedbankPayOptions.ApiBaseUrl.ToString()))
             {
-                Authenticator = new OAuth2AuthorizationRequestHeaderAuthenticator(_swedbankPayOptions.Token, "Bearer")
+                Authenticator = new OAuth2AuthorizationRequestHeaderAuthenticator(SwedbankPayOptions.Token, "Bearer")
             };
 
             return new SwedbankPayHttpClient(client, _logger);

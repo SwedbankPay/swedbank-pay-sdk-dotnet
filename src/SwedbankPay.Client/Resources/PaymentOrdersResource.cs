@@ -12,11 +12,8 @@
 
     public class PaymentOrdersResource : ResourceBase, IPaymentOrdersResource
     {
-        private readonly ILogPayExHttpResponse _logger;
-
         public PaymentOrdersResource(SwedbankPayOptions swedbankPayOptions, ILogPayExHttpResponse logger = null) : base(swedbankPayOptions, logger)
         {
-            _logger = logger;
         }
 
         /// <summary>
