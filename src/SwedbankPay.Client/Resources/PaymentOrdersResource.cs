@@ -9,6 +9,7 @@
 
     using System;
     using System.Linq;
+    using System.Threading.Tasks;
 
     public class PaymentOrdersResource : ResourceBase, IPaymentOrdersResource
     {
@@ -21,20 +22,16 @@
         /// </summary>
         /// <param name="paymentOrderRequest"></param>
         /// <param name="paymentOrderExpand"></param>
+        /// <exception cref="CouldNotPlacePaymentOrderException"></exception>
         /// <returns></returns>
-        public PaymentOrderResponseContainer CreatePaymentOrder(PaymentOrderRequestContainer paymentOrderRequest, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
+        public async Task<PaymentOrderResponseContainer> CreatePaymentOrder(PaymentOrderRequestContainer paymentOrderRequest, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
         {
-            var url = "/psp/paymentorders";
+            var url = $"/psp/paymentorders{Utils.GetExpandQueryString(paymentOrderExpand)}";
 
-            if (paymentOrderExpand != PaymentOrderExpand.None)
-            {
-                var expandQueryStringParameter = Utils.GetExpandQueryString(paymentOrderExpand);
-                url = $"/psp/paymentorders?$expand={expandQueryStringParameter}";
-            }
             paymentOrderRequest.Paymentorder.Operation = "Purchase";
 
-            Func<ProblemsContainer, Exception> onError = m => new CouldNotPlacePaymentException(paymentOrderRequest, m);
-            var res = CreateInternalClient().HttpPost<PaymentOrderRequestContainer, PaymentOrderResponseContainer>(url, onError, paymentOrderRequest);
+            Func<ProblemsContainer, Exception> onError = m => new CouldNotPlacePaymentOrderException(paymentOrderRequest, m);
+            var res = await CreateInternalClient().HttpPost<PaymentOrderRequestContainer, PaymentOrderResponseContainer>(url, onError, paymentOrderRequest);
             return res;
         }
 
@@ -44,35 +41,34 @@
         /// </summary>
         /// <param name="id"></param>
         /// <param name="paymentOrderExpand"></param>
+        /// <exception cref="CouldNotFindPaymentException"></exception>
         /// <returns></returns>
-        public PaymentOrderResponseContainer GetPaymentOrder(string id, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
+        public async Task<PaymentOrderResponseContainer> GetPaymentOrder(string id, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
         {
             if (string.IsNullOrEmpty(id))
             {
                 throw new CouldNotFindPaymentException(id);
             }
 
-            var url = id;
-            if (paymentOrderExpand != PaymentOrderExpand.None)
-            {
-                var expandQueryStringParameter = Utils.GetExpandQueryString(paymentOrderExpand);
-                url = $"{id}?$expand={expandQueryStringParameter}";
-            }
+            var url = $"{id}{Utils.GetExpandQueryString(paymentOrderExpand)}";
 
             Func<ProblemsContainer, Exception> onError = m => new CouldNotFindPaymentException(id, m);
-            var res = CreateInternalClient().HttpGet<PaymentOrderResponseContainer>(url, onError);
+            var res = await CreateInternalClient().HttpGet<PaymentOrderResponseContainer>(url, onError);
             return res;
         }
 
         /// <summary>
         /// Updates an existing payment.
         /// </summary>
-        /// <param name="paymentOrderRequest"></param>
         /// <param name="id"></param>
+        /// <param name="paymentOrderRequest"></param>
+        /// <exception cref="PaymentNotYetAuthorizedException"></exception>
+        /// <exception cref="NoOperationsLeftException"></exception>
+        /// <exception cref="CouldNotUpdatePaymentOrderException"></exception>
         /// <returns></returns>
-        public PaymentOrderResponseContainer UpdatePaymentOrder(string id, PaymentOrderRequestContainer paymentOrderRequest)
+        public async Task<PaymentOrderResponseContainer> UpdatePaymentOrder(string id, PaymentOrderRequestContainer paymentOrderRequest, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
         {
-            var payment = GetPaymentOrder(id);
+            var payment = await GetPaymentOrder(id);
 
             var httpOperation = payment.Operations.FirstOrDefault(o => o.Rel == "update-paymentorder-updateorder");
             if (httpOperation == null)
@@ -84,13 +80,12 @@
                 }
                 throw new NoOperationsLeftException();
             }
-
-            var url = httpOperation.Href;
+            var url = $"{httpOperation.Href}{Utils.GetExpandQueryString(paymentOrderExpand)}";
 
             paymentOrderRequest.Paymentorder.Operation = "UpdateOrder";
 
             Func<ProblemsContainer, Exception> onError = m => new CouldNotUpdatePaymentOrderException(paymentOrderRequest, m);
-            var res = CreateInternalClient().HttpPatch<PaymentOrderRequestContainer, PaymentOrderResponseContainer>(url, onError, paymentOrderRequest);
+            var res = await CreateInternalClient().HttpPatch<PaymentOrderRequestContainer, PaymentOrderResponseContainer>(url, onError, paymentOrderRequest);
             return res;
         }
 
@@ -100,9 +95,9 @@
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public PaymentOrderResponseContainer AbortPaymentOrder(string id)
+        public async Task<PaymentOrderResponseContainer> AbortPaymentOrder(string id)
         {
-            var payment = GetPaymentOrder(id);
+            var payment = await GetPaymentOrder(id);
 
             var httpOperation = payment.Operations.FirstOrDefault(o => o.Rel == "update-paymentorder-abort");
             if (httpOperation == null)
@@ -119,7 +114,7 @@
             var paymentOrderRequest = new PaymentAbortRequestContainer();
 
             Func<ProblemsContainer, Exception> onError = m => new CouldNotPostTransactionException(id, m);
-            var res = CreateInternalClient().HttpPatch<PaymentAbortRequestContainer, PaymentOrderResponseContainer>(url, onError, paymentOrderRequest);
+            var res = await CreateInternalClient().HttpPatch<PaymentAbortRequestContainer, PaymentOrderResponseContainer>(url, onError, paymentOrderRequest);
             return res;
         }
 
@@ -129,9 +124,9 @@
         /// <param name="uri"></param>
         /// <param name="requestObject"></param>
         /// <returns></returns>
-        public TransactionResponse Capture(string id, TransactionRequestContainer requestObject)
+        public async Task<TransactionResponse> Capture(string id, TransactionRequestContainer requestObject)
         {
-            var payment = GetPaymentOrder(id);
+            var payment = await GetPaymentOrder(id);
 
             var httpOperation = payment.Operations.FirstOrDefault(o => o.Rel == "create-paymentorder-capture");
             if (httpOperation == null)
@@ -146,7 +141,7 @@
 
             var url = httpOperation.Href;
             Func<ProblemsContainer, Exception> onError = m => new CouldNotPostTransactionException(url, m);
-            var res = CreateInternalClient().HttpPost<TransactionRequestContainer, CaptureTransactionResponseContainer>(url, onError, requestObject);
+            var res = await CreateInternalClient().HttpPost<TransactionRequestContainer, CaptureTransactionResponseContainer>(url, onError, requestObject);
             return res.Capture.Transaction;
         }
 
@@ -157,9 +152,9 @@
         /// <param name="id"></param>
         /// <param name="requestObject"></param>
         /// <returns></returns>
-        public TransactionResponse Reversal(string id, TransactionRequestContainer requestObject)
+        public async Task<TransactionResponse> Reversal(string id, TransactionRequestContainer requestObject)
         {
-            var payment = GetPaymentOrder(id);
+            var payment = await GetPaymentOrder(id);
 
             var httpOperation = payment.Operations.FirstOrDefault(o => o.Rel == "create-paymentorder-reversal");
             if (httpOperation == null)
@@ -174,7 +169,7 @@
 
             var url = httpOperation.Href;
             Func<ProblemsContainer, Exception> onError = m => new CouldNotPostTransactionException(id, m);
-            var res = CreateInternalClient().HttpPost<TransactionRequestContainer, ReversalTransactionResponseContainer>(url, onError, requestObject);
+            var res = await CreateInternalClient().HttpPost<TransactionRequestContainer, ReversalTransactionResponseContainer>(url, onError, requestObject);
             return res.Reversal.Transaction;
         }
 
@@ -184,9 +179,9 @@
         /// <param name="id"></param>
         /// <param name="requestObject"></param>
         /// <returns></returns>
-        public TransactionResponse CancelPaymentOrder(string id, TransactionRequestContainer requestObject)
+        public async Task<TransactionResponse> CancelPaymentOrder(string id, TransactionRequestContainer requestObject)
         {
-            var payment = GetPaymentOrder(id);
+            var payment = await GetPaymentOrder(id);
 
             var httpOperation = payment.Operations.FirstOrDefault(o => o.Rel == "create-paymentorder-cancel");
             if (httpOperation == null)
@@ -203,7 +198,7 @@
 
             Func<ProblemsContainer, Exception> onError = m => new CouldNotPostTransactionException(id, m);
             var payload = new PaymentAbortRequestContainer();
-            var res = CreateInternalClient().HttpPost<TransactionRequestContainer, CancellationTransactionResponseContainer>(url, onError, requestObject);
+            var res = await CreateInternalClient().HttpPost<TransactionRequestContainer, CancellationTransactionResponseContainer>(url, onError, requestObject);
             return res.Cancellation.Transaction;
         }
     }

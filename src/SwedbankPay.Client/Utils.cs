@@ -1,4 +1,7 @@
-﻿namespace SwedbankPay.Client
+﻿using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("SwedbankPay.Client.Tests")]
+namespace SwedbankPay.Client
 {
     using Newtonsoft.Json;
 
@@ -9,6 +12,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using SwedbankPay.Client.Models;
 
     internal static class Utils
     {
@@ -29,6 +33,12 @@
 
         internal static string GetExpandQueryString<T>(T expandParameter) where T : Enum
         {
+            var intValue = Convert.ToInt64(expandParameter);
+            if(intValue == 0)
+            {
+                return string.Empty;
+            }
+
             List<string> s = new List<string>();
             foreach (var enumValue in Enum.GetValues(typeof(T)))
             {
@@ -40,7 +50,7 @@
             }
 
             var queryString = string.Join(",", s);
-            return queryString;
+            return $"?$expand={queryString}";
         }
 
         internal static THeaderValue GetHeaderResponseValue<THeaderValue>(this IRestResponse response, string name) where THeaderValue : class

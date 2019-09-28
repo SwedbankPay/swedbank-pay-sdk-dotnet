@@ -8,9 +8,12 @@ namespace SwedbankPay.Client.Models
         None = 0,
         Urls = 1,
         PayeeInfo = 2,
-        Payments = 4,
-        CurrentPayment = 8,
-        Items = 16,
-        All = 31
+        Settings = 4,
+        Payers = 8,
+        OrderItems = 16,
+        MetaData = 32,
+        Payments = 64,
+        CurrentPayment = 128,
+        All = 255
     }
 }

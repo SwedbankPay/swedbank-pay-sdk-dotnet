@@ -29,9 +29,9 @@
         /// </summary>
         /// <param name="payment"></param>
         /// <returns></returns>
-        public PaymentResponseContainer PostVippsPayment(PaymentRequest payment)
+        public async Task<PaymentResponseContainer> PostVippsPayment(PaymentRequest payment)
         {
-            return CreatePayment(PspVippsPaymentsBaseUrl, payment);
+            return await CreatePayment(PspVippsPaymentsBaseUrl, payment);
         }
 
         /// <summary>
@@ -39,9 +39,9 @@
         /// </summary>
         /// <param name="payment"></param>
         /// <returns></returns>
-        public PaymentResponseContainer PostCreditCardPayment(PaymentRequest payment)
+        public async Task<PaymentResponseContainer> PostCreditCardPayment(PaymentRequest payment)
         {
-            return CreatePayment(PspCreditCardPaymentsBaseUrl, payment);
+            return await CreatePayment(PspCreditCardPaymentsBaseUrl, payment);
         }
 
 
@@ -50,16 +50,15 @@
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public PaymentResponseContainer GetPayment(string id)
+        public async Task<PaymentResponseContainer> GetPayment(string id, PaymentExpand paymentExpand = PaymentExpand.All)
         {
             if (string.IsNullOrEmpty(id))
             {
                 throw new CouldNotFindPaymentException(id);
             }
-                
-            var url = $"{id}?$expand=prices,captures,payeeinfo,urls,transactions,authorizations,reversals,cancellations";
+            var url = $"{id}{Utils.GetExpandQueryString(paymentExpand)}";
             Func<ProblemsContainer, Exception> onError = m => new CouldNotFindPaymentException(id, m);
-            var res = CreateInternalClient().HttpGet<PaymentResponseContainer>(url, onError);
+            var res = await CreateInternalClient().HttpGet<PaymentResponseContainer>(url, onError);
             return res;
         }
 
@@ -68,20 +67,20 @@
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public IEnumerable<TransactionResponse> GetTransactions(string id)
+        public async Task<IEnumerable<TransactionResponse>> GetTransactions(string id, PaymentExpand paymentExpand = PaymentExpand.All)
         {
-            var url = $"{id}?$expand=prices,captures,payeeinfo,urls,transactions,authorizations,reversals,cancellations";
+            var url = $"{id}{Utils.GetExpandQueryString(paymentExpand)}";
             Func<ProblemsContainer, Exception> onError = m => new CouldNotFindTransactionException(id, m);
-            var res = CreateInternalClient().HttpGet<AllTransactionResponseContainer>(url, onError);
+            var res = await CreateInternalClient().HttpGet<AllTransactionResponseContainer>(url, onError);
             return res.Transactions.TransactionList;
         }
 
         /// <summary>
         /// Captures a payment a.k.a POSTs a transaction.
         /// </summary>
-        public TransactionResponse PostCapture(string id, TransactionRequest transaction)
+        public async Task<TransactionResponse> PostCapture(string id, TransactionRequest transaction)
         {
-            var payment = GetPayment(id);
+            var payment = await GetPayment(id);
 
             var httpOperation = payment.Operations.FirstOrDefault(o => o.Rel == "create-capture");
             if (httpOperation == null)
@@ -97,7 +96,7 @@
             var url = httpOperation.Href;
             Func<ProblemsContainer, Exception> onError = m => new CouldNotPostTransactionException(id, m);
             var payload = new TransactionRequestContainer(transaction);
-            var res = CreateInternalClient().HttpPost<TransactionRequestContainer, CaptureTransactionResponseContainer>(url, onError, payload);
+            var res = await CreateInternalClient().HttpPost<TransactionRequestContainer, CaptureTransactionResponseContainer>(url, onError, payload);
             return res.Capture.Transaction;
         }
 
@@ -106,7 +105,7 @@
         /// </summary>
         public async Task<TransactionResponse> PostReversal(string id, TransactionRequest transaction)
         {
-            var payment = GetPayment(id);
+            var payment = await GetPayment(id);
 
             var httpOperation = payment.Operations.FirstOrDefault(o => o.Rel == "create-reversal");
             if (httpOperation == null)
@@ -122,7 +121,7 @@
             var url = httpOperation.Href;
             Func<ProblemsContainer, Exception> onError = m => new CouldNotPostTransactionException(id, m);
             var payload = new TransactionRequestContainer(transaction);
-            var res = CreateInternalClient().HttpPost<TransactionRequestContainer, ReversalTransactionResponseContainer>(url, onError, payload);
+            var res = await CreateInternalClient().HttpPost<TransactionRequestContainer, ReversalTransactionResponseContainer>(url, onError, payload);
             return res.Reversal.Transaction;
         }
 
@@ -131,7 +130,7 @@
         /// </summary>
         public async Task<TransactionResponse> PostCancellation(string id, TransactionRequest transaction)
         {
-            var payment = GetPayment(id);
+            var payment = await GetPayment(id);
 
             var httpOperation = payment.Operations.FirstOrDefault(o => o.Rel == "create-cancellation");
             if (httpOperation == null)
@@ -147,7 +146,7 @@
             var url = httpOperation.Href;
             Func<ProblemsContainer, Exception> onError = m => new CouldNotPostTransactionException(id, m);
             var payload = new TransactionRequestContainer(transaction);
-            var res = CreateInternalClient().HttpPost<TransactionRequestContainer, CancellationTransactionResponseContainer>(url, onError, payload);
+            var res = await CreateInternalClient().HttpPost<TransactionRequestContainer, CancellationTransactionResponseContainer>(url, onError, payload);
             return res.Cancellation.Transaction;
         }
 
@@ -155,9 +154,9 @@
         /// <summary>
         /// Cancels an unauthorized creditcard payment a.k.a PATCH with a static abort object.
         /// </summary>
-        public PaymentResponseContainer PatchAbortPayment(string id)
+        public async Task<PaymentResponseContainer> PatchAbortPayment(string id)
         {
-            var payment = GetPayment(id);
+            var payment = await GetPayment(id);
 
             var httpOperation = payment.Operations.FirstOrDefault(o => o.Rel == "update-payment-abort");
             if (httpOperation == null)
@@ -173,20 +172,20 @@
             var url = httpOperation.Href;
             Func<ProblemsContainer, Exception> onError = m => new CouldNotPostTransactionException(id, m);
             var payload = new PaymentAbortRequestContainer();
-            var res = CreateInternalClient().HttpPatch<PaymentAbortRequestContainer, PaymentResponseContainer>(url, onError, payload);
+            var res = await CreateInternalClient().HttpPatch<PaymentAbortRequestContainer, PaymentResponseContainer>(url, onError, payload);
             return res;
         }
 
 
 
-        private PaymentResponseContainer CreatePayment(string baseUrl, PaymentRequest payment)
+        private async Task<PaymentResponseContainer> CreatePayment(string baseUrl, PaymentRequest payment)
         {
             payment.SetRequiredMerchantInfo(SwedbankPayOptions);
 
             var payload = new PaymentRequestContainer(payment);
-            Func<ProblemsContainer, Exception> onError = m => new CouldNotPlacePaymentException(null, m); // TODO
-            var url = $"{baseUrl}?$expand=prices,captures,payeeinfo,urls,transactions,authorizations,reversals,cancellations";
-            var res = CreateInternalClient().HttpPost<PaymentRequestContainer, PaymentResponseContainer>(url, onError, payload);
+            Func<ProblemsContainer, Exception> onError = m => new CouldNotPlacePaymentException(payment, m); 
+            var url = $"{baseUrl}{Utils.GetExpandQueryString(PaymentExpand.All)}";
+            var res = await CreateInternalClient().HttpPost<PaymentRequestContainer, PaymentResponseContainer>(url, onError, payload);
             return res;
         }
     }

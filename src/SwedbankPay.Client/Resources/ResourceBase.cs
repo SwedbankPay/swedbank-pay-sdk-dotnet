@@ -6,6 +6,7 @@
     using SwedbankPay.Client.Models;
 
     using System;
+    using System.Threading.Tasks;
 
     public abstract class ResourceBase
     {
@@ -18,12 +19,12 @@
             _logger = logger;
         }
 
-        public string GetRaw(string id, PaymentOrderExpand paymentOrderExpand)
+        public async Task<string> GetRaw(string id, PaymentOrderExpand paymentOrderExpand)
         {
             var expandQueryString = Utils.GetExpandQueryString(paymentOrderExpand);
             var url = $"{id}?$expand={expandQueryString}";
          
-            return CreateInternalClient().GetRaw(url);
+            return await CreateInternalClient().GetRaw(url);
         }
 
         internal SwedbankPayHttpClient CreateInternalClient()

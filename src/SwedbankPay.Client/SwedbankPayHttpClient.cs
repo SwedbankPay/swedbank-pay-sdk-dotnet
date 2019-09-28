@@ -5,13 +5,11 @@
 
     using RestSharp;
 
-    using SwedbankPay.Client.Models.Vipps;
+    using SwedbankPay.Client.Models;
 
     using System;
-    using System.Collections.Generic;
     using System.Net;
-    using System.Net.Http;
-    using SwedbankPay.Client.Models;
+    using System.Threading.Tasks;
 
     internal class SwedbankPayHttpClient
     {
@@ -24,19 +22,19 @@
             _logger = logger;
         }
 
-        internal TResponse HttpPost<TPayLoad, TResponse>(string url, Func<ProblemsContainer, Exception> onError, TPayLoad payload) where TResponse : new()
+        internal async Task<TResponse> HttpPost<TPayLoad, TResponse>(string url, Func<ProblemsContainer, Exception> onError, TPayLoad payload) where TResponse : new()
         {
-            return HttpRequest<TResponse>(Method.POST, url, onError, payload);
+            return await HttpRequest<TResponse>(Method.POST, url, onError, payload);
         }
 
-        internal TResponse HttpPatch<TPayLoad, TResponse>(string url, Func<ProblemsContainer, Exception> onError, TPayLoad payload) where TResponse : new()
+        internal async Task<TResponse> HttpPatch<TPayLoad, TResponse>(string url, Func<ProblemsContainer, Exception> onError, TPayLoad payload) where TResponse : new()
         {
-            return HttpRequest<TResponse>(Method.PATCH, url, onError, payload);
+            return await HttpRequest<TResponse>(Method.PATCH, url, onError, payload);
         }
 
-        internal TResponse HttpGet<TResponse>(string url, Func<ProblemsContainer, Exception> onError) where TResponse : new()
+        internal async Task<TResponse> HttpGet<TResponse>(string url, Func<ProblemsContainer, Exception> onError) where TResponse : new()
         {
-            return HttpRequest<TResponse>(Method.GET, url, onError);
+            return await HttpRequest<TResponse>(Method.GET, url, onError);
         }
 
         /// <summary>
@@ -56,12 +54,12 @@
             restRequest.AddHeader("Content-Type", "application/json");
         }
 
-        private T HttpRequest<T>(Method httpMethod, string url, Func<ProblemsContainer, Exception> onError, object payload = null) where T : new()
+        private async Task<T> HttpRequest<T>(Method httpMethod, string url, Func<ProblemsContainer, Exception> onError, object payload = null) where T : new()
         {
             var request = new RestRequest(url, httpMethod);
             UpdateRestRequest(request, payload);
 
-            var response = _client.Execute<T>(request);
+            var response = await _client.ExecuteTaskAsync<T>(request);
 
             if (response.IsSuccessful)
             {
@@ -80,9 +78,6 @@
             }
             else
             {
-               //IEnumerable<string> customHeader = null;
-                //_client.DefaultRequestHeaders.TryGetValues("X-Payex-ClientName", out customHeader);
-                //var aggr = customHeader != null ? customHeader.Aggregate((x, y) => x + "," + y) : "no-name";
                 problems = new ProblemsContainer("Other", $"Response when calling SwedbankPay  was: '{response.StatusCode}'");
             }
 
@@ -91,11 +86,10 @@
         }
 
 
-        internal string GetRaw(string url)
+        internal async Task<string> GetRaw(string url)
         {
             var request = new RestRequest(url, Method.GET);
-            var response = _client.Execute(request);
-
+            var response = await _client.ExecuteTaskAsync(request);
             if (response.IsSuccessful)
             {
                var res = JToken.Parse(response.Content).ToString(Formatting.Indented);
