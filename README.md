@@ -10,8 +10,6 @@
 
 `PayEx.Client` is a `netstandard2` library to talk to PayEx direct REST APIs.
 
-Download it from NuGet: [![NuGet][nuget-badge]][nuget-pkg]
-
 ## Supported APIs:
 
 * Vipps 
@@ -32,11 +30,9 @@ Download it from NuGet: [![NuGet][nuget-badge]][nuget-pkg]
 Check the [the samples folder](https://github.com/icenorge/PayEx.Client/tree/master/src/Samples)
 
 
-  [appveyor-badge]: https://ci.appveyor.com/api/projects/status/jqpkvy5fe523hsja/branch/master?svg=true
-  [appveyor-build]: https://ci.appveyor.com/project/ice/payex-client/branch/master
-  [travis-badge]: https://travis-ci.org/icenorge/PayEx.Client.svg?branch=master
-  [travis-build]: https://travis-ci.org/icenorge/PayEx.Client
-  [azdo-badge]: https://dev.azure.com/icenorge/PayEx.Client/_apis/build/status/icenorge.PayEx.Client
-  [azdo-build]: https://dev.azure.com/icenorge/PayEx.Client/_build/latest?definitionId=2
-  [nuget-badge]: https://img.shields.io/nuget/dt/payex.client.svg
-  [nuget-pkg]: https://www.nuget.org/packages/payex.client/
+  [appveyor-badge]: https://ci.appveyor.com/api/projects/status/l7mqg1ygmkwf9m9n/branch/master?svg=true
+  [appveyor-build]: https://ci.appveyor.com/project/SwedbankPay/swedbank-pay-sdk-dotnet/branch/master
+  [travis-badge]: https://travis-ci.org/SwedbankPay/swedbank-pay-sdk-dotnet.svg?branch=master
+  [travis-build]: https://travis-ci.org/SwedbankPay/swedbank-pay-sdk-dotnet
+  [azdo-badge]: https://dev.azure.com/SwedbankPay/swedbank-pay-sdk-dotnet/_apis/build/status/swedbank-pay-sdk-dotnet
+  [azdo-build]: https://dev.azure.com/SwedbankPay/swedbank-pay-sdk-dotnet/_build/latest?definitionId=2
