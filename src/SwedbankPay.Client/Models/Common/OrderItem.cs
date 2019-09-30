@@ -44,7 +44,7 @@
         /// <summary>
         /// The quantity of order items being purchased.
         /// </summary>
-        public int Quantity { get; set; }
+        public int? Quantity { get; set; }
 
         /// <summary>
         /// The unit of the quantity, such as pcs, grams, or similar.
@@ -54,26 +54,26 @@
         /// <summary>
         /// The price per unit of order item.
         /// </summary>
-        public long UnitPrice { get; set; }
+        public long? UnitPrice { get; set; }
 
         /// <summary>
         /// If the order item is purchased at a discounted price, this property should contain that price.
         /// </summary>
-        public long DiscountPrice { get; set; }
+        public long? DiscountPrice { get; set; }
 
         /// <summary>
         /// The percent value of the VAT multiplied by 100, so 25% becomes 2500.
         /// </summary>
-        public int VatPercent { get; set; }
+        public int? VatPercent { get; set; }
 
         /// <summary>
         /// The total amount including VAT to be paid for the specified quantity of this order item, in the lowest monetary unit of the currency. E.g. 10000 equals 100.00 NOK and 5000 equals 50.00 NOK.
         /// </summary>
-        public int Amount { get; set; }
+        public int? Amount { get; set; }
 
         /// <summary>
         /// The total amount of VAT to be paid for the specified quantity of this order item, in the lowest monetary unit of the currency. E.g. 10000 equals 100.00 NOK and 5000 equals 50.00 NOK.
         /// </summary>
-        public int VatAmount { get; set; }
+        public int? VatAmount { get; set; }
     }
 }

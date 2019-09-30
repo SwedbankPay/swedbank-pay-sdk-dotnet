@@ -4,15 +4,13 @@
 namespace SwedbankPay.Client
 {
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Serialization;
 
     using RestSharp;
-
-    using SwedbankPay.Client.ContractResolver;
 
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using SwedbankPay.Client.Models;
 
     internal static class Utils
     {
@@ -23,8 +21,8 @@ namespace SwedbankPay.Client
             {
                 requestBody = JsonConvert.SerializeObject(request, Formatting.None, new JsonSerializerSettings
                 {
-                    //DefaultValueHandling = DefaultValueHandling.Ignore,
-                    ContractResolver = new LowercaseContractResolver(),
+                    NullValueHandling = NullValueHandling.Ignore,
+                    ContractResolver = new CamelCasePropertyNamesContractResolver(),
                     StringEscapeHandling = StringEscapeHandling.EscapeNonAscii
                 });
             }

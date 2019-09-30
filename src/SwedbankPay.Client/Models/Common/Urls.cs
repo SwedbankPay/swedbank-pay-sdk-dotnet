@@ -15,6 +15,11 @@
         public string CompleteUrl { get; set; }
 
         /// <summary>
+        /// The URI that PayEx will redirect back to when the payment menu needs to be loaded, to inspect and act on the current status of the payment. Only used in hosted views. Can not be used simultaneously with cancelUrl; only cancelUrl or paymentUrl can be used, not both.
+        /// </summary>
+        public string PaymentUrl { get; set; }
+        
+        /// <summary>
         /// The URI to redirect the payer to if the payment is canceled.
         /// </summary>
         public string CancelUrl { get; set; }

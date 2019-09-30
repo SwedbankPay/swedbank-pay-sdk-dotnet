@@ -9,6 +9,7 @@ namespace SwedbankPay.Client.Tests
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+
     using Xunit;
 
     public class PaymentOrderResourceTests
@@ -41,8 +42,31 @@ namespace SwedbankPay.Client.Tests
             Assert.Equal(amount, paymentOrderResponseContainer2.PaymentOrder.Amount);
         }
 
+
         [Fact]
-        public async Task CreateAndUpdatedPaymentOrder_ShouldReturnPaymentOrderWithNewAmounts()
+        public async Task CreateAndUpdateOnlyAmountOnPaymentOrder_ShouldThrowCouldNotUpdatePaymentOrderException()
+        {
+            var paymentOrderRequestContainer = CreatePaymentOrderRequestContainer(30000, 7500);
+            var paymentOrderResponseContainer = await _sut.PaymentOrders.CreatePaymentOrder(paymentOrderRequestContainer, PaymentOrderExpand.All);
+            Assert.NotNull(paymentOrderResponseContainer);
+            Assert.NotNull(paymentOrderResponseContainer.PaymentOrder);
+            var amount = paymentOrderResponseContainer.PaymentOrder.Amount;
+
+            var newAmount = 50000;
+            var orderRequestContainer = new PaymentOrderRequestContainer
+            {
+                Paymentorder = new PaymentOrderRequest
+                {
+                    Amount = newAmount,
+                }
+            };
+
+            await Assert.ThrowsAsync<CouldNotUpdatePaymentOrderException>(() => _sut.PaymentOrders.UpdatePaymentOrder(paymentOrderResponseContainer.PaymentOrder.Id, orderRequestContainer));
+        }
+
+
+        [Fact]
+        public async Task CreateAndUpdatePaymentOrder_ShouldReturnPaymentOrderWithNewAmounts()
         {
             var paymentOrderRequestContainer = CreatePaymentOrderRequestContainer();
             var paymentOrderResponseContainer = await _sut.PaymentOrders.CreatePaymentOrder(paymentOrderRequestContainer, PaymentOrderExpand.All);
