@@ -10,15 +10,15 @@
 
 `PayEx.Client` is a `netstandard2` library to talk to PayEx direct REST APIs.
 
-## Supported APIs:
+## Supported APIs
 
-* Vipps 
+* Vipps
   * create payment
   * Vipps authorize
   * capture
   * cancel
   * reversal
-* CreditCard 
+* CreditCard
   * create payment
   * create recurring payment with initial payment
   * create recurring payment without initial payment
@@ -28,7 +28,6 @@
 
 # Sample apps
 Check the [the samples folder](https://github.com/icenorge/PayEx.Client/tree/master/src/Samples)
-
 
   [appveyor-badge]: https://ci.appveyor.com/api/projects/status/l7mqg1ygmkwf9m9n/branch/master?svg=true
   [appveyor-build]: https://ci.appveyor.com/project/SwedbankPay/swedbank-pay-sdk-dotnet/branch/master
