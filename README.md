@@ -34,5 +34,5 @@ Check the [the samples folder](https://github.com/icenorge/PayEx.Client/tree/mas
   [appveyor-build]: https://ci.appveyor.com/project/SwedbankPay/swedbank-pay-sdk-dotnet/branch/master
   [travis-badge]: https://travis-ci.org/SwedbankPay/swedbank-pay-sdk-dotnet.svg?branch=master
   [travis-build]: https://travis-ci.org/SwedbankPay/swedbank-pay-sdk-dotnet
-  [azdo-badge]: https://dev.azure.com/SwedbankPay/swedbank-pay-sdk-dotnet/_apis/build/status/swedbank-pay-sdk-dotnet
-  [azdo-build]: https://dev.azure.com/SwedbankPay/swedbank-pay-sdk-dotnet/_build/latest?definitionId=2
+  [azdo-badge]: https://dev.azure.com/SwedbankPay/swedbank-pay-sdk-dotnet/_apis/build/status/swedbank-pay-sdk-dotnet-CI?branchName=master
+  [azdo-build]: https://dev.azure.com/SwedbankPay/swedbank-pay-sdk-dotnet/_build/latest?definitionId=1&branchName=master
