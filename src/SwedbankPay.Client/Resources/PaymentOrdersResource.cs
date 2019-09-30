@@ -22,6 +22,7 @@
         /// </summary>
         /// <param name="paymentOrderRequest"></param>
         /// <param name="paymentOrderExpand"></param>
+        /// <exception cref="InvalidConfigurationSettingsException"></exception>
         /// <exception cref="CouldNotPlacePaymentOrderException"></exception>
         /// <returns></returns>
         public async Task<PaymentOrderResponseContainer> CreatePaymentOrder(PaymentOrderRequestContainer paymentOrderRequest, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
@@ -41,6 +42,7 @@
         /// </summary>
         /// <param name="id"></param>
         /// <param name="paymentOrderExpand"></param>
+        /// <exception cref="InvalidConfigurationSettingsException"></exception>
         /// <exception cref="CouldNotFindPaymentException"></exception>
         /// <returns></returns>
         public async Task<PaymentOrderResponseContainer> GetPaymentOrder(string id, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
@@ -62,6 +64,7 @@
         /// </summary>
         /// <param name="id"></param>
         /// <param name="paymentOrderRequest"></param>
+        /// <exception cref="InvalidConfigurationSettingsException"></exception>
         /// <exception cref="PaymentNotYetAuthorizedException"></exception>
         /// <exception cref="NoOperationsLeftException"></exception>
         /// <exception cref="CouldNotUpdatePaymentOrderException"></exception>
@@ -94,6 +97,10 @@
         /// Aborts a payment
         /// </summary>
         /// <param name="id"></param>
+        /// <exception cref="InvalidConfigurationSettingsException"></exception>
+        /// <exception cref="PaymentNotYetAuthorizedException"></exception>
+        /// <exception cref="NoOperationsLeftException"></exception>
+        /// <exception cref="CouldNotPostTransactionException"></exception>
         /// <returns></returns>
         public async Task<PaymentOrderResponseContainer> AbortPaymentOrder(string id)
         {
@@ -123,6 +130,10 @@
         /// </summary>
         /// <param name="uri"></param>
         /// <param name="requestObject"></param>
+        /// <exception cref="InvalidConfigurationSettingsException"></exception>
+        /// <exception cref="PaymentNotYetAuthorizedException"></exception>
+        /// <exception cref="NoOperationsLeftException"></exception>
+        /// <exception cref="CouldNotPostTransactionException"></exception>
         /// <returns></returns>
         public async Task<TransactionResponse> Capture(string id, TransactionRequestContainer requestObject)
         {
@@ -151,6 +162,10 @@
         /// </summary>
         /// <param name="id"></param>
         /// <param name="requestObject"></param>
+        /// <exception cref="InvalidConfigurationSettingsException"></exception>
+        /// <exception cref="PaymentNotYetAuthorizedException"></exception>
+        /// <exception cref="NoOperationsLeftException"></exception>
+        /// <exception cref="CouldNotPostTransactionException"></exception>
         /// <returns></returns>
         public async Task<TransactionResponse> Reversal(string id, TransactionRequestContainer requestObject)
         {
@@ -177,6 +192,10 @@
         /// Cancels a payment
         /// </summary>
         /// <param name="id"></param>
+        /// <exception cref="InvalidConfigurationSettingsException"></exception>
+        /// <exception cref="PaymentNotYetAuthorizedException"></exception>
+        /// <exception cref="NoOperationsLeftException"></exception>
+        /// <exception cref="CouldNotPostTransactionException"></exception>
         /// <param name="requestObject"></param>
         /// <returns></returns>
         public async Task<TransactionResponse> CancelPaymentOrder(string id, TransactionRequestContainer requestObject)

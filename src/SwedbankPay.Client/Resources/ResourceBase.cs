@@ -3,6 +3,7 @@
     using RestSharp;
     using RestSharp.Authenticators;
 
+    using SwedbankPay.Client.Exceptions;
     using SwedbankPay.Client.Models;
 
     using System;
@@ -29,6 +30,12 @@
 
         internal SwedbankPayHttpClient CreateInternalClient()
         {
+            if (SwedbankPayOptions.IsEmpty())
+            {
+                throw new InvalidConfigurationSettingsException($"Invalid configuration. Check config.");
+            }
+
+
             var client = new RestClient(new Uri(SwedbankPayOptions.ApiBaseUrl.ToString()))
             {
                 Authenticator = new OAuth2AuthorizationRequestHeaderAuthenticator(SwedbankPayOptions.Token, "Bearer")
