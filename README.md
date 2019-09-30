@@ -27,7 +27,8 @@
   * reversal
 
 # Sample apps
-Check the [the samples folder](https://github.com/icenorge/PayEx.Client/tree/master/src/Samples)
+
+Check the [the samples folder][samples].
 
   [appveyor-badge]: https://ci.appveyor.com/api/projects/status/l7mqg1ygmkwf9m9n/branch/master?svg=true
   [appveyor-build]: https://ci.appveyor.com/project/SwedbankPay/swedbank-pay-sdk-dotnet/branch/master
@@ -35,3 +36,4 @@ Check the [the samples folder](https://github.com/icenorge/PayEx.Client/tree/mas
   [travis-build]: https://travis-ci.org/SwedbankPay/swedbank-pay-sdk-dotnet
   [azdo-badge]: https://dev.azure.com/SwedbankPay/swedbank-pay-sdk-dotnet/_apis/build/status/swedbank-pay-sdk-dotnet-CI?branchName=master
   [azdo-build]: https://dev.azure.com/SwedbankPay/swedbank-pay-sdk-dotnet/_build/latest?definitionId=1&branchName=master
+  [samples]: https://github.com/SwedbankPay/swedbank-pay-sdk-dotnet/tree/master/src/Samples
