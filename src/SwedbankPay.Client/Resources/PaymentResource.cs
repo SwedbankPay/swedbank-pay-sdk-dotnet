@@ -13,14 +13,14 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    public class PaymentResources : ResourceBase, IPaymentResources
+    public class PaymentResource : ResourceBase, IPaymentResource
     {
         private const string PspVippsPaymentsBaseUrl = "/psp/vipps/payments/";
         private const string PspCreditCardPaymentsBaseUrl = "/psp/creditcard/payments/";
         private const string PspSwishPaymentsBaseUrl = "/psp/swish/payments/";
         private const string PspDirectDebitPaymentsBaseUrl = "/psp/directdebit/payments";
 
-        public PaymentResources(SwedbankPayOptions swedbankPayOptions, ILogPayExHttpResponse logger) : base(swedbankPayOptions, logger)
+        public PaymentResource(SwedbankPayOptions swedbankPayOptions, ILogPayExHttpResponse logger) : base(swedbankPayOptions, logger)
         {
         }
 

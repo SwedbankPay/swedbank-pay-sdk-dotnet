@@ -8,7 +8,7 @@
     using SwedbankPay.Client.Models.Vipps.PaymentAPI.Response;
     using SwedbankPay.Client.Models.Vipps.TransactionAPI.Response;
 
-    public interface IPaymentResources
+    public interface IPaymentResource
     {
         /// <summary>
         /// Creates a new Vipps payment
