@@ -11,9 +11,9 @@ namespace SwedbankPay.Client.Exceptions
     public class CouldNotInitiateConsumerSessionException : Exception
     {
         public ProblemsContainer Problems { get; }
-        public ConsumerResourceRequestContainer Consumer { get; }
+        public ConsumerResourceRequest Consumer { get; }
 
-        public CouldNotInitiateConsumerSessionException(ConsumerResourceRequestContainer consumer, ProblemsContainer problems) : base(problems.ToString())
+        public CouldNotInitiateConsumerSessionException(ConsumerResourceRequest consumer, ProblemsContainer problems) : base(problems.ToString())
         {
             Problems = problems;
             Consumer = consumer;
