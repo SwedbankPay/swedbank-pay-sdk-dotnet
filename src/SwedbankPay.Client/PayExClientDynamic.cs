@@ -43,7 +43,7 @@
 //        /// </summary>
 //        /// <param name="payment"></param>
 //        /// <returns></returns>
-//        public async Task<PaymentResponseContainer> PostCreditCardPayment(string clientName,PaymentRequest payment)
+//        public async Task<PaymentResponseContainer> PostCreditCardPayment(string clientName, PaymentRequest payment)
 //        {
 //            return await CreatePayment(PspCreditCardPaymentsBaseUrl, clientName, payment);
 //        }
@@ -82,7 +82,7 @@
 //        /// </summary>
 //        public async Task<TransactionResponse> PostCapture(string clientName, string id, TransactionRequest transaction)
 //        {
-//            var payment = await GetPayment(clientName,id);
+//            var payment = await GetPayment(clientName, id);
 
 //            var httpOperation = payment.Operations.FirstOrDefault(o => o.Rel == "create-capture");
 //            if (httpOperation == null)
@@ -107,7 +107,7 @@
 //        /// </summary>
 //        public async Task<TransactionResponse> PostReversal(string clientName, string id, TransactionRequest transaction)
 //        {
-//            var payment = await GetPayment(clientName,id);
+//            var payment = await GetPayment(clientName, id);
 
 //            var httpOperation = payment.Operations.FirstOrDefault(o => o.Rel == "create-reversal");
 //            if (httpOperation == null)
@@ -130,9 +130,9 @@
 //        /// <summary>
 //        /// Cancels a payment a.k.a POSTs a transaction.
 //        /// </summary>
-//        public async Task<TransactionResponse> PostCancellation(string clientName,string id, TransactionRequest transaction)
+//        public async Task<TransactionResponse> PostCancellation(string clientName, string id, TransactionRequest transaction)
 //        {
-//            var payment = await GetPayment(clientName,id);
+//            var payment = await GetPayment(clientName, id);
 
 //            var httpOperation = payment.Operations.FirstOrDefault(o => o.Rel == "create-cancellation");
 //            if (httpOperation == null)
@@ -203,8 +203,8 @@
 //        private SwedbankPayOptions Options(string clientName)
 //        {
 //            var payExOptions = _optionFetcher.Get(clientName);
-            
-//            if(payExOptions == null)
+
+//            if (payExOptions == null)
 //                throw new UnknownAccountException($"Unknown payex account {clientName}. Check config.");
 
 //            if (payExOptions.IsEmpty())

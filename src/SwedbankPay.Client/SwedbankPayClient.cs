@@ -7,11 +7,14 @@
     public class SwedbankPayClient : ISwedbankPayClient
     {
         public IPaymentOrdersResource PaymentOrders { get; }
+        public IConsumerResource Consumer { get; }
 
         public SwedbankPayClient(SwedbankPayOptions swedbankPayOptions, ILogPayExHttpResponse logger = null)
         {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            PaymentOrders = new PaymentOrdersResource(swedbankPayOptions, logger ?? new NoOpLogger());
+            var swedbankLogger = logger ?? new NoOpLogger();
+            PaymentOrders = new PaymentOrdersResource(swedbankPayOptions, swedbankLogger);
+            Consumer = new ConsumerResource(swedbankPayOptions, swedbankLogger);
         }
     }
 }
