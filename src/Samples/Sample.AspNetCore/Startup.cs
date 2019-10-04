@@ -1,11 +1,8 @@
-﻿using System;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Http;
-using Microsoft.Extensions.Options;
 
 namespace Sample.AspNetCore
 {
@@ -22,12 +19,9 @@ namespace Sample.AspNetCore
 
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddTransient<IConfigureOptions<HttpClientFactoryOptions>, PayExClientConfigurator>();
-            services.AddScoped<ISelectClient, QueryStringSelector>();
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
-            //services.AddPayExHttpClient(Configuration, Constants.Someaccount);
-            //services.AddPayExHttpClient(Configuration, Constants.OtherAccount);
-            //services.AddMvc();
+            services.AddSwedbankPayClient(Configuration, Constants.Someaccount);
+            services.AddMvc();
         }
         
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
