@@ -16,7 +16,7 @@
     <PackageReleaseNotes>Vipps payment handling. CreditCard payment handling.</PackageReleaseNotes>
     <AssemblyName>SwedbankPay.Client</AssemblyName>
     <RootNamespace>SwedbankPay.Client</RootNamespace>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
