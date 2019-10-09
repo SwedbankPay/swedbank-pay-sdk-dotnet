@@ -1,6 +1,6 @@
 var target = Argument("target", "Pack");
 var configuration = Argument("configuration", "Release");
-var proj = $"./src/PayEx.Client/PayEx.Client.csproj";
+var proj = $"./src/SwedbankPay.Client/SwedbankPay.Client.csproj";
 
 var version = "4.0.0"; 
 var outputDir = "./output";
@@ -42,7 +42,7 @@ Task("PublishToNugetOrg")
             ApiKey = Argument("nugetapikey", "must-be-given")
         };
 
-        DotNetCoreNuGetPush($"{outputDir}/PayEx.Client.{version}.nupkg", settings);        
+        DotNetCoreNuGetPush($"{outputDir}/SwedbankPay.Client.{version}.nupkg", settings);        
 });
 
 RunTarget(target);

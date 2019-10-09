@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-   <PackageId>SwedbankPay.Client</PackageId>    
+    <PackageId>SwedbankPay.Client</PackageId>    
     <Authors>John Korsnes</Authors>
     <Description>
         A client library for Swedbank Pay REST APIs
@@ -15,10 +15,11 @@
     <RepositoryType>git</RepositoryType>
     <PackageReleaseNotes>Vipps payment handling. CreditCard payment handling.</PackageReleaseNotes>
     <AssemblyName>SwedbankPay.Client</AssemblyName>
-    <RootNamespace>SwedbankPay.Client</RootNamespace>    
+    <RootNamespace>SwedbankPay.Client</RootNamespace>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
     <PackageReference Include="RestSharp" Version="106.6.6" />
   </ItemGroup>
   <ItemGroup>
