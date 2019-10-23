@@ -14,7 +14,7 @@
         /// 03 (Overnight shipping)
         /// 04 (Two-day or more shipping)
         /// </summary>
-        public string DeliveryTimeFrameIndicator { get; set; }
+        public string DeliveryTimeFrameIndicator { get; set; } //TODO use DeliveryTimeFrameIndicator class?
 
         /// <summary>
         /// For a pre-ordered purchase. The expected date that the merchandise will be available.

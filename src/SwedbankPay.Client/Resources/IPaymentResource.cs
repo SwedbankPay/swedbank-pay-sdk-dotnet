@@ -1,4 +1,6 @@
-﻿namespace SwedbankPay.Client.Resources
+﻿using SwedbankPay.Client.Models.Response.Payment;
+
+namespace SwedbankPay.Client.Resources
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;

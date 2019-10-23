@@ -4,8 +4,8 @@ using System.Text;
 
 namespace SwedbankPay.Client.Models.Request
 {
-    public class ConsumerResourceRequestContainer
+    public class ConsumersRequestContainer
     {
-        public ConsumerResourceRequest ConsumerResourceRequest { get; set; }
+        public ConsumersRequest ConsumersRequest { get; set; }
     }
 }

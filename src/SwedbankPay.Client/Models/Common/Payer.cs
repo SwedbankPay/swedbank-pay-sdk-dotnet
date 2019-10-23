@@ -1,8 +1,9 @@
 ﻿using SwedbankPay.Client.Models.Request;
+using SwedbankPay.Client.Models.Response;
 
 namespace SwedbankPay.Client.Models.Common
 {
-    public class Payer
+    public class Payer : IdLink
     {
         /// <summary>
         /// Required when merchant onboards consumer.
@@ -32,12 +33,16 @@ namespace SwedbankPay.Client.Models.Common
         /// <summary>
         /// Optional (increases chance for challenge flow if not set)
         /// </summary>
-        public string HomePhoneNumber { get; set; }
+        public string WorkPhoneNumber { get; set; }
 
         /// <summary>
         /// Optional (increases chance for challenge flow if not set)
         /// </summary>
-        public string WorkPhoneNumber { get; set; }
+        public string HomePhoneNumber { get; set; }
+
+        public ShippingAddress ShippingAddress { get; set; }
+
+        public BillingAddress BillingAddress { get; set; }
 
         /// <summary>
         /// The consumer profile reference as obtained through the Consumers API.

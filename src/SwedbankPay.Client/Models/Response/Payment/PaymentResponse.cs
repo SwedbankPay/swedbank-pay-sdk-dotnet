@@ -1,10 +1,10 @@
-﻿namespace SwedbankPay.Client.Models.Vipps.PaymentAPI.Response
-{
-    using System;
-    using SwedbankPay.Client.Models.Common;
-    using SwedbankPay.Client.Models.Vipps.PaymentAPI.Request;
-    using SwedbankPay.Client.Models.Vipps.TransactionAPI.Response;
+﻿using System;
+using SwedbankPay.Client.Models.Common;
+using SwedbankPay.Client.Models.Vipps.PaymentAPI.Response;
+using SwedbankPay.Client.Models.Vipps.TransactionAPI.Response;
 
+namespace SwedbankPay.Client.Models.Response.Payment
+{
     public class PaymentResponse
     {
         public string Id { get; set; }
@@ -43,5 +43,6 @@
         public CancellationsListContainer Cancellations { get; set; }
         
         public string PaymentToken { get; set; }
+        public IdLink Sales { get; set; }
     }
 }

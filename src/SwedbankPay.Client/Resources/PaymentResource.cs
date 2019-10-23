@@ -1,4 +1,6 @@
-﻿namespace SwedbankPay.Client.Resources
+﻿using SwedbankPay.Client.Models.Response.Payment;
+
+namespace SwedbankPay.Client.Resources
 {
     using SwedbankPay.Client.Exceptions;
     using SwedbankPay.Client.Models;
@@ -7,6 +9,7 @@
     using SwedbankPay.Client.Models.Vipps.PaymentAPI.Request;
     using SwedbankPay.Client.Models.Vipps.PaymentAPI.Response;
     using SwedbankPay.Client.Models.Vipps.TransactionAPI.Response;
+    using SwedbankPay.Client.Models.Response.Payment;
 
     using System;
     using System.Collections.Generic;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Client.Models.Response
 {
-    public class ConsumerResourceResponse
+    public class ConsumersResponse
     {
         public string Token { get; set; }
 

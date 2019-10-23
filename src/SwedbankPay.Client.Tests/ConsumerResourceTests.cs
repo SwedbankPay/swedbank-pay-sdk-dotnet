@@ -11,7 +11,7 @@ namespace SwedbankPay.Client.Tests
 
     public class ConsumerResourceTests : ResourceTestsBase
     {
-        private readonly ConsumerResourceRequestBuilder _consumerResourceRequestContainer = new ConsumerResourceRequestBuilder(); 
+        private readonly ConsumersRequestContainerBuilder _consumerResourceRequestContainer = new ConsumersRequestContainerBuilder(); 
        
         [Fact]
         public async Task InitializeConsumer_ShouldReturn_TokenNotNull()
@@ -20,7 +20,7 @@ namespace SwedbankPay.Client.Tests
             var orderResoureRequest = _consumerResourceRequestContainer.WithTestValues()
                                                                                 .Build();
             //ACT
-            var orderResourceResponse = await _sut.Consumer.InitiateSession(orderResoureRequest);
+            var orderResourceResponse = await _sut.Consumer.InitiateSession(orderResoureRequest.ConsumersRequest);
             //ASSERT
             
             Assert.NotNull(orderResourceResponse);
@@ -35,7 +35,7 @@ namespace SwedbankPay.Client.Tests
             var orderResoureRequest = _consumerResourceRequestContainer.WithTestValues()
                 .Build();
             //ACT
-            var orderResourceResponse = await _sut.Consumer.InitiateSession(orderResoureRequest);
+            var orderResourceResponse = await _sut.Consumer.InitiateSession(orderResoureRequest.ConsumersRequest);
             //ASSERT
 
             Assert.NotNull(orderResourceResponse);
@@ -50,7 +50,7 @@ namespace SwedbankPay.Client.Tests
                 .Build();
            
             //ASSERT
-            await Assert.ThrowsAsync<CouldNotInitiateConsumerSessionException>(() => _sut.Consumer.InitiateSession(orderResoureRequest));
+            await Assert.ThrowsAsync<CouldNotInitiateConsumerSessionException>(() => _sut.Consumer.InitiateSession(orderResoureRequest.ConsumersRequest));
         }
         [Fact]
         public async Task InitializeConsumer_ReturnsNonEmptyOperationsCollection()
@@ -60,7 +60,7 @@ namespace SwedbankPay.Client.Tests
                 .Build();
 
             //ACT
-            var orderResourceResponse = await _sut.Consumer.InitiateSession(orderResoureRequest);
+            var orderResourceResponse = await _sut.Consumer.InitiateSession(orderResoureRequest.ConsumersRequest);
 
             //ASSERT
             Assert.NotNull(orderResourceResponse);

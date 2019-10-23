@@ -21,15 +21,15 @@ namespace SwedbankPay.Client.Resources
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="consumerResourceRequest"></param>
+        /// <param name="consumersRequest"></param>
         /// <returns></returns>
-        public async Task<ConsumerResourceResponse> InitiateSession(ConsumerResourceRequest consumerResourceRequest)
+        public async Task<ConsumersResponse> InitiateSession(ConsumersRequest consumersRequest)
         {
             var url = "/psp/consumers";
             
-            Func<ProblemsContainer, Exception> onError = m => new CouldNotInitiateConsumerSessionException(consumerResourceRequest, m);
-            consumerResourceRequest.Operation = "initiate-consumer-session";
-            var res = await CreateInternalClient().HttpPost<ConsumerResourceRequest, ConsumerResourceResponse>(url, onError, consumerResourceRequest);
+            Func<ProblemsContainer, Exception> onError = m => new CouldNotInitiateConsumerSessionException(consumersRequest, m);
+            consumersRequest.Operation = "initiate-consumer-session";
+            var res = await CreateInternalClient().HttpPost<ConsumersRequest, ConsumersResponse>(url, onError, consumersRequest);
            
             return res;
         }

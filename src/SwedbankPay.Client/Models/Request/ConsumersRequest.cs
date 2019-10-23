@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Client.Models.Request
 {
-    public class ConsumerResourceRequest
+    public class ConsumersRequest
     {
         public string Operation { get; internal set; }
         public string Msisdn { get; set; }

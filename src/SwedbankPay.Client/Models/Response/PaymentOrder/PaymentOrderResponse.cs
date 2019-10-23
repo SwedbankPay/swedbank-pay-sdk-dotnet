@@ -1,4 +1,8 @@
-﻿namespace SwedbankPay.Client.Models.Response
+﻿using System.Collections.Generic;
+using SwedbankPay.Client.Models.Response.Payment;
+using SwedbankPay.Client.Models.Response.PaymentOrder;
+
+namespace SwedbankPay.Client.Models.Response
 {
     using System;
     using SwedbankPay.Client.Models.Common;
@@ -21,10 +25,11 @@
         public Urls Urls { get; set; }
         public PayeeInfo PayeeInfo { get; set; }
         public IdLink Settings { get; set; }
-        public IdLink Payers { get; set; }
-        public IdLink OrderItems { get; set; }
-        public IdLink MetaData { get; set; }
         public IdLink Payments { get; set; }
-        public IdLink CurrentPayment { get; set; }
+        public OrderItems OrderItems { get; set; }
+        public MetaData MetaData { get; set; }
+        //public Dictionary<string, object> MetaDatae { get; set; }
+        public Payer Payers { get; set; }
+        public CurrentPaymentResponseContainer CurrentPayment { get; set; }
     }
 }

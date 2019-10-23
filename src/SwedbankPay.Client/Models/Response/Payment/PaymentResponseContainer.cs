@@ -1,11 +1,10 @@
-﻿namespace SwedbankPay.Client.Models.Vipps.PaymentAPI.Response
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using SwedbankPay.Client.Exceptions;
-    using SwedbankPay.Client.Models.Response;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using SwedbankPay.Client.Exceptions;
 
+namespace SwedbankPay.Client.Models.Response.Payment
+{
     public class PaymentResponseContainer
     {
         public PaymentResponseContainer()
