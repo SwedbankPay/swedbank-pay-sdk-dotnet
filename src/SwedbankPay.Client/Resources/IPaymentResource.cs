@@ -34,6 +34,13 @@ namespace SwedbankPay.Client.Resources
         Task<PaymentResponseContainer> GetPayment(string id, PaymentExpand paymentExpand = PaymentExpand.All);
 
         /// <summary>
+        /// Gets all sales for a payment.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<IEnumerable<SaleResponse>> GetSales(string id);
+
+        /// <summary>
         /// Gets all transactions for a payment.
         /// </summary>
         /// <param name="id"></param>
