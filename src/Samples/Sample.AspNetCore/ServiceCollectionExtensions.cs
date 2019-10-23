@@ -2,8 +2,7 @@
 {
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-
-    using SwedbankPay.Client;
+    using SwedbankPay.Sdk;
 
     public static class ServiceCollectionExtensions
     {

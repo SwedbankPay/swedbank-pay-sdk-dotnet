@@ -6,8 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Sample.AspNetCore
 {
-    using SwedbankPay.Client;
-
     public class Startup
     {
         public Startup(IConfiguration configuration)

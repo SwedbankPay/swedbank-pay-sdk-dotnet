@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>SwedbankPay.Sdk</PackageId>    
+    <Authors>ADACA Authority AB</Authors>
+    <Description>
+        A client library for Swedbank Pay REST APIs
+    </Description>
+    <Copyright>ADACA Authority AB</Copyright>
+    <PackageTags>SwedbankPay sdk</PackageTags>    
+    <RepositoryType>git</RepositoryType>
+    <PackageReleaseNotes>Vipps payment handling. CreditCard payment handling.</PackageReleaseNotes>
+    <AssemblyName>SwedbankPay.Sdk</AssemblyName>
+    <RootNamespace>SwedbankPay.Sdk</RootNamespace>
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+    <PackageReference Include="RestSharp" Version="106.6.6" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\Vipps\PaymentAPI\Common\" />
+  </ItemGroup>
+</Project>

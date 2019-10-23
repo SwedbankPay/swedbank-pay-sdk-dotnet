@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace Sample.AspNetCore.Controllers
 {
-    using SwedbankPay.Client;
-    using SwedbankPay.Client.Models.Common;
-    using SwedbankPay.Client.Models.Request.Transaction;
-    using SwedbankPay.Client.Models.Vipps.PaymentAPI.Request;
+    using SwedbankPay.Sdk;
+    using SwedbankPay.Sdk.Models.Common;
+    using SwedbankPay.Sdk.Models.Request.Transaction;
+    using SwedbankPay.Sdk.Models.Vipps.PaymentAPI.Request;
 
     public class DefaultController : Controller
     {
