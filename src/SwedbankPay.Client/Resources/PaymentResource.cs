@@ -66,6 +66,18 @@ namespace SwedbankPay.Client.Resources
         }
 
         /// <summary>
+        /// Gets all sales for a payment.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<SaleResponse>> GetSales(string id)
+        {
+            Func<ProblemsContainer, Exception> onError = m => new CouldNotFindTransactionException(id, m);
+            var res = await CreateInternalClient().HttpGet<SaleResponseContainer>(id, onError);
+            return res.Sales.SaleList;
+        }
+
+        /// <summary>
         /// Gets all transactions for a payment.
         /// </summary>
         /// <param name="id"></param>
