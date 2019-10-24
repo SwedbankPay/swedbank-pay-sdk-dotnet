@@ -1,8 +1,7 @@
 ﻿namespace SwedbankPay.Sdk
 {
-    using SwedbankPay.Sdk.PaymentOrder;
-    using SwedbankPay.Sdk.Resources;
-
+    using SwedbankPay.Sdk.PaymentOrders;
+    
     public interface ISwedbankPayClient
     {
         IPaymentOrdersResource PaymentOrders { get; }

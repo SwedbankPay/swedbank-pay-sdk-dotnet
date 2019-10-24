@@ -1,4 +1,4 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrder
+﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
     using System;
     using System.Linq;

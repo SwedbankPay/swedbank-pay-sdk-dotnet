@@ -1,16 +1,16 @@
 ﻿namespace SwedbankPay.Sdk
 {
-    using System.Net;
-    using SwedbankPay.Sdk.Consumer;
+    using SwedbankPay.Sdk.Consumers;
     using SwedbankPay.Sdk.Payment;
-    using SwedbankPay.Sdk.PaymentOrder;
-    using SwedbankPay.Sdk.Resources;
+    using SwedbankPay.Sdk.PaymentOrders;
+
+    using System.Net;
 
     public class SwedbankPayClient : ISwedbankPayClient
     {
         public IPaymentOrdersResource PaymentOrders { get; }
         public IPaymentResource Payment { get; }
-        public IConsumerResource Consumer { get; }
+        public IConsumersResource Consumers { get; }
 
         public SwedbankPayClient(SwedbankPayOptions swedbankPayOptions, ILogSwedbankPayHttpResponse logger = null)
         {
@@ -18,7 +18,7 @@
             var swedbankLogger = logger ?? new NoOpLogger();
             PaymentOrders = new PaymentOrdersResource(swedbankPayOptions, swedbankLogger);
             Payment = new PaymentResource(swedbankPayOptions, swedbankLogger);
-            Consumer = new ConsumerResource(swedbankPayOptions, swedbankLogger);
+            Consumers = new ConsumersResource(swedbankPayOptions, swedbankLogger);
         }
     }
 }

@@ -1,17 +1,19 @@
-﻿namespace SwedbankPay.Sdk.Consumer
+﻿namespace SwedbankPay.Sdk.Consumers
 {
-    using System;
-    using System.Threading.Tasks;
     using RestSharp;
+
     using SwedbankPay.Sdk.Exceptions;
     using SwedbankPay.Sdk.Models;
     using SwedbankPay.Sdk.Models.Request;
     using SwedbankPay.Sdk.Models.Response;
     using SwedbankPay.Sdk.Resources;
 
-    public class ConsumerResource : ResourceBase, IConsumerResource
+    using System;
+    using System.Threading.Tasks;
+
+    public class ConsumersResource : ResourceBase, IConsumersResource
     {
-        public ConsumerResource(SwedbankPayOptions swedbankPayOptions, ILogSwedbankPayHttpResponse logger) : base(swedbankPayOptions, logger)
+        public ConsumersResource(SwedbankPayOptions swedbankPayOptions, ILogSwedbankPayHttpResponse logger) : base(swedbankPayOptions, logger)
         {
         }
         /// <summary>

@@ -1,4 +1,4 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrder
+﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
     using System.Threading.Tasks;
     using SwedbankPay.Sdk.Exceptions;

@@ -11,7 +11,7 @@ namespace SwedbankPay.Sdk.Tests
     using SwedbankPay.Sdk.Tests.TestBuilders;
     using Xunit;
 
-    public class PaymentOrderResourceTests : ResourceTestsBase
+    public class PaymentOrdersResourceTests : ResourceTestsBase
     {
         private readonly PaymentOrderRequestContainerBuilder _paymentOrderRequestContainerBuilder = new PaymentOrderRequestContainerBuilder();
 
