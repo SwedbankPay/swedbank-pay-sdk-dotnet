@@ -1,14 +1,13 @@
 namespace SwedbankPay.Sdk.Tests
 {
+    using SwedbankPay.Sdk.Exceptions;
+    using SwedbankPay.Sdk.PaymentOrders;
+    using SwedbankPay.Sdk.Tests.TestBuilders;
+    using SwedbankPay.Sdk.Transactions;
+
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using SwedbankPay.Sdk.Exceptions;
-    using SwedbankPay.Sdk.Models;
-    using SwedbankPay.Sdk.Models.Common;
-    using SwedbankPay.Sdk.Models.Request;
-    using SwedbankPay.Sdk.Models.Request.Transaction;
-    using SwedbankPay.Sdk.Tests.TestBuilders;
     using Xunit;
 
     public class PaymentOrdersResourceTests : ResourceTestsBase
@@ -29,19 +28,21 @@ namespace SwedbankPay.Sdk.Tests
         public async Task CreatePaymentOrder_ShouldReturnMetaData()
         {
             var paymentOrderRequestContainer = CreatePaymentOrderRequestContainer();
-            paymentOrderRequestContainer.Paymentorder.MetaData = new Dictionary<string, object>();
-            paymentOrderRequestContainer.Paymentorder.MetaData["testvalue"] = 3;
-            paymentOrderRequestContainer.Paymentorder.MetaData["testvalue2"] = "test";
+            paymentOrderRequestContainer.Paymentorder.MetaData = new Dictionary<string, object>
+            {
+                ["testvalue"] = 3,
+                ["testvalue2"] = "test"
+            };
 
             var paymentOrderResponseContainer = await _sut.PaymentOrders.CreatePaymentOrder(paymentOrderRequestContainer, PaymentOrderExpand.All);
             Assert.NotNull(paymentOrderResponseContainer);
             Assert.NotNull(paymentOrderResponseContainer.PaymentOrder);
             //Assert.Equal(30000, paymentOrderResponseContainer.PaymentOrder.Amount);
-            MetaData metadata = paymentOrderResponseContainer.PaymentOrder.MetaData;
-            //var firstMetaData =  metadata.MetaDataDict["testvalue"];
-            //var secondMetaData = metadata.MetaDataDict["testvalue2"];
+            //MetaDataContainer metadata = paymentOrderResponseContainer.PaymentOrder.MetaData;
+            //var firstMetaData =  metadata.MetaData["testvalue"];
+            //var secondMetaData = metadata.MetaData["testvalue2"];
             //Assert.IsType<int>(  firstMetaData.GetType());
-            //Assert.IsType<string>(firstMetaData.GetType());
+            //Assert.IsType<string>(secondMetaData.GetType());
         }
 
         [Fact]
@@ -61,22 +62,21 @@ namespace SwedbankPay.Sdk.Tests
             Assert.NotNull(paymentOrderResponseContainer);
             Assert.NotNull(paymentOrderResponseContainer.PaymentOrder);
             Assert.NotEmpty(paymentOrderResponseContainer.PaymentOrder.OrderItems.OrderItemList);
-            
+
         }
 
         [Fact]
         public async Task GetPaymentOrder_WithPayment_ShouldReturnCurrentPaymentIfExpanded()
         {
-            
+
             //ACT
-            var paymentOrderResponseContainer = await _sut.PaymentOrders.GetPaymentOrder("/psp/paymentorders/472e6f26-a9b5-4e91-1b70-08d756b9b7d8",
-                PaymentOrderExpand.CurrentPayment);
+            var paymentOrderResponseContainer = await _sut.PaymentOrders.GetPaymentOrder("/psp/paymentorders/472e6f26-a9b5-4e91-1b70-08d756b9b7d8", PaymentOrderExpand.CurrentPayment);
 
             //ASSERT
             Assert.NotNull(paymentOrderResponseContainer);
             Assert.NotNull(paymentOrderResponseContainer.PaymentOrder);
-            Assert.NotEmpty(paymentOrderResponseContainer.PaymentOrder.OrderItems.OrderItemList);
-
+            Assert.NotNull(paymentOrderResponseContainer.PaymentOrder.CurrentPayment);
+            Assert.NotNull(paymentOrderResponseContainer.PaymentOrder.CurrentPayment.Payment);
         }
 
         [Fact]
@@ -283,6 +283,6 @@ namespace SwedbankPay.Sdk.Tests
             };
             return paymentOrderRequestContainer;
         }
-        
+
     }
 }

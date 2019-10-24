@@ -2,7 +2,7 @@
 {
     using System;
     using SwedbankPay.Sdk.Models;
-    using SwedbankPay.Sdk.Models.Vipps.PaymentAPI.Request;
+    using SwedbankPay.Sdk.Payments;
 
     public class CouldNotPlacePaymentException : Exception
     {

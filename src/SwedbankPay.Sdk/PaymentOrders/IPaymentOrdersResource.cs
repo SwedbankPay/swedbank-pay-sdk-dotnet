@@ -1,12 +1,9 @@
 ﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
-    using System.Threading.Tasks;
     using SwedbankPay.Sdk.Exceptions;
-    using SwedbankPay.Sdk.Models;
-    using SwedbankPay.Sdk.Models.Request;
-    using SwedbankPay.Sdk.Models.Request.Transaction;
-    using SwedbankPay.Sdk.Models.Response.PaymentOrder;
-    using SwedbankPay.Sdk.Models.Vipps.TransactionAPI.Response;
+    using SwedbankPay.Sdk.Transactions;
+
+    using System.Threading.Tasks;
 
     public interface IPaymentOrdersResource
     {

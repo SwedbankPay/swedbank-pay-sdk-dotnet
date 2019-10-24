@@ -1,7 +1,7 @@
-﻿using SwedbankPay.Sdk.Models.Request;
-
-namespace SwedbankPay.Sdk.Tests.TestBuilders
+﻿namespace SwedbankPay.Sdk.Tests.TestBuilders
 {
+    using SwedbankPay.Sdk.Consumers;
+
     public class ConsumersRequestContainerBuilder
     {
         private ConsumersRequestContainer _consumersRequestContainer = new ConsumersRequestContainer

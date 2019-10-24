@@ -2,7 +2,7 @@
 {
     using System;
     using SwedbankPay.Sdk.Models;
-    using SwedbankPay.Sdk.Models.Request;
+    using SwedbankPay.Sdk.PaymentOrders;
 
     public class CouldNotUpdatePaymentOrderException : Exception
     {

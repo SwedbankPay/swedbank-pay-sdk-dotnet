@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 namespace Sample.AspNetCore.Controllers
 {
     using SwedbankPay.Sdk;
-    using SwedbankPay.Sdk.Models.Common;
-    using SwedbankPay.Sdk.Models.Request.Transaction;
-    using SwedbankPay.Sdk.Models.Vipps.PaymentAPI.Request;
+    using SwedbankPay.Sdk.Payments;
+    using SwedbankPay.Sdk.Transactions;
 
     public class DefaultController : Controller
     {
@@ -34,7 +33,12 @@ namespace Sample.AspNetCore.Controllers
         [HttpGet]
         public async Task<IActionResult> InitiateARecurringPaymentNoInitialPayment()
         {
-            var paymentRequest = new PaymentRequest("Sample.AspNetCore/1.0.0", "Some productname", "order123", GenerateReference(), null);
+            var paymentRequest = new PaymentRequest("Sample.AspNetCore/1.0.0", "Some productname", "order123", GenerateReference(), null)
+            {
+                Language = "nb-NO",
+                Currency = "NOK"
+            };
+
             paymentRequest.GeneratePaymentToken = true;
             paymentRequest.Operation = "Verify";
 
@@ -58,7 +62,12 @@ namespace Sample.AspNetCore.Controllers
                 Type = PriceTypes.Visa
             };
 
-            var paymentRequest = new PaymentRequest("Sample.AspNetCore/1.0.0", "Some productname", "order123", GenerateReference(), intialPaymentToPayAlongWithSettingUpRecurringPayments);
+            var paymentRequest = new PaymentRequest("Sample.AspNetCore/1.0.0", "Some productname", "order123",
+                GenerateReference(), intialPaymentToPayAlongWithSettingUpRecurringPayments)
+            {
+                Language = "nb-NO",
+                Currency = "NOK"
+            };
             paymentRequest.GeneratePaymentToken = true;
             paymentRequest.Operation = "Purchase";
 
@@ -100,6 +109,8 @@ namespace Sample.AspNetCore.Controllers
         {
 
             var paymentRequest = new PaymentRequest("Sample.AspNetCore/1.0.0", "Some productname", "order123", GenerateReference());
+            paymentRequest.Language = "nb-NO";
+            paymentRequest.Currency = "NOK";
             paymentRequest.Operation = "Recur";
             paymentRequest.PaymentToken = paymentToken;
             paymentRequest.Amount = 10000;
@@ -136,6 +147,8 @@ namespace Sample.AspNetCore.Controllers
         public async Task<IActionResult> CreateAndCaptureAutomatically(string paymentToken)
         {
             var paymentRequest = new PaymentRequest("Sample.AspNetCore/1.0.0", "Some autocaptured productname", "auto-capture-order123", GenerateReference());
+            paymentRequest.Language = "nb-NO";
+            paymentRequest.Currency = "NOK";
             paymentRequest.Operation = "Recur";
             paymentRequest.Intent = "AutoCapture";
             paymentRequest.PaymentToken = paymentToken;

@@ -3,10 +3,6 @@
     using RestSharp;
 
     using SwedbankPay.Sdk.Exceptions;
-    using SwedbankPay.Sdk.Models;
-    using SwedbankPay.Sdk.Models.Request;
-    using SwedbankPay.Sdk.Models.Response;
-    using SwedbankPay.Sdk.Resources;
 
     using System;
     using System.Threading.Tasks;

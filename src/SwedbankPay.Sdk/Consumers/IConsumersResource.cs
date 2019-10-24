@@ -1,8 +1,6 @@
 ﻿namespace SwedbankPay.Sdk.Consumers
 {
     using System.Threading.Tasks;
-    using SwedbankPay.Sdk.Models.Request;
-    using SwedbankPay.Sdk.Models.Response;
 
     public interface IConsumersResource
     {

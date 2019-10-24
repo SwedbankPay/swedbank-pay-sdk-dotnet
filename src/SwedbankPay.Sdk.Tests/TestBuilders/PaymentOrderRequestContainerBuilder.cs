@@ -1,10 +1,10 @@
 ﻿namespace SwedbankPay.Sdk.Tests.TestBuilders
 {
+    using SwedbankPay.Sdk.PaymentOrders;
+
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using SwedbankPay.Sdk.Models.Common;
-    using SwedbankPay.Sdk.Models.Request;
 
     public class PaymentOrderRequestContainerBuilder
     {

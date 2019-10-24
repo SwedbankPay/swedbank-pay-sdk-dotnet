@@ -1,8 +1,8 @@
 ﻿namespace SwedbankPay.Sdk.Exceptions
 {
     using System;
+    using SwedbankPay.Sdk.Consumers;
     using SwedbankPay.Sdk.Models;
-    using SwedbankPay.Sdk.Models.Request;
 
     public class CouldNotInitiateConsumerSessionException : Exception
     {

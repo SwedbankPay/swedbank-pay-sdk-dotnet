@@ -5,8 +5,7 @@ using System;
 namespace Sample.ConsoleApp
 {
     using SwedbankPay.Sdk;
-    using SwedbankPay.Sdk.Models.Common;
-    using SwedbankPay.Sdk.Models.Vipps.PaymentAPI.Request;
+    using SwedbankPay.Sdk.Payments;
 
     class Program
     {
@@ -28,7 +27,11 @@ namespace Sample.ConsoleApp
                 Type = PriceTypes.Vipps
             };
 
-            var paymentRequest = new PaymentRequest("Console.Sample/1.0.0", "Some productname", "order123", "123456", prices);
+            var paymentRequest = new PaymentRequest("Console.Sample/1.0.0", "Some productname", "order123", "123456", prices)
+            {
+                Language = "nb-NO",
+                Currency = "NOK"
+            };
 
             var res = swedbankPayClient.Payment.PostVippsPayment(paymentRequest).GetAwaiter().GetResult();
             Console.WriteLine($"Payment created with id : {res.Payment.Id}");

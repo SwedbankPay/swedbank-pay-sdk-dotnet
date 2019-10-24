@@ -1,10 +1,11 @@
 ﻿namespace SwedbankPay.Sdk.Tests
 {
+    using SwedbankPay.Sdk.Exceptions;
+    using SwedbankPay.Sdk.Tests.TestBuilders;
+
     using System;
     using System.Threading.Tasks;
-    using SwedbankPay.Sdk.Exceptions;
-    using SwedbankPay.Sdk.Models.Response;
-    using SwedbankPay.Sdk.Tests.TestBuilders;
+    using SwedbankPay.Sdk.Consumers;
     using Xunit;
 
 
@@ -77,7 +78,7 @@
             {
                 Email = "leia.ahlstrom@payex.com",
                 Msisdn = "+46739000001",
-                ShippingAddress = new ShippingAddress
+                ShippingAddress = new Address
                 {
                     Addressee = "Leia Ahlström",
                     City = "Bro",
@@ -169,7 +170,7 @@
             {
                 Email = "leia.ahlstrom@payex.com",
                 Msisdn = "+46739000001",
-                BillingAddress = new BillingAddress
+                BillingAddress = new Address()
                 {
                     Addressee = "Leia Ahlström",
                     City = "Bro",
