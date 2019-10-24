@@ -27,31 +27,31 @@
            
             return res;
         }
-        public async Task<ShippingDetails> GetShippingDetails(string uri)
+        public async Task<ShippingDetails> GetShippingDetails(string url)
         {
             
-            if (string.IsNullOrWhiteSpace(uri))
+            if (string.IsNullOrWhiteSpace(url))
             {
-                throw new ArgumentException($"{uri} Cannot be null or whitespace", paramName: uri);
+                throw new ArgumentException($"{url} Cannot be null or whitespace", paramName: url);
             }
-            Func<ProblemsContainer, Exception> onError = m => new CouldNotGetShippingDetailsException(uri, m);
-            var request = new RestRequest(uri, Method.GET);
+            Func<ProblemsContainer, Exception> onError = m => new CouldNotGetShippingDetailsException(url, m);
+            var request = new RestRequest(url, Method.GET);
             
-            var shippingDetails = await CreateInternalClient().HttpGet<ShippingDetails>(uri, onError);
+            var shippingDetails = await CreateInternalClient().HttpGet<ShippingDetails>(url, onError);
 
             return shippingDetails;
         }
 
-        public async Task<BillingDetails> GetBillingDetails(string uri)
+        public async Task<BillingDetails> GetBillingDetails(string url)
         {
-            if (string.IsNullOrWhiteSpace(uri))
+            if (string.IsNullOrWhiteSpace(url))
             {
-                throw new ArgumentException($"{uri} Cannot be null or whitespace", paramName: uri);
+                throw new ArgumentException($"{url} Cannot be null or whitespace", paramName: url);
             }
-            Func<ProblemsContainer, Exception> onError = m => new CouldNotGetBillingDetailsException(uri, m);
-            var request = new RestRequest(uri, Method.GET);
+            Func<ProblemsContainer, Exception> onError = m => new CouldNotGetBillingDetailsException(url, m);
+            var request = new RestRequest(url, Method.GET);
 
-            var billingDetails = await CreateInternalClient().HttpGet<BillingDetails>(uri, onError);
+            var billingDetails = await CreateInternalClient().HttpGet<BillingDetails>(url, onError);
 
             return billingDetails;
         }

@@ -13,8 +13,8 @@
         /// <returns></returns>
         Task<ConsumersResponse> InitiateSession(ConsumersRequest consumersRequest);
         
-        Task<ShippingDetails> GetShippingDetails(string uri);
-        Task<BillingDetails> GetBillingDetails(string uri);
+        Task<ShippingDetails> GetShippingDetails(string url);
+        Task<BillingDetails> GetBillingDetails(string url);
     }
 
    

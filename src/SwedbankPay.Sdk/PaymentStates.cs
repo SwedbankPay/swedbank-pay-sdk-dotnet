@@ -1,4 +1,4 @@
-﻿namespace SwedbankPay.Sdk.Models
+﻿namespace SwedbankPay.Sdk
 {
     public static class PaymentStates
     {
