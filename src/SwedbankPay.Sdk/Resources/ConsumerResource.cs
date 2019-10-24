@@ -10,7 +10,7 @@
 
     public class ConsumerResource : ResourceBase, IConsumerResource
     {
-        public ConsumerResource(SwedbankPayOptions swedbankPayOptions, ILogPayExHttpResponse logger) : base(swedbankPayOptions, logger)
+        public ConsumerResource(SwedbankPayOptions swedbankPayOptions, ILogSwedbankPayHttpResponse logger) : base(swedbankPayOptions, logger)
         {
         }
         /// <summary>

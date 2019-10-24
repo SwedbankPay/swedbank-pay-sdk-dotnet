@@ -19,7 +19,7 @@
         private const string PspSwishPaymentsBaseUrl = "/psp/swish/payments/";
         private const string PspDirectDebitPaymentsBaseUrl = "/psp/directdebit/payments";
 
-        public PaymentResource(SwedbankPayOptions swedbankPayOptions, ILogPayExHttpResponse logger) : base(swedbankPayOptions, logger)
+        public PaymentResource(SwedbankPayOptions swedbankPayOptions, ILogSwedbankPayHttpResponse logger) : base(swedbankPayOptions, logger)
         {
         }
 

@@ -12,9 +12,9 @@
     internal class SwedbankPayHttpClient
     {
         private readonly RestClient _client;
-        private readonly ILogPayExHttpResponse _logger;
+        private readonly ILogSwedbankPayHttpResponse _logger;
 
-        internal SwedbankPayHttpClient(RestClient client, ILogPayExHttpResponse logger)
+        internal SwedbankPayHttpClient(RestClient client, ILogSwedbankPayHttpResponse logger)
         {
             _client = client;
             _logger = logger;
@@ -61,7 +61,7 @@
 
             if (response.IsSuccessful)
             {
-                _logger.LogPayExResponse(response.Content);
+                _logger.LogSwedbankPayResponse(response.Content);
                 return response.Data;
             }
 
@@ -91,7 +91,7 @@
             if (response.IsSuccessful)
             {
                var res = JToken.Parse(response.Content).ToString(Formatting.Indented);
-               _logger.LogPayExResponse(res);
+               _logger.LogSwedbankPayResponse(res);
                return res;
             }
 

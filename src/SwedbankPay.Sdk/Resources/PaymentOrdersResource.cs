@@ -12,7 +12,7 @@
 
     public class PaymentOrdersResource : ResourceBase, IPaymentOrdersResource
     {
-        public PaymentOrdersResource(SwedbankPayOptions swedbankPayOptions, ILogPayExHttpResponse logger = null) : base(swedbankPayOptions, logger)
+        public PaymentOrdersResource(SwedbankPayOptions swedbankPayOptions, ILogSwedbankPayHttpResponse logger = null) : base(swedbankPayOptions, logger)
         {
         }
 

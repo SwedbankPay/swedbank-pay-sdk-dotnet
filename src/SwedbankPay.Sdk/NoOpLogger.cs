@@ -1,8 +1,8 @@
 ﻿namespace SwedbankPay.Sdk
 {
-    internal class NoOpLogger : ILogPayExHttpResponse
+    internal class NoOpLogger : ILogSwedbankPayHttpResponse
     {
-        public void LogPayExResponse(string responseBody)
+        public void LogSwedbankPayResponse(string responseBody)
         {
         }
     }

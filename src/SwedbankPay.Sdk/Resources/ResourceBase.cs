@@ -11,9 +11,9 @@
     public abstract class ResourceBase
     {
         protected readonly SwedbankPayOptions SwedbankPayOptions;
-        private readonly ILogPayExHttpResponse _logger;
+        private readonly ILogSwedbankPayHttpResponse _logger;
 
-        internal ResourceBase(SwedbankPayOptions swedbankPayOptions, ILogPayExHttpResponse logger)
+        internal ResourceBase(SwedbankPayOptions swedbankPayOptions, ILogSwedbankPayHttpResponse logger)
         {
             SwedbankPayOptions = swedbankPayOptions;
             _logger = logger;

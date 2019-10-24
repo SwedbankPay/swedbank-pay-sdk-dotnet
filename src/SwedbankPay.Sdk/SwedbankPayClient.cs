@@ -9,7 +9,7 @@
         public IPaymentResource Payment { get; }
         public IConsumerResource Consumer { get; }
 
-        public SwedbankPayClient(SwedbankPayOptions swedbankPayOptions, ILogPayExHttpResponse logger = null)
+        public SwedbankPayClient(SwedbankPayOptions swedbankPayOptions, ILogSwedbankPayHttpResponse logger = null)
         {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             var swedbankLogger = logger ?? new NoOpLogger();
