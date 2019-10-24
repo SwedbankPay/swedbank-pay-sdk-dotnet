@@ -26,7 +26,7 @@
         /// <returns></returns>
         public async Task<PaymentOrderResponseContainer> CreatePaymentOrder(PaymentOrderRequestContainer paymentOrderRequest, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
         {
-            var url = $"/psp/paymentorders{Utils.GetExpandQueryString(paymentOrderExpand)}";
+            var url = $"/psp/paymentorders{GetExpandQueryString(paymentOrderExpand)}";
 
             paymentOrderRequest.Paymentorder.Operation = "Purchase";
 
@@ -51,7 +51,7 @@
                 throw new CouldNotFindPaymentException(id);
             }
 
-            var url = $"{id}{Utils.GetExpandQueryString(paymentOrderExpand)}";
+            var url = $"{id}{GetExpandQueryString(paymentOrderExpand)}";
 
             Func<ProblemsContainer, Exception> onError = m => new CouldNotFindPaymentException(id, m);
             var res = await CreateInternalClient().HttpGet<PaymentOrderResponseContainer>(url, onError);
@@ -82,7 +82,7 @@
                 }
                 throw new NoOperationsLeftException();
             }
-            var url = $"{httpOperation.Href}{Utils.GetExpandQueryString(paymentOrderExpand)}";
+            var url = $"{httpOperation.Href}{GetExpandQueryString(paymentOrderExpand)}";
 
             paymentOrderRequest.Paymentorder.Operation = "UpdateOrder";
 

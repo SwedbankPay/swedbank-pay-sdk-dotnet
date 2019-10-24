@@ -55,7 +55,7 @@
             {
                 throw new CouldNotFindPaymentException(id);
             }
-            var url = $"{id}{Utils.GetExpandQueryString(paymentExpand)}";
+            var url = $"{id}{GetExpandQueryString(paymentExpand)}";
             Func<ProblemsContainer, Exception> onError = m => new CouldNotFindPaymentException(id, m);
             var res = await CreateInternalClient().HttpGet<PaymentResponseContainer>(url, onError);
             return res;
@@ -80,7 +80,7 @@
         /// <returns></returns>
         public async Task<IEnumerable<TransactionResponse>> GetTransactions(string id, PaymentExpand paymentExpand = PaymentExpand.All)
         {
-            var url = $"{id}{Utils.GetExpandQueryString(paymentExpand)}";
+            var url = $"{id}{GetExpandQueryString(paymentExpand)}";
             Func<ProblemsContainer, Exception> onError = m => new CouldNotFindTransactionException(id, m);
             var res = await CreateInternalClient().HttpGet<AllTransactionResponseContainer>(url, onError);
             return res.Transactions.TransactionList;
@@ -195,7 +195,7 @@
 
             var payload = new PaymentRequestContainer(payment);
             Func<ProblemsContainer, Exception> onError = m => new CouldNotPlacePaymentException(payment, m); 
-            var url = $"{baseUrl}{Utils.GetExpandQueryString(PaymentExpand.All)}";
+            var url = $"{baseUrl}{GetExpandQueryString(PaymentExpand.All)}";
             var res = await CreateInternalClient().HttpPost<PaymentRequestContainer, PaymentResponseContainer>(url, onError, payload);
             return res;
         }

@@ -1,6 +1,7 @@
 ﻿namespace SwedbankPay.Sdk.Resources
 {
     using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using RestSharp;
     using RestSharp.Authenticators;
@@ -20,7 +21,7 @@
 
         public async Task<string> GetRaw(string id, PaymentOrderExpand paymentOrderExpand)
         {
-            var expandQueryString = Utils.GetExpandQueryString(paymentOrderExpand);
+            var expandQueryString = GetExpandQueryString(paymentOrderExpand);
             var url = $"{id}?$expand={expandQueryString}";
          
             return await CreateInternalClient().GetRaw(url);
@@ -40,6 +41,29 @@
             };
 
             return new SwedbankPayHttpClient(client, _logger);
+        }
+
+
+        internal string GetExpandQueryString<T>(T expandParameter) where T : Enum
+        {
+            var intValue = Convert.ToInt64(expandParameter);
+            if (intValue == 0)
+            {
+                return string.Empty;
+            }
+
+            List<string> s = new List<string>();
+            foreach (var enumValue in Enum.GetValues(typeof(T)))
+            {
+                var name = Enum.GetName(typeof(T), enumValue);
+                if (expandParameter.HasFlag((T)enumValue) && name != "None" && name != "All")
+                {
+                    s.Add(name.ToLower());
+                }
+            }
+
+            var queryString = string.Join(",", s);
+            return $"?$expand={queryString}";
         }
     }
 }

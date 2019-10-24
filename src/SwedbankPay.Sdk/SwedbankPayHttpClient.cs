@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
+    using Newtonsoft.Json.Serialization;
     using RestSharp;
     using SwedbankPay.Sdk.Models;
 
@@ -43,7 +44,7 @@
         {
             if (request != null)
             {
-                var jsonString = Utils.GetRequestBody(request);
+                var jsonString = GetRequestBody(request);
                 var json = SimpleJson.SimpleJson.DeserializeObject(jsonString);
                 restRequest.AddJsonBody(json);
             }
@@ -114,6 +115,21 @@
             }
 
             return false;
+        }
+
+        private string GetRequestBody(object request)
+        {
+            string requestBody = string.Empty;
+            if (request != null)
+            {
+                requestBody = JsonConvert.SerializeObject(request, Formatting.None, new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore,
+                    ContractResolver = new CamelCasePropertyNamesContractResolver(),
+                    StringEscapeHandling = StringEscapeHandling.EscapeNonAscii
+                });
+            }
+            return requestBody;
         }
     }
 }
