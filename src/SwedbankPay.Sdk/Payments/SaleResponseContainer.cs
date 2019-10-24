@@ -2,7 +2,7 @@
 {
     public class SaleResponseContainer
     {
-        public string Payment { get; set; }
-        public SaleListContainer Sales { get; set; }
+        public string Payment { get; protected set; }
+        public SaleListContainer Sales { get; protected set; }
     }
 }

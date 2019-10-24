@@ -5,6 +5,6 @@
         /// <summary>
         /// Relative URL to some resource
         /// </summary>
-        public string Id { get; internal set; }
+        public string Id { get; protected set; }
     }
 }

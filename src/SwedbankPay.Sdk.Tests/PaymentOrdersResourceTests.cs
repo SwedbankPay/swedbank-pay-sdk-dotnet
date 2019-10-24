@@ -8,6 +8,7 @@ namespace SwedbankPay.Sdk.Tests
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using SwedbankPay.Sdk.Payments;
     using Xunit;
 
     public class PaymentOrdersResourceTests : ResourceTestsBase
@@ -38,7 +39,6 @@ namespace SwedbankPay.Sdk.Tests
             Assert.NotNull(paymentOrderResponseContainer);
             Assert.NotNull(paymentOrderResponseContainer.PaymentOrder);
 
-            //paymentOrderResponseContainer.PaymentOrder.Urls.Id = "";
             //Assert.Equal(30000, paymentOrderResponseContainer.PaymentOrder.Amount);
             //MetaDataContainer metadata = paymentOrderResponseContainer.PaymentOrder.MetaData;
             //var firstMetaData =  metadata.MetaData["testvalue"];
@@ -70,7 +70,6 @@ namespace SwedbankPay.Sdk.Tests
         [Fact]
         public async Task GetPaymentOrder_WithPayment_ShouldReturnCurrentPaymentIfExpanded()
         {
-
             //ACT
             var paymentOrderResponseContainer = await _sut.PaymentOrders.GetPaymentOrder("/psp/paymentorders/472e6f26-a9b5-4e91-1b70-08d756b9b7d8", PaymentOrderExpand.CurrentPayment);
 
@@ -79,6 +78,18 @@ namespace SwedbankPay.Sdk.Tests
             Assert.NotNull(paymentOrderResponseContainer.PaymentOrder);
             Assert.NotNull(paymentOrderResponseContainer.PaymentOrder.CurrentPayment);
             Assert.NotNull(paymentOrderResponseContainer.PaymentOrder.CurrentPayment.Payment);
+        }
+
+        [Fact]
+        public async Task GetPaymentOrder_WithSwishPayment_ShouldReturnSales()
+        {
+            //ACT
+            var paymentOrderResponseContainer = await _sut.PaymentOrders.GetPaymentOrder("/psp/paymentorders/472e6f26-a9b5-4e91-1b70-08d756b9b7d8", PaymentOrderExpand.CurrentPayment);
+            IEnumerable<SaleResponse> sales = await _sut.Payment.GetSales(paymentOrderResponseContainer.PaymentOrder.CurrentPayment.Payment.Sales.Id);
+            
+            //ASSERT
+            Assert.NotNull(sales);
+            Assert.NotEmpty(sales);
         }
 
         [Fact]

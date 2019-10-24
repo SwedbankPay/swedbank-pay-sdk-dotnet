@@ -2,39 +2,33 @@
 {
     using System.Collections.Generic;
 
-    public class TransactionListContainer
+    public class TransactionListContainer : IdLink
     {
-        public string Id { get; set; }
-        public List<TransactionResponse> TransactionList { get; set; } = new List<TransactionResponse>();
+        public List<TransactionResponse> TransactionList { get; protected set; } = new List<TransactionResponse>();
     }
 
-    public class AuthorizationListContainer
+    public class AuthorizationListContainer : IdLink
     {
-        public string Id { get; set; }
-        public List<TransactionContainerResponse> AuthorizationList { get; set; } = new List<TransactionContainerResponse>();
+        public List<TransactionContainerResponse> AuthorizationList { get; protected set; } = new List<TransactionContainerResponse>();
     }
 
-    public class CapturesListContainer
+    public class CapturesListContainer : IdLink
     {
-        public string Id { get; set; }
-        public List<TransactionContainerResponse> CaptureList { get; set; } = new List<TransactionContainerResponse>();
+        public List<TransactionContainerResponse> CaptureList { get; protected set; } = new List<TransactionContainerResponse>();
     }
 
-    public class ReversalsListContainer
+    public class ReversalsListContainer : IdLink
     {
-        public string Id { get; set; }
-        public List<TransactionContainerResponse> ReversalList { get; set; } = new List<TransactionContainerResponse>();
+        public List<TransactionContainerResponse> ReversalList { get; protected set; } = new List<TransactionContainerResponse>();
     }
     
-    public class CancellationsListContainer
+    public class CancellationsListContainer : IdLink
     {
-        public string Id { get; set; }
-        public List<TransactionContainerResponse> CancellationList { get; set; } = new List<TransactionContainerResponse>();
+        public List<TransactionContainerResponse> CancellationList { get; protected set; } = new List<TransactionContainerResponse>();
     }
 
-    public class TransactionContainerResponse
+    public class TransactionContainerResponse : IdLink
     {
-        public string Id { get; set; }
-        public TransactionResponse Transaction { get; set; }
+        public TransactionResponse Transaction { get; protected set; }
     }
 }

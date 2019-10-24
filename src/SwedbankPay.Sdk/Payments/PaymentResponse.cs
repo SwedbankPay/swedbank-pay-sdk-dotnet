@@ -6,45 +6,46 @@
 
     public class PaymentResponse
     {
-        public string Id { get; set; }
+        public string Id { get; protected set; }
 
-        public string Number { get; set; }
+        public string Number { get; protected set; }
 
-        public DateTime Created { get; set; }
+        public DateTime Created { get; protected set; }
 
-        public string Instrument { get; set; }
-        public string Operation { get; set; }
+        public string Instrument { get; protected set; }
+        public string Operation { get; protected set; }
 
-        public string Intent { get; set; }
-        public string State { get; set; }
+        public string Intent { get; protected set; }
+        public string State { get; protected set; }
 
-        public string Currency { get; set; }
+        public string Currency { get; protected set; }
 
-        public PricesContainer Prices { get; set; }
-        public long Amount { get; set; }
-        public string Description { get; set; }
+        public PricesContainer Prices { get; protected set; }
+        public long Amount { get; protected set; }
+        public string Description { get; protected set; }
 
-        public string PayerReference { get; set; }
+        public string PayerReference { get; protected set; }
 
-        public string UserAgent { get; set; }
+        public string UserAgent { get; protected set; }
 
-        public string Language { get; set; }
+        public string Language { get; protected set; }
         
-        public Urls Urls { get; set; } 
+        public Urls Urls { get; protected set; } 
         
-        public PayeeInfo PayeeInfo { get; set; }
+        public PayeeInfo PayeeInfo { get; protected set; }
 
-        public TransactionListContainer Transactions { get; set; }
+        public TransactionListContainer Transactions { get; protected set; }
 
-        public AuthorizationListContainer Authorizations { get; set; }
+        public AuthorizationListContainer Authorizations { get; protected set; }
 
-        public CapturesListContainer Captures { get; set; }
+        public CapturesListContainer Captures { get; protected set; }
 
-        public ReversalsListContainer Reversals { get; set; }
+        public ReversalsListContainer Reversals { get; protected set; }
 
-        public CancellationsListContainer Cancellations { get; set; }
+        public CancellationsListContainer Cancellations { get; protected set; }
         
-        public string PaymentToken { get; set; }
-        public IdLink Sales { get; set; }
+        public string PaymentToken { get; protected set; }
+
+        public SaleListContainer Sales { get; protected set; }
     }
 }

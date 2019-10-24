@@ -5,10 +5,10 @@
     public class BillingDetails
     {
         [JsonProperty("email")]
-        public string Email { get; set; }
+        public string Email { get; protected set; }
         [JsonProperty("msisdn")]
-        public string Msisdn { get; set; }
+        public string Msisdn { get; protected set; }
         [JsonProperty("billingAddress")]
-        public Address BillingAddress { get; set; }
+        public Address BillingAddress { get; protected set; }
     }
 }

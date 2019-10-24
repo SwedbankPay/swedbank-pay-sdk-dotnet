@@ -2,10 +2,10 @@
 {
     public class HttpOperation
     {
-        public string Href { get; set; }
-        public string Rel { get; set; }
-        public HttpMethod Method { get; set; }
-        public string ContentType { get; set; }
+        public string Href { get; protected set; }
+        public string Rel { get; protected set; }
+        public HttpMethod Method { get; protected set; }
+        public string ContentType { get; protected set; }
     }
     public enum HttpMethod
     {

@@ -5,7 +5,7 @@
 
     using System;
     using System.Threading.Tasks;
-    using SwedbankPay.Sdk.Consumers;
+
     using Xunit;
 
 
@@ -73,21 +73,7 @@
         public async Task GetShippingDetails_Returns_CorrectDetails()
         {
             //ARRANGE
-            
-            var expected = new ShippingDetails
-            {
-                Email = "leia.ahlstrom@payex.com",
-                Msisdn = "+46739000001",
-                ShippingAddress = new Address
-                {
-                    Addressee = "Leia Ahlström",
-                    City = "Bro",
-                    CoAddress = "",
-                    CountryCode = "SE",
-                    StreetAddress = "Helgestavägen 9",
-                    ZipCode = "19792"
-                }
-            };   
+                   
             var uri = "/psp/consumers/11d724b68625ea1149a60bc053c306affe6f38fe91d800d88f1109f6461f44d0/shipping-details";
             //ACT
             var shippingDetails = await _sut.Consumers.GetShippingDetails(uri);
@@ -95,9 +81,9 @@
             //ASSERT
             Assert.NotNull(shippingDetails);
             Assert.NotNull(shippingDetails.ShippingAddress);
-            Assert.Equal(expected.Msisdn, shippingDetails.Msisdn);
-            Assert.Equal(expected.Email, shippingDetails.Email);
-            Assert.Equal(expected.ShippingAddress.ZipCode, expected.ShippingAddress.ZipCode);
+            Assert.Equal("+46739000001", shippingDetails.Msisdn);
+            Assert.Equal("leia.ahlstrom@payex.com", shippingDetails.Email);
+            Assert.Equal("19792", shippingDetails.ShippingAddress.ZipCode);
         }
 
 
@@ -165,20 +151,6 @@
         public async Task GetBillingDetails_Returns_CorrectDetails()
         {
             //ARRANGE
-            
-            var expected = new BillingDetails
-            {
-                Email = "leia.ahlstrom@payex.com",
-                Msisdn = "+46739000001",
-                BillingAddress = new Address()
-                {
-                    Addressee = "Leia Ahlström",
-                    City = "Bro",
-                    CountryCode = "SE",
-                    StreetAddress = "Helgestavägen 9",
-                    ZipCode = "19792"
-                }
-            };
             var uri = "/psp/consumers/177a0e8cbc6777b6cddf72fbe3483c4cda6bef990c34c615376096c0fb607954/billing-details";
             
             //ACT
@@ -187,9 +159,9 @@
             //ASSERT
             Assert.NotNull(billingDetails);
             Assert.NotNull(billingDetails.BillingAddress);
-            Assert.Equal(expected.Msisdn, billingDetails.Msisdn);
-            Assert.Equal(expected.Email, billingDetails.Email);
-            Assert.Equal(expected.BillingAddress.ZipCode, expected.BillingAddress.ZipCode);
+            Assert.Equal("+46739000001", billingDetails.Msisdn);
+            Assert.Equal("leia.ahlstrom@payex.com", billingDetails.Email);
+            Assert.Equal("19792", billingDetails.BillingAddress.ZipCode);
         }
     }
 }

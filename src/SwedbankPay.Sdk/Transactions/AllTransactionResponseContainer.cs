@@ -2,8 +2,8 @@
 {
     internal class AllTransactionResponseContainer
     {
-        public string Payment { get; set; }
-        public TransactionListContainer Transactions { get; set; } 
+        public string Payment { get; protected set; }
+        public TransactionListContainer Transactions { get; protected set; } 
 
     }
 }

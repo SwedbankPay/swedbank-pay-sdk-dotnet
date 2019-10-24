@@ -4,6 +4,6 @@
 
     public class SaleListContainer : IdLink
     {
-        public List<SaleResponse> SaleList { get; set; }
+        public List<SaleResponse> SaleList { get; protected set; }
     }
 }

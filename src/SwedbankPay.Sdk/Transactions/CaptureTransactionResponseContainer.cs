@@ -2,7 +2,7 @@
 {
     internal class CaptureTransactionResponseContainer
     {
-        public string Payment { get; set; }
-        public TransactionContainer Capture { get; set; }
+        public string Payment { get; protected set; }
+        public TransactionContainer Capture { get; protected set; }
     }
 }

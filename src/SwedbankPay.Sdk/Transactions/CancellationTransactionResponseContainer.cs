@@ -2,7 +2,7 @@
 {
     internal class CancellationTransactionResponseContainer
     {
-        public string Payment { get; set; }
-        public TransactionContainer Cancellation { get; set; }
+        public string Payment { get; protected set; }
+        public TransactionContainer Cancellation { get; protected set; }
     }
 }

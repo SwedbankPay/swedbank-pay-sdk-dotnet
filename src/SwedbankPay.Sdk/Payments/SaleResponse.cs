@@ -1,17 +1,18 @@
 ﻿namespace SwedbankPay.Sdk.Payments
 {
-    using System;
     using SwedbankPay.Sdk.Transactions;
+
+    using System;
 
     public class SaleResponse
     {
-        public DateTime Date { get; set; }
-        public string PayerAlias { get; set; }
-        public string SwishPaymentReference { get; set; }
-        public string SwishStatus { get; set; }
+        public DateTime Date { get; protected set; }
+        public string PayerAlias { get; protected set; }
+        public string SwishPaymentReference { get; protected set; }
+        public string SwishStatus { get; protected set; }
 
-        public string Id { get; set; }
-        public TransactionResponse Transaction { get; set; }
+        public string Id { get; protected set; }
+        public TransactionResponse Transaction { get; protected set; }
 
     }
 }

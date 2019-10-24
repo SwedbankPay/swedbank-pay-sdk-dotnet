@@ -4,8 +4,8 @@
 
     public class ConsumersResponse
     {
-        public string Token { get; set; }
+        public string Token { get; protected set; }
 
-        public List<HttpOperation> Operations { get; set; } = new List<HttpOperation>();
+        public List<HttpOperation> Operations { get; protected set; } = new List<HttpOperation>();
     }
 }
