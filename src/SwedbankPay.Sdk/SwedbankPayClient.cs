@@ -1,6 +1,9 @@
 ﻿namespace SwedbankPay.Sdk
 {
     using System.Net;
+    using SwedbankPay.Sdk.Consumer;
+    using SwedbankPay.Sdk.Payment;
+    using SwedbankPay.Sdk.PaymentOrder;
     using SwedbankPay.Sdk.Resources;
 
     public class SwedbankPayClient : ISwedbankPayClient

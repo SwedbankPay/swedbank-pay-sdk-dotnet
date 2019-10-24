@@ -1,4 +1,4 @@
-﻿namespace SwedbankPay.Sdk.Resources
+﻿namespace SwedbankPay.Sdk.Consumer
 {
     using System;
     using System.Threading.Tasks;
@@ -7,6 +7,7 @@
     using SwedbankPay.Sdk.Models;
     using SwedbankPay.Sdk.Models.Request;
     using SwedbankPay.Sdk.Models.Response;
+    using SwedbankPay.Sdk.Resources;
 
     public class ConsumerResource : ResourceBase, IConsumerResource
     {

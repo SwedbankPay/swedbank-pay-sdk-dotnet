@@ -1,4 +1,4 @@
-﻿namespace SwedbankPay.Sdk.Resources
+﻿namespace SwedbankPay.Sdk.Payment
 {
     using System;
     using System.Collections.Generic;
@@ -11,6 +11,7 @@
     using SwedbankPay.Sdk.Models.Response.Payment;
     using SwedbankPay.Sdk.Models.Vipps.PaymentAPI.Request;
     using SwedbankPay.Sdk.Models.Vipps.TransactionAPI.Response;
+    using SwedbankPay.Sdk.Resources;
 
     public class PaymentResource : ResourceBase, IPaymentResource
     {

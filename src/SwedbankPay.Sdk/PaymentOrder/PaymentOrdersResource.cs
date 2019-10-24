@@ -1,4 +1,4 @@
-﻿namespace SwedbankPay.Sdk.Resources
+﻿namespace SwedbankPay.Sdk.PaymentOrder
 {
     using System;
     using System.Linq;
@@ -9,6 +9,7 @@
     using SwedbankPay.Sdk.Models.Request.Transaction;
     using SwedbankPay.Sdk.Models.Response.PaymentOrder;
     using SwedbankPay.Sdk.Models.Vipps.TransactionAPI.Response;
+    using SwedbankPay.Sdk.Resources;
 
     public class PaymentOrdersResource : ResourceBase, IPaymentOrdersResource
     {

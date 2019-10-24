@@ -1,4 +1,4 @@
-﻿namespace SwedbankPay.Sdk.Resources
+﻿namespace SwedbankPay.Sdk.Payment
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
