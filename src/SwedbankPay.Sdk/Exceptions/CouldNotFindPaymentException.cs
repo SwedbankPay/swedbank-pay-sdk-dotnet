@@ -1,8 +1,7 @@
 ﻿namespace SwedbankPay.Sdk.Exceptions
 {
     using System;
-    using SwedbankPay.Sdk.Models;
-
+    
     public class CouldNotFindPaymentException : Exception
     {
         public ProblemsContainer Problems { get; }

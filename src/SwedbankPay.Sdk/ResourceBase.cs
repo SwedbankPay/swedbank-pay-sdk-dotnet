@@ -4,12 +4,11 @@
     using RestSharp.Authenticators;
 
     using SwedbankPay.Sdk.Exceptions;
-    using SwedbankPay.Sdk.Models;
+    using SwedbankPay.Sdk.PaymentOrders;
 
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using SwedbankPay.Sdk.PaymentOrders;
 
     public abstract class ResourceBase
     {

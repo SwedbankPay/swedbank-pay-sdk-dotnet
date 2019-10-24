@@ -1,9 +1,5 @@
 ﻿namespace SwedbankPay.Sdk.Tests
 {
-    using SwedbankPay.Sdk;
-    using SwedbankPay.Sdk.Models;
-    using Xunit;
-
     public class UtilsTests
     {
         //[Fact]

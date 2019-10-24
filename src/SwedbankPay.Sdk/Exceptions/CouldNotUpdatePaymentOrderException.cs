@@ -1,8 +1,8 @@
 ﻿namespace SwedbankPay.Sdk.Exceptions
 {
-    using System;
-    using SwedbankPay.Sdk.Models;
     using SwedbankPay.Sdk.PaymentOrders;
+
+    using System;
 
     public class CouldNotUpdatePaymentOrderException : Exception
     {

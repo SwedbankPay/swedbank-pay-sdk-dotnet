@@ -1,7 +1,6 @@
 ﻿namespace SwedbankPay.Sdk.Exceptions
 {
     using System;
-    using SwedbankPay.Sdk.Models;
 
     public class CouldNotReversePaymentException : Exception
     {

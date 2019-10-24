@@ -1,13 +1,14 @@
 ﻿namespace SwedbankPay.Sdk
 {
-    using System;
-    using System.Net;
-    using System.Threading.Tasks;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
     using Newtonsoft.Json.Serialization;
+
     using RestSharp;
-    using SwedbankPay.Sdk.Models;
+
+    using System;
+    using System.Net;
+    using System.Threading.Tasks;
 
     internal class SwedbankPayHttpClient
     {

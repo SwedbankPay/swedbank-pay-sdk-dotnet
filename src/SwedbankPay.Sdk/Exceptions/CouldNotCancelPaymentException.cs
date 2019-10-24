@@ -1,8 +1,6 @@
 ﻿namespace SwedbankPay.Sdk.Exceptions
 {
     using System;
-    using SwedbankPay.Sdk.Models;
-
     public class CouldNotCancelPaymentException : Exception
     {
         public ProblemsContainer Problems { get; }

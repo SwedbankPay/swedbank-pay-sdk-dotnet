@@ -33,10 +33,12 @@ namespace SwedbankPay.Sdk.Tests
                 ["testvalue"] = 3,
                 ["testvalue2"] = "test"
             };
-
+            
             var paymentOrderResponseContainer = await _sut.PaymentOrders.CreatePaymentOrder(paymentOrderRequestContainer, PaymentOrderExpand.All);
             Assert.NotNull(paymentOrderResponseContainer);
             Assert.NotNull(paymentOrderResponseContainer.PaymentOrder);
+
+            //paymentOrderResponseContainer.PaymentOrder.Urls.Id = "";
             //Assert.Equal(30000, paymentOrderResponseContainer.PaymentOrder.Amount);
             //MetaDataContainer metadata = paymentOrderResponseContainer.PaymentOrder.MetaData;
             //var firstMetaData =  metadata.MetaData["testvalue"];

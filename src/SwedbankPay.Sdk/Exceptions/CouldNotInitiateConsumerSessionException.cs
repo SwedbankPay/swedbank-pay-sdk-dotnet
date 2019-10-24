@@ -2,8 +2,7 @@
 {
     using System;
     using SwedbankPay.Sdk.Consumers;
-    using SwedbankPay.Sdk.Models;
-
+    
     public class CouldNotInitiateConsumerSessionException : Exception
     {
         public ProblemsContainer Problems { get; }

@@ -1,8 +1,8 @@
 ﻿namespace SwedbankPay.Sdk.Exceptions
 {
-    using System;
-    using SwedbankPay.Sdk.Models;
     using SwedbankPay.Sdk.Payments;
+
+    using System;
 
     public class CouldNotPlacePaymentException : Exception
     {
