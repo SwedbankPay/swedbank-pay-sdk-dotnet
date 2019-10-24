@@ -1,6 +1,6 @@
 var target = Argument("target", "Pack");
 var configuration = Argument("configuration", "Release");
-var proj = $"./src/SwedbankPay.Client/SwedbankPay.Client.csproj";
+var proj = $"./src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj";
 
 var version = "4.0.0"; 
 var outputDir = "./output";
@@ -14,7 +14,7 @@ Task("Test")
     .IsDependentOn("Build")
     .Does(() => {
         Warning("Lacking tests."); 
-        //var testproj = $"./src/PayEx.Client/PayEx.Client.csproj";       
+        //var testproj = $"./src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj";       
         //DotNetCoreTest(testproj);     
 });
 
@@ -42,7 +42,7 @@ Task("PublishToNugetOrg")
             ApiKey = Argument("nugetapikey", "must-be-given")
         };
 
-        DotNetCoreNuGetPush($"{outputDir}/SwedbankPay.Client.{version}.nupkg", settings);        
+        DotNetCoreNuGetPush($"{outputDir}/SwedbankPay.Sdk.{version}.nupkg", settings);        
 });
 
 RunTarget(target);
