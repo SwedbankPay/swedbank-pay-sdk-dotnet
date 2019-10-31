@@ -1,4 +1,4 @@
-var target = Argument("target", "Pack");
+var target = Argument("target", "Copy-And-Publish-Artifacts");
 var configuration = Argument("configuration", "Release");
 var proj = $"./src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj";
 
@@ -35,12 +35,14 @@ Task("Pack")
         DotNetCorePack(proj, coresettings);
 });
 
-Task("UploadArtifacts")
+Task("Copy-And-Publish-Artifacts")
 	.IsDependentOn("Pack")
-
-	.Does(() => {
-
-});
+    .WithCriteria(BuildSystem.IsRunningOnAzurePipelinesHosted)
+    .Does(() =>
+    {
+        Information($"Uploading files from packagesDir directory: {packagesDir} to TFS");
+        TFBuild.Commands.UploadArtifactDirectory($"{packagesDir}");
+    });
 
 Task("PublishToNugetOrg")
     .IsDependentOn("Pack")
