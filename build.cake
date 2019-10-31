@@ -2,7 +2,7 @@ var target = Argument("target", "Copy-And-Publish-Artifacts");
 var configuration = Argument("configuration", "Release");
 var proj = $"./src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj";
 
-var version = "4.0.0"; 
+var version = "1.0.0"; 
 
 var artifactsDir = MakeAbsolute(Directory("artifacts"));
 var packagesDir = artifactsDir.Combine(Directory("packages"));
@@ -37,7 +37,6 @@ Task("Pack")
 
 Task("Copy-And-Publish-Artifacts")
 	.IsDependentOn("Pack")
-    .WithCriteria(BuildSystem.IsRunningOnAzurePipelinesHosted)
     .Does(() =>
     {
         Information($"Uploading files from packagesDir directory: {packagesDir} to TFS");
