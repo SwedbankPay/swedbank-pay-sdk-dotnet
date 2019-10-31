@@ -14,9 +14,17 @@ steps:
   displayName: 'docker build'
 
 
+- task: CopyFiles@2
+  displayName: 'Copy generated content'
+  inputs: 
+    SourceFolder: '$(Build.SourcesDirectory)/artifacts'
+    contents: '**\*' 
+    targetFolder: $(Build.ArtifactStagingDirectory)/outpout
+    cleanTargetFolder: true
+
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: 'build/artifacts'
+    PathtoPublish: $(Build.ArtifactStagingDirectory)
     ArtifactName: 'drop'
     publishLocation: 'Container'
 
