@@ -3,7 +3,9 @@ var configuration = Argument("configuration", "Release");
 var proj = $"./src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj";
 
 var version = "4.0.0"; 
-var outputDir = "./output";
+
+var artifactsDir = MakeAbsolute(Directory("artifacts"));
+var packagesDir = artifactsDir.Combine(Directory("packages"));
 
 Task("Build")    
     .Does(() => {
@@ -24,13 +26,20 @@ Task("Pack")
         var coresettings = new DotNetCorePackSettings
         {
             Configuration = "Release",
-            OutputDirectory = outputDir,
+            OutputDirectory = packagesDir,
         };
         coresettings.MSBuildSettings = new DotNetCoreMSBuildSettings()
                                         .WithProperty("Version", new[] { version });
 
         
         DotNetCorePack(proj, coresettings);
+});
+
+Task("UploadArtifacts")
+	.IsDependentOn("Pack")
+
+	.Does(() => {
+
 });
 
 Task("PublishToNugetOrg")
@@ -42,7 +51,7 @@ Task("PublishToNugetOrg")
             ApiKey = Argument("nugetapikey", "must-be-given")
         };
 
-        DotNetCoreNuGetPush($"{outputDir}/SwedbankPay.Sdk.{version}.nupkg", settings);        
+        DotNetCoreNuGetPush($"{packagesDir}/SwedbankPay.Sdk.{version}.nupkg", settings);        
 });
 
 RunTarget(target);
