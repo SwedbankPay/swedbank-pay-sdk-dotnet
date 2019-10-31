@@ -14,3 +14,25 @@ steps:
   displayName: 'docker build'
 
 
+- task: NuGetCommand@2
+  inputs:
+    command: 'restore'
+    restoreSolution: 'src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj'
+    feedsToUse: 'select'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: 'src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj'
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'pack'
+    packagesToPack: 'src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj'
+    versioningScheme: 'off'
+    
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
