@@ -79,14 +79,27 @@
         container: 'swedbankpay-paymentmenu-@containerId',
         culture: '@Model.Culture',
         style: style,
-        //onPaymentCreated: onCreatedPaymentHandler
+        onPaymentCreated: onCreatedPaymentHandler
     };
 
     function onCreatedPaymentHandler(paymentCreatedEvent) {
         console.log(paymentCreatedEvent);
+        
         var form = $('.jsCheckoutForm');
+        console.log("redirect", $(form).data('addpaymentinfourl'));
+        debugger;
         var data = form.serializeArray();
         data.push({ name: "instrument", value: paymentCreatedEvent.instrument });
+        //$.ajax({
+        //    async: false,
+        //    type: "POST",
+        //    cache: false,
+        //    url: $(form).data('addpaymentinfourl'),
+        //    data: data,
+        //    success: function(result) {
+        //        console.log('payment created');
+        //    }
+        //});
         $.ajax({
             async: false,
             type: "POST",

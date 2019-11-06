@@ -21,8 +21,4 @@
     <ProjectReference Include="..\SwedbankPay.Sdk\SwedbankPay.Sdk.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Payment\" />
-  </ItemGroup>
-
 </Project>

@@ -10,8 +10,8 @@ namespace Sample.AspNetCore3.Models
     {
         public static void Initialize(IServiceProvider serviceProvider)
         {
-            using (var context = new ProductDBContext(
-                serviceProvider.GetRequiredService<DbContextOptions<ProductDBContext>>()))
+            using (var context = new StoreDBContext(
+                serviceProvider.GetRequiredService<DbContextOptions<StoreDBContext>>()))
             {
                 
                 if (context.Products.Any())

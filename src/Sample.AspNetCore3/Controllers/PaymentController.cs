@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Sample.AspNetCore3.Constants;
+using Sample.AspNetCore3.Data;
 using Sample.AspNetCore3.Extensions;
 using Sample.AspNetCore3.Models;
 using SwedbankPay.Sdk;
@@ -16,12 +17,14 @@ namespace Sample.AspNetCore3.Controllers
     public class PaymentController : Controller
     {
         private readonly SwedbankPayOptions _swedbankPayOptions;
+        private Cart _cartService;
+        private readonly StoreDBContext _context;
 
-        public const string CartSessionKey = "_Cart";
-
-        public PaymentController(IOptionsMonitor<SwedbankPayOptions> optionsAccessor)
+        public PaymentController(IOptionsMonitor<SwedbankPayOptions> optionsAccessor, Cart cartService, StoreDBContext context)
         {
             _swedbankPayOptions = optionsAccessor.CurrentValue;
+            _cartService = cartService;
+            _context = context;
         }
 
 
@@ -109,7 +112,24 @@ namespace Sample.AspNetCore3.Controllers
             
         }
 
+        public ViewResult Thankyou()
+        {
+            
+            _cartService.Clear();
+            return View();
+        }
+
+        [HttpPost]
+        public void OnCompleted(string paymentOrderId)
+        {
+            _context.Orders.Add(new Order
+            {
+                PaymentOrderId = paymentOrderId
+            });
+        }
         
+
+
 
 
     }

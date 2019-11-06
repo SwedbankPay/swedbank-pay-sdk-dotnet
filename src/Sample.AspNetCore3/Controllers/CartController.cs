@@ -16,20 +16,20 @@ namespace Sample.AspNetCore3.Controllers
     public class CartController : Controller
     {
         private readonly ILogger<CartController> _logger;
-        private ProductDBContext _productsContext;
+        private StoreDBContext _storesContext;
         private Cart _cartService;
 
-        public CartController(ILogger<CartController> logger, ProductDBContext productsContext, Cart cartService)
+        public CartController(ILogger<CartController> logger, StoreDBContext storesContext, Cart cartService)
         {
             _logger = logger;
-            _productsContext = productsContext;
+            _storesContext = storesContext;
             _cartService = cartService;
         }
 
         public async Task<IActionResult> AddToCart(int id)
         {
             
-            var productList = await _productsContext.Products.ToListAsync();
+            var productList = await _storesContext.Products.ToListAsync();
             var product = productList.FirstOrDefault(p => p.Id == id);
             _cartService.AddItem(product, 1);
 

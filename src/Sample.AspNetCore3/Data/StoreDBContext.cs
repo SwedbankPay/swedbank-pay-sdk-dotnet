@@ -3,13 +3,14 @@ using Sample.AspNetCore3.Models;
 
 namespace Sample.AspNetCore3.Data
 {
-    public class ProductDBContext : DbContext
+    public class StoreDBContext : DbContext
     {
-        public ProductDBContext(DbContextOptions<ProductDBContext> options)
+        public StoreDBContext(DbContextOptions<StoreDBContext> options)
             : base(options)
         {
         }
 
         public DbSet<Product> Products { get; set; }
+        public DbSet<Order> Orders { get; set; }
     }
 }
