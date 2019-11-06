@@ -1,0 +1,47 @@
+﻿@model Cart
+
+@{
+    ViewData["Title"] = "Cart Page";
+}
+
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
+
+<div class="text-center">
+    <h1 class="display-4">Place your order</h1>
+</div>
+
+<form method="post">
+
+    @*@foreach ()
+    {
+
+    }
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label asp-for="CartLineQuantity"></label>
+            <input asp-for="CartLineQuantity" class="form-control">
+            <div><span asp-validation-for="CartLineQuantity" class="text-danger"></span></div>
+        </div>
+        <div class="form-group col-md-2">
+            <label asp-for="CartLinePrice"></label>
+            <input asp-for="CartLinePrice" class="form-control">
+            <div><span asp-validation-for="CartLinePrice" class="text-danger"></span></div>
+        </div>
+        <input asp-for="Product.Id" hidden />
+
+    </div>
+    <div class="form-group">
+        <div class="form-check">
+            <input asp-for="Vat" class="form-check-input">
+            <label class="form-check-label" asp-for="Vat"></label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Buy</button>
+    </div>*@
+
+</form>
+
+

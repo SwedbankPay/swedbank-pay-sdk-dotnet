@@ -1,0 +1,177 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model SwedbankPayCheckoutSource
+@{
+    var containerId = Guid.NewGuid();
+}
+@*@Html.HiddenFor(x => x.SystemKeyword)*@
+
+<h3>SwedbankPay</h3>
+
+<div id="swedbankpay-checkout">
+
+    @if (Model.UseAnonymousCheckout)
+    {
+        <div id="paymentMenuFrame">
+            <div id="swedbankpay-paymentmenu-@containerId">
+
+            </div>
+        </div>
+    }
+    else
+    {
+        <div>
+            <div id="swedbankpay-consumer-@containerId">
+
+            </div>
+        </div>
+
+        <div id="paymentMenuFrame" hidden>
+            <div id="swedbankpay-paymentmenu-@containerId">
+
+            </div>
+        </div>
+    }
+</div>
+
+
+
+<script type="text/javascript">
+    var loadScriptAsync = function (uri) {
+        return new Promise(function (resolve, reject) {
+            var tag = document.createElement('script');
+            tag.src = uri;
+            tag.async = true;
+            tag.onload = function () {
+                resolve();
+            };
+            var firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        });
+    }
+    var scriptLoaded = loadScriptAsync('@(Model.JavascriptSource)');
+
+    var style = {
+        body: {
+            //backgroundColor: "#555",
+            //color: "#bbb"
+        },
+        button: {
+			backgroundColor: "#337ab7",
+			color: "#fff"
+        },
+        secondaryButton: {
+            backgroundColor: "#555",
+            border: "solid 1px #bbb"
+        },
+        formGroup: {
+            color: "#bbb",
+            backgroundColor: "#555"
+        },
+        label: {
+            color: "#bbb"
+        }
+    };
+
+    var config1 = {
+        container: 'swedbankpay-paymentmenu-@containerId',
+        culture: '@Model.Culture',
+        style: style,
+        //onPaymentCreated: onCreatedPaymentHandler
+    };
+
+    function onCreatedPaymentHandler(paymentCreatedEvent) {
+        console.log(paymentCreatedEvent);
+        var form = $('.jsCheckoutForm');
+        var data = form.serializeArray();
+        data.push({ name: "instrument", value: paymentCreatedEvent.instrument });
+        $.ajax({
+            async: false,
+            type: "POST",
+            cache: false,
+            url: $(form).data('addpaymentinfourl'),
+            data: data,
+            success: function(result) {
+                console.log('payment created');
+            }
+        });
+        console.log('address saved');
+    }
+</script>
+
+
+@if (Model.UseAnonymousCheckout)
+{
+    <script type="text/javascript">
+            scriptLoaded.then(function () {
+                payex.hostedView.paymentMenu(config1).open(); //TODO Change to swedbankpay
+            });
+
+    </script>
+}
+else
+{
+    <script type="text/javascript">
+
+        var paymentMenuConfig = {
+            container: "swedbankpay-consumer-@containerId",
+            culture: '@Model.Culture',
+            style: style,
+            onConsumerIdentified: onIdentifiedConsumerHandler,
+            onShippingDetailsAvailable: onShippingDetailsAvailableHandler
+        };
+
+        function onShippingDetailsAvailableHandler(data) {
+            console.log(data);
+            var request = new XMLHttpRequest();
+
+            request.addEventListener('load', function() {
+                var response = JSON.parse(this.responseText);
+                console.log(response);
+                var shippingAddress = response.ShippingAddress;
+                $('#BillingAddress_Email').val(response.Email);
+                $('#BillingAddress_FirstName').val(shippingAddress.Addressee);
+                $('#BillingAddress_LastName').val(shippingAddress.Addressee);
+                $('#BillingAddress_Line1').val(shippingAddress.StreetAddress);
+                $('#BillingAddress_PostalCode').val(shippingAddress.ZipCode);
+                $('#BillingAddress_City').val(shippingAddress.City);
+                $('#BillingAddress_CountryCode').val(shippingAddress.CountryCode);
+
+            });
+            request.open('POST', '@Url.Action("GetSwedbankPayShippingDetails", "SwedbankPayCheckout", null)', true);
+            request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+            request.send(JSON.stringify(data));
+        }
+
+        function onIdentifiedConsumerHandler(data) {
+            var paymentMenuFrame = document.getElementById("paymentMenuFrame");
+            paymentMenuFrame.removeAttribute("hidden");
+
+            var request = new XMLHttpRequest();
+            request.addEventListener('load', function () {
+
+                var response = JSON.parse(this.responseText);
+
+                var script = document.createElement('script');
+                // This assumses the operations from the response of the POST of the
+                // payment cart is returned verbatim from the server to the Ajax:
+                var operation = response.Operations.find(o => o.Rel === 'view-paymentcart');
+                script.setAttribute('src', operation.Href);
+                script.onload = function() {
+                    // When the 'view-paymentcart' script is loaded, we can initialize the payment
+                    // menu inside our 'checkin' container.
+                    payex.hostedView.paymentMenu(config1).open(); //TODO Change to swedbankpay
+                };
+                var head = document.getElementsByTagName('head')[0];
+                head.appendChild(script);
+            });
+            request.open('POST', '@Url.Action("CreateSwedbankPayPurchase", "Checkout", null)', true);
+            request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+            request.send(JSON.stringify(data));
+        }
+
+        payex.hostedView.consumer(paymentMenuConfig).open();
+    </script>
+}
