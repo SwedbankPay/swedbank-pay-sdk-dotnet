@@ -12,7 +12,9 @@ using Microsoft.Extensions.Hosting;
 using Sample.AspNetCore3.Data;
 using Sample.AspNetCore3.Models;
 using Microsoft.EntityFrameworkCore;
+using RestSharp.Serialization.Xml;
 using SwedbankPay.Sdk;
+using SwedbankPay.Sdk.PaymentOrders;
 
 namespace Sample.AspNetCore3
 {
@@ -21,6 +23,7 @@ namespace Sample.AspNetCore3
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
         }
 
         public IConfiguration Configuration { get; }
@@ -33,6 +36,11 @@ namespace Sample.AspNetCore3
             services.AddControllersWithViews();
             services.AddDistributedMemoryCache();
             services.Configure<SwedbankPayOptions>(Configuration.GetSection("SwedbankPayOptions"));
+            services.Configure<SwedbankPayOptions>(opt => opt.Token = Configuration["Token"]);
+            services.Configure<PayeeInfo>(options =>
+            {
+                options.PayeeId = Configuration.GetSection("PayeeInfo")["PayeeId"];
+            });
             services.AddScoped<Cart>(provider => SessionCart.GetCart(provider));
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSession();

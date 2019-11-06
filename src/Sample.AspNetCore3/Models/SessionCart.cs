@@ -41,5 +41,9 @@ namespace Sample.AspNetCore3.Models
             base.Clear();
             Session.Remove(CartSessionKey);
         }
+        public override void Update()
+        {
+            Session.SetJson(CartSessionKey, this);
+        }
     }
 }

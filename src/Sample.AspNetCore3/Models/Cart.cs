@@ -53,6 +53,10 @@ namespace Sample.AspNetCore3.Models
 
         public virtual void Clear() => cartLineCollection.Clear();
         public virtual IEnumerable<CartLine> CartLines => cartLineCollection;
+        public virtual void Update()
+        {
+
+        }
 
     }
 
@@ -64,6 +68,8 @@ namespace Sample.AspNetCore3.Models
         [Display(Name = "Unit quantity")]
         [Range(1, Int32.MaxValue)]
         public int Quantity { get; set; }
+
+        public long CalculateTotal() => Quantity * Product.Price;
     }
 
 

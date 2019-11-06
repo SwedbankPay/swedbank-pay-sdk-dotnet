@@ -17,13 +17,13 @@ namespace Sample.AspNetCore3.Controllers
     {
         private readonly ILogger<CartController> _logger;
         private ProductDBContext _productsContext;
-        private Cart _cart;
+        private Cart _cartService;
 
-        public CartController(ILogger<CartController> logger, ProductDBContext productsContext, Cart cart)
+        public CartController(ILogger<CartController> logger, ProductDBContext productsContext, Cart cartService)
         {
             _logger = logger;
             _productsContext = productsContext;
-            _cart = cart;
+            _cartService = cartService;
         }
 
         public async Task<IActionResult> AddToCart(int id)
@@ -31,42 +31,40 @@ namespace Sample.AspNetCore3.Controllers
             
             var productList = await _productsContext.Products.ToListAsync();
             var product = productList.FirstOrDefault(p => p.Id == id);
-            _cart.AddItem(product, 1);
+            _cartService.AddItem(product, 1);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", controllerName:"Products");
         }
 
         public IActionResult RemoveFromCart(int id)
         {
             
-            var line = _cart.CartLines.FirstOrDefault(i => i.Product.Id == id);
+            var line = _cartService.CartLines.FirstOrDefault(i => i.Product.Id == id);
             if (line != null)
             {
-                _cart.RemoveItem(line.Product, line.Quantity);
+                _cartService.RemoveItem(line.Product, line.Quantity);
             }
            
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", controllerName:"Products");
         }
 
         [HttpPost]
-        public IActionResult ChangeQuantity(int id)
+        public IActionResult UpdateQuantity(int id, int quantity)
         {
 
-            var line = _cart.CartLines.FirstOrDefault(i => i.Product.Id == id);
+            var line = _cartService.CartLines.FirstOrDefault(i => i.Product.Id == id);
             if (line != null)
             {
-                _cart.RemoveItem(line.Product, line.Quantity);
+                line.Quantity = quantity;
+                _cartService.Update();
             }
-
-            return RedirectToAction("Index");
+            
+            return RedirectToAction("Index", controllerName:"Products");
         }
-
-
-
 
         public IActionResult Index()
         {
-            return View(_cart);
+            return View();
         }
 
         [HttpPost]

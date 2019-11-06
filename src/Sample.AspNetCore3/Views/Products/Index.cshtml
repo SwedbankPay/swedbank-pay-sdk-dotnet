@@ -1,8 +1,12 @@
 ﻿@model IEnumerable<Sample.AspNetCore3.Models.Product>
-
+@inject Cart CartService
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (TempData["AbortMessage"] != null) {
+    <div class="alert alert-success">@TempData["AbortMessage"]</div>
 }
 
 <h1>Store</h1>
@@ -19,7 +23,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Reference)
             </th>
-            
+
             <th>
                 @Html.DisplayNameFor(model => model.Type)
             </th>
@@ -33,31 +37,36 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Reference)
-            </td>
-           
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Class)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
-                <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@item.Id">Add to Cart</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reference)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Class)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
+                    <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@item.Id">Add to Cart</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+@if (CartService.CartLines.Any())
+{@await Component.InvokeAsync("CartSummary")
+}
+

@@ -1,0 +1,24 @@
+﻿
+@model SwedbankPayCheckoutSource
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>SwedbankPay menu</h1>
+
+@await Html.PartialAsync("_SwedbankPayCheckOut", Model)
+
+
+<div class="row justify-content-center">
+    <div class="col">
+        <form asp-action="Abort" asp-controller="Payment" method="post">
+            <input type="hidden" name="LinkId"
+                   value="@Model.AbortOperationLink"/>
+            <button type="submit" class="btn btn-lg btn-danger">
+                Abort
+            </button>
+        </form>
+    </div>
+    
+</div>
