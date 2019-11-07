@@ -58,7 +58,7 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels
         public CartSection<_> Cart { get; set; }
 
         [FindByAutomation("button", "")]
-        public ButtonDelegate<PaymentFramePage, _> Checkout { get; set; }
+        public ButtonDelegate<PaymentPage, _> Checkout { get; set; }
 
     }
 }

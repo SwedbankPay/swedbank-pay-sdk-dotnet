@@ -91,9 +91,14 @@
     <Compile Include="PageObjectModels\Base\Header.cs" />
     <Compile Include="PageObjectModels\Base\ValidationMessage.cs" />
     <Compile Include="PageObjectModels\Base\ValidationMessagesVerification.cs" />
-    <Compile Include="PageObjectModels\PayexFramePage.cs" />
-    <Compile Include="PageObjectModels\PaymentFramePage.cs" />
-    <Compile Include="PageObjectModels\ProductsPage.cs" />
+    <Compile Include="PageObjectModels\Base\WaitForLoadingIndicatorAttribute.cs" />
+    <Compile Include="PageObjectModels\Payment\PayexInvoiceFramePage.cs" />
+    <Compile Include="PageObjectModels\Payment\PayexSwishFramePage.cs" />
+    <Compile Include="PageObjectModels\Payment\PaymentFramePage.cs" />
+    <Compile Include="PageObjectModels\Payment\PaymentPage.cs" />
+    <Compile Include="PageObjectModels\Payment\PayexCardFramePage.cs" />
+    <Compile Include="PageObjectModels\Products\ProductsPage.cs" />
+    <Compile Include="PageObjectModels\Validation\ValidationPage.cs" />
     <Compile Include="Services\FluentExtensions.cs" />
     <Compile Include="Test\Base\Capabilities.cs" />
     <Compile Include="Services\DriverOptionsFactory.cs" />
@@ -108,6 +113,11 @@
     <Compile Include="Test\ExampleTests\PaymentTests.cs" />
     <Compile Include="Test\Base\TestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Test\Helpers\PayexCardInfo.cs" />
+    <Compile Include="Test\Helpers\PayexInfo.cs" />
+    <Compile Include="Test\Helpers\PayexInvoiceInfo.cs" />
+    <Compile Include="Test\Helpers\PayexSwishInfo.cs" />
+    <Compile Include="Test\Helpers\PaymentMethods.cs" />
     <Compile Include="Test\Helpers\Products.cs" />
   </ItemGroup>
   <ItemGroup>
