@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Sample.AspNetCore3.Constants;
 using Sample.AspNetCore3.Data;
-using Sample.AspNetCore3.Extensions;
 using Sample.AspNetCore3.Models;
 using SwedbankPay.Sdk;
-using SwedbankPay.Sdk.PaymentOrders;
 
 namespace Sample.AspNetCore3.Controllers
 {
@@ -116,20 +111,17 @@ namespace Sample.AspNetCore3.Controllers
             
         }
 
-        public ViewResult Thankyou()
-        {
-            
-            _cartService.Clear();
-            return View();
-        }
+       
 
         [HttpPost]
-        public void OnCompleted(string paymentOrderId)
+        public void OnCompleted(string id)
         {
+            
             _context.Orders.Add(new Order
             {
-                PaymentOrderId = paymentOrderId
+                PaymentOrderId = id
             });
+            _context.SaveChanges();
         }
         
 

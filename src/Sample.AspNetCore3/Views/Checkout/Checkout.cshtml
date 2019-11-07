@@ -10,15 +10,16 @@
 @await Html.PartialAsync("_SwedbankPayCheckOut", Model)
 
 
-<div class="row justify-content-center">
-    <div class="col">
-        <form asp-action="Abort" asp-controller="Payment" method="post">
-            <input type="hidden" name="LinkId"
-                   value="@Model.AbortOperationLink"/>
-            <button type="submit" class="btn btn-lg btn-danger" automation="button-abort">
-                Abort
-            </button>
-        </form>
+@if(!String.IsNullOrEmpty(Model.AbortOperationLink)){
+    <div class="row justify-content-center">
+        <div class="col">
+            <form asp-action="Abort" asp-controller="Payment" method="post">
+                <input type="hidden" name="LinkId"
+                       value="@Model.AbortOperationLink"/>
+                <button type="submit" class="btn btn-lg btn-danger" automation="button-abort">
+                    Abort
+                </button>
+            </form>
+        </div>
     </div>
-    
-</div>
+}
