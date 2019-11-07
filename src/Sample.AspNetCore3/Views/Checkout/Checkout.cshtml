@@ -15,7 +15,7 @@
         <form asp-action="Abort" asp-controller="Payment" method="post">
             <input type="hidden" name="LinkId"
                    value="@Model.AbortOperationLink"/>
-            <button type="submit" class="btn btn-lg btn-danger">
+            <button type="submit" class="btn btn-lg btn-danger" automation="button-abort">
                 Abort
             </button>
         </form>
