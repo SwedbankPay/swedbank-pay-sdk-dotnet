@@ -101,7 +101,11 @@ namespace Sample.AspNetCore3.Controllers
                 var swedbankPayClient = new SwedbankPayClient(_swedbankPayOptions);
 
                 var response = await swedbankPayClient.PaymentOrders.AbortPaymentOrder(LinkId);
-                TempData["AbortMessage"] = $"Payment Order: {response.PaymentOrder.Id} has been {response.PaymentOrder.State}";
+                if (response.PaymentOrder.State == "Aborted")
+                {
+                    TempData["AbortMessage"] = $"Payment Order: {response.PaymentOrder.Id} has been {response.PaymentOrder.State}";
+                }
+                else TempData["ErrorMessage"] = $"Something un expected happened. Payment Order: {response.PaymentOrder.Id}, State {response.PaymentOrder.State}";
 
                 return RedirectToAction(nameof(Index), "Products");
             }

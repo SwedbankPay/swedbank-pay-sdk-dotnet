@@ -5,10 +5,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@if (TempData["AbortMessage"] != null) {
+@if (TempData["AbortMessage"] != null)
+{
     <div class="alert alert-success">@TempData["AbortMessage"]</div>
 }
-
+else if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-warning">@TempData["ErrorMessage"]</div>
+}
 <h1>Store</h1>
 
 <p>
@@ -58,9 +62,9 @@
                 </td>
                 <td>
                     @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |*@
-                    <a class="btn btn-primary" automation="button-addtocart" asp-action="AddToCart" asp-controller="Cart" asp-route-id="@item.Id"  >Add to Cart</a>
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |*@
+                    <a class="btn btn-primary" automation="button-addtocart" asp-action="AddToCart" asp-controller="Cart" asp-route-id="@item.Id">Add to Cart</a>
                 </td>
             </tr>
         }
