@@ -1,36 +1,51 @@
-﻿@model IEnumerable<Sample.AspNetCore3.Models.Order>
+﻿@model Sample.AspNetCore3.Models.ViewModels.OrderViewModel
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+@if (TempData["CancelMessage"] != null)
+{
+<div class="alert alert-success">@TempData["CancelMessage"]</div>
+}
+else if (TempData["ErrorMessage"] != null)
+{
+<div class="alert alert-warning">@TempData["ErrorMessage"]</div>
+}
+
+<h1>Orders</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+@*<table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.PaymentOrderId)
+                @Html.DisplayNameFor(model => model.Orders[0].PaymentOrderLink)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Orders[0].PaymentLink)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Orders) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.PaymentOrderId)
+                @Html.DisplayFor(modelItem => item.PaymentOrderLink)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                @Html.DisplayFor(modelItem => item.PaymentLink)
+            </td>
+            <td>
+                <a asp-controller="Payment" asp-action="CancelPayment" asp-route-paymentOrderId="@item.PaymentOrderLink">Cancel</a> |
+                <a asp-action="Details" asp-route-id="@item.Order.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Order.Id">Delete</a>
             </td>
         </tr>
 }
     </tbody>
-</table>
+</table>*@

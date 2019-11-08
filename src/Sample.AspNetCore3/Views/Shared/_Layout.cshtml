@@ -1,5 +1,7 @@
-﻿
+﻿@using Sample.AspNetCore3.Data
+
 @inject Cart CartService
+@inject StoreDBContext StoreContext
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,19 +22,26 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
-                        @*@if (CartService.CartLines.Any())
-        {
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">Cart</a>
-            </li>
-        }*@
+
 
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">Products</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="Index">Orders</a>
-                        </li>
+                        @if (StoreContext.Orders.Any())
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="Details">Orders</a>
+                            </li>
+                            <li class="nav-item">
+                                <form asp-action="Clear" asp-controller="Orders" method="post">
+                                    <button type="submit" class="btn btn-danger" automation="button-clearorders">
+                                        Clear Orders
+                                    </button>
+                                </form>
+                            </li>
+                        }
+                       
+                       
                     </ul>
                 </div>
             </div>

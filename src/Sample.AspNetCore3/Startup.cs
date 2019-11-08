@@ -41,6 +41,7 @@ namespace Sample.AspNetCore3
             {
                 options.PayeeId = Configuration.GetSection("PayeeInfo")["PayeeId"];
             });
+            services.Configure<Urls>(Configuration.GetSection("Urls"));
             services.AddScoped<Cart>(provider => SessionCart.GetCart(provider));
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSession();

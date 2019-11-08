@@ -19,13 +19,17 @@ namespace Sample.AspNetCore3.Controllers
 
         public const string CartSessionKey = "_Cart";
         private readonly PayeeInfo _payeeInfoOptions;
+        private readonly Urls _urlsOptionsAccessor;
         private Cart _cartService;
 
-        public CheckOutController(IOptionsMonitor<SwedbankPayOptions> swedbankPayOptionsAccessor, IOptionsMonitor<PayeeInfo> payeeInfoOptionsAccessor, Cart cartService)
+        public CheckOutController(IOptionsMonitor<SwedbankPayOptions> swedbankPayOptionsAccessor, 
+            IOptionsMonitor<PayeeInfo> payeeInfoOptionsAccessor, IOptionsMonitor<Urls> urlsOptionsAccessor,
+            Cart cartService)
         {
             _swedbankPayOptions = swedbankPayOptionsAccessor.CurrentValue;
 
             _payeeInfoOptions = payeeInfoOptionsAccessor.CurrentValue;
+            _urlsOptionsAccessor = urlsOptionsAccessor.CurrentValue;
             _cartService = cartService;
         }
         
@@ -96,6 +100,8 @@ namespace Sample.AspNetCore3.Controllers
             paymentOrderRequest.Paymentorder.OrderItems = orderItems;
 
             var response = await swedbankPayClient.PaymentOrders.CreatePaymentOrder(paymentOrderRequest);
+            _cartService.PaymentOrderLink = response.PaymentOrder.Id;
+            _cartService.Update();
             return new JsonResult(response);
         }
 
@@ -105,7 +111,7 @@ namespace Sample.AspNetCore3.Controllers
             
             var response = responseJsonResult.Value as PaymentOrderResponseContainer;
 
-            var jsSource = response.Operations.FirstOrDefault(x => x.Rel == Operations.ViewPaymentOrder)?.Href;
+            var jsSource = response.Operations.FirstOrDefault(x => x.Rel == PaymentOrderResourceOperations.ViewPaymentOrder)?.Href;
 
             var swedBankPaySource = new SwedbankPayCheckoutSource
             {
@@ -134,8 +140,7 @@ namespace Sample.AspNetCore3.Controllers
                     {
                         TermsOfServiceUrl = null,
                         CallbackUrl = null,
-                        CancelUrl = "https://payex.eu.ngrok.io/payment-canceled?orderGroupId={orderGroupId}",
-                        CompleteUrl = "https://localhost:44344/Checkout/Thankyou",
+                        CompleteUrl = _urlsOptionsAccessor.CompleteUrl,
                         LogoUrl = null,
                         HostUrls = new List<string> { { "https://payex.eu.ngrok.io" } }
                     },
@@ -152,7 +157,7 @@ namespace Sample.AspNetCore3.Controllers
 
             var swedbankPayClient = new SwedbankPayClient(_swedbankPayOptions);
             var response = await swedbankPayClient.Consumers.InitiateSession(initiateConsumerRequest);
-            var jsSource = response.Operations.FirstOrDefault(x => x.Rel == Operations.ViewConsumerIdentification)?.Href;
+            var jsSource = response.Operations.FirstOrDefault(x => x.Rel == ConsumerResourceOperations.ViewConsumerIdentification)?.Href;
 
             var swedBankPaySource = new SwedbankPayCheckoutSource
             {
