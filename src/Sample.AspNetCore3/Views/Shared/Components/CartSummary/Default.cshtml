@@ -1,0 +1,61 @@
+﻿@model Cart
+ 
+<h2>Your cart</h2>
+<table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+        <th>Quantity</th>
+        <th>Item</th>
+
+        <th class="text-right">Price</th>
+        <th class="text-right">Subtotal</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var line in Model.CartLines)
+    {
+        <tr>
+            <td class="text-center">
+                <form asp-action="UpdateQuantity" asp-controller="Cart" method="post">
+                    <input type="hidden" name="id"
+                           value="@line.Product.Id" />
+                    <input required min="1" name="Quantity" value="@line.Quantity" />
+                    <button type="submit" class="btn btn-sm btn-danger">
+                        Update
+                    </button>
+                </form>
+            </td>
+            <td class="text-left">@line.Product.Name</td>
+            <td class="text-right">@line.Product.Price.ToString("c")</td>
+            <td class="text-right">
+                @((line.Quantity * line.Product.Price).ToString("c"))
+            </td>
+            <td>
+                <form asp-action="RemoveFromCart" asp-controller="Cart" method="post">
+                    <input type="hidden" name="Id"
+                           value="@line.Product.Id" />
+                    @*<input type="hidden" name="returnUrl"
+                            value="@Model.ReturnUrl" />*@
+                    <button type="submit" class="btn btn-sm btn-danger">
+                        Remove
+                    </button>
+                </form>
+            </td>
+                
+        </tr>
+    }
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="3" class="text-right">Total:</td>
+        <td class="text-right">
+            @Model.CalculateTotal().ToString("c")
+        </td>
+    </tr>
+    </tfoot>
+</table>
+<div class="text-center">
+    <a class="btn btn-primary" asp-action="Checkout" asp-controller="CheckOut">
+        Checkout
+    </a>
+</div>
