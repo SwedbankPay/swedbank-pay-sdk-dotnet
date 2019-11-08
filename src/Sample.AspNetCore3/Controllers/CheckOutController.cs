@@ -138,10 +138,11 @@ namespace Sample.AspNetCore3.Controllers
                     UserAgent = "useragent",
                     Urls = new Urls
                     {
-                        TermsOfServiceUrl = null,
+                        TermsOfServiceUrl = _urlsOptionsAccessor.TermsOfServiceUrl,
                         CallbackUrl = null,
                         CompleteUrl = _urlsOptionsAccessor.CompleteUrl,
                         LogoUrl = null,
+                        CancelUrl = _urlsOptionsAccessor.CancelUrl,
                         HostUrls = new List<string> { { "https://payex.eu.ngrok.io" } }
                     },
                     PayeeInfo = _payeeInfoOptions
