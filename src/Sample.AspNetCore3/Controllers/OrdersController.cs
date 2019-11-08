@@ -49,7 +49,7 @@ namespace Sample.AspNetCore3.Controllers
             return View(new OrderViewModel
             {
                 Order = order,
-                Operations = response.Operations
+                Operations = response.Operations.Where(r => r.Rel.Contains("paymentorder")).ToList()
             });
         }
 

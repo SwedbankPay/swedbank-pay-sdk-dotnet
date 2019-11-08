@@ -8,7 +8,6 @@
 
 @{
     string actionName = "";
-    bool buttonDisabled = false;
 }
 
 @if (TempData["CancelMessage"] != null)
@@ -77,22 +76,22 @@ else if (TempData["ErrorMessage"] != null)
                             actionName = "ReversalPayment";
                             break;
                         case PaymentOrderResourceOperations.RedirectPaymentOrder:
-                            buttonDisabled = true;
                             break;
                         case PaymentOrderResourceOperations.UpdatePaymentOrderUpdateOrder:
-                            buttonDisabled = true;
                             break;
                         case PaymentOrderResourceOperations.ViewPaymentOrder:
-                            buttonDisabled = true;
                             break;
                     }
                     @if (!string.IsNullOrEmpty(actionName))
                     {
-                        <a class="btn btn-lg" asp-controller="Payment" asp-action=@actionName asp-route-paymentOrderId=@Model.Order.PaymentOrderLink aria-disabled=@buttonDisabled.ToString()>Execute</a>
+                        var automationTagName = $"a-{actionName.ToLower()}";
+                        <a class="btn btn-primary" asp-controller="Payment" asp-action=@actionName asp-route-paymentOrderId=@Model.Order.PaymentOrderLink automation=@automationTagName >Execute</a>
                     }
+                    else {<span class="badge badge-warning">Not implementet</span>}
 
                 </td>
             </tr>
+            actionName = null;
         }
     </tbody>
 </table>

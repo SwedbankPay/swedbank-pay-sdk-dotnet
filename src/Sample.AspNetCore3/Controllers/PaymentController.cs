@@ -144,7 +144,30 @@ namespace Sample.AspNetCore3.Controllers
 
         }
 
+        public async Task<IActionResult> CapturePayment()
+        {
+            try
+            {
+                var swedbankPayClient = new SwedbankPayClient(_swedbankPayOptions);
 
+                var transActionRequestObject = new TransactionRequestContainer(new TransactionRequest
+                {
+
+                });
+
+                //var response = await swedbankPayClient.PaymentOrders.Capture();
+
+                //TempData["AbortMessage"] = $"Payment Order: {response.PaymentOrder.Id} has been {response.PaymentOrder.State}";
+                //_cartService.PaymentOrderLink = null;
+
+                return RedirectToAction(nameof(Index), "Products");
+            }
+            catch (Exception e)
+            {
+                TempData["ErrorMessage"] = $"Something unexpected happened. {e.Message}";
+                return RedirectToAction(nameof(Index), "Orders");
+            }
+        }
 
 
         [HttpPost]
