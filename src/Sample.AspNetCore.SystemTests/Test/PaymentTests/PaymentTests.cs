@@ -8,8 +8,10 @@ using System.Collections;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using Sample.AspNetCore.SystemTests.PageObjectModels.Payment;
 using OpenQA.Selenium;
+using System;
+using Sample.AspNetCore.SystemTests.Services;
 
-namespace Sample.AspNetCore.SystemTests.Test.ExampleTests
+namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
 {
     public class PaymentTests : TestBase
     {
@@ -20,8 +22,15 @@ namespace Sample.AspNetCore.SystemTests.Test.ExampleTests
         static IEnumerable TestData(bool singleProduct = true, string paymentMethod = PaymentMethods.Card)
         {
             List<object> data = new List<object>();
-            
+
             if (singleProduct)
+            {
+                data.Add(new KeyValuePair<string, int>[]
+                {
+                    new KeyValuePair<string, int>(Products.Product1, 2)
+                });
+            }
+            else
             {
                 data.Add(new KeyValuePair<string, int>[]
                 {
@@ -29,32 +38,23 @@ namespace Sample.AspNetCore.SystemTests.Test.ExampleTests
                     new KeyValuePair<string, int>(Products.Product2, 2),
                 });
             }
-            else
-            {
-                data.Add(new KeyValuePair<string, int>[]
-                {
-                    new KeyValuePair<string, int>(Products.Product1, 1)
-                });
-            }
 
-            switch(paymentMethod)
+            switch (paymentMethod)
             {
                 case PaymentMethods.Card:
-                    data.Add(new PayexCardInfo("", "", ""));
+                    data.Add(new PayexCardInfo(TestDataService.CreditCardNumber, TestDataService.CreditCardExpiratioDate, TestDataService.CreditCardCVC));
                     break;
-
 
                 case PaymentMethods.Swish:
-                    data.Add(new PayexSwishInfo(""));
+                    data.Add(new PayexSwishInfo(TestDataService.SwishPhoneNumber));
                     break;
 
-
                 case PaymentMethods.Invoice:
-                    data.Add(new PayexInvoiceInfo("", "", "", ""));
+                    data.Add(new PayexInvoiceInfo(TestDataService.PersonalNumberShort, TestDataService.Email, TestDataService.PhoneNumber, TestDataService.ZipCode));
                     break;
             }
 
-            return data.ToArray();
+            yield return data.ToArray();
         }
 
         #endregion
@@ -65,13 +65,14 @@ namespace Sample.AspNetCore.SystemTests.Test.ExampleTests
         {
             var page = Go.To<ProductsPage>();
 
-            foreach(var keyValuePair in keyValuePairs)
+            foreach (var keyValuePair in keyValuePairs)
             {
-                page.Products.List[x => x.Name == keyValuePair.Key].AddToCart.Click();
-                page.Cart.Products[x => x.Name == keyValuePair.Key].Quantity.Set(keyValuePair.Value.ToString());
+                page.Products.Rows[x => x.Name == keyValuePair.Key].AddToCart.Click();
+                //page.CartProducts.Rows[x => x.Name == keyValuePair.Key].Quantity.Set(keyValuePair.Value.ToString());
+                page.CartProducts.Rows[x => x.Name == keyValuePair.Key].Update.Click();
             }
 
-            return page.Checkout.ClickAndGo();   
+            return page.Checkout.ClickAndGo();
         }
 
         private PayexCardFramePage GoToPayexCardPaymentFrame(KeyValuePair<string, int>[] keyValuePairs)
@@ -86,16 +87,16 @@ namespace Sample.AspNetCore.SystemTests.Test.ExampleTests
         {
             return GoToPaymentPage(keyValuePairs)
                 .PaymentMethodsFrame.SwitchTo()
-                .PaymentMethods[x => x.Name == PaymentMethods.Card].Click()
-                .PaymentMethods[x => x.Name == PaymentMethods.Card].PaymentFrame.SwitchTo<PayexSwishFramePage>();
+                .PaymentMethods[x => x.Name == PaymentMethods.Swish].Click()
+                .PaymentMethods[x => x.Name == PaymentMethods.Swish].PaymentFrame.SwitchTo<PayexSwishFramePage>();
         }
 
         private PayexInvoiceFramePage GoToPayexInvoicePaymentFrame(KeyValuePair<string, int>[] keyValuePairs)
         {
             return GoToPaymentPage(keyValuePairs)
                 .PaymentMethodsFrame.SwitchTo()
-                .PaymentMethods[x => x.Name == PaymentMethods.Card].Click()
-                .PaymentMethods[x => x.Name == PaymentMethods.Card].PaymentFrame.SwitchTo<PayexInvoiceFramePage>();
+                .PaymentMethods[x => x.Name == PaymentMethods.Invoice].Click()
+                .PaymentMethods[x => x.Name == PaymentMethods.Invoice].PaymentFrame.SwitchTo<PayexInvoiceFramePage>();
         }
 
         private ValidationPage PayWithPayexCard(KeyValuePair<string, int>[] keyValuePairs, PayexCardInfo info)
@@ -151,7 +152,18 @@ namespace Sample.AspNetCore.SystemTests.Test.ExampleTests
         [Test, TestCaseSource(nameof(TestData), new object[] { true, null })]
         public void Field_Validation_Card(KeyValuePair<string, int>[] keyValuePairs)
         {
-            GoToPayexCardPaymentFrame(keyValuePairs);
+            GoToPayexCardPaymentFrame(keyValuePairs)
+                .CreditCardNumber.Set("abc")
+                .ExpiryDate.Set("abcd")
+                .Cvc.Set("abc")
+                .CreditCardNumber.Click()
+                .ValidationIcons[x => x.CreditCardNumber].Should.BeVisible()
+                .ValidationIcons[x => x.ExpiryDate].Should.BeVisible()
+                .CreditCardNumber.Set(TestDataService.CreditCardNumber)
+                .ExpiryDate.Set(TestDataService.CreditCardExpiratioDate)
+                .Cvc.Set(TestDataService.CreditCardCVC)
+                .ValidationIcons[x => x.CreditCardNumber].Should.Not.BeVisible()
+                .ValidationIcons[x => x.ExpiryDate].Should.Not.BeVisible();
         }
 
         [Test, TestCaseSource(nameof(TestData), new object[] { true, null })]
@@ -163,7 +175,24 @@ namespace Sample.AspNetCore.SystemTests.Test.ExampleTests
         [Test, TestCaseSource(nameof(TestData), new object[] { true, null })]
         public void Field_Validation_Invoice(KeyValuePair<string, int>[] keyValuePairs)
         {
-            GoToPayexInvoicePaymentFrame(keyValuePairs);
+            GoToPayexInvoicePaymentFrame(keyValuePairs)
+                .PersonalNumber.Set("abc")
+                .Email.Set("abc")
+                .PhoneNumber.Set("abc")
+                .ZipCode.Set("abc")
+                .PersonalNumber.Click()
+                .ValidationIcons[x => x.PersonalNumber].Should.BeVisible()
+                .ValidationIcons[x => x.Email].Should.BeVisible()
+                .ValidationIcons[x => x.PhoneNumber].Should.BeVisible()
+                .ValidationIcons[x => x.ZipCode].Should.BeVisible()
+                .PersonalNumber.Set(TestDataService.PersonalNumberShort)
+                .Email.Set(TestDataService.Email)
+                .PhoneNumber.Set(TestDataService.PhoneNumber)
+                .ZipCode.Set(TestDataService.ZipCode)
+                .ValidationIcons[x => x.PersonalNumber].Should.Not.BeVisible()
+                .ValidationIcons[x => x.Email].Should.Not.BeVisible()
+                .ValidationIcons[x => x.PhoneNumber].Should.Not.BeVisible()
+                .ValidationIcons[x => x.ZipCode].Should.Not.BeVisible();
         }
 
         #endregion
@@ -171,9 +200,9 @@ namespace Sample.AspNetCore.SystemTests.Test.ExampleTests
         #region Success
 
         [Test, TestCaseSource(nameof(TestData), new object[] { true, PaymentMethods.Card })]
-        public void Anonymous_Flow_Payment_Card(KeyValuePair<string, int>[] keyValuePairs)
+        public void Anonymous_Flow_Payment_Card(KeyValuePair<string, int>[] keyValuePairs, PayexInfo payexInfo)
         {
-
+            GoToValidationPage(keyValuePairs, payexInfo);
         }
 
         [Test, TestCaseSource(nameof(TestData))]

@@ -20,7 +20,7 @@ using static Sample.AspNetCore.SystemTests.Test.Base.Drivers;
 namespace Sample.AspNetCore.SystemTests.Test.Base
 {
     #if DEBUG
-    [TestFixture(DriverAliases.Firefox)]
+    [TestFixture(DriverAliases.Chrome)]
     #elif DEV
     [TestFixture(DriverAliases.Chrome)]
     //[TestFixtureSource(typeof(Profiles.ProfileDEV))]
@@ -59,7 +59,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
             #if DEBUG
             AtataContext.Configure()
                 .UseDriver(_driverAlias)
-                    .UseBaseUrl("https://YourBaseUrl.com/")
+                    .UseBaseUrl("https://localhost:44389/")
             .Build();
             AtataContext.Current.Driver.Maximize();
             #elif DEV

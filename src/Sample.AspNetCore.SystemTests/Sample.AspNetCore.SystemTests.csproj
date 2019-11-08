@@ -110,7 +110,7 @@
     <Compile Include="Test\Base\Executions.cs" />
     <Compile Include="Test\Base\Profiles.cs" />
     <Compile Include="Test\Base\TestCategory.cs" />
-    <Compile Include="Test\ExampleTests\PaymentTests.cs" />
+    <Compile Include="Test\PaymentTests\PaymentTests.cs" />
     <Compile Include="Test\Base\TestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Test\Helpers\PayexCardInfo.cs" />

@@ -16,7 +16,7 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels
         [ControlDefinition("div", ContainingClass = "custom-menu-card")]
         public class PayexItem : Control<_>
         {
-            [FindByClass("span"), FindByIndex(0)]
+            [FindByClass("menu-card-title")]
             public Text<_> Name { get; private set; }
 
             [WaitFor(Until.Visible, TriggerEvents.BeforeAccess)]

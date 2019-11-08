@@ -7,58 +7,53 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels
 
     public class ProductsPage : Page<_>
     {
-        [ControlDefinition("div[@automation='']", ComponentTypeName = "Products")]
-        public class ProductsSection<TOwner> : Control<TOwner> where TOwner : PageObject<TOwner>
+        public class ProductItem : TableRow<_>
         {
-            [ControlDefinition("div[@automation='']", ComponentTypeName = "Product")]
-            public class ProductItem : Control<_> 
-            {
-                [FindByAutomation("span", "")]
-                public Text<_> Name { get; set; }
+            //[FindByAutomation("span", "")]
+            [FindByXPath("td[1]")]
+            public Text<_> Name { get; set; }
 
-                [FindByAutomation("span", "")]
-                public Text<_> Price { get; set; }
+            //[FindByAutomation("span", "")]
+            [FindByXPath("td[4]")]
+            public Text<_> Price { get; set; }
 
-                [FindByAutomation("button", "")]
-                public Button<_> AddToCart { get; set; }
+            //[FindByAutomation("button", "")]
+            [FindByAutomation("a", "button-addtocart")]
+            public Link<_> AddToCart { get; set; }
 
-                [FindByAutomation("button", "")]
-                public Button<_> Open { get; set; }
-            }
-
-            [FindByAutomation("ul", "")]
-            public UnorderedList<ProductItem, _> List { get; set; }
+            //[FindByAutomation("button", "")]
+            [FindByXPath("a[1]")]
+            public Link<_> Open { get; set; }
         }
 
-        [ControlDefinition("div[@automation='']", ComponentTypeName = "Cart")]
-        public class CartSection<TOwner> : Control<TOwner> where TOwner : PageObject<TOwner>
+        public class ProductBasketItem : TableRow<_>
         {
-            [ControlDefinition("div[@automation='']", ComponentTypeName = "Selected Product")]
-            public class ProductItem : Control<_>
-            {
-                [FindByAutomation("span", "")]
-                public Text<_> Name { get; set; }
+            //[FindByAutomation("span", "")]
+            [FindByXPath("td[2]")]
+            public Text<_> Name { get; set; }
 
-                [FindByAutomation("span", "")]
-                public Text<_> Price { get; set; }
+            //[FindByAutomation("span", "")]
+            [FindByXPath("td[3]")]
+            public Text<_> Price { get; set; }
 
-                [FindByAutomation("input", "")]
-                public TextInput<_> Quantity { get; set; }
+            //[FindByAutomation("input", "")]
+            [FindByName("Quantity")]
+            public Input<string, _> Quantity { get; set; }
 
-                [FindByAutomation("button", "")]
-                public Button<_> Update { get; set; }
-            }
-
-            [FindByAutomation("ul", "")]
-            public UnorderedList<ProductItem, _> Products { get; set; }
+            //[FindByAutomation("button", "")]
+            [FindByXPath("button[1]")]
+            public Button<_> Update { get; set; }
         }
 
-        public ProductsSection<_> Products { get; set; }
+        [FindByXPath("table[1]")]
+        public Table<ProductItem, _> Products { get; set; }
 
-        public CartSection<_> Cart { get; set; }
+        [FindByXPath("table[2]")]
+        public Table<ProductBasketItem, _> CartProducts { get; set; }
 
-        [FindByAutomation("button", "")]
-        public ButtonDelegate<PaymentPage, _> Checkout { get; set; }
+        [FindByAutomation("a", "button-checkout", Index = 0)]
+        //[FindByContent("Checkout")]
+        public LinkDelegate<PaymentPage, _> Checkout { get; set; }
 
     }
 }

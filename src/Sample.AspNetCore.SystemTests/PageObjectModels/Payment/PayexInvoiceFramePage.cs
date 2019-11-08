@@ -27,5 +27,8 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Payment
 
         [FindById("px-submit")]
         public ButtonDelegate<ValidationPage, _> Next { get; set; }
+
+        public ValidationIconList<_> ValidationIcons { get; set; }
+        
     }
 }

@@ -18,17 +18,19 @@ namespace Sample.AspNetCore.SystemTests.Services
 
         public static string Street => "Streetgatan 123";
 
-        public static string ZipCode => "12345";
+        public static string ZipCode => "29620";
 
-        public static string City => "Stockholm";
+        public static string City => "Småbyen";
 
         public static string PhoneNumber => "0706050403";
 
         public static string SwedishPhoneNumber => "+46706050403";
+        
+        public static string SwishPhoneNumber => "0701234567";
 
-        public static string PersonalNumber => "19800101-8921";
+        public static string PersonalNumber => "19590719-5662";
 
-        public static string PersonalNumberShort => "800101-8921";
+        public static string PersonalNumberShort => "590719-5662";
 
         public static string Email => "john@doe.com";
 
@@ -36,7 +38,8 @@ namespace Sample.AspNetCore.SystemTests.Services
 
         public static string OrganizationNumber => "SE999999999901";
 
-        public static string CreditCardNumber => "4581097655558174";
+        //public static string CreditCardNumber => "4581097655558174";
+        public static string CreditCardNumber => "4925000000000004";
 
         public static string CreditCardCVC => "210";
 
