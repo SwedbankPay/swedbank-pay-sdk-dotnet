@@ -5,42 +5,52 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Sample.AspNetCore3.Data;
 using Sample.AspNetCore3.Models;
+using Sample.AspNetCore3.Models.ViewModels;
+using SwedbankPay.Sdk;
+using SwedbankPay.Sdk.Transactions;
 
 namespace Sample.AspNetCore3.Controllers
 {
     public class OrdersController : Controller
     {
         private readonly StoreDBContext _context;
+        private readonly SwedbankPayOptions _swedbankPayOptions;
 
-        public OrdersController(StoreDBContext context)
+        public OrdersController(StoreDBContext context, IOptionsMonitor<SwedbankPayOptions> swedPayOptions)
         {
             _context = context;
+            _swedbankPayOptions = swedPayOptions.CurrentValue;
         }
 
         // GET: Orders
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Orders.ToListAsync());
+            var orders = await _context.Orders.ToListAsync();
+            return View();
         }
 
         // GET: Orders/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var order = await _context.Orders
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync();
             if (order == null)
             {
                 return NotFound();
             }
 
-            return View(order);
+            var swedbankPayClient = new SwedbankPayClient(_swedbankPayOptions);
+           
+            var response = await swedbankPayClient.PaymentOrders.GetPaymentOrder(order.PaymentOrderLink);
+
+            return View(new OrderViewModel
+            {
+                Order = order,
+                Operations = response.Operations
+            });
         }
 
         // GET: Orders/Create
@@ -115,36 +125,20 @@ namespace Sample.AspNetCore3.Controllers
             }
             return View(order);
         }
-
-        // GET: Orders/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var order = await _context.Orders
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (order == null)
-            {
-                return NotFound();
-            }
-
-            return View(order);
-        }
-
-        // POST: Orders/Delete/5
-        [HttpPost, ActionName("Delete")]
+        
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> Clear()
         {
-            var order = await _context.Orders.FindAsync(id);
-            _context.Orders.Remove(order);
-            await _context.SaveChangesAsync();
+            var orders = await _context.Orders.ToListAsync();
+            if (orders != null)
+            {
+                _context.Orders.RemoveRange(orders);
+                await _context.SaveChangesAsync();
+            }
+            
             return RedirectToAction(nameof(Index));
         }
-
         private bool OrderExists(int id)
         {
             return _context.Orders.Any(e => e.Id == id);

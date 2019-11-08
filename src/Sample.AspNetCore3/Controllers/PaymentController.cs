@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Sample.AspNetCore3.Constants;
 using Sample.AspNetCore3.Data;
-using Sample.AspNetCore3.Extensions;
 using Sample.AspNetCore3.Models;
+using Sample.AspNetCore3.Models.ViewModels;
 using SwedbankPay.Sdk;
-using SwedbankPay.Sdk.PaymentOrders;
+using SwedbankPay.Sdk.Transactions;
 
 namespace Sample.AspNetCore3.Controllers
 {
@@ -75,57 +72,92 @@ namespace Sample.AspNetCore3.Controllers
             return View();
         }
 
-        // POST: Payment/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        
+        [HttpGet]
+        
+        public async Task<ActionResult> CancelPayment(string paymentOrderId)
         {
             try
             {
-                // TODO: Add update logic here
+                var swedbankPayClient = new SwedbankPayClient(_swedbankPayOptions);
+                var transactionRequestObject = new TransactionRequestContainer(new TransactionRequest
+                {
+                    PayeeReference = DateTime.Now.Ticks.ToString(),
+                    Description = "Cancelling parts of the total amount"
 
-                return RedirectToAction(nameof(Index));
+                });
+                var response = await swedbankPayClient.PaymentOrders.CancelPaymentOrder(paymentOrderId, transactionRequestObject);
+                
+                TempData["CancelMessage"] = $"Payment has been cancelled: {response.Id}";
+                _cartService.PaymentOrderLink = null;
+                
+                return RedirectToAction(nameof(Details), "Orders");
             }
-            catch
+            catch (Exception e)  
             {
-                return View();
+                TempData["ErrorMessage"] = $"Something unexpected happened. {e.Message}";
+                return RedirectToAction(nameof(Details), "Orders");
             }
         }
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Abort(string LinkId)
+        public async Task<IActionResult> AbortPaymentOrder(string LinkId)
+        {
+            try
+            {
+                var swedbankPayClient = new SwedbankPayClient(_swedbankPayOptions);
+                
+                var response = await swedbankPayClient.PaymentOrders.AbortPaymentOrder(LinkId);
+                
+                TempData["AbortMessage"] = $"Payment Order: {response.PaymentOrder.Id} has been {response.PaymentOrder.State}";
+                _cartService.PaymentOrderLink = null;
+
+                return RedirectToAction(nameof(Index), "Products");
+            }
+            catch(Exception e)
+            {
+                TempData["ErrorMessage"] = $"Something unexpected happened. {e.Message}";
+                return RedirectToAction(nameof(Index), "Orders");
+            }
+            
+        }
+
+        public async Task<IActionResult> GetPaymentOrder(string LinkId)
         {
             try
             {
                 var swedbankPayClient = new SwedbankPayClient(_swedbankPayOptions);
 
                 var response = await swedbankPayClient.PaymentOrders.AbortPaymentOrder(LinkId);
+
                 TempData["AbortMessage"] = $"Payment Order: {response.PaymentOrder.Id} has been {response.PaymentOrder.State}";
+                _cartService.PaymentOrderLink = null;
 
                 return RedirectToAction(nameof(Index), "Products");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                return View();
+                TempData["ErrorMessage"] = $"Something unexpected happened. {e.Message}";
+                return RedirectToAction(nameof(Index), "Orders");
             }
-            
+
         }
 
-        public ViewResult Thankyou()
-        {
-            
-            _cartService.Clear();
-            return View();
-        }
+
+
 
         [HttpPost]
-        public void OnCompleted(string paymentOrderId)
+        public void OnCompleted(string id)
         {
+            
             _context.Orders.Add(new Order
             {
-                PaymentOrderId = paymentOrderId
+                PaymentOrderLink = _cartService.PaymentOrderLink,
+                PaymentLink = id 
+
             });
+            _context.SaveChanges();
         }
         
 

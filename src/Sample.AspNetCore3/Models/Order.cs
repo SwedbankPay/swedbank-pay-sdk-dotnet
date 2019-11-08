@@ -3,6 +3,7 @@
     public class Order
     {
         public int Id { get; set; }
-        public string PaymentOrderId { get; set; }
+        public string PaymentOrderLink { get; set; }
+        public string PaymentLink { get; set; }
     }
 }

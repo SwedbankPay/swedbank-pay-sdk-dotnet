@@ -8,7 +8,7 @@
 }
 @*@Html.HiddenFor(x => x.SystemKeyword)*@
 
-<h3>SwedbankPay</h3>
+
 
 <div id="swedbankpay-checkout">
 
@@ -84,12 +84,10 @@
 
     function onCreatedPaymentHandler(paymentCreatedEvent) {
         console.log(paymentCreatedEvent);
-        
         var form = $('.jsCheckoutForm');
-        console.log("redirect", $(form).data('addpaymentinfourl'));
-        debugger;
-        var data = form.serializeArray();
-        data.push({ name: "instrument", value: paymentCreatedEvent.instrument });
+        //var data = form.serializeArray();
+        
+        //data.push({ name: "instrument", value: paymentCreatedEvent.instrument });
         //$.ajax({
         //    async: false,
         //    type: "POST",
@@ -104,8 +102,8 @@
             async: false,
             type: "POST",
             cache: false,
-            url: $(form).data('addpaymentinfourl'),
-            data: data,
+            url: "/payment/OnCompleted",
+            data: {"id": paymentCreatedEvent.id},
             success: function(result) {
                 console.log('payment created');
             }
@@ -133,7 +131,7 @@ else
             culture: '@Model.Culture',
             style: style,
             onConsumerIdentified: onIdentifiedConsumerHandler,
-            onShippingDetailsAvailable: onShippingDetailsAvailableHandler
+            //onShippingDetailsAvailable: onShippingDetailsAvailableHandler //TODO Add support for onShipping
         };
 
         function onShippingDetailsAvailableHandler(data) {
@@ -161,16 +159,18 @@ else
         function onIdentifiedConsumerHandler(data) {
             var paymentMenuFrame = document.getElementById("paymentMenuFrame");
             paymentMenuFrame.removeAttribute("hidden");
-
+            @*console.log("data", data);
+            debugger;
             var request = new XMLHttpRequest();
             request.addEventListener('load', function () {
 
+               
                 var response = JSON.parse(this.responseText);
-
+                console.log("result", response);
                 var script = document.createElement('script');
                 // This assumses the operations from the response of the POST of the
                 // payment cart is returned verbatim from the server to the Ajax:
-                var operation = response.Operations.find(o => o.Rel === 'view-paymentcart');
+                var operation = response.Operations.find(o => o.Rel === 'view-paymentorder');
                 script.setAttribute('src', operation.Href);
                 script.onload = function() {
                     // When the 'view-paymentcart' script is loaded, we can initialize the payment
@@ -180,11 +180,58 @@ else
                 var head = document.getElementsByTagName('head')[0];
                 head.appendChild(script);
             });
-            request.open('POST', '@Url.Action("CreateSwedbankPayPurchase", "Checkout", null)', true);
+            request.open('POST', '@Url.Action("CreatePaymentOrder", "Checkout", null)', true);
             request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-            request.send(JSON.stringify(data));
+            request.send('consumerProfileRef=jhf');*@
+
+            $.ajax({
+                async: true,
+                type: "POST",
+                cache: false,
+                url: '@Url.Action("CreatePaymentOrder", "Checkout", null)',
+                data: {"consumerProfileRef": data.consumerProfileRef},
+                success: function(result) {
+                    
+                    console.log("result", result);
+                    
+                    //var response = JSON.parse(result);
+                    
+                    var script = document.createElement('script');
+                    // This assumses the operations from the response of the POST of the
+                    // payment cart is returned verbatim from the server to the Ajax:
+                    //var operation = response.Operations.find(o => o.Rel === 'view-paymentorder');
+                    var operation = myFunction(result.operations, 'rel', 'view-paymentorder');
+                    
+                    console.log("operation", operation);
+                    debugger;
+                    //var operation = result.Operations.find(o => o.Rel === 'view-paymentorder');
+                    script.setAttribute('src', operation.href);
+                    script.onload = function() {
+                        // When the 'view-paymentcart' script is loaded, we can initialize the payment
+                        // menu inside our 'checkin' container.
+                        payex.hostedView.paymentMenu(config1).open(); //TODO Change to swedbankpay
+                    };
+                    var head = document.getElementsByTagName('head')[0];
+                    head.appendChild(script);
+                },
+                error: function (xhr, error) {
+                    console.debug(xhr); console.debug(error);
+                }
+            });
+
+            function myFunction(array, key, value) {
+                for (var i = 0; i < array.length; i++) {
+                    if (array[i][key] === value) {
+                        return array[i];
+                    }
+                }
+            }
+
         }
 
-        payex.hostedView.consumer(paymentMenuConfig).open();
+        scriptLoaded.then(function () {
+            payex.hostedView.consumer(paymentMenuConfig).open(); //TODO Change to swedbankpay
+        });
+        
     </script>
 }

@@ -7,6 +7,7 @@ namespace Sample.AspNetCore3.Models
 {
     public class Cart
     {
+        public string PaymentOrderLink { get; set; }
         public bool Vat { get; set; }
         public double VatPercentage { get; set; }
         private List<CartLine> cartLineCollection { get; set; } = new List<CartLine>();
