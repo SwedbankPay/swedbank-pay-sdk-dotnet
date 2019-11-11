@@ -18,8 +18,8 @@
             <td class="text-center">
                 <form asp-action="UpdateQuantity" asp-controller="Cart" method="post">
                     <input type="hidden" name="id"
-                           value="@line.Product.Id" />
-                    <input required min="1" name="Quantity" value="@line.Quantity" automation="input-quantity"/>
+                           value="@line.Product.ProductId" />
+                    <input type="number" required min="1" name="Quantity" value="@line.Quantity" automation="input-quantity"/>
                     <button type="submit" class="btn btn-sm btn-danger" automation="button-updatequantity">
                         Update
                     </button>
@@ -33,7 +33,7 @@
             <td>
                 <form asp-action="RemoveFromCart" asp-controller="Cart" method="post">
                     <input type="hidden" name="Id"
-                           value="@line.Product.Id" />
+                           value="@line.Product.ProductId" />
                     @*<input type="hidden" name="returnUrl"
                             value="@Model.ReturnUrl" />*@
                     <button type="submit" class="btn btn-sm btn-danger">

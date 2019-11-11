@@ -12,5 +12,6 @@ namespace Sample.AspNetCore3.Data
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
+        
     }
 }

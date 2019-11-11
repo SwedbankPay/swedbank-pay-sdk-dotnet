@@ -22,7 +22,7 @@ namespace Sample.AspNetCore3.Models
                 context.Products.AddRange(
                     new Product()
                     {
-                        Id = 1,
+                        ProductId = 1,
                         Class = "ProductGroup1",
                         Type = "PRODUCT",
                         Name = "Puma Black Sneakers Shoes",
@@ -30,7 +30,7 @@ namespace Sample.AspNetCore3.Models
                         Price = 230
                     }, new Product
                     {
-                        Id = 2,
+                        ProductId = 2,
                         Class = "ProductGroup1",
                         Type = "PRODUCT",
                         Name = "Nike Metcon 5",

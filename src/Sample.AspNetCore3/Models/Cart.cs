@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace Sample.AspNetCore3.Models
@@ -14,7 +15,7 @@ namespace Sample.AspNetCore3.Models
 
         public virtual void AddItem(Product product, int quantity)
         {
-            CartLine line = cartLineCollection.FirstOrDefault(p => p.Product.Id == product.Id);
+            CartLine line = cartLineCollection.FirstOrDefault(p => p.Product.ProductId == product.ProductId);
 
             if (line == null)
             {
@@ -33,7 +34,7 @@ namespace Sample.AspNetCore3.Models
 
         public virtual void RemoveItem(Product product, int quantity)
         {
-            CartLine line = cartLineCollection.FirstOrDefault(p => p.Product.Id == product.Id);
+            CartLine line = cartLineCollection.FirstOrDefault(p => p.Product.ProductId == product.ProductId);
 
             if (line == null)
             {
@@ -61,6 +62,7 @@ namespace Sample.AspNetCore3.Models
 
     }
 
+    
     public class CartLine
     {
         public int CartLineID { get; set; }

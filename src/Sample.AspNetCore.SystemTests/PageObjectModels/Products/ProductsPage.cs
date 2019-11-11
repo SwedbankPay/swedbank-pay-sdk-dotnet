@@ -51,7 +51,7 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels
         [FindByXPath("table[2]")]
         public Table<ProductBasketItem, _> CartProducts { get; set; }
 
-        [FindByAutomation("a", "button-checkout", Index = 0)]
+        [FindByAutomation("a", "button-checkout", Index = 1)]
         //[FindByContent("Checkout")]
         public LinkDelegate<PaymentPage, _> Checkout { get; set; }
 

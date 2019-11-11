@@ -8,12 +8,19 @@
 
 @{
     string actionName = "";
-    bool buttonDisabled = false;
 }
 
 @if (TempData["CancelMessage"] != null)
 {
     <div class="alert alert-success">@TempData["CancelMessage"]</div>
+}
+else if (TempData["CaptureMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["CaptureMessage"]</div>
+}
+else if (TempData["ReversalMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["ReversalMessage"]</div>
 }
 else if (TempData["ErrorMessage"] != null)
 {
@@ -28,6 +35,12 @@ else if (TempData["ErrorMessage"] != null)
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Order.PaymentOrderLink)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Order.PaymentOrderLink)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Order.PaymentLink)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Order.PaymentLink)
@@ -77,22 +90,23 @@ else if (TempData["ErrorMessage"] != null)
                             actionName = "ReversalPayment";
                             break;
                         case PaymentOrderResourceOperations.RedirectPaymentOrder:
-                            buttonDisabled = true;
                             break;
                         case PaymentOrderResourceOperations.UpdatePaymentOrderUpdateOrder:
-                            buttonDisabled = true;
                             break;
                         case PaymentOrderResourceOperations.ViewPaymentOrder:
-                            buttonDisabled = true;
                             break;
                     }
                     @if (!string.IsNullOrEmpty(actionName))
                     {
-                        <a class="btn btn-lg" asp-controller="Payment" asp-action=@actionName asp-route-paymentOrderId=@Model.Order.PaymentOrderLink aria-disabled=@buttonDisabled.ToString()>Execute</a>
+                        var automationTagName = $"a-{actionName.ToLower()}";
+                        <a class="btn btn-primary" asp-controller="Payment" asp-action=@actionName asp-route-paymentOrderId=@Model.Order.PaymentOrderLink automation=@automationTagName>Execute</a>
                     }
+                    else
+                    {<span class="badge badge-warning">Not implemented</span>}
 
                 </td>
             </tr>
+            actionName = null;
         }
     </tbody>
 </table>
