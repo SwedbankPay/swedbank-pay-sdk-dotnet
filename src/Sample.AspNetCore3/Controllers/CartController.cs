@@ -30,7 +30,7 @@ namespace Sample.AspNetCore3.Controllers
         {
             
             var productList = await _storesContext.Products.ToListAsync();
-            var product = productList.FirstOrDefault(p => p.Id == id);
+            var product = productList.FirstOrDefault(p => p.ProductId == id);
             _cartService.AddItem(product, 1);
 
             return RedirectToAction("Index", controllerName:"Products");
@@ -39,7 +39,7 @@ namespace Sample.AspNetCore3.Controllers
         public IActionResult RemoveFromCart(int id)
         {
             
-            var line = _cartService.CartLines.FirstOrDefault(i => i.Product.Id == id);
+            var line = _cartService.CartLines.FirstOrDefault(i => i.Product.ProductId == id);
             if (line != null)
             {
                 _cartService.RemoveItem(line.Product, line.Quantity);
@@ -52,7 +52,7 @@ namespace Sample.AspNetCore3.Controllers
         public IActionResult UpdateQuantity(int id, int quantity)
         {
 
-            var line = _cartService.CartLines.FirstOrDefault(i => i.Product.Id == id);
+            var line = _cartService.CartLines.FirstOrDefault(i => i.Product.ProductId == id);
             if (line != null)
             {
                 line.Quantity = quantity;

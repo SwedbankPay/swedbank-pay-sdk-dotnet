@@ -98,7 +98,7 @@ namespace Sample.AspNetCore3.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,PaymentOrderId")] Order order)
         {
-            if (id != order.Id)
+            if (id != order.OrderId)
             {
                 return NotFound();
             }
@@ -112,7 +112,7 @@ namespace Sample.AspNetCore3.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!OrderExists(order.Id))
+                    if (!OrderExists(order.OrderId))
                     {
                         return NotFound();
                     }
@@ -141,7 +141,7 @@ namespace Sample.AspNetCore3.Controllers
         }
         private bool OrderExists(int id)
         {
-            return _context.Orders.Any(e => e.Id == id);
+            return _context.Orders.Any(e => e.OrderId == id);
         }
     }
 }

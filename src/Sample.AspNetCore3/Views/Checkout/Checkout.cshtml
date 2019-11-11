@@ -14,7 +14,7 @@
     <div class="row justify-content-center">
         <div class="col">
             <form asp-action="AbortPaymentOrder" asp-controller="Payment" method="post">
-                <input type="hidden" name="LinkId"
+                <input type="hidden" name="paymentOrderId"
                        value="@Model.AbortOperationLink"/>
                 <button type="submit" class="btn btn-lg btn-danger" automation="button-abort">
                     Abort

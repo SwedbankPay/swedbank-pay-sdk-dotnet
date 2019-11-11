@@ -14,6 +14,14 @@
 {
     <div class="alert alert-success">@TempData["CancelMessage"]</div>
 }
+else if (TempData["CaptureMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["CaptureMessage"]</div>
+}
+else if (TempData["ReversalMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["ReversalMessage"]</div>
+}
 else if (TempData["ErrorMessage"] != null)
 {
     <div class="alert alert-warning">@TempData["ErrorMessage"]</div>
@@ -27,6 +35,12 @@ else if (TempData["ErrorMessage"] != null)
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Order.PaymentOrderLink)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Order.PaymentOrderLink)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Order.PaymentLink)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Order.PaymentLink)
@@ -85,9 +99,10 @@ else if (TempData["ErrorMessage"] != null)
                     @if (!string.IsNullOrEmpty(actionName))
                     {
                         var automationTagName = $"a-{actionName.ToLower()}";
-                        <a class="btn btn-primary" asp-controller="Payment" asp-action=@actionName asp-route-paymentOrderId=@Model.Order.PaymentOrderLink automation=@automationTagName >Execute</a>
+                        <a class="btn btn-primary" asp-controller="Payment" asp-action=@actionName asp-route-paymentOrderId=@Model.Order.PaymentOrderLink automation=@automationTagName>Execute</a>
                     }
-                    else {<span class="badge badge-warning">Not implementet</span>}
+                    else
+                    {<span class="badge badge-warning">Not implemented</span>}
 
                 </td>
             </tr>

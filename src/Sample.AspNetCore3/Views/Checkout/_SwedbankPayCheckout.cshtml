@@ -103,7 +103,7 @@
             type: "POST",
             cache: false,
             url: "/payment/OnCompleted",
-            data: {"id": paymentCreatedEvent.id},
+            data: {"paymentLinkId": paymentCreatedEvent.id},
             success: function(result) {
                 console.log('payment created');
             }
@@ -192,9 +192,7 @@ else
                 data: {"consumerProfileRef": data.consumerProfileRef},
                 success: function(result) {
                     
-                    console.log("result", result);
-                    
-                    //var response = JSON.parse(result);
+                   //var response = JSON.parse(result);
                     
                     var script = document.createElement('script');
                     // This assumses the operations from the response of the POST of the
@@ -202,8 +200,6 @@ else
                     //var operation = response.Operations.find(o => o.Rel === 'view-paymentorder');
                     var operation = myFunction(result.operations, 'rel', 'view-paymentorder');
                     
-                    console.log("operation", operation);
-                    debugger;
                     //var operation = result.Operations.find(o => o.Rel === 'view-paymentorder');
                     script.setAttribute('src', operation.href);
                     script.onload = function() {

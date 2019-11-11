@@ -64,7 +64,7 @@ else if (TempData["ErrorMessage"] != null)
                     @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                         <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                         <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |*@
-                    <a class="btn btn-primary" automation="button-addtocart" asp-action="AddToCart" asp-controller="Cart" asp-route-id="@item.Id">Add to Cart</a>
+                    <a class="btn btn-primary" automation="button-addtocart" asp-action="AddToCart" asp-controller="Cart" asp-route-id="@item.ProductId">Add to Cart</a>
                 </td>
             </tr>
         }
