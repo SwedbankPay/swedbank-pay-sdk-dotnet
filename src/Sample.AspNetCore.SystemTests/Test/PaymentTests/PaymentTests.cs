@@ -1,5 +1,4 @@
 ﻿using Atata;
-using Sample.AspNetCore.SystemTests.PageObjectModels.Base;
 using NUnit.Framework;
 using Sample.AspNetCore.SystemTests.Test.Base;
 using Sample.AspNetCore.SystemTests.PageObjectModels;
@@ -7,15 +6,28 @@ using System.Collections.Generic;
 using System.Collections;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using Sample.AspNetCore.SystemTests.PageObjectModels.Payment;
-using OpenQA.Selenium;
 using System;
 using Sample.AspNetCore.SystemTests.Services;
+using Sample.AspNetCore.SystemTests.PageObjectModels.ThankYou;
+using Sample.AspNetCore.SystemTests.PageObjectModels.Orders;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.Linq;
 
 namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
 {
     public class PaymentTests : TestBase
     {
+        private HttpClientService _httpClientService;
+        private string _orderAmount;
+
         public PaymentTests(string driverAlias) : base(driverAlias) { }
+
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
+        {
+            _httpClientService = new HttpClientService();
+        }
 
         #region TestData
 
@@ -27,7 +39,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
             {
                 data.Add(new KeyValuePair<string, int>[]
                 {
-                    new KeyValuePair<string, int>(Products.Product1, 2)
+                    new KeyValuePair<string, int>(Products.Product1, 1)
                 });
             }
             else
@@ -61,85 +73,117 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
 
         #region Method Helpers
 
-        private PaymentPage GoToPaymentPage(KeyValuePair<string, int>[] keyValuePairs)
+        private PaymentPage GoToPaymentPage(KeyValuePair<string, int>[] keyValuePairs, bool standardCheckout = false)
         {
             var page = Go.To<ProductsPage>();
+
+            if (page.Header.ClearOrders.Exists(new SearchOptions { Timeout = new TimeSpan(0, 0, 0, 0, 500), IsSafely = true }))
+            {
+                page
+                .Header.ClearOrders.Click()
+                .Header.Products.Click();
+            }
 
             foreach (var keyValuePair in keyValuePairs)
             {
                 page.Products.Rows[x => x.Name == keyValuePair.Key].AddToCart.Click();
-                //page.CartProducts.Rows[x => x.Name == keyValuePair.Key].Quantity.Set(keyValuePair.Value.ToString());
-                page.CartProducts.Rows[x => x.Name == keyValuePair.Key].Update.Click();
+
+                if(keyValuePair.Value != 1)
+                {
+                    page
+                    .CartProducts.Rows[x => x.Name == keyValuePair.Key].Quantity.Set(keyValuePair.Value)
+                    .CartProducts.Rows[x => x.Name == keyValuePair.Key].Update.Click();
+                }
             }
 
-            return page.Checkout.ClickAndGo();
+            var temp = page.TotalAmount.Value;
+            _orderAmount = temp.Substring(0, temp.IndexOf(",")).Replace(" ", "") + "00";
+
+            return standardCheckout 
+                ? page.StandardCheckout.ClickAndGo()
+                : page.Checkout.ClickAndGo();
         }
 
-        private PayexCardFramePage GoToPayexCardPaymentFrame(KeyValuePair<string, int>[] keyValuePairs)
+        private PaymentFramePage GoToPaymentFramePage(KeyValuePair<string, int>[] keyValuePairs, bool standardCheckout = false)
         {
-            return GoToPaymentPage(keyValuePairs)
-                .PaymentMethodsFrame.SwitchTo()
-                .PaymentMethods[x => x.Name == PaymentMethods.Card].Click()
-                .PaymentMethods[x => x.Name == PaymentMethods.Card].PaymentFrame.SwitchTo<PayexCardFramePage>();
+            return standardCheckout
+                ? GoToPaymentPage(keyValuePairs, standardCheckout)
+                    .IdentificationFrame.SwitchTo()
+                    .Email.Set(TestDataService.Email)
+                    .PhoneNumber.Set(TestDataService.SwedishPhoneNumber)
+                    .Next.Click().SwitchToRoot<PaymentPage>()
+                    .PaymentMethodsFrame.SwitchTo()
+                : GoToPaymentPage(keyValuePairs, standardCheckout)
+                    .PaymentMethodsFrame.SwitchTo();
         }
 
-        private PayexSwishFramePage GoToPayexSwishPaymentFrame(KeyValuePair<string, int>[] keyValuePairs)
+        private PayexCardFramePage GoToPayexCardPaymentFrame(KeyValuePair<string, int>[] keyValuePairs, bool standardCheckout = false)
         {
-            return GoToPaymentPage(keyValuePairs)
-                .PaymentMethodsFrame.SwitchTo()
-                .PaymentMethods[x => x.Name == PaymentMethods.Swish].Click()
-                .PaymentMethods[x => x.Name == PaymentMethods.Swish].PaymentFrame.SwitchTo<PayexSwishFramePage>();
+            return GoToPaymentFramePage(keyValuePairs, standardCheckout)
+                    .PaymentMethods[x => x.Name == PaymentMethods.Card].Click()
+                    .PaymentMethods[x => x.Name == PaymentMethods.Card].PaymentFrame.SwitchTo<PayexCardFramePage>();
         }
 
-        private PayexInvoiceFramePage GoToPayexInvoicePaymentFrame(KeyValuePair<string, int>[] keyValuePairs)
+        private PayexSwishFramePage GoToPayexSwishPaymentFrame(KeyValuePair<string, int>[] keyValuePairs, bool standardCheckout = false)
         {
-            return GoToPaymentPage(keyValuePairs)
-                .PaymentMethodsFrame.SwitchTo()
-                .PaymentMethods[x => x.Name == PaymentMethods.Invoice].Click()
-                .PaymentMethods[x => x.Name == PaymentMethods.Invoice].PaymentFrame.SwitchTo<PayexInvoiceFramePage>();
+            return GoToPaymentFramePage(keyValuePairs, standardCheckout)
+                    .PaymentMethods[x => x.Name == PaymentMethods.Swish].Click()
+                    .PaymentMethods[x => x.Name == PaymentMethods.Swish].PaymentFrame.SwitchTo<PayexSwishFramePage>();
         }
 
-        private ValidationPage PayWithPayexCard(KeyValuePair<string, int>[] keyValuePairs, PayexCardInfo info)
+        private PayexInvoiceFramePage GoToPayexInvoicePaymentFrame(KeyValuePair<string, int>[] keyValuePairs, bool standardCheckout = false)
         {
-            return GoToPayexCardPaymentFrame(keyValuePairs)
-                .CreditCardNumber.Set(info.CreditCardNumber)
-                .ExpiryDate.Set(info.ExpiryDate)
-                .Cvc.Set(info.Cvc)
-                .Pay.ClickAndGo();
+            return GoToPaymentFramePage(keyValuePairs, standardCheckout)
+                    .PaymentMethods[x => x.Name == PaymentMethods.Invoice].Click()
+                    .PaymentMethods[x => x.Name == PaymentMethods.Invoice].PaymentFrame.SwitchTo<PayexInvoiceFramePage>();
         }
 
-        private ValidationPage PayWithPayexSwish(KeyValuePair<string, int>[] keyValuePairs, PayexSwishInfo info)
+        private ThankYouPage PayWithPayexCard(KeyValuePair<string, int>[] keyValuePairs, PayexCardInfo info, bool standardCheckout = false)
         {
-            return GoToPayexSwishPaymentFrame(keyValuePairs)
+            return standardCheckout
+                ? GoToPayexCardPaymentFrame(keyValuePairs, standardCheckout)
+                    .Cvc.Set(info.Cvc)
+                    .Pay.ClickAndGo()
+                : GoToPayexCardPaymentFrame(keyValuePairs, standardCheckout)
+                    .CreditCardNumber.Set(info.CreditCardNumber)
+                    .ExpiryDate.Set(info.ExpiryDate)
+                    .Cvc.Set(info.Cvc)
+                    .Pay.ClickAndGo();
+        }
+
+        private ThankYouPage PayWithPayexSwish(KeyValuePair<string, int>[] keyValuePairs, PayexSwishInfo info, bool standardCheckout = false)
+        {
+            return GoToPayexSwishPaymentFrame(keyValuePairs, standardCheckout)
                 .SwishNumber.Set(info.SwishNumber)
                 .Pay.ClickAndGo();
         }
 
-        private ValidationPage PayWithPayexInvoice(KeyValuePair<string, int>[] keyValuePairs, PayexInvoiceInfo info)
+        private ThankYouPage PayWithPayexInvoice(KeyValuePair<string, int>[] keyValuePairs, PayexInvoiceInfo info, bool standardCheckout = false)
         {
-            return GoToPayexInvoicePaymentFrame(keyValuePairs)
+            return GoToPayexInvoicePaymentFrame(keyValuePairs, standardCheckout)
                 .PersonalNumber.Set(info.PersonalNumber)
                 .Email.Set(info.Email)
                 .PhoneNumber.Set(info.PhoneNumber)
                 .ZipCode.Set(info.ZipCode)
-                .Next.ClickAndGo();
+                .Next.Click()
+                .Pay.ClickAndGo();
         }
 
-        private ValidationPage GoToValidationPage(KeyValuePair<string, int>[] keyValuePairs, PayexInfo payexInfo)
+        private OrdersPage GoToOrdersPage(KeyValuePair<string, int>[] keyValuePairs, PayexInfo payexInfo, bool standardCheckout = false)
         {
             switch (payexInfo)
             {
                 case PayexCardInfo cardInfo:
 
-                    return PayWithPayexCard(keyValuePairs, cardInfo);
+                    return PayWithPayexCard(keyValuePairs, cardInfo, standardCheckout).Header.Orders.ClickAndGo();
 
                 case PayexSwishInfo swishInfo:
 
-                    return PayWithPayexSwish(keyValuePairs, swishInfo);
+                    return PayWithPayexSwish(keyValuePairs, swishInfo, standardCheckout).Header.Orders.ClickAndGo();
 
                 case PayexInvoiceInfo invoiceInfo:
 
-                    return PayWithPayexInvoice(keyValuePairs, invoiceInfo);
+                    return PayWithPayexInvoice(keyValuePairs, invoiceInfo, standardCheckout).Header.Orders.ClickAndGo();
             }
 
             return null;
@@ -200,85 +244,243 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
         #region Success
 
         [Test, TestCaseSource(nameof(TestData), new object[] { true, PaymentMethods.Card })]
-        public void Anonymous_Flow_Payment_Card(KeyValuePair<string, int>[] keyValuePairs, PayexInfo payexInfo)
+        public async Task Anonymous_Flow_Payment_Single_Product_Card(KeyValuePair<string, int>[] keyValuePairs, PayexInfo payexInfo)
         {
-            GoToValidationPage(keyValuePairs, payexInfo);
+            GoToOrdersPage(keyValuePairs, payexInfo)
+                .PaymentOrderLink.StoreValue(out string orderLink)
+                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Cancel].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Capture].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Get].Should.BeVisible()
+                .Actions.Rows.Count.Should.Equal(3);
+
+            var order = JsonConvert.DeserializeObject<Order>(await _httpClientService.SendGetRequest(orderLink));
+
+            Assert.IsNotNull(order.Operations.First(y => y.Rel == OperationTypes.Cancel));
+            Assert.IsNotNull(order.Operations.First(y => y.Rel == OperationTypes.Capture));
+            Assert.IsNotNull(order.Operations.First(y => y.Rel == OperationTypes.Get));
+
+            Assert.That(order.PaymentOrder.Id, Is.EqualTo(orderLink));
+            Assert.That(order.PaymentOrder.Amount, Is.EqualTo(_orderAmount));
+            Assert.That(order.PaymentOrder.Currency, Is.EqualTo("SEK"));
+            Assert.That(order.PaymentOrder.State, Is.EqualTo("Ready"));
+            Assert.That(order.PaymentOrder.Operation, Is.EqualTo("Purchase"));
         }
 
-        [Test, TestCaseSource(nameof(TestData))]
-        public void Normal_Flow_Payment_Single_Product_Card(KeyValuePair<string, int>[] keyValuePairs)
+        [Test, TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Card })]
+        public async Task Anonymous_Flow_Payment_Multiple_Products_Card(KeyValuePair<string, int>[] keyValuePairs, PayexInfo payexInfo)
+        {
+            GoToOrdersPage(keyValuePairs, payexInfo)
+                .PaymentOrderLink.StoreValue(out string orderLink)
+                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Cancel].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Capture].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Get].Should.BeVisible()
+                .Actions.Rows.Count.Should.Equal(3);
+
+            var order = JsonConvert.DeserializeObject<Order>(await _httpClientService.SendGetRequest(orderLink));
+
+            Assert.IsNotNull(order.Operations.First(y => y.Rel == OperationTypes.Cancel));
+            Assert.IsNotNull(order.Operations.First(y => y.Rel == OperationTypes.Capture));
+            Assert.IsNotNull(order.Operations.First(y => y.Rel == OperationTypes.Get));
+
+            Assert.That(order.PaymentOrder.Id, Is.EqualTo(orderLink));
+            Assert.That(order.PaymentOrder.Amount, Is.EqualTo(_orderAmount.Replace(" ", "")));
+            Assert.That(order.PaymentOrder.Currency, Is.EqualTo("SEK"));
+            Assert.That(order.PaymentOrder.State, Is.EqualTo("Ready"));
+            Assert.That(order.PaymentOrder.Operation, Is.EqualTo("Purchase"));
+        }
+
+        [Test, TestCaseSource(nameof(TestData), new object[] { true, PaymentMethods.Card })]
+        public async Task Normal_Flow_Payment_Single_Product_Card(KeyValuePair<string, int>[] keyValuePairs, PayexInfo payexInfo)
+        {
+            GoToOrdersPage(keyValuePairs, payexInfo, standardCheckout: true)
+                 .PaymentOrderLink.StoreValue(out string orderLink)
+                 .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Cancel].Should.BeVisible()
+                 .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Capture].Should.BeVisible()
+                 .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Get].Should.BeVisible()
+                 .Actions.Rows.Count.Should.Equal(3);
+
+            var order = JsonConvert.DeserializeObject<Order>(await _httpClientService.SendGetRequest(orderLink));
+
+            Assert.IsNotNull(order.Operations.First(y => y.Rel == OperationTypes.Cancel));
+            Assert.IsNotNull(order.Operations.First(y => y.Rel == OperationTypes.Capture));
+            Assert.IsNotNull(order.Operations.First(y => y.Rel == OperationTypes.Get));
+
+            Assert.That(order.PaymentOrder.Id, Is.EqualTo(orderLink));
+            Assert.That(order.PaymentOrder.Amount, Is.EqualTo(_orderAmount));
+            Assert.That(order.PaymentOrder.Currency, Is.EqualTo("SEK"));
+            Assert.That(order.PaymentOrder.State, Is.EqualTo("Ready"));
+            Assert.That(order.PaymentOrder.Operation, Is.EqualTo("Purchase"));
+        }
+
+        [Test, TestCaseSource(nameof(TestData), new object[] { true, PaymentMethods.Card })]
+        public void Normal_Flow_Payment_Multiple_Products_Card(KeyValuePair<string, int>[] keyValuePairs, PayexInfo payexInfo)
         {
 
         }
 
-        [Test, TestCaseSource(nameof(TestData))]
-        public void Normal_Flow_Payment_Multiple_Products_Card(KeyValuePair<string, int>[] keyValuePairs)
+        [Test, TestCaseSource(nameof(TestData), new object[] { true, PaymentMethods.Swish })]
+        public void Normal_Flow_Payment_Single_Product_Swish(KeyValuePair<string, int>[] keyValuePairs, PayexInfo payexInfo)
         {
 
         }
 
-        [Test, TestCaseSource(nameof(TestData))]
-        public void Normal_Flow_Payment_Single_Product_Swish(KeyValuePair<string, int>[] keyValuePairs)
+        [Test, TestCaseSource(nameof(TestData), new object[] { true, PaymentMethods.Invoice })]
+        public async Task Anonymous_Flow_Payment_Single_Product_Invoice(KeyValuePair<string, int>[] keyValuePairs, PayexInfo payexInfo)
         {
+            GoToOrdersPage(keyValuePairs, payexInfo)
+                .PaymentOrderLink.StoreValue(out string orderLink)
+                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Cancel].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Capture].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Get].Should.BeVisible()
+                .Actions.Rows.Count.Should.Equal(3);
 
-        }
+            var order = JsonConvert.DeserializeObject<Order>(await _httpClientService.SendGetRequest(orderLink));
 
-        [Test, TestCaseSource(nameof(TestData))]
-        public void Normal_Flow_Payment_Single_Product_Invoice(KeyValuePair<string, int>[] keyValuePairs)
-        {
+            Assert.IsNotNull(order.Operations.First(y => y.Rel == OperationTypes.Cancel));
+            Assert.IsNotNull(order.Operations.First(y => y.Rel == OperationTypes.Capture));
+            Assert.IsNotNull(order.Operations.First(y => y.Rel == OperationTypes.Get));
 
+            Assert.That(order.PaymentOrder.Id, Is.EqualTo(orderLink));
+            Assert.That(order.PaymentOrder.Amount, Is.EqualTo(_orderAmount));
+            Assert.That(order.PaymentOrder.Currency, Is.EqualTo("SEK"));
+            Assert.That(order.PaymentOrder.State, Is.EqualTo("Ready"));
+            Assert.That(order.PaymentOrder.Operation, Is.EqualTo("Purchase"));
         }
 
         #endregion
 
         #region Rejection
 
-        [Test, TestCaseSource(nameof(TestData))]
-        public void Rejected_Flow_Payment(KeyValuePair<string, int>[] keyValuePairs)
+        [Test, TestCaseSource(nameof(TestData), new object[] { true, PaymentMethods.Card })]
+        public void Rejected_Flow_Payment(KeyValuePair<string, int>[] keyValuePairs, PayexInfo payexInfo)
         {
 
+        }
+
+        #endregion
+
+        #region Abort
+
+        [Test, TestCaseSource(nameof(TestData), new object[] { true, null })]
+        public async Task Abort_Flow_Payment_Single_Product(KeyValuePair<string, int>[] keyValuePairs)
+        {
+            GoToPaymentPage(keyValuePairs)
+                .Abort.ClickAndGo()
+                .Message.StoreValue(out string message)
+                .Header.Orders.ClickAndGo();
+
+            var orderLink = message.Substring(message.IndexOf("/")).Replace(" has been Aborted", "");
+            var order = JsonConvert.DeserializeObject<Order>(await _httpClientService.SendGetRequest(orderLink));
+
+            Assert.IsEmpty(order.Operations);
+
+            Assert.That(order.PaymentOrder.Id, Is.EqualTo(orderLink));
+            Assert.That(order.PaymentOrder.Amount, Is.EqualTo(_orderAmount));
+            Assert.That(order.PaymentOrder.Currency, Is.EqualTo("SEK"));
+            Assert.That(order.PaymentOrder.State, Is.EqualTo("Aborted"));
+            Assert.That(order.PaymentOrder.Operation, Is.EqualTo("Purchase"));
         }
 
         #endregion
 
         #region Cancellation
 
-        [Test, TestCaseSource(nameof(TestData))]
-        public void Cancellation_Flow_Payment_Single_Product(KeyValuePair<string, int>[] keyValuePairs)
+        [Test, TestCaseSource(nameof(TestData), new object[] { true, PaymentMethods.Card })]
+        public async Task Cancellation_Flow_Payment_Single_Product(KeyValuePair<string, int>[] keyValuePairs, PayexInfo payexInfo)
         {
+            GoToOrdersPage(keyValuePairs, payexInfo)
+                .PaymentOrderLink.StoreValue(out string orderLink)
+                .Actions.Rows[x => x.Name.Value.Trim() == OperationTypes.Cancel].ExecuteAction.ClickAndGo()
+                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Get].Should.BeVisible()
+                .Actions.Rows.Count.Should.Equal(1);
 
+            var order = JsonConvert.DeserializeObject<Order>(await _httpClientService.SendGetRequest(orderLink));
+
+            Assert.IsNotNull(order.Operations.First(y => y.Rel == OperationTypes.Get));
+        }
+
+        [Test, TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Card })]
+        public async Task Cancellation_Flow_Payment_Multiple_Product(KeyValuePair<string, int>[] keyValuePairs, PayexInfo payexInfo)
+        {
+            GoToOrdersPage(keyValuePairs, payexInfo)
+                .PaymentOrderLink.StoreValue(out string orderLink)
+                .Actions.Rows[x => x.Name.Value.Trim() == OperationTypes.Cancel].ExecuteAction.ClickAndGo()
+                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Get].Should.BeVisible()
+                .Actions.Rows.Count.Should.Equal(1);
+
+            var order = JsonConvert.DeserializeObject<Order>(await _httpClientService.SendGetRequest(orderLink));
+
+            Assert.IsNotNull(order.Operations.First(y => y.Rel == OperationTypes.Get));
         }
 
         #endregion
 
         #region Capture
 
-        [Test, TestCaseSource(nameof(TestData))]
-        public void Capture_Payment_Single_Product(KeyValuePair<string, int>[] keyValuePairs)
+        [Test, TestCaseSource(nameof(TestData), new object[] { true, PaymentMethods.Card })]
+        public async Task Capture_Payment_Single_Product(KeyValuePair<string, int>[] keyValuePairs, PayexInfo payexInfo)
         {
+            GoToOrdersPage(keyValuePairs, payexInfo)
+                .PaymentOrderLink.StoreValue(out string orderLink)
+                .Actions.Rows[x => x.Name.Value.Trim() == OperationTypes.Capture].ExecuteAction.ClickAndGo()
+                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Reversal].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Get].Should.BeVisible()
+                .Actions.Rows.Count.Should.Equal(2);
 
+            var order = JsonConvert.DeserializeObject<Order>(await _httpClientService.SendGetRequest(orderLink));
+
+            Assert.IsNotNull(order.Operations.First(y => y.Rel == OperationTypes.Get));
+            Assert.IsNotNull(order.Operations.First(y => y.Rel == OperationTypes.Reversal));
         }
 
-        [Test, TestCaseSource(nameof(TestData))]
-        public void Capture_Payment_Multiple_Products(KeyValuePair<string, int>[] keyValuePairs)
+        [Test, TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Card })]
+        public async Task Capture_Payment_Multiple_Products(KeyValuePair<string, int>[] keyValuePairs, PayexInfo payexInfo)
         {
+            GoToOrdersPage(keyValuePairs, payexInfo)
+                .PaymentOrderLink.StoreValue(out string orderLink)
+                .Actions.Rows[x => x.Name.Value.Trim() == OperationTypes.Capture].ExecuteAction.ClickAndGo()
+                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Reversal].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Get].Should.BeVisible()
+                .Actions.Rows.Count.Should.Equal(2);
 
+            var order = JsonConvert.DeserializeObject<Order>(await _httpClientService.SendGetRequest(orderLink));
+
+            Assert.IsNotNull(order.Operations.First(y => y.Rel == OperationTypes.Get));
+            Assert.IsNotNull(order.Operations.First(y => y.Rel == OperationTypes.Reversal));
         }
 
         #endregion
 
         #region Reversal
 
-        [Test, TestCaseSource(nameof(TestData))]
-        public void ReversalCapture_Payment_Single_Product(KeyValuePair<string, int>[] keyValuePairs)
+        [Test, TestCaseSource(nameof(TestData), new object[] { true, PaymentMethods.Card })]
+        public async Task ReversalCapture_Payment_Single_Product(KeyValuePair<string, int>[] keyValuePairs, PayexInfo payexInfo)
         {
+            GoToOrdersPage(keyValuePairs, payexInfo)
+                .PaymentOrderLink.StoreValue(out string orderLink)
+                .Actions.Rows[x => x.Name.Value.Trim() == OperationTypes.Capture].ExecuteAction.ClickAndGo()
+                .Actions.Rows[x => x.Name.Value.Trim() == OperationTypes.Reversal].ExecuteAction.ClickAndGo()
+                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Get].Should.BeVisible()
+                .Actions.Rows.Count.Should.Equal(1);
 
+            var order = JsonConvert.DeserializeObject<Order>(await _httpClientService.SendGetRequest(orderLink));
+
+            Assert.IsNotNull(order.Operations.First(y => y.Rel == OperationTypes.Get));
         }
 
-        [Test, TestCaseSource(nameof(TestData))]
-        public void ReversalCapture_Payment_Multiple_Products(KeyValuePair<string, int>[] keyValuePairs)
+        [Test, TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Card })]
+        public async Task ReversalCapture_Payment_Multiple_Products(KeyValuePair<string, int>[] keyValuePairs, PayexInfo payexInfo)
         {
+            GoToOrdersPage(keyValuePairs, payexInfo)
+                .PaymentOrderLink.StoreValue(out string orderLink)
+                .Actions.Rows[x => x.Name.Value.Trim() == OperationTypes.Capture].ExecuteAction.ClickAndGo()
+                .Actions.Rows[x => x.Name.Value.Trim() == OperationTypes.Reversal].ExecuteAction.ClickAndGo()
+                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Get].Should.BeVisible()
+                .Actions.Rows.Count.Should.Equal(1);
 
+            var order = JsonConvert.DeserializeObject<Order>(await _httpClientService.SendGetRequest(orderLink));
+
+            Assert.IsNotNull(order.Operations.First(y => y.Rel == OperationTypes.Get));
         }
 
         #endregion

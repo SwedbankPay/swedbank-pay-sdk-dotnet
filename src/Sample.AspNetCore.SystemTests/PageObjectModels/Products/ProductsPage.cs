@@ -5,7 +5,7 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels
 {
     using _ = ProductsPage;
 
-    public class ProductsPage : Page<_>
+    public class ProductsPage : BasePage<_>
     {
         public class ProductItem : TableRow<_>
         {
@@ -28,19 +28,16 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels
 
         public class ProductBasketItem : TableRow<_>
         {
-            //[FindByAutomation("span", "")]
             [FindByXPath("td[2]")]
             public Text<_> Name { get; set; }
 
-            //[FindByAutomation("span", "")]
             [FindByXPath("td[3]")]
             public Text<_> Price { get; set; }
 
-            //[FindByAutomation("input", "")]
             [FindByName("Quantity")]
-            public Input<string, _> Quantity { get; set; }
+            public NumberInput<_> Quantity { get; set; }
 
-            //[FindByAutomation("button", "")]
+            [Wait(0.5, TriggerEvents.AfterClick)]
             [FindByXPath("button[1]")]
             public Button<_> Update { get; set; }
         }
@@ -51,9 +48,17 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels
         [FindByXPath("table[2]")]
         public Table<ProductBasketItem, _> CartProducts { get; set; }
 
+        [FindByXPath("table[2]//tfoot[1]//td[2]")]
+        public Text<_> TotalAmount { get; set; }
+
+        [FindByAutomation("a", "button-checkout", Index = 0)]
+        public LinkDelegate<PaymentPage, _> StandardCheckout { get; set; }
+
         [FindByAutomation("a", "button-checkout", Index = 1)]
-        //[FindByContent("Checkout")]
         public LinkDelegate<PaymentPage, _> Checkout { get; set; }
+
+        [FindByClass("alert alert-success")]
+        public Text<_> Message { get; set; }
 
     }
 }

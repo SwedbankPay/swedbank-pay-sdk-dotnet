@@ -1,5 +1,6 @@
 ﻿using Atata;
 using Sample.AspNetCore.SystemTests.PageObjectModels.Base;
+using Sample.AspNetCore.SystemTests.PageObjectModels.ThankYou;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,12 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Payment
         public TelInput<_> ZipCode { get; set; }
 
         [FindById("px-submit")]
-        public ButtonDelegate<ValidationPage, _> Next { get; set; }
+        public Button<_> Next { get; set; }
+
+        [WaitForElement(WaitBy.Id, "consumer-input", Until.Visible, TriggerEvents.BeforeClick)]
+        [Wait(1, TriggerEvents.BeforeClick)]
+        [FindById("px-submit")]
+        public ButtonDelegate<ThankYouPage, _> Pay { get; set; }
 
         public ValidationIconList<_> ValidationIcons { get; set; }
         

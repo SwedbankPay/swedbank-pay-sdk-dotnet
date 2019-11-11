@@ -6,7 +6,7 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Base
     public abstract class BasePage<TOwner> : Page<TOwner>
         where TOwner : BasePage<TOwner>
     {
-        [FindByClass("")]
+        [FindByClass("navbar-nav")]
         public Header<TOwner> Header { get; private set; }
 
         [FindByClass("")]

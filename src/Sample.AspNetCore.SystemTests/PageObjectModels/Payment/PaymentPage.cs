@@ -1,9 +1,6 @@
 ﻿using Atata;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Sample.AspNetCore.SystemTests.PageObjectModels.Base;
+using Sample.AspNetCore.SystemTests.PageObjectModels.Payment;
 
 namespace Sample.AspNetCore.SystemTests.PageObjectModels
 {
@@ -11,6 +8,12 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels
 
     public class PaymentPage : Page<_>
     {
+        [FindById("paymentMenuFrame")]
         public Frame<PaymentFramePage, _> PaymentMethodsFrame { get; set; }
+
+        public Frame<IdentificationFramePage, _> IdentificationFrame { get; set; }
+
+        [FindByAutomation("button", "button-abort")]
+        public ButtonDelegate<ProductsPage, _> Abort { get; set; }
     }
 }

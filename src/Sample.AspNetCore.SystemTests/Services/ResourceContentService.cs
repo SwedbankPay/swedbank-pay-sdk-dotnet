@@ -8,8 +8,7 @@ namespace Sample.AspNetCore.SystemTests.Services
 {
     static public class ResourceContentService
     {
-        public const string HardCodedString1 = "Some hard-coded string 1";
-        public const string HardCodedString2 = "Some hard-coded string 2";
-        public const string HardCodedString3 = "Some hard-coded string 3";
+        public const string ThankYouH2 = "Thanks!";
+        public const string ThankYouContent = "Thanks for placing your order.";
     }
 }

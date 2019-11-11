@@ -1,14 +1,10 @@
 ﻿using Atata;
 using Sample.AspNetCore.SystemTests.PageObjectModels.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Sample.AspNetCore.SystemTests.PageObjectModels.ThankYou;
 
 namespace Sample.AspNetCore.SystemTests.PageObjectModels.Payment
 {
-     using _ = PayexSwishFramePage;
+    using _ = PayexSwishFramePage;
 
     [WaitForLoadingIndicator]
     public class PayexSwishFramePage : Page<_>
@@ -17,6 +13,6 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Payment
         public TelInput<_> SwishNumber { get; set; }
 
         [FindById("px-submit")]
-        public ButtonDelegate<ValidationPage, _> Pay { get; set; }
+        public ButtonDelegate<ThankYouPage, _> Pay { get; set; }
     }
 }

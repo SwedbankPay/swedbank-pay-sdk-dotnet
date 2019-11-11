@@ -18,21 +18,21 @@ namespace Sample.AspNetCore.SystemTests.Services
 
         public static string Street => "Streetgatan 123";
 
-        public static string ZipCode => "29620";
+        public static string ZipCode => "17674";
 
         public static string City => "Småbyen";
 
         public static string PhoneNumber => "0706050403";
 
-        public static string SwedishPhoneNumber => "+46706050403";
+        public static string SwedishPhoneNumber => "+46739000001";
         
-        public static string SwishPhoneNumber => "0701234567";
+        public static string SwishPhoneNumber => "0739000001";
 
         public static string PersonalNumber => "19590719-5662";
 
         public static string PersonalNumberShort => "590719-5662";
 
-        public static string Email => "john@doe.com";
+        public static string Email => "leia.ahlstrom@payex.com";
 
         public static string CompanyName => "Authority AB";
 

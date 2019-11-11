@@ -1,5 +1,6 @@
 ﻿using Atata;
 using Sample.AspNetCore.SystemTests.PageObjectModels.Base;
+using Sample.AspNetCore.SystemTests.PageObjectModels.ThankYou;
 
 namespace Sample.AspNetCore.SystemTests.PageObjectModels.Payment
 {
@@ -14,11 +15,11 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Payment
         [FindById("expiryInput")]
         public TelInput<_> ExpiryDate { get; set; }
 
-        [FindById("cvcInput")]
+        [FindById(TermMatch.Contains, "cvcInput")]
         public TelInput<_> Cvc { get; set; }
 
         [FindById("px-submit")]
-        public ButtonDelegate<ValidationPage, _> Pay { get; set; }
+        public ButtonDelegate<ThankYouPage, _> Pay { get; set; }
 
         public ValidationIconList<_> ValidationIcons { get; set; }
     }
