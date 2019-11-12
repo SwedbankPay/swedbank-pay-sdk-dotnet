@@ -4,31 +4,34 @@
 # https://docs.microsoft.com/vsts/pipelines/languages/docker
 
 pool:
-  vmImage: 'Ubuntu 16.04'
+  name: 'Hosted VS2017'
+  demands:
+  - msbuild
+  - visualstudio
 
 variables:
   imageName: 'payex.client.ci:$(build.buildId)'
 
 steps:
-- script: docker build -f Linux.Dockerfile -t $(imageName) .
-  displayName: 'docker build'
-
+- task: NuGetToolInstaller@1
+  inputs:
+    versionSpec: '4.4.1'
 
 - task: NuGetCommand@2
   inputs:
     command: 'restore'
-    restoreSolution: 'src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj'
+    restoreSolution: 'SwedbankPay.Sdk.csproj'
     feedsToUse: 'select'
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
-    projects: 'src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj'
+    projects: 'SwedbankPay.Sdk.csproj'
 
 - task: NuGetCommand@2
   inputs:
     command: 'pack'
-    packagesToPack: 'src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj'
+    packagesToPack: 'SwedbankPay.Sdk.csproj'
     versioningScheme: 'off'
     
 - task: PublishBuildArtifacts@1
