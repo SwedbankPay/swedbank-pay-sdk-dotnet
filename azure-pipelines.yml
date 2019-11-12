@@ -4,15 +4,18 @@
 # https://docs.microsoft.com/vsts/pipelines/languages/docker
 
 pool:
-  vmImage: 'Ubuntu 16.04'
+  name: 'Hosted VS2017'
+  demands:
+  - msbuild
+  - visualstudio
 
 variables:
   imageName: 'payex.client.ci:$(build.buildId)'
 
 steps:
-- script: docker build -f Linux.Dockerfile -t $(imageName) .
-  displayName: 'docker build'
-
+- task: NuGetToolInstaller@1
+  inputs:
+    versionSpec: '5.3.1'
 
 - task: NuGetCommand@2
   inputs:
