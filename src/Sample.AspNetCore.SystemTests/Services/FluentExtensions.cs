@@ -19,6 +19,13 @@ namespace Sample.AspNetCore.SystemTests.Services
             return component.Owner;
         }
 
+        public static TOwner StorePrice<TOwner>(this UIComponent<TOwner> component, out int value)
+            where TOwner : PageObject<TOwner>
+        {
+            value = int.Parse(component.Content.Value) * 100;
+            return component.Owner;
+        }
+
         public static TOwner RepeatFor<TOwner>(this TOwner page, Action<TOwner, string> action, string[] values)
             where TOwner : PageObject<TOwner>
         {

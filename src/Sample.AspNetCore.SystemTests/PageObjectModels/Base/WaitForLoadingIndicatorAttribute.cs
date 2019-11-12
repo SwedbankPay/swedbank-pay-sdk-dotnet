@@ -14,7 +14,7 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Base
         {
             PresenceTimeout = 3;
             ThrowOnPresenceFailure = false;
-            AbsenceTimeout = 10;
+            AbsenceTimeout = 20;
         }
     }
 }

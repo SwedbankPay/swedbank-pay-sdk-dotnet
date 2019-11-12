@@ -18,14 +18,14 @@ namespace Sample.AspNetCore.SystemTests.Services
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", System.Configuration.ConfigurationManager.AppSettings["payexTestToken"]);
         }
 
-        public async Task<string> SendGetRequest(string paymentOrderId)
+        public async Task<string> SendGetRequest(string paymentOrderId, string expand)
         {
-            if (paymentOrderId == null)
+            if (paymentOrderId == null || expand == null)
             {
-                throw new Exception("paymentOrderId cannot be null");
+                throw new Exception($"paymentOrderId [{paymentOrderId}] or expand [{expand}] parameters cannot be null");
             }
 
-            var response = await _httpClient.GetAsync($"https://api.externalintegration.payex.com{paymentOrderId}?$expand=transactions");
+            var response = await _httpClient.GetAsync($"https://api.externalintegration.payex.com{paymentOrderId}?$expand={expand}");
 
             if (response.IsSuccessStatusCode)
             {

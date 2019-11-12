@@ -9,19 +9,15 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels
     {
         public class ProductItem : TableRow<_>
         {
-            //[FindByAutomation("span", "")]
             [FindByXPath("td[1]")]
             public Text<_> Name { get; set; }
 
-            //[FindByAutomation("span", "")]
-            [FindByXPath("td[4]")]
+            [FindByXPath("td[5]")]
             public Text<_> Price { get; set; }
 
-            //[FindByAutomation("button", "")]
             [FindByAutomation("a", "button-addtocart")]
             public Link<_> AddToCart { get; set; }
 
-            //[FindByAutomation("button", "")]
             [FindByXPath("a[1]")]
             public Link<_> Open { get; set; }
         }
