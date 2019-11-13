@@ -2,6 +2,9 @@
 {
     public class NationalIdentifier
     {
+        /// <summary>
+        /// The social security number of the payer. Format: Norway DDMMYYXXXXX, Sweden: YYYYMMDDXXXX.
+        /// </summary>
         public string SocialSecurityNumber { get; set; }
 
         /// <summary>

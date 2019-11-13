@@ -13,7 +13,7 @@
         {
         }
         /// <summary>
-        /// 
+        /// Payer identification is done through this operation. The more information that is provided, the easier an identification process for the payer.
         /// </summary>
         /// <param name="consumersRequest"></param>
         /// <returns></returns>
@@ -27,6 +27,13 @@
             var res = await CreateInternalClient().HttpRequest<ConsumersResponse>(Method.POST, url, onError, consumersRequest);
             return res;
         }
+        /// <summary>
+        /// Retrieve Consumer Shipping Details.
+        /// When the payer has been identified through checkin you can retrieve the consumers shipping details with the url received through the event onShippingDetailsAvailable. 
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+
         public async Task<ShippingDetails> GetShippingDetails(string url)
         {
             
@@ -41,7 +48,12 @@
             
             return shippingDetails;
         }
-
+        /// <summary>
+        /// Retrieve Consumer Billing Details.
+        /// When the payer has been identified through checkin you can retrieve the consumers billing details with the url received through the event OnBillingDetailsAvailable. 
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
         public async Task<BillingDetails> GetBillingDetails(string url)
         {
             if (string.IsNullOrWhiteSpace(url))

@@ -4,6 +4,6 @@
 
     public class MetaDataContainer : IdLink
     {
-        public Dictionary<string, object> MetaData { get; set; }
+        public Dictionary<string, object> MetaData { get; set; } //TODO Write doc
     }
 }

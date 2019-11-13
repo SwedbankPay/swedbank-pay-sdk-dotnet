@@ -16,6 +16,11 @@
         /// </summary>
         public string PayeeReference { get; set; }
 
+
+        /// <summary>
+        /// The name of the payee, usually the name of the merchant.
+        /// </summary>
+
         public string PayeeName { get; set; }
 
         /// <summary>
