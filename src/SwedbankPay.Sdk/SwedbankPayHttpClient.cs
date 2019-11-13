@@ -53,7 +53,7 @@
             restRequest.AddHeader("Content-Type", "application/json");
         }
 
-        private async Task<T> HttpRequest<T>(Method httpMethod, string url, Func<ProblemsContainer, Exception> onError, object payload = null) where T : new()
+        internal async Task<T> HttpRequest<T>(Method httpMethod, string url, Func<ProblemsContainer, Exception> onError, object payload = null) where T : new()
         {
             var request = new RestRequest(url, httpMethod);
             UpdateRestRequest(request, payload);

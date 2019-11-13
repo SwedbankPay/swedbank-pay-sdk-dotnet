@@ -23,8 +23,8 @@
             
             Func<ProblemsContainer, Exception> onError = m => new CouldNotInitiateConsumerSessionException(consumersRequest, m);
             consumersRequest.Operation = "initiate-consumer-session";
-            var res = await CreateInternalClient().HttpPost<ConsumersRequest, ConsumersResponse>(url, onError, consumersRequest);
-           
+            
+            var res = await CreateInternalClient().HttpRequest<ConsumersResponse>(Method.POST, url, onError, consumersRequest);
             return res;
         }
         public async Task<ShippingDetails> GetShippingDetails(string url)
@@ -37,8 +37,8 @@
             Func<ProblemsContainer, Exception> onError = m => new CouldNotGetShippingDetailsException(url, m);
             var request = new RestRequest(url, Method.GET);
             
-            var shippingDetails = await CreateInternalClient().HttpGet<ShippingDetails>(url, onError);
-
+            var shippingDetails = await CreateInternalClient().HttpRequest<ShippingDetails>(Method.GET, url, onError);
+            
             return shippingDetails;
         }
 

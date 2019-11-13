@@ -1,4 +1,6 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrders
+﻿using RestSharp;
+
+namespace SwedbankPay.Sdk.PaymentOrders
 {
     using SwedbankPay.Sdk.Exceptions;
     using SwedbankPay.Sdk.Payments;
@@ -30,7 +32,7 @@
             paymentOrderRequest.Paymentorder.Operation = "Purchase";
 
             Func<ProblemsContainer, Exception> onError = m => new CouldNotPlacePaymentOrderException(paymentOrderRequest, m);
-            var res = await CreateInternalClient().HttpPost<PaymentOrderRequestContainer, PaymentOrderResponseContainer>(url, onError, paymentOrderRequest);
+            var res = await CreateInternalClient().HttpRequest<PaymentOrderResponseContainer>(Method.POST, url, onError, paymentOrderRequest);
             return res;
         }
 
@@ -84,9 +86,10 @@
             var url = $"{httpOperation.Href}{GetExpandQueryString(paymentOrderExpand)}";
 
             paymentOrderRequest.Paymentorder.Operation = "UpdateOrder";
+            
 
             Func<ProblemsContainer, Exception> onError = m => new CouldNotUpdatePaymentOrderException(paymentOrderRequest, m);
-            var res = await CreateInternalClient().HttpPatch<PaymentOrderRequestContainer, PaymentOrderResponseContainer>(url, onError, paymentOrderRequest);
+            var res = await CreateInternalClient().HttpRequest<PaymentOrderResponseContainer>(httpOperation.Method, url, onError, paymentOrderRequest);
             return res;
         }
 
@@ -119,7 +122,7 @@
             var paymentOrderRequest = new PaymentAbortRequestContainer();
 
             Func<ProblemsContainer, Exception> onError = m => new CouldNotPostTransactionException(id, m);
-            var res = await CreateInternalClient().HttpPatch<PaymentAbortRequestContainer, PaymentOrderResponseContainer>(url, onError, paymentOrderRequest);
+            var res = await CreateInternalClient().HttpRequest<PaymentOrderResponseContainer>(httpOperation.Method, url, onError, paymentOrderRequest);
             return res;
         }
 
@@ -150,7 +153,7 @@
 
             var url = httpOperation.Href;
             Func<ProblemsContainer, Exception> onError = m => new CouldNotPostTransactionException(url, m);
-            var res = await CreateInternalClient().HttpPost<TransactionRequestContainer, CaptureTransactionResponseContainer>(url, onError, requestObject);
+            var res = await CreateInternalClient().HttpRequest<CaptureTransactionResponseContainer>(httpOperation.Method, url, onError, requestObject);
             return res.Capture.Transaction;
         }
 
@@ -182,7 +185,7 @@
 
             var url = httpOperation.Href;
             Func<ProblemsContainer, Exception> onError = m => new CouldNotPostTransactionException(id, m);
-            var res = await CreateInternalClient().HttpPost<TransactionRequestContainer, ReversalTransactionResponseContainer>(url, onError, requestObject);
+            var res = await CreateInternalClient().HttpRequest<ReversalTransactionResponseContainer>(httpOperation.Method, url, onError, requestObject);
             return res.Reversal.Transaction;
         }
 
@@ -214,8 +217,7 @@
             var url = httpOperation.Href;
 
             Func<ProblemsContainer, Exception> onError = m => new CouldNotPostTransactionException(id, m);
-            var payload = new PaymentAbortRequestContainer();
-            var res = await CreateInternalClient().HttpPost<TransactionRequestContainer, CancellationTransactionResponseContainer>(url, onError, requestObject);
+            var res = await CreateInternalClient().HttpRequest<CancellationTransactionResponseContainer>(httpOperation.Method, url, onError, requestObject);
             return res.Cancellation.Transaction;
         }
     }
