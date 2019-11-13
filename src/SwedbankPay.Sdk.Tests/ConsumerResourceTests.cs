@@ -85,7 +85,7 @@
             string url = " ";
             
             //ASSERT
-            await Assert.ThrowsAsync<ArgumentException>("url",() => _sut.Consumers.GetShippingDetails(url));
+            await Assert.ThrowsAsync<ArgumentException>(url,() => _sut.Consumers.GetShippingDetails(url));
         }
 
         [Fact]
@@ -95,7 +95,7 @@
             string url = null;
 
             //ASSERT
-            await Assert.ThrowsAsync<ArgumentException>("url", () => _sut.Consumers.GetShippingDetails(url));
+            await Assert.ThrowsAsync<ArgumentException>(url, () => _sut.Consumers.GetShippingDetails(url));
         }
 
         [Fact]
@@ -112,20 +112,20 @@
         public async Task GetBillingDetails_ThrowsArgumentException_IfUriIsWhitespace()
         {
             //ARRANGE
-            string uri = " ";
+            string url = " ";
 
             //ASSERT
-            await Assert.ThrowsAsync<ArgumentException>(() => _sut.Consumers.GetBillingDetails(uri));
+            await Assert.ThrowsAsync<ArgumentException>(url, () => _sut.Consumers.GetBillingDetails(url));
         }
 
         [Fact]
         public async Task GetBillingDetails_ThrowsArgumentException_IfUriIsNull()
         {
             //ARRANGE
-            string uri = null;
+            string url = null;
 
             //ASSERT
-            await Assert.ThrowsAsync<ArgumentException>("url",() => _sut.Consumers.GetBillingDetails(uri));
+            await Assert.ThrowsAsync<ArgumentException>(url,() => _sut.Consumers.GetBillingDetails(url));
         }
 
         [Fact]

@@ -154,7 +154,7 @@ namespace Sample.AspNetCore3.Controllers
         public async Task<IActionResult> InitiateConsumerSession()
         {
             var initiateConsumerRequest = new ConsumersRequest();
-            initiateConsumerRequest.CountryCode = CountryCode.SE;
+            initiateConsumerRequest.ConsumerCountryCode = CountryCode.SE;
 
             var swedbankPayClient = new SwedbankPayClient(_swedbankPayOptions);
             var response = await swedbankPayClient.Consumers.InitiateSession(initiateConsumerRequest);

@@ -12,7 +12,7 @@
 
         public ConsumersRequestContainerBuilder WithTestValues()
         {
-            _consumersRequestContainer.ConsumersRequest.CountryCode = CountryCode.SE;
+            _consumersRequestContainer.ConsumersRequest.ConsumerCountryCode = CountryCode.SE;
             return this;
         }
         
