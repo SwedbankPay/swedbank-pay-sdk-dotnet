@@ -91,20 +91,20 @@
         public async Task GetShippingDetails_ThrowsArgumentException_IfUriIsWhitespace()
         {
             //ARRANGE
-            string uri = " ";
+            string url = " ";
             
             //ASSERT
-            await Assert.ThrowsAsync<ArgumentException>(() => _sut.Consumers.GetShippingDetails( uri));
+            await Assert.ThrowsAsync<ArgumentException>("url",() => _sut.Consumers.GetShippingDetails(url));
         }
 
         [Fact]
         public async Task GetShippingDetails_ThrowsArgumentException_IfUriIsNull()
         {
             //ARRANGE
-            string uri = null;
+            string url = null;
 
             //ASSERT
-            await Assert.ThrowsAsync<ArgumentException>(() => _sut.Consumers.GetShippingDetails(uri));
+            await Assert.ThrowsAsync<ArgumentException>("url", () => _sut.Consumers.GetShippingDetails(url));
         }
 
         [Fact]
@@ -134,7 +134,7 @@
             string uri = null;
 
             //ASSERT
-            await Assert.ThrowsAsync<ArgumentException>(() => _sut.Consumers.GetBillingDetails(uri));
+            await Assert.ThrowsAsync<ArgumentException>("url",() => _sut.Consumers.GetBillingDetails(uri));
         }
 
         [Fact]
