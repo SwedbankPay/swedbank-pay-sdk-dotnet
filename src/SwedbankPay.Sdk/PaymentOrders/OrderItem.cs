@@ -44,7 +44,7 @@
         /// <summary>
         /// The quantity of order items being purchased.
         /// </summary>
-        public int? Quantity { get; set; }
+        public decimal Quantity { get; set; }
 
         /// <summary>
         /// The unit of the quantity, such as pcs, grams, or similar.
