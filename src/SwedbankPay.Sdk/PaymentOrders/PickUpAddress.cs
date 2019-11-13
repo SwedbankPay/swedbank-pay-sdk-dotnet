@@ -6,7 +6,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
 {
     /// <summary>
     /// If shipIndicator set to 4, then prefil this.
-    /// </summary>
+    /// </summary><see cref="RiskIndicator.ShipIndicator"/>
     public class PickUpAddress
     {
         public string Name { get; set; }
