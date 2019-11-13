@@ -20,12 +20,12 @@ namespace SwedbankPay.Sdk.Consumers
         /// Consumers country of residence. Used by the consumerUi for validation on all input fields.
         /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
-        public ConsumerCountryCode ConsumerCountryCode { get; set; }
+        public CountryCode CountryCode { get; set; }
        
         public NationalIdentifier NationalIdentifier { get; set; }
     }
 
-    public enum ConsumerCountryCode
+    public enum CountryCode
     {
         SE,
         NO

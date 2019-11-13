@@ -1,4 +1,8 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrders
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using SwedbankPay.Sdk.Consumers;
+
+namespace SwedbankPay.Sdk.PaymentOrders
 {
     public class NationalIdentifier
     {
@@ -10,6 +14,7 @@
         /// <summary>
         /// The country code, denoting origin for the issued social security number. Required if nationalIdentifier.socialSecurityNumber is set.
         /// </summary>
-        public string CountryCode { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public CountryCode CountryCode { get; set; }
     }
 }
