@@ -1,4 +1,7 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrders
+﻿using System;
+using Newtonsoft.Json;
+
+namespace SwedbankPay.Sdk.PaymentOrders
 {
     public class RiskIndicator
     {
@@ -20,7 +23,8 @@
         /// For a pre-ordered purchase. The expected date that the merchandise will be available.
         /// FORMAT: "YYYYMMDD"
         /// </summary>
-        public string PreOrderDate { get; set; }
+        [JsonConverter(typeof(CustomDateTimeConverter))]
+        public DateTime PreOrderDate { get; set; }
 
         /// <summary>
         /// Indicates whether Cardholder is placing an order for merchandise with a future availability or release date.
