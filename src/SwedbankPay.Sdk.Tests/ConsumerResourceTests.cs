@@ -42,16 +42,7 @@
             Assert.NotNull(orderResourceResponse.Token);
             Assert.NotEqual(string.Empty, orderResourceResponse.Token);
         }
-        [Fact]
-        public async Task InitializeConsumer_ThrowsCouldNotInitiateConsumerSessionException_WhenConsumerCountryCodeIsEmpty()
-        {
-            //ARRANGE
-            var orderResoureRequest = _consumerResourceRequestContainer.WithEmtptyConsumerCountryCode()
-                .Build();
-           
-            //ASSERT
-            await Assert.ThrowsAsync<CouldNotInitiateConsumerSessionException>(() => _sut.Consumers.InitiateSession(orderResoureRequest.ConsumersRequest));
-        }
+        
         [Fact]
         public async Task InitializeConsumer_ReturnsNonEmptyOperationsCollection()
         {

@@ -1,4 +1,8 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrders
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using SwedbankPay.Sdk.Consumers;
+
+namespace SwedbankPay.Sdk.PaymentOrders
 {
     /// <summary>
     /// If shipIndicator set to 4, then prefil this.
@@ -10,6 +14,7 @@
         public string CoAddress { get; set; }
         public string City { get; set; }
         public string ZipCode { get; set; }
-        public string CountryCode { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public CountryCode CountryCode { get; set; }
     }
 }
