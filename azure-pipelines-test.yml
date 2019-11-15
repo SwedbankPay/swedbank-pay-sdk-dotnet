@@ -33,7 +33,7 @@ jobs:
         command: 'build'
         projects: 'src/Sample.AspNetCore3/Sample.AspNetCore3.csproj'
 
-    - task: NuGetCommand@2
+    - task: DotNetCoreCLI@2
       inputs:
         command: 'pack'
         packagesToPack: 'src/Sample.AspNetCore3/Sample.AspNetCore3.csproj'
