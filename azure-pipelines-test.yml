@@ -14,14 +14,20 @@ jobs:
     - script: echo Payex Sample build 
       displayName: 'Build Intro'
 
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: restore
+        projects: 'src\Sample.AspNetCore3\Sample.AspNetCore3.csproj'
+        feedsToUse: select
 
     - task: UseDotNet@2
-      displayName: 'Install .net core 3.0 (preview)'
+      displayName: 'Install .net core 3.0.x'
       inputs:
         packageType: sdk
         version: 3.0.x
         includePreviewVersions: true
         installationPath: $(Agent.ToolsDirectory)/dotnet
+
     - task: NuGetCommand@2
       inputs:
         command: 'restore'
