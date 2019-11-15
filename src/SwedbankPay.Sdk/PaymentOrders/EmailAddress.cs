@@ -12,7 +12,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         {
             if (!IsValidEmail(emailAddress))
             {
-                throw new ArgumentException($"Invalid email address: {emailAddress}");
+                throw new ArgumentException($"Invalid email address: {emailAddress}", nameof(emailAddress));
             }
             Value = emailAddress;
         }
