@@ -39,8 +39,14 @@ jobs:
         packagesToPack: 'src/Sample.AspNetCore3/Sample.AspNetCore3.csproj'
         versioningScheme: 'off'
         
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: publish
+        publishWebProjects: True
+        arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+        zipAfterPublish: True
+
     - task: PublishBuildArtifacts@1
       inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'drop'
-        publishLocation: 'Container'
+        pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
+        artifactName: 'Sample.AspNetCore3'
