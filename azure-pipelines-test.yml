@@ -3,37 +3,45 @@
 # Add steps that use Docker Compose, tag images, push to a registry, run an image, and more:
 # https://docs.microsoft.com/vsts/pipelines/languages/docker
 
-pool:
-  vmImage: 'Ubuntu 16.04'
+jobs:
 
-variables:
-  imageName: 'payex.client.ci:$(build.buildId)'
+- job: build
 
-steps:
-- script: docker build -f Linux.Dockerfile -t $(imageName) .
-  displayName: 'docker build'
+  pool:
+      name: Self Hosted Pool Test
+
+  steps:
+    - script: echo Payex Sample build 
+      displayName: 'Build Intro'
 
 
-- task: NuGetCommand@2
-  inputs:
-    command: 'restore'
-    restoreSolution: 'src\Sample.AspNetCore3/Sample.AspNetCore3.csproj'
-    feedsToUse: 'config'
-    nugetConfigPath: '**/nuget.config'
+    - task: UseDotNet@2
+      displayName: 'Install .net core 3.0 (preview)'
+      inputs:
+        packageType: sdk
+        version: 3.0.x
+        includePreviewVersions: true
+        installationPath: $(Agent.ToolsDirectory)/dotnet
+    - task: NuGetCommand@2
+      inputs:
+        command: 'restore'
+        restoreSolution: 'src\Sample.AspNetCore3/Sample.AspNetCore3.csproj'
+        feedsToUse: 'config'
+        nugetConfigPath: '**/nuget.config'
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'build'
-    projects: 'src\Sample.AspNetCore3/Sample.AspNetCore3.csproj'
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'build'
+        projects: 'src\Sample.AspNetCore3/Sample.AspNetCore3.csproj'
 
-- task: NuGetCommand@2
-  inputs:
-    command: 'pack'
-    packagesToPack: 'src\Sample.AspNetCore3/Sample.AspNetCore3.csproj'
-    versioningScheme: 'off'
-    
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+    - task: NuGetCommand@2
+      inputs:
+        command: 'pack'
+        packagesToPack: 'src\Sample.AspNetCore3/Sample.AspNetCore3.csproj'
+        versioningScheme: 'off'
+        
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
