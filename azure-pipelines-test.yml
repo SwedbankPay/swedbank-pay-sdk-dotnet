@@ -25,19 +25,18 @@ jobs:
     - task: NuGetCommand@2
       inputs:
         command: 'restore'
-        restoreSolution: 'src\Sample.AspNetCore3/Sample.AspNetCore3.csproj'
-        feedsToUse: 'config'
-        nugetConfigPath: '**/nuget.config'
+        restoreSolution: 'src\Sample.AspNetCore3\Sample.AspNetCore3.csproj'
+        feedsToUse: 'select'
 
     - task: DotNetCoreCLI@2
       inputs:
         command: 'build'
-        projects: 'src\Sample.AspNetCore3/Sample.AspNetCore3.csproj'
+        projects: 'src/Sample.AspNetCore3/Sample.AspNetCore3.csproj'
 
     - task: NuGetCommand@2
       inputs:
         command: 'pack'
-        packagesToPack: 'src\Sample.AspNetCore3/Sample.AspNetCore3.csproj'
+        packagesToPack: 'src\Sample.AspNetCore3\Sample.AspNetCore3.csproj'
         versioningScheme: 'off'
         
     - task: PublishBuildArtifacts@1
