@@ -17,18 +17,19 @@ steps:
 - task: NuGetCommand@2
   inputs:
     command: 'restore'
-    restoreSolution: 'src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj'
-    feedsToUse: 'select'
+    restoreSolution: 'src\Sample.AspNetCore3/Sample.AspNetCore3.csproj'
+    feedsToUse: 'config'
+    nugetConfigPath: '**/nuget.config'
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
-    projects: 'src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj'
+    projects: 'src\Sample.AspNetCore3/Sample.AspNetCore3.csproj'
 
 - task: NuGetCommand@2
   inputs:
     command: 'pack'
-    packagesToPack: 'src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj'
+    packagesToPack: 'src\Sample.AspNetCore3/Sample.AspNetCore3.csproj'
     versioningScheme: 'off'
     
 - task: PublishBuildArtifacts@1
