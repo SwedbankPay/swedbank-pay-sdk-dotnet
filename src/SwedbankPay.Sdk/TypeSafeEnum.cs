@@ -34,7 +34,7 @@ namespace SwedbankPay.Sdk
             List<TEnum> options = new List<TEnum>();
             foreach (Type enumType in enumTypes)
             {
-                List<TEnum> typeEnumOptions = enumType.GetFieldsOfType<TEnum>();
+                List<TEnum> typeEnumOptions = enumType.GetPropertiesOfType<TEnum>(); //TODO if C#8 use GetFieldsOfTypes instead 
                 options.AddRange(typeEnumOptions);
             }
 

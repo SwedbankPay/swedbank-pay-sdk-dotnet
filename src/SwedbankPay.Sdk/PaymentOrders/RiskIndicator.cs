@@ -8,7 +8,8 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <summary>
         /// For electronic delivery, the email address to which the merchandise was delivered.
         /// </summary>
-        public string DeliveryEmailAddress { get; set; }
+        
+        public EmailAddress DeliveryEmailAddress { get; set; }
 
         /// <summary>
         /// Indicates the merchandise delivery timeframe.
@@ -17,7 +18,8 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// 03 (Overnight shipping)
         /// 04 (Two-day or more shipping)
         /// </summary>
-        public string DeliveryTimeFrameIndicator { get; set; } //TODO use DeliveryTimeFrameIndicator class?
+        [JsonConverter(typeof(TypedSafeEnumValueConverter<DeliveryTimeFrameIndicator, string>))]
+        public DeliveryTimeFrameIndicator DeliveryTimeFrameIndicator { get; set; }
 
         /// <summary>
         /// For a pre-ordered purchase. The expected date that the merchandise will be available.
@@ -31,7 +33,8 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// 01 (Merchandise available)
         /// 02 (Future availability)
         /// </summary>
-        public string PreOrderPurchaseIndicator { get; set; }
+        [JsonConverter(typeof(TypedSafeEnumValueConverter<PreOrderPurchaseIndicator, string>))]
+        public PreOrderPurchaseIndicator PreOrderPurchaseIndicator { get; set; }
 
         /// <summary>
         /// Indicates shipping method chosen for the transaction.
@@ -43,7 +46,8 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// 06 (Travel and Event tickets, not shipped)
         /// 07 (Other, e.g.gaming, digital service)
         /// </summary>
-        public string ShipIndicator { get; set; }
+        [JsonConverter(typeof(TypedSafeEnumValueConverter<ShipIndicator, string>))]
+        public ShipIndicator ShipIndicator { get; set; }
 
         /// <summary>
         /// true if this is a purchase of a gift card.
@@ -55,7 +59,8 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// 01 (Merchandise available)
         /// 02 (Future availability)
         /// </summary>
-        public string ReOrderPurchaseIndicator { get; set; }
+        [JsonConverter(typeof(TypedSafeEnumValueConverter<ReOrderPurchaseIndicator, string>))]
+        public ReOrderPurchaseIndicator ReOrderPurchaseIndicator { get; set; }
 
         /// <summary>
         /// If shipIndicator set to 4, then prefil this.

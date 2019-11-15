@@ -15,7 +15,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// 04 (30-60 days)
         /// 05 (More than 60 days)
         /// </summary>
-        [JsonConverter(typeof(IndicatorValueConverter<AccountAgeIndicator, string>))]
+        [JsonConverter(typeof(TypedSafeEnumValueConverter<AccountAgeIndicator, string>))]
         public AccountAgeIndicator AccountAgeIndicator { get; set; }
 
         /// <summary>
@@ -25,7 +25,8 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// 03 (30-60 days)
         /// 04 (More than 60 days)
         /// </summary>
-        public string AccountChangeIndicator { get; set; }
+        [JsonConverter(typeof(TypedSafeEnumValueConverter<AccountChangeIndicator, string>))]
+        public AccountChangeIndicator AccountChangeIndicator { get; set; }
 
         /// <summary>
         /// Indicates the length of time since the cardholder's account with the merchant had a password change or account reset.
@@ -35,7 +36,8 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// 04 (30-60 days)
         /// 05 (More than 60 days)
         /// </summary>
-        public string AccountPwdChangeIndicator { get; set; }
+        [JsonConverter(typeof(TypedSafeEnumValueConverter<AccountPwdChangeIndicator, string>))]
+        public AccountPwdChangeIndicator AccountPwdChangeIndicator { get; set; }
 
         /// <summary>
         /// Indicates when the shipping address used for this transaction was first used with the merchant.
@@ -44,21 +46,24 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// 03 (30-60 days)
         /// 04 (More than 60 days)
         /// </summary>
-        public string ShippingAddressUsageIndicator { get; set; }
+        [JsonConverter(typeof(TypedSafeEnumValueConverter<ShippingAddressUsageIndicator, string>))]
+        public ShippingAddressUsageIndicator ShippingAddressUsageIndicator { get; set; }
 
         /// <summary>
         /// Indicates if the Cardholder Name on the account is identical to the shipping Name used for this transaction.
         /// 01 (Account name identical to shipping name)
         /// 02 (Account name different than shipping name)
         /// </summary>
-        public string ShippingNameIndicator { get; set; }
+        [JsonConverter(typeof(TypedSafeEnumValueConverter<ShippingNameIndicator, string>))]
+        public ShippingNameIndicator ShippingNameIndicator { get; set; }
 
         /// <summary>
         /// Indicates whether merchant has experienced suspicious activity (including previous fraud) on the cardholder account.
         /// 01 (No suspicious activity has been observed)
         /// 02 (Suspicious activity has been observed)
         /// </summary>
-        public string SuspiciousAccountActivity { get; set; }
+        [JsonConverter(typeof(TypedSafeEnumValueConverter<SuspiciousAccountActivity, string>))]
+        public SuspiciousAccountActivity SuspiciousAccountActivity { get; set; }
 
         /// <summary>
         /// Allows the 3DS Requestor to indicate to the ACS whether the cardholder’s billing and shipping address are the same.

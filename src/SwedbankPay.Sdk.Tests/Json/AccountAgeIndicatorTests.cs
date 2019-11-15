@@ -13,8 +13,7 @@ namespace SwedbankPay.Sdk.Tests.Json
         [InlineData("Less than 30 days", "03")]
         [InlineData("30-60 days", "04")]
         [InlineData("More than 60 days", "05")]
-        public void FromString_ReturnsAccountAgeIndicatorWithCorrectValue_WhenGivenCorrectName(string name,
-            string value)
+        public void FromName_ReturnsAccountAgeIndicatorWithCorrectValue_WhenGivenCorrectName(string name, string value)
         {
             //ACT
             var result = AccountAgeIndicator.FromName(name);
@@ -24,16 +23,17 @@ namespace SwedbankPay.Sdk.Tests.Json
         }
 
         [Theory]
-        [InlineData("No account, guest", "01")]
-        [InlineData("Created during transaction", "02")]
-        [InlineData("Less than 30 days", "03")]
-        [InlineData("30-60 days", "04")]
-        [InlineData("More than 60 days", "05")]
+        [InlineData(nameof(AccountAgeIndicator.NoAccountGuest), "01")]
+        [InlineData(nameof(AccountAgeIndicator.CreatedDuringTransaction), "02")]
+        [InlineData(nameof(AccountAgeIndicator.LessThanThirtyDays), "03")]
+        [InlineData(nameof(AccountAgeIndicator.ThirtyToSixtyDays), "04")]
+        [InlineData(nameof(AccountAgeIndicator.MoreThanSixtyDays), "05")]
         public void FromValue_ReturnsAccountAgeIndicatorWithCorrectName_WhenGivenCorrectValue(string name, string value)
         {
             //ACT
             var result = AccountAgeIndicator.FromValue(value);
-
+            
+            
             //ASSERT
             Assert.Equal(name, result.Name);
         }
@@ -44,7 +44,7 @@ namespace SwedbankPay.Sdk.Tests.Json
             //ARRANGE
 
             var jsonObject = new JObject();
-            jsonObject.Add("AccountAge", "01");
+            jsonObject.Add("AccountAgeIndicator", "01");
 
             //ACT
             var result = JsonConvert.DeserializeObject<AccountInfo>(jsonObject.ToString());
@@ -61,7 +61,7 @@ namespace SwedbankPay.Sdk.Tests.Json
             {
                 AccountAgeIndicator = AccountAgeIndicator.NoAccountGuest
             };
-
+            
             //ACT
             var result = JsonConvert.SerializeObject(accountInfo);
             var obj = JObject.Parse(result);

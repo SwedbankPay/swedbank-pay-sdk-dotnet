@@ -6,7 +6,7 @@ using SwedbankPay.Sdk;
 
 namespace SwedbankPay.Sdk
 {
-    public class IndicatorValueConverter<TEnum, TValue> : JsonConverter<TEnum> where TEnum : TypeSafeEnum<TEnum, TValue> //where TValue : struct
+    public class TypedSafeEnumValueConverter<TEnum, TValue> : JsonConverter<TEnum> where TEnum : TypeSafeEnum<TEnum, TValue> //where TValue : struct
     {
         /// <summary>
         /// 
