@@ -8,7 +8,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <summary>
         /// For electronic delivery, the email address to which the merchandise was delivered.
         /// </summary>
-        
+        [JsonConverter(typeof(CustomEmailAddressConverter))]
         public EmailAddress DeliveryEmailAddress { get; set; }
 
         /// <summary>

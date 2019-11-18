@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
+    
     public class EmailAddress
     {
         public string Value { get; private set; }
 
+
+        [JsonConstructor]
         public EmailAddress(string emailAddress)
         {
             if (!IsValidEmail(emailAddress))
