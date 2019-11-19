@@ -1,5 +1,7 @@
 ﻿namespace SwedbankPay.Sdk
 {
+    using Microsoft.Extensions.Logging;
+
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
     using Newtonsoft.Json.Serialization;
@@ -13,9 +15,9 @@
     internal class SwedbankPayHttpClient
     {
         private readonly RestClient client;
-        private readonly ILogSwedbankPayHttpResponse logger;
+        private readonly ILogger logger;
 
-        internal SwedbankPayHttpClient(RestClient client, ILogSwedbankPayHttpResponse logger)
+        internal SwedbankPayHttpClient(RestClient client, ILogger logger)
         {
             this.client = client;
             this.logger = logger;
@@ -62,7 +64,7 @@
 
             if (response.IsSuccessful)
             {
-                this.logger.LogSwedbankPayResponse(response.Content);
+                this.logger.LogInformation(response.Content);
                 return response.Data;
             }
 
@@ -91,9 +93,9 @@
             var response = await this.client.ExecuteTaskAsync(request);
             if (response.IsSuccessful)
             {
-               var res = JToken.Parse(response.Content).ToString(Formatting.Indented);
-               this.logger.LogSwedbankPayResponse(res);
-               return res;
+                var res = JToken.Parse(response.Content).ToString(Formatting.Indented);
+                this.logger.LogInformation(res);
+                return res;
             }
 
             return null;

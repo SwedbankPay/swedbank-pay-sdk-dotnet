@@ -1,5 +1,7 @@
 ﻿namespace SwedbankPay.Sdk.Payments
 {
+    using Microsoft.Extensions.Logging;
+
     using SwedbankPay.Sdk.Exceptions;
     using SwedbankPay.Sdk.Transactions;
 
@@ -15,7 +17,7 @@
         private const string PspSwishPaymentsBaseUrl = "/psp/swish/payments/";
         private const string PspDirectDebitPaymentsBaseUrl = "/psp/directdebit/payments";
 
-        public PaymentsResource(SwedbankPayOptions swedbankPayOptions, ILogSwedbankPayHttpResponse logger) : base(swedbankPayOptions, logger)
+        public PaymentsResource(SwedbankPayOptions swedbankPayOptions, ILogger logger) : base(swedbankPayOptions, logger)
         {
         }
 

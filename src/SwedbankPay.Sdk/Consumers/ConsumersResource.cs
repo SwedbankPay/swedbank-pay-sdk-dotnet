@@ -1,5 +1,7 @@
 ﻿namespace SwedbankPay.Sdk.Consumers
 {
+    using Microsoft.Extensions.Logging;
+
     using RestSharp;
 
     using SwedbankPay.Sdk.Exceptions;
@@ -9,7 +11,7 @@
 
     public class ConsumersResource : ResourceBase, IConsumersResource
     {
-        public ConsumersResource(SwedbankPayOptions swedbankPayOptions, ILogSwedbankPayHttpResponse logger) : base(swedbankPayOptions, logger)
+        public ConsumersResource(SwedbankPayOptions swedbankPayOptions, ILogger logger) : base(swedbankPayOptions, logger)
         {
         }
 

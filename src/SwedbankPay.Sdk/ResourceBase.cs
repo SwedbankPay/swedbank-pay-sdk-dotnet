@@ -1,5 +1,7 @@
 ﻿namespace SwedbankPay.Sdk
 {
+    using Microsoft.Extensions.Logging;
+
     using RestSharp;
     using RestSharp.Authenticators;
 
@@ -13,9 +15,9 @@
     public abstract class ResourceBase
     {
         protected readonly SwedbankPayOptions SwedbankPayOptions;
-        private readonly ILogSwedbankPayHttpResponse logger;
+        private readonly ILogger logger;
 
-        internal ResourceBase(SwedbankPayOptions swedbankPayOptions, ILogSwedbankPayHttpResponse logger)
+        internal ResourceBase(SwedbankPayOptions swedbankPayOptions, ILogger logger)
         {
             SwedbankPayOptions = swedbankPayOptions;
             this.logger = logger;

@@ -1,5 +1,7 @@
 ﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
+    using Microsoft.Extensions.Logging;
+
     using RestSharp;
 
     using SwedbankPay.Sdk.Exceptions;
@@ -10,10 +12,9 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-
     public class PaymentOrdersResource : ResourceBase, IPaymentOrdersResource
     {
-        public PaymentOrdersResource(SwedbankPayOptions swedbankPayOptions, ILogSwedbankPayHttpResponse logger = null) : base(swedbankPayOptions, logger)
+        public PaymentOrdersResource(SwedbankPayOptions swedbankPayOptions, ILogger logger = null) : base(swedbankPayOptions, logger)
         {
         }
 
