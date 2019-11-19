@@ -79,7 +79,7 @@
                 if (payment.Operations.Any())
                 {
                     var availableOps = payment.Operations.Select(o => o.Rel).Aggregate((x, y) => x + "," + y);
-                    throw new PaymentNotYetAuthorizedException(id, $"This payment cannot be updated. Available operations: {availableOps}"); //TODO: throw correct ecxception
+                    throw new OperationNotAvailableException(id, $"This payment cannot be updated. Available operations: {availableOps}");
                 }
                 throw new NoOperationsLeftException();
             }
@@ -113,7 +113,7 @@
                 if (payment.Operations.Any())
                 {
                     var availableOps = payment.Operations.Select(o => o.Rel).Aggregate((x, y) => x + "," + y);
-                    throw new PaymentNotYetAuthorizedException(id, $"This payment cannot be aborted. Available operations: {availableOps}"); //TODO: throw correct ecxception
+                    throw new OperationNotAvailableException(id, $"This payment cannot be aborted. Available operations: {availableOps}");
                 }
                 throw new NoOperationsLeftException();
             }
@@ -209,7 +209,7 @@
                 if (payment.Operations.Any())
                 {
                     var availableOps = payment.Operations.Select(o => o.Rel).Aggregate((x, y) => x + "," + y);
-                    throw new PaymentNotYetAuthorizedException(id, $"This payment cannot be canceled. Available operations: {availableOps}"); //TODO: throw correct ecxception
+                    throw new OperationNotAvailableException(id, $"This payment cannot be canceled. Available operations: {availableOps}");
                 }
                 throw new NoOperationsLeftException();
             }

@@ -15,7 +15,5 @@
         public string Description { get; protected set; }
         public string PayeeReference { get; protected set; }
         public bool IsOperational { get; protected set; }
-
-        //public string FailedReason { get; set; } //TODO: Kolla om den skall bort
     }
 }

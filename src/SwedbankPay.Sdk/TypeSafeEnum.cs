@@ -34,7 +34,7 @@
             var options = new List<TEnum>();
             foreach (var enumType in enumTypes)
             {
-                var typeEnumOptions = enumType.GetPropertiesOfType<TEnum>(); //TODO if C#8 use GetFieldsOfTypes instead 
+                var typeEnumOptions = enumType.GetFieldsOfType<TEnum>();
                 options.AddRange(typeEnumOptions);
             }
 

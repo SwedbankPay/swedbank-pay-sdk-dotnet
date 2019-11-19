@@ -50,16 +50,23 @@
         /// </summary>
         public Urls Urls { get; set; }
 
-        public PayeeInfo PayeeInfo { get; set; } //TODO Write doc
+        /// <summary>
+        /// Information about the payee of the payment order
+        /// </summary>
+        public PayeeInfo PayeeInfo { get; set; }
 
-        public Payer Payer { get; set; } //TODO Write doc
+        /// <summary>
+        /// Information about the payee of the payment order
+        /// </summary>
+        public Payer Payer { get; set; }
 
         /// <summary>
         /// The array of items being purchased with the order. Used to print on invoices if the payer chooses to pay with invoice, among other things.
         /// </summary>
         public List<OrderItem> OrderItems { get; set; }
 
-        public RiskIndicator RiskIndicator { get; set; } //TODO Write doc
+        //Information about risk indicator
+        public RiskIndicator RiskIndicator { get; set; }
 
         /// <summary>
         /// The keys and values that should be associated with the payment order. Can be additional identifiers and data you want to associate with the payment.

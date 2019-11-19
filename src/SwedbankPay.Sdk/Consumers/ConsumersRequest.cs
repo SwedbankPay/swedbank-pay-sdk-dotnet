@@ -26,11 +26,4 @@
        
         public NationalIdentifier NationalIdentifier { get; set; }
     }
-
-    public enum CountryCode
-    {
-        Se,
-        No
-    }
-
 }

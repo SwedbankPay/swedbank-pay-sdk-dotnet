@@ -5,8 +5,8 @@
     /// </summary>
     public sealed class PreOrderPurchaseIndicator : TypeSafeEnum<PreOrderPurchaseIndicator, string>
     {
-        public static PreOrderPurchaseIndicator MerchandiseAvailable { get; } = new PreOrderPurchaseIndicator(nameof(MerchandiseAvailable), "01");
-        public static PreOrderPurchaseIndicator FutureAvailability { get; } = new PreOrderPurchaseIndicator(nameof(FutureAvailability), "02");
+        public static readonly PreOrderPurchaseIndicator MerchandiseAvailable = new PreOrderPurchaseIndicator(nameof(MerchandiseAvailable), "01");
+        public static readonly PreOrderPurchaseIndicator FutureAvailability = new PreOrderPurchaseIndicator(nameof(FutureAvailability), "02");
 
         public PreOrderPurchaseIndicator(string name, string value) : base(name, value)
         {
