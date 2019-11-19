@@ -30,7 +30,7 @@
             var url = $"/psp/paymentorders{GetExpandQueryString(paymentOrderExpand)}";
 
             var payload = new PaymentOrderRequestContainer(paymentOrderRequest);
-            paymentOrderRequest.Operation = "Purchase";
+            paymentOrderRequest.Operation = Operation.Purchase;
 
             Func<ProblemsContainer, Exception> onError = m => new CouldNotPlacePaymentOrderException(payload, m);
             var res = await CreateInternalClient().HttpRequest<PaymentOrderResponseContainer>(Method.POST, url, onError, payload);
@@ -86,7 +86,7 @@
             }
             var url = $"{httpOperation.Href}{GetExpandQueryString(paymentOrderExpand)}";
 
-            paymentOrderRequest.Operation = "UpdateOrder";
+            paymentOrderRequest.Operation = Operation.UpdateOrder;
             var payload = new PaymentOrderRequestContainer(paymentOrderRequest);
 
             Func<ProblemsContainer, Exception> onError = m => new CouldNotUpdatePaymentOrderException(payload, m);

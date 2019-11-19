@@ -1,5 +1,6 @@
 ﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
+    using Newtonsoft.Json;
     using System.Collections.Generic;
 
     public class PaymentOrderRequest
@@ -7,7 +8,8 @@
         /// <summary>
         /// The operation that the payment order is supposed to perform.
         /// </summary>
-        public string Operation { get; internal set; }
+        [JsonConverter(typeof(TypedSafeEnumValueConverter<Operation, string>))]
+        public Operation Operation { get; internal set; }
 
         /// <summary>
         /// The currency of the payment.
