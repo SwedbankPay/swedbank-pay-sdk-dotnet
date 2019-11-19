@@ -14,7 +14,7 @@
         /// <exception cref="InvalidConfigurationSettingsException"></exception>
         /// <exception cref="CouldNotPlacePaymentOrderException"></exception>
         /// <returns></returns>
-        Task<PaymentOrderResponseContainer> CreatePaymentOrder(PaymentOrderRequestContainer paymentOrderRequest, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None);
+        Task<PaymentOrderResponseContainer> CreatePaymentOrder(PaymentOrderRequest paymentOrderRequest, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None);
 
         /// <summary>
         /// Gets an existing payment order.
@@ -36,7 +36,7 @@
         /// <exception cref="NoOperationsLeftException"></exception>
         /// <exception cref="CouldNotUpdatePaymentOrderException"></exception>
         /// <returns></returns>
-        Task<PaymentOrderResponseContainer> UpdatePaymentOrder(string id, PaymentOrderRequestContainer paymentOrderRequest, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None);
+        Task<PaymentOrderResponseContainer> UpdatePaymentOrder(string id, PaymentOrderRequest paymentOrderRequest, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None);
 
         /// <summary>
         /// Aborts a payment
@@ -59,7 +59,7 @@
         /// <exception cref="NoOperationsLeftException"></exception>
         /// <exception cref="CouldNotPostTransactionException"></exception>
         /// <returns></returns>
-        Task<TransactionResponse> Capture(string id, TransactionRequestContainer requestObject);
+        Task<TransactionResponse> Capture(string id, TransactionRequest requestObject);
 
         /// <summary>
         /// Reverses a payment
@@ -71,7 +71,7 @@
         /// <exception cref="NoOperationsLeftException"></exception>
         /// <exception cref="CouldNotPostTransactionException"></exception>
         /// <returns></returns>
-        Task<TransactionResponse> Reversal(string id, TransactionRequestContainer requestObject);
+        Task<TransactionResponse> Reversal(string id, TransactionRequest requestObject);
 
         /// <summary>
         /// Cancels a payment
@@ -83,6 +83,6 @@
         /// <exception cref="NoOperationsLeftException"></exception>
         /// <exception cref="CouldNotPostTransactionException"></exception>
         /// <returns></returns>
-        Task<TransactionResponse> CancelPaymentOrder(string id, TransactionRequestContainer requestObject);
+        Task<TransactionResponse> CancelPaymentOrder(string id, TransactionRequest requestObject);
     }
 }

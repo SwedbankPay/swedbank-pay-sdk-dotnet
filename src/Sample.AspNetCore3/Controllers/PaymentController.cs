@@ -1,18 +1,20 @@
 ﻿namespace Sample.AspNetCore3.Controllers
 {
-    using System;
-    using System.Linq;
-    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Options;
+
     using Sample.AspNetCore3.Data;
     using Sample.AspNetCore3.Models;
-    using Sample.AspNetCore3.Models.ViewModels;
+
     using SwedbankPay.Sdk;
     using SwedbankPay.Sdk.PaymentOrders;
     using SwedbankPay.Sdk.Transactions;
+
+    using System;
+    using System.Linq;
+    using System.Threading.Tasks;
 
     public class PaymentController : Controller
     {
@@ -83,12 +85,12 @@
             try
             {
                 var swedbankPayClient = new SwedbankPayClient(this.swedbankPayOptions);
-                var transactionRequestObject = new TransactionRequestContainer(new TransactionRequest
+                var transactionRequestObject = new TransactionRequest
                 {
                     PayeeReference = DateTime.Now.Ticks.ToString(),
                     Description = "Cancelling parts of the total amount"
 
-                });
+                };
                 var response = await swedbankPayClient.PaymentOrders.CancelPaymentOrder(paymentOrderId, transactionRequestObject);
 
                 TempData["CancelMessage"] = $"Payment has been cancelled: {response.Id}";
@@ -153,7 +155,7 @@
             {
                 var swedbankPayClient = new SwedbankPayClient(this.swedbankPayOptions);
 
-                var transActionRequestObject = await GetTransactionRequestContainer("Capturing the authorized payment");
+                var transActionRequestObject = await GetTransactionRequest("Capturing the authorized payment");
 
                 var response = await swedbankPayClient.PaymentOrders.Capture(paymentOrderId, transActionRequestObject);
 
@@ -174,7 +176,7 @@
             try
             {
                 var swedbankPayClient = new SwedbankPayClient(this.swedbankPayOptions);
-                var transActionRequestObject = await GetTransactionRequestContainer("Reversing the capture amount");
+                var transActionRequestObject = await GetTransactionRequest("Reversing the capture amount");
                 var response = await swedbankPayClient.PaymentOrders.Reversal(paymentOrderId, transActionRequestObject);
 
                 TempData["ReversalMessage"] = $"{response.Id}, {response.Type}, {response.State}";
@@ -189,7 +191,7 @@
             }
         }
 
-        private async Task<TransactionRequestContainer> GetTransactionRequestContainer(string description)
+        private async Task<TransactionRequest> GetTransactionRequest(string description)
         {
             var order = await this.context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
 
@@ -210,14 +212,14 @@
                 VatAmount = 0, //TODO Correct VatAmount
             }).ToList();
 
-            var transActionRequestObject = new TransactionRequestContainer(new TransactionRequest
+            var transActionRequestObject = new TransactionRequest
             {
                 PayeeReference = DateTime.Now.Ticks.ToString(),
                 Amount = order.Lines.Sum(e => e.Quantity * e.Product.Price) * 100,
                 VatAmount = 0, //TODO Correct amount
                 Description = description,
                 OrderItems = orderItems
-            });
+            };
 
             return transActionRequestObject;
 

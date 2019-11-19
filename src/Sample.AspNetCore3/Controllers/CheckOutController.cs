@@ -22,7 +22,7 @@
         private readonly Urls urlsOptionsAccessor;
         private Cart cartService;
 
-        public CheckOutController(IOptionsMonitor<SwedbankPayOptions> swedbankPayOptionsAccessor, 
+        public CheckOutController(IOptionsMonitor<SwedbankPayOptions> swedbankPayOptionsAccessor,
             IOptionsMonitor<PayeeInfo> payeeInfoOptionsAccessor, IOptionsMonitor<Urls> urlsOptionsAccessor,
             Cart cartService)
         {
@@ -32,13 +32,13 @@
             this.urlsOptionsAccessor = urlsOptionsAccessor.CurrentValue;
             this.cartService = cartService;
         }
-        
+
         //public async Task<PaymentOrderResponseContainer> CreatePaymentOrder()
         //{
         //    var swedbankPayClient = new SwedbankPayClient(_swedbankPayOptions);
 
         //    _payeeInfoOptions.PayeeReference = DateTime.Now.Ticks.ToString();
-           
+
         //    var totalAmount = _cartService.CalculateTotal() * 100;
         //    var paymentOrderRequest = CreatePaymentOrderRequestContainer(totalAmount, 0); //TODO Correct VatAmount
 
@@ -71,12 +71,12 @@
             this.payeeInfoOptions.PayeeReference = DateTime.Now.Ticks.ToString();
 
             var totalAmount = this.cartService.CalculateTotal() * 100;
-            var paymentOrderRequest = CreatePaymentOrderRequestContainer(totalAmount, 0); //TODO Correct VatAmount
+            var paymentOrderRequest = CreatePaymentOrderRequest(totalAmount, 0); //TODO Correct VatAmount
 
-            paymentOrderRequest.Paymentorder.OrderItems = new List<OrderItem>();
+            paymentOrderRequest.OrderItems = new List<OrderItem>();
             if (!string.IsNullOrWhiteSpace(consumerProfileRef))
             {
-                paymentOrderRequest.Paymentorder.Payer = new Payer
+                paymentOrderRequest.Payer = new Payer
                 {
                     ConsumerProfileRef = consumerProfileRef
                 };
@@ -97,7 +97,7 @@
                 VatPercent = 0, //TODO Correct VatPercent
                 VatAmount = 0, //TODO Correct VatAmount
             }).ToList();
-            paymentOrderRequest.Paymentorder.OrderItems = orderItems;
+            paymentOrderRequest.OrderItems = orderItems;
 
             var response = await swedbankPayClient.PaymentOrders.CreatePaymentOrder(paymentOrderRequest);
             this.cartService.PaymentOrderLink = response.PaymentOrder.Id;
@@ -108,7 +108,7 @@
         public async Task<IActionResult> LoadPaymentMenu()
         {
             var responseJsonResult = await CreatePaymentOrder();
-            
+
             var response = responseJsonResult.Value as PaymentOrderResponseContainer;
 
             var jsSource = response.Operations.FirstOrDefault(x => x.Rel == PaymentOrderResourceOperations.ViewPaymentOrder)?.Href;
@@ -124,37 +124,33 @@
             return View("Checkout", swedBankPaySource);
         }
 
-        private PaymentOrderRequestContainer CreatePaymentOrderRequestContainer(long amount, long vatAmount)
+        private PaymentOrderRequest CreatePaymentOrderRequest(long amount, long vatAmount)
         {
-            var paymentOrderRequestContainer = new PaymentOrderRequestContainer
+            var paymentOrderRequest = new PaymentOrderRequest
             {
-                Paymentorder = new PaymentOrderRequest
+                Amount = amount,
+                VatAmount = vatAmount,
+                Currency = "SEK",
+                Description = "Description",
+                Language = "sv-SE",
+                UserAgent = "useragent",
+                Urls = new Urls
                 {
-                    Amount = amount,
-                    VatAmount = vatAmount,
-                    Currency = "SEK",
-                    Description = "Description",
-                    Language = "sv-SE",
-                    UserAgent = "useragent",
-                    Urls = new Urls
-                    {
-                        TermsOfServiceUrl = this.urlsOptionsAccessor.TermsOfServiceUrl,
-                        CallbackUrl = null,
-                        CompleteUrl = this.urlsOptionsAccessor.CompleteUrl,
-                        LogoUrl = null,
-                        CancelUrl = this.urlsOptionsAccessor.CancelUrl,
-                        HostUrls = new List<string> { { "https://payex.eu.ngrok.io" } }
-                    },
-                    PayeeInfo = this.payeeInfoOptions
-                }
+                    TermsOfServiceUrl = this.urlsOptionsAccessor.TermsOfServiceUrl,
+                    CallbackUrl = null,
+                    CompleteUrl = this.urlsOptionsAccessor.CompleteUrl,
+                    LogoUrl = null,
+                    CancelUrl = this.urlsOptionsAccessor.CancelUrl,
+                    HostUrls = new List<string> { { "https://payex.eu.ngrok.io" } }
+                },
+                PayeeInfo = this.payeeInfoOptions
             };
-            return paymentOrderRequestContainer;
+            return paymentOrderRequest;
         }
 
         public async Task<IActionResult> InitiateConsumerSession()
         {
-            var initiateConsumerRequest = new ConsumersRequest();
-            initiateConsumerRequest.ConsumerCountryCode = CountryCode.Se;
+            var initiateConsumerRequest = new ConsumersRequest { ConsumerCountryCode = CountryCode.SE };
 
             var swedbankPayClient = new SwedbankPayClient(this.swedbankPayOptions);
             var response = await swedbankPayClient.Consumers.InitiateSession(initiateConsumerRequest);

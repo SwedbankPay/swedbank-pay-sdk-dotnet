@@ -8,18 +8,18 @@ namespace SwedbankPay.Sdk.Tests
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using SwedbankPay.Sdk.Payments;
+
     using Xunit;
 
     public class PaymentOrdersResourceTests : ResourceTestsBase
     {
-        private readonly PaymentOrderRequestContainerBuilder paymentOrderRequestContainerBuilder = new PaymentOrderRequestContainerBuilder();
+        private readonly PaymentOrderRequestBuilder paymentOrderRequestBuilder = new PaymentOrderRequestBuilder();
 
         [Fact]
         public async Task CreatePaymentOrder_ShouldReturnPaymentOrderWithCorrectAmount()
         {
-            var paymentOrderRequestContainer = CreatePaymentOrderRequestContainer();
-            var paymentOrderResponseContainer = await this.Sut.PaymentOrders.CreatePaymentOrder(paymentOrderRequestContainer, PaymentOrderExpand.All);
+            var paymentOrderRequest = CreatePaymentOrderRequest();
+            var paymentOrderResponseContainer = await this.Sut.PaymentOrders.CreatePaymentOrder(paymentOrderRequest, PaymentOrderExpand.All);
             Assert.NotNull(paymentOrderResponseContainer);
             Assert.NotNull(paymentOrderResponseContainer.PaymentOrder);
             Assert.Equal(30000, paymentOrderResponseContainer.PaymentOrder.Amount);
@@ -28,14 +28,14 @@ namespace SwedbankPay.Sdk.Tests
         [Fact]
         public async Task CreatePaymentOrder_ShouldReturnMetaData()
         {
-            var paymentOrderRequestContainer = CreatePaymentOrderRequestContainer();
-            paymentOrderRequestContainer.Paymentorder.MetaData = new Dictionary<string, object>
+            var orderRequestContainer = CreatePaymentOrderRequest();
+            orderRequestContainer.MetaData = new Dictionary<string, object>
             {
                 ["testvalue"] = 3,
                 ["testvalue2"] = "test"
             };
-            
-            var paymentOrderResponseContainer = await this.Sut.PaymentOrders.CreatePaymentOrder(paymentOrderRequestContainer, PaymentOrderExpand.All);
+
+            var paymentOrderResponseContainer = await this.Sut.PaymentOrders.CreatePaymentOrder(orderRequestContainer, PaymentOrderExpand.All);
             Assert.NotNull(paymentOrderResponseContainer);
             Assert.NotNull(paymentOrderResponseContainer.PaymentOrder);
 
@@ -53,7 +53,7 @@ namespace SwedbankPay.Sdk.Tests
 
             //ARRANGE
             var paymentOrderRequestContainer =
-                this.paymentOrderRequestContainerBuilder.WithTestValues()
+                this.paymentOrderRequestBuilder.WithTestValues()
                     .WithOrderItems()
                     .Build();
 
@@ -86,7 +86,7 @@ namespace SwedbankPay.Sdk.Tests
             //ACT
             var paymentOrderResponseContainer = await this.Sut.PaymentOrders.GetPaymentOrder("/psp/paymentorders/472e6f26-a9b5-4e91-1b70-08d756b9b7d8", PaymentOrderExpand.CurrentPayment);
             var sales = await this.Sut.Payment.GetSales(paymentOrderResponseContainer.PaymentOrder.CurrentPayment.Payment.Sales.Id);
-            
+
             //ASSERT
             Assert.NotNull(sales);
             Assert.NotEmpty(sales);
@@ -95,8 +95,8 @@ namespace SwedbankPay.Sdk.Tests
         [Fact]
         public async Task CreateAndGetPaymentOrder_ShouldReturnPaymentOrderWithSameAmount()
         {
-            var paymentOrderRequestContainer = CreatePaymentOrderRequestContainer();
-            var paymentOrderResponseContainer = await this.Sut.PaymentOrders.CreatePaymentOrder(paymentOrderRequestContainer, PaymentOrderExpand.All);
+            var paymentOrderRequest = CreatePaymentOrderRequest();
+            var paymentOrderResponseContainer = await this.Sut.PaymentOrders.CreatePaymentOrder(paymentOrderRequest, PaymentOrderExpand.All);
             Assert.NotNull(paymentOrderResponseContainer);
             Assert.NotNull(paymentOrderResponseContainer.PaymentOrder);
             var amount = paymentOrderResponseContainer.PaymentOrder.Amount;
@@ -111,19 +111,16 @@ namespace SwedbankPay.Sdk.Tests
         [Fact]
         public async Task CreateAndUpdateOnlyAmountOnPaymentOrder_ShouldThrowCouldNotUpdatePaymentOrderException()
         {
-            var paymentOrderRequestContainer = CreatePaymentOrderRequestContainer(30000, 7500);
-            var paymentOrderResponseContainer = await this.Sut.PaymentOrders.CreatePaymentOrder(paymentOrderRequestContainer, PaymentOrderExpand.All);
+            var paymentOrderRequest = CreatePaymentOrderRequest(30000, 7500);
+            var paymentOrderResponseContainer = await this.Sut.PaymentOrders.CreatePaymentOrder(paymentOrderRequest, PaymentOrderExpand.All);
             Assert.NotNull(paymentOrderResponseContainer);
             Assert.NotNull(paymentOrderResponseContainer.PaymentOrder);
             var amount = paymentOrderResponseContainer.PaymentOrder.Amount;
 
             var newAmount = 50000;
-            var orderRequestContainer = new PaymentOrderRequestContainer
+            var orderRequestContainer = new PaymentOrderRequest
             {
-                Paymentorder = new PaymentOrderRequest
-                {
-                    Amount = newAmount,
-                }
+                Amount = newAmount,
             };
 
             await Assert.ThrowsAsync<CouldNotUpdatePaymentOrderException>(() => this.Sut.PaymentOrders.UpdatePaymentOrder(paymentOrderResponseContainer.PaymentOrder.Id, orderRequestContainer));
@@ -133,24 +130,21 @@ namespace SwedbankPay.Sdk.Tests
         [Fact]
         public async Task CreateAndUpdatePaymentOrder_ShouldReturnPaymentOrderWithNewAmounts()
         {
-            var paymentOrderRequestContainer = CreatePaymentOrderRequestContainer();
-            var paymentOrderResponseContainer = await this.Sut.PaymentOrders.CreatePaymentOrder(paymentOrderRequestContainer, PaymentOrderExpand.All);
+            var paymentOrderRequest = CreatePaymentOrderRequest();
+            var paymentOrderResponseContainer = await this.Sut.PaymentOrders.CreatePaymentOrder(paymentOrderRequest, PaymentOrderExpand.All);
             Assert.NotNull(paymentOrderResponseContainer);
             Assert.NotNull(paymentOrderResponseContainer.PaymentOrder);
             var amount = paymentOrderResponseContainer.PaymentOrder.Amount;
 
             var newAmount = 50000;
             var newVatAmount = 10000;
-            var orderRequestContainer = new PaymentOrderRequestContainer
+            var orderRequest = new PaymentOrderRequest
             {
-                Paymentorder = new PaymentOrderRequest
-                {
-                    Amount = newAmount,
-                    VatAmount = newVatAmount
-                }
+                Amount = newAmount,
+                VatAmount = newVatAmount
             };
 
-            var paymentOrderResponseContainer2 = await this.Sut.PaymentOrders.UpdatePaymentOrder(paymentOrderResponseContainer.PaymentOrder.Id, orderRequestContainer);
+            var paymentOrderResponseContainer2 = await this.Sut.PaymentOrders.UpdatePaymentOrder(paymentOrderResponseContainer.PaymentOrder.Id, orderRequest);
             Assert.NotNull(paymentOrderResponseContainer2);
             Assert.NotNull(paymentOrderResponseContainer2.PaymentOrder);
             Assert.Equal(newAmount, paymentOrderResponseContainer2.PaymentOrder.Amount);
@@ -158,28 +152,28 @@ namespace SwedbankPay.Sdk.Tests
         }
 
         [Fact]
-        public async Task CreateAndCancelPaymentOrder_ShouldThrowNotYetAuthorizedException()
+        public async Task CreateAndCancelPaymentOrder_ShouldThrowOperationNotAvailableException()
         {
-            var paymentOrderRequestContainer = CreatePaymentOrderRequestContainer();
-            var paymentOrderResponseContainer = await this.Sut.PaymentOrders.CreatePaymentOrder(paymentOrderRequestContainer, PaymentOrderExpand.All);
+            var paymentOrderRequest = CreatePaymentOrderRequest();
+            var paymentOrderResponseContainer = await this.Sut.PaymentOrders.CreatePaymentOrder(paymentOrderRequest, PaymentOrderExpand.All);
 
             Assert.NotNull(paymentOrderResponseContainer);
             Assert.NotNull(paymentOrderResponseContainer.PaymentOrder);
 
-            var transactionRequestContainer = new TransactionRequestContainer(new TransactionRequest
+            var transactionRequest = new TransactionRequest
             {
                 Description = "ABC123",
                 PayeeReference = "Cancelling parts of the total amount"
-            });
+            };
 
-            await Assert.ThrowsAsync<PaymentNotYetAuthorizedException>(() => this.Sut.PaymentOrders.CancelPaymentOrder(paymentOrderResponseContainer.PaymentOrder.Id, transactionRequestContainer));
+            await Assert.ThrowsAsync<OperationNotAvailableException>(() => this.Sut.PaymentOrders.CancelPaymentOrder(paymentOrderResponseContainer.PaymentOrder.Id, transactionRequest));
         }
 
         [Fact]
         public async Task CreateAndAbortPaymentOrder_ShouldReturnAbortedState()
         {
-            var paymentOrderRequestContainer = CreatePaymentOrderRequestContainer();
-            var paymentOrderResponseContainer = await this.Sut.PaymentOrders.CreatePaymentOrder(paymentOrderRequestContainer, PaymentOrderExpand.All);
+            var paymentOrderRequest = CreatePaymentOrderRequest();
+            var paymentOrderResponseContainer = await this.Sut.PaymentOrders.CreatePaymentOrder(paymentOrderRequest, PaymentOrderExpand.All);
 
             Assert.NotNull(paymentOrderResponseContainer);
             Assert.NotNull(paymentOrderResponseContainer.PaymentOrder);
@@ -193,8 +187,8 @@ namespace SwedbankPay.Sdk.Tests
         [Fact]
         public async Task CreateAndCapturePaymentOrder_ShouldThrowNotYetAuthorizedException()
         {
-            var paymentOrderRequestContainer = CreatePaymentOrderRequestContainer(100000, 25000);
-            var paymentOrderResponseContainer = await this.Sut.PaymentOrders.CreatePaymentOrder(paymentOrderRequestContainer, PaymentOrderExpand.All);
+            var paymentOrderRequest = CreatePaymentOrderRequest(100000, 25000);
+            var paymentOrderResponseContainer = await this.Sut.PaymentOrders.CreatePaymentOrder(paymentOrderRequest, PaymentOrderExpand.All);
 
             Assert.NotNull(paymentOrderResponseContainer);
             Assert.NotNull(paymentOrderResponseContainer.PaymentOrder);
@@ -242,8 +236,7 @@ namespace SwedbankPay.Sdk.Tests
                     }
                 }
             };
-            var transactionRequestContainer = new TransactionRequestContainer(transactionRequest);
-            await Assert.ThrowsAsync<PaymentNotYetAuthorizedException>(() => this.Sut.PaymentOrders.Capture(paymentOrderResponseContainer.PaymentOrder.Id, transactionRequestContainer));
+            await Assert.ThrowsAsync<PaymentNotYetAuthorizedException>(() => this.Sut.PaymentOrders.Capture(paymentOrderResponseContainer.PaymentOrder.Id, transactionRequest));
         }
 
         [Fact]
@@ -266,36 +259,31 @@ namespace SwedbankPay.Sdk.Tests
             //Assert.Equal("Completed", transactionResponse.State);
         }
 
-        private PaymentOrderRequestContainer CreatePaymentOrderRequestContainer(long amount = 30000, long vatAmount = 7500)
+        private PaymentOrderRequest CreatePaymentOrderRequest(long amount = 30000, long vatAmount = 7500)
         {
-            var paymentOrderRequestContainer = new PaymentOrderRequestContainer
+            return new PaymentOrderRequest
             {
-                Paymentorder = new PaymentOrderRequest
+                Amount = amount,
+                VatAmount = vatAmount,
+                Currency = "SEK",
+                Description = "Description",
+                Language = "sv-SE",
+                UserAgent = "useragent",
+                Urls = new Urls
                 {
-                    Amount = amount,
-                    VatAmount = vatAmount,
-                    Currency = "SEK",
-                    Description = "Description",
-                    Language = "sv-SE",
-                    UserAgent = "useragent",
-                    Urls = new Urls
-                    {
-                        TermsOfServiceUrl = null,
-                        CallbackUrl = null,
-                        CancelUrl = "https://payex.eu.ngrok.io/payment-canceled?orderGroupId={orderGroupId}",
-                        CompleteUrl = "https://payex.eu.ngrok.io/sv/checkout-sv/PayexCheckoutConfirmation/?orderGroupId={orderGroupId}",
-                        LogoUrl = null,
-                        HostUrls = new List<string> { { "https://payex.eu.ngrok.io" } }
-                    },
-                    PayeeInfo = new PayeeInfo
-                    {
-                        PayeeId = "91a4c8e0-72ac-425c-a687-856706f9e9a1",
-                        PayeeReference = DateTime.Now.Ticks.ToString(),
-                    }
+                    TermsOfServiceUrl = null,
+                    CallbackUrl = null,
+                    CancelUrl = "https://payex.eu.ngrok.io/payment-canceled?orderGroupId={orderGroupId}",
+                    CompleteUrl = "https://payex.eu.ngrok.io/sv/checkout-sv/PayexCheckoutConfirmation/?orderGroupId={orderGroupId}",
+                    LogoUrl = null,
+                    HostUrls = new List<string> { { "https://payex.eu.ngrok.io" } }
+                },
+                PayeeInfo = new PayeeInfo
+                {
+                    PayeeId = "91a4c8e0-72ac-425c-a687-856706f9e9a1",
+                    PayeeReference = DateTime.Now.Ticks.ToString(),
                 }
             };
-            return paymentOrderRequestContainer;
         }
-
     }
 }

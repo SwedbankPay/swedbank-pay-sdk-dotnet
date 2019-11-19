@@ -2,7 +2,7 @@
 {
     public enum CountryCode
     {
-        Se,
-        No
+        SE,
+        NO
     }
 }

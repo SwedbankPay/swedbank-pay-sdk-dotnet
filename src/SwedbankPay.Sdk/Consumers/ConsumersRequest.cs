@@ -2,11 +2,18 @@
 {
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
+
     using SwedbankPay.Sdk.PaymentOrders;
 
     public class ConsumersRequest
     {
-        public string Operation { get; internal set; }
+        public ConsumersRequest()
+        {
+            Operation = Operation.Initiate;
+        }
+
+        [JsonConverter(typeof(TypedSafeEnumValueConverter<Operation, string>))]
+        public Operation Operation { get; }
 
         /// <summary>
         /// The MSISDN (mobile phone number) of the payer. Format Sweden: +46707777777. Format Norway: +4799999999.
@@ -16,7 +23,7 @@
         /// <summary>
         /// The e-mail address of the payer.
         /// </summary>
-        public string Email { get; set; }
+        public EmailAddress Email { get; set; }
 
         /// <summary>
         /// Consumers country of residence. Used by the consumerUi for validation on all input fields.

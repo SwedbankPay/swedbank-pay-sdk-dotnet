@@ -1,14 +1,15 @@
 ﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
+    using Newtonsoft.Json;
+
     using System;
     using System.Globalization;
     using System.Text.RegularExpressions;
-    using Newtonsoft.Json;
 
 
     public class EmailAddress
     {
-        public string Value { get; private set; }
+        private string Value { get; }
 
 
         [JsonConstructor]
@@ -18,7 +19,7 @@
             {
                 throw new ArgumentException($"Invalid email address: {emailAddress}", nameof(emailAddress));
             }
-            Value = emailAddress;
+            this.Value = emailAddress;
         }
 
         public static bool IsValidEmail(string emailAddress)
@@ -64,6 +65,11 @@
             {
                 return false;
             }
+        }
+
+        public override string ToString()
+        {
+            return this.Value;
         }
     }
 }

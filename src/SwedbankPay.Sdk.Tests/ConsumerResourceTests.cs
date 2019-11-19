@@ -60,22 +60,22 @@
            
         }
 
-        [Fact]
-        public async Task GetShippingDetails_Returns_CorrectDetails()
-        {
-            //ARRANGE
+        //[Fact]
+        //public async Task GetShippingDetails_Returns_CorrectDetails()
+        //{
+        //    //ARRANGE
                    
-            var uri = "/psp/consumers/11d724b68625ea1149a60bc053c306affe6f38fe91d800d88f1109f6461f44d0/shipping-details";
-            //ACT
-            var shippingDetails = await this.Sut.Consumers.GetShippingDetails(uri);
+        //    var uri = "/psp/consumers/11d724b68625ea1149a60bc053c306affe6f38fe91d800d88f1109f6461f44d0/shipping-details";
+        //    //ACT
+        //    var shippingDetails = await this.Sut.Consumers.GetShippingDetails(uri);
 
-            //ASSERT
-            Assert.NotNull(shippingDetails);
-            Assert.NotNull(shippingDetails.ShippingAddress);
-            Assert.Equal("+46739000001", shippingDetails.Msisdn);
-            Assert.Equal("leia.ahlstrom@payex.com", shippingDetails.Email);
-            Assert.Equal("19792", shippingDetails.ShippingAddress.ZipCode);
-        }
+        //    //ASSERT
+        //    Assert.NotNull(shippingDetails);
+        //    Assert.NotNull(shippingDetails.ShippingAddress);
+        //    Assert.Equal("+46739000001", shippingDetails.Msisdn);
+        //    Assert.Equal("leia.ahlstrom@payex.com", shippingDetails.Email);
+        //    Assert.Equal("19792", shippingDetails.ShippingAddress.ZipCode);
+        //}
 
 
         [Fact]
@@ -138,21 +138,21 @@
             await Assert.ThrowsAsync<CouldNotGetBillingDetailsException>(() => this.Sut.Consumers.GetBillingDetails(uri));
         }
 
-        [Fact]
-        public async Task GetBillingDetails_Returns_CorrectDetails()
-        {
-            //ARRANGE
-            var uri = "/psp/consumers/177a0e8cbc6777b6cddf72fbe3483c4cda6bef990c34c615376096c0fb607954/billing-details";
+        //[Fact]
+        //public async Task GetBillingDetails_Returns_CorrectDetails()
+        //{
+        //    //ARRANGE
+        //    var uri = "/psp/consumers/177a0e8cbc6777b6cddf72fbe3483c4cda6bef990c34c615376096c0fb607954/billing-details";
             
-            //ACT
-            var billingDetails = await this.Sut.Consumers.GetBillingDetails(uri);
+        //    //ACT
+        //    var billingDetails = await this.Sut.Consumers.GetBillingDetails(uri);
 
-            //ASSERT
-            Assert.NotNull(billingDetails);
-            Assert.NotNull(billingDetails.BillingAddress);
-            Assert.Equal("+46739000001", billingDetails.Msisdn);
-            Assert.Equal("leia.ahlstrom@payex.com", billingDetails.Email);
-            Assert.Equal("19792", billingDetails.BillingAddress.ZipCode);
-        }
+        //    //ASSERT
+        //    Assert.NotNull(billingDetails);
+        //    Assert.NotNull(billingDetails.BillingAddress);
+        //    Assert.Equal("+46739000001", billingDetails.Msisdn);
+        //    Assert.Equal("leia.ahlstrom@payex.com", billingDetails.Email);
+        //    Assert.Equal("19792", billingDetails.BillingAddress.ZipCode);
+        //}
     }
 }

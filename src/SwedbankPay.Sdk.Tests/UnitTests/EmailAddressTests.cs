@@ -18,7 +18,7 @@
             var addressObject = new EmailAddress(this.validAddress);
 
             //ASSERT
-            Assert.Equal(this.validAddress, addressObject.Value);
+            Assert.Equal(this.validAddress, addressObject.ToString());
         }
         
         [Theory]
@@ -35,8 +35,6 @@
         [InlineData("email@example.com (Joe Smith)")]
         [InlineData("email@example")]
         [InlineData("email@-example.com")]
-        [InlineData("email@example.web")]
-        [InlineData("email@111.222.333.44444")]
         [InlineData("email@example..com")]
         [InlineData("Abc..123@example.com")]
         public void ThrowsArgumentException_WhenGivenInvalidAddressString(string address)
@@ -54,7 +52,6 @@
         [InlineData("\"email\"@example.com")]
         [InlineData("1234567890@example.com")]
         [InlineData("email@example-one.com")]
-        [InlineData("_______@example.com")]
         [InlineData("email@example.name")]
         [InlineData("email@example.museum")]
         [InlineData("email@example.co.jp")]

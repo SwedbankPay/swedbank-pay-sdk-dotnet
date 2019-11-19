@@ -23,8 +23,6 @@
             var url = "/psp/consumers";
             
             Func<ProblemsContainer, Exception> onError = m => new CouldNotInitiateConsumerSessionException(consumersRequest, m);
-            consumersRequest.Operation = "initiate-consumer-session";
-            
             var res = await CreateInternalClient().HttpRequest<ConsumersResponse>(Method.POST, url, onError, consumersRequest);
             return res;
         }

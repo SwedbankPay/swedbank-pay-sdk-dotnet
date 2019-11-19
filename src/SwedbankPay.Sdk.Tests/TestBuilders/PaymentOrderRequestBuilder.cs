@@ -6,14 +6,14 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class PaymentOrderRequestContainerBuilder
+    public class PaymentOrderRequestBuilder
     {
-        private PaymentOrderRequestContainer paymentOrderRequestContainer = new PaymentOrderRequestContainer();
+        private PaymentOrderRequest paymentOrderRequest = new PaymentOrderRequest();
 
-        public PaymentOrderRequestContainerBuilder WithTestValues()
+        public PaymentOrderRequestBuilder WithTestValues()
         {
 
-            this.paymentOrderRequestContainer.Paymentorder = new PaymentOrderRequest
+            this.paymentOrderRequest = new PaymentOrderRequest
             {
                 Currency = "SEK",
                 Amount = 1300,
@@ -42,9 +42,9 @@
             
         }
 
-        public PaymentOrderRequestContainerBuilder WithOrderItems()
+        public PaymentOrderRequestBuilder WithOrderItems()
         {
-            this.paymentOrderRequestContainer.Paymentorder.OrderItems = new List<OrderItem>
+            this.paymentOrderRequest.OrderItems = new List<OrderItem>
             {
                 new OrderItem
                 {
@@ -80,27 +80,27 @@
                     VatAmount = 0
                 }
             };
-            this.paymentOrderRequestContainer.Paymentorder.Amount =
-                this.paymentOrderRequestContainer.Paymentorder.OrderItems.Select(a => a.Amount).Sum();
+            this.paymentOrderRequest.Amount =
+                this.paymentOrderRequest.OrderItems.Select(a => a.Amount).Sum();
             return this;
         }
 
-        public PaymentOrderRequestContainerBuilder WithVat()
+        public PaymentOrderRequestBuilder WithVat()
         {
             //if (_paymentOrderRequestContainer.Paymentorder.OrderItems.Any())
             //{
 
             //}
 
-            this.paymentOrderRequestContainer.Paymentorder.VatAmount = (long?) (this.paymentOrderRequestContainer.Paymentorder.Amount * 0.25);
+            this.paymentOrderRequest.VatAmount = (long?) (this.paymentOrderRequest.Amount * 0.25);
 
             
             return this;
         }
 
-        public PaymentOrderRequestContainer Build()
+        public PaymentOrderRequest Build()
         {
-            return this.paymentOrderRequestContainer;
+            return this.paymentOrderRequest;
         }
     }
 }
