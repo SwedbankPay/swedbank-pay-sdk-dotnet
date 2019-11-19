@@ -6,6 +6,7 @@
         {
             Payment = payment;
         }
+
         public PaymentRequest Payment { get; set; }
     }
 }

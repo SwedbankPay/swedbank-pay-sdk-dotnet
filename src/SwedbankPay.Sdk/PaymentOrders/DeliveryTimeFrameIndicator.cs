@@ -9,6 +9,7 @@
         public static DeliveryTimeFrameIndicator SameDayShipping { get; } = new DeliveryTimeFrameIndicator(nameof(SameDayShipping), "02");
         public static DeliveryTimeFrameIndicator OverNightShipping { get; } = new DeliveryTimeFrameIndicator(nameof(OverNightShipping), "03");
         public static DeliveryTimeFrameIndicator TwoDayOrMoreShipping { get; } = new DeliveryTimeFrameIndicator(nameof(TwoDayOrMoreShipping), "04");
+
         public DeliveryTimeFrameIndicator(string name, string value) : base(name, value)
         {
         }

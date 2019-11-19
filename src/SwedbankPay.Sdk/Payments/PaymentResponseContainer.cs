@@ -15,6 +15,7 @@
         {
             Payment = payment;
         }
+
         public PaymentResponse Payment { get; set; }
 
         public List<HttpOperation> Operations { get; set; } = new List<HttpOperation>();

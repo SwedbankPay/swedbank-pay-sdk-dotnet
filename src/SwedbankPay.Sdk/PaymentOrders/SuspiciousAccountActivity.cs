@@ -7,6 +7,7 @@
     {
         public static SuspiciousAccountActivity NoSuspiciousActivityObserved { get; } = new SuspiciousAccountActivity("No suspicious activity has been observed", "01");
         public static SuspiciousAccountActivity SuspiciousActivityObserved { get; } = new SuspiciousAccountActivity("Suspicious activity has been observed", "02");
+
         public SuspiciousAccountActivity(string name, string value) : base(name, value)
         {
         }

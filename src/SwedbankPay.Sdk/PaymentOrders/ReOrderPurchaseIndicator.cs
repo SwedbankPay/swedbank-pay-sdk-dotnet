@@ -7,6 +7,7 @@
     {
         public static ReOrderPurchaseIndicator MerchandiseAvailable { get; } = new ReOrderPurchaseIndicator(nameof(MerchandiseAvailable), "01");
         public static ReOrderPurchaseIndicator FutureAvailability { get; } = new ReOrderPurchaseIndicator(nameof(FutureAvailability), "02");
+
         public ReOrderPurchaseIndicator(string name, string value) : base(name, value)
         {
         }

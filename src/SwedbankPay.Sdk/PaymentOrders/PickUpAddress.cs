@@ -14,6 +14,7 @@
         public string CoAddress { get; set; }
         public string City { get; set; }
         public string ZipCode { get; set; }
+
         [JsonConverter(typeof(StringEnumConverter))]
         public CountryCode CountryCode { get; set; }
     }

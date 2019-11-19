@@ -41,6 +41,7 @@
             base.Clear();
             Session.Remove(CartSessionKey);
         }
+
         public override void Update()
         {
             Session.SetJson(CartSessionKey, this);

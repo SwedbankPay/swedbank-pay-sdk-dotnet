@@ -9,6 +9,7 @@
         public static AccountChangeIndicator LessThanThirtyDays { get; } = new AccountChangeIndicator(nameof(LessThanThirtyDays), "02");
         public static AccountChangeIndicator ThirtyToSixtyDays { get; } = new AccountChangeIndicator(nameof(ThirtyToSixtyDays), "03");
         public static AccountChangeIndicator MoreThanSixtyDays { get; } = new AccountChangeIndicator(nameof(MoreThanSixtyDays), "04");
+
         public AccountChangeIndicator(string name, string value) : base(name, value)
         {
         }

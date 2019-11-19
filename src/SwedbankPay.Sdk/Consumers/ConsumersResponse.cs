@@ -8,6 +8,7 @@
         /// A session token used to initiate Checkout UI
         /// </summary>
         public string Token { get; protected set; }
+
         /// <summary>
         /// The array of operation objects to choose from 
         /// </summary>

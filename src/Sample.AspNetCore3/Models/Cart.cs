@@ -55,6 +55,7 @@
 
         public virtual void Clear() => CartLineCollection.Clear();
         public virtual IEnumerable<CartLine> CartLines => CartLineCollection;
+
         public virtual void Update()
         {
 
@@ -67,6 +68,7 @@
     {
         public int CartLineId { get; set; }
         public Product Product { get; set; }
+
         [Required(ErrorMessage = "Please provide a number greater than zero!")]
         [Display(Name = "Unit quantity")]
         [Range(1, Int32.MaxValue)]
