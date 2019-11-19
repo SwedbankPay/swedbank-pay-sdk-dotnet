@@ -15,23 +15,23 @@
 
     public class CartController : Controller
     {
-        private readonly ILogger<CartController> _logger;
-        private StoreDBContext _storesContext;
-        private Cart _cartService;
+        private readonly ILogger<CartController> logger;
+        private StoreDbContext storesContext;
+        private Cart cartService;
 
-        public CartController(ILogger<CartController> logger, StoreDBContext storesContext, Cart cartService)
+        public CartController(ILogger<CartController> logger, StoreDbContext storesContext, Cart cartService)
         {
-            _logger = logger;
-            _storesContext = storesContext;
-            _cartService = cartService;
+            this.logger = logger;
+            this.storesContext = storesContext;
+            this.cartService = cartService;
         }
 
         public async Task<IActionResult> AddToCart(int id)
         {
             
-            var productList = await _storesContext.Products.ToListAsync();
+            var productList = await this.storesContext.Products.ToListAsync();
             var product = productList.FirstOrDefault(p => p.ProductId == id);
-            _cartService.AddItem(product, 1);
+            this.cartService.AddItem(product, 1);
 
             return RedirectToAction("Index", controllerName:"Products");
         }
@@ -39,10 +39,10 @@
         public IActionResult RemoveFromCart(int id)
         {
             
-            var line = _cartService.CartLines.FirstOrDefault(i => i.Product.ProductId == id);
+            var line = this.cartService.CartLines.FirstOrDefault(i => i.Product.ProductId == id);
             if (line != null)
             {
-                _cartService.RemoveItem(line.Product, line.Quantity);
+                this.cartService.RemoveItem(line.Product, line.Quantity);
             }
            
             return RedirectToAction("Index", controllerName:"Products");
@@ -52,11 +52,11 @@
         public IActionResult UpdateQuantity(int id, int quantity)
         {
 
-            var line = _cartService.CartLines.FirstOrDefault(i => i.Product.ProductId == id);
+            var line = this.cartService.CartLines.FirstOrDefault(i => i.Product.ProductId == id);
             if (line != null)
             {
                 line.Quantity = quantity;
-                _cartService.Update();
+                this.cartService.Update();
             }
             
             return RedirectToAction("Index", controllerName:"Products");

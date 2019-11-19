@@ -10,11 +10,11 @@
     public class CustomEmailAddressConverter: JsonConverter 
 
     {
-        private readonly Type[] _types;
+        private readonly Type[] types;
 
         public CustomEmailAddressConverter(params Type[] types)
         {
-            _types = types;
+            this.types = types;
         }
 
         public CustomEmailAddressConverter()
@@ -54,7 +54,7 @@
 
         public override bool CanConvert(Type objectType)
         {
-            return _types.Any(t => t == objectType);
+            return this.types.Any(t => t == objectType);
         }
     }
 }

@@ -19,14 +19,14 @@
 
     public abstract class PaymentTests : TestBase
     {
-        protected HttpClientService _httpClientService;
+        protected HttpClientService HttpClientService;
 
         public PaymentTests(string driverAlias) : base(driverAlias) { }
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            _httpClientService = new HttpClientService();
+            this.HttpClientService = new HttpClientService();
         }
 
         protected static IEnumerable TestData(bool singleProduct = true, string paymentMethod = PaymentMethods.Card)
@@ -52,7 +52,7 @@
             switch (paymentMethod)
             {
                 case PaymentMethods.Card:
-                    data.Add(new PayexCardInfo(TestDataService.CreditCardNumber, TestDataService.CreditCardExpiratioDate, TestDataService.CreditCardCVC));
+                    data.Add(new PayexCardInfo(TestDataService.CreditCardNumber, TestDataService.CreditCardExpiratioDate, TestDataService.CreditCardCvc));
                     break;
 
                 case PaymentMethods.Swish:

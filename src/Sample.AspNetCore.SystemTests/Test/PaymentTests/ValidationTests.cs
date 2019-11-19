@@ -17,7 +17,7 @@
         #region Validation
 
         [Test, TestCaseSource(nameof(TestData), new object[] { true, null })]
-        public void Field_Validation_Card(Product[] products)
+        public void FieldValidationCard(Product[] products)
         {
             GoToPayexCardPaymentFrame(products)
                 .CreditCardNumber.Set("abc")
@@ -28,19 +28,19 @@
                 .ValidationIcons[x => x.ExpiryDate].Should.BeVisible()
                 .CreditCardNumber.Set(TestDataService.CreditCardNumber)
                 .ExpiryDate.Set(TestDataService.CreditCardExpiratioDate)
-                .Cvc.Set(TestDataService.CreditCardCVC)
+                .Cvc.Set(TestDataService.CreditCardCvc)
                 .ValidationIcons[x => x.CreditCardNumber].Should.Not.BeVisible()
                 .ValidationIcons[x => x.ExpiryDate].Should.Not.BeVisible();
         }
 
         [Test, TestCaseSource(nameof(TestData), new object[] { true, null })]
-        public void Field_Validation_Swish(Product[] products)
+        public void FieldValidationSwish(Product[] products)
         {
             GoToPayexSwishPaymentFrame(products);
         }
 
         [Test, TestCaseSource(nameof(TestData), new object[] { true, null })]
-        public void Field_Validation_Invoice(Product[] products)
+        public void FieldValidationInvoice(Product[] products)
         {
             GoToPayexInvoicePaymentFrame(products)
                 .PersonalNumber.Set("abc")

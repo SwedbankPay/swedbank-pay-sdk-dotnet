@@ -19,7 +19,7 @@
         #region Rejection
 
         [Test, TestCaseSource(nameof(TestData), new object[] { true, PaymentMethods.Card })]
-        public void Rejected_Flow_Payment(Product[] products, PayexInfo payexInfo)
+        public void RejectedFlowPayment(Product[] products, PayexInfo payexInfo)
         {
 
         }

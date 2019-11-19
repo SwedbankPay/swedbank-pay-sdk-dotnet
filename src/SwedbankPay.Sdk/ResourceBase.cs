@@ -13,12 +13,12 @@
     public abstract class ResourceBase
     {
         protected readonly SwedbankPayOptions SwedbankPayOptions;
-        private readonly ILogSwedbankPayHttpResponse _logger;
+        private readonly ILogSwedbankPayHttpResponse logger;
 
         internal ResourceBase(SwedbankPayOptions swedbankPayOptions, ILogSwedbankPayHttpResponse logger)
         {
             SwedbankPayOptions = swedbankPayOptions;
-            _logger = logger;
+            this.logger = logger;
         }
 
         public async Task<string> GetRaw(string id, PaymentOrderExpand paymentOrderExpand)
@@ -42,7 +42,7 @@
                 Authenticator = new OAuth2AuthorizationRequestHeaderAuthenticator(SwedbankPayOptions.Token, "Bearer")
             };
 
-            return new SwedbankPayHttpClient(client, _logger);
+            return new SwedbankPayHttpClient(client, this.logger);
         }
 
 

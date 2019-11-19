@@ -12,17 +12,17 @@
 
     public class ProductsController : Controller
     {
-        private readonly StoreDBContext _context;
+        private readonly StoreDbContext context;
 
-        public ProductsController(StoreDBContext context)
+        public ProductsController(StoreDbContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Products.ToListAsync());
+            return View(await this.context.Products.ToListAsync());
         }
 
         // GET: Products/Details/5
@@ -33,7 +33,7 @@
                 return NotFound();
             }
 
-            var product = await _context.Products
+            var product = await this.context.Products
                 .FirstOrDefaultAsync(m => m.ProductId == id);
             if (product == null)
             {
@@ -58,8 +58,8 @@
         {
             if (ModelState.IsValid)
             {
-                _context.Add(product);
-                await _context.SaveChangesAsync();
+                this.context.Add(product);
+                await this.context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(product);
@@ -73,7 +73,7 @@
                 return NotFound();
             }
 
-            var product = await _context.Products.FindAsync(id);
+            var product = await this.context.Products.FindAsync(id);
             if (product == null)
             {
                 return NotFound();
@@ -97,8 +97,8 @@
             {
                 try
                 {
-                    _context.Update(product);
-                    await _context.SaveChangesAsync();
+                    this.context.Update(product);
+                    await this.context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -124,7 +124,7 @@
                 return NotFound();
             }
 
-            var product = await _context.Products
+            var product = await this.context.Products
                 .FirstOrDefaultAsync(m => m.ProductId == id);
             if (product == null)
             {
@@ -139,15 +139,15 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var product = await _context.Products.FindAsync(id);
-            _context.Products.Remove(product);
-            await _context.SaveChangesAsync();
+            var product = await this.context.Products.FindAsync(id);
+            this.context.Products.Remove(product);
+            await this.context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ProductExists(int id)
         {
-            return _context.Products.Any(e => e.ProductId == id);
+            return this.context.Products.Any(e => e.ProductId == id);
         }
     }
 }

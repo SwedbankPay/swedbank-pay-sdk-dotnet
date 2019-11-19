@@ -16,15 +16,15 @@
 
     public class PaymentController : Controller
     {
-        private readonly SwedbankPayOptions _swedbankPayOptions;
-        private Cart _cartService;
-        private readonly StoreDBContext _context;
+        private readonly SwedbankPayOptions swedbankPayOptions;
+        private Cart cartService;
+        private readonly StoreDbContext context;
 
-        public PaymentController(IOptionsMonitor<SwedbankPayOptions> optionsAccessor, Cart cartService, StoreDBContext context)
+        public PaymentController(IOptionsMonitor<SwedbankPayOptions> optionsAccessor, Cart cartService, StoreDbContext context)
         {
-            _swedbankPayOptions = optionsAccessor.CurrentValue;
-            _cartService = cartService;
-            _context = context;
+            this.swedbankPayOptions = optionsAccessor.CurrentValue;
+            this.cartService = cartService;
+            this.context = context;
         }
 
 
@@ -82,7 +82,7 @@
         {
             try
             {
-                var swedbankPayClient = new SwedbankPayClient(_swedbankPayOptions);
+                var swedbankPayClient = new SwedbankPayClient(this.swedbankPayOptions);
                 var transactionRequestObject = new TransactionRequestContainer(new TransactionRequest
                 {
                     PayeeReference = DateTime.Now.Ticks.ToString(),
@@ -92,7 +92,7 @@
                 var response = await swedbankPayClient.PaymentOrders.CancelPaymentOrder(paymentOrderId, transactionRequestObject);
 
                 TempData["CancelMessage"] = $"Payment has been cancelled: {response.Id}";
-                _cartService.PaymentOrderLink = null;
+                this.cartService.PaymentOrderLink = null;
 
                 return RedirectToAction(nameof(Details), "Orders");
             }
@@ -109,12 +109,12 @@
         {
             try
             {
-                var swedbankPayClient = new SwedbankPayClient(_swedbankPayOptions);
+                var swedbankPayClient = new SwedbankPayClient(this.swedbankPayOptions);
 
                 var response = await swedbankPayClient.PaymentOrders.AbortPaymentOrder(paymentOrderId);
 
                 TempData["AbortMessage"] = $"Payment Order: {response.PaymentOrder.Id} has been {response.PaymentOrder.State}";
-                _cartService.PaymentOrderLink = null;
+                this.cartService.PaymentOrderLink = null;
 
                 return RedirectToAction(nameof(Index), "Products");
             }
@@ -151,14 +151,14 @@
         {
             try
             {
-                var swedbankPayClient = new SwedbankPayClient(_swedbankPayOptions);
+                var swedbankPayClient = new SwedbankPayClient(this.swedbankPayOptions);
 
                 var transActionRequestObject = await GetTransactionRequestContainer("Capturing the authorized payment");
 
                 var response = await swedbankPayClient.PaymentOrders.Capture(paymentOrderId, transActionRequestObject);
 
                     TempData["CaptureMessage"] = $"{response.Id}, {response.Type}, {response.State}";
-                    _cartService.PaymentOrderLink = null;
+                    this.cartService.PaymentOrderLink = null;
 
                     return RedirectToAction(nameof(Details), "Orders");
             }
@@ -173,12 +173,12 @@
         {
             try
             {
-                var swedbankPayClient = new SwedbankPayClient(_swedbankPayOptions);
+                var swedbankPayClient = new SwedbankPayClient(this.swedbankPayOptions);
                 var transActionRequestObject = await GetTransactionRequestContainer("Reversing the capture amount");
                 var response = await swedbankPayClient.PaymentOrders.Reversal(paymentOrderId, transActionRequestObject);
 
                 TempData["ReversalMessage"] = $"{response.Id}, {response.Type}, {response.State}";
-                _cartService.PaymentOrderLink = null;
+                this.cartService.PaymentOrderLink = null;
 
                 return RedirectToAction(nameof(Details), "Orders");
             }
@@ -191,7 +191,7 @@
 
         private async Task<TransactionRequestContainer> GetTransactionRequestContainer(string description)
         {
-            var order = await _context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
+            var order = await this.context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
 
             var orderItems = order.Lines.Select(line => new OrderItem
             {
@@ -227,16 +227,16 @@
         [HttpPost]
         public void OnCompleted(string paymentLinkId)
         {
-            var products = _cartService.CartLines.Select(p => p.Product);
-            _context.Products.AttachRange(products);
+            var products = this.cartService.CartLines.Select(p => p.Product);
+            this.context.Products.AttachRange(products);
 
-            _context.Orders.Add(new Order
+            this.context.Orders.Add(new Order
             {
-                PaymentOrderLink = _cartService.PaymentOrderLink,
+                PaymentOrderLink = this.cartService.PaymentOrderLink,
                 PaymentLink = paymentLinkId,
-                Lines = _cartService.CartLines.ToList()
+                Lines = this.cartService.CartLines.ToList()
             });
-            _context.SaveChanges(true);
+            this.context.SaveChanges(true);
         }
 
 

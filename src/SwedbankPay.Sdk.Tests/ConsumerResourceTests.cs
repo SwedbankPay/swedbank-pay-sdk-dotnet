@@ -11,16 +11,16 @@
 
     public class ConsumerResourceTests : ResourceTestsBase
     {
-        private readonly ConsumersRequestContainerBuilder _consumerResourceRequestContainer = new ConsumersRequestContainerBuilder(); 
+        private readonly ConsumersRequestContainerBuilder consumerResourceRequestContainer = new ConsumersRequestContainerBuilder(); 
        
         [Fact]
         public async Task InitializeConsumer_ShouldReturn_TokenNotNull()
         {
             //ARRANGE
-            var orderResoureRequest = _consumerResourceRequestContainer.WithTestValues()
+            var orderResoureRequest = this.consumerResourceRequestContainer.WithTestValues()
                                                                                 .Build();
             //ACT
-            var orderResourceResponse = await _sut.Consumers.InitiateSession(orderResoureRequest.ConsumersRequest);
+            var orderResourceResponse = await this.Sut.Consumers.InitiateSession(orderResoureRequest.ConsumersRequest);
             //ASSERT
             
             Assert.NotNull(orderResourceResponse);
@@ -32,10 +32,10 @@
         public async Task InitializeConsumer_ShouldReturn_NonEmptyToken()
         {
             //ARRANGE
-            var orderResoureRequest = _consumerResourceRequestContainer.WithTestValues()
+            var orderResoureRequest = this.consumerResourceRequestContainer.WithTestValues()
                 .Build();
             //ACT
-            var orderResourceResponse = await _sut.Consumers.InitiateSession(orderResoureRequest.ConsumersRequest);
+            var orderResourceResponse = await this.Sut.Consumers.InitiateSession(orderResoureRequest.ConsumersRequest);
             //ASSERT
 
             Assert.NotNull(orderResourceResponse);
@@ -47,11 +47,11 @@
         public async Task InitializeConsumer_ReturnsNonEmptyOperationsCollection()
         {
             //ARRANGE
-            var orderResoureRequest = _consumerResourceRequestContainer.WithTestValues()
+            var orderResoureRequest = this.consumerResourceRequestContainer.WithTestValues()
                 .Build();
 
             //ACT
-            var orderResourceResponse = await _sut.Consumers.InitiateSession(orderResoureRequest.ConsumersRequest);
+            var orderResourceResponse = await this.Sut.Consumers.InitiateSession(orderResoureRequest.ConsumersRequest);
 
             //ASSERT
             Assert.NotNull(orderResourceResponse);
@@ -67,7 +67,7 @@
                    
             var uri = "/psp/consumers/11d724b68625ea1149a60bc053c306affe6f38fe91d800d88f1109f6461f44d0/shipping-details";
             //ACT
-            var shippingDetails = await _sut.Consumers.GetShippingDetails(uri);
+            var shippingDetails = await this.Sut.Consumers.GetShippingDetails(uri);
 
             //ASSERT
             Assert.NotNull(shippingDetails);
@@ -85,7 +85,7 @@
             var url = " ";
             
             //ASSERT
-            await Assert.ThrowsAsync<ArgumentException>(url,() => _sut.Consumers.GetShippingDetails(url));
+            await Assert.ThrowsAsync<ArgumentException>(url,() => this.Sut.Consumers.GetShippingDetails(url));
         }
 
         [Fact]
@@ -95,7 +95,7 @@
             string url = null;
 
             //ASSERT
-            await Assert.ThrowsAsync<ArgumentException>(url, () => _sut.Consumers.GetShippingDetails(url));
+            await Assert.ThrowsAsync<ArgumentException>(url, () => this.Sut.Consumers.GetShippingDetails(url));
         }
 
         [Fact]
@@ -105,7 +105,7 @@
             var uri = "xxx";
 
             //ASSERT
-            await Assert.ThrowsAsync<CouldNotGetShippingDetailsException>(() => _sut.Consumers.GetShippingDetails(uri));
+            await Assert.ThrowsAsync<CouldNotGetShippingDetailsException>(() => this.Sut.Consumers.GetShippingDetails(uri));
         }
 
         [Fact]
@@ -115,7 +115,7 @@
             var url = " ";
 
             //ASSERT
-            await Assert.ThrowsAsync<ArgumentException>(url, () => _sut.Consumers.GetBillingDetails(url));
+            await Assert.ThrowsAsync<ArgumentException>(url, () => this.Sut.Consumers.GetBillingDetails(url));
         }
 
         [Fact]
@@ -125,7 +125,7 @@
             string url = null;
 
             //ASSERT
-            await Assert.ThrowsAsync<ArgumentException>(url,() => _sut.Consumers.GetBillingDetails(url));
+            await Assert.ThrowsAsync<ArgumentException>(url,() => this.Sut.Consumers.GetBillingDetails(url));
         }
 
         [Fact]
@@ -135,7 +135,7 @@
             var uri = "xxx";
 
             //ASSERT
-            await Assert.ThrowsAsync<CouldNotGetBillingDetailsException>(() => _sut.Consumers.GetBillingDetails(uri));
+            await Assert.ThrowsAsync<CouldNotGetBillingDetailsException>(() => this.Sut.Consumers.GetBillingDetails(uri));
         }
 
         [Fact]
@@ -145,7 +145,7 @@
             var uri = "/psp/consumers/177a0e8cbc6777b6cddf72fbe3483c4cda6bef990c34c615376096c0fb607954/billing-details";
             
             //ACT
-            var billingDetails = await _sut.Consumers.GetBillingDetails(uri);
+            var billingDetails = await this.Sut.Consumers.GetBillingDetails(uri);
 
             //ASSERT
             Assert.NotNull(billingDetails);

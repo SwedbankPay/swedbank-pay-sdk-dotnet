@@ -20,7 +20,7 @@ namespace Sample.AspNetCore3
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-                var context = services.GetRequiredService<StoreDBContext>();
+                var context = services.GetRequiredService<StoreDbContext>();
                 ProductGenerator.Initialize(services);
             }
             host.Run();

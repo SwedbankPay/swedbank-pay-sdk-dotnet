@@ -10,8 +10,8 @@
     {
         public static void Initialize(IServiceProvider serviceProvider)
         {
-            using (var context = new StoreDBContext(
-                serviceProvider.GetRequiredService<DbContextOptions<StoreDBContext>>()))
+            using (var context = new StoreDbContext(
+                serviceProvider.GetRequiredService<DbContextOptions<StoreDbContext>>()))
             {
                 
                 if (context.Products.Any())

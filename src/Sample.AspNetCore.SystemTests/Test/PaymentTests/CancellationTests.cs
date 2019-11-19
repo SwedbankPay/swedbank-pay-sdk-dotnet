@@ -24,7 +24,7 @@
                 .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Get].Should.BeVisible()
                 .Actions.Rows.Count.Should.Equal(1);
 
-            var order = JsonConvert.DeserializeObject<Order>(await _httpClientService.SendGetRequest(orderLink, ExpandParameter.Transactions));
+            var order = JsonConvert.DeserializeObject<Order>(await this.HttpClientService.SendGetRequest(orderLink, ExpandParameter.Transactions));
 
             // Operations
             Assert.That(order.Operations.FirstOrDefault(x => x.Rel == OperationTypes.Cancel), Is.Null);
@@ -32,7 +32,7 @@
             Assert.That(order.Operations.FirstOrDefault(x => x.Rel == OperationTypes.Reversal), Is.Null);
             Assert.That(order.Operations.FirstOrDefault(x => x.Rel == OperationTypes.Get), Is.Not.Null);
 
-            order = JsonConvert.DeserializeObject<Order>(await _httpClientService.SendGetRequest(orderLink, ExpandParameter.CurrentPayment));
+            order = JsonConvert.DeserializeObject<Order>(await this.HttpClientService.SendGetRequest(orderLink, ExpandParameter.CurrentPayment));
 
             // Transactions
             Assert.That(order.PaymentOrder.CurrentPayment.Payment.Transactions.TransactionList.Count, Is.EqualTo(2));
@@ -49,7 +49,7 @@
                 .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Get].Should.BeVisible()
                 .Actions.Rows.Count.Should.Equal(1);
 
-            var order = JsonConvert.DeserializeObject<Order>(await _httpClientService.SendGetRequest(orderLink, ExpandParameter.Transactions));
+            var order = JsonConvert.DeserializeObject<Order>(await this.HttpClientService.SendGetRequest(orderLink, ExpandParameter.Transactions));
 
             // Operations
             Assert.That(order.Operations.FirstOrDefault(x => x.Rel == OperationTypes.Cancel), Is.Null);
@@ -57,7 +57,7 @@
             Assert.That(order.Operations.FirstOrDefault(x => x.Rel == OperationTypes.Reversal), Is.Null);
             Assert.That(order.Operations.FirstOrDefault(x => x.Rel == OperationTypes.Get), Is.Not.Null);
 
-            order = JsonConvert.DeserializeObject<Order>(await _httpClientService.SendGetRequest(orderLink, ExpandParameter.CurrentPayment));
+            order = JsonConvert.DeserializeObject<Order>(await this.HttpClientService.SendGetRequest(orderLink, ExpandParameter.CurrentPayment));
 
             // Transactions
             Assert.That(order.PaymentOrder.CurrentPayment.Payment.Transactions.TransactionList.Count, Is.EqualTo(2));

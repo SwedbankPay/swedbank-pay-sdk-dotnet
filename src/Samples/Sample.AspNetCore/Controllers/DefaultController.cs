@@ -10,11 +10,11 @@
 
     public class DefaultController : Controller
     {
-        private readonly SwedbankPayClient _client;
+        private readonly SwedbankPayClient client;
 
         public DefaultController(SwedbankPayClient client)
         {
-            _client = client;
+            this.client = client;
         }
 
         [Route("/")]
@@ -41,7 +41,7 @@
             paymentRequest.GeneratePaymentToken = true;
             paymentRequest.Operation = "Verify";
 
-            var res = await _client.Payment.PostCreditCardPayment(paymentRequest);
+            var res = await this.client.Payment.PostCreditCardPayment(paymentRequest);
 
             return Ok(new
             {
@@ -70,7 +70,7 @@
             paymentRequest.GeneratePaymentToken = true;
             paymentRequest.Operation = "Purchase";
 
-            var res = await _client.Payment.PostCreditCardPayment(paymentRequest);
+            var res = await this.client.Payment.PostCreditCardPayment(paymentRequest);
 
             return Ok(new
             {
@@ -83,7 +83,7 @@
         [HttpGet]
         public async Task<IActionResult> PaymentDetails(string paymentId)
         {
-            var res = await _client.Payment.GetPayment(paymentId);
+            var res = await this.client.Payment.GetPayment(paymentId);
 
             var manualCapture = Url.Action("CreateAndCaptureManually", new
             {
@@ -116,10 +116,10 @@
             paymentRequest.VatAmount = 2500;
             paymentRequest.Description = "Some recurring stuff";
 
-            var res = await _client.Payment.PostCreditCardPayment(paymentRequest);
+            var res = await this.client.Payment.PostCreditCardPayment(paymentRequest);
 
 
-            await _client.Payment.PostCapture(res.Payment.Id, new TransactionRequest
+            await this.client.Payment.PostCapture(res.Payment.Id, new TransactionRequest
             {
                 Amount = 10000,
                 VatAmount = 2500,
@@ -155,7 +155,7 @@
             paymentRequest.VatAmount = 7700;
             paymentRequest.Description = "Some auto-captured stuff";
 
-            var res = await _client.Payment.PostCreditCardPayment(paymentRequest);
+            var res = await this.client.Payment.PostCreditCardPayment(paymentRequest);
 
             var values = new
             {

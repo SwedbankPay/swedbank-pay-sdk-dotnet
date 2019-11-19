@@ -30,7 +30,7 @@
     #endif
     public abstract class TestBase
     {
-        private readonly string _driverAlias;
+        private readonly string driverAlias;
 
         [OneTimeSetUp]
         public void GlobalSetup()
@@ -49,7 +49,7 @@
                     AddScreenshotFileSaving().
                         WithFolderPath(() => $@"Logs\{AtataContext.BuildStart:yyyy-MM-dd HH_mm_ss}").
                         WithFileName(screenshotInfo => $"{AtataContext.Current.TestName} - {screenshotInfo.PageObjectFullName}").
-                UseTestName(() => $"[{_driverAlias}]{TestContext.CurrentContext.Test.Name}");
+                UseTestName(() => $"[{this.driverAlias}]{TestContext.CurrentContext.Test.Name}");
             #endif
         }
 
@@ -58,7 +58,7 @@
         {
             #if DEBUG
             AtataContext.Configure()
-                .UseDriver(_driverAlias)
+                .UseDriver(this.driverAlias)
                     .UseBaseUrl("https://localhost:44389/")
             .Build();
             AtataContext.Current.Driver.Maximize();
@@ -77,7 +77,7 @@
             #endif
         }
 
-        protected TestBase(string driverAlias) => _driverAlias = driverAlias;
+        protected TestBase(string driverAlias) => this.driverAlias = driverAlias;
 
         [TearDown]
         public void TearDown()

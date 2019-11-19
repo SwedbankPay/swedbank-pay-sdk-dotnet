@@ -31,7 +31,7 @@ namespace Sample.AspNetCore3
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<StoreDBContext>(options => options.UseInMemoryDatabase("Products"));
+            services.AddDbContext<StoreDbContext>(options => options.UseInMemoryDatabase("Products"));
 
             services.AddControllersWithViews();
             services.AddDistributedMemoryCache();

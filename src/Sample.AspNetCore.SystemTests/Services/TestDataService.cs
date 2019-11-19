@@ -41,7 +41,7 @@
         //public static string CreditCardNumber => "4581097655558174";
         public static string CreditCardNumber => "4925000000000004";
 
-        public static string CreditCardCVC => "210";
+        public static string CreditCardCvc => "210";
 
         public static string CreditCardExpiratioDate => DateTime.Now.AddMonths(3).ToString("MMyy");
 

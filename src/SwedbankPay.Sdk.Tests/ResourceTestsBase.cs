@@ -5,7 +5,7 @@
 
     public abstract class ResourceTestsBase
     {
-        protected SwedbankPayClient _sut;
+        protected SwedbankPayClient Sut;
 
         protected ResourceTestsBase()
         {
@@ -19,7 +19,7 @@
                 MerchantId = "91a4c8e0-72ac-425c-a687-856706f9e9a1"
             };
 
-            _sut = new SwedbankPayClient(swedbankPayOptions);
+            this.Sut = new SwedbankPayClient(swedbankPayOptions);
         }
     }
 }

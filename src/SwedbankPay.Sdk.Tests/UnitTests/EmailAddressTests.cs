@@ -8,17 +8,17 @@
 
     public class EmailAddressTests
     {
-        private string _ValidAddress = "leia.ahlstrom@payex.com";
+        private string validAddress = "leia.ahlstrom@payex.com";
 
         
        [Fact]
         public void AddressValue_IsSetCorrectly_WhenGivenValidAddressString()
         {
             //ACT
-            var addressObject = new EmailAddress(_ValidAddress);
+            var addressObject = new EmailAddress(this.validAddress);
 
             //ASSERT
-            Assert.Equal(_ValidAddress, addressObject.Value);
+            Assert.Equal(this.validAddress, addressObject.Value);
         }
         
         [Theory]

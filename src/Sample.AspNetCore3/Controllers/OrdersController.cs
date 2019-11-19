@@ -16,33 +16,33 @@
 
     public class OrdersController : Controller
     {
-        private readonly StoreDBContext _context;
-        private readonly SwedbankPayOptions _swedbankPayOptions;
+        private readonly StoreDbContext context;
+        private readonly SwedbankPayOptions swedbankPayOptions;
 
-        public OrdersController(StoreDBContext context, IOptionsMonitor<SwedbankPayOptions> swedPayOptions)
+        public OrdersController(StoreDbContext context, IOptionsMonitor<SwedbankPayOptions> swedPayOptions)
         {
-            _context = context;
-            _swedbankPayOptions = swedPayOptions.CurrentValue;
+            this.context = context;
+            this.swedbankPayOptions = swedPayOptions.CurrentValue;
         }
 
         // GET: Orders
         public async Task<IActionResult> Index()
         {
-            var orders = await _context.Orders.ToListAsync();
+            var orders = await this.context.Orders.ToListAsync();
             return View();
         }
 
         // GET: Orders/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            var order = await _context.Orders
+            var order = await this.context.Orders
                 .FirstOrDefaultAsync();
             if (order == null)
             {
                 return NotFound();
             }
 
-            var swedbankPayClient = new SwedbankPayClient(_swedbankPayOptions);
+            var swedbankPayClient = new SwedbankPayClient(this.swedbankPayOptions);
            
             var response = await swedbankPayClient.PaymentOrders.GetPaymentOrder(order.PaymentOrderLink);
 
@@ -68,8 +68,8 @@
         {
             if (ModelState.IsValid)
             {
-                _context.Add(order);
-                await _context.SaveChangesAsync();
+                this.context.Add(order);
+                await this.context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(order);
@@ -83,7 +83,7 @@
                 return NotFound();
             }
 
-            var order = await _context.Orders.FindAsync(id);
+            var order = await this.context.Orders.FindAsync(id);
             if (order == null)
             {
                 return NotFound();
@@ -107,8 +107,8 @@
             {
                 try
                 {
-                    _context.Update(order);
-                    await _context.SaveChangesAsync();
+                    this.context.Update(order);
+                    await this.context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -130,18 +130,18 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Clear()
         {
-            var orders = await _context.Orders.ToListAsync();
+            var orders = await this.context.Orders.ToListAsync();
             if (orders != null)
             {
-                _context.Orders.RemoveRange(orders);
-                await _context.SaveChangesAsync();
+                this.context.Orders.RemoveRange(orders);
+                await this.context.SaveChangesAsync();
             }
             
             return RedirectToAction(nameof(Index));
         }
         private bool OrderExists(int id)
         {
-            return _context.Orders.Any(e => e.OrderId == id);
+            return this.context.Orders.Any(e => e.OrderId == id);
         }
     }
 }

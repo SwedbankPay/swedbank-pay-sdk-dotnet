@@ -21,10 +21,4 @@
         /// </summary>
         public string ContentType { get; protected set; }
     }
-    public enum HttpMethod
-    {
-        PATCH,
-        POST,
-        GET
-    }
 }

@@ -19,7 +19,7 @@
         #region Abort
 
         [Test, TestCaseSource(nameof(TestData), new object[] { true, null })]
-        public async Task Abort_Flow_Payment_Single_Product(Product[] products)
+        public async Task AbortFlowPaymentSingleProduct(Product[] products)
         {
             GoToPaymentPage(products)
                 .Abort.ClickAndGo()
@@ -28,12 +28,12 @@
 
             var orderLink = message.Substring(message.IndexOf("/")).Replace(" has been Aborted", "");
 
-            var order = JsonConvert.DeserializeObject<Order>(await _httpClientService.SendGetRequest(orderLink, ExpandParameter.Transactions));
+            var order = JsonConvert.DeserializeObject<Order>(await this.HttpClientService.SendGetRequest(orderLink, ExpandParameter.Transactions));
 
             // Operations
             Assert.That(order.Operations, Is.Empty);
 
-            order = JsonConvert.DeserializeObject<Order>(await _httpClientService.SendGetRequest(orderLink, ExpandParameter.CurrentPayment));
+            order = JsonConvert.DeserializeObject<Order>(await this.HttpClientService.SendGetRequest(orderLink, ExpandParameter.CurrentPayment));
 
             // Transactions
             Assert.That(order.PaymentOrder.CurrentPayment.Payment, Is.Null);

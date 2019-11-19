@@ -10,12 +10,12 @@
 
     public class HttpClientService
     {
-        private HttpClient _httpClient;
+        private HttpClient httpClient;
 
         public HttpClientService()
         {
-            _httpClient = new HttpClient();
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", System.Configuration.ConfigurationManager.AppSettings["payexTestToken"]);
+            this.httpClient = new HttpClient();
+            this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", System.Configuration.ConfigurationManager.AppSettings["payexTestToken"]);
         }
 
         public async Task<string> SendGetRequest(string paymentOrderId, string expand)
@@ -25,7 +25,7 @@
                 throw new Exception($"paymentOrderId [{paymentOrderId}] or expand [{expand}] parameters cannot be null");
             }
 
-            var response = await _httpClient.GetAsync($"https://api.externalintegration.payex.com{paymentOrderId}?$expand={expand}");
+            var response = await this.httpClient.GetAsync($"https://api.externalintegration.payex.com{paymentOrderId}?$expand={expand}");
 
             if (response.IsSuccessStatusCode)
             {

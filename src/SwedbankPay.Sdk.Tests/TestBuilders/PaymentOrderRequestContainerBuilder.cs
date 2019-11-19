@@ -8,12 +8,12 @@
 
     public class PaymentOrderRequestContainerBuilder
     {
-        private PaymentOrderRequestContainer _paymentOrderRequestContainer = new PaymentOrderRequestContainer();
+        private PaymentOrderRequestContainer paymentOrderRequestContainer = new PaymentOrderRequestContainer();
 
         public PaymentOrderRequestContainerBuilder WithTestValues()
         {
 
-            _paymentOrderRequestContainer.Paymentorder = new PaymentOrderRequest
+            this.paymentOrderRequestContainer.Paymentorder = new PaymentOrderRequest
             {
                 Currency = "SEK",
                 Amount = 1300,
@@ -44,7 +44,7 @@
 
         public PaymentOrderRequestContainerBuilder WithOrderItems()
         {
-            _paymentOrderRequestContainer.Paymentorder.OrderItems = new List<OrderItem>
+            this.paymentOrderRequestContainer.Paymentorder.OrderItems = new List<OrderItem>
             {
                 new OrderItem
                 {
@@ -80,8 +80,8 @@
                     VatAmount = 0
                 }
             };
-            _paymentOrderRequestContainer.Paymentorder.Amount =
-                _paymentOrderRequestContainer.Paymentorder.OrderItems.Select(a => a.Amount).Sum();
+            this.paymentOrderRequestContainer.Paymentorder.Amount =
+                this.paymentOrderRequestContainer.Paymentorder.OrderItems.Select(a => a.Amount).Sum();
             return this;
         }
 
@@ -92,7 +92,7 @@
 
             //}
 
-            _paymentOrderRequestContainer.Paymentorder.VatAmount = (long?) (_paymentOrderRequestContainer.Paymentorder.Amount * 0.25);
+            this.paymentOrderRequestContainer.Paymentorder.VatAmount = (long?) (this.paymentOrderRequestContainer.Paymentorder.Amount * 0.25);
 
             
             return this;
@@ -100,7 +100,7 @@
 
         public PaymentOrderRequestContainer Build()
         {
-            return _paymentOrderRequestContainer;
+            return this.paymentOrderRequestContainer;
         }
     }
 }

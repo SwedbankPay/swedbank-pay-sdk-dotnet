@@ -12,13 +12,13 @@
 
     internal class SwedbankPayHttpClient
     {
-        private readonly RestClient _client;
-        private readonly ILogSwedbankPayHttpResponse _logger;
+        private readonly RestClient client;
+        private readonly ILogSwedbankPayHttpResponse logger;
 
         internal SwedbankPayHttpClient(RestClient client, ILogSwedbankPayHttpResponse logger)
         {
-            _client = client;
-            _logger = logger;
+            this.client = client;
+            this.logger = logger;
         }
 
         internal async Task<TResponse> HttpPost<TPayLoad, TResponse>(string url, Func<ProblemsContainer, Exception> onError, TPayLoad payload) where TResponse : new()
@@ -58,11 +58,11 @@
             var request = new RestRequest(url, httpMethod);
             UpdateRestRequest(request, payload);
 
-            var response = await _client.ExecuteTaskAsync<T>(request);
+            var response = await this.client.ExecuteTaskAsync<T>(request);
 
             if (response.IsSuccessful)
             {
-                _logger.LogSwedbankPayResponse(response.Content);
+                this.logger.LogSwedbankPayResponse(response.Content);
                 return response.Data;
             }
 
@@ -88,11 +88,11 @@
         internal async Task<string> GetRaw(string url)
         {
             var request = new RestRequest(url, Method.GET);
-            var response = await _client.ExecuteTaskAsync(request);
+            var response = await this.client.ExecuteTaskAsync(request);
             if (response.IsSuccessful)
             {
                var res = JToken.Parse(response.Content).ToString(Formatting.Indented);
-               _logger.LogSwedbankPayResponse(res);
+               this.logger.LogSwedbankPayResponse(res);
                return res;
             }
 

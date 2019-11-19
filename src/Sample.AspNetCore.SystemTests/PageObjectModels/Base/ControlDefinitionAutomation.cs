@@ -10,10 +10,10 @@
     /// <summary>
     /// Specifies the definition of the control, like scope XPath, visibility, component type name, etc.
     /// </summary>
-    public class ControlAutomationDefinition : UIComponentDefinitionAutomationAttribute
+    public class ControlAutomationDefinition : UiComponentDefinitionAutomationAttribute
     {
-        public ControlAutomationDefinition(string Type = DefaultScopeXPath, string AutomationAttribute = "")
-            : base(Type, AutomationAttribute)
+        public ControlAutomationDefinition(string type = DefaultScopeXPath, string automationAttribute = "")
+            : base(type, automationAttribute)
         {
         }
 
@@ -31,9 +31,9 @@
     /// <summary>
     /// Represents the base attribute class for UI component (page object, control) definition.
     /// </summary>
-    public abstract class UIComponentDefinitionAutomationAttribute : ScopeDefinitionAutomationAttribute
+    public abstract class UiComponentDefinitionAutomationAttribute : ScopeDefinitionAutomationAttribute
     {
-        protected UIComponentDefinitionAutomationAttribute(string type = DefaultScopeXPath, string automationAttribute = "")
+        protected UiComponentDefinitionAutomationAttribute(string type = DefaultScopeXPath, string automationAttribute = "")
             : base(type, automationAttribute)
         {
         }
