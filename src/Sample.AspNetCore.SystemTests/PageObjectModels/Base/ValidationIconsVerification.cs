@@ -1,9 +1,9 @@
-﻿using Atata;
-using OpenQA.Selenium;
-using System;
-
-namespace Sample.AspNetCore.SystemTests.PageObjectModels.Base
+﻿namespace Sample.AspNetCore.SystemTests.PageObjectModels.Base
 {
+    using Atata;
+    using OpenQA.Selenium;
+    using System;
+
     public class ValidationIconList<TOwner> : ControlList<ValidationIcon<TOwner>, TOwner>
         where TOwner : PageObject<TOwner>
     {
@@ -16,9 +16,9 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Base
         {
             var validationMessageDefinition = UIComponentResolver.GetControlDefinition(typeof(ValidationIcon<TOwner>));
 
-            IControl<TOwner> boundControl = controlSelector(Component.Owner);
+            var boundControl = controlSelector(Component.Owner);
 
-            PlainScopeLocator scopeLocator = new PlainScopeLocator(By.XPath("ancestor::" + validationMessageDefinition.ScopeXPath))
+            var scopeLocator = new PlainScopeLocator(By.XPath("ancestor::" + validationMessageDefinition.ScopeXPath))
             {
                 SearchContext = boundControl.Scope
             };

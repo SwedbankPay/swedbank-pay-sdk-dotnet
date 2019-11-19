@@ -1,19 +1,18 @@
-﻿using System;
-using Newtonsoft.Json;
-using SwedbankPay.Sdk.PaymentOrders;
-using SwedbankPay.Sdk;
-
-
-namespace SwedbankPay.Sdk
+﻿namespace SwedbankPay.Sdk
 {
-    public class TypedSafeEnumValueConverter<TEnum, TValue> : JsonConverter<TEnum> where TEnum : TypeSafeEnum<TEnum, TValue> //where TValue : struct
+    using Newtonsoft.Json;
+
+    using System;
+
+    public class TypedSafeEnumValueConverter<TEnum, TValue> : JsonConverter<TEnum> where TEnum : TypeSafeEnum<TEnum, TValue>
     {
         /// <summary>
-        /// 
+        /// Can read
         /// </summary>
         public override bool CanRead => true;
+
         /// <summary>
-        /// 
+        /// Can write
         /// </summary>
         public override bool CanWrite => true;
 
@@ -49,7 +48,7 @@ namespace SwedbankPay.Sdk
         }
 
         /// <summary>
-        /// 
+        /// Write json
         /// </summary>
         /// <param name="writer"></param>
         /// <param name="value"></param>

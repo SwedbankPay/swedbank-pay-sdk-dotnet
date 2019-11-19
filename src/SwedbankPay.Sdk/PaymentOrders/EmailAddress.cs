@@ -1,11 +1,11 @@
-﻿using System;
-using System.Globalization;
-using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-
-namespace SwedbankPay.Sdk.PaymentOrders
+﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
-    
+    using System;
+    using System.Globalization;
+    using System.Text.RegularExpressions;
+    using Newtonsoft.Json;
+
+
     public class EmailAddress
     {
         public string Value { get; private set; }

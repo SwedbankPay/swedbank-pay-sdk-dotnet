@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using Sample.AspNetCore3.Data;
-using Sample.AspNetCore3.Models;
-using SwedbankPay.Sdk;
-using SwedbankPay.Sdk.PaymentOrders;
-
-namespace Sample.AspNetCore3.Controllers
+﻿namespace Sample.AspNetCore3.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Logging;
+    using Sample.AspNetCore3.Data;
+    using Sample.AspNetCore3.Models;
+    using SwedbankPay.Sdk;
+    using SwedbankPay.Sdk.PaymentOrders;
+
     public class CartController : Controller
     {
         private readonly ILogger<CartController> _logger;

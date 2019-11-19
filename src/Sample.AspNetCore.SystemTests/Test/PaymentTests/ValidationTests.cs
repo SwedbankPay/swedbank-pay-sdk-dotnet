@@ -1,15 +1,15 @@
-﻿using Atata;
-using NUnit.Framework;
-using Sample.AspNetCore.SystemTests.Services;
-using Sample.AspNetCore.SystemTests.Test.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
+﻿namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
 {
+    using Atata;
+    using NUnit.Framework;
+    using Sample.AspNetCore.SystemTests.Services;
+    using Sample.AspNetCore.SystemTests.Test.Helpers;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
     public class ValidationTests : PaymentTests
     {
         public ValidationTests(string driverAlias) : base(driverAlias) { }

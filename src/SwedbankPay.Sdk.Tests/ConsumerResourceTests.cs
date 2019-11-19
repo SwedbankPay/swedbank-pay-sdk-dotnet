@@ -82,7 +82,7 @@
         public async Task GetShippingDetails_ThrowsArgumentException_IfUriIsWhitespace()
         {
             //ARRANGE
-            string url = " ";
+            var url = " ";
             
             //ASSERT
             await Assert.ThrowsAsync<ArgumentException>(url,() => _sut.Consumers.GetShippingDetails(url));
@@ -102,7 +102,7 @@
         public async Task GetShippingDetails_ThrowsCouldNotGetShippingDetails_IfUriIsIncorrect()
         {
             //ARRANGE
-            string uri = "xxx";
+            var uri = "xxx";
 
             //ASSERT
             await Assert.ThrowsAsync<CouldNotGetShippingDetailsException>(() => _sut.Consumers.GetShippingDetails(uri));
@@ -112,7 +112,7 @@
         public async Task GetBillingDetails_ThrowsArgumentException_IfUriIsWhitespace()
         {
             //ARRANGE
-            string url = " ";
+            var url = " ";
 
             //ASSERT
             await Assert.ThrowsAsync<ArgumentException>(url, () => _sut.Consumers.GetBillingDetails(url));
@@ -132,7 +132,7 @@
         public async Task GetBillingDetails_ThrowsCouldNotGetBillingDetails_IfUriIsIncorrect()
         {
             //ARRANGE
-            string uri = "xxx";
+            var uri = "xxx";
 
             //ASSERT
             await Assert.ThrowsAsync<CouldNotGetBillingDetailsException>(() => _sut.Consumers.GetBillingDetails(uri));

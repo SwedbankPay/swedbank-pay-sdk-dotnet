@@ -1,11 +1,11 @@
-﻿
-using System;
-using SwedbankPay.Sdk.PaymentOrders;
-using Xunit;
-using Xunit.Sdk;
-
-namespace SwedbankPay.Sdk.Tests.UnitTests
+﻿namespace SwedbankPay.Sdk.Tests.UnitTests
 {
+
+    using System;
+    using SwedbankPay.Sdk.PaymentOrders;
+    using Xunit;
+    using Xunit.Sdk;
+
     public class EmailAddressTests
     {
         private string _ValidAddress = "leia.ahlstrom@payex.com";

@@ -1,9 +1,8 @@
-﻿using Atata;
-using Sample.AspNetCore.SystemTests.PageObjectModels.Base;
-using Sample.AspNetCore.SystemTests.PageObjectModels.Payment;
-
-namespace Sample.AspNetCore.SystemTests.PageObjectModels
+﻿namespace Sample.AspNetCore.SystemTests.PageObjectModels
 {
+    using Atata;
+    using Sample.AspNetCore.SystemTests.PageObjectModels.Base;
+    using Sample.AspNetCore.SystemTests.PageObjectModels.Payment;
     using _ = PaymentPage;
 
     public class PaymentPage : Page<_>

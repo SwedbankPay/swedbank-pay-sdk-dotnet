@@ -1,19 +1,19 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using Sample.AspNetCore3.Data;
-using Sample.AspNetCore3.Models;
-using Sample.AspNetCore3.Models.ViewModels;
-using SwedbankPay.Sdk;
-using SwedbankPay.Sdk.PaymentOrders;
-using SwedbankPay.Sdk.Transactions;
-
-namespace Sample.AspNetCore3.Controllers
+﻿namespace Sample.AspNetCore3.Controllers
 {
+    using System;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Options;
+    using Sample.AspNetCore3.Data;
+    using Sample.AspNetCore3.Models;
+    using Sample.AspNetCore3.Models.ViewModels;
+    using SwedbankPay.Sdk;
+    using SwedbankPay.Sdk.PaymentOrders;
+    using SwedbankPay.Sdk.Transactions;
+
     public class PaymentController : Controller
     {
         private readonly SwedbankPayOptions _swedbankPayOptions;

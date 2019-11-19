@@ -1,12 +1,12 @@
-﻿using Atata;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sample.AspNetCore.SystemTests.PageObjectModels.Base
+﻿namespace Sample.AspNetCore.SystemTests.PageObjectModels.Base
 {
+    using Atata;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Specifies the definition of the control, like scope XPath, visibility, component type name, etc.
     /// </summary>
@@ -66,7 +66,7 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Base
         /// <returns>Normalized name.</returns>
         public string NormalizeNameIgnoringEnding(string name)
         {
-            string endingToIgnore = GetIgnoreNameEndingValues().
+            var endingToIgnore = GetIgnoreNameEndingValues().
                 FirstOrDefault(x => name.EndsWith(x) && name.Length > x.Length);
 
             return endingToIgnore != null
@@ -119,7 +119,7 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Base
         /// <returns>The built XPath.</returns>
         protected virtual string BuildScopeXPath()
         {
-            string scopeXPath = baseScopeXPath ?? DefaultScopeXPath;
+            var scopeXPath = baseScopeXPath ?? DefaultScopeXPath;
 
             if (ContainingClasses?.Any() ?? false)
             {

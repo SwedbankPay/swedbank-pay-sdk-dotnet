@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-
-namespace SwedbankPay.Sdk
+﻿namespace SwedbankPay.Sdk
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+
     internal static class TypeExtensions
     {
         public static List<TFieldType> GetPropertiesOfType<TFieldType>(this Type type)

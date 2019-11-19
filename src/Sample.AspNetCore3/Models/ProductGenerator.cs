@@ -1,11 +1,11 @@
-﻿using System;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Sample.AspNetCore3.Data;
-
-namespace Sample.AspNetCore3.Models
+﻿namespace Sample.AspNetCore3.Models
 {
+    using System;
+    using System.Linq;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.DependencyInjection;
+    using Sample.AspNetCore3.Data;
+
     public class ProductGenerator
     {
         public static void Initialize(IServiceProvider serviceProvider)

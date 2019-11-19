@@ -120,7 +120,7 @@
 
         private string GetRequestBody(object request)
         {
-            string requestBody = string.Empty;
+            var requestBody = string.Empty;
             if (request != null)
             {
                 requestBody = JsonConvert.SerializeObject(request, Formatting.None, new JsonSerializerSettings

@@ -1,14 +1,14 @@
-﻿using Newtonsoft.Json;
-using NUnit.Framework;
-using Sample.AspNetCore.SystemTests.Services;
-using Sample.AspNetCore.SystemTests.Test.Api;
-using Sample.AspNetCore.SystemTests.Test.Helpers;
-using Atata;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
+﻿namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
 {
+    using Newtonsoft.Json;
+    using NUnit.Framework;
+    using Sample.AspNetCore.SystemTests.Services;
+    using Sample.AspNetCore.SystemTests.Test.Api;
+    using Sample.AspNetCore.SystemTests.Test.Helpers;
+    using Atata;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     public class CaptureTests : PaymentTests
     {
         public CaptureTests(string driverAlias) : base(driverAlias) { }
@@ -19,7 +19,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
         public async Task Capture_Payment_Single_Product(Product[] products, PayexInfo payexInfo)
         {
             GoToOrdersPage(products, payexInfo)
-                .PaymentOrderLink.StoreValue(out string orderLink)
+                .PaymentOrderLink.StoreValue(out var orderLink)
                 .Actions.Rows[x => x.Name.Value.Trim() == OperationTypes.Capture].ExecuteAction.ClickAndGo()
                 .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Reversal].Should.BeVisible()
                 .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Get].Should.BeVisible()
@@ -46,7 +46,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
         public async Task Capture_Payment_Multiple_Products(Product[] products, PayexInfo payexInfo)
         {
             GoToOrdersPage(products, payexInfo)
-                .PaymentOrderLink.StoreValue(out string orderLink)
+                .PaymentOrderLink.StoreValue(out var orderLink)
                 .Actions.Rows[x => x.Name.Value.Trim() == OperationTypes.Capture].ExecuteAction.ClickAndGo()
                 .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Reversal].Should.BeVisible()
                 .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Get].Should.BeVisible()

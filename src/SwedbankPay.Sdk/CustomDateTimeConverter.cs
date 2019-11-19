@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json.Converters;
-
-namespace SwedbankPay.Sdk
+﻿namespace SwedbankPay.Sdk
 {
+    using Newtonsoft.Json.Converters;
+
     public class CustomDateTimeConverter : IsoDateTimeConverter
     {
         public CustomDateTimeConverter()

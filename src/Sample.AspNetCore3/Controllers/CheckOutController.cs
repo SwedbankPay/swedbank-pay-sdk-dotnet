@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
-using Sample.AspNetCore3.Constants;
-using Sample.AspNetCore3.Models;
-using SwedbankPay.Sdk;
-using SwedbankPay.Sdk.Consumers;
-using SwedbankPay.Sdk.PaymentOrders;
-
-namespace Sample.AspNetCore3.Controllers
+﻿namespace Sample.AspNetCore3.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Options;
+    using Newtonsoft.Json;
+    using Sample.AspNetCore3.Constants;
+    using Sample.AspNetCore3.Models;
+    using SwedbankPay.Sdk;
+    using SwedbankPay.Sdk.Consumers;
+    using SwedbankPay.Sdk.PaymentOrders;
+
     public class CheckOutController : Controller
     {
         private readonly SwedbankPayOptions _swedbankPayOptions;

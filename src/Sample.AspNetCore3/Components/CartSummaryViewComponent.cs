@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Sample.AspNetCore3.Models;
-
-namespace Sample.AspNetCore3.Components
+﻿namespace Sample.AspNetCore3.Components
 {
+    using Microsoft.AspNetCore.Mvc;
+    using Sample.AspNetCore3.Models;
+
     public class CartSummaryViewComponent : ViewComponent
     {
         private Cart cart;

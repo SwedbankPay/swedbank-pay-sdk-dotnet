@@ -1,8 +1,7 @@
-﻿using System.Runtime.CompilerServices;
-
-
-namespace SwedbankPay.Sdk.PaymentOrders
+﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
+    using System.Runtime.CompilerServices;
+
     /// <summary>
     /// Indicates the length of time that the payments account was enrolled in the cardholder's account with merchant.
     /// </summary>

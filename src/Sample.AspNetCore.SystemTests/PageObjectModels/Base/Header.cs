@@ -1,8 +1,8 @@
-﻿using Atata;
-using Sample.AspNetCore.SystemTests.PageObjectModels.Orders;
-
-namespace Sample.AspNetCore.SystemTests.PageObjectModels.Base
+﻿namespace Sample.AspNetCore.SystemTests.PageObjectModels.Base
 {
+    using Atata;
+    using Sample.AspNetCore.SystemTests.PageObjectModels.Orders;
+
     public class Header<TOwner> : Control<TOwner> where TOwner : BasePage<TOwner>
     {
         [FindByContent("Products")]

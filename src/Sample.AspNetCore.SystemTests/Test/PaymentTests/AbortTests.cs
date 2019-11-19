@@ -1,17 +1,17 @@
-﻿using Atata;
-using Newtonsoft.Json;
-using NUnit.Framework;
-using Sample.AspNetCore.SystemTests.Services;
-using Sample.AspNetCore.SystemTests.Test.Api;
-using Sample.AspNetCore.SystemTests.Test.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
+﻿namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
 {
+    using Atata;
+    using Newtonsoft.Json;
+    using NUnit.Framework;
+    using Sample.AspNetCore.SystemTests.Services;
+    using Sample.AspNetCore.SystemTests.Test.Api;
+    using Sample.AspNetCore.SystemTests.Test.Helpers;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
     public class AbortTests : PaymentTests
     {
         public AbortTests(string driverAlias) : base(driverAlias) { }
@@ -23,7 +23,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
         {
             GoToPaymentPage(products)
                 .Abort.ClickAndGo()
-                .Message.StoreValue(out string message)
+                .Message.StoreValue(out var message)
                 .Header.Products.ClickAndGo();
 
             var orderLink = message.Substring(message.IndexOf("/")).Replace(" has been Aborted", "");

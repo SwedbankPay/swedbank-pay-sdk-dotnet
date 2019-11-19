@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-
-namespace SwedbankPay.Sdk.Consumers
+﻿namespace SwedbankPay.Sdk.Consumers
 {
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Converters;
+
     public class Address
     {
         public string Addressee { get; set; }

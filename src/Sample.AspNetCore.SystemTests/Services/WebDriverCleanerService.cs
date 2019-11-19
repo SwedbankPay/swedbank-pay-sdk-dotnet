@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using static Sample.AspNetCore.SystemTests.Test.Base.Drivers;
-
-namespace Sample.AspNetCore.SystemTests.Services
+﻿namespace Sample.AspNetCore.SystemTests.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
+    using static Sample.AspNetCore.SystemTests.Test.Base.Drivers;
+
     public static class WebDriverCleanerService
     {
         public static Dictionary<Driver, string> DriverNames =>

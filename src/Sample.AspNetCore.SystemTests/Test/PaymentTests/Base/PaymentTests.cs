@@ -1,22 +1,22 @@
-﻿using Atata;
-using NUnit.Framework;
-using Sample.AspNetCore.SystemTests.Test.Base;
-using Sample.AspNetCore.SystemTests.PageObjectModels;
-using System.Collections.Generic;
-using System.Collections;
-using Sample.AspNetCore.SystemTests.Test.Helpers;
-using Sample.AspNetCore.SystemTests.PageObjectModels.Payment;
-using System;
-using Sample.AspNetCore.SystemTests.Services;
-using Sample.AspNetCore.SystemTests.PageObjectModels.ThankYou;
-using Sample.AspNetCore.SystemTests.PageObjectModels.Orders;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using System.Linq;
-using Sample.AspNetCore.SystemTests.Test.Api;
-
-namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
+﻿namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
 {
+    using Atata;
+    using NUnit.Framework;
+    using Sample.AspNetCore.SystemTests.Test.Base;
+    using Sample.AspNetCore.SystemTests.PageObjectModels;
+    using System.Collections.Generic;
+    using System.Collections;
+    using Sample.AspNetCore.SystemTests.Test.Helpers;
+    using Sample.AspNetCore.SystemTests.PageObjectModels.Payment;
+    using System;
+    using Sample.AspNetCore.SystemTests.Services;
+    using Sample.AspNetCore.SystemTests.PageObjectModels.ThankYou;
+    using Sample.AspNetCore.SystemTests.PageObjectModels.Orders;
+    using System.Threading.Tasks;
+    using Newtonsoft.Json;
+    using System.Linq;
+    using Sample.AspNetCore.SystemTests.Test.Api;
+
     public abstract class PaymentTests : TestBase
     {
         protected HttpClientService _httpClientService;
@@ -31,7 +31,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
 
         protected static IEnumerable TestData(bool singleProduct = true, string paymentMethod = PaymentMethods.Card)
         {
-            List<object> data = new List<object>();
+            var data = new List<object>();
 
             if (singleProduct)
             {
@@ -84,7 +84,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
             {
                 page
                 .Products.Rows[x => x.Name == product.Name].AddToCart.Click()
-                .Products.Rows[x => x.Name == product.Name].Price.StorePrice(out int price);
+                .Products.Rows[x => x.Name == product.Name].Price.StorePrice(out var price);
 
                 product.UnitPrice = price;
 

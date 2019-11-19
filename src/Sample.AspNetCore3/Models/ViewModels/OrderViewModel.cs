@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using SwedbankPay.Sdk;
-
-namespace Sample.AspNetCore3.Models.ViewModels
+﻿namespace Sample.AspNetCore3.Models.ViewModels
 {
+    using System.Collections.Generic;
+    using SwedbankPay.Sdk;
+
     public class OrderViewModel
     {
       

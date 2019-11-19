@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-using System;
-using System.Threading.Tasks;
-
-namespace Sample.AspNetCore.Controllers
+﻿namespace Sample.AspNetCore.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+
+    using System;
+    using System.Threading.Tasks;
     using SwedbankPay.Sdk;
     using SwedbankPay.Sdk.Payments;
     using SwedbankPay.Sdk.Transactions;

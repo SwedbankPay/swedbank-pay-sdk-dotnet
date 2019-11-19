@@ -54,7 +54,7 @@
                 return string.Empty;
             }
 
-            List<string> s = new List<string>();
+            var s = new List<string>();
             foreach (var enumValue in Enum.GetValues(typeof(T)))
             {
                 var name = Enum.GetName(typeof(T), enumValue);

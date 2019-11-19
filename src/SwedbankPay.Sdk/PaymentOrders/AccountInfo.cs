@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
-
-namespace SwedbankPay.Sdk.PaymentOrders
+﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
+    using Newtonsoft.Json;
+
     /// <summary>
     /// Optional. If payer is known by merchant and have some kind of registered user then these fields can be set.
     /// </summary>

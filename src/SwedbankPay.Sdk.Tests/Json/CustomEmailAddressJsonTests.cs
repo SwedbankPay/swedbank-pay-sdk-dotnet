@@ -1,12 +1,12 @@
-﻿using System;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Serialization;
-using SwedbankPay.Sdk.PaymentOrders;
-using Xunit;
-
-namespace SwedbankPay.Sdk.Tests.Json
+﻿namespace SwedbankPay.Sdk.Tests.Json
 {
+    using System;
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
+    using Newtonsoft.Json.Serialization;
+    using SwedbankPay.Sdk.PaymentOrders;
+    using Xunit;
+
     public class CustomEmailAddressJsonTests
     {
         private string _address = "email@example.com";
@@ -22,7 +22,7 @@ namespace SwedbankPay.Sdk.Tests.Json
             settings.Converters.Add(new CustomEmailAddressConverter(typeof(EmailAddress)));
             
             //ACT
-            EmailAddress result = JsonConvert.DeserializeObject<EmailAddress>(jsonObject.ToString(), settings);
+            var result = JsonConvert.DeserializeObject<EmailAddress>(jsonObject.ToString(), settings);
 
             //ASSERT
             Assert.Equal(_address, result.Value);

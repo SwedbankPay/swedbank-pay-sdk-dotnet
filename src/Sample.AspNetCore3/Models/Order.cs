@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-
-namespace Sample.AspNetCore3.Models
+﻿namespace Sample.AspNetCore3.Models
 {
+    using System.Collections.Generic;
+    using Microsoft.AspNetCore.Mvc.ModelBinding;
+
     public class Order
     {
         [BindNever]

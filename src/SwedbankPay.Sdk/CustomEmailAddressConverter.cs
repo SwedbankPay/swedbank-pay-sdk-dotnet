@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using SwedbankPay.Sdk.PaymentOrders;
-
-namespace SwedbankPay.Sdk
+﻿namespace SwedbankPay.Sdk
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
+    using SwedbankPay.Sdk.PaymentOrders;
+
     public class CustomEmailAddressConverter: JsonConverter 
 
     {
@@ -24,7 +24,7 @@ namespace SwedbankPay.Sdk
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            JToken t = JToken.FromObject(value);
+            var t = JToken.FromObject(value);
 
             if (t.Type != JTokenType.Object)
             {
@@ -32,7 +32,7 @@ namespace SwedbankPay.Sdk
             }
             else
             {
-                JObject o = (JObject)t;
+                var o = (JObject)t;
                 var propertyName = o.Properties().Select(p => p.Name).FirstOrDefault();
                 var propertyValue = o.Root.Value<string>(propertyName);
                 writer.WriteValue(propertyValue);
@@ -41,9 +41,9 @@ namespace SwedbankPay.Sdk
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            JObject jo = JObject.Load(reader);
+            var jo = JObject.Load(reader);
             var addressString = jo.Values().FirstOrDefault()?.ToString(); 
-            EmailAddress address = new EmailAddress(addressString);
+            var address = new EmailAddress(addressString);
             return address;
         }
 

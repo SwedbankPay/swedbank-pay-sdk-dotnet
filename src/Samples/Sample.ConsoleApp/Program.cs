@@ -1,9 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
-
-using System;
-
-namespace Sample.ConsoleApp
+﻿namespace Sample.ConsoleApp
 {
+    using Microsoft.Extensions.Configuration;
+
+    using System;
     using SwedbankPay.Sdk;
     using SwedbankPay.Sdk.Payments;
 

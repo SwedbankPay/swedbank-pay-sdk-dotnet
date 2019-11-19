@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using Sample.AspNetCore3.Constants;
-using SwedbankPay.Sdk;
-
-namespace Sample.AspNetCore3.Models
+﻿namespace Sample.AspNetCore3.Models
 {
+    using System.Collections.Generic;
+    using Sample.AspNetCore3.Constants;
+    using SwedbankPay.Sdk;
+
     public class SwedbankPayCheckoutSource
     {
         public string JavascriptSource { get; set; }

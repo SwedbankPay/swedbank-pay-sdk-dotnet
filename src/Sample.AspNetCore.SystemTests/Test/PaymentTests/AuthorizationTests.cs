@@ -1,17 +1,17 @@
-﻿using Atata;
-using Newtonsoft.Json;
-using NUnit.Framework;
-using Sample.AspNetCore.SystemTests.Services;
-using Sample.AspNetCore.SystemTests.Test.Api;
-using Sample.AspNetCore.SystemTests.Test.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
+﻿namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
 {
+    using Atata;
+    using Newtonsoft.Json;
+    using NUnit.Framework;
+    using Sample.AspNetCore.SystemTests.Services;
+    using Sample.AspNetCore.SystemTests.Test.Api;
+    using Sample.AspNetCore.SystemTests.Test.Helpers;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
     public class AuthorizationTests : PaymentTests
     {
         public AuthorizationTests(string driverAlias) : base(driverAlias) { }
@@ -22,7 +22,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
         public async Task Anonymous_Flow_Payment_Single_Product_Card(Product[] products, PayexInfo payexInfo)
         {
             GoToOrdersPage(products, payexInfo)
-                .PaymentOrderLink.StoreValue(out string orderLink)
+                .PaymentOrderLink.StoreValue(out var orderLink)
                 .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Cancel].Should.BeVisible()
                 .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Capture].Should.BeVisible()
                 .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Get].Should.BeVisible()
@@ -60,7 +60,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
         public async Task Anonymous_Flow_Payment_Multiple_Products_Card(Product[] products, PayexInfo payexInfo)
         {
             GoToOrdersPage(products, payexInfo)
-                .PaymentOrderLink.StoreValue(out string orderLink)
+                .PaymentOrderLink.StoreValue(out var orderLink)
                 .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Cancel].Should.BeVisible()
                 .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Capture].Should.BeVisible()
                 .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Get].Should.BeVisible()
@@ -105,7 +105,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
         public async Task Normal_Flow_Payment_Single_Product_Card(Product[] products, PayexInfo payexInfo)
         {
             GoToOrdersPage(products, payexInfo, standardCheckout: true)
-                 .PaymentOrderLink.StoreValue(out string orderLink)
+                 .PaymentOrderLink.StoreValue(out var orderLink)
                  .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Cancel].Should.BeVisible()
                  .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Capture].Should.BeVisible()
                  .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Get].Should.BeVisible()
@@ -143,7 +143,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
         public async Task Normal_Flow_Payment_Multiple_Products_Card(Product[] products, PayexInfo payexInfo)
         {
             GoToOrdersPage(products, payexInfo, standardCheckout: true)
-                 .PaymentOrderLink.StoreValue(out string orderLink)
+                 .PaymentOrderLink.StoreValue(out var orderLink)
                  .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Cancel].Should.BeVisible()
                  .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Capture].Should.BeVisible()
                  .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Get].Should.BeVisible()
@@ -188,7 +188,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
         public async Task Normal_Flow_Payment_Single_Product_Swish(Product[] products, PayexInfo payexInfo)
         {
             GoToOrdersPage(products, payexInfo, standardCheckout: true)
-                 .PaymentOrderLink.StoreValue(out string orderLink)
+                 .PaymentOrderLink.StoreValue(out var orderLink)
                  .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Reversal].Should.BeVisible()
                  .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Get].Should.BeVisible()
                  .Actions.Rows.Count.Should.Equal(2);
@@ -227,7 +227,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
         public async Task Anonymous_Flow_Payment_Single_Product_Invoice(Product[] products, PayexInfo payexInfo)
         {
             GoToOrdersPage(products, payexInfo)
-                .PaymentOrderLink.StoreValue(out string orderLink)
+                .PaymentOrderLink.StoreValue(out var orderLink)
                 .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Cancel].Should.BeVisible()
                 .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Capture].Should.BeVisible()
                 .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Get].Should.BeVisible()

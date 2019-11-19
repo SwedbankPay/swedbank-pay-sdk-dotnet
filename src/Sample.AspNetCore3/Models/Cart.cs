@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-
-namespace Sample.AspNetCore3.Models
+﻿namespace Sample.AspNetCore3.Models
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Linq;
+
     public class Cart
     {
         public string PaymentOrderLink { get; set; }
@@ -15,7 +15,7 @@ namespace Sample.AspNetCore3.Models
 
         public virtual void AddItem(Product product, int quantity)
         {
-            CartLine line = cartLineCollection.FirstOrDefault(p => p.Product.ProductId == product.ProductId);
+            var line = cartLineCollection.FirstOrDefault(p => p.Product.ProductId == product.ProductId);
 
             if (line == null)
             {
@@ -34,7 +34,7 @@ namespace Sample.AspNetCore3.Models
 
         public virtual void RemoveItem(Product product, int quantity)
         {
-            CartLine line = cartLineCollection.FirstOrDefault(p => p.Product.ProductId == product.ProductId);
+            var line = cartLineCollection.FirstOrDefault(p => p.Product.ProductId == product.ProductId);
 
             if (line == null)
             {

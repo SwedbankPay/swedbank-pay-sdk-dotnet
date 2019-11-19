@@ -1,14 +1,14 @@
-﻿using Newtonsoft.Json;
-using NUnit.Framework;
-using Sample.AspNetCore.SystemTests.Services;
-using Sample.AspNetCore.SystemTests.Test.Api;
-using Sample.AspNetCore.SystemTests.Test.Helpers;
-using System.Linq;
-using System.Threading.Tasks;
-using Atata;
-
-namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
+﻿namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
 {
+    using Newtonsoft.Json;
+    using NUnit.Framework;
+    using Sample.AspNetCore.SystemTests.Services;
+    using Sample.AspNetCore.SystemTests.Test.Api;
+    using Sample.AspNetCore.SystemTests.Test.Helpers;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Atata;
+
     public class CancellationTests : PaymentTests
     {
         public CancellationTests(string driverAlias) : base(driverAlias) { }
@@ -19,7 +19,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
         public async Task Cancellation_Flow_Payment_Single_Product(Product[] products, PayexInfo payexInfo)
         {
             GoToOrdersPage(products, payexInfo)
-                .PaymentOrderLink.StoreValue(out string orderLink)
+                .PaymentOrderLink.StoreValue(out var orderLink)
                 .Actions.Rows[x => x.Name.Value.Trim() == OperationTypes.Cancel].ExecuteAction.ClickAndGo()
                 .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Get].Should.BeVisible()
                 .Actions.Rows.Count.Should.Equal(1);
@@ -44,7 +44,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
         public async Task Cancellation_Flow_Payment_Multiple_Product(Product[] products, PayexInfo payexInfo)
         {
             GoToOrdersPage(products, payexInfo)
-                .PaymentOrderLink.StoreValue(out string orderLink)
+                .PaymentOrderLink.StoreValue(out var orderLink)
                 .Actions.Rows[x => x.Name.Value.Trim() == OperationTypes.Cancel].ExecuteAction.ClickAndGo()
                 .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Get].Should.BeVisible()
                 .Actions.Rows.Count.Should.Equal(1);

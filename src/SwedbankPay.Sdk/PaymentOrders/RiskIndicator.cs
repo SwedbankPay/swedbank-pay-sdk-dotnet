@@ -1,8 +1,8 @@
-﻿using System;
-using Newtonsoft.Json;
-
-namespace SwedbankPay.Sdk.PaymentOrders
+﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
+    using System;
+    using Newtonsoft.Json;
+
     public class RiskIndicator
     {
         /// <summary>

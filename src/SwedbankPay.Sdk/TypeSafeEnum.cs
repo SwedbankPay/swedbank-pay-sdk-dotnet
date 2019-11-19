@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-
-namespace SwedbankPay.Sdk
+﻿namespace SwedbankPay.Sdk
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+
     public abstract class TypeSafeEnum<TEnum, TValue> where TEnum : TypeSafeEnum<TEnum, TValue>
     {
         static readonly Lazy<Dictionary<string, TEnum>> _fromName =
@@ -28,13 +28,13 @@ namespace SwedbankPay.Sdk
 
         private static IEnumerable<TEnum> GetAllOptions()
         {
-            Type baseType = typeof(TEnum);
-            IEnumerable<Type> enumTypes = Assembly.GetAssembly(baseType).GetTypes().Where(t => baseType.IsAssignableFrom(t));
+            var baseType = typeof(TEnum);
+            var enumTypes = Assembly.GetAssembly(baseType).GetTypes().Where(t => baseType.IsAssignableFrom(t));
 
-            List<TEnum> options = new List<TEnum>();
-            foreach (Type enumType in enumTypes)
+            var options = new List<TEnum>();
+            foreach (var enumType in enumTypes)
             {
-                List<TEnum> typeEnumOptions = enumType.GetPropertiesOfType<TEnum>(); //TODO if C#8 use GetFieldsOfTypes instead 
+                var typeEnumOptions = enumType.GetPropertiesOfType<TEnum>(); //TODO if C#8 use GetFieldsOfTypes instead 
                 options.AddRange(typeEnumOptions);
             }
 

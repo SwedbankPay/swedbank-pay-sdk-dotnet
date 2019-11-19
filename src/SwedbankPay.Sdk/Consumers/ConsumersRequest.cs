@@ -1,8 +1,7 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-
-namespace SwedbankPay.Sdk.Consumers
+﻿namespace SwedbankPay.Sdk.Consumers
 {
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Converters;
     using SwedbankPay.Sdk.PaymentOrders;
 
     public class ConsumersRequest

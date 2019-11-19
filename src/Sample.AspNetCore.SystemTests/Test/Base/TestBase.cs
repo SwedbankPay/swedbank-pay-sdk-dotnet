@@ -1,25 +1,25 @@
-﻿using Atata;
-using BrowserStack;
-using Sample.AspNetCore.SystemTests.Services;
-using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.IE;
-using OpenQA.Selenium.Remote;
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenQA.Selenium.Edge;
-using static Sample.AspNetCore.SystemTests.Test.Base.Drivers;
-
-namespace Sample.AspNetCore.SystemTests.Test.Base
+﻿namespace Sample.AspNetCore.SystemTests.Test.Base
 {
-    #if DEBUG
+    using Atata;
+    using BrowserStack;
+    using Sample.AspNetCore.SystemTests.Services;
+    using NUnit.Framework;
+    using OpenQA.Selenium;
+    using OpenQA.Selenium.Chrome;
+    using OpenQA.Selenium.Firefox;
+    using OpenQA.Selenium.IE;
+    using OpenQA.Selenium.Remote;
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.Specialized;
+    using System.Configuration;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using OpenQA.Selenium.Edge;
+    using static Sample.AspNetCore.SystemTests.Test.Base.Drivers;
+
+#if DEBUG
     [TestFixture(DriverAliases.Chrome)]
     #elif DEV
     [TestFixture(DriverAliases.Chrome)]

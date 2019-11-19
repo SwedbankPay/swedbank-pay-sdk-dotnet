@@ -1,7 +1,7 @@
-﻿using RestSharp;
-
-namespace SwedbankPay.Sdk.PaymentOrders
+﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
+    using RestSharp;
+
     using SwedbankPay.Sdk.Exceptions;
     using SwedbankPay.Sdk.Payments;
     using SwedbankPay.Sdk.Transactions;

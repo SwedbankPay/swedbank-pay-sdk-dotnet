@@ -1,12 +1,12 @@
-﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.IE;
-using OpenQA.Selenium.Remote;
-using static Sample.AspNetCore.SystemTests.Test.Base.Drivers;
-
-namespace Sample.AspNetCore.SystemTests.Services
+﻿namespace Sample.AspNetCore.SystemTests.Services
 {
+    using OpenQA.Selenium;
+    using OpenQA.Selenium.Chrome;
+    using OpenQA.Selenium.Firefox;
+    using OpenQA.Selenium.IE;
+    using OpenQA.Selenium.Remote;
+    using static Sample.AspNetCore.SystemTests.Test.Base.Drivers;
+
     public static class DriverOptionsFactory
     {
         public static DriverOptions GetDriverOptions(Driver driver)

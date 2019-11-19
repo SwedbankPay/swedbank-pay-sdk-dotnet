@@ -1,7 +1,7 @@
-﻿using Atata;
-
-namespace Sample.AspNetCore.SystemTests.PageObjectModels.Base
+﻿namespace Sample.AspNetCore.SystemTests.PageObjectModels.Base
 {
+    using Atata;
+
     [WaitForDocumentReadyState]
     public abstract class BasePage<TOwner> : Page<TOwner>
         where TOwner : BasePage<TOwner>

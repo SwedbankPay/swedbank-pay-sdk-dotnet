@@ -1,9 +1,9 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using SwedbankPay.Sdk.Consumers;
-
-namespace SwedbankPay.Sdk.PaymentOrders
+﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Converters;
+    using SwedbankPay.Sdk.Consumers;
+
     /// <summary>
     /// If shipIndicator set to 4, then prefil this.
     /// </summary><see cref="RiskIndicator.ShipIndicator"/>

@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Sample.AspNetCore.SystemTests.Services
+﻿namespace Sample.AspNetCore.SystemTests.Services
 {
+    using System;
+
     public static class TestDataService
     {
         public static string FirstName => "John";

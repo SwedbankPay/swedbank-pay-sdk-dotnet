@@ -1,9 +1,9 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using SwedbankPay.Sdk.Consumers;
-
-namespace SwedbankPay.Sdk.PaymentOrders
+﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Converters;
+    using SwedbankPay.Sdk.Consumers;
+
     public class Address
     {
         public string FirstName { get; set; }

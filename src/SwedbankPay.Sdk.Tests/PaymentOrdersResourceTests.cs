@@ -85,7 +85,7 @@ namespace SwedbankPay.Sdk.Tests
         {
             //ACT
             var paymentOrderResponseContainer = await _sut.PaymentOrders.GetPaymentOrder("/psp/paymentorders/472e6f26-a9b5-4e91-1b70-08d756b9b7d8", PaymentOrderExpand.CurrentPayment);
-            IEnumerable<SaleResponse> sales = await _sut.Payment.GetSales(paymentOrderResponseContainer.PaymentOrder.CurrentPayment.Payment.Sales.Id);
+            var sales = await _sut.Payment.GetSales(paymentOrderResponseContainer.PaymentOrder.CurrentPayment.Payment.Sales.Id);
             
             //ASSERT
             Assert.NotNull(sales);

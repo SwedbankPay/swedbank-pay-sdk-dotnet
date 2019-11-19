@@ -1,7 +1,7 @@
-﻿using RestSharp;
-
-namespace SwedbankPay.Sdk
+﻿namespace SwedbankPay.Sdk
 {
+    using RestSharp;
+
     public class HttpOperation
     {
         /// <summary>

@@ -1,12 +1,12 @@
-﻿using System;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using SwedbankPay.Sdk.PaymentOrders;
-using Xunit;
-
-namespace SwedbankPay.Sdk.Tests.Json
+﻿namespace SwedbankPay.Sdk.Tests.Json
 {
+    using System;
+    using System.Threading.Tasks;
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
+    using SwedbankPay.Sdk.PaymentOrders;
+    using Xunit;
+
     public class CustomDateTimeConverterTests
     {
         
@@ -21,7 +21,7 @@ namespace SwedbankPay.Sdk.Tests.Json
             
             //ACT
             var result = JsonConvert.SerializeObject(riskIndicator);
-            JObject obj = JObject.Parse(result);
+            var obj = JObject.Parse(result);
             
             var dateTimeAsString = obj.GetValue("PreOrderDate").ToString();
             //ASSERT
