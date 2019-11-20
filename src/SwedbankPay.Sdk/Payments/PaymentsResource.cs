@@ -58,7 +58,7 @@
             }
             var url = $"{id}{GetExpandQueryString(paymentExpand)}";
             Exception OnError(ProblemsContainer m) => new CouldNotFindPaymentException(id, m);
-            var res = await this.swedbankPayClient.HttpGet<PaymentResponseContainer>(url, OnError);
+            var res = await this.swedbankPayClient.HttpRequest<PaymentResponseContainer>(HttpMethod.Get, url, OnError);
             return res;
         }
 
@@ -71,20 +71,22 @@
         {
             Func<ProblemsContainer, Exception> onError = m => new CouldNotFindTransactionException(id, m);
 
-            var res = await this.swedbankPayClient.HttpGet<SaleResponseContainer>(id, onError);
+            var res = await this.swedbankPayClient.HttpRequest<SaleResponseContainer>(HttpMethod.Get, id, onError);
             return res.Sales.SaleList;
         }
+
 
         /// <summary>
         /// Gets all transactions for a payment.
         /// </summary>
         /// <param name="id"></param>
+        /// <param name="paymentExpand"></param>
         /// <returns></returns>
         public async Task<IEnumerable<TransactionResponse>> GetTransactions(string id, PaymentExpand paymentExpand = PaymentExpand.All)
         {
             var url = $"{id}{GetExpandQueryString(paymentExpand)}";
             Exception OnError(ProblemsContainer m) => new CouldNotFindTransactionException(id, m);
-            var res = await this.swedbankPayClient.HttpGet<AllTransactionResponseContainer>(url, OnError);
+            var res = await this.swedbankPayClient.HttpRequest<AllTransactionResponseContainer>(HttpMethod.Get, url, OnError);
             return res.Transactions.TransactionList;
         }
 
@@ -134,7 +136,7 @@
             var url = httpOperation.Href;
             Exception OnError(ProblemsContainer m) => new CouldNotPostTransactionException(id, m);
             var payload = new TransactionRequestContainer(transaction);
-            var res = await this.swedbankPayClient.HttpPost<TransactionRequestContainer, ReversalTransactionResponseContainer>(url, OnError, payload);
+            var res = await this.swedbankPayClient.HttpRequest<ReversalTransactionResponseContainer>(HttpMethod.Post, url, OnError, payload);
             return res.Reversal.Transaction;
         }
 
@@ -159,7 +161,7 @@
             var url = httpOperation.Href;
             Exception OnError(ProblemsContainer m) => new CouldNotPostTransactionException(id, m);
             var payload = new TransactionRequestContainer(transaction);
-            var res = await this.swedbankPayClient.HttpPost<TransactionRequestContainer, CancellationTransactionResponseContainer>(url, OnError, payload);
+            var res = await this.swedbankPayClient.HttpRequest<CancellationTransactionResponseContainer>(httpOperation.Method, url, OnError, payload);
             return res.Cancellation.Transaction;
         }
 
@@ -185,7 +187,7 @@
             var url = httpOperation.Href;
             Exception OnError(ProblemsContainer m) => new CouldNotPostTransactionException(id, m);
             var payload = new PaymentAbortRequestContainer();
-            var res = await this.swedbankPayClient.HttpPatch<PaymentAbortRequestContainer, PaymentResponseContainer>(url, OnError, payload);
+            var res = await this.swedbankPayClient.HttpRequest<PaymentResponseContainer>(httpOperation.Method,url, OnError, payload);
             return res;
         }
 

@@ -64,7 +64,7 @@
             }
 
             Exception OnError(ProblemsContainer m) => new CouldNotGetBillingDetailsException(url, m);
-            var billingDetails = await this.swedbankPayClient.HttpGet<BillingDetails>(url, OnError);
+            var billingDetails = await this.swedbankPayClient.HttpRequest<BillingDetails>(HttpMethod.Get, url, OnError);
             return billingDetails;
         }
     }
