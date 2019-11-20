@@ -11,5 +11,10 @@
             Payment = payment;
             Transactions = transactions;
         }
+        
+        public AllTransactionResponseContainer()
+        {
+            
+        }
     }
 }
