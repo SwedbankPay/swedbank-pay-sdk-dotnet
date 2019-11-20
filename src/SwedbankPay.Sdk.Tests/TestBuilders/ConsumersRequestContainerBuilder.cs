@@ -8,14 +8,14 @@
         {
             ConsumersRequest = new ConsumersRequest()
         };
-    
+
 
         public ConsumersRequestContainerBuilder WithTestValues()
         {
             this.consumersRequestContainer.ConsumersRequest.ConsumerCountryCode = CountryCode.SE;
             return this;
         }
-        
+
         public ConsumersRequestContainer Build()
         {
             return this.consumersRequestContainer;

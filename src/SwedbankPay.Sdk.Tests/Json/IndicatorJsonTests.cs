@@ -30,7 +30,7 @@
             {
                 AccountAgeIndicator = AccountAgeIndicator.NoAccountGuest
             };
-            
+
             //ACT
             var result = JsonConvert.SerializeObject(accountInfo);
             var obj = JObject.Parse(result);

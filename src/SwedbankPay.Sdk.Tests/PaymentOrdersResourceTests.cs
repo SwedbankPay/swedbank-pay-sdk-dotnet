@@ -38,13 +38,6 @@ namespace SwedbankPay.Sdk.Tests
             var paymentOrderResponseContainer = await this.Sut.PaymentOrders.CreatePaymentOrder(orderRequestContainer, PaymentOrderExpand.All);
             Assert.NotNull(paymentOrderResponseContainer);
             Assert.NotNull(paymentOrderResponseContainer.PaymentOrder);
-
-            //Assert.Equal(30000, paymentOrderResponseContainer.PaymentOrder.Amount);
-            //MetaDataContainer metadata = paymentOrderResponseContainer.PaymentOrder.MetaData;
-            //var firstMetaData =  metadata.MetaData["testvalue"];
-            //var secondMetaData = metadata.MetaData["testvalue2"];
-            //Assert.IsType<int>(  firstMetaData.GetType());
-            //Assert.IsType<string>(secondMetaData.GetType());
         }
 
         [Fact]
@@ -244,19 +237,6 @@ namespace SwedbankPay.Sdk.Tests
         {
             var id = "/psp/paymentorders/56a45c8a-9605-437a-fb80-08d742822747";
             await Assert.ThrowsAsync<CouldNotFindPaymentException>(() => this.Sut.PaymentOrders.GetPaymentOrder(id));
-            //Assert. NotNull(paymentOrderResponseContainer);
-            //Assert.NotNull(paymentOrderResponseContainer.PaymentOrder);
-
-            //var transactionResponse = _sut.PaymentOrders.Reversal(id, new TransactionRequestContainer(new TransactionRequest
-            //{
-            //    Amount = 100,
-            //    VatAmount = 25,
-            //    PayeeReference = Guid.NewGuid().ToString(),
-            //    Description = "Description for transaction",
-            //}));
-
-            //Assert.NotNull(transactionResponse);
-            //Assert.Equal("Completed", transactionResponse.State);
         }
 
         private PaymentOrderRequest CreatePaymentOrderRequest(long amount = 30000, long vatAmount = 7500)
@@ -269,15 +249,6 @@ namespace SwedbankPay.Sdk.Tests
                 Description = "Description",
                 Language = "sv-SE",
                 UserAgent = "useragent",
-                Urls = new Urls
-                {
-                    TermsOfServiceUrl = null,
-                    CallbackUrl = null,
-                    CancelUrl = "https://payex.eu.ngrok.io/payment-canceled?orderGroupId={orderGroupId}",
-                    CompleteUrl = "https://payex.eu.ngrok.io/sv/checkout-sv/PayexCheckoutConfirmation/?orderGroupId={orderGroupId}",
-                    LogoUrl = null,
-                    HostUrls = new List<string> { { "https://payex.eu.ngrok.io" } }
-                },
                 PayeeInfo = new PayeeInfo
                 {
                     PayeeId = "91a4c8e0-72ac-425c-a687-856706f9e9a1",

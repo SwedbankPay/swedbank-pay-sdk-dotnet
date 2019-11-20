@@ -1,17 +1,16 @@
 ﻿namespace SwedbankPay.Sdk.Tests.UnitTests
 {
+    using SwedbankPay.Sdk.PaymentOrders;
 
     using System;
-    using SwedbankPay.Sdk.PaymentOrders;
+
     using Xunit;
-    using Xunit.Sdk;
 
     public class EmailAddressTests
     {
         private string validAddress = "leia.ahlstrom@payex.com";
 
-        
-       [Fact]
+        [Fact]
         public void AddressValue_IsSetCorrectly_WhenGivenValidAddressString()
         {
             //ACT
@@ -20,7 +19,7 @@
             //ASSERT
             Assert.Equal(this.validAddress, addressObject.ToString());
         }
-        
+
         [Theory]
         [InlineData("plainaddress")]
         [InlineData("#@%^%#$@#$@#.com")]
@@ -60,7 +59,7 @@
         {
             //ACT
             var ex = Record.Exception(() => new EmailAddress(address));
-            
+
             //ASSERT
             Assert.Null(ex);
         }

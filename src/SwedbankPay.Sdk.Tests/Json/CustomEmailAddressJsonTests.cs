@@ -22,7 +22,7 @@
             jsonObject.Add("xX123xxaddress", this.address);
             var settings = new JsonSerializerSettings();
             settings.Converters.Add(new CustomEmailAddressConverter(typeof(EmailAddress)));
-            
+
             //ACT
             var result = JsonConvert.DeserializeObject<EmailAddress>(jsonObject.ToString(), settings);
 
