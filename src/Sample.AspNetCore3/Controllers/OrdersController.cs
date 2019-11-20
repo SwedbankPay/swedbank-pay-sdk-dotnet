@@ -1,30 +1,26 @@
 ﻿namespace Sample.AspNetCore3.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Options;
     using Sample.AspNetCore3.Data;
     using Sample.AspNetCore3.Models;
     using Sample.AspNetCore3.Models.ViewModels;
     using SwedbankPay.Sdk;
-    using SwedbankPay.Sdk.Transactions;
+    using System.Linq;
+    using System.Threading.Tasks;
 
     public class OrdersController : Controller
     {
-        private readonly StoreDBContext _context;
-        private readonly SwedbankPayClient _swedbankPayClient;
-        private readonly SwedbankPayOptions _swedbankPayOptions;
+        private readonly StoreDbContext context;
+        private readonly SwedbankPayClient swedbankPayClient;
+        private readonly SwedbankPayOptions swedbankPayOptions;
 
-        public OrdersController(StoreDBContext context, IOptionsMonitor<SwedbankPayOptions> swedPayOptions, SwedbankPayClient swedbankPayClient)
+        public OrdersController(StoreDbContext context, IOptionsMonitor<SwedbankPayOptions> swedPayOptions, SwedbankPayClient swedbankPayClient)
         {
-            _context = context;
-            _swedbankPayClient = swedbankPayClient;
-            _swedbankPayOptions = swedPayOptions.CurrentValue;
+            this.context = context;
+            this.swedbankPayClient = swedbankPayClient;
+            this.swedbankPayOptions = swedPayOptions.CurrentValue;
         }
 
         // GET: Orders
@@ -44,7 +40,7 @@
                 return NotFound();
             }
             
-            var response = await _swedbankPayClient.PaymentOrders.GetPaymentOrder(order.PaymentOrderLink);
+            var response = await this.swedbankPayClient.PaymentOrders.GetPaymentOrder(order.PaymentOrderLink);
 
             return View(new OrderViewModel
             {

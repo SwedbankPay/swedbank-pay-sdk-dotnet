@@ -5,8 +5,8 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Options;
 
-    using Sample.AspNetCore3.Data;
     using Sample.AspNetCore3.Models;
+    using Sample.AspNetCore3.Data;
 
     using SwedbankPay.Sdk;
     using SwedbankPay.Sdk.PaymentOrders;
@@ -18,26 +18,21 @@
 
     public class PaymentController : Controller
     {
-        private readonly SwedbankPayOptions _swedbankPayOptions;
-        private Cart _cartService;
-        private readonly StoreDBContext _context;
-        private readonly SwedbankPayClient _swedbankPayClient;
+        private Cart cartService;
+        private readonly StoreDbContext context;
+        private readonly SwedbankPayClient swedbankPayClient;
 
-        public PaymentController(IOptionsMonitor<SwedbankPayOptions> optionsAccessor, Cart cartService, StoreDBContext context, SwedbankPayClient swedbankPayClient)
+        public PaymentController(Cart cartService, StoreDbContext context, SwedbankPayClient swedbankPayClient)
         {
-            _swedbankPayOptions = optionsAccessor.CurrentValue;
-            _cartService = cartService;
-            _context = context;
-            _swedbankPayClient = swedbankPayClient;
+            this.cartService = cartService;
+            this.context = context;
+            this.swedbankPayClient = swedbankPayClient;
         }
 
 
         // GET: Payment
         public async Task<ActionResult> Index(Cart cart)
         {
-
-
-
             return View();
         }
 
@@ -50,8 +45,6 @@
         // GET: Payment/Create
         public ActionResult Create(Cart cart)
         {
-
-
             //var swedbankPayClient.PaymentOrders.CreatePaymentOrder();
             return View();
         }
@@ -87,13 +80,13 @@
             try
             {
                 
-                var transactionRequestObject = new TransactionRequestContainer(new TransactionRequest
+                var transactionRequestObject = new TransactionRequest
                 {
                     PayeeReference = DateTime.Now.Ticks.ToString(),
                     Description = "Cancelling parts of the total amount"
+                };
 
-                });
-                var response = await _swedbankPayClient.PaymentOrders.CancelPaymentOrder(paymentOrderId, transactionRequestObject);
+                var response = await this.swedbankPayClient.PaymentOrders.CancelPaymentOrder(paymentOrderId, transactionRequestObject);
 
                 TempData["CancelMessage"] = $"Payment has been cancelled: {response.Id}";
                 this.cartService.PaymentOrderLink = null;
@@ -113,7 +106,7 @@
         {
             try
             {
-                var response = await _swedbankPayClient.PaymentOrders.AbortPaymentOrder(paymentOrderId);
+                var response = await this.swedbankPayClient.PaymentOrders.AbortPaymentOrder(paymentOrderId);
 
                 TempData["AbortMessage"] = $"Payment Order: {response.PaymentOrder.Id} has been {response.PaymentOrder.State}";
                 this.cartService.PaymentOrderLink = null;
@@ -153,9 +146,9 @@
         {
             try
             {
-                var transActionRequestObject = await GetTransactionRequestContainer("Capturing the authorized payment");
+                var transActionRequestObject = await GetTransactionRequest("Capturing the authorized payment");
 
-                var response = await _swedbankPayClient.PaymentOrders.Capture(paymentOrderId, transActionRequestObject);
+                var response = await this.swedbankPayClient.PaymentOrders.Capture(paymentOrderId, transActionRequestObject);
 
                     TempData["CaptureMessage"] = $"{response.Id}, {response.Type}, {response.State}";
                     this.cartService.PaymentOrderLink = null;
@@ -173,8 +166,8 @@
         {
             try
             {
-                var transActionRequestObject = await GetTransactionRequestContainer("Reversing the capture amount");
-                var response = await _swedbankPayClient.PaymentOrders.Reversal(paymentOrderId, transActionRequestObject);
+                var transActionRequestObject = await GetTransactionRequest("Reversing the capture amount");
+                var response = await this.swedbankPayClient.PaymentOrders.Reversal(paymentOrderId, transActionRequestObject);
 
                 TempData["ReversalMessage"] = $"{response.Id}, {response.Type}, {response.State}";
                 this.cartService.PaymentOrderLink = null;
