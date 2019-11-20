@@ -1,5 +1,7 @@
 ﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
+    using Newtonsoft.Json;
+
     public class Payer : IdLink
     {
         /// <summary>
@@ -25,7 +27,8 @@
         /// <summary>
         /// Optional (increases chance for challenge flow if not set)
         /// </summary>
-        public string Email { get; set; }
+        [JsonConverter(typeof(CustomEmailAddressConverter))]
+        public EmailAddress Email { get; set; }
 
         /// <summary>
         /// Optional (increases chance for challenge flow if not set)

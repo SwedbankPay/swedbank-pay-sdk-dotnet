@@ -2,51 +2,41 @@
 {
     using Microsoft.Extensions.Logging;
 
-    using RestSharp;
-    using RestSharp.Authenticators;
-
     using SwedbankPay.Sdk.Exceptions;
     using SwedbankPay.Sdk.PaymentOrders;
 
     using System;
     using System.Collections.Generic;
+    using System.Net.Http;
     using System.Threading.Tasks;
 
     public abstract class ResourceBase
     {
-        protected readonly SwedbankPayOptions SwedbankPayOptions;
-        private readonly ILogger logger;
+        protected readonly SwedbankPayOptions swedbankPayOptions;
+        internal SwedbankPayHttpClient swedbankPayClient;
 
-        internal ResourceBase(SwedbankPayOptions swedbankPayOptions, ILogger logger)
+
+        internal ResourceBase(
+            SwedbankPayOptions swedbankPayOptions,
+            ILogger logger,
+            HttpClient client)
         {
-            SwedbankPayOptions = swedbankPayOptions;
-            this.logger = logger;
+            this.swedbankPayOptions = swedbankPayOptions;
+            if (this.swedbankPayOptions.IsEmpty())
+            {
+                throw new InvalidConfigurationSettingsException($"Invalid configuration. Check config.");
+            }
+
+            this.swedbankPayClient = new SwedbankPayHttpClient(client, logger);
         }
 
         public async Task<string> GetRaw(string id, PaymentOrderExpand paymentOrderExpand)
         {
             var expandQueryString = GetExpandQueryString(paymentOrderExpand);
             var url = $"{id}?$expand={expandQueryString}";
-         
-            return await CreateInternalClient().GetRaw(url);
+
+            return await this.swedbankPayClient.GetRaw(url);
         }
-
-        internal SwedbankPayHttpClient CreateInternalClient()
-        {
-            if (SwedbankPayOptions.IsEmpty())
-            {
-                throw new InvalidConfigurationSettingsException($"Invalid configuration. Check config.");
-            }
-
-
-            var client = new RestClient(new Uri(SwedbankPayOptions.ApiBaseUrl.ToString()))
-            {
-                Authenticator = new OAuth2AuthorizationRequestHeaderAuthenticator(SwedbankPayOptions.Token, "Bearer")
-            };
-
-            return new SwedbankPayHttpClient(client, this.logger);
-        }
-
 
         internal string GetExpandQueryString<T>(T expandParameter) where T : Enum
         {

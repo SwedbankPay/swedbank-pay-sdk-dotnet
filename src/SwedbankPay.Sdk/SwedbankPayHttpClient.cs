@@ -6,18 +6,22 @@
     using Newtonsoft.Json.Linq;
     using Newtonsoft.Json.Serialization;
 
-    using RestSharp;
+    using SwedbankPay.Sdk.Exceptions;
 
     using System;
     using System.Net;
+    using System.Net.Http;
+    using System.Text;
     using System.Threading.Tasks;
 
     internal class SwedbankPayHttpClient
     {
-        private readonly RestClient client;
+        private readonly HttpClient client;
         private readonly ILogger logger;
+        private static readonly JsonSerializerSettings settings = new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() };
 
-        internal SwedbankPayHttpClient(RestClient client, ILogger logger)
+
+        internal SwedbankPayHttpClient(HttpClient client, ILogger logger)
         {
             this.client = client;
             this.logger = logger;
@@ -25,53 +29,72 @@
 
         internal async Task<TResponse> HttpPost<TPayLoad, TResponse>(string url, Func<ProblemsContainer, Exception> onError, TPayLoad payload) where TResponse : new()
         {
-            return await HttpRequest<TResponse>(Method.POST, url, onError, payload);
+            return await HttpRequest<TResponse>(HttpMethod.Post, url, onError, payload);
         }
 
         internal async Task<TResponse> HttpPatch<TPayLoad, TResponse>(string url, Func<ProblemsContainer, Exception> onError, TPayLoad payload) where TResponse : new()
         {
-            return await HttpRequest<TResponse>(Method.PATCH, url, onError, payload);
+            return await HttpRequest<TResponse>(HttpMethod.Patch, url, onError, payload);
         }
 
         internal async Task<TResponse> HttpGet<TResponse>(string url, Func<ProblemsContainer, Exception> onError) where TResponse : new()
         {
-            return await HttpRequest<TResponse>(Method.GET, url, onError);
+            return await HttpRequest<TResponse>(HttpMethod.Get, url, onError);
         }
 
         /// <summary>
         /// Updates the rest request with parameters.
         /// </summary>
-        /// <param name="restRequest">The rest request.</param>
+        /// <param name="msg">The http request message.</param>
         /// <param name="request">The request.</param>
-        private void UpdateRestRequest(RestRequest restRequest, object request)
+        private void UpdateRequest(HttpRequestMessage msg, object request)
         {
             if (request != null)
             {
-                var jsonString = GetRequestBody(request);
-                var json = SimpleJson.SimpleJson.DeserializeObject(jsonString);
-                restRequest.AddJsonBody(json);
+                var content = JsonConvert.SerializeObject(request, settings);
+                msg.Content = new StringContent(content, Encoding.UTF8, "application/json");
             }
-
-            restRequest.AddHeader("Content-Type", "application/json");
+            msg.Headers.Add("Accept", "application/json");
         }
 
-        internal async Task<T> HttpRequest<T>(Method httpMethod, string url, Func<ProblemsContainer, Exception> onError, object payload = null) where T : new()
+        internal async Task<T> HttpRequest<T>(string httpMethod, string url, Func<ProblemsContainer, Exception> onError, object payload = null) where T : new()
         {
-            var request = new RestRequest(url, httpMethod);
-            UpdateRestRequest(request, payload);
+            return await HttpRequest<T>(new HttpMethod(httpMethod), url, onError, payload);
+        }
 
-            var response = await this.client.ExecuteTaskAsync<T>(request);
+        internal async Task<T> HttpRequest<T>(HttpMethod httpMethod, string url, Func<ProblemsContainer, Exception> onError, object payload = null) where T : new()
+        {
+            var msg = new HttpRequestMessage(httpMethod, url);
 
-            if (response.IsSuccessful)
+            UpdateRequest(msg, payload);
+
+            HttpResponseMessage response;
+            try
             {
-                this.logger.LogInformation(response.Content);
-                return response.Data;
+                response = await this.client.SendAsync(msg, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
+            }
+            catch (HttpRequestException e)
+            {
+                throw new BadRequestException(e);
+            }
+            catch (TaskCanceledException te)
+            {
+                throw new ApiTimeOutException(te);
             }
 
-            ProblemsContainer problems;
-            if (!string.IsNullOrEmpty(response?.Content) && IsValidJson(response.Content))
+            if (response.IsSuccessStatusCode)
             {
-                problems = JsonConvert.DeserializeObject<ProblemsContainer>(response.Content);
+                var res = await response.Content.ReadAsStringAsync();
+                this.logger.LogInformation(res);
+                return JsonConvert.DeserializeObject<T>(res, settings);
+            }
+
+            var responseMessage = await response.Content.ReadAsStringAsync();
+            this.logger.LogInformation(responseMessage);
+            ProblemsContainer problems;
+            if (!string.IsNullOrEmpty(responseMessage) && IsValidJson(responseMessage))
+            {
+                problems = JsonConvert.DeserializeObject<ProblemsContainer>(responseMessage);
             }
             else if (response.StatusCode == HttpStatusCode.NotFound)
             {
@@ -79,7 +102,7 @@
             }
             else
             {
-                problems = new ProblemsContainer("Other", $"Response when calling SwedbankPay  was: '{response.StatusCode}'");
+                problems = new ProblemsContainer("Other", $"Response when calling SwedbankPay was: '{response.StatusCode}'");
             }
 
             var ex = onError(problems);
@@ -89,13 +112,30 @@
 
         internal async Task<string> GetRaw(string url)
         {
-            var request = new RestRequest(url, Method.GET);
-            var response = await this.client.ExecuteTaskAsync(request);
-            if (response.IsSuccessful)
+            var msg = new HttpRequestMessage(HttpMethod.Get, url);
+            msg.Headers.Add("Accept", "application/json");
+
+
+            HttpResponseMessage response;
+            try
             {
-                var res = JToken.Parse(response.Content).ToString(Formatting.Indented);
-                this.logger.LogInformation(res);
-                return res;
+                response = await this.client.SendAsync(msg);
+            }
+            catch (HttpRequestException e)
+            {
+                throw new BadRequestException(e);
+            }
+            catch (TaskCanceledException te)
+            {
+                throw new ApiTimeOutException(te);
+            }
+
+            if (response.IsSuccessStatusCode)
+            {
+                var res = await response.Content.ReadAsStringAsync();
+                var res2 = JToken.Parse(res).ToString(Formatting.Indented);
+                this.logger.LogInformation(res2);
+                return res2;
             }
 
             return null;

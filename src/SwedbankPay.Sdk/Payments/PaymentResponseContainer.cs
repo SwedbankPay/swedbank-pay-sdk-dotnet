@@ -1,9 +1,12 @@
 ﻿namespace SwedbankPay.Sdk.Payments
 {
+    using Newtonsoft.Json;
+
+    using SwedbankPay.Sdk.Exceptions;
+
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using SwedbankPay.Sdk.Exceptions;
 
     public class PaymentResponseContainer
     {
@@ -11,6 +14,7 @@
         {
         }
 
+        [JsonConstructor]
         public PaymentResponseContainer(PaymentResponse payment)
         {
             Payment = payment;
@@ -34,7 +38,7 @@
             }
             return httpOperation.Href;
         }
-        
+
         public string GetRedirectVerificationUrl()
         {
             var httpOperation = Operations.FirstOrDefault(o => o.Rel == "redirect-verification");
