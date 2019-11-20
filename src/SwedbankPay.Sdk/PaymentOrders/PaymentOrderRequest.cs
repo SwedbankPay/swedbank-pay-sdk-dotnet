@@ -50,7 +50,7 @@
         /// The urls property of the paymentOrder contains the URIs related to a payment order, including where the consumer gets redirected when going forward
         /// with or cancelling a payment session, as well as the callback URI that is used to inform the payee (merchant) of changes or updates made to underlying payments or transaction.
         /// </summary>
-        public Urls Urls { get; set; }
+        public Urls Urls { get; } = new Urls();
 
         /// <summary>
         /// Information about the payee of the payment order

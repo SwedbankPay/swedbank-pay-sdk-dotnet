@@ -6,7 +6,7 @@
     {
         public NoOperationsLeftException() : base("No available operations. Check state.")
         {
-            
+
         }
     }
 }

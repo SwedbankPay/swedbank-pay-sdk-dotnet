@@ -30,7 +30,7 @@
         /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
         public CountryCode ConsumerCountryCode { get; set; }
-       
+
         public NationalIdentifier NationalIdentifier { get; set; }
     }
 }

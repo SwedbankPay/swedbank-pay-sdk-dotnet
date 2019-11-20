@@ -66,8 +66,8 @@
         /// If shipIndicator set to 4, then prefil this.
         /// </summary>
         public PickUpAddress PickUpAddress { get; set; }
-        
+
 
     }
-    
+
 }

@@ -23,7 +23,6 @@
         public IdLink Payments { get; set; }
         public OrderItems OrderItems { get; set; }
         public MetaDataContainer MetaData { get; set; }
-        //public Dictionary<string, object> MetaDatae { get; set; }
         public Payer Payers { get; set; }
         public CurrentPaymentResponseContainer CurrentPayment { get; set; }
     }

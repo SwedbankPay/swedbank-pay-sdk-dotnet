@@ -2,7 +2,7 @@
 {
     using System;
     using SwedbankPay.Sdk.Consumers;
-    
+
     public class CouldNotInitiateConsumerSessionException : Exception
     {
         public ProblemsContainer Problems { get; }

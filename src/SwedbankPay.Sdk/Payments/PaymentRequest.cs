@@ -9,9 +9,9 @@
         {
             UserAgent = useragent;
             Description = description;
-            if(prices != null)
+            if (prices != null)
                 Prices.AddRange(prices);
-            
+
             PayerReference = payerReference;
             PayeeInfo.PayeeReference = payeeReference;
         }
@@ -25,9 +25,9 @@
 
         public string Description { get; set; }
 
-        public string PayerReference { get; set; } 
+        public string PayerReference { get; set; }
 
-        public string UserAgent { get; set; } 
+        public string UserAgent { get; set; }
 
         public string Language { get; set; }
 

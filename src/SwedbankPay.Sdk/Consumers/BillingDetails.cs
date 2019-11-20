@@ -1,16 +1,33 @@
 ﻿namespace SwedbankPay.Sdk.Consumers
 {
+    using Newtonsoft.Json;
+
+    using SwedbankPay.Sdk.PaymentOrders;
+
     public class BillingDetails
     {
-        public string Email { get; protected set; }
+        public EmailAddress Email { get; }
 
         /// <summary>
         /// The MSISDN (mobile phone number) of the payer. Format Sweden: +46707777777. Format Norway: +4799999999.
         /// </summary>
-        
-        public string Msisdn { get; protected set; }
 
-        
-        public Address BillingAddress { get; protected set; }
+        public string Msisdn { get; }
+
+
+        public Address BillingAddress { get; }
+
+
+        public BillingDetails()
+        {
+        }
+
+        [JsonConstructor]
+        public BillingDetails([JsonConverter(typeof(CustomEmailAddressConverter))]EmailAddress email, string msisdn, Address billingAddress)
+        {
+            Email = email;
+            Msisdn = msisdn;
+            BillingAddress = billingAddress;
+        }
     }
 }

@@ -1,7 +1,7 @@
 ﻿namespace SwedbankPay.Sdk.Exceptions
 {
     using System;
-    
+
     public class CouldNotAuthorizePaymentException : Exception
     {
         public ProblemsContainer Problems { get; }

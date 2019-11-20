@@ -6,7 +6,7 @@
         ///     This is the unique id that identifies this payee (like merchant) set by PayEx.
         /// </summary>
         public string PayeeId { get; set; }
-       
+
         /// <summary>
         /// 	A unique reference, max 30 characters, set by the merchant system - this must be unique for each operation!
         ///     NOTE://PayEx may send either the transaction number OR the payeeReference as a reference to the acquirer. 

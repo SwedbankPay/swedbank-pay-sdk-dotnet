@@ -10,7 +10,7 @@
         public static readonly AccountAgeIndicator LessThanThirtyDays = new AccountAgeIndicator(nameof(LessThanThirtyDays), "03");
         public static readonly AccountAgeIndicator ThirtyToSixtyDays = new AccountAgeIndicator(nameof(ThirtyToSixtyDays), "04");
         public static readonly AccountAgeIndicator MoreThanSixtyDays = new AccountAgeIndicator(nameof(MoreThanSixtyDays), "05");
-        
+
         public AccountAgeIndicator(string name, string value) : base(name, value)
         {
         }
