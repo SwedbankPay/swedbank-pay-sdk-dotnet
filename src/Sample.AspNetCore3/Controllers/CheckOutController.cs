@@ -21,16 +21,18 @@ namespace Sample.AspNetCore3.Controllers
         private readonly PayeeInfo _payeeInfoOptions;
         private readonly Urls _urlsOptionsAccessor;
         private Cart _cartService;
+        private readonly SwedbankPayClient _swedbankPayClient;
 
         public CheckOutController(IOptionsMonitor<SwedbankPayOptions> swedbankPayOptionsAccessor, 
             IOptionsMonitor<PayeeInfo> payeeInfoOptionsAccessor, IOptionsMonitor<Urls> urlsOptionsAccessor,
-            Cart cartService)
+            Cart cartService, SwedbankPayClient swedbankPayClient)
         {
             _swedbankPayOptions = swedbankPayOptionsAccessor.CurrentValue;
 
             _payeeInfoOptions = payeeInfoOptionsAccessor.CurrentValue;
             _urlsOptionsAccessor = urlsOptionsAccessor.CurrentValue;
             _cartService = cartService;
+            _swedbankPayClient = swedbankPayClient;
         }
         
         //public async Task<PaymentOrderResponseContainer> CreatePaymentOrder()
@@ -66,8 +68,6 @@ namespace Sample.AspNetCore3.Controllers
         [HttpPost]
         public async Task<JsonResult> CreatePaymentOrder(string consumerProfileRef = null)
         {
-            var swedbankPayClient = new SwedbankPayClient(_swedbankPayOptions);
-
             _payeeInfoOptions.PayeeReference = DateTime.Now.Ticks.ToString();
 
             var totalAmount = _cartService.CalculateTotal() * 100;
@@ -99,7 +99,7 @@ namespace Sample.AspNetCore3.Controllers
             }).ToList();
             paymentOrderRequest.Paymentorder.OrderItems = orderItems;
 
-            var response = await swedbankPayClient.PaymentOrders.CreatePaymentOrder(paymentOrderRequest);
+            var response = await _swedbankPayClient.PaymentOrders.CreatePaymentOrder(paymentOrderRequest);
             _cartService.PaymentOrderLink = response.PaymentOrder.Id;
             _cartService.Update();
             return new JsonResult(response);
@@ -155,9 +155,8 @@ namespace Sample.AspNetCore3.Controllers
         {
             var initiateConsumerRequest = new ConsumersRequest();
             initiateConsumerRequest.ConsumerCountryCode = CountryCode.SE;
-
-            var swedbankPayClient = new SwedbankPayClient(_swedbankPayOptions);
-            var response = await swedbankPayClient.Consumers.InitiateSession(initiateConsumerRequest);
+           
+            var response = await _swedbankPayClient.Consumers.InitiateSession(initiateConsumerRequest);
             var jsSource = response.Operations.FirstOrDefault(x => x.Rel == ConsumerResourceOperations.ViewConsumerIdentification)?.Href;
 
             var swedBankPaySource = new SwedbankPayCheckoutSource

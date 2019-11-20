@@ -19,12 +19,14 @@ namespace Sample.AspNetCore3.Controllers
         private readonly SwedbankPayOptions _swedbankPayOptions;
         private Cart _cartService;
         private readonly StoreDBContext _context;
+        private readonly SwedbankPayClient _swedbankPayClient;
 
-        public PaymentController(IOptionsMonitor<SwedbankPayOptions> optionsAccessor, Cart cartService, StoreDBContext context)
+        public PaymentController(IOptionsMonitor<SwedbankPayOptions> optionsAccessor, Cart cartService, StoreDBContext context, SwedbankPayClient swedbankPayClient)
         {
             _swedbankPayOptions = optionsAccessor.CurrentValue;
             _cartService = cartService;
             _context = context;
+            _swedbankPayClient = swedbankPayClient;
         }
 
 
@@ -82,14 +84,14 @@ namespace Sample.AspNetCore3.Controllers
         {
             try
             {
-                var swedbankPayClient = new SwedbankPayClient(_swedbankPayOptions);
+                
                 var transactionRequestObject = new TransactionRequestContainer(new TransactionRequest
                 {
                     PayeeReference = DateTime.Now.Ticks.ToString(),
                     Description = "Cancelling parts of the total amount"
 
                 });
-                var response = await swedbankPayClient.PaymentOrders.CancelPaymentOrder(paymentOrderId, transactionRequestObject);
+                var response = await _swedbankPayClient.PaymentOrders.CancelPaymentOrder(paymentOrderId, transactionRequestObject);
 
                 TempData["CancelMessage"] = $"Payment has been cancelled: {response.Id}";
                 _cartService.PaymentOrderLink = null;
@@ -109,9 +111,7 @@ namespace Sample.AspNetCore3.Controllers
         {
             try
             {
-                var swedbankPayClient = new SwedbankPayClient(_swedbankPayOptions);
-
-                var response = await swedbankPayClient.PaymentOrders.AbortPaymentOrder(paymentOrderId);
+                var response = await _swedbankPayClient.PaymentOrders.AbortPaymentOrder(paymentOrderId);
 
                 TempData["AbortMessage"] = $"Payment Order: {response.PaymentOrder.Id} has been {response.PaymentOrder.State}";
                 _cartService.PaymentOrderLink = null;
@@ -151,11 +151,9 @@ namespace Sample.AspNetCore3.Controllers
         {
             try
             {
-                var swedbankPayClient = new SwedbankPayClient(_swedbankPayOptions);
-
                 var transActionRequestObject = await GetTransactionRequestContainer("Capturing the authorized payment");
 
-                var response = await swedbankPayClient.PaymentOrders.Capture(paymentOrderId, transActionRequestObject);
+                var response = await _swedbankPayClient.PaymentOrders.Capture(paymentOrderId, transActionRequestObject);
 
                     TempData["CaptureMessage"] = $"{response.Id}, {response.Type}, {response.State}";
                     _cartService.PaymentOrderLink = null;
@@ -173,9 +171,8 @@ namespace Sample.AspNetCore3.Controllers
         {
             try
             {
-                var swedbankPayClient = new SwedbankPayClient(_swedbankPayOptions);
                 var transActionRequestObject = await GetTransactionRequestContainer("Reversing the capture amount");
-                var response = await swedbankPayClient.PaymentOrders.Reversal(paymentOrderId, transActionRequestObject);
+                var response = await _swedbankPayClient.PaymentOrders.Reversal(paymentOrderId, transActionRequestObject);
 
                 TempData["ReversalMessage"] = $"{response.Id}, {response.Type}, {response.State}";
                 _cartService.PaymentOrderLink = null;

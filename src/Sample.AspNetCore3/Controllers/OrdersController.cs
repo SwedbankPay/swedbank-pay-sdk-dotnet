@@ -17,11 +17,13 @@ namespace Sample.AspNetCore3.Controllers
     public class OrdersController : Controller
     {
         private readonly StoreDBContext _context;
+        private readonly SwedbankPayClient _swedbankPayClient;
         private readonly SwedbankPayOptions _swedbankPayOptions;
 
-        public OrdersController(StoreDBContext context, IOptionsMonitor<SwedbankPayOptions> swedPayOptions)
+        public OrdersController(StoreDBContext context, IOptionsMonitor<SwedbankPayOptions> swedPayOptions, SwedbankPayClient swedbankPayClient)
         {
             _context = context;
+            _swedbankPayClient = swedbankPayClient;
             _swedbankPayOptions = swedPayOptions.CurrentValue;
         }
 
@@ -41,10 +43,8 @@ namespace Sample.AspNetCore3.Controllers
             {
                 return NotFound();
             }
-
-            var swedbankPayClient = new SwedbankPayClient(_swedbankPayOptions);
-           
-            var response = await swedbankPayClient.PaymentOrders.GetPaymentOrder(order.PaymentOrderLink);
+            
+            var response = await _swedbankPayClient.PaymentOrders.GetPaymentOrder(order.PaymentOrderLink);
 
             return View(new OrderViewModel
             {
