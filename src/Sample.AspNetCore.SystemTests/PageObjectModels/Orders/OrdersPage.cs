@@ -1,13 +1,12 @@
-﻿using Atata;
-using Sample.AspNetCore.SystemTests.PageObjectModels.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sample.AspNetCore.SystemTests.PageObjectModels.Orders
+﻿namespace Sample.AspNetCore.SystemTests.PageObjectModels.Orders
 {
+    using Atata;
+    using Sample.AspNetCore.SystemTests.PageObjectModels.Base;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
     using _ = OrdersPage;
 
     public class OrdersPage : BasePage<_>

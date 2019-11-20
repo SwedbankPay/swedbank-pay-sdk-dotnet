@@ -2,13 +2,28 @@
 {
     using Newtonsoft.Json;
 
+    using SwedbankPay.Sdk.PaymentOrders;
+
     public class ShippingDetails
     {
-        [JsonProperty("email")]
-        public string Email { get; protected set; }
-        [JsonProperty("msisdn")]
-        public string Msisdn { get; protected set; }
-        [JsonProperty("shippingAddress")]
-        public Address ShippingAddress { get; protected set; }
+        public EmailAddress Email { get; }
+
+        public string Msisdn { get; }
+
+        public Address ShippingAddress { get; }
+
+
+        public ShippingDetails()
+        {
+        }
+
+
+        [JsonConstructor]
+        public ShippingDetails([JsonConverter(typeof(CustomEmailAddressConverter))]EmailAddress email, string msisdn, Address shippingAddress)
+        {
+            Email = email;
+            Msisdn = msisdn;
+            ShippingAddress = shippingAddress;
+        }
     }
 }

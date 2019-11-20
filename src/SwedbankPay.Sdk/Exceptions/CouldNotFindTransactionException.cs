@@ -20,7 +20,7 @@
 
         public CouldNotFindTransactionException(string id, string name, string desc) : this(id, new ProblemsContainer(name, desc))
         {
-            
+
         }
 
         public CouldNotFindTransactionException(Exception inner) : base("Could not find transaction for the given id", inner)

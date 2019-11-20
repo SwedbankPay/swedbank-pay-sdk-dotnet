@@ -4,21 +4,21 @@
 
     public class ConsumersRequestContainerBuilder
     {
-        private ConsumersRequestContainer _consumersRequestContainer = new ConsumersRequestContainer
+        private ConsumersRequestContainer consumersRequestContainer = new ConsumersRequestContainer
         {
             ConsumersRequest = new ConsumersRequest()
         };
-    
+
 
         public ConsumersRequestContainerBuilder WithTestValues()
         {
-            _consumersRequestContainer.ConsumersRequest.ConsumerCountryCode = CountryCode.SE;
+            this.consumersRequestContainer.ConsumersRequest.ConsumerCountryCode = CountryCode.SE;
             return this;
         }
-        
+
         public ConsumersRequestContainer Build()
         {
-            return _consumersRequestContainer;
+            return this.consumersRequestContainer;
         }
     }
 }

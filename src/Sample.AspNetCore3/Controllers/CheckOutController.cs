@@ -1,21 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
-using Sample.AspNetCore3.Constants;
-using Sample.AspNetCore3.Models;
-using SwedbankPay.Sdk;
-using SwedbankPay.Sdk.Consumers;
-using SwedbankPay.Sdk.PaymentOrders;
-
-namespace Sample.AspNetCore3.Controllers
+﻿namespace Sample.AspNetCore3.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Options;
+    using Newtonsoft.Json;
+    using Sample.AspNetCore3.Constants;
+    using Sample.AspNetCore3.Models;
+    using SwedbankPay.Sdk;
+    using SwedbankPay.Sdk.Consumers;
+    using SwedbankPay.Sdk.PaymentOrders;
+
     public class CheckOutController : Controller
     {
-        private readonly SwedbankPayOptions _swedbankPayOptions;
+        private readonly SwedbankPayOptions swedbankPayOptions;
 
         public const string CartSessionKey = "_Cart";
         private readonly PayeeInfo _payeeInfoOptions;
@@ -23,24 +23,24 @@ namespace Sample.AspNetCore3.Controllers
         private Cart _cartService;
         private readonly SwedbankPayClient _swedbankPayClient;
 
-        public CheckOutController(IOptionsMonitor<SwedbankPayOptions> swedbankPayOptionsAccessor, 
+        public CheckOutController(IOptionsMonitor<SwedbankPayOptions> swedbankPayOptionsAccessor,
             IOptionsMonitor<PayeeInfo> payeeInfoOptionsAccessor, IOptionsMonitor<Urls> urlsOptionsAccessor,
             Cart cartService, SwedbankPayClient swedbankPayClient)
         {
-            _swedbankPayOptions = swedbankPayOptionsAccessor.CurrentValue;
+            this.swedbankPayOptions = swedbankPayOptionsAccessor.CurrentValue;
 
             _payeeInfoOptions = payeeInfoOptionsAccessor.CurrentValue;
             _urlsOptionsAccessor = urlsOptionsAccessor.CurrentValue;
             _cartService = cartService;
             _swedbankPayClient = swedbankPayClient;
         }
-        
+
         //public async Task<PaymentOrderResponseContainer> CreatePaymentOrder()
         //{
         //    var swedbankPayClient = new SwedbankPayClient(_swedbankPayOptions);
 
         //    _payeeInfoOptions.PayeeReference = DateTime.Now.Ticks.ToString();
-           
+
         //    var totalAmount = _cartService.CalculateTotal() * 100;
         //    var paymentOrderRequest = CreatePaymentOrderRequestContainer(totalAmount, 0); //TODO Correct VatAmount
 
@@ -70,18 +70,18 @@ namespace Sample.AspNetCore3.Controllers
         {
             _payeeInfoOptions.PayeeReference = DateTime.Now.Ticks.ToString();
 
-            var totalAmount = _cartService.CalculateTotal() * 100;
-            var paymentOrderRequest = CreatePaymentOrderRequestContainer(totalAmount, 0); //TODO Correct VatAmount
+            var totalAmount = this.cartService.CalculateTotal() * 100;
+            var paymentOrderRequest = CreatePaymentOrderRequest(totalAmount, 0); //TODO Correct VatAmount
 
-            paymentOrderRequest.Paymentorder.OrderItems = new List<OrderItem>();
+            paymentOrderRequest.OrderItems = new List<OrderItem>();
             if (!string.IsNullOrWhiteSpace(consumerProfileRef))
             {
-                paymentOrderRequest.Paymentorder.Payer = new Payer
+                paymentOrderRequest.Payer = new Payer
                 {
                     ConsumerProfileRef = consumerProfileRef
                 };
             }
-            var orderItems = _cartService.CartLines.Select(line => new OrderItem
+            var orderItems = this.cartService.CartLines.Select(line => new OrderItem
             {
                 Amount = (int?)line.CalculateTotal() * 100,
                 Quantity = line.Quantity,
@@ -97,7 +97,7 @@ namespace Sample.AspNetCore3.Controllers
                 VatPercent = 0, //TODO Correct VatPercent
                 VatAmount = 0, //TODO Correct VatAmount
             }).ToList();
-            paymentOrderRequest.Paymentorder.OrderItems = orderItems;
+            paymentOrderRequest.OrderItems = orderItems;
 
             var response = await _swedbankPayClient.PaymentOrders.CreatePaymentOrder(paymentOrderRequest);
             _cartService.PaymentOrderLink = response.PaymentOrder.Id;
@@ -108,7 +108,7 @@ namespace Sample.AspNetCore3.Controllers
         public async Task<IActionResult> LoadPaymentMenu()
         {
             var responseJsonResult = await CreatePaymentOrder();
-            
+
             var response = responseJsonResult.Value as PaymentOrderResponseContainer;
 
             var jsSource = response.Operations.FirstOrDefault(x => x.Rel == PaymentOrderResourceOperations.ViewPaymentOrder)?.Href;
@@ -124,31 +124,28 @@ namespace Sample.AspNetCore3.Controllers
             return View("Checkout", swedBankPaySource);
         }
 
-        private PaymentOrderRequestContainer CreatePaymentOrderRequestContainer(long amount, long vatAmount)
+        private PaymentOrderRequest CreatePaymentOrderRequest(long amount, long vatAmount)
         {
-            var paymentOrderRequestContainer = new PaymentOrderRequestContainer
+            var paymentOrderRequest = new PaymentOrderRequest
             {
-                Paymentorder = new PaymentOrderRequest
+                Amount = amount,
+                VatAmount = vatAmount,
+                Currency = "SEK",
+                Description = "Description",
+                Language = "sv-SE",
+                UserAgent = "useragent",
+                Urls = new Urls
                 {
-                    Amount = amount,
-                    VatAmount = vatAmount,
-                    Currency = "SEK",
-                    Description = "Description",
-                    Language = "sv-SE",
-                    UserAgent = "useragent",
-                    Urls = new Urls
-                    {
-                        TermsOfServiceUrl = _urlsOptionsAccessor.TermsOfServiceUrl,
-                        CallbackUrl = null,
-                        CompleteUrl = _urlsOptionsAccessor.CompleteUrl,
-                        LogoUrl = null,
-                        CancelUrl = _urlsOptionsAccessor.CancelUrl,
-                        HostUrls = new List<string> { { "https://payex.eu.ngrok.io" } }
-                    },
-                    PayeeInfo = _payeeInfoOptions
-                }
+                    TermsOfServiceUrl = this.urlsOptionsAccessor.TermsOfServiceUrl,
+                    CallbackUrl = null,
+                    CompleteUrl = this.urlsOptionsAccessor.CompleteUrl,
+                    LogoUrl = null,
+                    CancelUrl = this.urlsOptionsAccessor.CancelUrl,
+                    HostUrls = new List<string> { { "https://payex.eu.ngrok.io" } }
+                },
+                PayeeInfo = this.payeeInfoOptions
             };
-            return paymentOrderRequestContainer;
+            return paymentOrderRequest;
         }
 
         public async Task<IActionResult> InitiateConsumerSession()
@@ -171,7 +168,7 @@ namespace Sample.AspNetCore3.Controllers
         public ViewResult Thankyou()
         {
 
-            _cartService.Clear();
+            this.cartService.Clear();
             return View();
         }
 

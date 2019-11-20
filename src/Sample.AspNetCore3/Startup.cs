@@ -1,24 +1,23 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Sample.AspNetCore3.Data;
-using Sample.AspNetCore3.Models;
-using Microsoft.EntityFrameworkCore;
-using RestSharp.Serialization.Xml;
-using Sample.AspNetCore3.Extensions;
-using SwedbankPay.Sdk;
-using SwedbankPay.Sdk.PaymentOrders;
-
 namespace Sample.AspNetCore3
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.HttpsPolicy;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using Sample.AspNetCore3.Data;
+    using Sample.AspNetCore3.Models;
+    using Microsoft.EntityFrameworkCore;
+    using RestSharp.Serialization.Xml;
+    using SwedbankPay.Sdk;
+    using SwedbankPay.Sdk.PaymentOrders;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -32,7 +31,7 @@ namespace Sample.AspNetCore3
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<StoreDBContext>(options => options.UseInMemoryDatabase("Products"));
+            services.AddDbContext<StoreDbContext>(options => options.UseInMemoryDatabase("Products"));
 
             services.AddControllersWithViews();
             services.AddDistributedMemoryCache();

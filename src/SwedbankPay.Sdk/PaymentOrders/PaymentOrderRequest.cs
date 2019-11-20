@@ -1,5 +1,6 @@
 ﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
+    using Newtonsoft.Json;
     using System.Collections.Generic;
 
     public class PaymentOrderRequest
@@ -7,7 +8,8 @@
         /// <summary>
         /// The operation that the payment order is supposed to perform.
         /// </summary>
-        public string Operation { get; internal set; }
+        [JsonConverter(typeof(TypedSafeEnumValueConverter<Operation, string>))]
+        public Operation Operation { get; internal set; }
 
         /// <summary>
         /// The currency of the payment.
@@ -43,22 +45,31 @@
         /// Determines if a recurrence token should be generated. A recurrence token is primarily used to enable future recurring payments - with the same token - through server-to-server calls. Default value is false
         /// </summary>
         public bool GenerateRecurrenceToken { get; set; }
+
         /// <summary>
         /// The urls property of the paymentOrder contains the URIs related to a payment order, including where the consumer gets redirected when going forward
         /// with or cancelling a payment session, as well as the callback URI that is used to inform the payee (merchant) of changes or updates made to underlying payments or transaction.
         /// </summary>
-        public Urls Urls { get; set; }
+        public Urls Urls { get; } = new Urls();
 
-        public PayeeInfo PayeeInfo { get; set; } //TODO Write doc
+        /// <summary>
+        /// Information about the payee of the payment order
+        /// </summary>
+        public PayeeInfo PayeeInfo { get; set; }
 
-        public Payer Payer { get; set; } //TODO Write doc
+        /// <summary>
+        /// Information about the payee of the payment order
+        /// </summary>
+        public Payer Payer { get; set; }
 
         /// <summary>
         /// The array of items being purchased with the order. Used to print on invoices if the payer chooses to pay with invoice, among other things.
         /// </summary>
         public List<OrderItem> OrderItems { get; set; }
 
-        public RiskIndicator RiskIndicator { get; set; } //TODO Write doc
+        //Information about risk indicator
+        public RiskIndicator RiskIndicator { get; set; }
+
         /// <summary>
         /// The keys and values that should be associated with the payment order. Can be additional identifiers and data you want to associate with the payment.
         /// </summary>

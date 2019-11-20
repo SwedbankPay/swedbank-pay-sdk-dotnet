@@ -1,15 +1,15 @@
-﻿using Atata;
-using NUnit.Framework;
-using Sample.AspNetCore.SystemTests.Services;
-using Sample.AspNetCore.SystemTests.Test.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
+﻿namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
 {
+    using Atata;
+    using NUnit.Framework;
+    using Sample.AspNetCore.SystemTests.Services;
+    using Sample.AspNetCore.SystemTests.Test.Helpers;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
     public class ValidationTests : PaymentTests
     {
         public ValidationTests(string driverAlias) : base(driverAlias) { }
@@ -17,7 +17,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
         #region Validation
 
         [Test, TestCaseSource(nameof(TestData), new object[] { true, null })]
-        public void Field_Validation_Card(Product[] products)
+        public void FieldValidationCard(Product[] products)
         {
             GoToPayexCardPaymentFrame(products)
                 .CreditCardNumber.Set("abc")
@@ -28,19 +28,19 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
                 .ValidationIcons[x => x.ExpiryDate].Should.BeVisible()
                 .CreditCardNumber.Set(TestDataService.CreditCardNumber)
                 .ExpiryDate.Set(TestDataService.CreditCardExpiratioDate)
-                .Cvc.Set(TestDataService.CreditCardCVC)
+                .Cvc.Set(TestDataService.CreditCardCvc)
                 .ValidationIcons[x => x.CreditCardNumber].Should.Not.BeVisible()
                 .ValidationIcons[x => x.ExpiryDate].Should.Not.BeVisible();
         }
 
         [Test, TestCaseSource(nameof(TestData), new object[] { true, null })]
-        public void Field_Validation_Swish(Product[] products)
+        public void FieldValidationSwish(Product[] products)
         {
             GoToPayexSwishPaymentFrame(products);
         }
 
         [Test, TestCaseSource(nameof(TestData), new object[] { true, null })]
-        public void Field_Validation_Invoice(Product[] products)
+        public void FieldValidationInvoice(Product[] products)
         {
             GoToPayexInvoicePaymentFrame(products)
                 .PersonalNumber.Set("abc")

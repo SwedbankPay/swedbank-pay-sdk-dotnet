@@ -1,8 +1,8 @@
-﻿using System;
-using Newtonsoft.Json;
-
-namespace SwedbankPay.Sdk.PaymentOrders
+﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
+    using System;
+    using Newtonsoft.Json;
+
     public class RiskIndicator
     {
         /// <summary>
@@ -66,8 +66,8 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// If shipIndicator set to 4, then prefil this.
         /// </summary>
         public PickUpAddress PickUpAddress { get; set; }
-        
+
 
     }
-    
+
 }

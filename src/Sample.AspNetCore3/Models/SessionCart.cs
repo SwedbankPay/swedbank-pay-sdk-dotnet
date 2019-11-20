@@ -1,19 +1,19 @@
-﻿using System;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
-using Sample.AspNetCore3.Extensions;
-
-namespace Sample.AspNetCore3.Models
+﻿namespace Sample.AspNetCore3.Models
 {
+    using System;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.DependencyInjection;
+    using Newtonsoft.Json;
+    using Sample.AspNetCore3.Extensions;
+
     public class SessionCart : Cart
     {
         
         public static Cart GetCart(IServiceProvider services)
         {
-            ISession session = services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
+            var session = services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
 
-            SessionCart cart = session?.GetJson<SessionCart>(CartSessionKey) ?? new SessionCart();
+            var cart = session?.GetJson<SessionCart>(CartSessionKey) ?? new SessionCart();
 
             cart.Session = session;
             return cart;
@@ -41,6 +41,7 @@ namespace Sample.AspNetCore3.Models
             base.Clear();
             Session.Remove(CartSessionKey);
         }
+
         public override void Update()
         {
             Session.SetJson(CartSessionKey, this);

@@ -1,7 +1,7 @@
-﻿using Atata;
-
-namespace Sample.AspNetCore.SystemTests.PageObjectModels.Base
+﻿namespace Sample.AspNetCore.SystemTests.PageObjectModels.Base
 {
+    using Atata;
+
     public class Footer<TOwner> : Control<TOwner> where TOwner : BasePage<TOwner>
     {
         [FindByContent("")]

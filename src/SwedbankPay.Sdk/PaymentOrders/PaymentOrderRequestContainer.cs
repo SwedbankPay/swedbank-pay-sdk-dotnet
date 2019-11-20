@@ -2,6 +2,12 @@
 {
     public class PaymentOrderRequestContainer
     {
-        public PaymentOrderRequest Paymentorder { get; set; }
+        public PaymentOrderRequestContainer(PaymentOrderRequest paymentOrder)
+        {
+            PaymentOrder = paymentOrder;
+        }
+
+
+        public PaymentOrderRequest PaymentOrder { get; }
     }
 }

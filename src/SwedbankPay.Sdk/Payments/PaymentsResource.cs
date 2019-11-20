@@ -6,7 +6,10 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net.Http;
     using System.Threading.Tasks;
+
+    using Microsoft.Extensions.Logging;
 
     public class PaymentsResource : ResourceBase, IPaymentsResource
     {
@@ -15,7 +18,9 @@
         private const string PspSwishPaymentsBaseUrl = "/psp/swish/payments/";
         private const string PspDirectDebitPaymentsBaseUrl = "/psp/directdebit/payments";
 
-        public PaymentsResource(SwedbankPayOptions swedbankPayOptions, ILogSwedbankPayHttpResponse logger) : base(swedbankPayOptions, logger)
+        public PaymentsResource(SwedbankPayOptions swedbankPayOptions,
+                                ILogger logger,
+                                HttpClient client) : base(swedbankPayOptions, logger, client)
         {
         }
 
@@ -52,8 +57,8 @@
                 throw new CouldNotFindPaymentException(id);
             }
             var url = $"{id}{GetExpandQueryString(paymentExpand)}";
-            Func<ProblemsContainer, Exception> onError = m => new CouldNotFindPaymentException(id, m);
-            var res = await CreateInternalClient().HttpGet<PaymentResponseContainer>(url, onError);
+            Exception OnError(ProblemsContainer m) => new CouldNotFindPaymentException(id, m);
+            var res = await this.swedbankPayClient.HttpGet<PaymentResponseContainer>(url, OnError);
             return res;
         }
 
@@ -65,7 +70,8 @@
         public async Task<IEnumerable<SaleResponse>> GetSales(string id)
         {
             Func<ProblemsContainer, Exception> onError = m => new CouldNotFindTransactionException(id, m);
-            var res = await CreateInternalClient().HttpGet<SaleResponseContainer>(id, onError);
+
+            var res = await this.swedbankPayClient.HttpGet<SaleResponseContainer>(id, onError);
             return res.Sales.SaleList;
         }
 
@@ -77,8 +83,8 @@
         public async Task<IEnumerable<TransactionResponse>> GetTransactions(string id, PaymentExpand paymentExpand = PaymentExpand.All)
         {
             var url = $"{id}{GetExpandQueryString(paymentExpand)}";
-            Func<ProblemsContainer, Exception> onError = m => new CouldNotFindTransactionException(id, m);
-            var res = await CreateInternalClient().HttpGet<AllTransactionResponseContainer>(url, onError);
+            Exception OnError(ProblemsContainer m) => new CouldNotFindTransactionException(id, m);
+            var res = await this.swedbankPayClient.HttpGet<AllTransactionResponseContainer>(url, OnError);
             return res.Transactions.TransactionList;
         }
 
@@ -101,9 +107,9 @@
             }
 
             var url = httpOperation.Href;
-            Func<ProblemsContainer, Exception> onError = m => new CouldNotPostTransactionException(id, m);
+            Exception OnError(ProblemsContainer m) => new CouldNotPostTransactionException(id, m);
             var payload = new TransactionRequestContainer(transaction);
-            var res = await CreateInternalClient().HttpPost<TransactionRequestContainer, CaptureTransactionResponseContainer>(url, onError, payload);
+            var res = await this.swedbankPayClient.HttpRequest<CaptureTransactionResponseContainer>(HttpMethod.Post, url, OnError, payload);
             return res.Capture.Transaction;
         }
 
@@ -126,9 +132,9 @@
             }
 
             var url = httpOperation.Href;
-            Func<ProblemsContainer, Exception> onError = m => new CouldNotPostTransactionException(id, m);
+            Exception OnError(ProblemsContainer m) => new CouldNotPostTransactionException(id, m);
             var payload = new TransactionRequestContainer(transaction);
-            var res = await CreateInternalClient().HttpPost<TransactionRequestContainer, ReversalTransactionResponseContainer>(url, onError, payload);
+            var res = await this.swedbankPayClient.HttpPost<TransactionRequestContainer, ReversalTransactionResponseContainer>(url, OnError, payload);
             return res.Reversal.Transaction;
         }
 
@@ -151,9 +157,9 @@
             }
 
             var url = httpOperation.Href;
-            Func<ProblemsContainer, Exception> onError = m => new CouldNotPostTransactionException(id, m);
+            Exception OnError(ProblemsContainer m) => new CouldNotPostTransactionException(id, m);
             var payload = new TransactionRequestContainer(transaction);
-            var res = await CreateInternalClient().HttpPost<TransactionRequestContainer, CancellationTransactionResponseContainer>(url, onError, payload);
+            var res = await this.swedbankPayClient.HttpPost<TransactionRequestContainer, CancellationTransactionResponseContainer>(url, OnError, payload);
             return res.Cancellation.Transaction;
         }
 
@@ -177,9 +183,9 @@
             }
 
             var url = httpOperation.Href;
-            Func<ProblemsContainer, Exception> onError = m => new CouldNotPostTransactionException(id, m);
+            Exception OnError(ProblemsContainer m) => new CouldNotPostTransactionException(id, m);
             var payload = new PaymentAbortRequestContainer();
-            var res = await CreateInternalClient().HttpPatch<PaymentAbortRequestContainer, PaymentResponseContainer>(url, onError, payload);
+            var res = await this.swedbankPayClient.HttpPatch<PaymentAbortRequestContainer, PaymentResponseContainer>(url, OnError, payload);
             return res;
         }
 
@@ -187,12 +193,12 @@
 
         private async Task<PaymentResponseContainer> CreatePayment(string baseUrl, PaymentRequest payment)
         {
-            payment.SetRequiredMerchantInfo(SwedbankPayOptions);
+            payment.SetRequiredMerchantInfo(this.swedbankPayOptions);
 
             var payload = new PaymentRequestContainer(payment);
-            Func<ProblemsContainer, Exception> onError = m => new CouldNotPlacePaymentException(payment, m); 
+            Exception OnError(ProblemsContainer m) => new CouldNotPlacePaymentException(payment, m);
             var url = $"{baseUrl}{GetExpandQueryString(PaymentExpand.All)}";
-            var res = await CreateInternalClient().HttpPost<PaymentRequestContainer, PaymentResponseContainer>(url, onError, payload);
+            var res = await this.swedbankPayClient.HttpPost<PaymentRequestContainer, PaymentResponseContainer>(url, OnError, payload);
             return res;
         }
     }

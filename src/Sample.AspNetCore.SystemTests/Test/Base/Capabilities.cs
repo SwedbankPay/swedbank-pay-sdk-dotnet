@@ -1,15 +1,15 @@
-﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Remote;
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sample.AspNetCore.SystemTests.Test.Base
+﻿namespace Sample.AspNetCore.SystemTests.Test.Base
 {
+    using OpenQA.Selenium;
+    using OpenQA.Selenium.Remote;
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.Specialized;
+    using System.Configuration;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
     public class Capabilities : ICapabilities
     {
         public Dictionary<string, object> CapabilitiesDictionary { get; }
@@ -22,15 +22,15 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
             CapabilitiesDictionary.Add(CapabilityType.Version, "");
             CapabilitiesDictionary.Add(CapabilityType.Platform, "");
 
-            NameValueCollection executionCollection = ConfigurationManager.GetSection("executions/" + execution) as NameValueCollection;
-            NameValueCollection environmentCollection = ConfigurationManager.GetSection("environments/" + environment) as NameValueCollection;
+            var executionCollection = ConfigurationManager.GetSection("executions/" + execution) as NameValueCollection;
+            var environmentCollection = ConfigurationManager.GetSection("environments/" + environment) as NameValueCollection;
 
             //foreach (string key in executionCollection.AllKeys)
             //{
             //    CapabilitiesDictionary.Add(key, executionCollection[key]);
             //}
 
-            foreach (string key in environmentCollection.AllKeys)
+            foreach (var key in environmentCollection.AllKeys)
             {
                 CapabilitiesDictionary.Add(key, environmentCollection[key]);
             }

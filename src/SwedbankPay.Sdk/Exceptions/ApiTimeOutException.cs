@@ -5,9 +5,9 @@
 
     public class ApiTimeOutException : Exception
     {
-        public ApiTimeOutException(TaskCanceledException te) : base("Timed out when calling PayEx", te)
+        public ApiTimeOutException(TaskCanceledException te) : base("Timed out when calling SwedbankPay", te)
         {
-            
+
         }
     }
 }

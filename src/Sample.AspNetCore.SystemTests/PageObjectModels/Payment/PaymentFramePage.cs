@@ -1,13 +1,12 @@
-﻿using Atata;
-using Sample.AspNetCore.SystemTests.PageObjectModels.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sample.AspNetCore.SystemTests.PageObjectModels
+﻿namespace Sample.AspNetCore.SystemTests.PageObjectModels
 {
+    using Atata;
+    using Sample.AspNetCore.SystemTests.PageObjectModels.Base;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
     using _ = PaymentFramePage;
 
     [WaitForLoadingIndicator]

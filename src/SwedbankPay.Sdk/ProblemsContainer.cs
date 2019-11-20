@@ -7,13 +7,14 @@
     {
         public ProblemsContainer()
         {
-            
+
         }
 
         public ProblemsContainer(string name, string description)
         {
-            Problems.Add(new Problem { Name =  name, Description = description });
+            Problems.Add(new Problem { Name = name, Description = description });
         }
+
         public List<Problem> Problems { get; set; } = new List<Problem>();
 
         public override string ToString()

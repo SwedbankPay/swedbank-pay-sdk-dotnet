@@ -6,14 +6,14 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class PaymentOrderRequestContainerBuilder
+    public class PaymentOrderRequestBuilder
     {
-        private PaymentOrderRequestContainer _paymentOrderRequestContainer = new PaymentOrderRequestContainer();
+        private PaymentOrderRequest paymentOrderRequest = new PaymentOrderRequest();
 
-        public PaymentOrderRequestContainerBuilder WithTestValues()
+        public PaymentOrderRequestBuilder WithTestValues()
         {
 
-            _paymentOrderRequestContainer.Paymentorder = new PaymentOrderRequest
+            this.paymentOrderRequest = new PaymentOrderRequest
             {
                 Currency = "SEK",
                 Amount = 1300,
@@ -22,29 +22,20 @@
                 GenerateRecurrenceToken = false,
                 UserAgent = "useragent",
                 Language = "sv-SE",
-                Urls = new Urls
-                {
-                    TermsOfServiceUrl = null,
-                    CallbackUrl = null,
-                    CancelUrl = "https://payex.eu.ngrok.io/payment-canceled?orderGroupId={orderGroupId}",
-                    CompleteUrl =
-                        "https://payex.eu.ngrok.io/sv/checkout-sv/PayexCheckoutConfirmation/?orderGroupId={orderGroupId}",
-                    LogoUrl = null,
-                    HostUrls = new List<string> {{"https://payex.eu.ngrok.io"}}
-                },
                 PayeeInfo = new PayeeInfo
                 {
-                    PayeeId = "91a4c8e0-72ac-425c-a687-856706f9e9a1", PayeeReference = DateTime.Now.Ticks.ToString()
+                    PayeeId = "91a4c8e0-72ac-425c-a687-856706f9e9a1",
+                    PayeeReference = DateTime.Now.Ticks.ToString()
                 }
             };
 
             return this;
-            
+
         }
 
-        public PaymentOrderRequestContainerBuilder WithOrderItems()
+        public PaymentOrderRequestBuilder WithOrderItems()
         {
-            _paymentOrderRequestContainer.Paymentorder.OrderItems = new List<OrderItem>
+            this.paymentOrderRequest.OrderItems = new List<OrderItem>
             {
                 new OrderItem
                 {
@@ -80,27 +71,21 @@
                     VatAmount = 0
                 }
             };
-            _paymentOrderRequestContainer.Paymentorder.Amount =
-                _paymentOrderRequestContainer.Paymentorder.OrderItems.Select(a => a.Amount).Sum();
+            this.paymentOrderRequest.Amount =
+                this.paymentOrderRequest.OrderItems.Select(a => a.Amount).Sum();
             return this;
         }
 
-        public PaymentOrderRequestContainerBuilder WithVat()
+        public PaymentOrderRequestBuilder WithVat()
         {
-            //if (_paymentOrderRequestContainer.Paymentorder.OrderItems.Any())
-            //{
+           this.paymentOrderRequest.VatAmount = (long?)(this.paymentOrderRequest.Amount * 0.25);
 
-            //}
-
-            _paymentOrderRequestContainer.Paymentorder.VatAmount = (long?) (_paymentOrderRequestContainer.Paymentorder.Amount * 0.25);
-
-            
             return this;
         }
 
-        public PaymentOrderRequestContainer Build()
+        public PaymentOrderRequest Build()
         {
-            return _paymentOrderRequestContainer;
+            return this.paymentOrderRequest;
         }
     }
 }

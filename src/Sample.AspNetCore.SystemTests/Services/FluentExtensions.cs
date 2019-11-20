@@ -1,15 +1,15 @@
-﻿using Atata;
-using Newtonsoft.Json;
-using NUnit.Framework;
-using Sample.AspNetCore.SystemTests.Test.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sample.AspNetCore.SystemTests.Services
+﻿namespace Sample.AspNetCore.SystemTests.Services
 {
+    using Atata;
+    using Newtonsoft.Json;
+    using NUnit.Framework;
+    using Sample.AspNetCore.SystemTests.Test.Base;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
     public static class FluentExtensions
     {
         public static TOwner StoreValue<TOwner>(this UIComponent<TOwner> component, out string value)

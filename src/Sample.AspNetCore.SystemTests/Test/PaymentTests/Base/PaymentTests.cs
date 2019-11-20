@@ -1,37 +1,37 @@
-﻿using Atata;
-using NUnit.Framework;
-using Sample.AspNetCore.SystemTests.Test.Base;
-using Sample.AspNetCore.SystemTests.PageObjectModels;
-using System.Collections.Generic;
-using System.Collections;
-using Sample.AspNetCore.SystemTests.Test.Helpers;
-using Sample.AspNetCore.SystemTests.PageObjectModels.Payment;
-using System;
-using Sample.AspNetCore.SystemTests.Services;
-using Sample.AspNetCore.SystemTests.PageObjectModels.ThankYou;
-using Sample.AspNetCore.SystemTests.PageObjectModels.Orders;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using System.Linq;
-using Sample.AspNetCore.SystemTests.Test.Api;
-
-namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
+﻿namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
 {
+    using Atata;
+    using NUnit.Framework;
+    using Sample.AspNetCore.SystemTests.Test.Base;
+    using Sample.AspNetCore.SystemTests.PageObjectModels;
+    using System.Collections.Generic;
+    using System.Collections;
+    using Sample.AspNetCore.SystemTests.Test.Helpers;
+    using Sample.AspNetCore.SystemTests.PageObjectModels.Payment;
+    using System;
+    using Sample.AspNetCore.SystemTests.Services;
+    using Sample.AspNetCore.SystemTests.PageObjectModels.ThankYou;
+    using Sample.AspNetCore.SystemTests.PageObjectModels.Orders;
+    using System.Threading.Tasks;
+    using Newtonsoft.Json;
+    using System.Linq;
+    using Sample.AspNetCore.SystemTests.Test.Api;
+
     public abstract class PaymentTests : TestBase
     {
-        protected HttpClientService _httpClientService;
+        protected HttpClientService HttpClientService;
 
         public PaymentTests(string driverAlias) : base(driverAlias) { }
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            _httpClientService = new HttpClientService();
+            this.HttpClientService = new HttpClientService();
         }
 
         protected static IEnumerable TestData(bool singleProduct = true, string paymentMethod = PaymentMethods.Card)
         {
-            List<object> data = new List<object>();
+            var data = new List<object>();
 
             if (singleProduct)
             {
@@ -52,7 +52,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
             switch (paymentMethod)
             {
                 case PaymentMethods.Card:
-                    data.Add(new PayexCardInfo(TestDataService.CreditCardNumber, TestDataService.CreditCardExpiratioDate, TestDataService.CreditCardCVC));
+                    data.Add(new PayexCardInfo(TestDataService.CreditCardNumber, TestDataService.CreditCardExpiratioDate, TestDataService.CreditCardCvc));
                     break;
 
                 case PaymentMethods.Swish:
@@ -84,7 +84,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
             {
                 page
                 .Products.Rows[x => x.Name == product.Name].AddToCart.Click()
-                .Products.Rows[x => x.Name == product.Name].Price.StorePrice(out int price);
+                .Products.Rows[x => x.Name == product.Name].Price.StorePrice(out var price);
 
                 product.UnitPrice = price;
 

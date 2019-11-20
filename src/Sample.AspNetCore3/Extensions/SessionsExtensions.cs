@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
-
-namespace Sample.AspNetCore3.Extensions
+﻿namespace Sample.AspNetCore3.Extensions
 {
+    using Microsoft.AspNetCore.Http;
+    using Newtonsoft.Json;
+
     public static class SessionsExtensions
     {
         public static void SetJson<T>(this ISession session, string key, T value)
         {
-            JsonSerializerSettings jsSettings = new JsonSerializerSettings();
+            var jsSettings = new JsonSerializerSettings();
             jsSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             session.SetString(key, JsonConvert.SerializeObject(value, jsSettings));
         }

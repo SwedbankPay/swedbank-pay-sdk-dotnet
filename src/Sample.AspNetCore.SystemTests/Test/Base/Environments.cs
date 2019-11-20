@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sample.AspNetCore.SystemTests.Test.Base
+﻿namespace Sample.AspNetCore.SystemTests.Test.Base
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
     public class Environments
     {
         public const string WindowsChrome1 = "windowsChrome1";
@@ -14,10 +14,10 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
         public const string WindowsFirefox1 = "windowsFirefox1";
         public const string WindowsFirefox2 = "windowsFirefox2";
 
-        public const string OSXSafari1 = "osxSafari1";
-        public const string OSXSafari2 = "osxSafari2";
+        public const string OsxSafari1 = "osxSafari1";
+        public const string OsxSafari2 = "osxSafari2";
 
         public const string AndroidChrome1 = "androidChrome1";
-        public const string iPhoneSafari1 = "iPhoneSafari1";
+        public const string IPhoneSafari1 = "iPhoneSafari1";
     }
 }

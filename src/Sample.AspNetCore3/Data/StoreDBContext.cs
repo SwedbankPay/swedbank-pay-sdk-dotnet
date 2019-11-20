@@ -1,11 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Sample.AspNetCore3.Models;
-
-namespace Sample.AspNetCore3.Data
+﻿namespace Sample.AspNetCore3.Data
 {
-    public class StoreDBContext : DbContext
+    using Microsoft.EntityFrameworkCore;
+    using Sample.AspNetCore3.Models;
+
+    public class StoreDbContext : DbContext
     {
-        public StoreDBContext(DbContextOptions<StoreDBContext> options)
+        public StoreDbContext(DbContextOptions<StoreDbContext> options)
             : base(options)
         {
         }

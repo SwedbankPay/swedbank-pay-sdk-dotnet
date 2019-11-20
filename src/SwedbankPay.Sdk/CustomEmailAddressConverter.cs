@@ -1,30 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using SwedbankPay.Sdk.PaymentOrders;
-
-namespace SwedbankPay.Sdk
+﻿namespace SwedbankPay.Sdk
 {
-    public class CustomEmailAddressConverter: JsonConverter 
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
+
+    using SwedbankPay.Sdk.PaymentOrders;
+
+    using System;
+    using System.Linq;
+
+    public class CustomEmailAddressConverter : JsonConverter
 
     {
-        private readonly Type[] _types;
+        private readonly Type[] types;
 
         public CustomEmailAddressConverter(params Type[] types)
         {
-            _types = types;
+            this.types = types;
         }
 
         public CustomEmailAddressConverter()
         {
-            
+
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            JToken t = JToken.FromObject(value);
+            var t = JToken.FromObject(value);
 
             if (t.Type != JTokenType.Object)
             {
@@ -32,29 +33,25 @@ namespace SwedbankPay.Sdk
             }
             else
             {
-                JObject o = (JObject)t;
-                var propertyName = o.Properties().Select(p => p.Name).FirstOrDefault();
-                var propertyValue = o.Root.Value<string>(propertyName);
-                writer.WriteValue(propertyValue);
+                var o = (JObject)t;
+                writer.WriteValue(value.ToString());
             }
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            JObject jo = JObject.Load(reader);
-            var addressString = jo.Values().FirstOrDefault()?.ToString(); 
-            EmailAddress address = new EmailAddress(addressString);
+            var jo = JObject.Load(reader);
+            var addressString = jo.Values().FirstOrDefault()?.ToString();
+            var address = new EmailAddress(addressString);
             return address;
         }
 
-        public override bool CanRead
-        {
-            get { return true; }
-        }
+        public override bool CanRead => true;
+
 
         public override bool CanConvert(Type objectType)
         {
-            return _types.Any(t => t == objectType);
+            return this.types.Any(t => t == objectType);
         }
     }
 }

@@ -5,10 +5,10 @@
     /// </summary>
     public sealed class ShippingAddressUsageIndicator : TypeSafeEnum<ShippingAddressUsageIndicator, string>
     {
-        public static ShippingAddressUsageIndicator ThisTransaction { get; } = new ShippingAddressUsageIndicator(nameof(ThisTransaction), "01");
-        public static ShippingAddressUsageIndicator LessThanThirtyDays { get; } = new ShippingAddressUsageIndicator(nameof(LessThanThirtyDays), "02");
-        public static ShippingAddressUsageIndicator ThirtyToSixtyDays { get; } = new ShippingAddressUsageIndicator(nameof(ThirtyToSixtyDays), "03");
-        public static ShippingAddressUsageIndicator MoreThanSixtyDays { get; } = new ShippingAddressUsageIndicator(nameof(MoreThanSixtyDays), "04");
+        public static readonly ShippingAddressUsageIndicator ThisTransaction = new ShippingAddressUsageIndicator(nameof(ThisTransaction), "01");
+        public static readonly ShippingAddressUsageIndicator LessThanThirtyDays = new ShippingAddressUsageIndicator(nameof(LessThanThirtyDays), "02");
+        public static readonly ShippingAddressUsageIndicator ThirtyToSixtyDays = new ShippingAddressUsageIndicator(nameof(ThirtyToSixtyDays), "03");
+        public static readonly ShippingAddressUsageIndicator MoreThanSixtyDays = new ShippingAddressUsageIndicator(nameof(MoreThanSixtyDays), "04");
 
         public ShippingAddressUsageIndicator(string name, string value) : base(name, value)
         {

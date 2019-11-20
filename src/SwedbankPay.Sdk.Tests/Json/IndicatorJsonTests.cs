@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using SwedbankPay.Sdk.PaymentOrders;
-using Xunit;
-
-namespace SwedbankPay.Sdk.Tests.Json
+﻿namespace SwedbankPay.Sdk.Tests.Json
 {
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
+    using SwedbankPay.Sdk.PaymentOrders;
+    using Xunit;
+
     public class IndicatorJsonTests
     {
         [Fact]
@@ -30,7 +30,7 @@ namespace SwedbankPay.Sdk.Tests.Json
             {
                 AccountAgeIndicator = AccountAgeIndicator.NoAccountGuest
             };
-            
+
             //ACT
             var result = JsonConvert.SerializeObject(accountInfo);
             var obj = JObject.Parse(result);

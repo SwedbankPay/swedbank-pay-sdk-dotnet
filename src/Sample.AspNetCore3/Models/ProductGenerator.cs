@@ -1,17 +1,17 @@
-﻿using System;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Sample.AspNetCore3.Data;
-
-namespace Sample.AspNetCore3.Models
+﻿namespace Sample.AspNetCore3.Models
 {
+    using System;
+    using System.Linq;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.DependencyInjection;
+    using Sample.AspNetCore3.Data;
+
     public class ProductGenerator
     {
         public static void Initialize(IServiceProvider serviceProvider)
         {
-            using (var context = new StoreDBContext(
-                serviceProvider.GetRequiredService<DbContextOptions<StoreDBContext>>()))
+            using (var context = new StoreDbContext(
+                serviceProvider.GetRequiredService<DbContextOptions<StoreDbContext>>()))
             {
                 
                 if (context.Products.Any())

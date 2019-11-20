@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using Sample.AspNetCore3.Data;
-using Sample.AspNetCore3.Models;
-using Sample.AspNetCore3.Models.ViewModels;
-using SwedbankPay.Sdk;
-using SwedbankPay.Sdk.Transactions;
-
-namespace Sample.AspNetCore3.Controllers
+﻿namespace Sample.AspNetCore3.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Options;
+    using Sample.AspNetCore3.Data;
+    using Sample.AspNetCore3.Models;
+    using Sample.AspNetCore3.Models.ViewModels;
+    using SwedbankPay.Sdk;
+    using SwedbankPay.Sdk.Transactions;
+
     public class OrdersController : Controller
     {
         private readonly StoreDBContext _context;
@@ -30,14 +30,14 @@ namespace Sample.AspNetCore3.Controllers
         // GET: Orders
         public async Task<IActionResult> Index()
         {
-            var orders = await _context.Orders.ToListAsync();
+            var orders = await this.context.Orders.ToListAsync();
             return View();
         }
 
         // GET: Orders/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            var order = await _context.Orders
+            var order = await this.context.Orders
                 .FirstOrDefaultAsync();
             if (order == null)
             {
@@ -68,8 +68,8 @@ namespace Sample.AspNetCore3.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(order);
-                await _context.SaveChangesAsync();
+                this.context.Add(order);
+                await this.context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(order);
@@ -83,7 +83,7 @@ namespace Sample.AspNetCore3.Controllers
                 return NotFound();
             }
 
-            var order = await _context.Orders.FindAsync(id);
+            var order = await this.context.Orders.FindAsync(id);
             if (order == null)
             {
                 return NotFound();
@@ -107,8 +107,8 @@ namespace Sample.AspNetCore3.Controllers
             {
                 try
                 {
-                    _context.Update(order);
-                    await _context.SaveChangesAsync();
+                    this.context.Update(order);
+                    await this.context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -130,18 +130,19 @@ namespace Sample.AspNetCore3.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Clear()
         {
-            var orders = await _context.Orders.ToListAsync();
+            var orders = await this.context.Orders.ToListAsync();
             if (orders != null)
             {
-                _context.Orders.RemoveRange(orders);
-                await _context.SaveChangesAsync();
+                this.context.Orders.RemoveRange(orders);
+                await this.context.SaveChangesAsync();
             }
             
             return RedirectToAction(nameof(Index));
         }
+
         private bool OrderExists(int id)
         {
-            return _context.Orders.Any(e => e.OrderId == id);
+            return this.context.Orders.Any(e => e.OrderId == id);
         }
     }
 }

@@ -1,40 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-
-namespace SwedbankPay.Sdk
+﻿namespace SwedbankPay.Sdk
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+
     public abstract class TypeSafeEnum<TEnum, TValue> where TEnum : TypeSafeEnum<TEnum, TValue>
     {
-        static readonly Lazy<Dictionary<string, TEnum>> _fromName =
+        static readonly Lazy<Dictionary<string, TEnum>> fromName =
             new Lazy<Dictionary<string, TEnum>>(() => GetAllOptions().ToDictionary(item => item.Name));
 
-        static readonly Lazy<Dictionary<string, TEnum>> _fromNameIgnoreCase =
+        static readonly Lazy<Dictionary<string, TEnum>> fromNameIgnoreCase =
             new Lazy<Dictionary<string, TEnum>>(() => GetAllOptions().ToDictionary(item => item.Name, StringComparer.OrdinalIgnoreCase));
 
-        static readonly Lazy<Dictionary<TValue, TEnum>> _fromValue =
+        static readonly Lazy<Dictionary<TValue, TEnum>> fromValue =
             new Lazy<Dictionary<TValue, TEnum>>(() =>
             {
                 // multiple enums with same value are allowed but store only one per value
                 var dictionary = new Dictionary<TValue, TEnum>();
                 foreach (var item in GetAllOptions())
                 {
-                    if (!dictionary.ContainsKey(item._value))
-                        dictionary.Add(item._value, item);
+                    if (!dictionary.ContainsKey(item.value))
+                        dictionary.Add(item.value, item);
                 }
                 return dictionary;
             });
 
         private static IEnumerable<TEnum> GetAllOptions()
         {
-            Type baseType = typeof(TEnum);
-            IEnumerable<Type> enumTypes = Assembly.GetAssembly(baseType).GetTypes().Where(t => baseType.IsAssignableFrom(t));
+            var baseType = typeof(TEnum);
+            var enumTypes = Assembly.GetAssembly(baseType).GetTypes().Where(t => baseType.IsAssignableFrom(t));
 
-            List<TEnum> options = new List<TEnum>();
-            foreach (Type enumType in enumTypes)
+            var options = new List<TEnum>();
+            foreach (var enumType in enumTypes)
             {
-                List<TEnum> typeEnumOptions = enumType.GetPropertiesOfType<TEnum>(); //TODO if C#8 use GetFieldsOfTypes instead 
+                var typeEnumOptions = enumType.GetFieldsOfType<TEnum>();
                 options.AddRange(typeEnumOptions);
             }
 
@@ -42,18 +42,18 @@ namespace SwedbankPay.Sdk
         }
 
         public static IReadOnlyCollection<TEnum> List =>
-            _fromName.Value.Values
+            fromName.Value.Values
                 .ToList()
                 .AsReadOnly();
 
-        private readonly string _name;
-        private readonly TValue _value;
+        private readonly string name;
+        private readonly TValue value;
 
         public string Name =>
-            _name;
+            this.name;
 
         public TValue Value =>
-            _value;
+            this.value;
 
         protected TypeSafeEnum(string name, TValue value)
         {
@@ -63,8 +63,8 @@ namespace SwedbankPay.Sdk
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
 
-            _name = name;
-            _value = value;
+            this.name = name;
+            this.value = value;
         }
 
         public Type GetValueType() =>
@@ -76,9 +76,9 @@ namespace SwedbankPay.Sdk
                 throw new ArgumentException("Argument cannot be null or empty.", name);
 
             if (ignoreCase)
-                return FromName(_fromNameIgnoreCase.Value);
+                return FromName(fromNameIgnoreCase.Value);
             else
-                return FromName(_fromName.Value);
+                return FromName(fromName.Value);
 
             TEnum FromName(Dictionary<string, TEnum> dictionary)
             {
@@ -99,9 +99,9 @@ namespace SwedbankPay.Sdk
                 throw new ArgumentNullException(nameof(name));
 
             if (ignoreCase)
-                return _fromNameIgnoreCase.Value.TryGetValue(name, out result);
+                return fromNameIgnoreCase.Value.TryGetValue(name, out result);
             else
-                return _fromName.Value.TryGetValue(name, out result);
+                return fromName.Value.TryGetValue(name, out result);
         }
 
         public static TEnum FromValue(TValue value)
@@ -109,7 +109,7 @@ namespace SwedbankPay.Sdk
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
 
-            if (!_fromValue.Value.TryGetValue(value, out var result))
+            if (!fromValue.Value.TryGetValue(value, out var result))
             {
                 throw new KeyNotFoundException($"Key: {value} not found.");
             }
@@ -122,7 +122,7 @@ namespace SwedbankPay.Sdk
 
                 throw new ArgumentNullException(nameof(value));
 
-            if (!_fromValue.Value.TryGetValue(value, out var result))
+            if (!fromValue.Value.TryGetValue(value, out var result))
             {
                 return defaultValue;
             }
@@ -137,14 +137,14 @@ namespace SwedbankPay.Sdk
                 return false;
             }
 
-            return _fromValue.Value.TryGetValue(value, out result);
+            return fromValue.Value.TryGetValue(value, out result);
         }
 
         public override string ToString() =>
-            _name;
+            this.name;
 
         public override int GetHashCode() =>
-            _value.GetHashCode();
+            this.value.GetHashCode();
 
         //public override bool Equals(object obj) =>
         //    (obj is TypeSafeEnum<TEnum, TValue> other) && Equals(other);

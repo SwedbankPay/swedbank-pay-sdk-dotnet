@@ -1,21 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sample.AspNetCore.SystemTests.Services
+﻿namespace Sample.AspNetCore.SystemTests.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Net.Http;
+    using System.Net.Http.Headers;
+    using System.Text;
+    using System.Threading.Tasks;
+
     public class HttpClientService
     {
-        private HttpClient _httpClient;
+        private HttpClient httpClient;
 
         public HttpClientService()
         {
-            _httpClient = new HttpClient();
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", System.Configuration.ConfigurationManager.AppSettings["payexTestToken"]);
+            this.httpClient = new HttpClient();
+            this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", System.Configuration.ConfigurationManager.AppSettings["payexTestToken"]);
         }
 
         public async Task<string> SendGetRequest(string paymentOrderId, string expand)
@@ -25,7 +25,7 @@ namespace Sample.AspNetCore.SystemTests.Services
                 throw new Exception($"paymentOrderId [{paymentOrderId}] or expand [{expand}] parameters cannot be null");
             }
 
-            var response = await _httpClient.GetAsync($"https://api.externalintegration.payex.com{paymentOrderId}?$expand={expand}");
+            var response = await this.httpClient.GetAsync($"https://api.externalintegration.payex.com{paymentOrderId}?$expand={expand}");
 
             if (response.IsSuccessStatusCode)
             {

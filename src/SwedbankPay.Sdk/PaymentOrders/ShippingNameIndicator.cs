@@ -5,8 +5,9 @@
     /// </summary>
     public sealed class ShippingNameIndicator : TypeSafeEnum<ShippingNameIndicator, string>
     {
-        public static ShippingNameIndicator AccountNameIdenticalToShippingName { get; } = new ShippingNameIndicator("Account name identical to shipping name", "01");
-        public static ShippingNameIndicator AccountNameDifferentFromShippingName { get; } = new ShippingNameIndicator("Account name different than shipping name", "02");
+        public static readonly ShippingNameIndicator AccountNameIdenticalToShippingName = new ShippingNameIndicator("Account name identical to shipping name", "01");
+        public static readonly ShippingNameIndicator AccountNameDifferentFromShippingName = new ShippingNameIndicator("Account name different than shipping name", "02");
+
         public ShippingNameIndicator(string name, string value) : base(name, value)
         {
         }

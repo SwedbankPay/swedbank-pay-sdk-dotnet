@@ -1,8 +1,8 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-
-namespace Sample.AspNetCore3.Models
+﻿namespace Sample.AspNetCore3.Models
 {
+    using System;
+    using System.ComponentModel.DataAnnotations;
+
     public class Product
     {
         public int ProductId { get; set; }
@@ -12,6 +12,7 @@ namespace Sample.AspNetCore3.Models
         public string ItemUrl { get; set; }
         public string Type { get; set; }
         public string Class { get; set; }
+
         [Required(ErrorMessage = "Please provide a number greater than zero!")]
         [Display(Name = "Unit price")]
         [Range(1, Int32.MaxValue)]

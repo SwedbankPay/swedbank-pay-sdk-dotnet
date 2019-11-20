@@ -1,25 +1,25 @@
-﻿using Atata;
-using BrowserStack;
-using Sample.AspNetCore.SystemTests.Services;
-using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.IE;
-using OpenQA.Selenium.Remote;
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenQA.Selenium.Edge;
-using static Sample.AspNetCore.SystemTests.Test.Base.Drivers;
-
-namespace Sample.AspNetCore.SystemTests.Test.Base
+﻿namespace Sample.AspNetCore.SystemTests.Test.Base
 {
-    #if DEBUG
+    using Atata;
+    using BrowserStack;
+    using Sample.AspNetCore.SystemTests.Services;
+    using NUnit.Framework;
+    using OpenQA.Selenium;
+    using OpenQA.Selenium.Chrome;
+    using OpenQA.Selenium.Firefox;
+    using OpenQA.Selenium.IE;
+    using OpenQA.Selenium.Remote;
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.Specialized;
+    using System.Configuration;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using OpenQA.Selenium.Edge;
+    using static Sample.AspNetCore.SystemTests.Test.Base.Drivers;
+
+#if DEBUG
     [TestFixture(DriverAliases.Chrome)]
     #elif DEV
     [TestFixture(DriverAliases.Chrome)]
@@ -30,7 +30,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
     #endif
     public abstract class TestBase
     {
-        private readonly string _driverAlias;
+        private readonly string driverAlias;
 
         [OneTimeSetUp]
         public void GlobalSetup()
@@ -49,7 +49,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
                     AddScreenshotFileSaving().
                         WithFolderPath(() => $@"Logs\{AtataContext.BuildStart:yyyy-MM-dd HH_mm_ss}").
                         WithFileName(screenshotInfo => $"{AtataContext.Current.TestName} - {screenshotInfo.PageObjectFullName}").
-                UseTestName(() => $"[{_driverAlias}]{TestContext.CurrentContext.Test.Name}");
+                UseTestName(() => $"[{this.driverAlias}]{TestContext.CurrentContext.Test.Name}");
             #endif
         }
 
@@ -58,7 +58,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
         {
             #if DEBUG
             AtataContext.Configure()
-                .UseDriver(_driverAlias)
+                .UseDriver(this.driverAlias)
                     .UseBaseUrl("https://localhost:44389/")
             .Build();
             AtataContext.Current.Driver.Maximize();
@@ -77,7 +77,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
             #endif
         }
 
-        protected TestBase(string driverAlias) => _driverAlias = driverAlias;
+        protected TestBase(string driverAlias) => this.driverAlias = driverAlias;
 
         [TearDown]
         public void TearDown()

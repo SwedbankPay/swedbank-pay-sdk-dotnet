@@ -1,25 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-
-namespace Sample.AspNetCore3.Models
+﻿namespace Sample.AspNetCore3.Models
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Linq;
+
     public class Cart
     {
         public string PaymentOrderLink { get; set; }
         public bool Vat { get; set; }
         public double VatPercentage { get; set; }
-        private List<CartLine> cartLineCollection { get; set; } = new List<CartLine>();
+        private List<CartLine> CartLineCollection { get; set; } = new List<CartLine>();
 
         public virtual void AddItem(Product product, int quantity)
         {
-            CartLine line = cartLineCollection.FirstOrDefault(p => p.Product.ProductId == product.ProductId);
+            var line = CartLineCollection.FirstOrDefault(p => p.Product.ProductId == product.ProductId);
 
             if (line == null)
             {
-                cartLineCollection.Add(new CartLine
+                CartLineCollection.Add(new CartLine
                 {
                     Product = product,
                     Quantity = quantity
@@ -34,7 +34,7 @@ namespace Sample.AspNetCore3.Models
 
         public virtual void RemoveItem(Product product, int quantity)
         {
-            CartLine line = cartLineCollection.FirstOrDefault(p => p.Product.ProductId == product.ProductId);
+            var line = CartLineCollection.FirstOrDefault(p => p.Product.ProductId == product.ProductId);
 
             if (line == null)
             {
@@ -44,17 +44,18 @@ namespace Sample.AspNetCore3.Models
             {
                 if (quantity >= line.Quantity)
                 {
-                    cartLineCollection.Remove(line);
+                    CartLineCollection.Remove(line);
                     return;
                 }
                 else line.Quantity -= quantity;
             }
         }
 
-        public virtual long CalculateTotal() => cartLineCollection.Sum(e => e.Quantity * e.Product.Price);
+        public virtual long CalculateTotal() => CartLineCollection.Sum(e => e.Quantity * e.Product.Price);
 
-        public virtual void Clear() => cartLineCollection.Clear();
-        public virtual IEnumerable<CartLine> CartLines => cartLineCollection;
+        public virtual void Clear() => CartLineCollection.Clear();
+        public virtual IEnumerable<CartLine> CartLines => CartLineCollection;
+
         public virtual void Update()
         {
 
@@ -65,8 +66,9 @@ namespace Sample.AspNetCore3.Models
     
     public class CartLine
     {
-        public int CartLineID { get; set; }
+        public int CartLineId { get; set; }
         public Product Product { get; set; }
+
         [Required(ErrorMessage = "Please provide a number greater than zero!")]
         [Display(Name = "Unit quantity")]
         [Range(1, Int32.MaxValue)]

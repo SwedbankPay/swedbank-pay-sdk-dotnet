@@ -1,19 +1,21 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using Sample.AspNetCore3.Data;
-using Sample.AspNetCore3.Models;
-using Sample.AspNetCore3.Models.ViewModels;
-using SwedbankPay.Sdk;
-using SwedbankPay.Sdk.PaymentOrders;
-using SwedbankPay.Sdk.Transactions;
-
-namespace Sample.AspNetCore3.Controllers
+﻿namespace Sample.AspNetCore3.Controllers
 {
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Options;
+
+    using Sample.AspNetCore3.Data;
+    using Sample.AspNetCore3.Models;
+
+    using SwedbankPay.Sdk;
+    using SwedbankPay.Sdk.PaymentOrders;
+    using SwedbankPay.Sdk.Transactions;
+
+    using System;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     public class PaymentController : Controller
     {
         private readonly SwedbankPayOptions _swedbankPayOptions;
@@ -94,7 +96,7 @@ namespace Sample.AspNetCore3.Controllers
                 var response = await _swedbankPayClient.PaymentOrders.CancelPaymentOrder(paymentOrderId, transactionRequestObject);
 
                 TempData["CancelMessage"] = $"Payment has been cancelled: {response.Id}";
-                _cartService.PaymentOrderLink = null;
+                this.cartService.PaymentOrderLink = null;
 
                 return RedirectToAction(nameof(Details), "Orders");
             }
@@ -114,7 +116,7 @@ namespace Sample.AspNetCore3.Controllers
                 var response = await _swedbankPayClient.PaymentOrders.AbortPaymentOrder(paymentOrderId);
 
                 TempData["AbortMessage"] = $"Payment Order: {response.PaymentOrder.Id} has been {response.PaymentOrder.State}";
-                _cartService.PaymentOrderLink = null;
+                this.cartService.PaymentOrderLink = null;
 
                 return RedirectToAction(nameof(Index), "Products");
             }
@@ -156,7 +158,7 @@ namespace Sample.AspNetCore3.Controllers
                 var response = await _swedbankPayClient.PaymentOrders.Capture(paymentOrderId, transActionRequestObject);
 
                     TempData["CaptureMessage"] = $"{response.Id}, {response.Type}, {response.State}";
-                    _cartService.PaymentOrderLink = null;
+                    this.cartService.PaymentOrderLink = null;
 
                     return RedirectToAction(nameof(Details), "Orders");
             }
@@ -175,7 +177,7 @@ namespace Sample.AspNetCore3.Controllers
                 var response = await _swedbankPayClient.PaymentOrders.Reversal(paymentOrderId, transActionRequestObject);
 
                 TempData["ReversalMessage"] = $"{response.Id}, {response.Type}, {response.State}";
-                _cartService.PaymentOrderLink = null;
+                this.cartService.PaymentOrderLink = null;
 
                 return RedirectToAction(nameof(Details), "Orders");
             }
@@ -186,9 +188,9 @@ namespace Sample.AspNetCore3.Controllers
             }
         }
 
-        private async Task<TransactionRequestContainer> GetTransactionRequestContainer(string description)
+        private async Task<TransactionRequest> GetTransactionRequest(string description)
         {
-            var order = await _context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
+            var order = await this.context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
 
             var orderItems = order.Lines.Select(line => new OrderItem
             {
@@ -207,14 +209,14 @@ namespace Sample.AspNetCore3.Controllers
                 VatAmount = 0, //TODO Correct VatAmount
             }).ToList();
 
-            var transActionRequestObject = new TransactionRequestContainer(new TransactionRequest
+            var transActionRequestObject = new TransactionRequest
             {
                 PayeeReference = DateTime.Now.Ticks.ToString(),
                 Amount = order.Lines.Sum(e => e.Quantity * e.Product.Price) * 100,
                 VatAmount = 0, //TODO Correct amount
                 Description = description,
                 OrderItems = orderItems
-            });
+            };
 
             return transActionRequestObject;
 
@@ -224,16 +226,16 @@ namespace Sample.AspNetCore3.Controllers
         [HttpPost]
         public void OnCompleted(string paymentLinkId)
         {
-            var products = _cartService.CartLines.Select(p => p.Product);
-            _context.Products.AttachRange(products);
+            var products = this.cartService.CartLines.Select(p => p.Product);
+            this.context.Products.AttachRange(products);
 
-            _context.Orders.Add(new Order
+            this.context.Orders.Add(new Order
             {
-                PaymentOrderLink = _cartService.PaymentOrderLink,
+                PaymentOrderLink = this.cartService.PaymentOrderLink,
                 PaymentLink = paymentLinkId,
-                Lines = _cartService.CartLines.ToList()
+                Lines = this.cartService.CartLines.ToList()
             });
-            _context.SaveChanges(true);
+            this.context.SaveChanges(true);
         }
 
 

@@ -1,9 +1,8 @@
-﻿using Atata;
-using Sample.AspNetCore.SystemTests.PageObjectModels.Base;
-using Sample.AspNetCore.SystemTests.PageObjectModels.ThankYou;
-
-namespace Sample.AspNetCore.SystemTests.PageObjectModels.Payment
+﻿namespace Sample.AspNetCore.SystemTests.PageObjectModels.Payment
 {
+    using Atata;
+    using Sample.AspNetCore.SystemTests.PageObjectModels.Base;
+    using Sample.AspNetCore.SystemTests.PageObjectModels.ThankYou;
     using _ = PayexCardFramePage;
 
     [WaitForLoadingIndicator]

@@ -1,19 +1,19 @@
-﻿using Atata;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sample.AspNetCore.SystemTests.PageObjectModels.Base
+﻿namespace Sample.AspNetCore.SystemTests.PageObjectModels.Base
 {
+    using Atata;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Specifies the definition of the control, like scope XPath, visibility, component type name, etc.
     /// </summary>
-    public class ControlAutomationDefinition : UIComponentDefinitionAutomationAttribute
+    public class ControlAutomationDefinition : UiComponentDefinitionAutomationAttribute
     {
-        public ControlAutomationDefinition(string Type = DefaultScopeXPath, string AutomationAttribute = "")
-            : base(Type, AutomationAttribute)
+        public ControlAutomationDefinition(string type = DefaultScopeXPath, string automationAttribute = "")
+            : base(type, automationAttribute)
         {
         }
 
@@ -31,9 +31,9 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Base
     /// <summary>
     /// Represents the base attribute class for UI component (page object, control) definition.
     /// </summary>
-    public abstract class UIComponentDefinitionAutomationAttribute : ScopeDefinitionAutomationAttribute
+    public abstract class UiComponentDefinitionAutomationAttribute : ScopeDefinitionAutomationAttribute
     {
-        protected UIComponentDefinitionAutomationAttribute(string type = DefaultScopeXPath, string automationAttribute = "")
+        protected UiComponentDefinitionAutomationAttribute(string type = DefaultScopeXPath, string automationAttribute = "")
             : base(type, automationAttribute)
         {
         }
@@ -66,7 +66,7 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Base
         /// <returns>Normalized name.</returns>
         public string NormalizeNameIgnoringEnding(string name)
         {
-            string endingToIgnore = GetIgnoreNameEndingValues().
+            var endingToIgnore = GetIgnoreNameEndingValues().
                 FirstOrDefault(x => name.EndsWith(x) && name.Length > x.Length);
 
             return endingToIgnore != null
@@ -119,7 +119,7 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Base
         /// <returns>The built XPath.</returns>
         protected virtual string BuildScopeXPath()
         {
-            string scopeXPath = baseScopeXPath ?? DefaultScopeXPath;
+            var scopeXPath = baseScopeXPath ?? DefaultScopeXPath;
 
             if (ContainingClasses?.Any() ?? false)
             {

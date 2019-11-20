@@ -1,51 +1,106 @@
 ﻿namespace SwedbankPay.Sdk.Payments
 {
-    using System;
     using SwedbankPay.Sdk.PaymentOrders;
     using SwedbankPay.Sdk.Transactions;
 
+    using System;
+
     public class PaymentResponse
     {
-        public string Id { get; protected set; }
+        public PaymentResponse(string id,
+                               string number,
+                               DateTime created,
+                               string instrument,
+                               string operation,
+                               string intent,
+                               string state,
+                               string currency,
+                               PricesContainer prices,
+                               long amount,
+                               string description,
+                               string payerReference,
+                               string userAgent,
+                               string language,
+                               Urls urls,
+                               PayeeInfo payeeInfo,
+                               TransactionListContainer transactions,
+                               AuthorizationListContainer authorizations,
+                               CapturesListContainer captures,
+                               ReversalsListContainer reversals,
+                               CancellationsListContainer cancellations,
+                               string paymentToken,
+                               SaleListContainer sales)
+        {
+            Id = id;
+            Number = number;
+            Created = created;
+            Instrument = instrument;
+            Operation = operation;
+            Intent = intent;
+            State = state;
+            Currency = currency;
+            Prices = prices;
+            Amount = amount;
+            Description = description;
+            PayerReference = payerReference;
+            UserAgent = userAgent;
+            Language = language;
+            Urls = urls;
+            PayeeInfo = payeeInfo;
+            Transactions = transactions;
+            Authorizations = authorizations;
+            Captures = captures;
+            Reversals = reversals;
+            Cancellations = cancellations;
+            PaymentToken = paymentToken;
+            Sales = sales;
+        }
 
-        public string Number { get; protected set; }
 
-        public DateTime Created { get; protected set; }
+        public string Id { get; }
 
-        public string Instrument { get; protected set; }
-        public string Operation { get; protected set; }
+        public string Number { get; }
 
-        public string Intent { get; protected set; }
-        public string State { get; protected set; }
+        public DateTime Created { get; }
 
-        public string Currency { get; protected set; }
+        public string Instrument { get; }
 
-        public PricesContainer Prices { get; protected set; }
-        public long Amount { get; protected set; }
-        public string Description { get; protected set; }
+        public string Operation { get; }
 
-        public string PayerReference { get; protected set; }
+        public string Intent { get; }
 
-        public string UserAgent { get; protected set; }
+        public string State { get; }
 
-        public string Language { get; protected set; }
-        
-        public Urls Urls { get; protected set; } 
-        
-        public PayeeInfo PayeeInfo { get; protected set; }
+        public string Currency { get; }
 
-        public TransactionListContainer Transactions { get; protected set; }
+        public PricesContainer Prices { get; }
 
-        public AuthorizationListContainer Authorizations { get; protected set; }
+        public long Amount { get; }
 
-        public CapturesListContainer Captures { get; protected set; }
+        public string Description { get; }
 
-        public ReversalsListContainer Reversals { get; protected set; }
+        public string PayerReference { get; }
 
-        public CancellationsListContainer Cancellations { get; protected set; }
-        
-        public string PaymentToken { get; protected set; }
+        public string UserAgent { get; }
 
-        public SaleListContainer Sales { get; protected set; }
+        public string Language { get; }
+
+        public Urls Urls { get; }
+
+        public PayeeInfo PayeeInfo { get; }
+
+        public TransactionListContainer Transactions { get; }
+
+        public AuthorizationListContainer Authorizations { get; }
+
+        public CapturesListContainer Captures { get; }
+
+        public ReversalsListContainer Reversals { get; }
+
+        public CancellationsListContainer Cancellations { get; }
+
+        public string PaymentToken { get; }
+
+        public SaleListContainer Sales { get; }
     }
 }

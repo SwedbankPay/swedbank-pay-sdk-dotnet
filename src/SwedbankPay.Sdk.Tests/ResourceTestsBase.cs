@@ -1,11 +1,14 @@
 ﻿namespace SwedbankPay.Sdk.Tests
 {
-    using System;
     using SwedbankPay.Sdk;
+
+    using System;
+    using System.Net.Http;
+    using System.Net.Http.Headers;
 
     public abstract class ResourceTestsBase
     {
-        protected SwedbankPayClient _sut;
+        protected SwedbankPayClient Sut;
 
         protected ResourceTestsBase()
         {
@@ -16,10 +19,14 @@
                 CallBackUrl = new Uri("https://www.example.com/"),
                 CompletePageUrl = new Uri("https://www.example.com/"),
                 CancelPageUrl = new Uri("https://www.example.com/"),
+                TermsOfServiceUrl = new Uri("https://www.example.com/"),
+                PaymentUrl = new Uri("https://www.example.com/"),
                 MerchantId = "91a4c8e0-72ac-425c-a687-856706f9e9a1"
             };
 
-            _sut = new SwedbankPayClient(swedbankPayOptions);
+            var client = new HttpClient { BaseAddress = swedbankPayOptions.ApiBaseUrl };
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", swedbankPayOptions.Token);
+            this.Sut = new SwedbankPayClient(swedbankPayOptions, client);
         }
     }
 }
