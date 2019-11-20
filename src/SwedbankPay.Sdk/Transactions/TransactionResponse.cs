@@ -4,16 +4,42 @@
 
     public class TransactionResponse
     {
-        public string Id { get; protected set; }
-        public DateTime Created { get; protected set; }
-        public DateTime Updated { get; protected set; }
-        public string Type { get; protected set; }
-        public string State { get; protected set; }
-        public string Number { get; protected set; }
-        public long Amount { get; protected set; }
-        public long VatAmount { get; protected set; }
-        public string Description { get; protected set; }
-        public string PayeeReference { get; protected set; }
-        public bool IsOperational { get; protected set; }
+        public string Id { get; }
+        public DateTime Created { get; }
+        public DateTime Updated { get; }
+        public string Type { get; }
+        public string State { get; }
+        public string Number { get; }
+        public long Amount { get; }
+        public long VatAmount { get; }
+        public string Description { get; }
+        public string PayeeReference { get; }
+        public bool IsOperational { get; }
+
+
+        public TransactionResponse(string id,
+                                   DateTime created,
+                                   DateTime updated,
+                                   string type,
+                                   string state,
+                                   string number,
+                                   long amount,
+                                   long vatAmount,
+                                   string description,
+                                   string payeeReference,
+                                   bool isOperational)
+        {
+            Id = id;
+            Created = created;
+            Updated = updated;
+            Type = type;
+            State = state;
+            Number = number;
+            Amount = amount;
+            VatAmount = vatAmount;
+            Description = description;
+            PayeeReference = payeeReference;
+            IsOperational = isOperational;
+        }
     }
 }

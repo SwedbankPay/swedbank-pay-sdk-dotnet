@@ -21,7 +21,7 @@
     {
         public List<TransactionContainerResponse> ReversalList { get; protected set; } = new List<TransactionContainerResponse>();
     }
-    
+
     public class CancellationsListContainer : IdLink
     {
         public List<TransactionContainerResponse> CancellationList { get; protected set; } = new List<TransactionContainerResponse>();
