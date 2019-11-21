@@ -1,8 +1,5 @@
 ﻿namespace SwedbankPay.Sdk.Consumers
 {
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Converters;
-
     using SwedbankPay.Sdk.PaymentOrders;
 
     public class ConsumersRequest
@@ -12,7 +9,9 @@
             Operation = Operation.Initiate;
         }
 
-        [JsonConverter(typeof(TypedSafeEnumValueConverter<Operation, string>))]
+        /// <summary>
+        /// the operation to perform.
+        /// </summary>
         public Operation Operation { get; }
 
         /// <summary>
@@ -28,7 +27,6 @@
         /// <summary>
         /// Consumers country of residence. Used by the consumerUi for validation on all input fields.
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
         public CountryCode ConsumerCountryCode { get; set; }
 
         public NationalIdentifier NationalIdentifier { get; set; }
