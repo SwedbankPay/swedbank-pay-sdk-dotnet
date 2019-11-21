@@ -1,4 +1,4 @@
-﻿namespace SwedbankPay.Sdk
+﻿namespace SwedbankPay.Sdk.JsonSerialization
 {
     using Newtonsoft.Json.Converters;
 

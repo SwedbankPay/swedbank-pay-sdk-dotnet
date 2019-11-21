@@ -1,8 +1,8 @@
-﻿namespace SwedbankPay.Sdk
+﻿namespace SwedbankPay.Sdk.JsonSerialization
 {
-    using Newtonsoft.Json;
-
     using System;
+
+    using Newtonsoft.Json;
 
     public class TypedSafeEnumValueConverter<TEnum, TValue> : JsonConverter<TEnum> where TEnum : TypeSafeEnum<TEnum, TValue>
     {

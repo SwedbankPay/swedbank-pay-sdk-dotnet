@@ -1,12 +1,12 @@
-﻿namespace SwedbankPay.Sdk
+﻿namespace SwedbankPay.Sdk.JsonSerialization
 {
+    using System;
+    using System.Linq;
+
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
 
     using SwedbankPay.Sdk.PaymentOrders;
-
-    using System;
-    using System.Linq;
 
     public class CustomEmailAddressConverter : JsonConverter
 
