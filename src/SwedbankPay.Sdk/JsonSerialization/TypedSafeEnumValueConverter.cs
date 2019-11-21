@@ -25,7 +25,7 @@
         /// <param name="hasExistingValue"></param>
         /// <param name="serializer"></param>
         /// <returns></returns>
-        public override TEnum ReadJson(JsonReader reader, Type objectType, TEnum existingValue, bool hasExistingValue, JsonSerializer serializer)
+        public override TEnum ReadJson(JsonReader reader, Type objectType, TEnum existingValue, bool hasExistingValue, Newtonsoft.Json.JsonSerializer serializer)
         {
             try
             {
@@ -53,7 +53,7 @@
         /// <param name="writer"></param>
         /// <param name="value"></param>
         /// <param name="serializer"></param>
-        public override void WriteJson(JsonWriter writer, TEnum value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, TEnum value, Newtonsoft.Json.JsonSerializer serializer)
         {
             if (value is null)
                 writer.WriteNull();

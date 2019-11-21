@@ -11,6 +11,8 @@
 
     using Xunit;
 
+  
+
     public class CustomEmailAddressJsonTests
     {
         private string address = "email@example.com";
@@ -22,11 +24,9 @@
 
             var jsonObject = new JObject();
             jsonObject.Add("xX123xxaddress", this.address);
-            var settings = new JsonSerializerSettings();
-            settings.Converters.Add(new CustomEmailAddressConverter(typeof(EmailAddress)));
 
             //ACT
-            var result = JsonConvert.DeserializeObject<EmailAddress>(jsonObject.ToString(), settings);
+            var result = JsonConvert.DeserializeObject<EmailAddress>(jsonObject.ToString(), JsonSerialization.settings);
 
             //ASSERT
             Assert.Equal(this.address, result.ToString());
@@ -39,7 +39,7 @@
             var riskIndicator = new RiskIndicator { DeliveryEmailAddress = new EmailAddress(this.address) };
 
             //ACT
-            var result = JsonConvert.SerializeObject(riskIndicator);
+            var result = JsonConvert.SerializeObject(riskIndicator, JsonSerialization.settings);
             var obj = JObject.Parse(result);
             obj.TryGetValue("DeliveryEmailAddress", StringComparison.InvariantCultureIgnoreCase, out var address);
             //ASSERT

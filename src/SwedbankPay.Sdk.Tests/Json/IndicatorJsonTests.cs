@@ -2,6 +2,8 @@
 {
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
+
+    using SwedbankPay.Sdk.JsonSerialization;
     using SwedbankPay.Sdk.PaymentOrders;
     using Xunit;
 
@@ -16,7 +18,7 @@
             jsonObject.Add("AccountAgeIndicator", "01");
 
             //ACT
-            var result = JsonConvert.DeserializeObject<AccountInfo>(jsonObject.ToString());
+            var result = JsonConvert.DeserializeObject<AccountInfo>(jsonObject.ToString(), JsonSerialization.settings);
 
             //ASSERT
             Assert.Equal("01", result.AccountAgeIndicator.Value);
@@ -32,10 +34,10 @@
             };
 
             //ACT
-            var result = JsonConvert.SerializeObject(accountInfo);
+            var result = JsonConvert.SerializeObject(accountInfo, JsonSerialization.settings);
             var obj = JObject.Parse(result);
 
-            var accountAgeValue = obj.GetValue(nameof(AccountAgeIndicator)).ToString();
+            var accountAgeValue = obj.GetValue("accountAgeIndicator");
 
             //ASSERT
             Assert.Equal("01", accountAgeValue);

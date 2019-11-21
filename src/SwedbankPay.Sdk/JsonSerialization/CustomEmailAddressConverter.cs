@@ -23,7 +23,7 @@
 
         }
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, object value, Newtonsoft.Json.JsonSerializer serializer)
         {
             var t = JToken.FromObject(value);
 
@@ -38,7 +38,7 @@
             }
         }
 
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, Newtonsoft.Json.JsonSerializer serializer)
         {
             var jo = JObject.Load(reader);
             var addressString = jo.Values().FirstOrDefault()?.ToString();

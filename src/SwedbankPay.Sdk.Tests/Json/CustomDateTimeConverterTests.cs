@@ -1,23 +1,21 @@
 ﻿namespace SwedbankPay.Sdk.Tests.Json
 {
     using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
+
     using Newtonsoft.Json;
-    using Newtonsoft.Json.Converters;
     using Newtonsoft.Json.Linq;
-    using Newtonsoft.Json.Serialization;
 
     using SwedbankPay.Sdk.Consumers;
     using SwedbankPay.Sdk.JsonSerialization;
     using SwedbankPay.Sdk.PaymentOrders;
+
     using Xunit;
 
     public class CustomDateTimeConverterTests
     {
 
         [Fact]
-        public async Task CanConvert_DateTime()
+        public void CanConvert_DateTime()
         {
             //ARRANGE
             var riskIndicator = new RiskIndicator
@@ -32,28 +30,10 @@
                 {
                     CountryCode = CountryCode.NO
                 }
-
-                
-            };
-
-            var setting = new JsonSerializerSettings
-            {
-                ContractResolver = new CamelCasePropertyNamesContractResolver(),
-                Converters = new List<JsonConverter>
-                {
-                    new StringEnumConverter(),
-                    new CustomEmailAddressConverter(typeof(EmailAddress)),
-                    new TypedSafeEnumValueConverter<ShipIndicator, string>(),
-                    new TypedSafeEnumValueConverter<DeliveryTimeFrameIndicator, string>(),
-                    new TypedSafeEnumValueConverter<PreOrderPurchaseIndicator, string>(),
-                    new TypedSafeEnumValueConverter<ReOrderPurchaseIndicator, string>(),
-                },
-                NullValueHandling = NullValueHandling.Ignore,
-                DateFormatString = "yyyyMMdd"
             };
 
             //ACT
-            var result = JsonConvert.SerializeObject(riskIndicator, setting);
+            var result = JsonConvert.SerializeObject(riskIndicator, JsonSerialization.settings);
             var obj = JObject.Parse(result);
 
             var dateTimeAsString = obj.GetValue("preOrderDate").ToString();
