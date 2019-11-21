@@ -1,3 +1,5 @@
+
+
 namespace Sample.AspNetCore3
 {
     using System;
@@ -14,9 +16,9 @@ namespace Sample.AspNetCore3
     using Sample.AspNetCore3.Data;
     using Sample.AspNetCore3.Models;
     using Microsoft.EntityFrameworkCore;
-    using RestSharp.Serialization.Xml;
     using SwedbankPay.Sdk;
     using SwedbankPay.Sdk.PaymentOrders;
+    using Sample.AspNetCore3.Extensions;
 
     public class Startup
     {

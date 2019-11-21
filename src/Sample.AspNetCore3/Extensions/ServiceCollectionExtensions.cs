@@ -4,18 +4,31 @@ using SwedbankPay.Sdk;
 
 namespace Sample.AspNetCore3.Extensions
 {
-        public static class ServiceCollectionExtensions
+    using System;
+
+    public static class ServiceCollectionExtensions
+    {
+        public static IServiceCollection AddSwedbankPayClient(this IServiceCollection services, IConfiguration configuration, string clientName)
         {
-            public static IServiceCollection AddSwedbankPayClient(this IServiceCollection services, IConfiguration configuration, string clientName)
+            var swedbankPayConfigsection = configuration.GetSection($"SwedbankPayOptions:{clientName}");
+            services.Configure<SwedbankPayOptions>(clientName, swedbankPayConfigsection);
+
+            var swedBankPayOptions = swedbankPayConfigsection.Get<SwedbankPayOptions>();
+            swedBankPayOptions.Token = configuration["Token"];
+
+            services.AddHttpClient<SwedbankPayClient>(s =>
             {
-                var swedbankPayConfigsection = configuration.GetSection($"SwedbankPay:{clientName}");
-                services.Configure<SwedbankPayOptions>(clientName, swedbankPayConfigsection);
-                services.Configure<SwedbankPayOptions>(opt => opt.Token = configuration["Token"]);
-                var swedbankPayOptions = swedbankPayConfigsection.Get<SwedbankPayOptions>();
-                services.AddTransient<SwedbankPayOptions>();
-                services.AddTransient(s => new SwedbankPayClient(swedbankPayOptions));
-                return services;
-            }
+                s.BaseAddress = swedBankPayOptions.ApiBaseUrl;
+                s.DefaultRequestHeaders.Add("Authorization", $"Bearer {swedBankPayOptions.Token}");
+            });
+
+            services.AddTransient<SwedbankPayOptions>(s => swedBankPayOptions);
+
+            return services;
         }
-    
+
+
+       
+    }
+
 }
