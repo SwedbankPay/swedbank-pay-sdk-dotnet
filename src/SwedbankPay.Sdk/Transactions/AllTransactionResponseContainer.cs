@@ -11,17 +11,11 @@
         {
         }
 
-
         [JsonConstructor]
         public AllTransactionResponseContainer(string payment, TransactionListContainer transactions)
         {
             Payment = payment;
             Transactions = transactions;
-        }
-        
-        public AllTransactionResponseContainer()
-        {
-            
         }
     }
 }
