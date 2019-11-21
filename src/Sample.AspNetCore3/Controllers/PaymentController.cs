@@ -22,7 +22,7 @@
         private readonly StoreDbContext context;
         private readonly SwedbankPayClient swedbankPayClient;
 
-        public PaymentController(Cart cartService, StoreDbContext context, SwedbankPayClient swedbankPayClient)
+        public PaymentController( Cart cartService, StoreDbContext context, SwedbankPayClient swedbankPayClient)
         {
             this.cartService = cartService;
             this.context = context;
