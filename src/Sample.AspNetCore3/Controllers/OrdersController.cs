@@ -16,13 +16,15 @@
 
     public class OrdersController : Controller
     {
-        private readonly StoreDbContext context;
-        private readonly SwedbankPayOptions swedbankPayOptions;
+        private readonly StoreDBContext _context;
+        private readonly SwedbankPayClient _swedbankPayClient;
+        private readonly SwedbankPayOptions _swedbankPayOptions;
 
-        public OrdersController(StoreDbContext context, IOptionsMonitor<SwedbankPayOptions> swedPayOptions)
+        public OrdersController(StoreDBContext context, IOptionsMonitor<SwedbankPayOptions> swedPayOptions, SwedbankPayClient swedbankPayClient)
         {
-            this.context = context;
-            this.swedbankPayOptions = swedPayOptions.CurrentValue;
+            _context = context;
+            _swedbankPayClient = swedbankPayClient;
+            _swedbankPayOptions = swedPayOptions.CurrentValue;
         }
 
         // GET: Orders
@@ -41,10 +43,8 @@
             {
                 return NotFound();
             }
-
-            var swedbankPayClient = new SwedbankPayClient(this.swedbankPayOptions);
-           
-            var response = await swedbankPayClient.PaymentOrders.GetPaymentOrder(order.PaymentOrderLink);
+            
+            var response = await _swedbankPayClient.PaymentOrders.GetPaymentOrder(order.PaymentOrderLink);
 
             return View(new OrderViewModel
             {
