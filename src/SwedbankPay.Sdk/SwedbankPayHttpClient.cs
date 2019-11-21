@@ -9,45 +9,16 @@
     using SwedbankPay.Sdk.Exceptions;
 
     using System;
-    using System.Collections.Generic;
     using System.Net;
     using System.Net.Http;
     using System.Text;
     using System.Threading.Tasks;
 
-    using Newtonsoft.Json.Converters;
-
-    using SwedbankPay.Sdk.JsonSerialization;
-    using SwedbankPay.Sdk.PaymentOrders;
-
     internal class SwedbankPayHttpClient
     {
         private readonly HttpClient client;
         private readonly ILogger logger;
-        private static readonly JsonSerializerSettings settings = new JsonSerializerSettings
-        {
-            ContractResolver = new CamelCasePropertyNamesContractResolver(),
-            Converters = new List<JsonConverter>
-            {
-                new StringEnumConverter(),
-                new CustomEmailAddressConverter(typeof(EmailAddress)),
-                new TypedSafeEnumValueConverter<ShipIndicator, string>(),
-                new TypedSafeEnumValueConverter<DeliveryTimeFrameIndicator, string>(),
-                new TypedSafeEnumValueConverter<PreOrderPurchaseIndicator, string>(),
-                new TypedSafeEnumValueConverter<ReOrderPurchaseIndicator, string>(),
-                new TypedSafeEnumValueConverter<AccountAgeIndicator, string>(),
-                new TypedSafeEnumValueConverter<AccountChangeIndicator, string>(),
-                new TypedSafeEnumValueConverter<AccountPwdChangeIndicator, string>(),
-                new TypedSafeEnumValueConverter<ShippingAddressUsageIndicator, string>(),
-                new TypedSafeEnumValueConverter<ShippingNameIndicator, string>(),
-                new TypedSafeEnumValueConverter<SuspiciousAccountActivity, string>(),
-                new TypedSafeEnumValueConverter<Operation, string>()
-            },
-            NullValueHandling = NullValueHandling.Ignore,
-            DateFormatString = "yyyyMMdd"
-        };
-
-
+       
         internal SwedbankPayHttpClient(HttpClient client, ILogger logger)
         {
             this.client = client;
@@ -78,7 +49,7 @@
         {
             if (request != null)
             {
-                var content = JsonConvert.SerializeObject(request, settings);
+                var content = JsonConvert.SerializeObject(request, JsonSerialization.JsonSerialization.settings);
                 msg.Content = new StringContent(content, Encoding.UTF8, "application/json");
             }
             msg.Headers.Add("Accept", "application/json");
@@ -113,7 +84,7 @@
             {
                 var res = await response.Content.ReadAsStringAsync();
                 this.logger.LogInformation(res);
-                return JsonConvert.DeserializeObject<T>(res, settings);
+                return JsonConvert.DeserializeObject<T>(res, JsonSerialization.JsonSerialization.settings);
             }
 
             var responseMessage = await response.Content.ReadAsStringAsync();
