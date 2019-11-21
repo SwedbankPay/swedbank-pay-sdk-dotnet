@@ -9,9 +9,10 @@
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+
         [JsonConverter(typeof(CustomEmailAddressConverter))]
         public EmailAddress Email { get; set; }
-        public string Msisdn { get; set; }
+        public Msisdn Msisdn { get; set; }
         public string StreetAddress { get; set; }
         public string CoAddress { get; set; }
         public string City { get; set; }

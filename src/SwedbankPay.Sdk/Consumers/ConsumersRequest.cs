@@ -18,7 +18,7 @@
         /// <summary>
         /// The MSISDN (mobile phone number) of the payer. Format Sweden: +46707777777. Format Norway: +4799999999.
         /// </summary>
-        public string Msisdn { get; set; }
+        public Msisdn Msisdn { get; set; }
 
         /// <summary>
         /// The e-mail address of the payer.

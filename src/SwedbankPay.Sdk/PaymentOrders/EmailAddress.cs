@@ -25,8 +25,9 @@
         public static bool IsValidEmail(string emailAddress)
         {
             if (string.IsNullOrWhiteSpace(emailAddress))
+            {
                 return false;
-
+            }
             try
             {
                 // Normalize the domain
