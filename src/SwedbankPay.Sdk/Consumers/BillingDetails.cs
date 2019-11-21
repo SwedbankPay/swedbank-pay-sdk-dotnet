@@ -12,7 +12,7 @@
         /// The MSISDN (mobile phone number) of the payer. Format Sweden: +46707777777. Format Norway: +4799999999.
         /// </summary>
 
-        public string Msisdn { get; }
+        public Msisdn Msisdn { get; }
 
 
         public Address BillingAddress { get; }
@@ -23,7 +23,7 @@
         }
 
         [JsonConstructor]
-        public BillingDetails([JsonConverter(typeof(CustomEmailAddressConverter))]EmailAddress email, string msisdn, Address billingAddress)
+        public BillingDetails([JsonConverter(typeof(CustomEmailAddressConverter))]EmailAddress email, Msisdn msisdn, Address billingAddress)
         {
             Email = email;
             Msisdn = msisdn;

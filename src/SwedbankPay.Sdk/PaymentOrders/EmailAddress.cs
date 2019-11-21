@@ -25,8 +25,9 @@
         public static bool IsValidEmail(string emailAddress)
         {
             if (string.IsNullOrWhiteSpace(emailAddress))
+            {
                 return false;
-
+            }
             try
             {
                 // Normalize the domain
@@ -45,11 +46,11 @@
                     return match.Groups[1].Value + domainName;
                 }
             }
-            catch (RegexMatchTimeoutException e)
+            catch (RegexMatchTimeoutException)
             {
                 return false;
             }
-            catch (ArgumentException e)
+            catch (ArgumentException)
             {
                 return false;
             }

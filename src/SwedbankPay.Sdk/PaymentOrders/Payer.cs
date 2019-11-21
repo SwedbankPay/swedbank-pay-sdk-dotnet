@@ -33,7 +33,7 @@
         /// <summary>
         /// Optional (increases chance for challenge flow if not set)
         /// </summary>
-        public string Msisdn { get; set; }
+        public Msisdn Msisdn { get; set; }
 
         /// <summary>
         /// Optional (increases chance for challenge flow if not set)

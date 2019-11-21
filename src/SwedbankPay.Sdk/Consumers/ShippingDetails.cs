@@ -8,7 +8,7 @@
     {
         public EmailAddress Email { get; }
 
-        public string Msisdn { get; }
+        public Msisdn Msisdn { get; }
 
         public Address ShippingAddress { get; }
 
@@ -19,7 +19,7 @@
 
 
         [JsonConstructor]
-        public ShippingDetails([JsonConverter(typeof(CustomEmailAddressConverter))]EmailAddress email, string msisdn, Address shippingAddress)
+        public ShippingDetails([JsonConverter(typeof(CustomEmailAddressConverter))]EmailAddress email, Msisdn msisdn, Address shippingAddress)
         {
             Email = email;
             Msisdn = msisdn;
