@@ -23,7 +23,7 @@
         }
 
         [JsonConstructor]
-        public BillingDetails([JsonConverter(typeof(CustomEmailAddressConverter))]EmailAddress email, Msisdn msisdn, Address billingAddress)
+        public BillingDetails(EmailAddress email, Msisdn msisdn, Address billingAddress)
         {
             Email = email;
             Msisdn = msisdn;

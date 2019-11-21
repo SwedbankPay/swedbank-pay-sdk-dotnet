@@ -1,7 +1,7 @@
 ﻿namespace SwedbankPay.Sdk.Consumers
 {
     using Newtonsoft.Json;
-
+    
     using SwedbankPay.Sdk.PaymentOrders;
 
     public class ShippingDetails
@@ -19,7 +19,7 @@
 
 
         [JsonConstructor]
-        public ShippingDetails([JsonConverter(typeof(CustomEmailAddressConverter))]EmailAddress email, Msisdn msisdn, Address shippingAddress)
+        public ShippingDetails(EmailAddress email, Msisdn msisdn, Address shippingAddress)
         {
             Email = email;
             Msisdn = msisdn;

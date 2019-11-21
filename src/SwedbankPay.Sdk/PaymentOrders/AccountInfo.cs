@@ -2,6 +2,8 @@
 {
     using Newtonsoft.Json;
 
+    using SwedbankPay.Sdk.JsonSerialization;
+
     /// <summary>
     /// Optional. If payer is known by merchant and have some kind of registered user then these fields can be set.
     /// </summary>
@@ -15,7 +17,7 @@
         /// 04 (30-60 days)
         /// 05 (More than 60 days)
         /// </summary>
-        [JsonConverter(typeof(TypedSafeEnumValueConverter<AccountAgeIndicator, string>))]
+        
         public AccountAgeIndicator AccountAgeIndicator { get; set; }
 
         /// <summary>
@@ -25,7 +27,7 @@
         /// 03 (30-60 days)
         /// 04 (More than 60 days)
         /// </summary>
-        [JsonConverter(typeof(TypedSafeEnumValueConverter<AccountChangeIndicator, string>))]
+       
         public AccountChangeIndicator AccountChangeIndicator { get; set; }
 
         /// <summary>
@@ -36,7 +38,7 @@
         /// 04 (30-60 days)
         /// 05 (More than 60 days)
         /// </summary>
-        [JsonConverter(typeof(TypedSafeEnumValueConverter<AccountPwdChangeIndicator, string>))]
+        
         public AccountPwdChangeIndicator AccountPwdChangeIndicator { get; set; }
 
         /// <summary>
@@ -46,7 +48,7 @@
         /// 03 (30-60 days)
         /// 04 (More than 60 days)
         /// </summary>
-        [JsonConverter(typeof(TypedSafeEnumValueConverter<ShippingAddressUsageIndicator, string>))]
+        
         public ShippingAddressUsageIndicator ShippingAddressUsageIndicator { get; set; }
 
         /// <summary>
@@ -54,7 +56,7 @@
         /// 01 (Account name identical to shipping name)
         /// 02 (Account name different than shipping name)
         /// </summary>
-        [JsonConverter(typeof(TypedSafeEnumValueConverter<ShippingNameIndicator, string>))]
+        
         public ShippingNameIndicator ShippingNameIndicator { get; set; }
 
         /// <summary>
@@ -62,7 +64,7 @@
         /// 01 (No suspicious activity has been observed)
         /// 02 (Suspicious activity has been observed)
         /// </summary>
-        [JsonConverter(typeof(TypedSafeEnumValueConverter<SuspiciousAccountActivity, string>))]
+        
         public SuspiciousAccountActivity SuspiciousAccountActivity { get; set; }
 
         /// <summary>
