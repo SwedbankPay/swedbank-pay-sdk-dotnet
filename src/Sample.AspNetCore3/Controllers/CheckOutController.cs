@@ -15,8 +15,6 @@
 
     public class CheckOutController : Controller
     {
-        private readonly SwedbankPayOptions swedbankPayOptions;
-
         public const string CartSessionKey = "_Cart";
         private readonly PayeeInfo payeeInfoOptions;
         private Cart cartService;
@@ -37,7 +35,7 @@
 
             var totalAmount = this.cartService.CalculateTotal() * 100;
             var paymentOrderRequest = CreatePaymentOrderRequest(totalAmount, 0); //TODO Correct VatAmount
-
+            
             paymentOrderRequest.OrderItems = new List<OrderItem>();
             if (!string.IsNullOrWhiteSpace(consumerProfileRef))
             {
