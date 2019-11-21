@@ -17,7 +17,6 @@
         /// 04 (30-60 days)
         /// 05 (More than 60 days)
         /// </summary>
-        
         public AccountAgeIndicator AccountAgeIndicator { get; set; }
 
         /// <summary>
@@ -27,7 +26,6 @@
         /// 03 (30-60 days)
         /// 04 (More than 60 days)
         /// </summary>
-       
         public AccountChangeIndicator AccountChangeIndicator { get; set; }
 
         /// <summary>
@@ -38,7 +36,6 @@
         /// 04 (30-60 days)
         /// 05 (More than 60 days)
         /// </summary>
-        
         public AccountPwdChangeIndicator AccountPwdChangeIndicator { get; set; }
 
         /// <summary>
@@ -48,7 +45,6 @@
         /// 03 (30-60 days)
         /// 04 (More than 60 days)
         /// </summary>
-        
         public ShippingAddressUsageIndicator ShippingAddressUsageIndicator { get; set; }
 
         /// <summary>
@@ -56,7 +52,6 @@
         /// 01 (Account name identical to shipping name)
         /// 02 (Account name different than shipping name)
         /// </summary>
-        
         public ShippingNameIndicator ShippingNameIndicator { get; set; }
 
         /// <summary>
@@ -64,7 +59,6 @@
         /// 01 (No suspicious activity has been observed)
         /// 02 (Suspicious activity has been observed)
         /// </summary>
-        
         public SuspiciousAccountActivity SuspiciousAccountActivity { get; set; }
 
         /// <summary>

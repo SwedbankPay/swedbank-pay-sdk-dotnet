@@ -10,7 +10,6 @@
         /// <summary>
         /// For electronic delivery, the email address to which the merchandise was delivered.
         /// </summary>
-        
         public EmailAddress DeliveryEmailAddress { get; set; }
 
         /// <summary>
@@ -20,14 +19,12 @@
         /// 03 (Overnight shipping)
         /// 04 (Two-day or more shipping)
         /// </summary>
-        
         public DeliveryTimeFrameIndicator DeliveryTimeFrameIndicator { get; set; }
 
         /// <summary>
         /// For a pre-ordered purchase. The expected date that the merchandise will be available.
         /// FORMAT: "YYYYMMDD"
         /// </summary>
-        
         public DateTime PreOrderDate { get; set; }
 
         /// <summary>
@@ -35,7 +32,6 @@
         /// 01 (Merchandise available)
         /// 02 (Future availability)
         /// </summary>
-        
         public PreOrderPurchaseIndicator PreOrderPurchaseIndicator { get; set; }
 
         /// <summary>
@@ -48,13 +44,11 @@
         /// 06 (Travel and Event tickets, not shipped)
         /// 07 (Other, e.g.gaming, digital service)
         /// </summary>
-        
         public ShipIndicator ShipIndicator { get; set; }
 
         /// <summary>
         /// true if this is a purchase of a gift card.
         /// </summary>
-        
         public bool GiftCardPurchase { get; set; }
 
         /// <summary>
@@ -62,13 +56,11 @@
         /// 01 (Merchandise available)
         /// 02 (Future availability)
         /// </summary>
-        
         public ReOrderPurchaseIndicator ReOrderPurchaseIndicator { get; set; }
 
         /// <summary>
         /// If shipIndicator set to 4, then prefil this.
         /// </summary>
-        
         public PickUpAddress PickUpAddress { get; set; }
 
 
