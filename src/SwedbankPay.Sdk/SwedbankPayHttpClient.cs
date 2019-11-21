@@ -9,16 +9,43 @@
     using SwedbankPay.Sdk.Exceptions;
 
     using System;
+    using System.Collections.Generic;
     using System.Net;
     using System.Net.Http;
     using System.Text;
     using System.Threading.Tasks;
 
+    using Newtonsoft.Json.Converters;
+
+    using SwedbankPay.Sdk.JsonSerialization;
+    using SwedbankPay.Sdk.PaymentOrders;
+
     internal class SwedbankPayHttpClient
     {
         private readonly HttpClient client;
         private readonly ILogger logger;
-        private static readonly JsonSerializerSettings settings = new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() };
+        private static readonly JsonSerializerSettings settings = new JsonSerializerSettings
+        {
+            ContractResolver = new CamelCasePropertyNamesContractResolver(),
+            Converters = new List<JsonConverter>
+            {
+                new StringEnumConverter(),
+                new CustomEmailAddressConverter(typeof(EmailAddress)),
+                new TypedSafeEnumValueConverter<ShipIndicator, string>(),
+                new TypedSafeEnumValueConverter<DeliveryTimeFrameIndicator, string>(),
+                new TypedSafeEnumValueConverter<PreOrderPurchaseIndicator, string>(),
+                new TypedSafeEnumValueConverter<ReOrderPurchaseIndicator, string>(),
+                new TypedSafeEnumValueConverter<AccountAgeIndicator, string>(),
+                new TypedSafeEnumValueConverter<AccountChangeIndicator, string>(),
+                new TypedSafeEnumValueConverter<AccountPwdChangeIndicator, string>(),
+                new TypedSafeEnumValueConverter<ShippingAddressUsageIndicator, string>(),
+                new TypedSafeEnumValueConverter<ShippingNameIndicator, string>(),
+                new TypedSafeEnumValueConverter<SuspiciousAccountActivity, string>(),
+                new TypedSafeEnumValueConverter<Operation, string>()
+            },
+            NullValueHandling = NullValueHandling.Ignore,
+            DateFormatString = "yyyyMMdd"
+        };
 
 
         internal SwedbankPayHttpClient(HttpClient client, ILogger logger)
