@@ -7,6 +7,8 @@
 
     using System;
 
+    using SwedbankPay.Sdk.JsonSerialization;
+
     using Xunit;
 
     public class CustomEmailAddressJsonTests
