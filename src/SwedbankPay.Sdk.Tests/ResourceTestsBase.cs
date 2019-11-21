@@ -3,6 +3,7 @@
     using SwedbankPay.Sdk;
 
     using System;
+    using System.Collections.Generic;
     using System.Net.Http;
     using System.Net.Http.Headers;
 
@@ -21,7 +22,8 @@
                 CancelPageUrl = new Uri("https://www.example.com/"),
                 TermsOfServiceUrl = new Uri("https://www.example.com/"),
                 PaymentUrl = new Uri("https://www.example.com/"),
-                MerchantId = "91a4c8e0-72ac-425c-a687-856706f9e9a1"
+                MerchantId = "91a4c8e0-72ac-425c-a687-856706f9e9a1",
+                HostUrls = new List<Uri>(){new Uri("https://www.example.com/") }
             };
 
             var client = new HttpClient { BaseAddress = swedbankPayOptions.ApiBaseUrl };
