@@ -1,5 +1,8 @@
 ﻿namespace SwedbankPay.Sdk
 {
+    /// <summary>
+    /// Initialized, Completed or Failed. Indicates the state of the transaction.
+    /// </summary>
     public class State : TypeSafeEnum<State, string>
     {
         public static readonly State Initialized = new State(nameof(Initialized), "Initialized");
