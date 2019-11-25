@@ -13,7 +13,7 @@
                                string instrument,
                                string operation,
                                string intent,
-                               string state,
+                               State state,
                                string currency,
                                PricesContainer prices,
                                long amount,
