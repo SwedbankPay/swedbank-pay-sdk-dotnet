@@ -69,7 +69,7 @@
 
         public string Intent { get; }
 
-        public string State { get; }
+        public State State { get; }
 
         public string Currency { get; }
 

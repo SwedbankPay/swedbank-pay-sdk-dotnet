@@ -7,7 +7,7 @@
         public DateTime Created { get; set; }
         public DateTime Updated { get; set; }
         public string Operation { get; set; }
-        public string State { get; set; }
+        public State State { get; set; }
         public string Currency { get; set; }
         public long Amount { get; set; }
         public long VatAmount { get; set; }
