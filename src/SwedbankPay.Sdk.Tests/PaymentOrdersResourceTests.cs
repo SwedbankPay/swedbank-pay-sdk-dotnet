@@ -173,7 +173,7 @@ namespace SwedbankPay.Sdk.Tests
             var orderResponseContainer = await this.Sut.PaymentOrders.AbortPaymentOrder(paymentOrderResponseContainer.PaymentOrder.Id);
             Assert.NotNull(orderResponseContainer);
             Assert.NotNull(orderResponseContainer.PaymentOrder);
-            Assert.Equal("Aborted", orderResponseContainer.PaymentOrder.State);
+            Assert.Equal("Aborted", orderResponseContainer.PaymentOrder.State.Value);
         }
 
         [Fact]
