@@ -27,7 +27,8 @@
                 new TypedSafeEnumValueConverter<ShippingAddressUsageIndicator, string>(),
                 new TypedSafeEnumValueConverter<ShippingNameIndicator, string>(),
                 new TypedSafeEnumValueConverter<SuspiciousAccountActivity, string>(),
-                new TypedSafeEnumValueConverter<Operation, string>()
+                new TypedSafeEnumValueConverter<Operation, string>(),
+                new TypedSafeEnumValueConverter<State, string>()
             },
             NullValueHandling = NullValueHandling.Ignore,
             DateFormatString = "yyyyMMdd"
