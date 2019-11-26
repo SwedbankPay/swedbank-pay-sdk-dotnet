@@ -9,6 +9,8 @@ namespace SwedbankPay.Sdk.Tests
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using SwedbankPay.Sdk.Payments;
+
     using Xunit;
 
     public class PaymentOrdersResourceTests : ResourceTestsBase
@@ -244,9 +246,9 @@ namespace SwedbankPay.Sdk.Tests
             {
                 Amount = amount,
                 VatAmount = vatAmount,
-                Currency = "SEK",
+                Currency = new CurrencyCode("SEK"),
                 Description = "Description",
-                Language = "sv-SE",
+                Language = PaymentOrderLanguage.Swedish,
                 UserAgent = "useragent",
                 PayeeInfo = new PayeeInfo
                 {

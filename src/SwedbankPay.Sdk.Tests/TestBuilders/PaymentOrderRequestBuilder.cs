@@ -6,6 +6,8 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    using SwedbankPay.Sdk.Payments;
+
     public class PaymentOrderRequestBuilder
     {
         private PaymentOrderRequest paymentOrderRequest = new PaymentOrderRequest();
@@ -15,13 +17,13 @@
 
             this.paymentOrderRequest = new PaymentOrderRequest
             {
-                Currency = "SEK",
+                Currency = new CurrencyCode("SEK"),
                 Amount = 1300,
                 VatAmount = 0,
                 Description = "Test Description",
                 GenerateRecurrenceToken = false,
                 UserAgent = "useragent",
-                Language = "sv-SE",
+                Language = PaymentOrderLanguage.Swedish,
                 PayeeInfo = new PayeeInfo
                 {
                     PayeeId = "91a4c8e0-72ac-425c-a687-856706f9e9a1",

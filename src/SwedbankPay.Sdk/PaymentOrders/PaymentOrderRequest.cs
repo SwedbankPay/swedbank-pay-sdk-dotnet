@@ -2,6 +2,8 @@
 {
     using System.Collections.Generic;
 
+    using SwedbankPay.Sdk.Payments;
+
     public class PaymentOrderRequest
     {
         /// <summary>
@@ -13,7 +15,7 @@
         /// <summary>
         /// The currency of the payment.
         /// </summary>
-        public string Currency { get; set; }
+        public CurrencyCode Currency { get; set; }
 
         /// <summary>
         /// The amount including VAT in the lowest monetary unit of the currency. E.g. 10000 equals 100.00 NOK and 5000 equals 50.00 NOK.
@@ -38,7 +40,7 @@
         /// <summary>
         /// The language of the payer.
         /// </summary>
-        public string Language { get; set; }
+        public PaymentOrderLanguage Language { get; set; }
 
         /// <summary>
         /// Determines if a recurrence token should be generated. A recurrence token is primarily used to enable future recurring payments - with the same token - through server-to-server calls. Default value is false

@@ -6,7 +6,6 @@
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Options;
-    using Newtonsoft.Json;
     using Sample.AspNetCore3.Constants;
     using Sample.AspNetCore3.Models;
     using SwedbankPay.Sdk;
@@ -93,9 +92,9 @@
             {
                 Amount = amount,
                 VatAmount = vatAmount,
-                Currency = "SEK",
+                Currency = new CurrencyCode("SEK"),
                 Description = "Description",
-                Language = "sv-SE",
+                Language = PaymentOrderLanguage.Swedish,
                 UserAgent = "useragent",
                 PayeeInfo = this.payeeInfoOptions
             };

@@ -14,7 +14,7 @@
                                string operation,
                                string intent,
                                State state,
-                               string currency,
+                               CurrencyCode currency,
                                PricesContainer prices,
                                long amount,
                                string description,
@@ -71,7 +71,7 @@
 
         public State State { get; }
 
-        public string Currency { get; }
+        public CurrencyCode Currency { get; }
 
         public PricesContainer Prices { get; }
 

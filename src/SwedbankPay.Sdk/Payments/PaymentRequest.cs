@@ -19,7 +19,7 @@
         public string Operation { get; set; } = "Purchase";
         public string Intent { get; set; } = "Authorization";
 
-        public string Currency { get; set; }
+        public CurrencyCode Currency { get; set; }
 
         public List<Price> Prices { get; set; } = new List<Price>();
 

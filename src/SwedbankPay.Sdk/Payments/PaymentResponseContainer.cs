@@ -22,7 +22,7 @@
 
         public PaymentResponse Payment { get; set; }
 
-        public List<HttpOperation> Operations { get; set; } = new List<HttpOperation>();
+        public Operations Operations { get; set; } = new Operations();
 
         public string GetPaymentUrl()
         {
@@ -31,7 +31,7 @@
             {
                 if (Operations.Any())
                 {
-                    var availableOps = Operations.Select(o => o.Rel).Aggregate((x, y) => x + "," + y);
+                    var availableOps = Operations.ToString();
                     throw new BadRequestException($"Cannot get PaymentUrl from this payment. Available operations: {availableOps}");
                 }
                 throw new NoOperationsLeftException();
@@ -46,7 +46,7 @@
             {
                 if (Operations.Any())
                 {
-                    var availableOps = Operations.Select(o => o.Rel).Aggregate((x, y) => x + "," + y);
+                    var availableOps = Operations.ToString();
                     throw new BadRequestException($"Cannot get RedirectVerificationUrl from this payment. Available operations: {availableOps}");
                 }
                 throw new NoOperationsLeftException();

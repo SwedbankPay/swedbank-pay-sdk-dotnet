@@ -18,7 +18,7 @@
             jsonObject.Add("AccountAgeIndicator", "01");
 
             //ACT
-            var result = JsonConvert.DeserializeObject<AccountInfo>(jsonObject.ToString(), JsonSerialization.settings);
+            var result = JsonConvert.DeserializeObject<AccountInfo>(jsonObject.ToString(), JsonSerialization.Settings);
 
             //ASSERT
             Assert.Equal("01", result.AccountAgeIndicator.Value);
@@ -34,7 +34,7 @@
             };
 
             //ACT
-            var result = JsonConvert.SerializeObject(accountInfo, JsonSerialization.settings);
+            var result = JsonConvert.SerializeObject(accountInfo, JsonSerialization.Settings);
             var obj = JObject.Parse(result);
 
             var accountAgeValue = obj.GetValue("accountAgeIndicator");
