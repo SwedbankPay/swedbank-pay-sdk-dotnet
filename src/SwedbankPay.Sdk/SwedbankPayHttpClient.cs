@@ -49,7 +49,7 @@
         {
             if (request != null)
             {
-                var content = JsonConvert.SerializeObject(request, JsonSerialization.JsonSerialization.settings);
+                var content = JsonConvert.SerializeObject(request, JsonSerialization.JsonSerialization.Settings);
                 msg.Content = new StringContent(content, Encoding.UTF8, "application/json");
             }
             msg.Headers.Add("Accept", "application/json");
@@ -84,7 +84,7 @@
             {
                 var res = await response.Content.ReadAsStringAsync();
                 this.logger.LogInformation(res);
-                return JsonConvert.DeserializeObject<T>(res, JsonSerialization.JsonSerialization.settings);
+                return JsonConvert.DeserializeObject<T>(res, JsonSerialization.JsonSerialization.Settings);
             }
 
             var responseMessage = await response.Content.ReadAsStringAsync();

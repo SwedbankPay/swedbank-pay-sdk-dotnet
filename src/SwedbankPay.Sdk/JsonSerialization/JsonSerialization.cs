@@ -7,10 +7,11 @@
     using Newtonsoft.Json.Serialization;
 
     using SwedbankPay.Sdk.PaymentOrders;
+    using SwedbankPay.Sdk.Payments;
 
     public class JsonSerialization
     {
-        public static readonly JsonSerializerSettings settings = new JsonSerializerSettings
+        public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
         {
             ContractResolver = new CamelCasePropertyNamesContractResolver(),
             Converters = new List<JsonConverter>
@@ -28,7 +29,9 @@
                 new TypedSafeEnumValueConverter<ShippingNameIndicator, string>(),
                 new TypedSafeEnumValueConverter<SuspiciousAccountActivity, string>(),
                 new TypedSafeEnumValueConverter<Operation, string>(),
-                new TypedSafeEnumValueConverter<State, string>()
+                new TypedSafeEnumValueConverter<State, string>(),
+                new TypedSafeEnumValueConverter<PaymentOrderLanguage, string>(),
+                new CustomCurrencyCodeConverter(typeof(CurrencyCode))
             },
             NullValueHandling = NullValueHandling.Ignore,
             DateFormatString = "yyyyMMdd"

@@ -33,7 +33,7 @@
             };
 
             //ACT
-            var result = JsonConvert.SerializeObject(riskIndicator, JsonSerialization.settings);
+            var result = JsonConvert.SerializeObject(riskIndicator, JsonSerialization.Settings);
             var obj = JObject.Parse(result);
 
             var dateTimeAsString = obj.GetValue("preOrderDate").ToString();
