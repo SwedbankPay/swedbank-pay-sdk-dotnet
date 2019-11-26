@@ -33,17 +33,21 @@
             }
             else
             {
-                var o = (JObject)t;
                 writer.WriteValue(value.ToString());
             }
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, Newtonsoft.Json.JsonSerializer serializer)
         {
-            var jo = JObject.Load(reader);
-            var addressString = jo.Values().FirstOrDefault()?.ToString();
-            var address = new EmailAddress(addressString);
-            return address;
+
+            if (reader.TokenType == JsonToken.StartObject)
+            {
+                var jo = JObject.Load(reader);
+                var addressString = jo.Values().FirstOrDefault()?.ToString();
+                return new EmailAddress(addressString);
+            }
+
+            return new EmailAddress(reader.Value.ToString());
         }
 
         public override bool CanRead => true;
