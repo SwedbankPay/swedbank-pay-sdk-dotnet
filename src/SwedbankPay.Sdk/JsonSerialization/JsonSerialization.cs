@@ -1,5 +1,6 @@
 ﻿namespace SwedbankPay.Sdk.JsonSerialization
 {
+    using System;
     using System.Collections.Generic;
 
     using Newtonsoft.Json;
@@ -31,7 +32,9 @@
                 new TypedSafeEnumValueConverter<Operation, string>(),
                 new TypedSafeEnumValueConverter<State, string>(),
                 new TypedSafeEnumValueConverter<PaymentOrderLanguage, string>(),
-                new CustomCurrencyCodeConverter(typeof(CurrencyCode))
+                new CustomCurrencyCodeConverter(typeof(CurrencyCode)),
+                new CustomLanguageConverter(typeof(Language)),
+                new CustomUriConverter()
             },
             NullValueHandling = NullValueHandling.Ignore,
             DateFormatString = "yyyyMMdd"
