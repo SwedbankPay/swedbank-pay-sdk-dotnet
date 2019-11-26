@@ -14,7 +14,7 @@
         public string Operation { get; set; }
 
         public string Intent { get; set; }
-        public string State { get; set; }
+        public State State { get; set; }
 
         public CurrencyCode Currency { get; set; }
         public long Amount { get; set; }

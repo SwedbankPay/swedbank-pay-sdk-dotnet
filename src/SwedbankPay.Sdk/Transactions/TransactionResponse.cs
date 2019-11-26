@@ -8,7 +8,7 @@
         public DateTime Created { get; }
         public DateTime Updated { get; }
         public string Type { get; }
-        public string State { get; }
+        public State State { get; }
         public string Number { get; }
         public long Amount { get; }
         public long VatAmount { get; }
