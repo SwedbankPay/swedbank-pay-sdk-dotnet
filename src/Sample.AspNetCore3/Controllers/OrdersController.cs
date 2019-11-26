@@ -42,9 +42,9 @@
             
             var response = await this.swedbankPayClient.PaymentOrders.GetPaymentOrder(order.PaymentOrderLink);
 
-            var paymentOrderOperations = response.Operations.Where(r => r.Rel.Contains("paymentorder")).ToList();
-            var operations = new Operations();
-            operations.AddRange(paymentOrderOperations);
+            var paymentOrderOperations = response.Operations.Where(r => r.Rel.Contains("paymentorder"));
+            var operations = new Operations(paymentOrderOperations);
+            
             return View(new OrderViewModel
             {
                 Order = order,
