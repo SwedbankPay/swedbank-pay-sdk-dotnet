@@ -16,7 +16,7 @@
 
 
         [JsonConstructor]
-        public CaptureTransactionResponseContainer(string payment, TransactionContainer capture)
+        public CaptureTransactionResponseContainer(Uri payment, TransactionContainer capture)
         {
             Payment = payment;
             Capture = capture;

@@ -14,7 +14,7 @@
         }
         
         [JsonConstructor]
-        public CancellationTransactionResponseContainer(string payment, TransactionContainer cancellation)
+        public CancellationTransactionResponseContainer(Uri payment, TransactionContainer cancellation)
         {
             Payment = payment;
             Cancellation = cancellation;

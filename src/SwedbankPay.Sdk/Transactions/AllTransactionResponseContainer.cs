@@ -14,7 +14,7 @@
         }
 
         [JsonConstructor]
-        public AllTransactionResponseContainer(string payment, TransactionListContainer transactions)
+        public AllTransactionResponseContainer(Uri payment, TransactionListContainer transactions)
         {
             Payment = payment;
             Transactions = transactions;

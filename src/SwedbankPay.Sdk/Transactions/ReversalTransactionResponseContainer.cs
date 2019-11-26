@@ -15,7 +15,7 @@
         }
 
         [JsonConstructor]
-        public ReversalTransactionResponseContainer(string payment, TransactionContainer reversal)
+        public ReversalTransactionResponseContainer(Uri payment, TransactionContainer reversal)
         {
             Payment = payment;
             Reversal = reversal;
