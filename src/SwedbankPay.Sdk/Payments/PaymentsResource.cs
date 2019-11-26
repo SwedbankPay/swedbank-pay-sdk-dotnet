@@ -102,7 +102,7 @@
             {
                 if (payment.Operations.Any())
                 {
-                    var availableOps = payment.Operations.Select(o => o.Rel).Aggregate((x, y) => x + "," + y);
+                    var availableOps = payment.Operations.ToString();
                     throw new PaymentNotYetAuthorizedException(id, $"This payment cannot be captured. Available operations: {availableOps}");
                 }
                 throw new NoOperationsLeftException();
@@ -127,7 +127,7 @@
             {
                 if (payment.Operations.Any())
                 {
-                    var availableOps = payment.Operations.Select(o => o.Rel).Aggregate((x, y) => x + "," + y);
+                    var availableOps = payment.Operations.ToString();
                     throw new CouldNotReversePaymentException(id, $"This payment cannot be reversed. Available operations: {availableOps}");
                 }
                 throw new NoOperationsLeftException();
@@ -152,7 +152,7 @@
             {
                 if (payment.Operations.Any())
                 {
-                    var availableOps = payment.Operations.Select(o => o.Rel).Aggregate((x, y) => x + "," + y);
+                    var availableOps = payment.Operations.ToString();
                     throw new CouldNotCancelPaymentException(id, $"This payment cannot be cancelled. Available operations: {availableOps}");
                 }
                 throw new NoOperationsLeftException();
@@ -178,7 +178,7 @@
             {
                 if (payment.Operations.Any())
                 {
-                    var availableOps = payment.Operations.Select(o => o.Rel).Aggregate((x, y) => x + "," + y);
+                    var availableOps = payment.Operations.ToString();
                     throw new CouldNotCancelPaymentException(id, $"This payment cannot be aborted. Available operations: {availableOps}");
                 }
                 throw new NoOperationsLeftException();
