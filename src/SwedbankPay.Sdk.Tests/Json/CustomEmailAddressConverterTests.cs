@@ -13,7 +13,7 @@
 
   
 
-    public class CustomEmailAddressJsonTests
+    public class CustomEmailAddressConverterTests
     {
         private string address = "email@example.com";
 
@@ -26,7 +26,7 @@
             jsonObject.Add("xX123xxaddress", this.address);
 
             //ACT
-            var result = JsonConvert.DeserializeObject<EmailAddress>(jsonObject.ToString(), JsonSerialization.settings);
+            var result = JsonConvert.DeserializeObject<EmailAddress>(jsonObject.ToString(), JsonSerialization.Settings);
 
             //ASSERT
             Assert.Equal(this.address, result.ToString());
@@ -39,7 +39,7 @@
             var riskIndicator = new RiskIndicator { DeliveryEmailAddress = new EmailAddress(this.address) };
 
             //ACT
-            var result = JsonConvert.SerializeObject(riskIndicator, JsonSerialization.settings);
+            var result = JsonConvert.SerializeObject(riskIndicator, JsonSerialization.Settings);
             var obj = JObject.Parse(result);
             obj.TryGetValue("DeliveryEmailAddress", StringComparison.InvariantCultureIgnoreCase, out var address);
             //ASSERT
