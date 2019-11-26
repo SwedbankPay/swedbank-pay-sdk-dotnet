@@ -7,7 +7,7 @@
 
     public class PaymentResponse
     {
-        public PaymentResponse(string id,
+        public PaymentResponse(Uri id,
                                string number,
                                DateTime created,
                                string instrument,
@@ -20,7 +20,7 @@
                                string description,
                                string payerReference,
                                string userAgent,
-                               string language,
+                               Language language,
                                Urls urls,
                                PayeeInfo payeeInfo,
                                TransactionListContainer transactions,
@@ -57,7 +57,7 @@
         }
 
 
-        public string Id { get; }
+        public Uri Id { get; }
 
         public string Number { get; }
 
@@ -83,7 +83,7 @@
 
         public string UserAgent { get; }
 
-        public string Language { get; }
+        public Language Language { get; }
 
         public Urls Urls { get; }
 

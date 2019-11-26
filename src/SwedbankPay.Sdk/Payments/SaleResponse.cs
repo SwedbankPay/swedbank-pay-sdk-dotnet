@@ -11,7 +11,7 @@
         public string SwishPaymentReference { get; }
         public string SwishStatus { get; }
 
-        public string Id { get; }
+        public Uri Id { get; }
         public TransactionResponse Transaction { get; }
 
 
@@ -19,7 +19,7 @@
                             string payerAlias,
                             string swishPaymentReference,
                             string swishStatus,
-                            string id,
+                            Uri id,
                             TransactionResponse transaction)
         {
             Date = date;

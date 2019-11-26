@@ -1,10 +1,12 @@
 ﻿namespace SwedbankPay.Sdk.Transactions
 {
+    using System;
+
     using Newtonsoft.Json;
 
     internal class CaptureTransactionResponseContainer
     {
-        public string Payment { get; }
+        public Uri Payment { get; }
         public TransactionContainer Capture { get; }
 
 
