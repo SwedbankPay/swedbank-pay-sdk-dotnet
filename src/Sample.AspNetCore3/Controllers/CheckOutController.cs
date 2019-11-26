@@ -94,7 +94,7 @@
                 VatAmount = vatAmount,
                 Currency = new CurrencyCode("SEK"),
                 Description = "Description",
-                Language = PaymentOrderLanguage.Swedish,
+                Language = new Language("sv-SE"),
                 UserAgent = "useragent",
                 PayeeInfo = this.payeeInfoOptions
             };

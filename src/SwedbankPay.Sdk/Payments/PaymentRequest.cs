@@ -29,7 +29,7 @@
 
         public string UserAgent { get; set; }
 
-        public string Language { get; set; }
+        public Language Language { get; set; }
 
         public Urls Urls { get; } = new Urls();
 

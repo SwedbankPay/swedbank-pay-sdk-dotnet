@@ -24,7 +24,7 @@
 
         public string UserAgent { get; set; }
 
-        public string Language { get; set; }
+        public Language Language { get; set; }
         public PricesContainer Prices { get; set; }
         public IdLink Urls { get; set; }
         public PayeeInfo PayeeInfo { get; set; }

@@ -40,7 +40,7 @@
         /// <summary>
         /// The language of the payer.
         /// </summary>
-        public PaymentOrderLanguage Language { get; set; }
+        public Language Language { get; set; }
 
         /// <summary>
         /// Determines if a recurrence token should be generated. A recurrence token is primarily used to enable future recurring payments - with the same token - through server-to-server calls. Default value is false

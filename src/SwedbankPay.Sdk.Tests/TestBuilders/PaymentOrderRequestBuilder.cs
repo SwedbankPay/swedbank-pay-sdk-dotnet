@@ -23,7 +23,7 @@
                 Description = "Test Description",
                 GenerateRecurrenceToken = false,
                 UserAgent = "useragent",
-                Language = PaymentOrderLanguage.Swedish,
+                Language = new Language("sv-SE"),
                 PayeeInfo = new PayeeInfo
                 {
                     PayeeId = "91a4c8e0-72ac-425c-a687-856706f9e9a1",

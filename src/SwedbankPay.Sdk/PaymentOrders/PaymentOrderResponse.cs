@@ -18,7 +18,7 @@
         public long RemainingReversalAmount { get; set; }
         public string Description { get; set; }
         public string UserAgent { get; set; }
-        public PaymentOrderLanguage Language { get; set; }
+        public Language Language { get; set; }
         public Urls Urls { get; set; }
         public PayeeInfo PayeeInfo { get; set; }
         public IdLink Settings { get; set; }
