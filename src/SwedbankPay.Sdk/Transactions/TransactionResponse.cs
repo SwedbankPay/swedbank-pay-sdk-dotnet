@@ -21,7 +21,7 @@
                                    DateTime created,
                                    DateTime updated,
                                    string type,
-                                   string state,
+                                   State state,
                                    string number,
                                    long amount,
                                    long vatAmount,
