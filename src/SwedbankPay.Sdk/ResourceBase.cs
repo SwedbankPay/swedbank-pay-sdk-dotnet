@@ -21,12 +21,27 @@
             ILogger logger,
             HttpClient client)
         {
-            this.swedbankPayOptions = swedbankPayOptions;
-            if (this.swedbankPayOptions.IsEmpty())
+            if (client == null)
+            {
+                throw new ArgumentNullException(nameof(client));
+            }
+
+            if (swedbankPayOptions == null)
+            {
+                throw new ArgumentNullException(nameof(swedbankPayOptions));
+            }
+
+            if(client.BaseAddress == null || !client.DefaultRequestHeaders.Contains("Authorization"))
+            {
+                throw new ArgumentException($"Invalid client configuration. Check config.");
+            }
+
+            if (swedbankPayOptions.IsEmpty())
             {
                 throw new InvalidConfigurationSettingsException($"Invalid configuration. Check config.");
             }
 
+            this.swedbankPayOptions = swedbankPayOptions;
             this.swedbankPayClient = new SwedbankPayHttpClient(client, logger);
         }
 
