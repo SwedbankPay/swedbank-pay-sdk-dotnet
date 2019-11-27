@@ -66,16 +66,18 @@
             return httpOperation.Href;
         }
 
-        public string TryGetPaymentUrl()
+        public bool TryGetPaymentUrl(out string paymentUrl)
         {
             try
             {
-                return GetPaymentUrl();
+                paymentUrl = GetPaymentUrl();
+                return true;
             }
             catch (Exception)
             {
-                return null;
+                paymentUrl = null;
             }
+            return false;
         }
     }
 }
