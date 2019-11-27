@@ -120,34 +120,13 @@
             }
 
         }
-
-        //public async Task<IActionResult> GetPaymentOrder(string paymentOrderId)
-        //{
-        //    try
-        //    {
-        //        var swedbankPayClient = new SwedbankPayClient(_swedbankPayOptions);
-
-        //        var response = await swedbankPayClient.PaymentOrders.AbortPaymentOrder(paymentOrderId);
-
-        //        TempData["AbortMessage"] = $"Payment Order: {response.PaymentOrder.Id} has been {response.PaymentOrder.State}";
-        //        _cartService.PaymentOrderLink = null;
-
-        //        return RedirectToAction(nameof(Index), "Products");
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        TempData["ErrorMessage"] = $"Something unexpected happened. {e.Message}";
-        //        return RedirectToAction(nameof(Index), "Orders");
-        //    }
-
-        //}
-
+        
         public async Task<IActionResult> CapturePayment(string paymentOrderId)
         {
             try
             {
                 var transActionRequestObject = await GetTransactionRequest("Capturing the authorized payment");
-
+                
                 var response = await this.swedbankPayClient.PaymentOrders.Capture(paymentOrderId, transActionRequestObject);
 
                     TempData["CaptureMessage"] = $"{response.Id}, {response.Type}, {response.State}";
