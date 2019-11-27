@@ -44,18 +44,15 @@ steps:
 
 # Copy files
 # Copy files from a source folder to a target folder using patterns matching file paths (not folder paths)
-- task: CopyFiles@2
+
+- task: DotNetCoreCLI@2
   inputs:
-    #sourceFolder: # Optional
-    contents: '**\bin\**' 
-    targetFolder: $(Build.ArtifactStagingDirectory)
-    #cleanTargetFolder: false # Optional
-    #overWrite: false # Optional
-    #flattenFolders: false # Optional
-    #preserveTimestamp: false # Optional
+    command: 'publish'
+    publishWebProjects: true
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
+
 
