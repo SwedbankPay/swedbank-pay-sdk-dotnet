@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using SwedbankPay.Sdk;
 
-namespace Sample.AspNetCore3.Extensions
+namespace Sample.AspNetCore.Extensions
 {
     using System;
 

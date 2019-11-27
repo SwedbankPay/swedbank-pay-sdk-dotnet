@@ -1,4 +1,4 @@
-﻿namespace Sample.AspNetCore3.Models
+﻿namespace Sample.AspNetCore.Models
 {
     using System;
     using System.Collections.Generic;

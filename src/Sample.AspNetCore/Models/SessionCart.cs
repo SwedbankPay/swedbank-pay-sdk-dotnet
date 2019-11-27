@@ -1,10 +1,10 @@
-﻿namespace Sample.AspNetCore3.Models
+﻿namespace Sample.AspNetCore.Models
 {
     using System;
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.DependencyInjection;
     using Newtonsoft.Json;
-    using Sample.AspNetCore3.Extensions;
+    using Sample.AspNetCore.Extensions;
 
     public class SessionCart : Cart
     {

@@ -1,12 +1,12 @@
-﻿namespace Sample.AspNetCore3.Controllers
+﻿namespace Sample.AspNetCore.Controllers
 {
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Options;
 
-    using Sample.AspNetCore3.Models;
-    using Sample.AspNetCore3.Data;
+    using Sample.AspNetCore.Models;
+    using Sample.AspNetCore.Data;
 
     using SwedbankPay.Sdk;
     using SwedbankPay.Sdk.PaymentOrders;

@@ -1,10 +1,10 @@
-﻿namespace Sample.AspNetCore3.Models
+﻿namespace Sample.AspNetCore.Models
 {
     using System;
     using System.Linq;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
-    using Sample.AspNetCore3.Data;
+    using Sample.AspNetCore.Data;
 
     public class ProductGenerator
     {

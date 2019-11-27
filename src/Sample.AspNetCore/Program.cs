@@ -1,4 +1,4 @@
-namespace Sample.AspNetCore3
+namespace Sample.AspNetCore
 {
     using System;
     using System.Collections.Generic;
@@ -9,8 +9,8 @@ namespace Sample.AspNetCore3
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
-    using Sample.AspNetCore3.Data;
-    using Sample.AspNetCore3.Models;
+    using Sample.AspNetCore.Data;
+    using Sample.AspNetCore.Models;
 
     public class Program
     {

@@ -1,4 +1,4 @@
-﻿namespace Sample.AspNetCore3.Constants
+﻿namespace Sample.AspNetCore.Constants
 {
     public static class ConsumerResourceOperations
     {

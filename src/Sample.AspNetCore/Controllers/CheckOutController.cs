@@ -1,4 +1,4 @@
-﻿namespace Sample.AspNetCore3.Controllers
+﻿namespace Sample.AspNetCore.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -6,8 +6,8 @@
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Options;
-    using Sample.AspNetCore3.Constants;
-    using Sample.AspNetCore3.Models;
+    using Sample.AspNetCore.Constants;
+    using Sample.AspNetCore.Models;
     using SwedbankPay.Sdk;
     using SwedbankPay.Sdk.Consumers;
     using SwedbankPay.Sdk.PaymentOrders;

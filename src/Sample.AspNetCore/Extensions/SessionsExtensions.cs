@@ -1,4 +1,4 @@
-﻿namespace Sample.AspNetCore3.Extensions
+﻿namespace Sample.AspNetCore.Extensions
 {
     using Microsoft.AspNetCore.Http;
     using Newtonsoft.Json;

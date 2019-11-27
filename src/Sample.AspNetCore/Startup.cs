@@ -1,6 +1,6 @@
 
 
-namespace Sample.AspNetCore3
+namespace Sample.AspNetCore
 {
     using System;
     using System.Collections.Generic;
@@ -13,12 +13,12 @@ namespace Sample.AspNetCore3
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-    using Sample.AspNetCore3.Data;
-    using Sample.AspNetCore3.Models;
+    using Sample.AspNetCore.Data;
+    using Sample.AspNetCore.Models;
     using Microsoft.EntityFrameworkCore;
     using SwedbankPay.Sdk;
     using SwedbankPay.Sdk.PaymentOrders;
-    using Sample.AspNetCore3.Extensions;
+    using Sample.AspNetCore.Extensions;
 
     public class Startup
     {

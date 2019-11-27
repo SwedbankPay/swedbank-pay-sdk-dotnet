@@ -1,4 +1,4 @@
-﻿namespace Sample.AspNetCore3.Models.ViewModels
+﻿namespace Sample.AspNetCore.Models.ViewModels
 {
     using System.Collections.Generic;
     using SwedbankPay.Sdk;

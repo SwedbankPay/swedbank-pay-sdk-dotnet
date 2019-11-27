@@ -1,4 +1,4 @@
-﻿namespace Sample.AspNetCore3.Controllers
+﻿namespace Sample.AspNetCore.Controllers
 {
     using System.Linq;
     using System.Threading.Tasks;
@@ -6,8 +6,8 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
 
-    using Sample.AspNetCore3.Data;
-    using Sample.AspNetCore3.Models;
+    using Sample.AspNetCore.Data;
+    using Sample.AspNetCore.Models;
 
     public class ProductsController : Controller
     {

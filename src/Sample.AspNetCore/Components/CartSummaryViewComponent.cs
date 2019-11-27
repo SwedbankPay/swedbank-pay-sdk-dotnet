@@ -1,7 +1,7 @@
-﻿namespace Sample.AspNetCore3.Components
+﻿namespace Sample.AspNetCore.Components
 {
     using Microsoft.AspNetCore.Mvc;
-    using Sample.AspNetCore3.Models;
+    using Sample.AspNetCore.Models;
 
     public class CartSummaryViewComponent : ViewComponent
     {

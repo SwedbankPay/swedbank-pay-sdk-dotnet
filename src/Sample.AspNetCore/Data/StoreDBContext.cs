@@ -1,7 +1,7 @@
-﻿namespace Sample.AspNetCore3.Data
+﻿namespace Sample.AspNetCore.Data
 {
     using Microsoft.EntityFrameworkCore;
-    using Sample.AspNetCore3.Models;
+    using Sample.AspNetCore.Models;
 
     public class StoreDbContext : DbContext
     {

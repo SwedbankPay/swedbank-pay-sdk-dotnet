@@ -1,7 +1,7 @@
-﻿namespace Sample.AspNetCore3.Models
+﻿namespace Sample.AspNetCore.Models
 {
     using System.Collections.Generic;
-    using Sample.AspNetCore3.Constants;
+    using Sample.AspNetCore.Constants;
     using SwedbankPay.Sdk;
 
     public class SwedbankPayCheckoutSource
