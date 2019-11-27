@@ -26,6 +26,10 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
+    projects: '**/SwedbankPay.Sdk/*.csproj'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
     projects: '**/Sample.AspNetCore/*.csproj'
 
 #- task: NuGetCommand@2
