@@ -42,6 +42,17 @@ steps:
 #    packagesToPack: 'src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj'
 #    versioningScheme: 'off'
 
+# Copy files
+# Copy files from a source folder to a target folder using patterns matching file paths (not folder paths)
+- task: CopyFiles@2
+  inputs:
+    #sourceFolder: # Optional
+    contents: '**\bin\**' 
+    targetFolder: $(Build.ArtifactStagingDirectory)
+    #cleanTargetFolder: false # Optional
+    #overWrite: false # Optional
+    #flattenFolders: false # Optional
+    #preserveTimestamp: false # Optional
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
