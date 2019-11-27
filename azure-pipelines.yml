@@ -20,13 +20,13 @@ steps:
 - task: NuGetCommand@2
   inputs:
     command: 'restore'
-    restoreSolution: 'src/SwedbankPay.Sdk/SwedbankPay.Sdk.sln'
+    restoreSolution: 'SwedbankPay/swedbank-pay-sdk-dotnet/src/*.sln'
     feedsToUse: 'select'
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
-    projects: 'src/SwedbankPay.Sdk/SwedbankPay.Sdk.sln'
+    projects: 'SwedbankPay/swedbank-pay-sdk-dotnet/src/*.sln'
 
 #- task: NuGetCommand@2
 #  inputs:
