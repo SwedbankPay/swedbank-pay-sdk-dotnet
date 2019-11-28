@@ -1,60 +1,48 @@
-# Docker image
-# Build a Docker image to run, deploy, or push to a container registry.
-# Add steps that use Docker Compose, tag images, push to a registry, run an image, and more:
-# https://docs.microsoft.com/vsts/pipelines/languages/docker
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- master
 
 pool:
-  name: 'Hosted VS2017'
-  demands:
-  - msbuild
-  - visualstudio
+  vmImage: 'windows-latest'
 
 variables:
   imageName: 'payex.client.ci:$(build.buildId)'
-
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
 steps:
-- task: NuGetToolInstaller@1
-  inputs:
-    versionSpec: '5.3.1'
+- task: NuGetToolInstaller@1  
 
 - task: NuGetCommand@2
   inputs:
-    command: 'restore'
-    restoreSolution: '**/*.sln'
-    feedsToUse: 'select'
+    restoreSolution: '$(solution)'
 
-- task: DotNetCoreCLI@2
+- task: VSBuild@1
   inputs:
-    command: 'build'
-    projects: |
-      **/*.sln
+    solution: '$(solution)'
+    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- task: VSTest@2
+  inputs:
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
 
 #- task: DotNetCoreCLI@2
 #  inputs:
-#    command: 'build'
-#    projects: |
-#      **/SwedbankPay.Sdk/*.csproj
-#      **/Sample.AspNetCore/*.csproj
-
-#- task: NuGetCommand@2
+#    command: 'publish'
+#    publishWebProjects: true
+#    zipAfterPublish: true
+#    arguments: '--output $(Build.ArtifactStagingDirectory)'
+#- task: PublishBuildArtifacts@1
 #  inputs:
-#    command: 'pack'
-#    packagesToPack: 'src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj'
-#    versioningScheme: 'off'
-
-# Copy files
-# Copy files from a source folder to a target folder using patterns matching file paths (not folder paths)
-
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'publish'
-    publishWebProjects: true
-    zipAfterPublish: true
-    arguments: '--output $(Build.ArtifactStagingDirectory)'
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+#    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+#    ArtifactName: 'drop'
+#    publishLocation: 'Container'
 
 
