@@ -41,6 +41,11 @@ steps:
 
 - task: DotNetCoreCLI@2
   inputs:
+    command: 'test'
+    projects: '**/SwedbankPay.Sdk/*.csproj''/SwedbankPay.Sdk.csproj'
+
+- task: DotNetCoreCLI@2
+  inputs:
     command: 'publish'
     publishWebProjects: true
     zipAfterPublish: true
