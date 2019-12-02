@@ -97,7 +97,7 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '**/src/Sample.AspNetCore.SystemTests'
+    PathtoPublish: 'D:\a\1\s\src\Sample.AspNetCore.SystemTests'
     ArtifactName: 'SystemTests'
     publishLocation: 'Container'
 
