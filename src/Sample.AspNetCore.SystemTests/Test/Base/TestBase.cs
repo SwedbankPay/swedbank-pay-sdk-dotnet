@@ -71,7 +71,7 @@
             #elif RELEASE
             AtataContext.Configure()
                 .UseDriver(this._driverAlias)
-                    .UseBaseUrl("https://localhost:44389/")
+                    .UseBaseUrl("https://swedbankpay-sdk-001-dev.azurewebsites.net/")
             .Build();
             AtataContext.Current.Driver.Maximize();
             #endif
