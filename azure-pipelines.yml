@@ -40,8 +40,8 @@ steps:
   inputs:
     testSelector: 'testAssemblies'
     testAssemblyVer2: |
-      **\SwedbankPay.Sdk.Tests\*test*.dll
-      !**\SwedbankPay.Sdk.Tests\*TestAdapter.dll
+      **\SwedbankPay.Sdk.Tests\**\*test*.dll
+      !**\SwedbankPay.Sdk.Tests\**\*TestAdapter.dll
       !**\SwedbankPay.Sdk.Tests\**\obj\**
     searchFolder: '$(System.DefaultWorkingDirectory)'
 
