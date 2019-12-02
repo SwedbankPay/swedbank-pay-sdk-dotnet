@@ -36,7 +36,14 @@ steps:
      projects: |
        **/*.sln
 
-
+- task: VSTest@2
+  inputs:
+    testSelector: 'testAssemblies'
+    testAssemblyVer2: |
+      **\SwedbankPay.Client.Tests\*test*.dll
+      !**\SwedbankPay.Client.Tests\*TestAdapter.dll
+      !**\SwedbankPay.Client.Tests\**\obj\**
+    searchFolder: '$(System.DefaultWorkingDirectory)'
 
 # #- task: DotNetCoreCLI@2
 # #  inputs:
@@ -67,31 +74,31 @@ steps:
 # #      !**\obj\**
 # #    searchFolder: '$(System.DefaultWorkingDirectory)'
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'publish'
-    publishWebProjects: true
-    zipAfterPublish: true
-    arguments: '--output $(Build.ArtifactStagingDirectory)'
+#- task: DotNetCoreCLI@2
+#  inputs:
+#    command: 'publish'
+#    publishWebProjects: true
+#    zipAfterPublish: true
+#    arguments: '--output $(Build.ArtifactStagingDirectory)'
 
-- task: PublishBuildArtifacts@1
-  inputs:
-     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-     ArtifactName: 'drop'
-     publishLocation: 'Container'
+#- task: PublishBuildArtifacts@1
+#  inputs:
+#     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+#     ArtifactName: 'drop'
+#     publishLocation: 'Container'
 
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: |
-      cd "D:\a\1\s\src"
-      ls
+#- task: PowerShell@2
+#  inputs:
+#    targetType: 'inline'
+#    script: |
+#      cd "D:\a\1\s\src"
+#      ls
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: 'D:\a\1\s\src\Sample.AspNetCore.SystemTests'
-    ArtifactName: 'SystemTests'
-    publishLocation: 'Container'
+#- task: PublishBuildArtifacts@1
+#  inputs:
+#    PathtoPublish: 'D:\a\1\s\src\Sample.AspNetCore.SystemTests'
+#    ArtifactName: 'SystemTests'
+#    publishLocation: 'Container'
 
 
 
