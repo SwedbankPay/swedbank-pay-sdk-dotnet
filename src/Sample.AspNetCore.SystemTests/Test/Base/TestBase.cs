@@ -70,8 +70,8 @@
             AtataContext.Current.Driver.Maximize();
             #elif RELEASE
             AtataContext.Configure()
-                .UseDriver(this._driverAlias)
-                    .UseBaseUrl("https://swedbankpay-sdk-001-dev.azurewebsites.net/")
+                .ApplyJsonConfig(environmentAlias: "TST") // Applies "Atata.TST.json" for build configuration with "UAT" conditional compilation symbol.
+                .UseDriver(_driverAlias)
             .Build();
             AtataContext.Current.Driver.Maximize();
             #endif

@@ -1,0 +1,24 @@
+{
+  "drivers": [
+    {
+      "type": "chrome",
+      "options": {
+        "arguments": [ "start-maximized", "incognito", "--disable-infobars", "--disable-notifications", "disable-extensions" ]
+      }
+    }
+  ],
+  "baseUrl": "https://swedbankpay-sdk-001-dev.azurewebsites.net/",
+  "culture": "en-US",
+  "useNUnitTestName": true,
+  "logNUnitError": true,
+  "takeScreenshotOnNUnitError": true,
+  "assertionExceptionType": "NUnit.Framework.AssertionException, nunit.framework",
+  "useNUnitAggregateAssertionStrategy": true,
+  "logConsumers": [
+    {
+      "type": "nunit",
+      "minLevel": "Trace",
+      "sectionFinish": true
+    }
+  ]
+}
