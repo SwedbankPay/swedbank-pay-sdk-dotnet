@@ -88,11 +88,11 @@ steps:
 #     ArtifactName: 'drop'
 #     publishLocation: 'Container'
 
-#- task: PublishBuildArtifacts@1
-#  inputs:
-#    PathtoPublish: '$(System.DefaultWorkingDirectory)\**\Sample.AspNetCore.SystemTests'
-#    ArtifactName: 'SystemTests'
-#    publishLocation: 'Container'
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '**\*.SystemTests'
+    ArtifactName: 'SystemTests'
+    publishLocation: 'Container'
 
 
 
