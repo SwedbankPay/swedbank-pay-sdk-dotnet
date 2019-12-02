@@ -92,12 +92,12 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      cd "D:\a\1\s\"
+      cd "D:\a\1\s\src"
       ls
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '**/Sample.AspNetCore.SystemTests'
+    PathtoPublish: '**/src/Sample.AspNetCore.SystemTests'
     ArtifactName: 'SystemTests'
     publishLocation: 'Container'
 
