@@ -36,15 +36,21 @@ steps:
      projects: |
        **/*.sln
 
-- task: VSTest@2
+- task: DotNetCoreCLI@2
   inputs:
-    testSelector: 'testAssemblies'
-    testAssemblyVer2: |
-      SwedbankPay.Sdk.Tests\bin\$(BuildConfiguration)\**\SwedbankPay.Sdk.Tests.dll
-      !SwedbankPay.Sdk.Tests\obj\**
-      !SwedbankPay.Sdk.Tests\bin\$(BuildConfiguration)\**\xunit.runner.visualstudio.testadapter.dll
-      !SwedbankPay.Sdk.Tests\bin\$(BuildConfiguration)\**\xunit.runner.visualstudio.dotnetcore.testadapter.dll
-    searchFolder: 'D:\a\1\s\src'
+    command: test
+    projects: 'D:\a\1\s\src\SwedbankPay.Sdk.Tests\SwedbankPay.Sdk.Tests.csproj'
+    arguments: '--configuration $(buildConfiguration)'
+
+# - task: VSTest@2
+#   inputs:
+#     testSelector: 'testAssemblies'
+#     testAssemblyVer2: |
+#       SwedbankPay.Sdk.Tests\bin\$(BuildConfiguration)\**\SwedbankPay.Sdk.Tests.dll
+#       !SwedbankPay.Sdk.Tests\obj\**
+#       !SwedbankPay.Sdk.Tests\bin\$(BuildConfiguration)\**\xunit.runner.visualstudio.testadapter.dll
+#       !SwedbankPay.Sdk.Tests\bin\$(BuildConfiguration)\**\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+#     searchFolder: 'D:\a\1\s\src'
 
 
 # #- task: DotNetCoreCLI@2
