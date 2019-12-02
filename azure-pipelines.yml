@@ -8,18 +8,6 @@ pool:
 
 steps:
 
-#- task: NuGetCommand@2
-#  inputs:
-#    command: 'restore'
-#    restoreSolution: '**/*.SystemTests/packages.config'
-#    feedsToUse: 'select'
-#    restoreDirectory: '..\packages'
-#- task: MSBuild@1
-#  inputs:
-#    solution: '**/*.SystemTests.csproj'
-#    platform: '$(BuildPlatform)'
-#    configuration: '$(BuildConfiguration)'
-
 - task: NuGetToolInstaller@1
   inputs:
     versionSpec: '5.3.1'
@@ -42,71 +30,24 @@ steps:
     projects: 'D:\a\1\s\src\SwedbankPay.Sdk.Tests\SwedbankPay.Sdk.Tests.csproj'
     arguments: '--configuration $(buildConfiguration)'
 
-# - task: VSTest@2
-#   inputs:
-#     testSelector: 'testAssemblies'
-#     testAssemblyVer2: |
-#       SwedbankPay.Sdk.Tests\bin\$(BuildConfiguration)\**\SwedbankPay.Sdk.Tests.dll
-#       !SwedbankPay.Sdk.Tests\obj\**
-#       !SwedbankPay.Sdk.Tests\bin\$(BuildConfiguration)\**\xunit.runner.visualstudio.testadapter.dll
-#       !SwedbankPay.Sdk.Tests\bin\$(BuildConfiguration)\**\xunit.runner.visualstudio.dotnetcore.testadapter.dll
-#     searchFolder: 'D:\a\1\s\src'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+    zipAfterPublish: true
+    arguments: '--output $(Build.ArtifactStagingDirectory)'
 
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
 
-# #- task: DotNetCoreCLI@2
-# #  inputs:
-# #    command: 'build'
-# #    projects: |
-# #      **/SwedbankPay.Sdk/*.csproj
-# #      **/Sample.AspNetCore/*.csproj
-
-# #- task: NuGetCommand@2
-# #  inputs:
-# #    command: 'pack'
-# #    packagesToPack: 'src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj'
-# #    versioningScheme: 'off'
-
-# # Copy files
-# # Copy files from a source folder to a target folder using patterns matching file paths (not folder paths)
-
-# #- task: DotNetCoreCLI@2
-# #  inputs:
-# #    command: 'test'
-# #    projects: '**/SwedbankPay.Sdk/*.csproj''/SwedbankPay.Sdk.csproj'
-# #- task: VSTest@2
-# #  inputs:
-# #    testSelector: 'testAssemblies'
-# #    testAssemblyVer2: |
-# #      **\*test*.dll
-# #      !**\*TestAdapter.dll
-# #      !**\obj\**
-# #    searchFolder: '$(System.DefaultWorkingDirectory)'
-
-#- task: DotNetCoreCLI@2
-#  inputs:
-#    command: 'publish'
-#    publishWebProjects: true
-#    zipAfterPublish: true
-#    arguments: '--output $(Build.ArtifactStagingDirectory)'
-
-#- task: PublishBuildArtifacts@1
-#  inputs:
-#     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-#     ArtifactName: 'drop'
-#     publishLocation: 'Container'
-
-#- task: PowerShell@2
-#  inputs:
-#    targetType: 'inline'
-#    script: |
-#      cd "D:\a\1\s\src"
-#      ls
-
-#- task: PublishBuildArtifacts@1
-#  inputs:
-#    PathtoPublish: 'D:\a\1\s\src\Sample.AspNetCore.SystemTests'
-#    ArtifactName: 'SystemTests'
-#    publishLocation: 'Container'
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: 'D:\a\1\s\src\Sample.AspNetCore.SystemTests'
+    ArtifactName: 'SystemTests'
+    publishLocation: 'Container'
 
 
 
