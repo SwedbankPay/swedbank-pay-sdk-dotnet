@@ -54,12 +54,21 @@ steps:
 #      !**\obj\**
 #    searchFolder: '$(System.DefaultWorkingDirectory)'
 
+#- task: DotNetCoreCLI@2
+#  inputs:
+#    command: 'publish'
+#    publishWebProjects: true
+#    zipAfterPublish: true
+#    arguments: '--output $(Build.ArtifactStagingDirectory)'
+
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
-    publishWebProjects: true
-    zipAfterPublish: true
+    publishWebProjects: false
+    projects: '**/*.csproj'
     arguments: '--output $(Build.ArtifactStagingDirectory)'
+
+
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
