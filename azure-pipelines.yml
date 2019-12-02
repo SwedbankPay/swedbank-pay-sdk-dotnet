@@ -40,9 +40,9 @@ steps:
   inputs:
     testSelector: 'testAssemblies'
     testAssemblyVer2: |
-      **\SwedbankPay.Client.Tests\*test*.dll
-      !**\SwedbankPay.Client.Tests\*TestAdapter.dll
-      !**\SwedbankPay.Client.Tests\**\obj\**
+      **\SwedbankPay.Sdk.Tests\*test*.dll
+      !**\SwedbankPay.Sdk.Tests\*TestAdapter.dll
+      !**\SwedbankPay.Sdk.Tests\**\obj\**
     searchFolder: '$(System.DefaultWorkingDirectory)'
 
 # #- task: DotNetCoreCLI@2
