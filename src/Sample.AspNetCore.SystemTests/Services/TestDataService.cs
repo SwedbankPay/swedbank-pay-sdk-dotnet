@@ -38,7 +38,6 @@
 
         public static string OrganizationNumber => "SE999999999901";
 
-        //public static string CreditCardNumber => "4581097655558174";
         public static string CreditCardNumber => "4925000000000004";
 
         public static string CreditCardCvc => "210";

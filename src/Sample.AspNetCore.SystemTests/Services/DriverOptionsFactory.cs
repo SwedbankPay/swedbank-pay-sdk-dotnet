@@ -18,15 +18,6 @@
                     var chromeOptions = new ChromeOptions { AcceptInsecureCertificates = true };
                     chromeOptions.AddArguments("--incognito", "--disable-infobars", "--disable-notifications", "disable-extensions");
 
-
-                    /* Not working yet */
-                    //ChromePerformanceLoggingPreferences perfLogPrefs = new ChromePerformanceLoggingPreferences();
-                    //perfLogPrefs.AddTracingCategories(new string[] { "devtools.network", "devtools.timeline" });
-                    //chromeOptions.PerformanceLoggingPreferences = perfLogPrefs;
-                    //chromeOptions.AddAdditionalCapability("goog:loggingPrefs", true, true);
-                    //chromeOptions.SetLoggingPreference("performance", LogLevel.All);
-
-
                     return chromeOptions;
 
                 case Driver.Firefox:
@@ -35,8 +26,6 @@
                     firefoxOptions.AddArgument("-private");
                     firefoxOptions.SetPreference("dom.webnotifications.enabled", false);
                     firefoxOptions.SetPreference("dom.webnotifications.enabled", false);
-                    //firefoxOptions.SetLoggingPreference(LogType.Browser, LogLevel.All);
-                    //firefoxOptions.LogLevel = FirefoxDriverLogLevel.Trace;
 
                     return firefoxOptions;
 
