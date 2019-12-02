@@ -74,26 +74,18 @@ steps:
     zipAfterPublish: true
     arguments: '--output $(Build.ArtifactStagingDirectory)'
 
-- task: DotNetCoreCLI@2
-  inputs:
-     command: 'publish'
-     publishWebProjects: false
-     projects: '**/*.csproj'
-     arguments: '--output $(Build.ArtifactStagingDirectory)'
-
-
 # - task: PublishBuildArtifacts@1
 #   inputs:
 #     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
 #     ArtifactName: 'drop'
 #     publishLocation: 'Container'
 
-#- task: PowerShell@2
-#  inputs:
-#    targetType: 'inline'
-#    script: |
-#      cd "D:\a\1\s\src"
-#      ls
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      cd "D:\a\1\s\src"
+      ls
 
 - task: PublishBuildArtifacts@1
   inputs:
