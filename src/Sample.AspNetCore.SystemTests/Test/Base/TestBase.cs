@@ -19,7 +19,7 @@
     using OpenQA.Selenium.Edge;
     using static Sample.AspNetCore.SystemTests.Test.Base.Drivers;
 
-#if DEBUG
+    #if DEBUG
     [TestFixture(DriverAliases.Chrome)]
     #elif DEV
     [TestFixture(DriverAliases.Chrome)]
@@ -30,7 +30,7 @@
     #endif
     public abstract class TestBase
     {
-        private readonly string driverAlias;
+        private readonly string _driverAlias;
 
         [OneTimeSetUp]
         public void GlobalSetup()
@@ -49,7 +49,7 @@
                     AddScreenshotFileSaving().
                         WithFolderPath(() => $@"Logs\{AtataContext.BuildStart:yyyy-MM-dd HH_mm_ss}").
                         WithFileName(screenshotInfo => $"{AtataContext.Current.TestName} - {screenshotInfo.PageObjectFullName}").
-                UseTestName(() => $"[{this.driverAlias}]{TestContext.CurrentContext.Test.Name}");
+                UseTestName(() => $"[{_driverAlias}]{TestContext.CurrentContext.Test.Name}");
             #endif
         }
 
@@ -58,7 +58,7 @@
         {
             #if DEBUG
             AtataContext.Configure()
-                .UseDriver(this.driverAlias)
+                .UseDriver(_driverAlias)
                     .UseBaseUrl("https://localhost:44389/")
             .Build();
             AtataContext.Current.Driver.Maximize();
@@ -70,14 +70,14 @@
             AtataContext.Current.Driver.Maximize();
             #elif RELEASE
             AtataContext.Configure()
-                .UseDriver(_driverAlias)
-                    .UseBaseUrl("https://YourBaseUrl.com/")
+                .UseDriver(this._driverAlias)
+                    .UseBaseUrl("https://localhost:44389/")
             .Build();
             AtataContext.Current.Driver.Maximize();
             #endif
         }
 
-        protected TestBase(string driverAlias) => this.driverAlias = driverAlias;
+        protected TestBase(string driverAlias) => this._driverAlias = driverAlias;
 
         [TearDown]
         public void TearDown()
