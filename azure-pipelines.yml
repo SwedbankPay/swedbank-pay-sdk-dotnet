@@ -88,6 +88,13 @@ steps:
 #     ArtifactName: 'drop'
 #     publishLocation: 'Container'
 
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      cd "D:\a\1\s\"
+      ls
+
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '**/Sample.AspNetCore.SystemTests'
