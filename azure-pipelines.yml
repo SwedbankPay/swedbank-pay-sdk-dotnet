@@ -20,9 +20,10 @@ steps:
 
 - task: DotNetCoreCLI@2
   inputs:
-     command: 'build'
-     projects: |
-       **/*.sln
+    command: 'build'
+    projects: |
+      **/*.sln
+    configuration: '$(BuildConfiguration)'
 
 - task: MSBuild@1
   displayName: 'Build system tests project'
@@ -30,6 +31,7 @@ steps:
     solution: '**\Sample.AspNetCore.SystemTests.csproj'
     platform: AnyCPU
     configuration: Release
+  enabled: false
 
 - task: DotNetCoreCLI@2
   inputs:
