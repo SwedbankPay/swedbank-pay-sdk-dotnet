@@ -8,33 +8,33 @@ pool:
 
 steps:
 
+#- task: NuGetCommand@2
+#  inputs:
+#    command: 'restore'
+#    restoreSolution: '**/*.SystemTests/packages.config'
+#    feedsToUse: 'select'
+#    restoreDirectory: '..\packages'
+#- task: MSBuild@1
+#  inputs:
+#    solution: '**/*.SystemTests.csproj'
+#    platform: '$(BuildPlatform)'
+#    configuration: '$(BuildConfiguration)'
+
+- task: NuGetToolInstaller@1
+  inputs:
+    versionSpec: '5.3.1'
+
 - task: NuGetCommand@2
   inputs:
-    command: 'restore'
-    restoreSolution: '**/*.SystemTests/packages.config'
-    feedsToUse: 'select'
-    restoreDirectory: '..\packages'
-- task: MSBuild@1
+     command: 'restore'
+     restoreSolution: '**/*.sln'
+     feedsToUse: 'select'
+
+- task: DotNetCoreCLI@2
   inputs:
-    solution: '**/*.SystemTests.csproj'
-    platform: '$(BuildPlatform)'
-    configuration: '$(BuildConfiguration)'
-
-# - task: NuGetToolInstaller@1
-#   inputs:
-#     versionSpec: '5.3.1'
-
-# - task: NuGetCommand@2
-#   inputs:
-#     command: 'restore'
-#     restoreSolution: '**/*.sln'
-#     feedsToUse: 'select'
-
-# - task: DotNetCoreCLI@2
-#   inputs:
-#     command: 'build'
-#     projects: |
-#       **/*.sln
+     command: 'build'
+     projects: |
+       **/*.sln
 
 
 
@@ -67,19 +67,19 @@ steps:
 # #      !**\obj\**
 # #    searchFolder: '$(System.DefaultWorkingDirectory)'
 
-# #- task: DotNetCoreCLI@2
-# #  inputs:
-# #    command: 'publish'
-# #    publishWebProjects: true
-# #    zipAfterPublish: true
-# #    arguments: '--output $(Build.ArtifactStagingDirectory)'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+    zipAfterPublish: true
+    arguments: '--output $(Build.ArtifactStagingDirectory)'
 
-# - task: DotNetCoreCLI@2
-#   inputs:
-#     command: 'publish'
-#     publishWebProjects: false
-#     projects: '**/*.csproj'
-#     arguments: '--output $(Build.ArtifactStagingDirectory)'
+- task: DotNetCoreCLI@2
+  inputs:
+     command: 'publish'
+     publishWebProjects: false
+     projects: '**/*.csproj'
+     arguments: '--output $(Build.ArtifactStagingDirectory)'
 
 
 # - task: PublishBuildArtifacts@1
@@ -88,12 +88,12 @@ steps:
 #     ArtifactName: 'drop'
 #     publishLocation: 'Container'
 
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: |
-      cd "D:\a\1\s\src"
-      ls
+#- task: PowerShell@2
+#  inputs:
+#    targetType: 'inline'
+#    script: |
+#      cd "D:\a\1\s\src"
+#      ls
 
 - task: PublishBuildArtifacts@1
   inputs:
