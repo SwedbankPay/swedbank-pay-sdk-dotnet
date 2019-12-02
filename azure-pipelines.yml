@@ -40,11 +40,12 @@ steps:
   inputs:
     testSelector: 'testAssemblies'
     testAssemblyVer2: |
-      **\bin\$(BuildConfiguration)\**\SwedbankPay.Sdk.Tests.dll
-      !**\obj\**
-      !**\bin\$(BuildConfiguration)\**\xunit.runner.visualstudio.testadapter.dll
-      !**\bin\$(BuildConfiguration)\**\xunit.runner.visualstudio.dotnetcore.testadapter.dll
-    searchFolder: '$(System.DefaultWorkingDirectory)'
+      SwedbankPay.Sdk.Tests\bin\$(BuildConfiguration)\**\SwedbankPay.Sdk.Tests.dll
+      !SwedbankPay.Sdk.Tests\obj\**
+      !SwedbankPay.Sdk.Tests\bin\$(BuildConfiguration)\**\xunit.runner.visualstudio.testadapter.dll
+      !SwedbankPay.Sdk.Tests\bin\$(BuildConfiguration)\**\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+    searchFolder: 'D:\a\1\s\src'
+
 
 # #- task: DotNetCoreCLI@2
 # #  inputs:
