@@ -6,74 +6,87 @@ pool:
   - msbuild
   - visualstudio
 
-variables:
-  imageName: 'payex.client.ci:$(build.buildId)'
-
 steps:
-- task: NuGetToolInstaller@1
-  inputs:
-    versionSpec: '5.3.1'
 
 - task: NuGetCommand@2
   inputs:
     command: 'restore'
-    restoreSolution: '**/*.sln'
+    restoreSolution: '**/*.SystemTests/packages.config'
     feedsToUse: 'select'
-
-- task: DotNetCoreCLI@2
+    restoreDirectory: '..\packages'
+- task: MSBuild@1
   inputs:
-    command: 'build'
-    projects: |
-      **/*.sln
-#- task: DotNetCoreCLI@2
-#  inputs:
-#    command: 'build'
-#    projects: |
-#      **/SwedbankPay.Sdk/*.csproj
-#      **/Sample.AspNetCore/*.csproj
+    solution: '**/*.SystemTests.csproj'
+    platform: '$(BuildPlatform)'
+    configuration: '$(BuildConfiguration)'
 
-#- task: NuGetCommand@2
-#  inputs:
-#    command: 'pack'
-#    packagesToPack: 'src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj'
-#    versioningScheme: 'off'
+# - task: NuGetToolInstaller@1
+#   inputs:
+#     versionSpec: '5.3.1'
 
-# Copy files
-# Copy files from a source folder to a target folder using patterns matching file paths (not folder paths)
+# - task: NuGetCommand@2
+#   inputs:
+#     command: 'restore'
+#     restoreSolution: '**/*.sln'
+#     feedsToUse: 'select'
 
-#- task: DotNetCoreCLI@2
-#  inputs:
-#    command: 'test'
-#    projects: '**/SwedbankPay.Sdk/*.csproj''/SwedbankPay.Sdk.csproj'
-#- task: VSTest@2
-#  inputs:
-#    testSelector: 'testAssemblies'
-#    testAssemblyVer2: |
-#      **\*test*.dll
-#      !**\*TestAdapter.dll
-#      !**\obj\**
-#    searchFolder: '$(System.DefaultWorkingDirectory)'
-
-#- task: DotNetCoreCLI@2
-#  inputs:
-#    command: 'publish'
-#    publishWebProjects: true
-#    zipAfterPublish: true
-#    arguments: '--output $(Build.ArtifactStagingDirectory)'
-
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'publish'
-    publishWebProjects: false
-    projects: '**/*.csproj'
-    arguments: '--output $(Build.ArtifactStagingDirectory)'
+# - task: DotNetCoreCLI@2
+#   inputs:
+#     command: 'build'
+#     projects: |
+#       **/*.sln
 
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+
+# #- task: DotNetCoreCLI@2
+# #  inputs:
+# #    command: 'build'
+# #    projects: |
+# #      **/SwedbankPay.Sdk/*.csproj
+# #      **/Sample.AspNetCore/*.csproj
+
+# #- task: NuGetCommand@2
+# #  inputs:
+# #    command: 'pack'
+# #    packagesToPack: 'src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj'
+# #    versioningScheme: 'off'
+
+# # Copy files
+# # Copy files from a source folder to a target folder using patterns matching file paths (not folder paths)
+
+# #- task: DotNetCoreCLI@2
+# #  inputs:
+# #    command: 'test'
+# #    projects: '**/SwedbankPay.Sdk/*.csproj''/SwedbankPay.Sdk.csproj'
+# #- task: VSTest@2
+# #  inputs:
+# #    testSelector: 'testAssemblies'
+# #    testAssemblyVer2: |
+# #      **\*test*.dll
+# #      !**\*TestAdapter.dll
+# #      !**\obj\**
+# #    searchFolder: '$(System.DefaultWorkingDirectory)'
+
+# #- task: DotNetCoreCLI@2
+# #  inputs:
+# #    command: 'publish'
+# #    publishWebProjects: true
+# #    zipAfterPublish: true
+# #    arguments: '--output $(Build.ArtifactStagingDirectory)'
+
+# - task: DotNetCoreCLI@2
+#   inputs:
+#     command: 'publish'
+#     publishWebProjects: false
+#     projects: '**/*.csproj'
+#     arguments: '--output $(Build.ArtifactStagingDirectory)'
+
+
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+#     ArtifactName: 'drop'
+#     publishLocation: 'Container'
 
 #- task: PublishBuildArtifacts@1
 #  inputs:
