@@ -24,6 +24,14 @@ steps:
      projects: |
        **/*.sln
 
+- task: MSBuild@1
+  displayName: 'Build system tests project'
+  inputs:
+    solution: '**\Sample.AspNetCore.SystemTests.csproj'
+    platform: AnyCPU
+    configuration: Release
+  enabled: false
+
 - task: DotNetCoreCLI@2
   inputs:
     command: test
