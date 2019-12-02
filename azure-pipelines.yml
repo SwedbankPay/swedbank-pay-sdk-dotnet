@@ -23,7 +23,7 @@ steps:
     command: 'build'
     projects: |
       **/*.sln
-    configuration: '$(BuildConfiguration)'
+    arguments: '--configuration $(BuildConfiguration)'
 
 - task: MSBuild@1
   displayName: 'Build system tests project'
