@@ -97,7 +97,7 @@
         {
             var payment = await GetPayment(id);
 
-            var httpOperation = payment.Operations.FirstOrDefault(o => o.Rel == "create-capture");
+            var httpOperation = payment.Operations.FirstOrDefault(o => o.Rel.Value == "create-capture");
             if (httpOperation == null)
             {
                 if (payment.Operations.Any())
@@ -122,7 +122,7 @@
         {
             var payment = await GetPayment(id);
 
-            var httpOperation = payment.Operations.FirstOrDefault(o => o.Rel == "create-reversal");
+            var httpOperation = payment.Operations.FirstOrDefault(o => o.Rel.Value == "create-reversal");
             if (httpOperation == null)
             {
                 if (payment.Operations.Any())
@@ -147,7 +147,7 @@
         {
             var payment = await GetPayment(id);
 
-            var httpOperation = payment.Operations.FirstOrDefault(o => o.Rel == "create-cancellation");
+            var httpOperation = payment.Operations.FirstOrDefault(o => o.Rel.Value == "create-cancellation");
             if (httpOperation == null)
             {
                 if (payment.Operations.Any())
@@ -173,7 +173,7 @@
         {
             var payment = await GetPayment(id);
 
-            var httpOperation = payment.Operations.FirstOrDefault(o => o.Rel == "update-payment-abort");
+            var httpOperation = payment.Operations.FirstOrDefault(o => o.Rel.Value == "update-payment-abort");
             if (httpOperation == null)
             {
                 if (payment.Operations.Any())

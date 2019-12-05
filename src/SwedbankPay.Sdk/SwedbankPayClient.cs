@@ -12,9 +12,11 @@
 
     public class SwedbankPayClient : ISwedbankPayClient
     {
-        public IPaymentOrdersResource PaymentOrders { get; }
+        public IPaymentOrderResource PaymentOrder { get; }
         public IPaymentsResource Payment { get; }
         public IConsumersResource Consumers { get; }
+        //internal SwedbankPayHttpClient SwedbankPayHttpClient { get; set; }
+        //internal SwedbankPayOptions Options { get; set; }
 
         public SwedbankPayClient(SwedbankPayOptions swedbankPayOptions,
                                  HttpClient httpClient,
@@ -26,9 +28,11 @@
             }
 
             var swedbankLogger = logger ?? NullLogger.Instance;
-            PaymentOrders = new PaymentOrdersResource(swedbankPayOptions, swedbankLogger, httpClient);
+            PaymentOrder = new PaymentOrderResource(swedbankPayOptions, swedbankLogger, httpClient);
             Payment = new PaymentsResource(swedbankPayOptions, swedbankLogger, httpClient);
             Consumers = new ConsumersResource(swedbankPayOptions, swedbankLogger, httpClient);
+            //SwedbankPayHttpClient = new SwedbankPayHttpClient(httpClient, swedbankLogger);
+            //Options = swedbankPayOptions;
         }
     }
 }

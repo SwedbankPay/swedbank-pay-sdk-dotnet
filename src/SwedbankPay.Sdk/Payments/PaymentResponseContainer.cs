@@ -22,11 +22,11 @@
 
         public PaymentResponse Payment { get; set; }
 
-        public Operations Operations { get; set; } = new Operations();
+        public OperationList Operations { get; set; } = new OperationList();
 
         public string GetPaymentUrl()
         {
-            var httpOperation = Operations.FirstOrDefault(o => o.Rel == "redirect-authorization");
+            var httpOperation = Operations.FirstOrDefault(o => o.Rel.Value == "redirect-authorization");
             if (httpOperation == null)
             {
                 if (Operations.Any())
@@ -41,7 +41,7 @@
 
         public string GetRedirectVerificationUrl()
         {
-            var httpOperation = Operations.FirstOrDefault(o => o.Rel == "redirect-verification");
+            var httpOperation = Operations.FirstOrDefault(o => o.Rel.Value == "redirect-verification");
             if (httpOperation == null)
             {
                 if (Operations.Any())

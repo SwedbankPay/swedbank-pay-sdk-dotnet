@@ -107,7 +107,51 @@
             throw ex;
         }
 
+        internal async Task<T> HttpRequest<T>(HttpRequestMessage requestMessage, Func<ProblemsContainer, Exception> onError, object payload = null) where T : new()
+        {
+            
+            UpdateRequest(requestMessage, payload);
 
+            HttpResponseMessage response;
+            try
+            {
+                response = await this.client.SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
+            }
+            catch (HttpRequestException e)
+            {
+                throw new BadRequestException(e);
+            }
+            catch (TaskCanceledException te)
+            {
+                throw new ApiTimeOutException(te);
+            }
+
+            if (response.IsSuccessStatusCode)
+            {
+                var res = await response.Content.ReadAsStringAsync();
+                this.logger.LogInformation(res);
+                return JsonConvert.DeserializeObject<T>(res, JsonSerialization.JsonSerialization.Settings); 
+            }
+
+            var responseMessage = await response.Content.ReadAsStringAsync();
+            this.logger.LogInformation(responseMessage);
+            ProblemsContainer problems;
+            if (!string.IsNullOrEmpty(responseMessage) && IsValidJson(responseMessage))
+            {
+                problems = JsonConvert.DeserializeObject<ProblemsContainer>(responseMessage);
+            }
+            else if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                problems = new ProblemsContainer("id", "Not found");
+            }
+            else
+            {
+                problems = new ProblemsContainer("Other", $"Response when calling SwedbankPay was: '{response.StatusCode}'");
+            }
+
+            var ex = onError(problems);
+            throw ex;
+        }
         internal async Task<string> GetRaw(string url)
         {
             var msg = new HttpRequestMessage(HttpMethod.Get, url);

@@ -4,7 +4,7 @@
 
     using Newtonsoft.Json;
 
-    internal class ReversalTransactionResponseContainer
+    public class ReversalTransactionResponseContainer
     {
         public Uri Payment { get; }
         public TransactionContainer Reversal { get; }

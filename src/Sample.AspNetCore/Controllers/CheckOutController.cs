@@ -1,4 +1,8 @@
-﻿namespace Sample.AspNetCore.Controllers
+﻿using Newtonsoft.Json.Linq;
+
+using SwedbankPay.Sdk.JsonSerialization;
+
+namespace Sample.AspNetCore.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -6,7 +10,6 @@
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Options;
-    using Sample.AspNetCore.Constants;
     using Sample.AspNetCore.Models;
     using SwedbankPay.Sdk;
     using SwedbankPay.Sdk.Consumers;
@@ -27,8 +30,7 @@
             this.swedbankPayClient = swedbankPayClient;
         }
         
-        [HttpPost]
-        public async Task<JsonResult> CreatePaymentOrder(string consumerProfileRef = null)
+        public async Task<PaymentOrder> CreatePaymentOrder(string consumerProfileRef = null)
         {
             this.payeeInfoOptions.PayeeReference = DateTime.Now.Ticks.ToString();
 
@@ -60,27 +62,36 @@
                 VatAmount = 0, //TODO Correct VatAmount
             }).ToList();
             paymentOrderRequest.OrderItems = orderItems;
-
-            var response = await this.swedbankPayClient.PaymentOrders.CreatePaymentOrder(paymentOrderRequest);
-            this.cartService.PaymentOrderLink = response.PaymentOrder.Id;
+            
+            var paymentOrder = await this.swedbankPayClient.PaymentOrder.Create(paymentOrderRequest);
+            
+            this.cartService.PaymentOrderLink = paymentOrder.PaymentOrderResponse.Id;
             this.cartService.Update();
-            return new JsonResult(response);
+            
+            
+            return paymentOrder;
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> GetViewPaymentOrderHref(string consumerProfileRef = null)
+        {
+            var paymentOrder = await CreatePaymentOrder(consumerProfileRef);
+
+            return Json (paymentOrder.Operations.View.Href);
         }
 
         public async Task<IActionResult> LoadPaymentMenu()
         {
-            var responseJsonResult = await CreatePaymentOrder();
-
-            var response = responseJsonResult.Value as PaymentOrderResponseContainer;
-
-            var jsSource = response.Operations.FirstOrDefault(x => x.Rel == PaymentOrderResourceOperations.ViewPaymentOrder)?.Href;
+            var response = await CreatePaymentOrder();
+            
+            var jsSource = response.Operations.View.Href;
 
             var swedBankPaySource = new SwedbankPayCheckoutSource
             {
                 JavascriptSource = jsSource,
                 Culture = "sv-SE",
                 UseAnonymousCheckout = true,
-                AbortOperationLink = response.Operations.FirstOrDefault(x => x.Rel == "update-paymentorder-abort")?.Href
+                AbortOperationLink = response.Operations[LinkRelation.UpdateAbort].Href
             };
 
             return View("Checkout", swedBankPaySource);
@@ -107,7 +118,7 @@
             initiateConsumerRequest.ConsumerCountryCode = CountryCode.SE;
            
             var response = await this.swedbankPayClient.Consumers.InitiateSession(initiateConsumerRequest);
-            var jsSource = response.Operations.FirstOrDefault(x => x.Rel == ConsumerResourceOperations.ViewConsumerIdentification)?.Href;
+            var jsSource = response.Operations.FirstOrDefault(x => x.Rel.Value == ConsumerResourceOperations.ViewConsumerIdentification)?.Href;
 
             var swedBankPaySource = new SwedbankPayCheckoutSource
             {
@@ -120,7 +131,6 @@
 
         public ViewResult Thankyou()
         {
-
             this.cartService.Clear();
             return View();
         }

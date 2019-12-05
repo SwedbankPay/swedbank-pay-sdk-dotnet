@@ -79,18 +79,24 @@
         {
             try
             {
-                
                 var transactionRequestObject = new TransactionRequest
                 {
                     PayeeReference = DateTime.Now.Ticks.ToString(),
                     Description = "Cancelling parts of the total amount"
                 };
-
-                var response = await this.swedbankPayClient.PaymentOrders.CancelPaymentOrder(paymentOrderId, transactionRequestObject);
-
-                TempData["CancelMessage"] = $"Payment has been cancelled: {response.Id}";
-                this.cartService.PaymentOrderLink = null;
-
+               
+                var paymentOrder = await this.swedbankPayClient.PaymentOrder.Get(paymentOrderId);
+                var container = new TransactionRequestContainer(transactionRequestObject);
+                if (paymentOrder.Operations.Cancel != null)
+                {
+                    var response = await paymentOrder.Operations.Cancel.Execute(container);
+                    TempData["CancelMessage"] = $"Payment has been cancelled: {response.Cancellation.Transaction.Id}";
+                    this.cartService.PaymentOrderLink = null;
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = $"Operation not available";
+                }
                 return RedirectToAction(nameof(Details), "Orders");
             }
             catch (Exception e)
@@ -106,8 +112,10 @@
         {
             try
             {
-                var response = await this.swedbankPayClient.PaymentOrders.AbortPaymentOrder(paymentOrderId);
-
+                var paymentOrder = await this.swedbankPayClient.PaymentOrder.Get(paymentOrderId);
+                
+                var response = await paymentOrder.Operations.Abort.Execute();
+                
                 TempData["AbortMessage"] = $"Payment Order: {response.PaymentOrder.Id} has been {response.PaymentOrder.State}";
                 this.cartService.PaymentOrderLink = null;
 
@@ -126,11 +134,14 @@
             try
             {
                 var transActionRequestObject = await GetTransactionRequest("Capturing the authorized payment");
-                
-                var response = await this.swedbankPayClient.PaymentOrders.Capture(paymentOrderId, transActionRequestObject);
+                var paymentOrder = await this.swedbankPayClient.PaymentOrder.Get(paymentOrderId);
 
-                    TempData["CaptureMessage"] = $"{response.Id}, {response.Type}, {response.State}";
-                    this.cartService.PaymentOrderLink = null;
+                var container = new TransactionRequestContainer(transActionRequestObject);
+                var response = await paymentOrder.Operations.Capture.Execute(container);
+                
+                TempData["CaptureMessage"] = $"{response.Capture.Transaction.Id}, {response.Capture.Transaction.State}, {response.Capture.Transaction.Type}"; //TODO this looks awkward?
+                
+                this.cartService.PaymentOrderLink = null;
 
                     return RedirectToAction(nameof(Details), "Orders");
             }
@@ -146,9 +157,12 @@
             try
             {
                 var transActionRequestObject = await GetTransactionRequest("Reversing the capture amount");
-                var response = await this.swedbankPayClient.PaymentOrders.Reversal(paymentOrderId, transActionRequestObject);
+                //var paymentOrder = await this.swedbankPayClient.GetPaymentOrder(paymentOrderId);
+                var paymentOrder = await this.swedbankPayClient.PaymentOrder.Get(paymentOrderId);
+                var container = new TransactionRequestContainer(transActionRequestObject);
+                var response = await paymentOrder.Operations.Reversal.Execute(container);
 
-                TempData["ReversalMessage"] = $"{response.Id}, {response.Type}, {response.State}";
+                TempData["ReversalMessage"] = $"{response.Reversal.Transaction.Id}, {response.Reversal.Transaction.Type}, {response.Reversal.Transaction.State}";
                 this.cartService.PaymentOrderLink = null;
 
                 return RedirectToAction(nameof(Details), "Orders");

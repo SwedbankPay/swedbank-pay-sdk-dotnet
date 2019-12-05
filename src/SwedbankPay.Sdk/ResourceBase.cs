@@ -14,14 +14,13 @@
     {
         protected readonly SwedbankPayOptions swedbankPayOptions;
         internal SwedbankPayHttpClient swedbankPayClient;
-
-
+        
         internal ResourceBase(
             SwedbankPayOptions swedbankPayOptions,
             ILogger logger,
             HttpClient client)
         {
-            if (client == null)
+            if (client == null) //TODO move checks elsewhere
             {
                 throw new ArgumentNullException(nameof(client));
             }

@@ -14,7 +14,7 @@
         /// <summary>
         /// The array of operation objects to choose from 
         /// </summary>
-        public Operations Operations { get; protected set; } = new Operations();
+        public OperationList Operations { get; protected set; } = new OperationList();
 
 
         [JsonConstructor]

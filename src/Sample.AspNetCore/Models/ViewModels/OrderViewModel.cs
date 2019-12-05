@@ -7,7 +7,7 @@
     {
       
         public Order Order { get; set; }
-        public Operations Operations { get; set; }
+        public OperationList OperationList { get; set; }
     }
     
 }

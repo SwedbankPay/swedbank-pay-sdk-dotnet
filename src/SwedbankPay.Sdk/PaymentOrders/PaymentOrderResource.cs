@@ -11,9 +11,9 @@
     using System.Net.Http;
     using System.Threading.Tasks;
 
-    public class PaymentOrdersResource : ResourceBase, IPaymentOrdersResource
+    public class PaymentOrderResource : ResourceBase, IPaymentOrderResource
     {
-        public PaymentOrdersResource(SwedbankPayOptions swedbankPayOptions,
+        public PaymentOrderResource(SwedbankPayOptions swedbankPayOptions,
                                      ILogger logger,
                                      HttpClient client) : base(swedbankPayOptions, logger, client)
         {
@@ -79,7 +79,7 @@
         {
             var payment = await GetPaymentOrder(id);
 
-            var httpOperation = payment.Operations.FirstOrDefault(o => o.Rel == "update-paymentorder-updateorder");
+            var httpOperation = payment.Operations.FirstOrDefault(o => o.Rel.Value == PaymentOrderResourceOperations.UpdatePaymentOrderUpdateOrder);
             if (httpOperation == null)
             {
                 if (payment.Operations.Any())
@@ -113,7 +113,7 @@
         {
             var payment = await GetPaymentOrder(id);
 
-            var httpOperation = payment.Operations.FirstOrDefault(o => o.Rel == "update-paymentorder-abort");
+            var httpOperation = payment.Operations.FirstOrDefault(o => o.Rel.Value == PaymentOrderResourceOperations.UpdatePaymentOrderAbort);
             if (httpOperation == null)
             {
                 if (payment.Operations.Any())
@@ -147,7 +147,7 @@
         {
             var payment = await GetPaymentOrder(id);
 
-            var httpOperation = payment.Operations.FirstOrDefault(o => o.Rel == "create-paymentorder-capture");
+            var httpOperation = payment.Operations.FirstOrDefault(o => o.Rel.Value == PaymentOrderResourceOperations.CreatePaymentOrderCapture);
             if (httpOperation == null)
             {
                 if (payment.Operations.Any())
@@ -182,7 +182,7 @@
         {
             var payment = await GetPaymentOrder(id);
 
-            var httpOperation = payment.Operations.FirstOrDefault(o => o.Rel == "create-paymentorder-reversal");
+            var httpOperation = payment.Operations.FirstOrDefault(o => o.Rel.Value == PaymentOrderResourceOperations.CreatePaymentOrderReversal);
             if (httpOperation == null)
             {
                 if (payment.Operations.Any())
@@ -214,7 +214,7 @@
         {
             var payment = await GetPaymentOrder(id);
 
-            var httpOperation = payment.Operations.FirstOrDefault(o => o.Rel == "create-paymentorder-cancel");
+            var httpOperation = payment.Operations.FirstOrDefault(o => o.Rel.Value == PaymentOrderResourceOperations.CreatePaymentOrderCancel);
             if (httpOperation == null)
             {
                 if (payment.Operations.Any())
@@ -230,6 +230,17 @@
             Exception OnError(ProblemsContainer m) => new CouldNotPostTransactionException(id, m);
             var res = await this.swedbankPayClient.HttpRequest<CancellationTransactionResponseContainer>(httpOperation.Method, url, OnError, payload);
             return res.Cancellation.Transaction;
+        }
+
+
+        public async Task<PaymentOrder> Create(PaymentOrderRequest paymentOrderRequest, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
+        {
+            return await PaymentOrder.Create(paymentOrderRequest, this.swedbankPayClient, this.swedbankPayOptions, paymentOrderExpand);
+        }
+
+        public async Task<PaymentOrder> Get(string id, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
+        {
+            return await PaymentOrder.Get(id, this.swedbankPayClient, this.swedbankPayOptions, paymentOrderExpand);
         }
     }
 }

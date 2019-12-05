@@ -188,7 +188,7 @@ else
                 async: true,
                 type: "POST",
                 cache: false,
-                url: '@Url.Action("CreatePaymentOrder", "Checkout", null)',
+                url: '@Url.Action("GetViewPaymentOrderHref", "Checkout", null)',
                 data: {"consumerProfileRef": data.consumerProfileRef},
                 success: function(result) {
                     
@@ -198,10 +198,12 @@ else
                     // This assumses the operations from the response of the POST of the
                     // payment cart is returned verbatim from the server to the Ajax:
                     //var operation = response.Operations.find(o => o.Rel === 'view-paymentorder');
-                    var operation = myFunction(result.operations, 'rel', 'view-paymentorder');
+                    //var operation = myFunction(result.operations, 'rel', 'view-paymentorder');
                     
                     //var operation = result.Operations.find(o => o.Rel === 'view-paymentorder');
-                    script.setAttribute('src', operation.href);
+                    //script.setAttribute('src', operation.href);
+                    script.setAttribute('src', result);
+
                     script.onload = function() {
                         // When the 'view-paymentcart' script is loaded, we can initialize the payment
                         // menu inside our 'checkin' container.

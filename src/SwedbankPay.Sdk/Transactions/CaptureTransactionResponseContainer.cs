@@ -4,7 +4,7 @@
 
     using Newtonsoft.Json;
 
-    internal class CaptureTransactionResponseContainer
+    public class CaptureTransactionResponseContainer
     {
         public Uri Payment { get; }
         public TransactionContainer Capture { get; }

@@ -7,12 +7,21 @@
     public class CouldNotUpdatePaymentOrderException : Exception
     {
         public ProblemsContainer Problems { get; }
-        public PaymentOrderRequestContainer Payment { get; }
+        public string Id { get; }
+        public PaymentOrderRequestContainer PaymentOrderRequestContainer { get; }
 
-        public CouldNotUpdatePaymentOrderException(PaymentOrderRequestContainer payment, ProblemsContainer problems) : base(problems.ToString())
+
+        public CouldNotUpdatePaymentOrderException(string id, ProblemsContainer problems) : base(problems.ToString())
         {
             Problems = problems;
-            Payment = payment;
+            Id = id;
         }
+
+        public CouldNotUpdatePaymentOrderException(PaymentOrderRequestContainer paymentOrderRequestContainer, ProblemsContainer problems) : base(problems.ToString())
+        {
+            Problems = problems;
+            PaymentOrderRequestContainer = paymentOrderRequestContainer;
+        }
+
     }
 }

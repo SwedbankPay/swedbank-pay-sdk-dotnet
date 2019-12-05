@@ -1,4 +1,6 @@
-﻿namespace SwedbankPay.Sdk.Transactions
+﻿using Newtonsoft.Json;
+
+namespace SwedbankPay.Sdk.Transactions
 {
     using System;
 
@@ -17,6 +19,12 @@
         public bool IsOperational { get; }
 
 
+        public TransactionResponse()
+        {
+
+        }
+
+        [JsonConstructor]
         public TransactionResponse(string id,
                                    DateTime created,
                                    DateTime updated,

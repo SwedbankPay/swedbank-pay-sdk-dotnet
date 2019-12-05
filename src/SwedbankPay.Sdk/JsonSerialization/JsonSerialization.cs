@@ -34,7 +34,8 @@
                 new TypedSafeEnumValueConverter<PaymentOrderLanguage, string>(),
                 new CustomCurrencyCodeConverter(typeof(CurrencyCode)),
                 new CustomLanguageConverter(typeof(Language)),
-                new CustomUriConverter()
+                new CustomUriConverter(),
+                new TypedSafeEnumValueConverter<LinkRelation, string>()
             },
             NullValueHandling = NullValueHandling.Ignore,
             DateFormatString = "yyyyMMdd"

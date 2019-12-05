@@ -6,7 +6,7 @@
 
     public interface ISwedbankPayClient
     {
-        IPaymentOrdersResource PaymentOrders { get; }
+        IPaymentOrderResource PaymentOrder { get; }
         IPaymentsResource Payment { get; }
         IConsumersResource Consumers { get; }
     }
