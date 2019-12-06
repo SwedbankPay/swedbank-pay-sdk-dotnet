@@ -20,12 +20,12 @@
         /// <summary>
         /// The amount including VAT in the lowest monetary unit of the currency. E.g. 10000 equals 100.00 NOK and 5000 equals 50.00 NOK.
         /// </summary>
-        public long? Amount { get; set; }
+        public Amount Amount { get; set; }
 
         /// <summary>
         /// The amount of VAT in the lowest monetary unit of the currency. E.g. 10000 equals 100.00 NOK and 5000 equals 50.00 NOK.
         /// </summary>
-        public long? VatAmount { get; set; }
+        public Amount VatAmount { get; set; }
 
         /// <summary>
         /// The description of the payment order.

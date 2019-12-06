@@ -1,9 +1,9 @@
-﻿namespace Sample.AspNetCore.Controllers
+﻿using Sample.AspNetCore.Extensions;
+
+namespace Sample.AspNetCore.Controllers
 {
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Options;
 
     using Sample.AspNetCore.Models;
     using Sample.AspNetCore.Data;
@@ -18,7 +18,7 @@
 
     public class PaymentController : Controller
     {
-        private Cart cartService;
+        private readonly Cart cartService;
         private readonly StoreDbContext context;
         private readonly SwedbankPayClient swedbankPayClient;
 
@@ -29,52 +29,7 @@
             this.swedbankPayClient = swedbankPayClient;
         }
 
-
-        // GET: Payment
-        public async Task<ActionResult> Index(Cart cart)
-        {
-            return View();
-        }
-
-        // GET: Payment/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Payment/Create
-        public ActionResult Create(Cart cart)
-        {
-            //var swedbankPayClient.PaymentOrders.CreatePaymentOrder();
-            return View();
-        }
-
-        // POST: Payment/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Payment/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-
         [HttpGet]
-
         public async Task<ActionResult> CancelPayment(string paymentOrderId)
         {
             try
@@ -97,12 +52,12 @@
                 {
                     TempData["ErrorMessage"] = $"Operation not available";
                 }
-                return RedirectToAction(nameof(Details), "Orders");
+                return RedirectToAction("Details","Orders");
             }
             catch (Exception e)
             {
                 TempData["ErrorMessage"] = $"Something unexpected happened. {e.Message}";
-                return RedirectToAction(nameof(Details), "Orders");
+                return RedirectToAction("Details", "Orders");
             }
         }
 
@@ -128,7 +83,8 @@
             }
 
         }
-        
+
+        [HttpGet]
         public async Task<IActionResult> CapturePayment(string paymentOrderId)
         {
             try
@@ -143,21 +99,21 @@
                 
                 this.cartService.PaymentOrderLink = null;
 
-                    return RedirectToAction(nameof(Details), "Orders");
+                    return RedirectToAction("Details", "Orders");
             }
             catch (Exception e)
             {
                 TempData["ErrorMessage"] = $"Something unexpected happened. {e.Message}";
-                return RedirectToAction(nameof(Details), "Orders");
+                return RedirectToAction("Details", "Orders");
             }
         }
 
+        [HttpGet]
         public async Task<IActionResult> ReversalPayment(string paymentOrderId)
         {
             try
             {
                 var transActionRequestObject = await GetTransactionRequest("Reversing the capture amount");
-                //var paymentOrder = await this.swedbankPayClient.GetPaymentOrder(paymentOrderId);
                 var paymentOrder = await this.swedbankPayClient.PaymentOrder.Get(paymentOrderId);
                 var container = new TransactionRequestContainer(transActionRequestObject);
                 var response = await paymentOrder.Operations.Reversal.Execute(container);
@@ -165,49 +121,47 @@
                 TempData["ReversalMessage"] = $"{response.Reversal.Transaction.Id}, {response.Reversal.Transaction.Type}, {response.Reversal.Transaction.State}";
                 this.cartService.PaymentOrderLink = null;
 
-                return RedirectToAction(nameof(Details), "Orders");
+                return RedirectToAction("Details", "Orders");
             }
             catch (Exception e)
             {
                 TempData["ErrorMessage"] = $"Something unexpected happened. {e.Message}";
-                return RedirectToAction(nameof(Details), "Orders");
+                return RedirectToAction("Details", "Orders");
             }
         }
 
         private async Task<TransactionRequest> GetTransactionRequest(string description)
         {
             var order = await this.context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
-
-            var orderItems = order.Lines.Select(line => new OrderItem
-            {
-                Amount = (int?)line.CalculateTotal() * 100,
-                Quantity = line.Quantity,
-                Reference = line.Product.Reference,
-                Name = line.Product.Name,
-                Type = line.Product.Type,
-                Class = line.Product.Class,
-                ItemUrl = "https://example.com/products/123",
-                ImageUrl = "https://example.com/products/123.jpg",
-                Description = "Product 1 description",
-                QuantityUnit = "pcs",
-                UnitPrice = line.Product.Price * 100,
-                VatPercent = 0, //TODO Correct VatPercent
-                VatAmount = 0, //TODO Correct VatAmount
-            }).ToList();
+            var orderItems = order.Lines.ToOrderItems();
+            //var orderItems = order.Lines.Select(line => new OrderItem
+            //{
+            //    Amount = (int?)line.CalculateTotal() * 100,
+            //    Quantity = line.Quantity,
+            //    Reference = line.Product.Reference,
+            //    Name = line.Product.Name,
+            //    Type = line.Product.Type,
+            //    Class = line.Product.Class,
+            //    ItemUrl = "https://example.com/products/123",
+            //    ImageUrl = "https://example.com/products/123.jpg",
+            //    Description = "Product 1 description",
+            //    QuantityUnit = "pcs",
+            //    UnitPrice = line.Product.Price * 100,
+            //    VatPercent = 0, //TODO Correct VatPercent
+            //    VatAmount = 0, //TODO Correct VatAmount
+            //}).ToList();
 
             var transActionRequestObject = new TransactionRequest
             {
                 PayeeReference = DateTime.Now.Ticks.ToString(),
-                Amount = order.Lines.Sum(e => e.Quantity * e.Product.Price) * 100,
+                Amount = Amount.FromDecimal(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
                 VatAmount = 0, //TODO Correct amount
                 Description = description,
-                OrderItems = orderItems
+                OrderItems = orderItems.ToList()
             };
 
             return transActionRequestObject;
-
         }
-
 
         [HttpPost]
         public void OnCompleted(string paymentLinkId)
@@ -223,10 +177,5 @@
             });
             this.context.SaveChanges(true);
         }
-
-
-
-
-
     }
 }

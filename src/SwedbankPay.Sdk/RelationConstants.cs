@@ -35,6 +35,7 @@ namespace SwedbankPay.Sdk
         public const string CreateCancellation = "create-cancellation";
         public const string RedirectAuthorization = "redirect-authorization";
         public const string CreateReversal = "create-reversal";
+        public const string PaidPayment = "paid-payment";
     }
 
 }

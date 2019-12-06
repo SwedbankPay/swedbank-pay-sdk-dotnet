@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-
-using SwedbankPay.Sdk.JsonSerialization;
+﻿using Sample.AspNetCore.Extensions;
 
 namespace Sample.AspNetCore.Controllers
 {
@@ -17,9 +15,8 @@ namespace Sample.AspNetCore.Controllers
 
     public class CheckOutController : Controller
     {
-        public const string CartSessionKey = "_Cart";
         private readonly PayeeInfo payeeInfoOptions;
-        private Cart cartService;
+        private readonly Cart cartService;
         private readonly SwedbankPayClient swedbankPayClient;
 
         public CheckOutController(IOptionsMonitor<PayeeInfo> payeeInfoOptionsAccessor,
@@ -34,7 +31,7 @@ namespace Sample.AspNetCore.Controllers
         {
             this.payeeInfoOptions.PayeeReference = DateTime.Now.Ticks.ToString();
 
-            var totalAmount = this.cartService.CalculateTotal() * 100;
+            var totalAmount = this.cartService.CalculateTotal();
             var paymentOrderRequest = CreatePaymentOrderRequest(totalAmount, 0); //TODO Correct VatAmount
             
             paymentOrderRequest.OrderItems = new List<OrderItem>();
@@ -45,23 +42,29 @@ namespace Sample.AspNetCore.Controllers
                     ConsumerProfileRef = consumerProfileRef
                 };
             }
-            var orderItems = this.cartService.CartLines.Select(line => new OrderItem
-            {
-                Amount = (int?)line.CalculateTotal() * 100,
-                Quantity = line.Quantity,
-                Reference = line.Product.Reference,
-                Name = line.Product.Name,
-                Type = line.Product.Type,
-                Class = line.Product.Class,
-                ItemUrl = "https://example.com/products/123",
-                ImageUrl = "https://example.com/products/123.jpg",
-                Description = "Product 1 description",
-                QuantityUnit = "pcs",
-                UnitPrice = line.Product.Price * 100,
-                VatPercent = 0, //TODO Correct VatPercent
-                VatAmount = 0, //TODO Correct VatAmount
-            }).ToList();
-            paymentOrderRequest.OrderItems = orderItems;
+            //var orderItems = this.cartService.CartLines.Select(line => new OrderItem
+            //{
+            //    Amount = (int?)line.CalculateTotal() * 100,
+            //    Quantity = line.Quantity,
+            //    Reference = line.Product.Reference,
+            //    Name = line.Product.Name,
+            //    Type = line.Product.Type,
+            //    Class = line.Product.Class,
+            //    ItemUrl = "https://example.com/products/123",
+            //    ImageUrl = "https://example.com/products/123.jpg",
+            //    Description = "Product 1 description",
+            //    QuantityUnit = "pcs",
+            //    UnitPrice = line.Product.Price * 100,
+            //    VatPercent = 0, //TODO Correct VatPercent
+            //    VatAmount = 0, //TODO Correct VatAmount
+            //}).ToList();
+            //var orderItems = this.cartService.CartLines
+            //    .Select(line => new OrderItem(line.Product.Reference, line.Product.Name, line.Product.Type, line.Product.Class,
+            //                                  line.Quantity, "pcs", line.Product.Price * 100, 0, (int?)line.CalculateTotal() * 100, 0))
+            //    .ToList();
+            var orderItems = this.cartService.CartLines.ToOrderItems();
+
+            paymentOrderRequest.OrderItems = orderItems.ToList();
             
             var paymentOrder = await this.swedbankPayClient.PaymentOrder.Create(paymentOrderRequest);
             
@@ -97,12 +100,12 @@ namespace Sample.AspNetCore.Controllers
             return View("Checkout", swedBankPaySource);
         }
 
-        private PaymentOrderRequest CreatePaymentOrderRequest(long amount, long vatAmount)
+        private PaymentOrderRequest CreatePaymentOrderRequest(decimal amount, decimal vatAmount)
         {
             var paymentOrderRequest = new PaymentOrderRequest
             {
-                Amount = amount,
-                VatAmount = vatAmount,
+                Amount = Amount.FromDecimal(amount),
+                VatAmount = Amount.FromDecimal(vatAmount),
                 Currency = new CurrencyCode("SEK"),
                 Description = "Description",
                 Language = new Language("sv-SE"),
@@ -114,9 +117,8 @@ namespace Sample.AspNetCore.Controllers
 
         public async Task<IActionResult> InitiateConsumerSession()
         {
-            var initiateConsumerRequest = new ConsumersRequest();
-            initiateConsumerRequest.ConsumerCountryCode = CountryCode.SE;
-           
+            var initiateConsumerRequest = new ConsumersRequest { ConsumerCountryCode = CountryCode.SE };
+
             var response = await this.swedbankPayClient.Consumers.InitiateSession(initiateConsumerRequest);
             var jsSource = response.Operations.FirstOrDefault(x => x.Rel.Value == ConsumerResourceOperations.ViewConsumerIdentification)?.Href;
 

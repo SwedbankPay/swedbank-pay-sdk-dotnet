@@ -1,15 +1,8 @@
-
-
 namespace Sample.AspNetCore
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.HttpsPolicy;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
@@ -25,7 +18,6 @@ namespace Sample.AspNetCore
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-
         }
 
         public IConfiguration Configuration { get; }
@@ -34,11 +26,8 @@ namespace Sample.AspNetCore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<StoreDbContext>(options => options.UseInMemoryDatabase("Products"));
-
             services.AddControllersWithViews();
             services.AddDistributedMemoryCache();
-            //services.Configure<SwedbankPayOptions>(Configuration.GetSection("SwedbankPayOptions"));
-            //services.Configure<SwedbankPayOptions>(opt => opt.Token = Configuration["Token"]);
             services.Configure<PayeeInfo>(options =>
             {
                 options.PayeeId = Configuration.GetSection("PayeeInfo")["PayeeId"];
@@ -48,7 +37,6 @@ namespace Sample.AspNetCore
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSwedbankPayClient(Configuration, "someAccount");
             services.AddSession();
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

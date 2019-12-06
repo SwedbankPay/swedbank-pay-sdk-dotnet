@@ -27,6 +27,7 @@ namespace SwedbankPay.Sdk
         public static readonly LinkRelation CreateCapture = new LinkRelation(nameof(CreateCapture), PaymentResourceOperations.CreateCapture);
         public static readonly LinkRelation CreateReversal = new LinkRelation(nameof(CreateReversal), PaymentResourceOperations.CreateReversal);
         public static readonly LinkRelation PaidPaymentOrder = new LinkRelation(nameof(PaidPaymentOrder), PaymentOrderResourceOperations.PaidPaymentOrder);
+        public static readonly LinkRelation PaidPayment = new LinkRelation(nameof(PaidPayment), PaymentResourceOperations.PaidPayment);
 
         public LinkRelation(string name, string value) : base(name, value)
         {

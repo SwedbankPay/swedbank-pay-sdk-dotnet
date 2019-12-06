@@ -24,7 +24,7 @@
             var paymentOrder = await this.Sut.PaymentOrder.Create(paymentOrderRequest);
             //PaymentOrders.CreatePaymentOrder(paymentOrderRequest, PaymentOrderExpand.All);
             Assert.NotNull(paymentOrder.PaymentOrderResponse);
-            Assert.Equal(paymentOrderRequest.Amount, paymentOrder.PaymentOrderResponse.Amount);
+            Assert.Equal(paymentOrderRequest.Amount.Value, paymentOrder.PaymentOrderResponse.Amount.Value);
         }
 
         [Fact]
@@ -63,8 +63,8 @@
         {
             return new PaymentOrderRequest
             {
-                Amount = amount,
-                VatAmount = vatAmount,
+                Amount = Amount.FromDecimal(amount),
+                VatAmount = Amount.FromDecimal(vatAmount),
                 Currency = new CurrencyCode("SEK"),
                 Description = "Description",
                 Language = new Language("sv-SE"),
@@ -76,7 +76,5 @@
                 }
             };
         }
-
-
     }
 }

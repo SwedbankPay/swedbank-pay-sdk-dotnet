@@ -35,7 +35,9 @@
                 new CustomCurrencyCodeConverter(typeof(CurrencyCode)),
                 new CustomLanguageConverter(typeof(Language)),
                 new CustomUriConverter(),
-                new TypedSafeEnumValueConverter<LinkRelation, string>()
+                new TypedSafeEnumValueConverter<LinkRelation, string>(),
+                new TypedSafeEnumValueConverter<OrderItemType, string>(),
+                new CustomAmountConverter(typeof(Amount))
             },
             NullValueHandling = NullValueHandling.Ignore,
             DateFormatString = "yyyyMMdd"

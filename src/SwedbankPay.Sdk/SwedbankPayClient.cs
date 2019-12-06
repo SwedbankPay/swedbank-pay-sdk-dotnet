@@ -15,9 +15,7 @@
         public IPaymentOrderResource PaymentOrder { get; }
         public IPaymentsResource Payment { get; }
         public IConsumersResource Consumers { get; }
-        //internal SwedbankPayHttpClient SwedbankPayHttpClient { get; set; }
-        //internal SwedbankPayOptions Options { get; set; }
-
+        
         public SwedbankPayClient(SwedbankPayOptions swedbankPayOptions,
                                  HttpClient httpClient,
                                  ILogger logger = null)
@@ -31,8 +29,6 @@
             PaymentOrder = new PaymentOrderResource(swedbankPayOptions, swedbankLogger, httpClient);
             Payment = new PaymentsResource(swedbankPayOptions, swedbankLogger, httpClient);
             Consumers = new ConsumersResource(swedbankPayOptions, swedbankLogger, httpClient);
-            //SwedbankPayHttpClient = new SwedbankPayHttpClient(httpClient, swedbankLogger);
-            //Options = swedbankPayOptions;
         }
     }
 }

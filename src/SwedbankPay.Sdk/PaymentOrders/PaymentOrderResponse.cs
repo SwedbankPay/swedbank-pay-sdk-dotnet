@@ -11,11 +11,11 @@
         public string Operation { get; set; }
         public State State { get; set; }
         public CurrencyCode Currency { get; set; }
-        public long Amount { get; set; }
-        public long VatAmount { get; set; }
-        public long RemainingCaptureAmount { get; set; }
-        public long RemainingCancellationAmount { get; set; }
-        public long RemainingReversalAmount { get; set; }
+        public Amount Amount { get; set; }
+        public Amount VatAmount { get; set; }
+        public Amount RemainingCaptureAmount { get; set; }
+        public Amount RemainingCancellationAmount { get; set; }
+        public Amount RemainingReversalAmount { get; set; }
         public string Description { get; set; }
         public string UserAgent { get; set; }
         public Language Language { get; set; }

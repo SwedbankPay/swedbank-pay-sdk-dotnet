@@ -1,28 +1,24 @@
 ﻿#region License
+
 // --------------------------------------------------
 // Copyright © Swedbank Pay. All Rights Reserved.
 // 
 // This software is proprietary information of Swedbank Pay.
 // USE IS SUBJECT TO LICENSE TERMS.
 // --------------------------------------------------
+
 #endregion
 
 using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-
 using SwedbankPay.Sdk.Exceptions;
-using SwedbankPay.Sdk.PaymentOrders;
 using SwedbankPay.Sdk.Payments;
 using SwedbankPay.Sdk.Transactions;
 
-namespace SwedbankPay.Sdk
+namespace SwedbankPay.Sdk.PaymentOrders
 {
     public class PaymentOrder
     {
@@ -118,60 +114,4 @@ namespace SwedbankPay.Sdk
         }
 
     }
-
-    public class Operations : Dictionary<LinkRelation, HttpOperation>
-    {
-        public ExecuteRequestWrapper<TransactionRequestContainer, CancellationTransactionResponseContainer> Cancel { get; internal set; }
-        public ExecuteRequestWrapper<TransactionRequestContainer, CaptureTransactionResponseContainer> Capture { get; internal set; }
-
-        public ExecuteRequestWrapper<PaymentOrderRequestContainer, PaymentOrderResponseContainer> Update { get; internal set; }
-        public ExecuteRequestWrapper<TransactionRequestContainer, ReversalTransactionResponseContainer> Reversal { get; internal set; }
-        public ExecuteWrapper<PaymentOrderResponseContainer> Abort { get; internal set; }
-        public HttpOperation View { get; internal set; }
-        public HttpOperation this[LinkRelation rel] => ContainsKey(rel) ? base[rel] : null;
-    }
-
-    public class ExecuteRequestWrapper<TRequest, TResponse>
-        where TResponse : new()
-    {
-        private readonly HttpRequestMessage HttpRequestMessage;
-        private readonly Func<ProblemsContainer, Exception> OnError;
-
-        internal ExecuteRequestWrapper(HttpRequestMessage httpRequestMessage, SwedbankPayHttpClient swedbankPayHttpClient, Func<ProblemsContainer, Exception> onError)
-        {
-            this.HttpRequestMessage = httpRequestMessage;
-            this.Client = swedbankPayHttpClient;
-            this.OnError = onError;
-        }
-        public async Task<TResponse> Execute(TRequest objRequest)
-        {
-            return await this.Client.HttpRequest<TResponse>(this.HttpRequestMessage, this.OnError, objRequest); 
-        }
-
-        private SwedbankPayHttpClient Client { get; set; }
-    }
-
-    public class ExecuteWrapper<TResponse> where TResponse : new()
-    {
-        protected readonly HttpRequestMessage HttpRequestMessage;
-        private readonly Func<ProblemsContainer, Exception> OnError;
-        private readonly object Request;
-        internal ExecuteWrapper(HttpRequestMessage httpRequestMessage, SwedbankPayHttpClient swedbankPayHttpClient, Func<ProblemsContainer, Exception> onError, object request = null)
-        {
-            this.HttpRequestMessage = httpRequestMessage;
-            this.OnError = onError;
-            this.Client = swedbankPayHttpClient;
-            this.Request = request;
-        }
-        public async Task<TResponse> Execute()
-        {
-            return await this.Client.HttpRequest<TResponse>(this.HttpRequestMessage, this.OnError, this.Request);
-        }
-
-        private SwedbankPayHttpClient Client { get; set; }
-
-    }
-
-    
-
 }

@@ -16,6 +16,8 @@
         [Required(ErrorMessage = "Please provide a number greater than zero!")]
         [Display(Name = "Unit price")]
         [Range(1, Int32.MaxValue)]
-        public long Price { get; set; }
+        public decimal Price { get; set; }
+
+        public int VatPercentage { get; set; }
     }
 }

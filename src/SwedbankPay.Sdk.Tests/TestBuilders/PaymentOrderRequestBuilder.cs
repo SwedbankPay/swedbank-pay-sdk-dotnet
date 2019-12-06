@@ -18,8 +18,8 @@
             this.paymentOrderRequest = new PaymentOrderRequest
             {
                 Currency = new CurrencyCode("SEK"),
-                Amount = 1300,
-                VatAmount = 0,
+                Amount = Amount.FromDecimal(1700),
+                VatAmount = Amount.FromDecimal(0),
                 Description = "Test Description",
                 GenerateRecurrenceToken = false,
                 UserAgent = "useragent",
@@ -39,48 +39,10 @@
         {
             this.paymentOrderRequest.OrderItems = new List<OrderItem>
             {
-                new OrderItem
-                {
-                    Reference = "p1",
-                    Name = "Product1",
-                    Type = "PRODUCT",
-                    Class = "ProductGroup1",
-                    ItemUrl = "https://example.com/products/123",
-                    ImageUrl = "https://example.com/products/123.jpg",
-                    Description = "Product 1 description",
-                    DiscountDescription = "Volume discount",
-                    Quantity = 4,
-                    QuantityUnit = "pcs",
-                    UnitPrice = 300,
-                    DiscountPrice = 200,
-                    VatPercent = 0,
-                    Amount = 800,
-                    VatAmount = 0
-                },
-                new OrderItem
-                {
-                    Reference = "p2",
-                    Name = "Product2",
-                    Type = "PRODUCT",
-                    Class = "ProductGroup1",
-                    Description = "Product 2 description",
-                    DiscountDescription = "Volume discount",
-                    Quantity = 1,
-                    QuantityUnit = "pcs",
-                    UnitPrice = 500,
-                    VatPercent = 0,
-                    Amount = 500,
-                    VatAmount = 0
-                }
+                new OrderItem("p1", "Product1", OrderItemType.Product, "ProductGroup1", 4, "pcs", Amount.FromDecimal(300), 0, Amount.FromDecimal(1200), Amount.FromDecimal(0), "https://example.com/products/123", "https://example.com/products/123.jpg"),
+                new OrderItem("p2", "Product2", OrderItemType.Product, "ProductGroup1", 1, "pcs", Amount.FromDecimal(500), 0, Amount.FromDecimal(500), Amount.FromDecimal(0))
             };
-            this.paymentOrderRequest.Amount =
-                this.paymentOrderRequest.OrderItems.Select(a => a.Amount).Sum();
-            return this;
-        }
-
-        public PaymentOrderRequestBuilder WithVat()
-        {
-           this.paymentOrderRequest.VatAmount = (long?)(this.paymentOrderRequest.Amount * 0.25);
+            this.paymentOrderRequest.Amount = Amount.FromDecimal(this.paymentOrderRequest.OrderItems.Select(a => a.Amount.Value).Sum());
 
             return this;
         }
