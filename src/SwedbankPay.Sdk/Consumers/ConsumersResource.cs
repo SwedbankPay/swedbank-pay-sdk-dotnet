@@ -21,13 +21,9 @@
         /// </summary>
         /// <param name="consumersRequest"></param>
         /// <returns></returns>
-        public async Task<ConsumersResponse> InitiateSession(ConsumersRequest consumersRequest)
+        public async Task<Consumer> InitiateSession(ConsumersRequest consumersRequest)
         {
-            var url = "/psp/consumers";
-
-            Exception OnError(ProblemsContainer m) => new CouldNotInitiateConsumerSessionException(consumersRequest, m);
-            var res = await this.swedbankPayClient.HttpRequest<ConsumersResponse>(HttpMethod.Post, url, OnError, consumersRequest);
-            return res;
+            return await Consumer.Initiate(consumersRequest, this.swedbankPayClient);
         }
 
         /// <summary>

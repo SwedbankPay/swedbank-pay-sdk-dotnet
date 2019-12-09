@@ -20,11 +20,11 @@
             var orderResoureRequest = this.consumerResourceRequestContainer.WithTestValues()
                                                                                 .Build();
             //ACT
-            var orderResourceResponse = await this.Sut.Consumers.InitiateSession(orderResoureRequest.ConsumersRequest);
+            var consumer = await this.Sut.Consumers.InitiateSession(orderResoureRequest.ConsumersRequest);
             //ASSERT
 
-            Assert.NotNull(orderResourceResponse);
-            Assert.NotNull(orderResourceResponse.Token);
+            Assert.NotNull(consumer);
+            Assert.NotNull(consumer.ConsumersResponse.Token);
 
         }
 
@@ -35,12 +35,12 @@
             var orderResoureRequest = this.consumerResourceRequestContainer.WithTestValues()
                 .Build();
             //ACT
-            var orderResourceResponse = await this.Sut.Consumers.InitiateSession(orderResoureRequest.ConsumersRequest);
+            var consumer = await this.Sut.Consumers.InitiateSession(orderResoureRequest.ConsumersRequest);
             //ASSERT
 
-            Assert.NotNull(orderResourceResponse);
-            Assert.NotNull(orderResourceResponse.Token);
-            Assert.NotEqual(string.Empty, orderResourceResponse.Token);
+            Assert.NotNull(consumer);
+            Assert.NotNull(consumer.ConsumersResponse.Token);
+            Assert.NotEqual(string.Empty, consumer.ConsumersResponse.Token);
         }
 
         [Fact]
@@ -51,12 +51,12 @@
                 .Build();
 
             //ACT
-            var orderResourceResponse = await this.Sut.Consumers.InitiateSession(orderResoureRequest.ConsumersRequest);
+            var consumer = await this.Sut.Consumers.InitiateSession(orderResoureRequest.ConsumersRequest);
 
             //ASSERT
-            Assert.NotNull(orderResourceResponse);
-            Assert.NotNull(orderResourceResponse.Operations);
-            Assert.NotEmpty(orderResourceResponse.Operations);
+            Assert.NotNull(consumer);
+            Assert.NotNull(consumer.Operations);
+            Assert.NotEmpty(consumer.Operations);
 
         }
 

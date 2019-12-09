@@ -7,7 +7,7 @@
                          string name,
                          OrderItemType type,
                          string @class,
-                         int quantity,
+                         decimal quantity,
                          string quantityUnit,
                          Amount unitPrice,
                          int vatPercent,
@@ -83,7 +83,7 @@
         /// <summary>
         /// The quantity of order items being purchased.
         /// </summary>
-        public int Quantity { get; }
+        public decimal Quantity { get; }
 
         /// <summary>
         /// The unit of the quantity, such as pcs, grams, or similar.

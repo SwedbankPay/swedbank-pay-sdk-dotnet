@@ -1,6 +1,4 @@
-﻿using SwedbankPay.Sdk.Transactions;
-
-namespace Sample.AspNetCore.Controllers
+﻿namespace Sample.AspNetCore.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
@@ -43,8 +41,6 @@ namespace Sample.AspNetCore.Controllers
             }
 
             var paymentOrder = await this.swedbankPayClient.PaymentOrder.Get(order.PaymentOrderLink);
-            
-            //var response = await this.swedbankPayClient.PaymentOrders.GetPaymentOrder(order.PaymentOrderLink);
 
             var paymentOrderOperations = paymentOrder.Operations.Where(r => r.Key.Value.Contains("paymentorder")).Select(x => x.Value);
             

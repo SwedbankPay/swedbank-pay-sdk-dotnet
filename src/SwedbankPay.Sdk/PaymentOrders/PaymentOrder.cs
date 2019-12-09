@@ -1,25 +1,13 @@
-﻿#region License
-
-// --------------------------------------------------
-// Copyright © Swedbank Pay. All Rights Reserved.
-// 
-// This software is proprietary information of Swedbank Pay.
-// USE IS SUBJECT TO LICENSE TERMS.
-// --------------------------------------------------
-
-#endregion
-
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
-
-using SwedbankPay.Sdk.Exceptions;
-using SwedbankPay.Sdk.Payments;
-using SwedbankPay.Sdk.Transactions;
-
-namespace SwedbankPay.Sdk.PaymentOrders
+﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Net.Http;
+    using System.Threading.Tasks;
+
+    using SwedbankPay.Sdk.Exceptions;
+    using SwedbankPay.Sdk.Payments;
+    using SwedbankPay.Sdk.Transactions;
     public class PaymentOrder
     {
         private PaymentOrder(PaymentOrderResponseContainer paymentOrderResponseContainer, SwedbankPayHttpClient client, SwedbankPayOptions swedbankPayOptions)
@@ -43,7 +31,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                         operations.Reversal = new ExecuteRequestWrapper<TransactionRequestContainer, ReversalTransactionResponseContainer>(httpOperation.Request, client, m => new CouldNotPostTransactionException(httpOperation.Href, m));
                         break;
                     case PaymentOrderResourceOperations.UpdatePaymentOrderUpdateOrder:
-                        operations.Update = new ExecuteRequestWrapper<PaymentOrderRequestContainer, PaymentOrderResponseContainer>(httpOperation.Request, client, m => new CouldNotUpdatePaymentOrderException(httpOperation.Href, m));
+                        operations.Update = new ExecuteRequestWrapper<PaymentOrderUpdateRequestContainer, PaymentOrderResponseContainer>(httpOperation.Request, client, m => new CouldNotUpdatePaymentOrderException(httpOperation.Href, m));
                         break;
                     case PaymentOrderResourceOperations.UpdatePaymentOrderAbort:
                         operations.Abort = new ExecuteWrapper<PaymentOrderResponseContainer>(httpOperation.Request, client, m => new CouldNotPostTransactionException(httpOperation.Href, m), new PaymentAbortRequestContainer());

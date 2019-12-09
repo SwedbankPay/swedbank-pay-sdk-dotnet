@@ -38,6 +38,6 @@ namespace SwedbankPay.Sdk
 
         public string ContentType { get; }
 
-        public HttpRequestMessage Request { get; set; }
+        public HttpRequestMessage Request { get; }
     }
 }

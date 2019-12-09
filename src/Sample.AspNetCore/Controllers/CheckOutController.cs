@@ -42,26 +42,7 @@ namespace Sample.AspNetCore.Controllers
                     ConsumerProfileRef = consumerProfileRef
                 };
             }
-            //var orderItems = this.cartService.CartLines.Select(line => new OrderItem
-            //{
-            //    Amount = (int?)line.CalculateTotal() * 100,
-            //    Quantity = line.Quantity,
-            //    Reference = line.Product.Reference,
-            //    Name = line.Product.Name,
-            //    Type = line.Product.Type,
-            //    Class = line.Product.Class,
-            //    ItemUrl = "https://example.com/products/123",
-            //    ImageUrl = "https://example.com/products/123.jpg",
-            //    Description = "Product 1 description",
-            //    QuantityUnit = "pcs",
-            //    UnitPrice = line.Product.Price * 100,
-            //    VatPercent = 0, //TODO Correct VatPercent
-            //    VatAmount = 0, //TODO Correct VatAmount
-            //}).ToList();
-            //var orderItems = this.cartService.CartLines
-            //    .Select(line => new OrderItem(line.Product.Reference, line.Product.Name, line.Product.Type, line.Product.Class,
-            //                                  line.Quantity, "pcs", line.Product.Price * 100, 0, (int?)line.CalculateTotal() * 100, 0))
-            //    .ToList();
+            
             var orderItems = this.cartService.CartLines.ToOrderItems();
 
             paymentOrderRequest.OrderItems = orderItems.ToList();
@@ -118,10 +99,9 @@ namespace Sample.AspNetCore.Controllers
         public async Task<IActionResult> InitiateConsumerSession()
         {
             var initiateConsumerRequest = new ConsumersRequest { ConsumerCountryCode = CountryCode.SE };
-
             var response = await this.swedbankPayClient.Consumers.InitiateSession(initiateConsumerRequest);
-            var jsSource = response.Operations.FirstOrDefault(x => x.Rel.Value == ConsumerResourceOperations.ViewConsumerIdentification)?.Href;
-
+            var jsSource = response.Operations.ViewConsumerIdentification?.Href;
+            
             var swedBankPaySource = new SwedbankPayCheckoutSource
             {
                 JavascriptSource = jsSource,

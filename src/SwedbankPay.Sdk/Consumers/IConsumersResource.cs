@@ -11,7 +11,7 @@
         /// <exception cref="InvalidConfigurationSettingsException"></exception>
         /// <exception cref="CouldNotInitiateConsumerSessionException"></exception>
         /// <returns></returns>
-        Task<ConsumersResponse> InitiateSession(ConsumersRequest consumersRequest);
+        Task<Consumer> InitiateSession(ConsumersRequest consumersRequest);
 
         Task<ShippingDetails> GetShippingDetails(string url);
         Task<BillingDetails> GetBillingDetails(string url);

@@ -20,7 +20,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public ExecuteRequestWrapper<TransactionRequestContainer, CancellationTransactionResponseContainer> Cancel { get; internal set; }
         public ExecuteRequestWrapper<TransactionRequestContainer, CaptureTransactionResponseContainer> Capture { get; internal set; }
 
-        public ExecuteRequestWrapper<PaymentOrderRequestContainer, PaymentOrderResponseContainer> Update { get; internal set; }
+        public ExecuteRequestWrapper<PaymentOrderUpdateRequestContainer, PaymentOrderResponseContainer> Update { get; internal set; }
         public ExecuteRequestWrapper<TransactionRequestContainer, ReversalTransactionResponseContainer> Reversal { get; internal set; }
         public ExecuteWrapper<PaymentOrderResponseContainer> Abort { get; internal set; }
         public HttpOperation View { get; internal set; }

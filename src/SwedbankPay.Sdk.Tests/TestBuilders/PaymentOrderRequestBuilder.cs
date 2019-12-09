@@ -15,24 +15,19 @@
         public PaymentOrderRequestBuilder WithTestValues()
         {
 
-            this.paymentOrderRequest = new PaymentOrderRequest
+            this.paymentOrderRequest.Currency = new CurrencyCode("SEK");
+            this.paymentOrderRequest.Amount = Amount.FromDecimal(1700);
+            this.paymentOrderRequest.VatAmount = Amount.FromDecimal(0);
+            this.paymentOrderRequest.Description = "Test Description";
+            this.paymentOrderRequest.GenerateRecurrenceToken = false;
+            this.paymentOrderRequest.UserAgent = "useragent";
+            this.paymentOrderRequest.Language = new Language("sv-SE");
+            this.paymentOrderRequest.PayeeInfo = new PayeeInfo
             {
-                Currency = new CurrencyCode("SEK"),
-                Amount = Amount.FromDecimal(1700),
-                VatAmount = Amount.FromDecimal(0),
-                Description = "Test Description",
-                GenerateRecurrenceToken = false,
-                UserAgent = "useragent",
-                Language = new Language("sv-SE"),
-                PayeeInfo = new PayeeInfo
-                {
-                    PayeeId = "91a4c8e0-72ac-425c-a687-856706f9e9a1",
-                    PayeeReference = DateTime.Now.Ticks.ToString()
-                }
+                PayeeId = "91a4c8e0-72ac-425c-a687-856706f9e9a1",
+                PayeeReference = DateTime.Now.Ticks.ToString()
             };
-
             return this;
-
         }
 
         public PaymentOrderRequestBuilder WithOrderItems()
@@ -42,7 +37,7 @@
                 new OrderItem("p1", "Product1", OrderItemType.Product, "ProductGroup1", 4, "pcs", Amount.FromDecimal(300), 0, Amount.FromDecimal(1200), Amount.FromDecimal(0), "https://example.com/products/123", "https://example.com/products/123.jpg"),
                 new OrderItem("p2", "Product2", OrderItemType.Product, "ProductGroup1", 1, "pcs", Amount.FromDecimal(500), 0, Amount.FromDecimal(500), Amount.FromDecimal(0))
             };
-            this.paymentOrderRequest.Amount = Amount.FromDecimal(this.paymentOrderRequest.OrderItems.Select(a => a.Amount.Value).Sum());
+            //this.paymentOrderRequest.Amount = Amount.FromDecimal(this.paymentOrderRequest.OrderItems.Select(a => a.Amount.Value).Sum());
 
             return this;
         }

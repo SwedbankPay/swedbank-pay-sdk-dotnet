@@ -39,7 +39,18 @@
         {
             try
             {
-                var value = (long)reader.Value;
+                long value;
+                if (reader.Value == null)
+                {
+                    var jo = JObject.Load(reader);
+
+                    value = (long)jo.First.Values().FirstOrDefault();
+                }
+                else
+                {
+                    value = (long)reader.Value;
+                }
+               
                 return new Amount(value);
             }
             catch (Exception exception)

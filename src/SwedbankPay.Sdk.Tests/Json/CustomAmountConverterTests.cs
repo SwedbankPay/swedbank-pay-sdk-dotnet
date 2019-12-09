@@ -20,6 +20,7 @@ namespace SwedbankPay.Sdk.Tests.Json
             //ARRANGE
 
             var jsonObject = new JObject();
+           
             jsonObject.Add("xX123xxaddress", this.expectedAmount);
 
             //ACT
