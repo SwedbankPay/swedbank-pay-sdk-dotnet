@@ -32,7 +32,7 @@
 
         internal async Task<TResponse> HttpPatch<TPayLoad, TResponse>(string url, Func<ProblemsContainer, Exception> onError, TPayLoad payload) where TResponse : new()
         {
-            return await HttpRequest<TResponse>(HttpMethod.Patch, url, onError, payload);
+            return await HttpRequest<TResponse>(new HttpMethod("PATCH"), url, onError, payload);
         }
 
         internal async Task<TResponse> HttpGet<TResponse>(string url, Func<ProblemsContainer, Exception> onError) where TResponse : new()
