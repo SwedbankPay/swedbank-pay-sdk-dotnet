@@ -11,7 +11,7 @@
         /// The operation that the payment order is supposed to perform.
         /// </summary>
 
-        public Operation Operation { get; internal set; }
+        public Operation Operation { get; }
         
         /// <summary>
         /// The amount including VAT in the lowest monetary unit of the currency. E.g. 10000 equals 100.00 NOK and 5000 equals 50.00 NOK.
