@@ -1,11 +1,13 @@
-﻿namespace Sample.AspNetCore.SystemTests.Services
+﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.IE;
+
+using Sample.AspNetCore.SystemTests.Test.Base;
+
+namespace Sample.AspNetCore.SystemTests.Services
 {
-    using OpenQA.Selenium;
-    using OpenQA.Selenium.Chrome;
-    using OpenQA.Selenium.Firefox;
-    using OpenQA.Selenium.IE;
-    using OpenQA.Selenium.Remote;
-    using static Sample.AspNetCore.SystemTests.Test.Base.Drivers;
+    using static Drivers;
 
     public static class DriverOptionsFactory
     {
@@ -18,14 +20,12 @@
                     var chromeOptions = new ChromeOptions { AcceptInsecureCertificates = true };
                     chromeOptions.AddArguments("--incognito", "--disable-infobars", "--disable-notifications", "disable-extensions");
 
-
                     /* Not working yet */
                     //ChromePerformanceLoggingPreferences perfLogPrefs = new ChromePerformanceLoggingPreferences();
                     //perfLogPrefs.AddTracingCategories(new string[] { "devtools.network", "devtools.timeline" });
                     //chromeOptions.PerformanceLoggingPreferences = perfLogPrefs;
                     //chromeOptions.AddAdditionalCapability("goog:loggingPrefs", true, true);
                     //chromeOptions.SetLoggingPreference("performance", LogLevel.All);
-
 
                     return chromeOptions;
 
@@ -47,7 +47,7 @@
                         AcceptInsecureCertificates = true,
                         BrowserCommandLineArguments = "",
                         EnsureCleanSession = true,
-                        RequireWindowFocus = false,
+                        RequireWindowFocus = false
                     };
 
                 default:

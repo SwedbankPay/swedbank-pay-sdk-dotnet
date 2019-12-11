@@ -15,25 +15,32 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk
 {
-    public class ExecuteWrapper<TResponse> where TResponse : new()
+    public class ExecuteWrapper<TResponse>
+        where TResponse : new()
     {
         protected readonly HttpRequestMessage HttpRequestMessage;
         private readonly Func<ProblemsContainer, Exception> OnError;
         private readonly object Request;
 
-        internal ExecuteWrapper(HttpRequestMessage httpRequestMessage, SwedbankPayHttpClient swedbankPayHttpClient, Func<ProblemsContainer, Exception> onError, object request = null)
+
+        internal ExecuteWrapper(HttpRequestMessage httpRequestMessage,
+                                SwedbankPayHttpClient swedbankPayHttpClient,
+                                Func<ProblemsContainer, Exception> onError,
+                                object request = null)
         {
             this.HttpRequestMessage = httpRequestMessage;
             this.OnError = onError;
-            this.Client = swedbankPayHttpClient;
+            Client = swedbankPayHttpClient;
             this.Request = request;
         }
+
+
+        private SwedbankPayHttpClient Client { get; }
+
+
         public async Task<TResponse> Execute()
         {
-            return await this.Client.HttpRequest<TResponse>(this.HttpRequestMessage, this.OnError, this.Request);
+            return await Client.HttpRequest<TResponse>(this.HttpRequestMessage, this.OnError, this.Request);
         }
-
-        private SwedbankPayHttpClient Client { get; set; }
-
     }
 }

@@ -1,13 +1,9 @@
-﻿namespace SwedbankPay.Sdk.Payments
-{
-    using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
+namespace SwedbankPay.Sdk.Payments
+{
     public class SaleResponseContainer
     {
-        public string Payment { get; }
-        public SaleListContainer Sales { get; }
-
-
         public SaleResponseContainer()
         {
         }
@@ -19,5 +15,9 @@
             Payment = payment;
             Sales = sales;
         }
+
+
+        public string Payment { get; }
+        public SaleListContainer Sales { get; }
     }
 }

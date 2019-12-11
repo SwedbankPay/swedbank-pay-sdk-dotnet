@@ -7,6 +7,7 @@
         public static readonly Operation Verify = new Operation(nameof(Verify), "Verify");
         public static readonly Operation Initiate = new Operation(nameof(Initiate), "initiate-consumer-session");
 
+
         public Operation(string name, string value)
             : base(name, value)
         {

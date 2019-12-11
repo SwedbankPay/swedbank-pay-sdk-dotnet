@@ -1,15 +1,13 @@
-﻿namespace SwedbankPay.Sdk.JsonSerialization
+﻿using System.Collections.Generic;
+
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
+
+using SwedbankPay.Sdk.PaymentOrders;
+
+namespace SwedbankPay.Sdk.JsonSerialization
 {
-    using System;
-    using System.Collections.Generic;
-
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Converters;
-    using Newtonsoft.Json.Serialization;
-
-    using SwedbankPay.Sdk.PaymentOrders;
-    using SwedbankPay.Sdk.Payments;
-
     public class JsonSerialization
     {
         public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings

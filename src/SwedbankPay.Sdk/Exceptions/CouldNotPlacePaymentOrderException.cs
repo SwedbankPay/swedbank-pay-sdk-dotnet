@@ -1,18 +1,20 @@
-﻿namespace SwedbankPay.Sdk.Exceptions
+﻿using System;
+
+using SwedbankPay.Sdk.PaymentOrders;
+
+namespace SwedbankPay.Sdk.Exceptions
 {
-    using SwedbankPay.Sdk.PaymentOrders;
-
-    using System;
-
     public class CouldNotPlacePaymentOrderException : Exception
     {
-        public ProblemsContainer Problems { get; }
-        public PaymentOrderRequestContainer Payment { get; }
-
-        public CouldNotPlacePaymentOrderException(PaymentOrderRequestContainer payment, ProblemsContainer problems) : base(problems.ToString())
+        public CouldNotPlacePaymentOrderException(PaymentOrderRequestContainer payment, ProblemsContainer problems)
+            : base(problems.ToString())
         {
             Problems = problems;
             Payment = payment;
         }
+
+
+        public PaymentOrderRequestContainer Payment { get; }
+        public ProblemsContainer Problems { get; }
     }
 }

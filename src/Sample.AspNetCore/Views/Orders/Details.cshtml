@@ -1,5 +1,4 @@
-﻿
-@using SwedbankPay.Sdk
+﻿@using SwedbankPay.Sdk
 @model Sample.AspNetCore.Models.ViewModels.OrderViewModel
 
 @{
@@ -32,7 +31,7 @@ else if (TempData["ErrorMessage"] != null)
 
 <div>
     <h4>Order</h4>
-    <hr />
+    <hr/>
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Order.PaymentOrderLink)
@@ -51,63 +50,65 @@ else if (TempData["ErrorMessage"] != null)
 
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.OperationList[0].Method)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OperationList[0].Rel)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OperationList[0].Href)
-            </th>
-            <th></th>
-        </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.OperationList[0].Method)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OperationList[0].Rel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OperationList[0].Href)
+        </th>
+        <th></th>
+    </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.OperationList)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Method)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Rel)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Href)
-                </td>
-                <td>
-                    @switch (item.Rel.Value)
-                    {
-                        case PaymentOrderResourceOperations.CreatePaymentOrderCancel:
-                            actionName = "CancelPayment";
-                            break;
-                        case PaymentOrderResourceOperations.CreatePaymentOrderCapture:
-                            actionName = "CapturePayment";
-                            break;
+    @foreach (var item in Model.OperationList)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Method)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Href)
+            </td>
+            <td>
+                @switch (item.Rel.Value)
+                {
+                    case PaymentOrderResourceOperations.CreatePaymentOrderCancel:
+                        actionName = "CancelPayment";
+                        break;
+                    case PaymentOrderResourceOperations.CreatePaymentOrderCapture:
+                        actionName = "CapturePayment";
+                        break;
 
-                        case PaymentOrderResourceOperations.CreatePaymentOrderReversal:
-                            actionName = "ReversalPayment";
-                            break;
-                        case PaymentOrderResourceOperations.RedirectPaymentOrder:
-                            break;
-                        case PaymentOrderResourceOperations.UpdatePaymentOrderUpdateOrder:
-                            break;
-                        case PaymentOrderResourceOperations.ViewPaymentOrder:
-                            break;
-                    }
-                    @if (!string.IsNullOrEmpty(actionName))
-                    {
-                        var automationTagName = $"a-{actionName.ToLower()}";
-                        <a class="btn btn-primary" asp-controller="Payment" asp-action=@actionName asp-route-paymentOrderId=@Model.Order.PaymentOrderLink automation=@automationTagName>Execute</a>
-                    }
-                    else
-                    {<span class="badge badge-warning">Not implemented</span>}
+                    case PaymentOrderResourceOperations.CreatePaymentOrderReversal:
+                        actionName = "ReversalPayment";
+                        break;
+                    case PaymentOrderResourceOperations.RedirectPaymentOrder:
+                        break;
+                    case PaymentOrderResourceOperations.UpdatePaymentOrderUpdateOrder:
+                        break;
+                    case PaymentOrderResourceOperations.ViewPaymentOrder:
+                        break;
+                }
+                @if (!string.IsNullOrEmpty(actionName))
+                {
+                    var automationTagName = $"a-{actionName.ToLower()}";
+                    <a class="btn btn-primary" asp-controller="Payment" asp-action=@actionName asp-route-paymentOrderId=@Model.Order.PaymentOrderLink automation=@automationTagName>Execute</a>
+                }
+                else
+                {
+                    <span class="badge badge-warning">Not implemented</span>
+                }
 
-                </td>
-            </tr>
-            actionName = null;
-        }
+            </td>
+        </tr>
+        actionName = null;
+    }
     </tbody>
 </table>

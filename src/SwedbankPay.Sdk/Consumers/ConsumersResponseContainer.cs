@@ -6,10 +6,12 @@
         {
         }
 
+
         public ConsumersResponseContainer(ConsumersResponse consumer)
         {
             ConsumersResponse = consumer;
         }
+
 
         public ConsumersResponse ConsumersResponse { get; set; }
     }

@@ -1,8 +1,9 @@
-﻿namespace Sample.AspNetCore.Data
-{
-    using Microsoft.EntityFrameworkCore;
-    using Sample.AspNetCore.Models;
+﻿using Microsoft.EntityFrameworkCore;
 
+using Sample.AspNetCore.Models;
+
+namespace Sample.AspNetCore.Data
+{
     public class StoreDbContext : DbContext
     {
         public StoreDbContext(DbContextOptions<StoreDbContext> options)
@@ -10,8 +11,9 @@
         {
         }
 
-        public DbSet<Product> Products { get; set; }
+
         public DbSet<Order> Orders { get; set; }
-        
+
+        public DbSet<Product> Products { get; set; }
     }
 }

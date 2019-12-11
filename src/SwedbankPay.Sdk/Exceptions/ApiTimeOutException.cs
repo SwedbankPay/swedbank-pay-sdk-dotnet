@@ -1,13 +1,13 @@
-﻿namespace SwedbankPay.Sdk.Exceptions
-{
-    using System;
-    using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
+namespace SwedbankPay.Sdk.Exceptions
+{
     public class ApiTimeOutException : Exception
     {
-        public ApiTimeOutException(TaskCanceledException te) : base("Timed out when calling SwedbankPay", te)
+        public ApiTimeOutException(TaskCanceledException te)
+            : base("Timed out when calling SwedbankPay", te)
         {
-
         }
     }
 }

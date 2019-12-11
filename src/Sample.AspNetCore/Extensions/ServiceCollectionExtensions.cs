@@ -1,17 +1,19 @@
-﻿namespace Sample.AspNetCore.Extensions
+﻿using System;
+
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+
+using Polly;
+
+using SwedbankPay.Sdk;
+
+namespace Sample.AspNetCore.Extensions
 {
-    using System;
-
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-
-    using Polly;
-
-    using SwedbankPay.Sdk;
-
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddSwedbankPayClient(this IServiceCollection services, IConfiguration configuration, string clientName)
+        public static IServiceCollection AddSwedbankPayClient(this IServiceCollection services,
+                                                              IConfiguration configuration,
+                                                              string clientName)
         {
             var swedbankPayConfigsection = configuration.GetSection($"SwedbankPayOptions:{clientName}");
             services.Configure<SwedbankPayOptions>(clientName, swedbankPayConfigsection);
@@ -27,10 +29,10 @@
             {
                 TimeSpan.FromSeconds(1),
                 TimeSpan.FromSeconds(5),
-                TimeSpan.FromSeconds(10), 
+                TimeSpan.FromSeconds(10)
             }));
 
-            services.AddTransient<SwedbankPayOptions>(s => swedBankPayOptions);
+            services.AddTransient(s => swedBankPayOptions);
 
             return services;
         }

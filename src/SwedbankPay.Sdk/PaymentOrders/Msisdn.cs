@@ -1,23 +1,22 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrders
+﻿using System;
+
+using Newtonsoft.Json;
+
+namespace SwedbankPay.Sdk.PaymentOrders
 {
-    using Newtonsoft.Json;
-
-    using System;
-
     public class Msisdn
     {
-        private string Value { get; }
-
-
         [JsonConstructor]
         public Msisdn(string msisdn)
         {
             if (!IsValidMsisdn(msisdn))
-            {
                 throw new ArgumentException($"Invalid msisdn: {msisdn}", nameof(msisdn));
-            }
-            this.Value = msisdn;
+            Value = msisdn;
         }
+
+
+        private string Value { get; }
+
 
         public static bool IsValidMsisdn(string msisdn)
         {
@@ -65,7 +64,7 @@
 
         public override string ToString()
         {
-            return this.Value;
+            return Value;
         }
     }
 }

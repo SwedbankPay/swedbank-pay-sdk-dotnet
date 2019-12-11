@@ -7,7 +7,9 @@
             Operation = "Abort";
             AbortReason = "CancelledByConsumer";
         }
-        public string Operation { get; }
+
+
         public string AbortReason { get; }
+        public string Operation { get; }
     }
 }

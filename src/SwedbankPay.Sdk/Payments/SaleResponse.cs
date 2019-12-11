@@ -1,20 +1,11 @@
-﻿namespace SwedbankPay.Sdk.Payments
+﻿using System;
+
+using SwedbankPay.Sdk.Transactions;
+
+namespace SwedbankPay.Sdk.Payments
 {
-    using SwedbankPay.Sdk.Transactions;
-
-    using System;
-
     public class SaleResponse
     {
-        public DateTime Date { get; }
-        public string PayerAlias { get; }
-        public string SwishPaymentReference { get; }
-        public string SwishStatus { get; }
-
-        public Uri Id { get; }
-        public TransactionResponse Transaction { get; }
-
-
         public SaleResponse(DateTime date,
                             string payerAlias,
                             string swishPaymentReference,
@@ -29,5 +20,14 @@
             Id = id;
             Transaction = transaction;
         }
+
+
+        public DateTime Date { get; }
+
+        public Uri Id { get; }
+        public string PayerAlias { get; }
+        public string SwishPaymentReference { get; }
+        public string SwishStatus { get; }
+        public TransactionResponse Transaction { get; }
     }
 }

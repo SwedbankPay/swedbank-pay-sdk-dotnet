@@ -1,7 +1,7 @@
-﻿namespace SwedbankPay.Sdk.Payments
-{
-    using System;
+﻿using System;
 
+namespace SwedbankPay.Sdk.Payments
+{
     [Flags]
     public enum PaymentExpand
     {

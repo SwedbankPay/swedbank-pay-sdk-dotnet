@@ -1,19 +1,17 @@
-﻿namespace SwedbankPay.Sdk.Tests.Json
+﻿using System;
+
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
+using SwedbankPay.Sdk.Consumers;
+using SwedbankPay.Sdk.PaymentOrders;
+
+using Xunit;
+
+namespace SwedbankPay.Sdk.Tests.Json
 {
-    using System;
-
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
-
-    using SwedbankPay.Sdk.Consumers;
-    using SwedbankPay.Sdk.JsonSerialization;
-    using SwedbankPay.Sdk.PaymentOrders;
-
-    using Xunit;
-
     public class CustomDateTimeConverterTests
     {
-
         [Fact]
         public void CanConvert_DateTime()
         {
@@ -33,7 +31,7 @@
             };
 
             //ACT
-            var result = JsonConvert.SerializeObject(riskIndicator, JsonSerialization.Settings);
+            var result = JsonConvert.SerializeObject(riskIndicator, JsonSerialization.JsonSerialization.Settings);
             var obj = JObject.Parse(result);
 
             var dateTimeAsString = obj.GetValue("preOrderDate").ToString();
@@ -43,7 +41,7 @@
             var reOrdPurchaseInd = obj.GetValue("reOrderPurchaseIndicator").ToString();
             var email = obj.GetValue("deliveryEmailAddress").ToString();
             var countryCode = obj.GetValue("pickUpAddress")["countryCode"].ToString();
-            
+
             //ASSERT
             Assert.Equal("20200101", dateTimeAsString);
             Assert.Equal("test@test.com", email);

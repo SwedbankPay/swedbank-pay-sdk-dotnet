@@ -1,16 +1,16 @@
-﻿namespace Sample.AspNetCore.SystemTests.PageObjectModels.Base
-{
-    using Atata;
-    using OpenQA.Selenium;
-    using System;
+﻿using System;
 
+using Atata;
+
+using OpenQA.Selenium;
+
+namespace Sample.AspNetCore.SystemTests.PageObjectModels.Base
+{
     public class ValidationIconList<TOwner> : ControlList<ValidationIcon<TOwner>, TOwner>
         where TOwner : PageObject<TOwner>
     {
-        public ValidationIcon<TOwner> this[Func<TOwner, IControl<TOwner>> controlSelector]
-        {
-            get { return For(controlSelector); }
-        }
+        public ValidationIcon<TOwner> this[Func<TOwner, IControl<TOwner>> controlSelector] => For(controlSelector);
+
 
         public ValidationIcon<TOwner> For(Func<TOwner, IControl<TOwner>> controlSelector)
         {

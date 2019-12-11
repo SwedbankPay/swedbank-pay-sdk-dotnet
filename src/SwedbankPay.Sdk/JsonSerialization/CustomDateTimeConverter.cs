@@ -1,12 +1,12 @@
-﻿namespace SwedbankPay.Sdk.JsonSerialization
-{
-    using Newtonsoft.Json.Converters;
+﻿using Newtonsoft.Json.Converters;
 
+namespace SwedbankPay.Sdk.JsonSerialization
+{
     public class CustomDateTimeConverter : IsoDateTimeConverter
     {
         public CustomDateTimeConverter()
         {
-            base.DateTimeFormat = "yyyyMMdd";
+            DateTimeFormat = "yyyyMMdd";
         }
     }
 }

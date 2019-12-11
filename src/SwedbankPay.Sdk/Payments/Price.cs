@@ -2,8 +2,8 @@
 {
     public class Price
     {
-        public PriceType Type { get; set; }
         public long? Amount { get; set; }
+        public PriceType Type { get; set; }
         public long? VatAmount { get; set; }
     }
 }

@@ -6,26 +6,24 @@ namespace SwedbankPay.Sdk
 {
     public class Amount
     {
-        public long Value { get; }
         [JsonConstructor]
         private Amount(decimal value)
         {
             if (value < 0)
-            {
                 throw new ArgumentOutOfRangeException(nameof(value), "Negative amount value is not allowed.");
-            }
-            this.Value = decimal.ToInt32(value);
-        }
-        
-        internal Amount(long value)
-        {
-            this.Value = value;
+            Value = decimal.ToInt32(value);
         }
 
-        public static decimal ToDecimal(Amount amount)
+
+        internal Amount(long value)
         {
-            return (decimal) amount.Value / 100;
+            Value = value;
         }
+
+
+        public long Value { get; }
+
+
         public static Amount FromDecimal(decimal amount)
         {
             return new Amount(amount * 100);
@@ -37,9 +35,16 @@ namespace SwedbankPay.Sdk
             return new Amount(amount * 100);
         }
 
+
+        public static decimal ToDecimal(Amount amount)
+        {
+            return (decimal)amount.Value / 100;
+        }
+
+
         public override string ToString()
         {
-            return this.Value.ToString();
+            return Value.ToString();
         }
     }
 }

@@ -1,10 +1,12 @@
 ﻿#region License
+
 // --------------------------------------------------
 // Copyright © Swedbank Pay. All Rights Reserved.
 // 
 // This software is proprietary information of Swedbank Pay.
 // USE IS SUBJECT TO LICENSE TERMS.
 // --------------------------------------------------
+
 #endregion
 
 namespace SwedbankPay.Sdk
@@ -37,5 +39,4 @@ namespace SwedbankPay.Sdk
         public const string CreateReversal = "create-reversal";
         public const string PaidPayment = "paid-payment";
     }
-
 }

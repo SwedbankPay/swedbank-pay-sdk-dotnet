@@ -1,18 +1,7 @@
 ﻿namespace Sample.AspNetCore.SystemTests.Test.Helpers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-
     public class PayexInvoiceInfo : PayexInfo
     {
-        public string PersonalNumber { get; private set; }
-        public string Email { get; private set; }
-        public string PhoneNumber { get; private set; }
-        public string ZipCode { get; private set; }
-
         public PayexInvoiceInfo(string personalNumber, string email, string phoneNumber, string zipCode)
         {
             PersonalNumber = personalNumber;
@@ -20,5 +9,11 @@
             PhoneNumber = phoneNumber;
             ZipCode = zipCode;
         }
+
+
+        public string Email { get; }
+        public string PersonalNumber { get; }
+        public string PhoneNumber { get; }
+        public string ZipCode { get; }
     }
 }

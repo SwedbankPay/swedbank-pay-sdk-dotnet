@@ -1,11 +1,11 @@
-﻿namespace SwedbankPay.Sdk.Payments
-{
-    using SwedbankPay.Sdk.PaymentOrders;
+﻿using SwedbankPay.Sdk.PaymentOrders;
 
+namespace SwedbankPay.Sdk.Payments
+{
     public class PrefillInfo
     {
         /// <summary>
-        /// "+47xxxxxxxx"
+        ///     "+47xxxxxxxx"
         /// </summary>
         public Msisdn Msisdn { get; set; }
     }

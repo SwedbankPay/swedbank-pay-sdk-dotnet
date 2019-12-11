@@ -1,18 +1,11 @@
-﻿namespace SwedbankPay.Sdk.Consumers
-{
-    using Newtonsoft.Json;
-    
-    using SwedbankPay.Sdk.PaymentOrders;
+﻿using Newtonsoft.Json;
 
+using SwedbankPay.Sdk.PaymentOrders;
+
+namespace SwedbankPay.Sdk.Consumers
+{
     public class ShippingDetails
     {
-        public EmailAddress Email { get; }
-
-        public Msisdn Msisdn { get; }
-
-        public Address ShippingAddress { get; }
-
-
         public ShippingDetails()
         {
         }
@@ -25,5 +18,12 @@
             Msisdn = msisdn;
             ShippingAddress = shippingAddress;
         }
+
+
+        public EmailAddress Email { get; }
+
+        public Msisdn Msisdn { get; }
+
+        public Address ShippingAddress { get; }
     }
 }

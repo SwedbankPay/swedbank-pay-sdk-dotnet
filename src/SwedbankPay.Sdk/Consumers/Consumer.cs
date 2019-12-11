@@ -3,7 +3,6 @@ using System.Net.Http;
 using System.Threading.Tasks;
 
 using SwedbankPay.Sdk.Exceptions;
-using SwedbankPay.Sdk.PaymentOrders;
 
 namespace SwedbankPay.Sdk.Consumers
 {
@@ -27,24 +26,29 @@ namespace SwedbankPay.Sdk.Consumers
                         operations.ViewConsumerIdentification = httpOperation;
                         break;
                 }
+
                 Operations = operations;
             }
         }
+
+
+        public ConsumersResponse ConsumersResponse { get; }
+
+        public Operations Operations { get; }
+
 
         internal static async Task<Consumer> Initiate(ConsumersRequest consumersRequest, SwedbankPayHttpClient client)
         {
             var url = "/psp/consumers";
 
-            Exception OnError(ProblemsContainer m) => new CouldNotInitiateConsumerSessionException(consumersRequest, m);
-            
+            Exception OnError(ProblemsContainer m)
+            {
+                return new CouldNotInitiateConsumerSessionException(consumersRequest, m);
+            }
+
             var consumersResponse = await client.HttpRequest<ConsumersResponse>(HttpMethod.Post, url, OnError, consumersRequest);
 
             return new Consumer(consumersResponse);
         }
-
-        public Operations Operations { get; }
-
-        public ConsumersResponse ConsumersResponse { get; }
-
     }
 }

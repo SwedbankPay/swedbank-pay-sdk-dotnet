@@ -17,26 +17,28 @@ namespace SwedbankPay.Sdk
 
 
         /// <summary>
-        /// The target URI of the operation. 
+        ///     The HTTP content type of the target URI. Indicates what sort of resource is to be found at the URI, how it is
+        ///     expected to be used and behave.
+        /// </summary>
+
+        public string ContentType { get; }
+
+        /// <summary>
+        ///     The target URI of the operation.
         /// </summary>
 
         public string Href { get; }
 
         /// <summary>
-        /// The relational name of the operation, used as a programmatic identifier to find the correct operation given the current state of the application.
-        /// </summary>
-        public LinkRelation Rel { get; }
-
-        /// <summary>
-        /// The HTTP method to use when performing the operation.
+        ///     The HTTP method to use when performing the operation.
         /// </summary>
         public HttpMethod Method { get; }
 
         /// <summary>
-        /// The HTTP content type of the target URI. Indicates what sort of resource is to be found at the URI, how it is expected to be used and behave.
+        ///     The relational name of the operation, used as a programmatic identifier to find the correct operation given the
+        ///     current state of the application.
         /// </summary>
-
-        public string ContentType { get; }
+        public LinkRelation Rel { get; }
 
         public HttpRequestMessage Request { get; }
     }

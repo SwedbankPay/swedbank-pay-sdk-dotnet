@@ -1,8 +1,9 @@
-﻿namespace SwedbankPay.Sdk.Tests.UnitTests
-{
-    using SwedbankPay.Sdk.PaymentOrders;
-    using Xunit;
+﻿using SwedbankPay.Sdk.PaymentOrders;
 
+using Xunit;
+
+namespace SwedbankPay.Sdk.Tests.UnitTests
+{
     public class IndicatorTests
     {
         [Theory]
@@ -20,6 +21,7 @@
             Assert.Equal(value, result.Value);
         }
 
+
         [Theory]
         [InlineData(nameof(AccountAgeIndicator.NoAccountGuest), "01")]
         [InlineData(nameof(AccountAgeIndicator.CreatedDuringTransaction), "02")]
@@ -30,7 +32,6 @@
         {
             //ACT
             var result = AccountAgeIndicator.FromValue(value);
-
 
             //ASSERT
             Assert.Equal(name, result.Name);

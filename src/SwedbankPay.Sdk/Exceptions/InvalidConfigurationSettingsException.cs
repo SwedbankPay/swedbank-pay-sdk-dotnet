@@ -1,12 +1,12 @@
-﻿namespace SwedbankPay.Sdk.Exceptions
-{
-    using System;
+﻿using System;
 
+namespace SwedbankPay.Sdk.Exceptions
+{
     public class InvalidConfigurationSettingsException : Exception
     {
-        public InvalidConfigurationSettingsException(string message) : base(message)
+        public InvalidConfigurationSettingsException(string message)
+            : base(message)
         {
-
         }
     }
 }
