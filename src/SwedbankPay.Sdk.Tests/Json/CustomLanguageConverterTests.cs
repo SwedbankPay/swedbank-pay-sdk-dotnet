@@ -7,6 +7,8 @@
 // --------------------------------------------------
 #endregion
 
+using SwedbankPay.Sdk.Tests.TestBuilders;
+
 namespace SwedbankPay.Sdk.Tests.Json
 {
     using System;
@@ -28,8 +30,7 @@ namespace SwedbankPay.Sdk.Tests.Json
         {
             //ARRANGE
 
-            var jsonObject = new JObject();
-            jsonObject.Add("language", this.languageCode);
+            var jsonObject = new JObject { { "language", this.languageCode } };
 
             //ACT
             var result = JsonConvert.DeserializeObject<Language>(jsonObject.ToString(), JsonSerialization.Settings);
@@ -42,11 +43,9 @@ namespace SwedbankPay.Sdk.Tests.Json
         public void CanSerialize_LanguageCode()
         {
             //ARRANGE
-            var paymentOrderRequest = new PaymentOrderRequest
-            {
-                Language = new Language(this.languageCode)
-            };
-
+            var builder = new PaymentOrderRequestBuilder();
+            var paymentOrderRequest = builder.WithTestValues().WithLanguageCode(this.languageCode).Build();
+            
             //ACT
             var result = JsonConvert.SerializeObject(paymentOrderRequest, JsonSerialization.Settings);
             var obj = JObject.Parse(result);

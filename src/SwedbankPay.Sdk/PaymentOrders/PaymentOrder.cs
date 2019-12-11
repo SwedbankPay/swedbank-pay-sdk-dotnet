@@ -56,7 +56,6 @@
             paymentOrderRequest.SetRequiredMerchantInfo(swedbankPayOptions); //TODO set this here, elsewhere or set by user?
             
             var payload = new PaymentOrderRequestContainer(paymentOrderRequest);
-            paymentOrderRequest.Operation = Operation.Purchase;
 
             Exception OnError(ProblemsContainer m) => new CouldNotPlacePaymentOrderException(payload, m);
             var paymentOrderResponseContainer = await client.HttpRequest<PaymentOrderResponseContainer>(HttpMethod.Post, url, OnError, payload);

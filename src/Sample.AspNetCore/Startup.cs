@@ -1,3 +1,5 @@
+using System;
+
 namespace Sample.AspNetCore
 {
     using Microsoft.AspNetCore.Builder;
@@ -10,7 +12,6 @@ namespace Sample.AspNetCore
     using Sample.AspNetCore.Models;
     using Microsoft.EntityFrameworkCore;
     using SwedbankPay.Sdk;
-    using SwedbankPay.Sdk.PaymentOrders;
     using Sample.AspNetCore.Extensions;
 
     public class Startup
@@ -28,9 +29,11 @@ namespace Sample.AspNetCore
             services.AddDbContext<StoreDbContext>(options => options.UseInMemoryDatabase("Products"));
             services.AddControllersWithViews();
             services.AddDistributedMemoryCache();
-            services.Configure<PayeeInfo>(options =>
+            services.Configure<PayeeInfoConfig>(options =>
             {
                 options.PayeeId = Configuration.GetSection("PayeeInfo")["PayeeId"];
+                //options.PayeeReference = Configuration.GetSection("PayeeInfo")["PayeeReference"];
+                options.PayeeReference = DateTime.Now.Ticks.ToString(); 
             });
             services.Configure<Urls>(Configuration.GetSection("Urls"));
             services.AddScoped<Cart>(provider => SessionCart.GetCart(provider));
@@ -58,7 +61,7 @@ namespace Sample.AspNetCore
             app.UseRouting();
 
             app.UseAuthorization();
-            
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

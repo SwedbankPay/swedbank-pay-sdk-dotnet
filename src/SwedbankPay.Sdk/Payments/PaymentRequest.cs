@@ -1,4 +1,6 @@
-﻿namespace SwedbankPay.Sdk.Payments
+﻿using System;
+
+namespace SwedbankPay.Sdk.Payments
 {
     using System.Collections.Generic;
     using SwedbankPay.Sdk.PaymentOrders;
@@ -13,15 +15,32 @@
                 Prices.AddRange(prices);
 
             PayerReference = payerReference;
-            PayeeInfo.PayeeReference = payeeReference;
+        }
+        public PaymentRequest(Operation operation, string intent, CurrencyCode currency, List<Price> prices, string description, string payerReference, string userAgent, Language language, Urls urls, PayeeInfo payeeInfo, PrefillInfo prefillInfo, bool generatePaymentToken, string paymentToken, long amount, long vatAmount)
+        {
+            Operation = operation ?? throw new ArgumentNullException(nameof(operation));
+            Intent = intent;
+            Currency = currency;
+            Prices = prices;
+            Description = description;
+            PayerReference = payerReference;
+            UserAgent = userAgent;
+            Language = language;
+            Urls = urls;
+            PayeeInfo = payeeInfo;
+            PrefillInfo = prefillInfo;
+            GeneratePaymentToken = generatePaymentToken;
+            PaymentToken = paymentToken;
+            Amount = amount;
+            VatAmount = vatAmount;
         }
 
-        public string Operation { get; set; } = "Purchase";
-        public string Intent { get; set; } = "Authorization";
+        public Operation Operation { get; set; }
+        public string Intent { get; set; }
 
         public CurrencyCode Currency { get; set; }
 
-        public List<Price> Prices { get; set; } = new List<Price>();
+        public List<Price> Prices { get; set; }
 
         public string Description { get; set; }
 
@@ -31,13 +50,13 @@
 
         public Language Language { get; set; }
 
-        public Urls Urls { get; } = new Urls();
+        public Urls Urls { get; }
 
-        public PayeeInfo PayeeInfo { get; } = new PayeeInfo();
+        public PayeeInfo PayeeInfo { get; internal set; }
 
-        public PrefillInfo PrefillInfo { get; } = new PrefillInfo();
+        public PrefillInfo PrefillInfo { get; }
 
-        public bool GeneratePaymentToken { get; set; } = false;
+        public bool GeneratePaymentToken { get; set; }
 
         public string PaymentToken { get; set; }
 

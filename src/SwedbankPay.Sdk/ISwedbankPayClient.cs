@@ -7,7 +7,7 @@
     public interface ISwedbankPayClient
     {
         IPaymentOrderResource PaymentOrder { get; }
-        IPaymentsResource Payment { get; }
+        //IPaymentsResource Payment { get; }
         IConsumersResource Consumers { get; }
     }
 }

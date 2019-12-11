@@ -4,6 +4,7 @@
     {
         public static readonly Operation Purchase = new Operation(nameof(Purchase), "Purchase");
         public static readonly Operation UpdateOrder = new Operation(nameof(UpdateOrder), "UpdateOrder");
+        public static readonly Operation Verify = new Operation(nameof(Verify), "Verify");
         public static readonly Operation Initiate = new Operation(nameof(Initiate), "initiate-consumer-session");
 
         public Operation(string name, string value)

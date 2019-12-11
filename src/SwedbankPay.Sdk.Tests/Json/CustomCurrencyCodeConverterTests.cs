@@ -1,4 +1,6 @@
-﻿namespace SwedbankPay.Sdk.Tests.Json
+﻿using SwedbankPay.Sdk.Tests.TestBuilders;
+
+namespace SwedbankPay.Sdk.Tests.Json
 {
     using System;
 
@@ -20,8 +22,7 @@
         {
             //ARRANGE
 
-            var jsonObject = new JObject();
-            jsonObject.Add("currency", this.currencyCode);
+            var jsonObject = new JObject { { "currency", this.currencyCode } };
 
             //ACT
             var result = JsonConvert.DeserializeObject<CurrencyCode>(jsonObject.ToString(), JsonSerialization.Settings);
@@ -34,11 +35,9 @@
         public void CanSerialize_CurrencyCode()
         {
             //ARRANGE
-            var paymentOrderRequest = new PaymentOrderRequest
-            {
-                Currency = new CurrencyCode("SEK")
-            };
-
+            var builder = new PaymentOrderRequestBuilder();
+            var paymentOrderRequest = builder.WithTestValues().Build();
+            
             //ACT
             var result = JsonConvert.SerializeObject(paymentOrderRequest, JsonSerialization.Settings);
             var obj = JObject.Parse(result);

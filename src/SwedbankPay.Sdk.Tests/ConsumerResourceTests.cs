@@ -20,7 +20,7 @@
             var orderResoureRequest = this.consumerResourceRequestContainer.WithTestValues()
                                                                                 .Build();
             //ACT
-            var consumer = await this.Sut.Consumers.InitiateSession(orderResoureRequest.ConsumersRequest);
+            var consumer = await this.Sut.Consumers.InitiateSession(orderResoureRequest);
             //ASSERT
 
             Assert.NotNull(consumer);
@@ -35,7 +35,7 @@
             var orderResoureRequest = this.consumerResourceRequestContainer.WithTestValues()
                 .Build();
             //ACT
-            var consumer = await this.Sut.Consumers.InitiateSession(orderResoureRequest.ConsumersRequest);
+            var consumer = await this.Sut.Consumers.InitiateSession(orderResoureRequest);
             //ASSERT
 
             Assert.NotNull(consumer);
@@ -51,7 +51,7 @@
                 .Build();
 
             //ACT
-            var consumer = await this.Sut.Consumers.InitiateSession(orderResoureRequest.ConsumersRequest);
+            var consumer = await this.Sut.Consumers.InitiateSession(orderResoureRequest);
 
             //ASSERT
             Assert.NotNull(consumer);

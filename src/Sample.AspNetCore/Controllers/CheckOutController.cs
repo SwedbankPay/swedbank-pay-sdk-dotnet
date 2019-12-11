@@ -1,58 +1,52 @@
-﻿using Sample.AspNetCore.Extensions;
-
-namespace Sample.AspNetCore.Controllers
+﻿namespace Sample.AspNetCore.Controllers
 {
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Options;
     using Sample.AspNetCore.Models;
+    using Sample.AspNetCore.Extensions;
     using SwedbankPay.Sdk;
     using SwedbankPay.Sdk.Consumers;
     using SwedbankPay.Sdk.PaymentOrders;
 
     public class CheckOutController : Controller
     {
-        private readonly PayeeInfo payeeInfoOptions;
+        private readonly PayeeInfoConfig payeeInfoOptions;
         private readonly Cart cartService;
         private readonly SwedbankPayClient swedbankPayClient;
 
-        public CheckOutController(IOptionsMonitor<PayeeInfo> payeeInfoOptionsAccessor,
+        public CheckOutController(IOptionsSnapshot<PayeeInfoConfig> payeeInfoOptionsAccessor,
             Cart cartService, SwedbankPayClient swedbankPayClient)
         {
-            this.payeeInfoOptions = payeeInfoOptionsAccessor.CurrentValue;
+            this.payeeInfoOptions = payeeInfoOptionsAccessor.Value;
             this.cartService = cartService;
             this.swedbankPayClient = swedbankPayClient;
         }
         
         public async Task<PaymentOrder> CreatePaymentOrder(string consumerProfileRef = null)
         {
-            this.payeeInfoOptions.PayeeReference = DateTime.Now.Ticks.ToString();
-
             var totalAmount = this.cartService.CalculateTotal();
-            var paymentOrderRequest = CreatePaymentOrderRequest(totalAmount, 0); //TODO Correct VatAmount
-            
-            paymentOrderRequest.OrderItems = new List<OrderItem>();
+            Payer payer = null;
+
             if (!string.IsNullOrWhiteSpace(consumerProfileRef))
             {
-                paymentOrderRequest.Payer = new Payer
+                payer = new Payer
                 {
                     ConsumerProfileRef = consumerProfileRef
                 };
             }
-            
-            var orderItems = this.cartService.CartLines.ToOrderItems();
 
-            paymentOrderRequest.OrderItems = orderItems.ToList();
-            
+            var orderItems = this.cartService.CartLines.ToOrderItems();
+            var paymentOrderItems = orderItems.ToList();
+            var paymentOrderRequest = new PaymentOrderRequest(Operation.Purchase, new CurrencyCode("SEK"), Amount.FromDecimal(totalAmount),
+                                                               Amount.FromDecimal(0), "Test description", "useragent", new Language("sv-SE"), false, new Urls(),
+                                                              new PayeeInfo(this.payeeInfoOptions.PayeeId, this.payeeInfoOptions.PayeeReference), payer, paymentOrderItems);
             var paymentOrder = await this.swedbankPayClient.PaymentOrder.Create(paymentOrderRequest);
             
             this.cartService.PaymentOrderLink = paymentOrder.PaymentOrderResponse.Id;
             this.cartService.Update();
-            
-            
+
             return paymentOrder;
         }
 
@@ -81,24 +75,9 @@ namespace Sample.AspNetCore.Controllers
             return View("Checkout", swedBankPaySource);
         }
 
-        private PaymentOrderRequest CreatePaymentOrderRequest(decimal amount, decimal vatAmount)
-        {
-            var paymentOrderRequest = new PaymentOrderRequest
-            {
-                Amount = Amount.FromDecimal(amount),
-                VatAmount = Amount.FromDecimal(vatAmount),
-                Currency = new CurrencyCode("SEK"),
-                Description = "Description",
-                Language = new Language("sv-SE"),
-                UserAgent = "useragent",
-                PayeeInfo = this.payeeInfoOptions
-            };
-            return paymentOrderRequest;
-        }
-
         public async Task<IActionResult> InitiateConsumerSession()
         {
-            var initiateConsumerRequest = new ConsumersRequest { ConsumerCountryCode = CountryCode.SE };
+            var initiateConsumerRequest = new ConsumersRequest(CountryCode.SE, Operation.Initiate);
             var response = await this.swedbankPayClient.Consumers.InitiateSession(initiateConsumerRequest);
             var jsSource = response.Operations.ViewConsumerIdentification?.Href;
             
