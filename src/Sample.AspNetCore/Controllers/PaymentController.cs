@@ -98,7 +98,7 @@ namespace Sample.AspNetCore.Controllers
                 var response = await paymentOrder.Operations.Capture.Execute(container);
 
                 TempData["CaptureMessage"] =
-                    $"{response.Capture.Transaction.Id}, {response.Capture.Transaction.State}, {response.Capture.Transaction.Type}"; //TODO this looks awkward?
+                    $"{response.Capture.Transaction.Id}, {response.Capture.Transaction.State}, {response.Capture.Transaction.Type}"; 
 
                 this.cartService.PaymentOrderLink = null;
 
@@ -156,28 +156,12 @@ namespace Sample.AspNetCore.Controllers
         {
             var order = await this.context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
             var orderItems = order.Lines.ToOrderItems();
-            //var orderItems = order.Lines.Select(line => new OrderItem
-            //{
-            //    Amount = (int?)line.CalculateTotal() * 100,
-            //    Quantity = line.Quantity,
-            //    Reference = line.Product.Reference,
-            //    Name = line.Product.Name,
-            //    Type = line.Product.Type,
-            //    Class = line.Product.Class,
-            //    ItemUrl = "https://example.com/products/123",
-            //    ImageUrl = "https://example.com/products/123.jpg",
-            //    Description = "Product 1 description",
-            //    QuantityUnit = "pcs",
-            //    UnitPrice = line.Product.Price * 100,
-            //    VatPercent = 0, //TODO Correct VatPercent
-            //    VatAmount = 0, //TODO Correct VatAmount
-            //}).ToList();
 
             var transActionRequestObject = new TransactionRequest
             {
                 PayeeReference = DateTime.Now.Ticks.ToString(),
                 Amount = Amount.FromDecimal(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
-                VatAmount = 0, //TODO Correct amount
+                VatAmount = 0, 
                 Description = description,
                 OrderItems = orderItems.ToList()
             };

@@ -19,7 +19,7 @@ namespace Sample.AspNetCore.Extensions
                                            Amount.FromDecimal(line.Product.VatPercentage == 0
                                                                   ? 0
                                                                   : line.CalculateTotal() * line.Product.VatPercentage
-                                                                    / 100)); //TODO provide correct VAT amount
+                                                                    / 100)); 
         }
     }
 }

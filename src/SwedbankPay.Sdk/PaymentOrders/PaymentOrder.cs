@@ -71,7 +71,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                                         PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
         {
             var url = $"/psp/paymentorders{GetExpandQueryString(paymentOrderExpand)}";
-            paymentOrderRequest.SetRequiredMerchantInfo(swedbankPayOptions); //TODO set this here, elsewhere or set by user?
+            paymentOrderRequest.SetRequiredMerchantInfo(swedbankPayOptions);
 
             var payload = new PaymentOrderRequestContainer(paymentOrderRequest);
 

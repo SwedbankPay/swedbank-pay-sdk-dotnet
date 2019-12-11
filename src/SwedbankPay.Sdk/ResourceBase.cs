@@ -21,7 +21,7 @@ namespace SwedbankPay.Sdk
             ILogger logger,
             HttpClient client)
         {
-            if (client == null) //TODO move checks elsewhere
+            if (client == null) 
                 throw new ArgumentNullException(nameof(client));
 
             if (swedbankPayOptions == null)
