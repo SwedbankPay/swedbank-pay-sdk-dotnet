@@ -1,10 +1,13 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using SwedbankPay.Sdk;
-
-namespace Sample.AspNetCore.Extensions
+﻿namespace Sample.AspNetCore.Extensions
 {
     using System;
+
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+
+    using Polly;
+
+    using SwedbankPay.Sdk;
 
     public static class ServiceCollectionExtensions
     {
@@ -20,15 +23,16 @@ namespace Sample.AspNetCore.Extensions
             {
                 s.BaseAddress = swedBankPayOptions.ApiBaseUrl;
                 s.DefaultRequestHeaders.Add("Authorization", $"Bearer {swedBankPayOptions.Token}");
-            });
+            }).AddTransientHttpErrorPolicy(builder => builder.WaitAndRetryAsync(new[]
+            {
+                TimeSpan.FromSeconds(1),
+                TimeSpan.FromSeconds(5),
+                TimeSpan.FromSeconds(10), 
+            }));
 
             services.AddTransient<SwedbankPayOptions>(s => swedBankPayOptions);
 
             return services;
         }
-
-
-       
     }
-
 }
