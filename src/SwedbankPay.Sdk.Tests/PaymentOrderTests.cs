@@ -93,18 +93,6 @@ namespace SwedbankPay.Sdk.Tests
             Assert.Equal(updateRequest.VatAmount.Value, response.PaymentOrder.VatAmount.Value);
         }
 
-
-        [Fact]
-        public async Task CreatePaymentOrder_ShouldReturnMetaData()
-        {
-            var orderRequestContainer = this.paymentOrderRequestBuilder.WithTestValues().WithMetaData().Build();
-
-            var paymentOrder = await this.Sut.PaymentOrder.Create(orderRequestContainer, PaymentOrderExpand.All);
-            Assert.NotNull(paymentOrder.PaymentOrderResponse);
-            Assert.NotNull(paymentOrder.PaymentOrderResponse.MetaData);
-        }
-
-
         [Fact]
         public async Task CreatePaymentOrder_ShouldReturnPaymentOrderWithCorrectAmount()
         {
