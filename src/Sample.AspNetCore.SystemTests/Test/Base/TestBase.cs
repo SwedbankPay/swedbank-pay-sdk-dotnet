@@ -14,7 +14,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
 {
     using static Drivers;
 
-#if DEBUG
+    #if DEBUG
     [TestFixture(DriverAliases.Chrome)]
 #elif DEV
     [TestFixture(DriverAliases.Chrome)]
@@ -25,21 +25,28 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
 #endif
     public abstract class TestBase
     {
-        private readonly string driverAlias;
+        private readonly string _driverAlias;
 
 
         [OneTimeSetUp]
         public void GlobalSetup()
         {
-#if DEBUG
-            AtataContext.GlobalConfiguration.UseChrome().WithOptions(DriverOptionsFactory.GetDriverOptions(Driver.Chrome) as ChromeOptions)
-                .UseFirefox().WithOptions(DriverOptionsFactory.GetDriverOptions(Driver.Firefox) as FirefoxOptions).UseInternetExplorer()
-                .WithOptions(DriverOptionsFactory.GetDriverOptions(Driver.InternetExplorer) as InternetExplorerOptions)
-                .AddNUnitTestContextLogging().WithMinLevel(LogLevel.Trace).TakeScreenshotOnNUnitError().AddScreenshotFileSaving()
-                .WithFolderPath(() => $@"Logs\{AtataContext.BuildStart:yyyy-MM-dd HH_mm_ss}")
-                .WithFileName(screenshotInfo => $"{AtataContext.Current.TestName} - {screenshotInfo.PageObjectFullName}")
-                .UseTestName(() => $"[{this.driverAlias}]{TestContext.CurrentContext.Test.Name}");
-#endif
+            #if DEBUG
+            AtataContext.GlobalConfiguration.
+                UseChrome().
+                    WithOptions(DriverOptionsFactory.GetDriverOptions(Driver.Chrome) as ChromeOptions).
+                UseFirefox().
+                    WithOptions(DriverOptionsFactory.GetDriverOptions(Driver.Firefox) as FirefoxOptions).
+                UseInternetExplorer().
+                    WithOptions(DriverOptionsFactory.GetDriverOptions(Driver.InternetExplorer) as InternetExplorerOptions).
+                AddNUnitTestContextLogging().
+                WithMinLevel(Atata.LogLevel.Trace).
+                TakeScreenshotOnNUnitError().
+                    AddScreenshotFileSaving().
+                        WithFolderPath(() => $@"Logs\{AtataContext.BuildStart:yyyy-MM-dd HH_mm_ss}").
+                        WithFileName(screenshotInfo => $"{AtataContext.Current.TestName} - {screenshotInfo.PageObjectFullName}").
+                UseTestName(() => $"[{_driverAlias}]{TestContext.CurrentContext.Test.Name}");
+            #endif
         }
 
 
@@ -48,9 +55,9 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
         {
 #if DEBUG
             AtataContext.Configure()
-                .UseDriver(this.driverAlias)
-                .UseBaseUrl("https://localhost:44389/")
-                .Build();
+                .UseDriver(_driverAlias)
+                    .UseBaseUrl("https://localhost:44389/")
+            .Build();
             AtataContext.Current.Driver.Maximize();
 #elif DEV
             AtataContext.Configure()
@@ -60,19 +67,14 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
             AtataContext.Current.Driver.Maximize();
 #elif RELEASE
             AtataContext.Configure()
+                .ApplyJsonConfig(environmentAlias: "TST") // Applies "Atata.TST.json" for build configuration with "UAT" conditional compilation symbol.
                 .UseDriver(_driverAlias)
-                    .UseBaseUrl("https://YourBaseUrl.com/")
             .Build();
             AtataContext.Current.Driver.Maximize();
 #endif
         }
 
-
-        protected TestBase(string driverAlias)
-        {
-            this.driverAlias = driverAlias;
-        }
-
+        protected TestBase(string driverAlias) => this._driverAlias = driverAlias;
 
         [TearDown]
         public void TearDown()
