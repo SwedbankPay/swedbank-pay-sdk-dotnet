@@ -1,22 +1,17 @@
-﻿namespace SwedbankPay.Sdk.Transactions
-{
-    using System;
+﻿using System;
 
+using Newtonsoft.Json;
+
+namespace SwedbankPay.Sdk.Transactions
+{
     public class TransactionResponse
     {
-        public string Id { get; }
-        public DateTime Created { get; }
-        public DateTime Updated { get; }
-        public string Type { get; }
-        public State State { get; }
-        public string Number { get; }
-        public long Amount { get; }
-        public long VatAmount { get; }
-        public string Description { get; }
-        public string PayeeReference { get; }
-        public bool IsOperational { get; }
+        public TransactionResponse()
+        {
+        }
 
 
+        [JsonConstructor]
         public TransactionResponse(string id,
                                    DateTime created,
                                    DateTime updated,
@@ -41,5 +36,18 @@
             PayeeReference = payeeReference;
             IsOperational = isOperational;
         }
+
+
+        public long Amount { get; }
+        public DateTime Created { get; }
+        public string Description { get; }
+        public string Id { get; }
+        public bool IsOperational { get; }
+        public string Number { get; }
+        public string PayeeReference { get; }
+        public State State { get; }
+        public string Type { get; }
+        public DateTime Updated { get; }
+        public long VatAmount { get; }
     }
 }

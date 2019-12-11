@@ -1,5 +1,4 @@
-﻿
-@model SwedbankPayCheckoutSource
+﻿@model SwedbankPayCheckoutSource
 
 @{
     ViewData["Title"] = "Index";
@@ -10,7 +9,8 @@
 @await Html.PartialAsync("_SwedbankPayCheckOut", Model)
 
 
-@if(!String.IsNullOrEmpty(Model.AbortOperationLink)){
+@if (!string.IsNullOrEmpty(Model.AbortOperationLink))
+{
     <div class="row justify-content-center">
         <div class="col">
             <form asp-action="AbortPaymentOrder" asp-controller="Payment" method="post">

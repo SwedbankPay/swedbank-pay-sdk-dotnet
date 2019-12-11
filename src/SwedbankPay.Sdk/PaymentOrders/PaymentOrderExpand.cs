@@ -1,7 +1,7 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrders
-{
-    using System;
+﻿using System;
 
+namespace SwedbankPay.Sdk.PaymentOrders
+{
     [Flags]
     public enum PaymentOrderExpand
     {

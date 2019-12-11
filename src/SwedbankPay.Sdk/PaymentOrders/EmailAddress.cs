@@ -1,38 +1,34 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrders
+﻿using System;
+using System.Globalization;
+using System.Text.RegularExpressions;
+
+using Newtonsoft.Json;
+
+namespace SwedbankPay.Sdk.PaymentOrders
 {
-    using Newtonsoft.Json;
-
-    using System;
-    using System.Globalization;
-    using System.Text.RegularExpressions;
-
-
     public class EmailAddress
     {
-        private string Value { get; }
-
-
         [JsonConstructor]
         public EmailAddress(string emailAddress)
         {
             if (!IsValidEmail(emailAddress))
-            {
                 throw new ArgumentException($"Invalid email address: {emailAddress}", nameof(emailAddress));
-            }
-            this.Value = emailAddress;
+            Value = emailAddress;
         }
+
+
+        private string Value { get; }
+
 
         public static bool IsValidEmail(string emailAddress)
         {
             if (string.IsNullOrWhiteSpace(emailAddress))
-            {
                 return false;
-            }
             try
             {
                 // Normalize the domain
                 emailAddress = Regex.Replace(emailAddress, @"(@)(.+)$", DomainMapper,
-                    RegexOptions.None, TimeSpan.FromMilliseconds(200));
+                                             RegexOptions.None, TimeSpan.FromMilliseconds(200));
 
                 // Examines the domain part of the email and normalizes it.
                 string DomainMapper(Match match)
@@ -58,9 +54,9 @@
             try
             {
                 return Regex.IsMatch(emailAddress,
-                    @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
-                    @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-0-9a-z]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$",
-                    RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250));
+                                     @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
+                                     @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-0-9a-z]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$",
+                                     RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250));
             }
             catch (RegexMatchTimeoutException)
             {
@@ -68,9 +64,10 @@
             }
         }
 
+
         public override string ToString()
         {
-            return this.Value;
+            return Value;
         }
     }
 }

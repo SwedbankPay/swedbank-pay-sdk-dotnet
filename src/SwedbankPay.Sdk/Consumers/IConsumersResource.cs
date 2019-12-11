@@ -1,21 +1,20 @@
-﻿namespace SwedbankPay.Sdk.Consumers
-{
-    using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
+namespace SwedbankPay.Sdk.Consumers
+{
     public interface IConsumersResource
     {
+        Task<BillingDetails> GetBillingDetails(string url);
+
+        Task<ShippingDetails> GetShippingDetails(string url);
+
+
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="consumersRequest"></param>
         /// <exception cref="InvalidConfigurationSettingsException"></exception>
         /// <exception cref="CouldNotInitiateConsumerSessionException"></exception>
         /// <returns></returns>
-        Task<ConsumersResponse> InitiateSession(ConsumersRequest consumersRequest);
-
-        Task<ShippingDetails> GetShippingDetails(string url);
-        Task<BillingDetails> GetBillingDetails(string url);
+        Task<Consumer> InitiateSession(ConsumersRequest consumersRequest);
     }
-
-
 }

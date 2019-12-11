@@ -1,8 +1,10 @@
-﻿namespace SwedbankPay.Sdk.Payments
-{
-    using System.Collections.Generic;
-    using SwedbankPay.Sdk.PaymentOrders;
+﻿using System;
+using System.Collections.Generic;
 
+using SwedbankPay.Sdk.PaymentOrders;
+
+namespace SwedbankPay.Sdk.Payments
+{
     public class PaymentRequest
     {
         public PaymentRequest(string useragent, string description, string payerReference, string payeeReference, params Price[] prices)
@@ -13,35 +15,69 @@
                 Prices.AddRange(prices);
 
             PayerReference = payerReference;
-            PayeeInfo.PayeeReference = payeeReference;
         }
 
-        public string Operation { get; set; } = "Purchase";
-        public string Intent { get; set; } = "Authorization";
+
+        public PaymentRequest(Operation operation,
+                              string intent,
+                              CurrencyCode currency,
+                              List<Price> prices,
+                              string description,
+                              string payerReference,
+                              string userAgent,
+                              Language language,
+                              Urls urls,
+                              PayeeInfo payeeInfo,
+                              PrefillInfo prefillInfo,
+                              bool generatePaymentToken,
+                              string paymentToken,
+                              long amount,
+                              long vatAmount)
+        {
+            Operation = operation ?? throw new ArgumentNullException(nameof(operation));
+            Intent = intent;
+            Currency = currency;
+            Prices = prices;
+            Description = description;
+            PayerReference = payerReference;
+            UserAgent = userAgent;
+            Language = language;
+            Urls = urls;
+            PayeeInfo = payeeInfo;
+            PrefillInfo = prefillInfo;
+            GeneratePaymentToken = generatePaymentToken;
+            PaymentToken = paymentToken;
+            Amount = amount;
+            VatAmount = vatAmount;
+        }
+
+
+        public long Amount { get; set; }
 
         public CurrencyCode Currency { get; set; }
 
-        public List<Price> Prices { get; set; } = new List<Price>();
-
         public string Description { get; set; }
 
-        public string PayerReference { get; set; }
-
-        public string UserAgent { get; set; }
+        public bool GeneratePaymentToken { get; set; }
+        public string Intent { get; set; }
 
         public Language Language { get; set; }
 
-        public Urls Urls { get; } = new Urls();
+        public Operation Operation { get; set; }
 
-        public PayeeInfo PayeeInfo { get; } = new PayeeInfo();
+        public PayeeInfo PayeeInfo { get; internal set; }
 
-        public PrefillInfo PrefillInfo { get; } = new PrefillInfo();
-
-        public bool GeneratePaymentToken { get; set; } = false;
+        public string PayerReference { get; set; }
 
         public string PaymentToken { get; set; }
 
-        public long Amount { get; set; }
+        public PrefillInfo PrefillInfo { get; }
+
+        public List<Price> Prices { get; set; }
+
+        public Urls Urls { get; }
+
+        public string UserAgent { get; set; }
 
         public long VatAmount { get; set; }
     }

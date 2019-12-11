@@ -1,12 +1,9 @@
-﻿namespace SwedbankPay.Sdk.Transactions
-{
-    using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
+namespace SwedbankPay.Sdk.Transactions
+{
     public class TransactionContainerResponse : IdLink
     {
-        public TransactionResponse Transaction { get; }
-
-
         public TransactionContainerResponse()
         {
         }
@@ -17,5 +14,8 @@
         {
             Transaction = transaction;
         }
+
+
+        public TransactionResponse Transaction { get; }
     }
 }

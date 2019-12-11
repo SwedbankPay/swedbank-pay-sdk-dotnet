@@ -1,15 +1,13 @@
-﻿namespace SwedbankPay.Sdk.JsonSerialization
+﻿using System.Collections.Generic;
+
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
+
+using SwedbankPay.Sdk.PaymentOrders;
+
+namespace SwedbankPay.Sdk.JsonSerialization
 {
-    using System;
-    using System.Collections.Generic;
-
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Converters;
-    using Newtonsoft.Json.Serialization;
-
-    using SwedbankPay.Sdk.PaymentOrders;
-    using SwedbankPay.Sdk.Payments;
-
     public class JsonSerialization
     {
         public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
@@ -34,7 +32,10 @@
                 new TypedSafeEnumValueConverter<PaymentOrderLanguage, string>(),
                 new CustomCurrencyCodeConverter(typeof(CurrencyCode)),
                 new CustomLanguageConverter(typeof(Language)),
-                new CustomUriConverter()
+                new CustomUriConverter(),
+                new TypedSafeEnumValueConverter<LinkRelation, string>(),
+                new TypedSafeEnumValueConverter<OrderItemType, string>(),
+                new CustomAmountConverter(typeof(Amount))
             },
             NullValueHandling = NullValueHandling.Ignore,
             DateFormatString = "yyyyMMdd"

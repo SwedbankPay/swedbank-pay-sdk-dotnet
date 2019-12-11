@@ -1,93 +1,95 @@
-﻿namespace SwedbankPay.Sdk.Tests.TestBuilders
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+using SwedbankPay.Sdk.PaymentOrders;
+
+namespace SwedbankPay.Sdk.Tests.TestBuilders
 {
-    using SwedbankPay.Sdk.PaymentOrders;
-
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using SwedbankPay.Sdk.Payments;
-
     public class PaymentOrderRequestBuilder
     {
-        private PaymentOrderRequest paymentOrderRequest = new PaymentOrderRequest();
+        private Amount amount;
+        private CurrencyCode currency;
+        private string description;
+        private bool generateRecurrenceToken;
+        private Language language;
+        private Dictionary<string, object> metaData;
+        private Operation operation;
+        private List<OrderItem> orderItems;
+        private PayeeInfo payeeInfo;
+        private Urls urls;
+        private string userAgent;
+        private Amount vatAmount;
 
-        public PaymentOrderRequestBuilder WithTestValues()
-        {
-
-            this.paymentOrderRequest = new PaymentOrderRequest
-            {
-                Currency = new CurrencyCode("SEK"),
-                Amount = 1300,
-                VatAmount = 0,
-                Description = "Test Description",
-                GenerateRecurrenceToken = false,
-                UserAgent = "useragent",
-                Language = new Language("sv-SE"),
-                PayeeInfo = new PayeeInfo
-                {
-                    PayeeId = "91a4c8e0-72ac-425c-a687-856706f9e9a1",
-                    PayeeReference = DateTime.Now.Ticks.ToString()
-                }
-            };
-
-            return this;
-
-        }
-
-        public PaymentOrderRequestBuilder WithOrderItems()
-        {
-            this.paymentOrderRequest.OrderItems = new List<OrderItem>
-            {
-                new OrderItem
-                {
-                    Reference = "p1",
-                    Name = "Product1",
-                    Type = "PRODUCT",
-                    Class = "ProductGroup1",
-                    ItemUrl = "https://example.com/products/123",
-                    ImageUrl = "https://example.com/products/123.jpg",
-                    Description = "Product 1 description",
-                    DiscountDescription = "Volume discount",
-                    Quantity = 4,
-                    QuantityUnit = "pcs",
-                    UnitPrice = 300,
-                    DiscountPrice = 200,
-                    VatPercent = 0,
-                    Amount = 800,
-                    VatAmount = 0
-                },
-                new OrderItem
-                {
-                    Reference = "p2",
-                    Name = "Product2",
-                    Type = "PRODUCT",
-                    Class = "ProductGroup1",
-                    Description = "Product 2 description",
-                    DiscountDescription = "Volume discount",
-                    Quantity = 1,
-                    QuantityUnit = "pcs",
-                    UnitPrice = 500,
-                    VatPercent = 0,
-                    Amount = 500,
-                    VatAmount = 0
-                }
-            };
-            this.paymentOrderRequest.Amount =
-                this.paymentOrderRequest.OrderItems.Select(a => a.Amount).Sum();
-            return this;
-        }
-
-        public PaymentOrderRequestBuilder WithVat()
-        {
-           this.paymentOrderRequest.VatAmount = (long?)(this.paymentOrderRequest.Amount * 0.25);
-
-            return this;
-        }
 
         public PaymentOrderRequest Build()
         {
-            return this.paymentOrderRequest;
+            return new PaymentOrderRequest(this.operation, this.currency, this.amount, this.vatAmount, this.description, this.userAgent,
+                                           this.language, this.generateRecurrenceToken, this.urls, this.payeeInfo,
+                                           orderItems : this.orderItems);
+        }
+
+
+        public PaymentOrderRequestBuilder WithAmounts(long amount = 30000, long vatAmount = 7500)
+        {
+            if (amount - vatAmount < 0)
+                throw new ArgumentOutOfRangeException(nameof(vatAmount), $"{vatAmount} cant be greater than {amount}");
+
+            this.amount = Amount.FromDecimal(amount);
+            this.vatAmount = Amount.FromDecimal(vatAmount);
+
+            return this;
+        }
+
+
+        public PaymentOrderRequestBuilder WithLanguageCode(string code)
+        {
+            this.language = new Language(code);
+            return this;
+        }
+
+
+        public PaymentOrderRequestBuilder WithMetaData()
+        {
+            this.metaData = new Dictionary<string, object>
+            {
+                ["testvalue"] = 3,
+                ["testvalue2"] = "test"
+            };
+            return this;
+        }
+
+
+        public PaymentOrderRequestBuilder WithOrderItems()
+        {
+            this.orderItems = new List<OrderItem>
+            {
+                new OrderItem("p1", "Product1", OrderItemType.Product, "ProductGroup1", 4, "pcs", Amount.FromDecimal(300), 0,
+                              Amount.FromDecimal(1200), Amount.FromDecimal(0), "https://example.com/products/123",
+                              "https://example.com/products/123.jpg"),
+                new OrderItem("p2", "Product2", OrderItemType.Product, "ProductGroup1", 1, "pcs", Amount.FromDecimal(500), 0,
+                              Amount.FromDecimal(500), Amount.FromDecimal(0))
+            };
+            this.amount = Amount.FromDecimal(this.orderItems.Sum(s => Amount.ToDecimal(s.Amount)));
+            this.vatAmount = Amount.FromDecimal(this.orderItems.Sum(s => Amount.ToDecimal(s.VatAmount)));
+
+            return this;
+        }
+
+
+        public PaymentOrderRequestBuilder WithTestValues()
+        {
+            this.operation = Operation.Purchase;
+            this.currency = new CurrencyCode("SEK");
+            this.amount = Amount.FromDecimal(1700);
+            this.vatAmount = Amount.FromDecimal(0);
+            this.description = "Test Description";
+            this.generateRecurrenceToken = false;
+            this.urls = new Urls();
+            this.userAgent = "useragent";
+            this.language = new Language("sv-SE");
+            this.payeeInfo = new PayeeInfo("91a4c8e0-72ac-425c-a687-856706f9e9a1", DateTime.Now.Ticks.ToString());
+            return this;
         }
     }
 }

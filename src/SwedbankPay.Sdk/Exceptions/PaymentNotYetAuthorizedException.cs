@@ -1,14 +1,16 @@
-﻿namespace SwedbankPay.Sdk.Exceptions
-{
-    using System;
+﻿using System;
 
+namespace SwedbankPay.Sdk.Exceptions
+{
     public class PaymentNotYetAuthorizedException : Exception
     {
-        public string Id { get; }
-
-        public PaymentNotYetAuthorizedException(string id, string message) : base(message)
+        public PaymentNotYetAuthorizedException(string id, string message)
+            : base(message)
         {
             Id = id;
         }
+
+
+        public string Id { get; }
     }
 }

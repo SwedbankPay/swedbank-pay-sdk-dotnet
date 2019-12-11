@@ -1,29 +1,28 @@
-﻿namespace Sample.AspNetCore.SystemTests.Services
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Net.Http;
-    using System.Net.Http.Headers;
-    using System.Text;
-    using System.Threading.Tasks;
+﻿using System;
+using System.Configuration;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
+namespace Sample.AspNetCore.SystemTests.Services
+{
     public class HttpClientService
     {
-        private HttpClient httpClient;
+        private readonly HttpClient httpClient;
+
 
         public HttpClientService()
         {
             this.httpClient = new HttpClient();
-            this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", System.Configuration.ConfigurationManager.AppSettings["payexTestToken"]);
+            this.httpClient.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue("Bearer", ConfigurationManager.AppSettings["payexTestToken"]);
         }
+
 
         public async Task<string> SendGetRequest(string paymentOrderId, string expand)
         {
             if (paymentOrderId == null || expand == null)
-            {
                 throw new Exception($"paymentOrderId [{paymentOrderId}] or expand [{expand}] parameters cannot be null");
-            }
 
             var response = await this.httpClient.GetAsync($"https://api.externalintegration.payex.com{paymentOrderId}?$expand={expand}");
 
@@ -32,10 +31,8 @@
                 var result = await response.Content.ReadAsStringAsync();
                 return result;
             }
-            else
-            {
-                throw new Exception("Response from API was null");
-            }
+
+            throw new Exception("Response from API was null");
         }
     }
 }

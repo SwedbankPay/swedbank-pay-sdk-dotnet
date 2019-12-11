@@ -2,7 +2,14 @@
 {
     public class PaymentAbortRequest
     {
-        public string Operation { get; set; } = "Abort";
-        public string AbortReason { get; set; } = "CancelledByConsumer";
+        public PaymentAbortRequest()
+        {
+            Operation = "Abort";
+            AbortReason = "CancelledByConsumer";
+        }
+
+
+        public string AbortReason { get; }
+        public string Operation { get; }
     }
 }

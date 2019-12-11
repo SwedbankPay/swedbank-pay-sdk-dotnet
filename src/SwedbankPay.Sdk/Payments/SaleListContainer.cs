@@ -1,15 +1,15 @@
-﻿namespace SwedbankPay.Sdk.Payments
-{
-    using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
+namespace SwedbankPay.Sdk.Payments
+{
     public class SaleListContainer : IdLink
     {
-        public List<SaleResponse> SaleList { get; }
-
-
         public SaleListContainer(List<SaleResponse> saleList)
         {
             SaleList = saleList;
         }
+
+
+        public List<SaleResponse> SaleList { get; }
     }
 }

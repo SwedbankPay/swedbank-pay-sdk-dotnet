@@ -1,42 +1,45 @@
-﻿namespace SwedbankPay.Sdk
-{
-    using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
+namespace SwedbankPay.Sdk
+{
     public class Urls : IdLink
     {
         /// <summary>
-        /// The list of URIs valid for embedding of PayEx Hosted Views.
+        ///     The URI to the API endpoint receiving  POST requests on transaction activity related to the payment order.
         /// </summary>
-        public List<string> HostUrls { get; set; }
+        public Uri CallbackUrl { get; set; }
 
         /// <summary>
-        /// The URI to redirect the payer to once the payment is completed.
+        ///     The URI to redirect the payer to if the payment is canceled.
         /// </summary>
-        public string CompleteUrl { get; set; }
+        public Uri CancelUrl { get; set; }
 
         /// <summary>
-        /// The URI to redirect the payer to if the payment is canceled.
+        ///     The URI to redirect the payer to once the payment is completed.
         /// </summary>
-        public string CancelUrl { get; set; }
+        public Uri CompleteUrl { get; set; }
 
         /// <summary>
-        /// The URI that SwedbankPay will redirect back to when the payment menu needs to be loaded, to inspect and act on the current status of the payment. Only used in hosted views. Can not be used simultaneously with cancelUrl; only cancelUrl or paymentUrl can be used, not both.
+        ///     The list of URIs valid for embedding of PayEx Hosted Views.
         /// </summary>
-        public string PaymentUrl { get; set; }
+        public ICollection<Uri> HostUrls { get; set; }
 
         /// <summary>
-        /// The URI to the API endpoint receiving  POST requests on transaction activity related to the payment order.
+        ///     The URI to the logo that will be displayed on redirect pages.
         /// </summary>
-        public string CallbackUrl { get; set; }
+        public Uri LogoUrl { get; set; }
 
         /// <summary>
-        /// The URI to the terms of service document the payer must accept in order to complete the payment.
+        ///     The URI that SwedbankPay will redirect back to when the payment menu needs to be loaded, to inspect and act on the
+        ///     current status of the payment. Only used in hosted views. Can not be used simultaneously with cancelUrl; only
+        ///     cancelUrl or paymentUrl can be used, not both.
         /// </summary>
-        public string TermsOfServiceUrl { get; set; }
+        public Uri PaymentUrl { get; set; }
 
         /// <summary>
-        /// The URI to the logo that will be displayed on redirect pages.
+        ///     The URI to the terms of service document the payer must accept in order to complete the payment.
         /// </summary>
-        public string LogoUrl { get; set; }
+        public Uri TermsOfServiceUrl { get; set; }
     }
 }

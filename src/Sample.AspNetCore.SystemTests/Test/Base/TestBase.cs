@@ -1,36 +1,32 @@
-﻿namespace Sample.AspNetCore.SystemTests.Test.Base
+﻿using System;
+
+using Atata;
+
+using NUnit.Framework;
+
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.IE;
+
+using Sample.AspNetCore.SystemTests.Services;
+
+namespace Sample.AspNetCore.SystemTests.Test.Base
 {
-    using Atata;
-    using BrowserStack;
-    using Sample.AspNetCore.SystemTests.Services;
-    using NUnit.Framework;
-    using OpenQA.Selenium;
-    using OpenQA.Selenium.Chrome;
-    using OpenQA.Selenium.Firefox;
-    using OpenQA.Selenium.IE;
-    using OpenQA.Selenium.Remote;
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.Specialized;
-    using System.Configuration;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using OpenQA.Selenium.Edge;
-    using static Sample.AspNetCore.SystemTests.Test.Base.Drivers;
+    using static Drivers;
 
     #if DEBUG
     [TestFixture(DriverAliases.Chrome)]
-    #elif DEV
+#elif DEV
     [TestFixture(DriverAliases.Chrome)]
     //[TestFixtureSource(typeof(Profiles.ProfileDEV))]
-    #elif RELEASE
+#elif RELEASE
     [TestFixture(DriverAliases.Chrome)]
     //[TestFixtureSource(typeof(Profiles.ProfileRelease))]
-    #endif
+#endif
     public abstract class TestBase
     {
         private readonly string _driverAlias;
+
 
         [OneTimeSetUp]
         public void GlobalSetup()
@@ -53,28 +49,29 @@
             #endif
         }
 
+
         [SetUp]
         public void SetUp()
         {
-            #if DEBUG
+#if DEBUG
             AtataContext.Configure()
                 .UseDriver(_driverAlias)
                     .UseBaseUrl("https://localhost:44389/")
             .Build();
             AtataContext.Current.Driver.Maximize();
-            #elif DEV
+#elif DEV
             AtataContext.Configure()
                 .UseDriver(_driverAlias)
                     .UseBaseUrl("https://YourBaseUrl.com/")
             .Build();
             AtataContext.Current.Driver.Maximize();
-            #elif RELEASE
+#elif RELEASE
             AtataContext.Configure()
                 .ApplyJsonConfig(environmentAlias: "TST") // Applies "Atata.TST.json" for build configuration with "UAT" conditional compilation symbol.
                 .UseDriver(_driverAlias)
             .Build();
             AtataContext.Current.Driver.Maximize();
-            #endif
+#endif
         }
 
         protected TestBase(string driverAlias) => this._driverAlias = driverAlias;
@@ -85,13 +82,12 @@
             AtataContext.Current?.CleanUp();
         }
 
+
         [OneTimeTearDown]
         public void GlobalDown()
         {
             foreach (Driver driverType in Enum.GetValues(typeof(Driver)))
-            {
                 WebDriverCleanerService.KillWebDriverProcess(WebDriverCleanerService.DriverNames[driverType]);
-            }
         }
     }
 }

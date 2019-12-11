@@ -1,14 +1,15 @@
-﻿namespace SwedbankPay.Sdk.Tests.UnitTests
+﻿using System;
+
+using SwedbankPay.Sdk.PaymentOrders;
+
+using Xunit;
+
+namespace SwedbankPay.Sdk.Tests.UnitTests
 {
-    using SwedbankPay.Sdk.PaymentOrders;
-
-    using System;
-
-    using Xunit;
-
     public class EmailAddressTests
     {
-        private string validAddress = "leia.ahlstrom@payex.com";
+        private readonly string validAddress = "leia.ahlstrom@payex.com";
+
 
         [Fact]
         public void AddressValue_IsSetCorrectly_WhenGivenValidAddressString()
@@ -20,27 +21,6 @@
             Assert.Equal(this.validAddress, addressObject.ToString());
         }
 
-        [Theory]
-        [InlineData("plainaddress")]
-        [InlineData("#@%^%#$@#$@#.com")]
-        [InlineData("@example.com")]
-        [InlineData("Joe Smith <email@example.com>")]
-        [InlineData("email.example.com")]
-        [InlineData("email@example@example.com")]
-        [InlineData(".email@example.com")]
-        [InlineData("email.@example.com")]
-        [InlineData("email..email@example.com")]
-        [InlineData("あいうえお@example.com")]
-        [InlineData("email@example.com (Joe Smith)")]
-        [InlineData("email@example")]
-        [InlineData("email@-example.com")]
-        [InlineData("email@example..com")]
-        [InlineData("Abc..123@example.com")]
-        public void ThrowsArgumentException_WhenGivenInvalidAddressString(string address)
-        {
-            //ASSERT
-            Assert.Throws<ArgumentException>("emailAddress", () => new EmailAddress(address));
-        }
 
         [Theory]
         [InlineData("email@example.com")]
@@ -64,5 +44,27 @@
             Assert.Null(ex);
         }
 
+
+        [Theory]
+        [InlineData("plainaddress")]
+        [InlineData("#@%^%#$@#$@#.com")]
+        [InlineData("@example.com")]
+        [InlineData("Joe Smith <email@example.com>")]
+        [InlineData("email.example.com")]
+        [InlineData("email@example@example.com")]
+        [InlineData(".email@example.com")]
+        [InlineData("email.@example.com")]
+        [InlineData("email..email@example.com")]
+        [InlineData("あいうえお@example.com")]
+        [InlineData("email@example.com (Joe Smith)")]
+        [InlineData("email@example")]
+        [InlineData("email@-example.com")]
+        [InlineData("email@example..com")]
+        [InlineData("Abc..123@example.com")]
+        public void ThrowsArgumentException_WhenGivenInvalidAddressString(string address)
+        {
+            //ASSERT
+            Assert.Throws<ArgumentException>("emailAddress", () => new EmailAddress(address));
+        }
     }
 }

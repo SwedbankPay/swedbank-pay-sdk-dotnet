@@ -1,22 +1,22 @@
-﻿namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
-{
-    using Atata;
-    using NUnit.Framework;
-    using Sample.AspNetCore.SystemTests.Services;
-    using Sample.AspNetCore.SystemTests.Test.Helpers;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+﻿using Atata;
 
+using NUnit.Framework;
+
+using Sample.AspNetCore.SystemTests.Services;
+using Sample.AspNetCore.SystemTests.Test.Helpers;
+
+namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
+{
     public class ValidationTests : PaymentTests
     {
-        public ValidationTests(string driverAlias) : base(driverAlias) { }
+        public ValidationTests(string driverAlias)
+            : base(driverAlias)
+        {
+        }
 
-        #region Validation
 
-        [Test, TestCaseSource(nameof(TestData), new object[] { true, null })]
+        [Test]
+        [TestCaseSource(nameof(TestData), new object[] { true, null })]
         public void FieldValidationCard(Product[] products)
         {
             GoToPayexCardPaymentFrame(products)
@@ -33,13 +33,9 @@
                 .ValidationIcons[x => x.ExpiryDate].Should.Not.BeVisible();
         }
 
-        [Test, TestCaseSource(nameof(TestData), new object[] { true, null })]
-        public void FieldValidationSwish(Product[] products)
-        {
-            GoToPayexSwishPaymentFrame(products);
-        }
 
-        [Test, TestCaseSource(nameof(TestData), new object[] { true, null })]
+        [Test]
+        [TestCaseSource(nameof(TestData), new object[] { true, null })]
         public void FieldValidationInvoice(Product[] products)
         {
             GoToPayexInvoicePaymentFrame(products)
@@ -62,6 +58,12 @@
                 .ValidationIcons[x => x.ZipCode].Should.Not.BeVisible();
         }
 
-        #endregion
+
+        [Test]
+        [TestCaseSource(nameof(TestData), new object[] { true, null })]
+        public void FieldValidationSwish(Product[] products)
+        {
+            GoToPayexSwishPaymentFrame(products);
+        }
     }
 }

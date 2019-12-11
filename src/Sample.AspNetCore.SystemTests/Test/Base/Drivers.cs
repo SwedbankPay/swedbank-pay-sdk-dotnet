@@ -1,11 +1,7 @@
-﻿namespace Sample.AspNetCore.SystemTests.Test.Base
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
+namespace Sample.AspNetCore.SystemTests.Test.Base
+{
     public class Drivers
     {
         public enum Driver
@@ -21,12 +17,12 @@
         public static Dictionary<Driver, string> DriverAliasNames =>
             new Dictionary<Driver, string>
             {
-                {Driver.Chrome, "chrome"},
-                {Driver.Firefox, "firefox"},
-                {Driver.Edge, "edge"},
-                {Driver.InternetExplorer, "internetexplorer"},
-                {Driver.Opera, "opera"},
-                {Driver.Safari, "safari"},
+                { Driver.Chrome, "chrome" },
+                { Driver.Firefox, "firefox" },
+                { Driver.Edge, "edge" },
+                { Driver.InternetExplorer, "internetexplorer" },
+                { Driver.Opera, "opera" },
+                { Driver.Safari, "safari" }
             };
     }
 }

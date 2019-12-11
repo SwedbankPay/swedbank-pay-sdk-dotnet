@@ -1,11 +1,13 @@
-﻿namespace Sample.AspNetCore.Models
-{
-    using System;
-    using System.Linq;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.DependencyInjection;
-    using Sample.AspNetCore.Data;
+﻿using System;
+using System.Linq;
 
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+
+using Sample.AspNetCore.Data;
+
+namespace Sample.AspNetCore.Models
+{
     public class ProductGenerator
     {
         public static void Initialize(IServiceProvider serviceProvider)
@@ -13,14 +15,11 @@
             using (var context = new StoreDbContext(
                 serviceProvider.GetRequiredService<DbContextOptions<StoreDbContext>>()))
             {
-                
                 if (context.Products.Any())
-                {
-                    return;   
-                }
+                    return;
 
                 context.Products.AddRange(
-                    new Product()
+                    new Product
                     {
                         ProductId = 1,
                         Class = "ProductGroup1",

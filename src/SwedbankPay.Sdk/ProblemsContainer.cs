@@ -1,21 +1,23 @@
-﻿namespace SwedbankPay.Sdk
-{
-    using System.Collections.Generic;
-    using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
+namespace SwedbankPay.Sdk
+{
     public class ProblemsContainer
     {
         public ProblemsContainer()
         {
-
         }
+
 
         public ProblemsContainer(string name, string description)
         {
             Problems.Add(new Problem { Name = name, Description = description });
         }
 
+
         public List<Problem> Problems { get; set; } = new List<Problem>();
+
 
         public override string ToString()
         {
@@ -25,8 +27,9 @@
 
     public class Problem
     {
-        public string Name { get; set; }
         public string Description { get; set; }
+        public string Name { get; set; }
+
 
         public override string ToString()
         {

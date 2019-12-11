@@ -1,14 +1,12 @@
-﻿namespace SwedbankPay.Sdk.Transactions
+﻿using System.Collections.Generic;
+
+using Newtonsoft.Json;
+
+namespace SwedbankPay.Sdk.Transactions
 {
-    using Newtonsoft.Json;
-
-    using System.Collections.Generic;
-
     public class CapturesListContainer : IdLink
     {
-        public List<TransactionContainerResponse> CaptureList { get; }
-
-        public CapturesListContainer() 
+        public CapturesListContainer()
         {
             CaptureList = new List<TransactionContainerResponse>();
         }
@@ -19,5 +17,8 @@
         {
             CaptureList = captureList;
         }
+
+
+        public List<TransactionContainerResponse> CaptureList { get; }
     }
 }

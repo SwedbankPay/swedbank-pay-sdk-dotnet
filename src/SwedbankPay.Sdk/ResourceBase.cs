@@ -1,15 +1,15 @@
-﻿namespace SwedbankPay.Sdk
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
+
+using Microsoft.Extensions.Logging;
+
+using SwedbankPay.Sdk.Exceptions;
+using SwedbankPay.Sdk.PaymentOrders;
+
+namespace SwedbankPay.Sdk
 {
-    using Microsoft.Extensions.Logging;
-
-    using SwedbankPay.Sdk.Exceptions;
-    using SwedbankPay.Sdk.PaymentOrders;
-
-    using System;
-    using System.Collections.Generic;
-    using System.Net.Http;
-    using System.Threading.Tasks;
-
     public abstract class ResourceBase
     {
         protected readonly SwedbankPayOptions swedbankPayOptions;
@@ -21,29 +21,22 @@
             ILogger logger,
             HttpClient client)
         {
-            if (client == null)
-            {
+            if (client == null) 
                 throw new ArgumentNullException(nameof(client));
-            }
 
             if (swedbankPayOptions == null)
-            {
                 throw new ArgumentNullException(nameof(swedbankPayOptions));
-            }
 
-            if(client.BaseAddress == null || !client.DefaultRequestHeaders.Contains("Authorization"))
-            {
-                throw new ArgumentException($"Invalid client configuration. Check config.");
-            }
+            if (client.BaseAddress == null || !client.DefaultRequestHeaders.Contains("Authorization"))
+                throw new ArgumentException("Invalid client configuration. Check config.");
 
             if (swedbankPayOptions.IsEmpty())
-            {
-                throw new InvalidConfigurationSettingsException($"Invalid configuration. Check config.");
-            }
+                throw new InvalidConfigurationSettingsException("Invalid configuration. Check config.");
 
             this.swedbankPayOptions = swedbankPayOptions;
             this.swedbankPayClient = new SwedbankPayHttpClient(client, logger);
         }
+
 
         public async Task<string> GetRaw(string id, PaymentOrderExpand paymentOrderExpand)
         {
@@ -53,22 +46,20 @@
             return await this.swedbankPayClient.GetRaw(url);
         }
 
-        internal string GetExpandQueryString<T>(T expandParameter) where T : Enum
+
+        internal string GetExpandQueryString<T>(T expandParameter)
+            where T : Enum
         {
             var intValue = Convert.ToInt64(expandParameter);
             if (intValue == 0)
-            {
                 return string.Empty;
-            }
 
             var s = new List<string>();
             foreach (var enumValue in Enum.GetValues(typeof(T)))
             {
                 var name = Enum.GetName(typeof(T), enumValue);
                 if (expandParameter.HasFlag((T)enumValue) && name != "None" && name != "All")
-                {
                     s.Add(name.ToLower());
-                }
             }
 
             var queryString = string.Join(",", s);

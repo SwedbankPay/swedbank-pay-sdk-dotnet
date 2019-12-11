@@ -1,17 +1,20 @@
-﻿namespace SwedbankPay.Sdk.Exceptions
-{
-    using System;
-    using SwedbankPay.Sdk.Consumers;
+﻿using System;
 
+using SwedbankPay.Sdk.Consumers;
+
+namespace SwedbankPay.Sdk.Exceptions
+{
     public class CouldNotInitiateConsumerSessionException : Exception
     {
-        public ProblemsContainer Problems { get; }
-        public ConsumersRequest Consumer { get; }
-
-        public CouldNotInitiateConsumerSessionException(ConsumersRequest consumer, ProblemsContainer problems) : base(problems.ToString())
+        public CouldNotInitiateConsumerSessionException(ConsumersRequest consumer, ProblemsContainer problems)
+            : base(problems.ToString())
         {
             Problems = problems;
             Consumer = consumer;
         }
+
+
+        public ConsumersRequest Consumer { get; }
+        public ProblemsContainer Problems { get; }
     }
 }

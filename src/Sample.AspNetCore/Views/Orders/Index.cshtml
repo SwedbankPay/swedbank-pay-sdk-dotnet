@@ -7,11 +7,11 @@
 
 @if (TempData["CancelMessage"] != null)
 {
-<div class="alert alert-success">@TempData["CancelMessage"]</div>
+    <div class="alert alert-success">@TempData["CancelMessage"]</div>
 }
 else if (TempData["ErrorMessage"] != null)
 {
-<div class="alert alert-warning">@TempData["ErrorMessage"]</div>
+    <div class="alert alert-warning">@TempData["ErrorMessage"]</div>
 }
 
 <h1>Orders</h1>

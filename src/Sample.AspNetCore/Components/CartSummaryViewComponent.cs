@@ -1,20 +1,23 @@
-﻿namespace Sample.AspNetCore.Components
-{
-    using Microsoft.AspNetCore.Mvc;
-    using Sample.AspNetCore.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 
+using Sample.AspNetCore.Models;
+
+namespace Sample.AspNetCore.Components
+{
     public class CartSummaryViewComponent : ViewComponent
     {
-        private Cart cart;
+        private readonly Cart cart;
+
 
         public CartSummaryViewComponent(Cart cartService)
         {
-            cart = cartService;
+            this.cart = cartService;
         }
+
 
         public IViewComponentResult Invoke()
         {
-            return View(cart);
+            return View(this.cart);
         }
     }
 }

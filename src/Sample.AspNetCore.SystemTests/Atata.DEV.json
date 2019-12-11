@@ -3,7 +3,9 @@
     {
       "type": "chrome",
       "options": {
-        "arguments": [ "start-maximized", "incognito", "--disable-infobars", "--disable-notifications", "disable-extensions" ]
+        "arguments": [
+          "start-maximized", "incognito", "--disable-infobars", "--disable-notifications", "disable-extensions"
+        ]
       }
     }
   ],

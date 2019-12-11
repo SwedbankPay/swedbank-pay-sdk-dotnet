@@ -1,24 +1,31 @@
-﻿namespace SwedbankPay.Sdk.Tests.TestBuilders
-{
-    using SwedbankPay.Sdk.Consumers;
+﻿using SwedbankPay.Sdk.Consumers;
+using SwedbankPay.Sdk.PaymentOrders;
 
+namespace SwedbankPay.Sdk.Tests.TestBuilders
+{
     public class ConsumersRequestContainerBuilder
     {
-        private ConsumersRequestContainer consumersRequestContainer = new ConsumersRequestContainer
+        private CountryCode consumerCountryCode;
+
+        private EmailAddress email;
+
+        private Msisdn msisdn;
+
+        private NationalIdentifier nationalIdentifier;
+        private Operation operation;
+
+
+        public ConsumersRequest Build()
         {
-            ConsumersRequest = new ConsumersRequest()
-        };
+            return new ConsumersRequest(this.consumerCountryCode, this.operation);
+        }
 
 
         public ConsumersRequestContainerBuilder WithTestValues()
         {
-            this.consumersRequestContainer.ConsumersRequest.ConsumerCountryCode = CountryCode.SE;
+            this.consumerCountryCode = CountryCode.SE;
+            this.operation = Operation.Initiate;
             return this;
-        }
-
-        public ConsumersRequestContainer Build()
-        {
-            return this.consumersRequestContainer;
         }
     }
 }

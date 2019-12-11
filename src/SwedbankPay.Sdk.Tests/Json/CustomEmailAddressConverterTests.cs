@@ -1,21 +1,18 @@
-﻿namespace SwedbankPay.Sdk.Tests.Json
+﻿using System;
+
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
+using SwedbankPay.Sdk.PaymentOrders;
+
+using Xunit;
+
+namespace SwedbankPay.Sdk.Tests.Json
 {
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
-
-    using SwedbankPay.Sdk.PaymentOrders;
-
-    using System;
-
-    using SwedbankPay.Sdk.JsonSerialization;
-
-    using Xunit;
-
-  
-
     public class CustomEmailAddressConverterTests
     {
-        private string address = "email@example.com";
+        private readonly string address = "email@example.com";
+
 
         [Fact]
         public void CanDeSerialize_EmailAddress()
@@ -26,11 +23,12 @@
             jsonObject.Add("xX123xxaddress", this.address);
 
             //ACT
-            var result = JsonConvert.DeserializeObject<EmailAddress>(jsonObject.ToString(), JsonSerialization.Settings);
+            var result = JsonConvert.DeserializeObject<EmailAddress>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);
 
             //ASSERT
             Assert.Equal(this.address, result.ToString());
         }
+
 
         [Fact]
         public void CanSerialize_EmailAddress()
@@ -39,7 +37,7 @@
             var riskIndicator = new RiskIndicator { DeliveryEmailAddress = new EmailAddress(this.address) };
 
             //ACT
-            var result = JsonConvert.SerializeObject(riskIndicator, JsonSerialization.Settings);
+            var result = JsonConvert.SerializeObject(riskIndicator, JsonSerialization.JsonSerialization.Settings);
             var obj = JObject.Parse(result);
             obj.TryGetValue("DeliveryEmailAddress", StringComparison.InvariantCultureIgnoreCase, out var address);
             //ASSERT
