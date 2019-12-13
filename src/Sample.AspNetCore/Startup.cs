@@ -66,13 +66,12 @@ namespace Sample.AspNetCore
             services.Configure<PayeeInfoConfig>(options =>
             {
                 options.PayeeId = Configuration.GetSection("PayeeInfo")["PayeeId"];
-                //options.PayeeReference = Configuration.GetSection("PayeeInfo")["PayeeReference"];
                 options.PayeeReference = DateTime.Now.Ticks.ToString();
             });
-            services.Configure<Urls>(Configuration.GetSection("Urls"));
+            services.Configure<UrlsOptions>(Configuration.GetSection("Urls"));
             services.AddScoped(provider => SessionCart.GetCart(provider));
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddSwedbankPayClient(Configuration, "someAccount");
+            services.AddSwedbankPayClient(Configuration);
             services.AddSession();
         }
     }

@@ -17,6 +17,7 @@ namespace SwedbankPay.Sdk.Tests
         public async Task CreateAndAbortPaymentOrder_ShouldReturnAbortedState()
         {
             //ARRANGE
+            
             var paymentOrderRequest = this.paymentOrderRequestBuilder.WithTestValues().Build();
 
             //ACT
@@ -42,7 +43,7 @@ namespace SwedbankPay.Sdk.Tests
             Assert.NotNull(paymentOrder.PaymentOrderResponse);
             var amount = paymentOrder.PaymentOrderResponse.Amount;
 
-            var paymentOrder2 = await this.Sut.PaymentOrder.Get(paymentOrder.PaymentOrderResponse.Id);
+            var paymentOrder2 = await this.Sut.PaymentOrder.Get(paymentOrder.PaymentOrderResponse.Id.OriginalString);
             Assert.NotNull(paymentOrder2);
             Assert.NotNull(paymentOrder2.PaymentOrderResponse);
             Assert.Equal(amount.Value, paymentOrder2.PaymentOrderResponse.Amount.Value);
@@ -135,7 +136,6 @@ namespace SwedbankPay.Sdk.Tests
             Assert.NotNull(paymentOrder.PaymentOrderResponse.CurrentPayment.Payment);
         }
 
-
         [Fact]
         public async Task GetPaymentOrder_WithSwishPayment_ShouldReturnSales()
         {
@@ -157,24 +157,5 @@ namespace SwedbankPay.Sdk.Tests
 
             await Assert.ThrowsAsync<CouldNotFindPaymentException>(() => this.Sut.PaymentOrder.Get(id));
         }
-
-
-        //private PaymentOrderRequest CreatePaymentOrderRequest(long amount = 30000, long vatAmount = 7500)
-        //{
-        //    return new PaymentOrderRequest
-        //    {
-        //        Amount = Amount.FromDecimal(amount),
-        //        VatAmount = Amount.FromDecimal(vatAmount),
-        //        Currency = new CurrencyCode("SEK"),
-        //        Description = "Description",
-        //        Language = new Language("sv-SE"),
-        //        UserAgent = "useragent",
-        //        PayeeInfo = new PayeeInfo
-        //        {
-        //            PayeeId = "91a4c8e0-72ac-425c-a687-856706f9e9a1",
-        //            PayeeReference = DateTime.Now.Ticks.ToString(),
-        //        }
-        //    };
-        //}
     }
 }

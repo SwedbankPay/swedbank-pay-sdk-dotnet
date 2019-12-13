@@ -93,43 +93,9 @@ namespace SwedbankPay.Sdk
             <T>(HttpMethod httpMethod, string url, Func<ProblemsContainer, Exception> onError, object payload = null)
             where T : new()
         {
-            var msg = new HttpRequestMessage(httpMethod, url);
+            var requestMessage = new HttpRequestMessage(httpMethod, url);
 
-            UpdateRequest(msg, payload);
-
-            HttpResponseMessage response;
-            try
-            {
-                response = await this.client.SendAsync(msg, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
-            }
-            catch (HttpRequestException e)
-            {
-                throw new BadRequestException(e);
-            }
-            catch (TaskCanceledException te)
-            {
-                throw new ApiTimeOutException(te);
-            }
-
-            if (response.IsSuccessStatusCode)
-            {
-                var res = await response.Content.ReadAsStringAsync();
-                this.logger.LogInformation(res);
-                return JsonConvert.DeserializeObject<T>(res, JsonSerialization.JsonSerialization.Settings);
-            }
-
-            var responseMessage = await response.Content.ReadAsStringAsync();
-            this.logger.LogInformation(responseMessage);
-            ProblemsContainer problems;
-            if (!string.IsNullOrEmpty(responseMessage) && IsValidJson(responseMessage))
-                problems = JsonConvert.DeserializeObject<ProblemsContainer>(responseMessage);
-            else if (response.StatusCode == HttpStatusCode.NotFound)
-                problems = new ProblemsContainer("id", "Not found");
-            else
-                problems = new ProblemsContainer("Other", $"Response when calling SwedbankPay was: '{response.StatusCode}'");
-
-            var ex = onError(problems);
-            throw ex;
+            return await HttpRequest<T>(requestMessage, onError, payload);
         }
 
 

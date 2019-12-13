@@ -28,8 +28,8 @@ namespace SwedbankPay.Sdk.PaymentOrders
             Description = description ?? throw new ArgumentNullException(nameof(description));
             UserAgent = userAgent ?? throw new ArgumentNullException(nameof(userAgent));
             Language = language ?? throw new ArgumentNullException(nameof(language));
+            Urls = urls ?? throw new ArgumentNullException(nameof(urls));
             GenerateRecurrenceToken = generateRecurrenceToken;
-            Urls = urls ?? new Urls();
             PayeeInfo = payeeInfo;
             Payer = payer;
             OrderItems = orderItems;

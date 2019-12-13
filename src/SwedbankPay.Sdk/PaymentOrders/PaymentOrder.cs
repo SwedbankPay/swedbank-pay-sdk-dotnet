@@ -12,8 +12,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
     public class PaymentOrder
     {
         private PaymentOrder(PaymentOrderResponseContainer paymentOrderResponseContainer,
-                             SwedbankPayHttpClient client,
-                             SwedbankPayOptions swedbankPayOptions)
+                             SwedbankPayHttpClient client)
         {
             PaymentOrderResponse = paymentOrderResponseContainer.PaymentOrder;
             var operations = new Operations();
@@ -39,7 +38,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                             new ExecuteRequestWrapper<TransactionRequestContainer, ReversalTransactionResponseContainer>(
                                 httpOperation.Request, client, m => new CouldNotPostTransactionException(httpOperation.Href, m));
                         break;
-                    case PaymentOrderResourceOperations.UpdatePaymentOrderUpdateOrder:
+                    case PaymentOrderResourceOperations.UpdatePaymentOrderUpdateOrder: 
                         operations.Update = new ExecuteRequestWrapper<PaymentOrderUpdateRequestContainer, PaymentOrderResponseContainer>(
                             httpOperation.Request, client, m => new CouldNotUpdatePaymentOrderException(httpOperation.Href, m));
                         break;
@@ -55,23 +54,18 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
                 Operations = operations;
             }
-
-            SwedbankPayOptions = swedbankPayOptions;
+           
         }
 
 
         public Operations Operations { get; }
         public PaymentOrderResponse PaymentOrderResponse { get; }
-        internal SwedbankPayOptions SwedbankPayOptions { get; }
-
-
+        
         internal static async Task<PaymentOrder> Create(PaymentOrderRequest paymentOrderRequest,
-                                                        SwedbankPayHttpClient client,
-                                                        SwedbankPayOptions swedbankPayOptions,
-                                                        PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
+                                                        SwedbankPayHttpClient client, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
         {
             var url = $"/psp/paymentorders{GetExpandQueryString(paymentOrderExpand)}";
-            paymentOrderRequest.SetRequiredMerchantInfo(swedbankPayOptions);
+            //paymentOrderRequest.SetRequiredMerchantInfo(swedbankPayOptions);
 
             var payload = new PaymentOrderRequestContainer(paymentOrderRequest);
 
@@ -83,17 +77,15 @@ namespace SwedbankPay.Sdk.PaymentOrders
             var paymentOrderResponseContainer =
                 await client.HttpRequest<PaymentOrderResponseContainer>(HttpMethod.Post, url, OnError, payload);
 
-            return new PaymentOrder(paymentOrderResponseContainer, client, swedbankPayOptions);
+            return new PaymentOrder(paymentOrderResponseContainer, client);
         }
 
 
         internal static async Task<PaymentOrder> Get(string id,
-                                                     SwedbankPayHttpClient client,
-                                                     SwedbankPayOptions swedbankPayOptions,
-                                                     PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
+                                                     SwedbankPayHttpClient client, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
         {
             if (string.IsNullOrEmpty(id))
-                throw new CouldNotFindPaymentException(id);
+                throw new ArgumentNullException(nameof(id), $"{id} cannot be null or empty");
 
             var url = $"{id}{GetExpandQueryString(paymentOrderExpand)}";
 
@@ -104,7 +96,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
             var paymentOrderResponseContainer = await client.HttpGet<PaymentOrderResponseContainer>(url, OnError);
 
-            return new PaymentOrder(paymentOrderResponseContainer, client, swedbankPayOptions);
+            return new PaymentOrder(paymentOrderResponseContainer, client);
         }
 
 

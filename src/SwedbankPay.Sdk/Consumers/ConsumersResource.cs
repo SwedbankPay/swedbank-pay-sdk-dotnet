@@ -10,10 +10,9 @@ namespace SwedbankPay.Sdk.Consumers
 {
     public class ConsumersResource : ResourceBase, IConsumersResource
     {
-        public ConsumersResource(SwedbankPayOptions swedbankPayOptions,
-                                 ILogger logger,
+        public ConsumersResource(ILogger logger,
                                  HttpClient client)
-            : base(swedbankPayOptions, logger, client)
+            : base(logger, client)
         {
         }
 
@@ -26,7 +25,7 @@ namespace SwedbankPay.Sdk.Consumers
         /// <returns></returns>
         public async Task<Consumer> InitiateSession(ConsumersRequest consumersRequest)
         {
-            return await Consumer.Initiate(consumersRequest, this.swedbankPayClient);
+            return await Consumer.Initiate(consumersRequest, this.swedbankPayHttpClient);
         }
 
 
@@ -47,7 +46,7 @@ namespace SwedbankPay.Sdk.Consumers
                 return new CouldNotGetShippingDetailsException(url, m);
             }
 
-            var shippingDetails = await this.swedbankPayClient.HttpRequest<ShippingDetails>(HttpMethod.Get, url, OnError);
+            var shippingDetails = await this.swedbankPayHttpClient.HttpRequest<ShippingDetails>(HttpMethod.Get, url, OnError);
             return shippingDetails;
         }
 
@@ -69,7 +68,7 @@ namespace SwedbankPay.Sdk.Consumers
                 return new CouldNotGetBillingDetailsException(url, m);
             }
 
-            var billingDetails = await this.swedbankPayClient.HttpRequest<BillingDetails>(HttpMethod.Get, url, OnError);
+            var billingDetails = await this.swedbankPayHttpClient.HttpRequest<BillingDetails>(HttpMethod.Get, url, OnError);
             return billingDetails;
         }
     }

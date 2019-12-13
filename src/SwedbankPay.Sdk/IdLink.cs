@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+
+using Newtonsoft.Json;
 
 namespace SwedbankPay.Sdk
 {
@@ -8,6 +10,7 @@ namespace SwedbankPay.Sdk
         ///     Relative URL to some resource
         /// </summary>
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
-        public string Id { get; protected set; }
+        public Uri Id { get; protected set; }
+        
     }
 }
