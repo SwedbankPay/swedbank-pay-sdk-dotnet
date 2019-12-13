@@ -27,8 +27,8 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
         {
             GoToOrdersPage(products, payexInfo)
                 .PaymentOrderLink.StoreValue(out var orderLink)
-                .Actions.Rows[x => x.Name.Value.Trim() == OperationTypes.Cancel].ExecuteAction.ClickAndGo()
-                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Get].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Contains(OperationTypes.Cancel)].ExecuteAction.ClickAndGo()
+                .Actions.Rows[y => y.Name.Value.Contains(OperationTypes.Get)].Should.BeVisible()
                 .Actions.Rows.Count.Should.Equal(1);
 
             var order = JsonConvert.DeserializeObject<Order>(
@@ -58,8 +58,8 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
         {
             GoToOrdersPage(products, payexInfo)
                 .PaymentOrderLink.StoreValue(out var orderLink)
-                .Actions.Rows[x => x.Name.Value.Trim() == OperationTypes.Cancel].ExecuteAction.ClickAndGo()
-                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Get].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Contains(OperationTypes.Cancel)].ExecuteAction.ClickAndGo()
+                .Actions.Rows[y => y.Name.Value.Contains(OperationTypes.Get)].Should.BeVisible()
                 .Actions.Rows.Count.Should.Equal(1);
 
             var order = JsonConvert.DeserializeObject<Order>(

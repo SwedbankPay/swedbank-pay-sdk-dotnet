@@ -19,7 +19,7 @@ namespace Sample.AspNetCore.SystemTests.Services
         public static TOwner StorePrice<TOwner>(this UIComponent<TOwner> component, out int value)
             where TOwner : PageObject<TOwner>
         {
-            value = int.Parse(component.Content.Value) * 100;
+            value = int.Parse(component.Content.Value, System.Globalization.NumberStyles.AllowDecimalPoint) * 100;
             return component.Owner;
         }
 
