@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
@@ -18,13 +20,16 @@ namespace Sample.AspNetCore.Controllers
         private readonly Cart cartService;
         private readonly PayeeInfoConfig payeeInfoOptions;
         private readonly SwedbankPayClient swedbankPayClient;
+        private readonly UrlsOptions urls;
 
 
         public CheckOutController(IOptionsSnapshot<PayeeInfoConfig> payeeInfoOptionsAccessor,
+                                  IOptionsSnapshot<UrlsOptions> urlsAccessor,
                                   Cart cartService,
                                   SwedbankPayClient swedbankPayClient)
         {
             this.payeeInfoOptions = payeeInfoOptionsAccessor.Value;
+            this.urls = urlsAccessor.Value;
             this.cartService = cartService;
             this.swedbankPayClient = swedbankPayClient;
         }
@@ -42,19 +47,32 @@ namespace Sample.AspNetCore.Controllers
                 };
 
             var orderItems = this.cartService.CartLines.ToOrderItems();
-            var paymentOrderItems = orderItems.ToList();
-            var paymentOrderRequest = new PaymentOrderRequest(Operation.Purchase, new CurrencyCode("SEK"), Amount.FromDecimal(totalAmount),
-                                                              Amount.FromDecimal(0), "Test description", "useragent", new Language("sv-SE"),
-                                                              false, new Urls(),
-                                                              new PayeeInfo(this.payeeInfoOptions.PayeeId,
-                                                                            this.payeeInfoOptions.PayeeReference), payer,
-                                                              paymentOrderItems);
-            var paymentOrder = await this.swedbankPayClient.PaymentOrder.Create(paymentOrderRequest);
+            var paymentOrderItems = orderItems?.ToList();
+            try
+            {
+                var paymentOrderRequest = new PaymentOrderRequest(Operation.Purchase, new CurrencyCode("SEK"),
+                                                                  Amount.FromDecimal(totalAmount),
+                                                                  Amount.FromDecimal(0), "Test description", "useragent",
+                                                                  new Language("sv-SE"),
+                                                                  false,
+                                                                  new Urls(this.urls.HostUrls, this.urls.CompleteUrl,
+                                                                           this.urls.TermsOfServiceUrl, this.urls.CancelUrl,
+                                                                           this.urls.PaymentUrl, this.urls.CallbackUrl, this.urls.LogoUrl),
+                                                                  new PayeeInfo(this.payeeInfoOptions.PayeeId,
+                                                                                this.payeeInfoOptions.PayeeReference), payer,
+                                                                  paymentOrderItems);
+                var paymentOrder = await this.swedbankPayClient.PaymentOrder.Create(paymentOrderRequest);
 
-            this.cartService.PaymentOrderLink = paymentOrder.PaymentOrderResponse.Id;
-            this.cartService.Update();
+                this.cartService.PaymentOrderLink = paymentOrder.PaymentOrderResponse.Id.OriginalString;
+                this.cartService.Update();
 
-            return paymentOrder;
+                return paymentOrder;
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.Message);
+                return null;
+            }
         }
 
 
