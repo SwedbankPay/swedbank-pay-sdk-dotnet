@@ -5,36 +5,25 @@ using System.Threading.Tasks;
 
 using Microsoft.Extensions.Logging;
 
-using SwedbankPay.Sdk.Exceptions;
 using SwedbankPay.Sdk.PaymentOrders;
 
 namespace SwedbankPay.Sdk
 {
     public abstract class ResourceBase
     {
-        protected readonly SwedbankPayOptions swedbankPayOptions;
-        internal SwedbankPayHttpClient swedbankPayClient;
+        internal SwedbankPayHttpClient swedbankPayHttpClient;
 
 
-        internal ResourceBase(
-            SwedbankPayOptions swedbankPayOptions,
-            ILogger logger,
-            HttpClient client)
+        internal ResourceBase(ILogger logger,
+                              HttpClient client)
         {
-            if (client == null) 
+            if (client == null)
                 throw new ArgumentNullException(nameof(client));
-
-            if (swedbankPayOptions == null)
-                throw new ArgumentNullException(nameof(swedbankPayOptions));
 
             if (client.BaseAddress == null || !client.DefaultRequestHeaders.Contains("Authorization"))
                 throw new ArgumentException("Invalid client configuration. Check config.");
 
-            if (swedbankPayOptions.IsEmpty())
-                throw new InvalidConfigurationSettingsException("Invalid configuration. Check config.");
-
-            this.swedbankPayOptions = swedbankPayOptions;
-            this.swedbankPayClient = new SwedbankPayHttpClient(client, logger);
+            this.swedbankPayHttpClient = new SwedbankPayHttpClient(client, logger);
         }
 
 
@@ -43,7 +32,7 @@ namespace SwedbankPay.Sdk
             var expandQueryString = GetExpandQueryString(paymentOrderExpand);
             var url = $"{id}?$expand={expandQueryString}";
 
-            return await this.swedbankPayClient.GetRaw(url);
+            return await this.swedbankPayHttpClient.GetRaw(url);
         }
 
 

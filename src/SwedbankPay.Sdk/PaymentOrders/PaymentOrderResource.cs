@@ -7,10 +7,9 @@ namespace SwedbankPay.Sdk.PaymentOrders
 {
     public class PaymentOrderResource : ResourceBase, IPaymentOrderResource
     {
-        public PaymentOrderResource(SwedbankPayOptions swedbankPayOptions,
-                                    ILogger logger,
+        public PaymentOrderResource(ILogger logger,
                                     HttpClient client)
-            : base(swedbankPayOptions, logger, client)
+            : base(logger, client)
         {
         }
 
@@ -24,7 +23,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public async Task<PaymentOrder> Create(PaymentOrderRequest paymentOrderRequest,
                                                PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
         {
-            return await PaymentOrder.Create(paymentOrderRequest, this.swedbankPayClient, this.swedbankPayOptions, paymentOrderExpand);
+            return await PaymentOrder.Create(paymentOrderRequest, this.swedbankPayHttpClient, paymentOrderExpand);
         }
 
 
@@ -36,7 +35,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <returns></returns>
         public async Task<PaymentOrder> Get(string id, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
         {
-            return await PaymentOrder.Get(id, this.swedbankPayClient, this.swedbankPayOptions, paymentOrderExpand);
+            return await PaymentOrder.Get(id, this.swedbankPayHttpClient, paymentOrderExpand);
         }
     }
 }

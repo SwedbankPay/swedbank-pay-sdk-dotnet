@@ -5,6 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 using Polly;
 
+using Sample.AspNetCore.Models;
+
 using SwedbankPay.Sdk;
 
 namespace Sample.AspNetCore.Extensions
@@ -12,13 +14,12 @@ namespace Sample.AspNetCore.Extensions
     public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddSwedbankPayClient(this IServiceCollection services,
-                                                              IConfiguration configuration,
-                                                              string clientName)
+                                                              IConfiguration configuration)
         {
-            var swedbankPayConfigsection = configuration.GetSection($"SwedbankPayOptions:{clientName}");
-            services.Configure<SwedbankPayOptions>(clientName, swedbankPayConfigsection);
+            var swedbankPayConSettings = configuration.GetSection("SwedbankPayConnectionSettings");
+            services.Configure<SwedbankPayConnectionSettings>(swedbankPayConSettings);
 
-            var swedBankPayOptions = swedbankPayConfigsection.Get<SwedbankPayOptions>();
+            var swedBankPayOptions = swedbankPayConSettings.Get<SwedbankPayConnectionSettings>();
             swedBankPayOptions.Token = configuration["Token"];
 
             services.AddHttpClient<SwedbankPayClient>(s =>

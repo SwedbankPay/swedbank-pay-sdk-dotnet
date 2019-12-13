@@ -17,16 +17,12 @@ namespace Sample.AspNetCore.Controllers
     {
         private readonly StoreDbContext context;
         private readonly SwedbankPayClient swedbankPayClient;
-        private readonly SwedbankPayOptions swedbankPayOptions;
-
-
+       
         public OrdersController(StoreDbContext context,
-                                IOptionsMonitor<SwedbankPayOptions> swedPayOptions,
                                 SwedbankPayClient swedbankPayClient)
         {
             this.context = context;
             this.swedbankPayClient = swedbankPayClient;
-            this.swedbankPayOptions = swedPayOptions.CurrentValue;
         }
 
 
