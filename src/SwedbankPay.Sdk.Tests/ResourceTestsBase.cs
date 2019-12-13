@@ -20,8 +20,8 @@ namespace SwedbankPay.Sdk.Tests
         
         public ResourceTestsBase()
         {
-            this.connectionSettings = TestHelper.GetSwedbankPayConnectionSettings("C:\\source\\repos\\Kunder\\SwedbankPay\\SwedBank\\src\\SwedbankPay.Sdk.Tests\\");
-            this.urls = TestHelper.GetUrls("C:\\source\\repos\\Kunder\\SwedbankPay\\SwedBank\\src\\SwedbankPay.Sdk.Tests\\");
+            this.connectionSettings = TestHelper.GetSwedbankPayConnectionSettings(Environment.CurrentDirectory);
+            this.urls = TestHelper.GetUrls(Environment.CurrentDirectory);
             var client = new HttpClient { BaseAddress = this.connectionSettings.ApiBaseUrl };
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this.connectionSettings.Token);
             this.Sut = new SwedbankPayClient(client);
