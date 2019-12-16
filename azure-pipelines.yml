@@ -13,7 +13,7 @@ steps:
 - powershell: echo $env:SwedbankPayConnectionSettings:ApiBaseUrl
   env:
     SwedbankPayConnectionSettings:ApiBaseUrl : $(SwedbankPayConnectionSettings.ApiBaseUrl)
-    SwedbankPayConnectionSettings:Token : $(SwedbankPayConnectionSettings:Token)
+    SwedbankPayConnectionSettings:Token : $(SwedbankPayConnectionSettings.Token)
 
 - task: NuGetToolInstaller@1
   inputs:
