@@ -6,10 +6,13 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
     {
         public static IConfigurationRoot GetIConfigurationRoot(string outputPath)
         {
+            var builder = new ConfigurationBuilder();
+            
             return new ConfigurationBuilder()
                 .SetBasePath(outputPath)
                 .AddJsonFile("appsettings.json", true)
                 .AddUserSecrets("55739ea0-5447-45e4-b35e-e0412f172f5f")
+                .AddEnvironmentVariables()
                 .Build();
         }
 
