@@ -12,7 +12,14 @@ steps:
 
 - powershell: echo $env:MYSECRET
   env:
-    MySecret: $(Urls.CallBackUrl)
+    Urls.CallbackUrl: $(Urls.CallBackUrl)
+    Urls.TermsOfServiceUrl: $(Urls.TermsOfServiceUrl)
+    Urls.CompleteUrl: $(Urls.CompleteUrl)
+    Urls.HostUrls : $(Urls.HostUrls)
+    SwedbankPayConnectionSettings.Token : $(SwedbankPayConnectionSettings.Token)
+    SwedbankPayConnectionSettings.ApiBaseUrl : $(SwedbankPayConnectionSettings.ApiBaseUrl)
+
+
 
 - task: NuGetToolInstaller@1
   inputs:
