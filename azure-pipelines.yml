@@ -8,15 +8,6 @@ pool:
 
 steps:
 
-
-
-- powershell: echo $env:SwedbankPayConnectionSettings:ApiBaseUrl
-  env:
-    SwedbankPayConnectionSettings:ApiBaseUrl : $(SwedbankPayConnectionSettings.ApiBaseUrl)
-    SwedbankPayConnectionSettings:Token : $(SwedbankPayConnectionSettings.Token)
-
-- powershell: set
-
 - task: NuGetToolInstaller@1
   inputs:
     versionSpec: '5.3.1'
