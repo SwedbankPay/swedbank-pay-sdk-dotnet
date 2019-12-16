@@ -24,13 +24,13 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
                 .AddEnvironmentVariables()
                 .AddInMemoryCollection(new Dictionary<string, string>
                 {
-                    { "SwedbankPayConnectionSettings.Token", Environment.GetEnvironmentVariable("SwedbankPayConnectionSettings.Token") }, 
-                    { "SwedbankPayConnectionSettings.ApiBaseUrl", Environment.GetEnvironmentVariable("SwedbankPayConnectionSettings.ApiBaseUrl") },
-                    { "Urls.TermsOfServiceUrl", Environment.GetEnvironmentVariable("Urls.TermsOfServiceUrl") },
-                    { "Urls.CallBackUrl", Environment.GetEnvironmentVariable("Urls.CallBackUrl") },
-                    { "Urls.CancelUrl", Environment.GetEnvironmentVariable("Urls.CancelUrl") },
-                    { "Urls.CompleteUrl", Environment.GetEnvironmentVariable("Urls.CompleteUrl") },
-                    { "Urls.LogoUrl", Environment.GetEnvironmentVariable("Urls.LogoUrl") },
+                    { "SwedbankPayConnectionSettings:Token", Environment.GetEnvironmentVariable("SwedbankPayConnectionSettings:Token")}, 
+                    { "SwedbankPayConnectionSettings:ApiBaseUrl", Environment.GetEnvironmentVariable("SwedbankPayConnectionSettings:ApiBaseUrl") },
+                    { "Urls:TermsOfServiceUrl", Environment.GetEnvironmentVariable("Urls:TermsOfServiceUrl") },
+                    { "Urls:CallBackUrl", Environment.GetEnvironmentVariable("Urls:CallBackUrl") },
+                    { "Urls:CancelUrl", Environment.GetEnvironmentVariable("Urls:CancelUrl") },
+                    { "Urls:CompleteUrl", Environment.GetEnvironmentVariable("Urls:CompleteUrl") },
+                    { "Urls:LogoUrl", Environment.GetEnvironmentVariable("Urls:LogoUrl") },
                     { "Urls:HostUrls:0", Environment.GetEnvironmentVariable("Urls:HostUrls:0") }
                 })
                 .Build();
@@ -57,7 +57,6 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
         public static Urls GetUrls(string outputPath)
         {
             var configuration = new UrlsOptions();
-
             var iConfig = GetIConfigurationRoot(outputPath);
 
             iConfig
