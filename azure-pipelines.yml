@@ -11,22 +11,22 @@ steps:
 - task: PowerShell@2
   inputs:
     targetType: 'inline'
-    script: |
-      # Write your PowerShell commands here.
+    script: |      
       $token = "$(SwedbankPayConnectionSettings.Token)"
-      [System.Environment]::SetEnvironmentVariable("SwedbankPayConnectionSettings.Token", $token)
+      [System.Environment]::SetEnvironmentVariable("SwedbankPayConnectionSettings:Token", $token)
+      Write-Host "My ID is $token."
       $apibaseurl = "$(SwedbankPayConnectionSettings.ApiBaseUrl)"
-      [System.Environment]::SetEnvironmentVariable("SwedbankPayConnectionSettings.ApiBaseUrl", $apibaseurl)
+      [System.Environment]::SetEnvironmentVariable("SwedbankPayConnectionSettings:ApiBaseUrl", $apibaseurl)
       $TermsOfServiceUrl = "$(Urls.TermsOfServiceUrl)"
-      [System.Environment]::SetEnvironmentVariable("Urls.TermsOfServiceUrl", $TermsOfServiceUrl)
+      [System.Environment]::SetEnvironmentVariable("Urls:TermsOfServiceUrl", $TermsOfServiceUrl)
       $CallBackUrl = "$(Urls.CallBackUrl)"
-      [System.Environment]::SetEnvironmentVariable("Urls.CallBackUrl", $CallBackUrl)
+      [System.Environment]::SetEnvironmentVariable("Urls:CallBackUrl", $CallBackUrl)
       $CancelUrl = "$(Urls.CancelUrl)"
-      [System.Environment]::SetEnvironmentVariable("Urls.CancelUrl", $CancelUrl)
+      [System.Environment]::SetEnvironmentVariable("Urls:CancelUrl", $CancelUrl)
       $CompleteUrl = "$(Urls.CompleteUrl)"
-      [System.Environment]::SetEnvironmentVariable("Urls.CompleteUrl", $CompleteUrl)
+      [System.Environment]::SetEnvironmentVariable("Urls:CompleteUrl", $CompleteUrl)
       $HostUrls = "$(Urls.HostUrls)"
-      [System.Environment]::SetEnvironmentVariable("Urls.HostUrls.0", $HostUrls)
+      [System.Environment]::SetEnvironmentVariable("Urls:HostUrls.0", $HostUrls)
 
 - task: NuGetToolInstaller@1
   inputs:
