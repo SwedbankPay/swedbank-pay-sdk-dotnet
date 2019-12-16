@@ -20,16 +20,15 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
         {
         }
 
-
         [Test]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Card })]
         public async Task CapturePaymentMultipleProducts(Product[] products, PayexInfo payexInfo)
         {
             GoToOrdersPage(products, payexInfo)
                 .PaymentOrderLink.StoreValue(out var orderLink)
-                .Actions.Rows[x => x.Name.Value.Trim() == OperationTypes.Capture].ExecuteAction.ClickAndGo()
-                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Reversal].Should.BeVisible()
-                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Get].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Contains(OperationTypes.Capture)].ExecuteAction.ClickAndGo()
+                .Actions.Rows[y => y.Name.Value.Contains(OperationTypes.Reversal)].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Contains(OperationTypes.Get)].Should.BeVisible()
                 .Actions.Rows.Count.Should.Equal(2);
 
             var order = JsonConvert.DeserializeObject<Order>(
@@ -59,9 +58,9 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
         {
             GoToOrdersPage(products, payexInfo)
                 .PaymentOrderLink.StoreValue(out var orderLink)
-                .Actions.Rows[x => x.Name.Value.Trim() == OperationTypes.Capture].ExecuteAction.ClickAndGo()
-                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Reversal].Should.BeVisible()
-                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Get].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Contains(OperationTypes.Capture)].ExecuteAction.ClickAndGo()
+                .Actions.Rows[y => y.Name.Value.Contains(OperationTypes.Reversal)].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Contains(OperationTypes.Get)].Should.BeVisible()
                 .Actions.Rows.Count.Should.Equal(2);
 
             var order = JsonConvert.DeserializeObject<Order>(

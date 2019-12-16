@@ -26,14 +26,11 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
         public async Task ReversalCapturePaymentMultipleProducts(Product[] products, PayexInfo payexInfo)
         {
             GoToOrdersPage(products, payexInfo)
-                .PaymentOrderLink.StoreValue(out var orderLink).Actions
-                .Rows[x => x.Name.Value.Trim() == OperationTypes.Capture].ExecuteAction
-                .ClickAndGo().Actions
-                .Rows[x => x.Name.Value.Trim() == OperationTypes.Reversal].ExecuteAction
-                .ClickAndGo().Actions
-                .Rows[y => y.Name.Value.Trim() == OperationTypes.Get].Should
-                .BeVisible().Actions.Rows.Count.Should
-                .Equal(1);
+                .PaymentOrderLink.StoreValue(out var orderLink)
+                .Actions.Rows[y => y.Name.Value.Contains(OperationTypes.Capture)].ExecuteAction.ClickAndGo()
+                .Actions.Rows[y => y.Name.Value.Contains(OperationTypes.Reversal)].ExecuteAction.ClickAndGo()
+                .Actions.Rows[y => y.Name.Value.Contains(OperationTypes.Get)].Should.BeVisible()
+                .Actions.Rows.Count.Should.Equal(1);
 
             var order = JsonConvert.DeserializeObject<Order>(
                 await this.HttpClientService.SendGetRequest(orderLink, ExpandParameter.Transactions));
@@ -64,9 +61,9 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
         {
             GoToOrdersPage(products, payexInfo)
                 .PaymentOrderLink.StoreValue(out var orderLink)
-                .Actions.Rows[x => x.Name.Value.Trim() == OperationTypes.Capture].ExecuteAction.ClickAndGo()
-                .Actions.Rows[x => x.Name.Value.Trim() == OperationTypes.Reversal].ExecuteAction.ClickAndGo()
-                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Get].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Contains(OperationTypes.Capture)].ExecuteAction.ClickAndGo()
+                .Actions.Rows[y => y.Name.Value.Contains(OperationTypes.Reversal)].ExecuteAction.ClickAndGo()
+                .Actions.Rows[y => y.Name.Value.Contains(OperationTypes.Get)].Should.BeVisible()
                 .Actions.Rows.Count.Should.Equal(1);
 
             var order = JsonConvert.DeserializeObject<Order>(

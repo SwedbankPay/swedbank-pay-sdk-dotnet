@@ -27,9 +27,9 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
         {
             GoToOrdersPage(products, payexInfo)
                 .PaymentOrderLink.StoreValue(out var orderLink)
-                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Cancel].Should.BeVisible()
-                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Capture].Should.BeVisible()
-                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Get].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Contains(OperationTypes.Cancel)].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Contains(OperationTypes.Capture)].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Contains(OperationTypes.Get)].Should.BeVisible()
                 .Actions.Rows.Count.Should.Equal(3);
 
             var order = JsonConvert.DeserializeObject<Order>(
@@ -78,9 +78,9 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
         {
             GoToOrdersPage(products, payexInfo)
                 .PaymentOrderLink.StoreValue(out var orderLink)
-                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Cancel].Should.BeVisible()
-                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Capture].Should.BeVisible()
-                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Get].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Contains(OperationTypes.Cancel)].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Contains(OperationTypes.Capture)].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Contains(OperationTypes.Get)].Should.BeVisible()
                 .Actions.Rows.Count.Should.Equal(3);
 
             var order = JsonConvert.DeserializeObject<Order>(
@@ -122,9 +122,9 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
         {
             GoToOrdersPage(products, payexInfo)
                 .PaymentOrderLink.StoreValue(out var orderLink)
-                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Cancel].Should.BeVisible()
-                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Capture].Should.BeVisible()
-                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Get].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Contains(OperationTypes.Cancel)].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Contains(OperationTypes.Capture)].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Contains(OperationTypes.Get)].Should.BeVisible()
                 .Actions.Rows.Count.Should.Equal(3);
 
             var order = JsonConvert.DeserializeObject<Order>(
@@ -170,9 +170,9 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
         {
             GoToOrdersPage(products, payexInfo, true)
                 .PaymentOrderLink.StoreValue(out var orderLink)
-                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Cancel].Should.BeVisible()
-                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Capture].Should.BeVisible()
-                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Get].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Contains(OperationTypes.Cancel)].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Contains(OperationTypes.Capture)].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Contains(OperationTypes.Get)].Should.BeVisible()
                 .Actions.Rows.Count.Should.Equal(3);
 
             var order = JsonConvert.DeserializeObject<Order>(
@@ -221,9 +221,9 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
         {
             GoToOrdersPage(products, payexInfo, true)
                 .PaymentOrderLink.StoreValue(out var orderLink)
-                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Cancel].Should.BeVisible()
-                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Capture].Should.BeVisible()
-                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Get].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Contains(OperationTypes.Cancel)].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Contains(OperationTypes.Capture)].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Contains(OperationTypes.Get)].Should.BeVisible()
                 .Actions.Rows.Count.Should.Equal(3);
 
             var order = JsonConvert.DeserializeObject<Order>(
@@ -249,7 +249,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
                         Is.EqualTo("Completed"));
 
             order = JsonConvert.DeserializeObject<Order>(
-                await this.HttpClientService.SendGetRequest(orderLink, ExpandParameter.OrderItems));
+                await HttpClientService.SendGetRequest(orderLink, ExpandParameter.OrderItems));
 
             // Order Items
             Assert.That(order.PaymentOrder.OrderItems.OrderItemList[0].Name, Is.EqualTo(products[0].Name));
@@ -265,12 +265,12 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
         {
             GoToOrdersPage(products, payexInfo, true)
                 .PaymentOrderLink.StoreValue(out var orderLink)
-                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Reversal].Should.BeVisible()
-                .Actions.Rows[y => y.Name.Value.Trim() == OperationTypes.Get].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Contains(OperationTypes.Reversal)].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Contains(OperationTypes.Get)].Should.BeVisible()
                 .Actions.Rows.Count.Should.Equal(2);
 
             var order = JsonConvert.DeserializeObject<Order>(
-                await this.HttpClientService.SendGetRequest(orderLink, ExpandParameter.Transactions));
+                await HttpClientService.SendGetRequest(orderLink, ExpandParameter.Transactions));
 
             // Global Order
             Assert.That(order.PaymentOrder.Amount, Is.EqualTo(products.Select(x => x.UnitPrice * x.Quantity).Sum()));
