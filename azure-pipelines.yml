@@ -25,7 +25,7 @@ steps:
       [System.Environment]::SetEnvironmentVariable("Urls.CancelUrl", $CancelUrl)
       $CompleteUrl = "$(Urls.CompleteUrl)"
       [System.Environment]::SetEnvironmentVariable("Urls.CompleteUrl", $CompleteUrl)
-      $HostUrls = "$(Urls.HostUrls.0)"
+      $HostUrls = "$(Urls.HostUrls)"
       [System.Environment]::SetEnvironmentVariable("Urls.CompHostUrls.0", $HostUrls)
 
 - task: NuGetToolInstaller@1
