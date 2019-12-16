@@ -16,17 +16,6 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
                 .AddJsonFile("appsettings.json", true)
                 .AddUserSecrets("55739ea0-5447-45e4-b35e-e0412f172f5f")
                 .AddEnvironmentVariables()
-                .AddInMemoryCollection(new Dictionary<string, string>
-                {
-                    { "SwedbankPayConnectionSettings:Token", Environment.GetEnvironmentVariable("SwedbankPayConnectionSettings:Token")},
-                    { "SwedbankPayConnectionSettings:ApiBaseUrl", Environment.GetEnvironmentVariable("SwedbankPayConnectionSettings:ApiBaseUrl") },
-                    { "Urls:TermsOfServiceUrl", Environment.GetEnvironmentVariable("Urls:TermsOfServiceUrl") },
-                    { "Urls:CallBackUrl", Environment.GetEnvironmentVariable("Urls:CallBackUrl") },
-                    { "Urls:CancelUrl", Environment.GetEnvironmentVariable("Urls:CancelUrl") },
-                    { "Urls:CompleteUrl", Environment.GetEnvironmentVariable("Urls:CompleteUrl") },
-                    { "Urls:LogoUrl", Environment.GetEnvironmentVariable("Urls:LogoUrl") },
-                    { "Urls:HostUrls:0", Environment.GetEnvironmentVariable("Urls:HostUrls:0") }
-                })
                 .Build();
 
 #elif RELEASE
@@ -36,14 +25,14 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
                 .AddEnvironmentVariables()
                 .AddInMemoryCollection(new Dictionary<string, string>
                 {
-                    { "SwedbankPayConnectionSettings:Token", Environment.GetEnvironmentVariable("SwedbankPayConnectionSettings:Token")}, 
-                    { "SwedbankPayConnectionSettings:ApiBaseUrl", Environment.GetEnvironmentVariable("SwedbankPayConnectionSettings:ApiBaseUrl") },
-                    { "Urls:TermsOfServiceUrl", Environment.GetEnvironmentVariable("Urls:TermsOfServiceUrl") },
-                    { "Urls:CallBackUrl", Environment.GetEnvironmentVariable("Urls:CallBackUrl") },
-                    { "Urls:CancelUrl", Environment.GetEnvironmentVariable("Urls:CancelUrl") },
-                    { "Urls:CompleteUrl", Environment.GetEnvironmentVariable("Urls:CompleteUrl") },
-                    { "Urls:LogoUrl", Environment.GetEnvironmentVariable("Urls:LogoUrl") },
-                    { "Urls:HostUrls:0", Environment.GetEnvironmentVariable("Urls:HostUrls:0") }
+                    { "SwedbankPayConnectionSettings:Token", Environment.GetEnvironmentVariable("SwedbankPayConnectionSettings:Token", EnvironmentVariableTarget.User)},
+                    { "SwedbankPayConnectionSettings:ApiBaseUrl", Environment.GetEnvironmentVariable("SwedbankPayConnectionSettings:ApiBaseUrl", EnvironmentVariableTarget.User) },
+                    { "Urls:TermsOfServiceUrl", Environment.GetEnvironmentVariable("Urls:TermsOfServiceUrl", EnvironmentVariableTarget.User) },
+                    { "Urls:CallBackUrl", Environment.GetEnvironmentVariable("Urls:CallBackUrl", EnvironmentVariableTarget.User) },
+                    { "Urls:CancelUrl", Environment.GetEnvironmentVariable("Urls:CancelUrl", EnvironmentVariableTarget.User)},
+                    { "Urls:CompleteUrl", Environment.GetEnvironmentVariable("Urls:CompleteUrl", EnvironmentVariableTarget.User) },
+                    { "Urls:LogoUrl", Environment.GetEnvironmentVariable("Urls:LogoUrl", EnvironmentVariableTarget.User) },
+                    { "Urls:HostUrls:0", Environment.GetEnvironmentVariable("Urls:HostUrls:0", EnvironmentVariableTarget.User) }
                 })
                 .Build();
 
