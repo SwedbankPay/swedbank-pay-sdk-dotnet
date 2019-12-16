@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 using Microsoft.Extensions.Configuration;
 
@@ -44,7 +46,12 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
         public static SwedbankPayConnectionSettings GetSwedbankPayConnectionSettings(string outputPath)
         {
             var configuration = new SwedbankPayConnectionSettings();
-           
+            foreach (DictionaryEntry VARIABLE in Environment.GetEnvironmentVariables())
+            {
+                Debug.Write(VARIABLE.Key);
+                Debug.Write(VARIABLE.Value);
+            }
+            
             var iConfig = GetIConfigurationRoot(outputPath);
 
             iConfig
