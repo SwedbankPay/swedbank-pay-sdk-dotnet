@@ -8,16 +8,37 @@ pool:
 
 steps:
 
-- powershell: echo $MYSECRET
-  env:
-    SWEDBANKPAYCONNECTIONSETTINGS_TOKEN: $(SwedbankPayConnectionSettings.Token)
-    SWEDBANKPAYCONNECTIONSETTINGS_APIBASEURL: $(SwedbankPayConnectionSettings.ApiBaseUrl)
-    URLS_TERMSOFSERVICEURL: $(Urls.TermsOfServiceUrl)
-    URLS_CALLBACKURL: $(Urls.CallBackUrl)
-    URLS_CANCELURL: $(Urls.CancelUrl)
-    URLS_COMPLETEURLS: $(Urls.CompleteUrl)
-    URLS_HOSTURLS: $(Urls.HostUrls)
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your PowerShell commands here.
 
+      $ApiBaseUrl = "$(SwedbankPayConnectionSettings.ApiBaseUrl)"
+      [System.Environment]::SetEnvironmentVariable("SwedbankPayConnectionSettings.ApiBaseUrl", $ApiBaseUrl, "User")
+
+      $Token = "$(SwedbankPayConnectionSettings.Token)"
+      [System.Environment]::SetEnvironmentVariable("SwedbankPayConnectionSettings.Token", $Token, "User")
+
+      $TermsOfServiceUrl = "$(Urls.TermsOfServiceUrl)"
+      [System.Environment]::SetEnvironmentVariable("Urls.TermsOfServiceUrl", $TermsOfServiceUrl, "User")
+
+      $CancelUrl = "$(Urls.CancelUrl)"
+      [System.Environment]::SetEnvironmentVariable("Urls.CancelUrl", $CancelUrl, "User")
+
+      $CompleteUrl = "$(Urls.CompleteUrl)"
+      [System.Environment]::SetEnvironmentVariable("Urls.CompleteUrl", $CompleteUrl, "User")
+
+      $Urls.HostUrls = "$(Urls.HostUrls)"
+      [System.Environment]::SetEnvironmentVariable("Urls.HostUrls", $HostUrls, "User")
+
+       Write-Host ([System.Environment]::GetEnvironmentVariable("SwedbankPayConnectionSettings.ApiBaseUrl", "User"))
+       Write-Host ([System.Environment]::GetEnvironmentVariable("SwedbankPayConnectionSettings.Token", "User"))
+       Write-Host ([System.Environment]::GetEnvironmentVariable("Urls.TermsOfServiceUrl", "User"))
+       Write-Host ([System.Environment]::GetEnvironmentVariable("Urls.CancelUrl", "User"))
+       Write-Host ([System.Environment]::GetEnvironmentVariable("Urls.CompleteUrl", "User"))
+       Write-Host ([System.Environment]::GetEnvironmentVariable("Urls.HostUrls", "User"))
+      
 - task: NuGetToolInstaller@1
   inputs:
     versionSpec: '5.3.1'
