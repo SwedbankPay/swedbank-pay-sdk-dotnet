@@ -17,6 +17,16 @@ steps:
       [System.Environment]::SetEnvironmentVariable("SwedbankPayConnectionSettings.Token", $token)
       $apibaseurl = "$(SwedbankPayConnectionSettings.ApiBaseUrl)"
       [System.Environment]::SetEnvironmentVariable("SwedbankPayConnectionSettings.ApiBaseUrl", $apibaseurl)
+      $TermsOfServiceUrl = "$(Urls.TermsOfServiceUrl)"
+      [System.Environment]::SetEnvironmentVariable("Urls.TermsOfServiceUrl", $TermsOfServiceUrl)
+      $CallBackUrl = "$(Urls.CallBackUrl)"
+      [System.Environment]::SetEnvironmentVariable("Urls.CallBackUrl", $CallBackUrl)
+      $CancelUrl = "$(Urls.CancelUrl)"
+      [System.Environment]::SetEnvironmentVariable("Urls.CancelUrl", $CancelUrl)
+      $CompleteUrl = "$(Urls.CompleteUrl)"
+      [System.Environment]::SetEnvironmentVariable("Urls.CompleteUrl", $CompleteUrl)
+      $HostUrls = "$(Urls.HostUrls.0)"
+      [System.Environment]::SetEnvironmentVariable("Urls.CompHostUrls.0", $HostUrls)
 
 - task: NuGetToolInstaller@1
   inputs:
