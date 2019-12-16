@@ -8,6 +8,12 @@ pool:
 
 steps:
 
+
+
+- powershell: echo $env:MYSECRET
+  env:
+    MySecret: $(Urls.CallBackUrl)
+
 - task: NuGetToolInstaller@1
   inputs:
     versionSpec: '5.3.1'
@@ -28,7 +34,7 @@ steps:
     command: 'build'
     projects: |
       **/*.sln
-    arguments: '--configuration $(BuildConfiguration)'
+    arguments: '--configuration $(BuildConfiguration)'    
 
 - task: MSBuild@1
   displayName: 'Build system tests project'
