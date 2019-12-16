@@ -38,6 +38,8 @@ steps:
        Write-Host ([System.Environment]::GetEnvironmentVariable("Urls.CancelUrl", "User"))
        Write-Host ([System.Environment]::GetEnvironmentVariable("Urls.CompleteUrl", "User"))
        Write-Host ([System.Environment]::GetEnvironmentVariable("Urls.HostUrls", "User"))
+       
+       Write-Host Done..
       
 - task: NuGetToolInstaller@1
   inputs:
