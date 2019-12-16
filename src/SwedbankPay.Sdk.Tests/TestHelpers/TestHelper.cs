@@ -1,20 +1,37 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System;
+using System.Collections.Generic;
+
+using Microsoft.Extensions.Configuration;
 
 namespace SwedbankPay.Sdk.Tests.TestHelpers
 {
     public class TestHelper
     {
+
         public static IConfigurationRoot GetIConfigurationRoot(string outputPath)
         {
-            var builder = new ConfigurationBuilder();
-            
+#if DEBUG
             return new ConfigurationBuilder()
                 .SetBasePath(outputPath)
                 .AddJsonFile("appsettings.json", true)
                 .AddUserSecrets("55739ea0-5447-45e4-b35e-e0412f172f5f")
-                .AddEnvironmentVariables()
                 .Build();
+
+#elif RELEASE
+
+            return new ConfigurationBuilder()
+                .SetBasePath(outputPath)
+                .AddEnvironmentVariables()
+                .AddInMemoryCollection(new Dictionary<string, string>
+                {
+                    { "SwedbankPayConnectionSettings.Token", Environment.GetEnvironmentVariable("SwedbankPayConnectionSettings.Token") }, 
+                    { "SwedbankPayConnectionSettings.ApiBaseUrl", Environment.GetEnvironmentVariable("SwedbankPayConnectionSettings.ApiBaseUrl") }
+                })
+                .Build();
+
+#endif
         }
+
 
 
         public static SwedbankPayConnectionSettings GetSwedbankPayConnectionSettings(string outputPath)
