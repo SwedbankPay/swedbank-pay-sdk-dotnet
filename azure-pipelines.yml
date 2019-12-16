@@ -10,12 +10,9 @@ steps:
 
 
 
-- powershell: echo $env:SwedbankPayConnectionSettings.ApiBaseUrl
+- powershell: echo $env:SwedbankPayConnectionSettings:ApiBaseUrl
   env:
-    SwedbankPayConnectionSettings.ApiBaseUrl : $(SwedbankPayConnectionSettings.ApiBaseUrl)
-
-
-
+    SwedbankPayConnectionSettings:ApiBaseUrl : $(SwedbankPayConnectionSettings.ApiBaseUrl)
 
 - task: NuGetToolInstaller@1
   inputs:
