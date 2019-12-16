@@ -29,7 +29,7 @@ steps:
       $CompleteUrl = "$(Urls.CompleteUrl)"
       [System.Environment]::SetEnvironmentVariable("Urls.CompleteUrl", $CompleteUrl, "User")
 
-      $Urls.HostUrls = "$(Urls.HostUrls)"
+      $HostUrls = "$(Urls.HostUrls)"
       [System.Environment]::SetEnvironmentVariable("Urls.HostUrls", $HostUrls, "User")
 
        Write-Host ([System.Environment]::GetEnvironmentVariable("SwedbankPayConnectionSettings.ApiBaseUrl", "User"))
