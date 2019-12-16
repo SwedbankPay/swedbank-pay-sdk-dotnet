@@ -32,7 +32,7 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
                     { "Urls:CancelUrl", Environment.GetEnvironmentVariable("Urls:CancelUrl", EnvironmentVariableTarget.User)},
                     { "Urls:CompleteUrl", Environment.GetEnvironmentVariable("Urls:CompleteUrl", EnvironmentVariableTarget.User) },
                     { "Urls:LogoUrl", Environment.GetEnvironmentVariable("Urls:LogoUrl", EnvironmentVariableTarget.User) },
-                    { "Urls:HostUrls:0", Environment.GetEnvironmentVariable("Urls:HostUrls:0", EnvironmentVariableTarget.User) }
+                    { "Urls:HostUrls", Environment.GetEnvironmentVariable("Urls:HostUrls", EnvironmentVariableTarget.User) }
                 })
                 .Build();
 
@@ -58,10 +58,7 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
         public static Urls GetUrls(string outputPath)
         {
             var configuration = new UrlsOptions();
-            Environment.SetEnvironmentVariable("Urls:CompleteUrl", "https://www.example.com");
-            Environment.SetEnvironmentVariable("Urls:HostUrls:0", "https://www.example2.com");
-            Environment.SetEnvironmentVariable("Urls:TermsOfServiceUrl", "https://www.example2.com");
-            Environment.SetEnvironmentVariable("Urls:CallBackUrl", "https://www.example2.com");
+            
             var iConfig = GetIConfigurationRoot(outputPath);
 
             iConfig
