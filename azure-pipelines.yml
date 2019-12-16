@@ -8,6 +8,16 @@ pool:
 
 steps:
 
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your PowerShell commands here.
+      $token = "$(SwedbankPayConnectionSettings.Token)"
+      [System.Environment]::SetEnvironmentVariable("SwedbankPayConnectionSettings.Token", $token)
+      $apibaseurl = "$(SwedbankPayConnectionSettings.ApiBaseUrl)"
+      [System.Environment]::SetEnvironmentVariable("SwedbankPayConnectionSettings.ApiBaseUrl", $apibaseurl)
+
 - task: NuGetToolInstaller@1
   inputs:
     versionSpec: '5.3.1'
