@@ -10,14 +10,10 @@ steps:
 
 
 
-- powershell: echo $env:MYSECRET
+- powershell: echo $env:SwedbankPayConnectionSettings.ApiBaseUrl
   env:
-    Urls.CallbackUrl: $(Urls.CallBackUrl)
-    Urls.TermsOfServiceUrl: $(Urls.TermsOfServiceUrl)
-    Urls.CompleteUrl: $(Urls.CompleteUrl)
-    Urls.HostUrls : $(Urls.HostUrls)
-    SwedbankPayConnectionSettings.Token : $(SwedbankPayConnectionSettings.Token)
     SwedbankPayConnectionSettings.ApiBaseUrl : $(SwedbankPayConnectionSettings.ApiBaseUrl)
+
 
 
 
