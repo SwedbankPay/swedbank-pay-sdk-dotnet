@@ -30,7 +30,7 @@ namespace SwedbankPay.Sdk
         }
 
 
-        public string Value { get; }
+        private string Value { get; }
 
 
         public static bool IsValidCurrencyCode(string currencyCode)
