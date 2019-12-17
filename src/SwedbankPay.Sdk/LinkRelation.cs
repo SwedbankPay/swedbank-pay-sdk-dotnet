@@ -57,7 +57,7 @@ namespace SwedbankPay.Sdk
         public static readonly LinkRelation PaidPayment = new LinkRelation(nameof(PaidPayment), PaymentResourceOperations.PaidPayment);
 
 
-        public LinkRelation(string name, string value)
+        private LinkRelation(string name, string value)
             : base(name, value)
         {
         }
