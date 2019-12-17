@@ -108,7 +108,7 @@ namespace SwedbankPay.Sdk
             
             this.logger.LogInformation(responseMessage);
             ProblemsContainer problems;
-            if (!string.IsNullOrEmpty(responseMessage) && IsValidJson(responseMessage))
+            if (!string.IsNullOrWhiteSpace(responseMessage) && IsValidJson(responseMessage))
                 problems = JsonConvert.DeserializeObject<ProblemsContainer>(responseMessage);
             else if (response.StatusCode == HttpStatusCode.NotFound)
                 problems = new ProblemsContainer("id", "Not found");
