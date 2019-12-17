@@ -1,22 +1,18 @@
-﻿using System;
+﻿using SwedbankPay.Sdk.Exceptions;
+
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-using Microsoft.Extensions.Logging;
-
-using SwedbankPay.Sdk.Exceptions;
-
 namespace SwedbankPay.Sdk.Consumers
 {
-    public class ConsumersResource : ResourceBase, IConsumersResource
+    internal class ConsumersResource : ResourceBase, IConsumersResource
     {
-        public ConsumersResource(ILogger logger,
-                                 HttpClient client)
-            : base(logger, client)
+        public ConsumersResource(SwedbankPayHttpClient swedbankPayHttpClient)
+            : base(swedbankPayHttpClient)
         {
         }
-
-
+        
         /// <summary>
         ///     Payer identification is done through this operation. The more information that is provided, the easier an
         ///     identification process for the payer.
@@ -46,7 +42,7 @@ namespace SwedbankPay.Sdk.Consumers
                 return new CouldNotGetShippingDetailsException(url, m);
             }
 
-            var shippingDetails = await this.swedbankPayHttpClient.HttpRequest<ShippingDetails>(HttpMethod.Get, url, OnError);
+            var shippingDetails = await this.swedbankPayHttpClient.SendHttpRequestAndProcessHttpResponse<ShippingDetails>(HttpMethod.Get, url, OnError);
             return shippingDetails;
         }
 
@@ -68,7 +64,7 @@ namespace SwedbankPay.Sdk.Consumers
                 return new CouldNotGetBillingDetailsException(url, m);
             }
 
-            var billingDetails = await this.swedbankPayHttpClient.HttpRequest<BillingDetails>(HttpMethod.Get, url, OnError);
+            var billingDetails = await this.swedbankPayHttpClient.SendHttpRequestAndProcessHttpResponse<BillingDetails>(HttpMethod.Get, url, OnError);
             return billingDetails;
         }
     }

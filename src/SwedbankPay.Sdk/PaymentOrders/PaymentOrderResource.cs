@@ -1,15 +1,12 @@
-﻿using System.Net.Http;
+﻿using System;
 using System.Threading.Tasks;
-
-using Microsoft.Extensions.Logging;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class PaymentOrderResource : ResourceBase, IPaymentOrderResource
+    internal class PaymentOrderResource : ResourceBase, IPaymentOrderResource
     {
-        public PaymentOrderResource(ILogger logger,
-                                    HttpClient client)
-            : base(logger, client)
+        public PaymentOrderResource(SwedbankPayHttpClient swedbankPayHttpClient)
+            : base(swedbankPayHttpClient)
         {
         }
 
@@ -23,7 +20,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public async Task<PaymentOrder> Create(PaymentOrderRequest paymentOrderRequest,
                                                PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
         {
-            return await PaymentOrder.Create(paymentOrderRequest, this.swedbankPayHttpClient, paymentOrderExpand);
+            return await PaymentOrder.Create(paymentOrderRequest, this.swedbankPayHttpClient, GetExpandQueryString(paymentOrderExpand));
         }
 
 
@@ -35,7 +32,10 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <returns></returns>
         public async Task<PaymentOrder> Get(string id, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
         {
-            return await PaymentOrder.Get(id, this.swedbankPayHttpClient, paymentOrderExpand);
+            if (string.IsNullOrEmpty(id))
+                throw new ArgumentNullException(nameof(id), $"{id} cannot be null or empty");
+
+            return await PaymentOrder.Get(id, this.swedbankPayHttpClient, GetExpandQueryString(paymentOrderExpand));
         }
     }
 }

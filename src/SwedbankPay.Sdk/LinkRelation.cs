@@ -13,14 +13,14 @@ namespace SwedbankPay.Sdk
 {
     public sealed class LinkRelation : TypeSafeEnum<LinkRelation, string>
     {
-        public static readonly LinkRelation UpdatePaymentorderUpdateorder =
-            new LinkRelation(nameof(UpdatePaymentorderUpdateorder), PaymentOrderResourceOperations.UpdatePaymentOrderUpdateOrder);
+        public static readonly LinkRelation UpdatePaymentOrderUpdateOrder =
+            new LinkRelation(nameof(UpdatePaymentOrderUpdateOrder), PaymentOrderResourceOperations.UpdatePaymentOrderUpdateOrder);
 
-        public static readonly LinkRelation CreatePaymentorderCapture =
-            new LinkRelation(nameof(CreatePaymentorderCapture), PaymentOrderResourceOperations.CreatePaymentOrderCapture);
+        public static readonly LinkRelation CreatePaymentOrderCapture =
+            new LinkRelation(nameof(CreatePaymentOrderCapture), PaymentOrderResourceOperations.CreatePaymentOrderCapture);
 
-        public static readonly LinkRelation CreatePaymentorderCancel =
-            new LinkRelation(nameof(CreatePaymentorderCancel), PaymentOrderResourceOperations.CreatePaymentOrderCancel);
+        public static readonly LinkRelation CreatePaymentOrderCancel =
+            new LinkRelation(nameof(CreatePaymentOrderCancel), PaymentOrderResourceOperations.CreatePaymentOrderCancel);
 
         public static readonly LinkRelation UpdateAbort =
             new LinkRelation(nameof(UpdateAbort), PaymentOrderResourceOperations.UpdatePaymentOrderAbort);
@@ -30,8 +30,8 @@ namespace SwedbankPay.Sdk
 
         public static readonly LinkRelation View = new LinkRelation(nameof(View), PaymentOrderResourceOperations.ViewPaymentOrder);
 
-        public static readonly LinkRelation RedirectPaymentorder =
-            new LinkRelation(nameof(RedirectPaymentorder), PaymentOrderResourceOperations.RedirectPaymentOrder);
+        public static readonly LinkRelation RedirectPaymentOrder =
+            new LinkRelation(nameof(RedirectPaymentOrder), PaymentOrderResourceOperations.RedirectPaymentOrder);
 
         public static readonly LinkRelation RedirectVerification =
             new LinkRelation(nameof(RedirectVerification), PaymentOrderResourceOperations.RedirectVerification);
@@ -57,7 +57,7 @@ namespace SwedbankPay.Sdk
         public static readonly LinkRelation PaidPayment = new LinkRelation(nameof(PaidPayment), PaymentResourceOperations.PaidPayment);
 
 
-        public LinkRelation(string name, string value)
+        private LinkRelation(string name, string value)
             : base(name, value)
         {
         }

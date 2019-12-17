@@ -1,9 +1,12 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-
+using System.IO;
+using System.Linq;
+using System.Text;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Primitives;
+using Moq;
 
 namespace SwedbankPay.Sdk.Tests.TestHelpers
 {
@@ -12,33 +15,26 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
 
         public static IConfigurationRoot GetIConfigurationRoot(string outputPath)
         {
-#if DEBUG
+            #if DEBUG
             return new ConfigurationBuilder()
                 .SetBasePath(outputPath)
                 .AddJsonFile("appsettings.json", true)
                 .AddUserSecrets("55739ea0-5447-45e4-b35e-e0412f172f5f")
-                .AddEnvironmentVariables()
                 .Build();
 
-#elif RELEASE
+            #elif RELEASE
+
+            var json = $@"{{ ""SwedbankPayConnectionSettings"": {{ ""Token"": ""{Environment.GetEnvironmentVariable("SwedbankPayConnectionSettings.Token", EnvironmentVariableTarget.User)}""}}}}";
+            var memoryJsonFile = new MemoryFileInfo("config.json", Encoding.UTF8.GetBytes(json), DateTimeOffset.Now);
+            var memoryFileProvider = new MockFileProvider(memoryJsonFile);
 
             return new ConfigurationBuilder()
                 .SetBasePath(outputPath)
-                .AddEnvironmentVariables()
-                .AddInMemoryCollection(new Dictionary<string, string>
-                {
-                    { "SwedbankPayConnectionSettings:Token", Environment.GetEnvironmentVariable("SwedbankPayConnectionSettings:Token", EnvironmentVariableTarget.User)},
-                    { "SwedbankPayConnectionSettings:ApiBaseUrl", Environment.GetEnvironmentVariable("SwedbankPayConnectionSettings:ApiBaseUrl", EnvironmentVariableTarget.User) },
-                    { "Urls:TermsOfServiceUrl", Environment.GetEnvironmentVariable("Urls:TermsOfServiceUrl", EnvironmentVariableTarget.User) },
-                    { "Urls:CallBackUrl", Environment.GetEnvironmentVariable("Urls:CallBackUrl", EnvironmentVariableTarget.User) },
-                    { "Urls:CancelUrl", Environment.GetEnvironmentVariable("Urls:CancelUrl", EnvironmentVariableTarget.User)},
-                    { "Urls:CompleteUrl", Environment.GetEnvironmentVariable("Urls:CompleteUrl", EnvironmentVariableTarget.User) },
-                    { "Urls:LogoUrl", Environment.GetEnvironmentVariable("Urls:LogoUrl", EnvironmentVariableTarget.User) },
-                    { "Urls:HostUrls", Environment.GetEnvironmentVariable("Urls:HostUrls", EnvironmentVariableTarget.User) }
-                })
+                .AddJsonFile("appsettings.json", true)
+                .AddJsonFile(memoryFileProvider, "config.json", false, false)
                 .Build();
 
-#endif
+            #endif
         }
 
 
@@ -46,7 +42,7 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
         public static SwedbankPayConnectionSettings GetSwedbankPayConnectionSettings(string outputPath)
         {
             var configuration = new SwedbankPayConnectionSettings();
-            
+           
             var iConfig = GetIConfigurationRoot(outputPath);
 
             iConfig
@@ -69,6 +65,92 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
 
             return new Urls(configuration.HostUrls, configuration.CompleteUrl, configuration.TermsOfServiceUrl, configuration.CancelUrl,
                             configuration.PaymentUrl, configuration.CallbackUrl, configuration.LogoUrl);
+        }
+    }
+
+    public class MockFileProvider : IFileProvider
+    {
+        private IEnumerable<IFileInfo> _files;
+        private Dictionary<string, IChangeToken> _changeTokens;
+
+        public MockFileProvider()
+        { }
+
+        public MockFileProvider(params IFileInfo[] files)
+        {
+            _files = files;
+        }
+
+        public MockFileProvider(params KeyValuePair<string, IChangeToken>[] changeTokens)
+        {
+            _changeTokens = changeTokens.ToDictionary(
+                changeToken => changeToken.Key,
+                changeToken => changeToken.Value,
+                StringComparer.Ordinal);
+        }
+
+        public IDirectoryContents GetDirectoryContents(string subpath)
+        {
+            var contents = new Mock<IDirectoryContents>();
+            contents.Setup(m => m.Exists).Returns(true);
+
+            if (string.IsNullOrEmpty(subpath))
+            {
+                contents.Setup(m => m.GetEnumerator()).Returns(_files.GetEnumerator());
+                return contents.Object;
+            }
+
+            var filesInFolder = _files.Where(f => f.Name.StartsWith(subpath, StringComparison.Ordinal));
+            if (filesInFolder.Any())
+            {
+                contents.Setup(m => m.GetEnumerator()).Returns(filesInFolder.GetEnumerator());
+                return contents.Object;
+            }
+            return NotFoundDirectoryContents.Singleton;
+        }
+
+        public IFileInfo GetFileInfo(string subpath)
+        {
+            var file = _files.FirstOrDefault(f => f.Name == subpath);
+            return file ?? new NotFoundFileInfo(subpath);
+        }
+
+        public IChangeToken Watch(string filter)
+        {
+            if (_changeTokens != null && _changeTokens.ContainsKey(filter))
+            {
+                return _changeTokens[filter];
+            }
+            return NullChangeToken.Singleton;
+        }
+    }
+
+    public class MemoryFileInfo : IFileInfo
+    {
+        private readonly byte[] _content;
+
+        public MemoryFileInfo(string name, byte[] content, DateTimeOffset timestamp)
+        {
+            Name = name;
+            _content = content;
+            LastModified = timestamp;
+        }
+
+        public bool Exists => true;
+
+        long IFileInfo.Length => _content.LongLength;
+
+        public string PhysicalPath => null;
+
+        public string Name { get; }
+
+        public DateTimeOffset LastModified { get; }
+
+        public bool IsDirectory => false;
+
+        public Stream CreateReadStream()
+        {
+            return new MemoryStream(_content);
         }
     }
 }

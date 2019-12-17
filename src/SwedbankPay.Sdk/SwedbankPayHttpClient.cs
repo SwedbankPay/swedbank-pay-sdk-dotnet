@@ -61,7 +61,7 @@ namespace SwedbankPay.Sdk
         internal async Task<TResponse> HttpGet<TResponse>(string url, Func<ProblemsContainer, Exception> onError)
             where TResponse : new()
         {
-            return await HttpRequest<TResponse>(HttpMethod.Get, url, onError);
+            return await SendHttpRequestAndProcessHttpResponse<TResponse>(HttpMethod.Get, url, onError);
         }
 
 
@@ -69,7 +69,7 @@ namespace SwedbankPay.Sdk
             <TPayLoad, TResponse>(string url, Func<ProblemsContainer, Exception> onError, TPayLoad payload)
             where TResponse : new()
         {
-            return await HttpRequest<TResponse>(new HttpMethod("PATCH"), url, onError, payload);
+            return await SendHttpRequestAndProcessHttpResponse<TResponse>(new HttpMethod("PATCH"), url, onError, payload);
         }
 
 
@@ -77,53 +77,33 @@ namespace SwedbankPay.Sdk
             <TPayLoad, TResponse>(string url, Func<ProblemsContainer, Exception> onError, TPayLoad payload)
             where TResponse : new()
         {
-            return await HttpRequest<TResponse>(HttpMethod.Post, url, onError, payload);
+            return await SendHttpRequestAndProcessHttpResponse<TResponse>(HttpMethod.Post, url, onError, payload);
         }
 
 
-        internal async Task<T> HttpRequest
-            <T>(string httpMethod, string url, Func<ProblemsContainer, Exception> onError, object payload = null)
-            where T : new()
-        {
-            return await HttpRequest<T>(new HttpMethod(httpMethod), url, onError, payload);
-        }
-
-
-        internal async Task<T> HttpRequest
-            <T>(HttpMethod httpMethod, string url, Func<ProblemsContainer, Exception> onError, object payload = null)
-            where T : new()
+        internal async Task<TResponse> SendHttpRequestAndProcessHttpResponse
+            <TResponse>(HttpMethod httpMethod, string url, Func<ProblemsContainer, Exception> onError, object payload = null)
+            where TResponse : new()
         {
             var requestMessage = new HttpRequestMessage(httpMethod, url);
 
-            return await HttpRequest<T>(requestMessage, onError, payload);
+            return await SendHttpRequestAndProcessHttpResponse<TResponse>(requestMessage, onError, payload);
         }
 
 
-        internal async Task<T> HttpRequest
-            <T>(HttpRequestMessage requestMessage, Func<ProblemsContainer, Exception> onError, object payload = null)
-            where T : new()
+        internal async Task<TResponse> SendHttpRequestAndProcessHttpResponse
+            <TResponse>(HttpRequestMessage requestMessage, Func<ProblemsContainer, Exception> onError, object payload = null)
+            where TResponse : new()
         {
             UpdateRequest(requestMessage, payload);
 
-            HttpResponseMessage response;
-            try
-            {
-                response = await this.client.SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
-            }
-            catch (HttpRequestException e)
-            {
-                throw new BadRequestException(e);
-            }
-            catch (TaskCanceledException te)
-            {
-                throw new ApiTimeOutException(te);
-            }
-
+            HttpResponseMessage response = await this.client.SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
+            
             if (response.IsSuccessStatusCode)
             {
                 var res = await response.Content.ReadAsStringAsync();
                 this.logger.LogInformation(res);
-                return JsonConvert.DeserializeObject<T>(res, JsonSerialization.JsonSerialization.Settings);
+                return JsonConvert.DeserializeObject<TResponse>(res, JsonSerialization.JsonSerialization.Settings);
             }
 
             var responseMessage = await response.Content.ReadAsStringAsync();

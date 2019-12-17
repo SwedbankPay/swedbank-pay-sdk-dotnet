@@ -46,7 +46,7 @@ namespace SwedbankPay.Sdk.Consumers
                 return new CouldNotInitiateConsumerSessionException(consumersRequest, m);
             }
 
-            var consumersResponse = await client.HttpRequest<ConsumersResponse>(HttpMethod.Post, url, OnError, consumersRequest);
+            var consumersResponse = await client.SendHttpRequestAndProcessHttpResponse<ConsumersResponse>(HttpMethod.Post, url, OnError, consumersRequest);
 
             return new Consumer(consumersResponse);
         }

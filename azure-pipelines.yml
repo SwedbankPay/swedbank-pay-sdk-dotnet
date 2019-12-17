@@ -8,15 +8,28 @@ pool:
 
 steps:
 
-- powershell: echo $MYSECRET
+- task: PowerShell@2
+  displayName: Setting up Swedbank connection setting token
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your PowerShell commands here.
+
+      $Token = "$(SwedbankPayConnectionSettings.Token)"
+      [System.Environment]::SetEnvironmentVariable("SwedbankPayConnectionSettings.Token", $Token, "User")
+      
+
+- task: GitVersion@5
+  inputs:
+    runtime: 'core'
+    preferBundledVersion: false
+    updateAssemblyInfo: true
+
+- script: echo %Action%%BuildVersion%
+  displayName: 'Set build version'
   env:
-    SWEDBANKPAYCONNECTIONSETTINGS_TOKEN: $(SwedbankPayConnectionSettings.Token)
-    SWEDBANKPAYCONNECTIONSETTINGS_APIBASEURL: $(SwedbankPayConnectionSettings.ApiBaseUrl)
-    URLS_TERMSOFSERVICEURL: $(Urls.TermsOfServiceUrl)
-    URLS_CALLBACKURL: $(Urls.CallBackUrl)
-    URLS_CANCELURL: $(Urls.CancelUrl)
-    URLS_COMPLETEURLS: $(Urls.CompleteUrl)
-    URLS_HOSTURLS: $(Urls.HostUrls)
+    Action: '##vso[build.updatebuildnumber]'
+    BuildVersion: $(GitVersion.NuGetVersionV2)
 
 - task: NuGetToolInstaller@1
   inputs:

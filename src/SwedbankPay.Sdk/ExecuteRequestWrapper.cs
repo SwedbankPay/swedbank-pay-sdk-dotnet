@@ -35,7 +35,7 @@ namespace SwedbankPay.Sdk
 
         public async Task<TResponse> Execute(TRequest objRequest)
         {
-            return await this.Client.HttpRequest<TResponse>(this.HttpRequestMessage, this.OnError, objRequest);
+            return await this.Client.SendHttpRequestAndProcessHttpResponse<TResponse>(this.HttpRequestMessage, this.OnError, objRequest);
         }
     }
 }
