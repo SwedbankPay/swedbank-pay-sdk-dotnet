@@ -120,20 +120,6 @@ namespace SwedbankPay.Sdk
         }
 
 
-        private string GetRequestBody(object request)
-        {
-            var requestBody = string.Empty;
-            if (request != null)
-                requestBody = JsonConvert.SerializeObject(request, Formatting.None, new JsonSerializerSettings
-                {
-                    NullValueHandling = NullValueHandling.Ignore,
-                    ContractResolver = new CamelCasePropertyNamesContractResolver(),
-                    StringEscapeHandling = StringEscapeHandling.EscapeNonAscii
-                });
-            return requestBody;
-        }
-
-
         private static bool IsValidJson(string responseString)
         {
             responseString = responseString.Trim();
