@@ -18,6 +18,19 @@ steps:
       $Token = "$(SwedbankPayConnectionSettings.Token)"
       [System.Environment]::SetEnvironmentVariable("SwedbankPayConnectionSettings.Token", $Token, "User")
       
+
+- task: GitVersion@5
+  inputs:
+    runtime: 'core'
+    preferBundledVersion: false
+    updateAssemblyInfo: true
+
+- script: echo %Action%%BuildVersion%
+  displayName: 'Set build version'
+  env:
+    Action: '##vso[build.updatebuildnumber]'
+    BuildVersion: $(GitVersion.SemVer)
+
 - task: NuGetToolInstaller@1
   inputs:
     versionSpec: '5.3.1'
