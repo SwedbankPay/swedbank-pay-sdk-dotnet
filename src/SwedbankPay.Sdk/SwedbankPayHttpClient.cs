@@ -61,7 +61,7 @@ namespace SwedbankPay.Sdk
         internal async Task<TResponse> HttpGet<TResponse>(string url, Func<ProblemsContainer, Exception> onError)
             where TResponse : new()
         {
-            return await HttpRequest<TResponse>(HttpMethod.Get, url, onError);
+            return await SendHttpRequestAndProcessHttpResponse<TResponse>(HttpMethod.Get, url, onError);
         }
 
 
@@ -69,7 +69,7 @@ namespace SwedbankPay.Sdk
             <TPayLoad, TResponse>(string url, Func<ProblemsContainer, Exception> onError, TPayLoad payload)
             where TResponse : new()
         {
-            return await HttpRequest<TResponse>(new HttpMethod("PATCH"), url, onError, payload);
+            return await SendHttpRequestAndProcessHttpResponse<TResponse>(new HttpMethod("PATCH"), url, onError, payload);
         }
 
 
@@ -77,21 +77,21 @@ namespace SwedbankPay.Sdk
             <TPayLoad, TResponse>(string url, Func<ProblemsContainer, Exception> onError, TPayLoad payload)
             where TResponse : new()
         {
-            return await HttpRequest<TResponse>(HttpMethod.Post, url, onError, payload);
+            return await SendHttpRequestAndProcessHttpResponse<TResponse>(HttpMethod.Post, url, onError, payload);
         }
 
 
-        internal async Task<T> HttpRequest
+        internal async Task<T> SendHttpRequestAndProcessHttpResponse
             <T>(HttpMethod httpMethod, string url, Func<ProblemsContainer, Exception> onError, object payload = null)
             where T : new()
         {
             var requestMessage = new HttpRequestMessage(httpMethod, url);
 
-            return await HttpRequest<T>(requestMessage, onError, payload);
+            return await SendHttpRequestAndProcessHttpResponse<T>(requestMessage, onError, payload);
         }
 
 
-        internal async Task<T> HttpRequest
+        internal async Task<T> SendHttpRequestAndProcessHttpResponse
             <T>(HttpRequestMessage requestMessage, Func<ProblemsContainer, Exception> onError, object payload = null)
             where T : new()
         {

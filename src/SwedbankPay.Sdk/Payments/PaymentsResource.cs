@@ -64,7 +64,7 @@ namespace SwedbankPay.Sdk.Payments
                 return new CouldNotFindPaymentException(id, m);
             }
 
-            var res = await this.swedbankPayHttpClient.HttpRequest<PaymentResponseContainer>(HttpMethod.Get, url, OnError);
+            var res = await this.swedbankPayHttpClient.SendHttpRequestAndProcessHttpResponse<PaymentResponseContainer>(HttpMethod.Get, url, OnError);
             return res;
         }
 
@@ -78,7 +78,7 @@ namespace SwedbankPay.Sdk.Payments
         {
             Func<ProblemsContainer, Exception> onError = m => new CouldNotFindTransactionException(id, m);
 
-            var res = await this.swedbankPayHttpClient.HttpRequest<SaleResponseContainer>(HttpMethod.Get, id, onError);
+            var res = await this.swedbankPayHttpClient.SendHttpRequestAndProcessHttpResponse<SaleResponseContainer>(HttpMethod.Get, id, onError);
             return res.Sales.SaleList;
         }
 
@@ -98,7 +98,7 @@ namespace SwedbankPay.Sdk.Payments
                 return new CouldNotFindTransactionException(id, m);
             }
 
-            var res = await this.swedbankPayHttpClient.HttpRequest<AllTransactionResponseContainer>(HttpMethod.Get, url, OnError);
+            var res = await this.swedbankPayHttpClient.SendHttpRequestAndProcessHttpResponse<AllTransactionResponseContainer>(HttpMethod.Get, url, OnError);
             return res.Transactions.TransactionList;
         }
 
@@ -131,7 +131,7 @@ namespace SwedbankPay.Sdk.Payments
             }
 
             var payload = new TransactionRequestContainer(transaction);
-            var res = await this.swedbankPayHttpClient.HttpRequest<CaptureTransactionResponseContainer>(HttpMethod.Post, url, OnError, payload);
+            var res = await this.swedbankPayHttpClient.SendHttpRequestAndProcessHttpResponse<CaptureTransactionResponseContainer>(HttpMethod.Post, url, OnError, payload);
             return res.Capture.Transaction;
         }
 
@@ -164,7 +164,7 @@ namespace SwedbankPay.Sdk.Payments
 
             var payload = new TransactionRequestContainer(transaction);
             var res =
-                await this.swedbankPayHttpClient.HttpRequest<ReversalTransactionResponseContainer>(HttpMethod.Post, url, OnError, payload);
+                await this.swedbankPayHttpClient.SendHttpRequestAndProcessHttpResponse<ReversalTransactionResponseContainer>(HttpMethod.Post, url, OnError, payload);
             return res.Reversal.Transaction;
         }
 
@@ -196,7 +196,7 @@ namespace SwedbankPay.Sdk.Payments
             }
 
             var payload = new TransactionRequestContainer(transaction);
-            var res = await this.swedbankPayHttpClient.HttpRequest<CancellationTransactionResponseContainer>(
+            var res = await this.swedbankPayHttpClient.SendHttpRequestAndProcessHttpResponse<CancellationTransactionResponseContainer>(
                 httpOperation.Method, url, OnError, payload);
             return res.Cancellation.Transaction;
         }
@@ -229,7 +229,7 @@ namespace SwedbankPay.Sdk.Payments
             }
 
             var payload = new PaymentAbortRequestContainer();
-            var res = await this.swedbankPayHttpClient.HttpRequest<PaymentResponseContainer>(httpOperation.Method, url, OnError, payload);
+            var res = await this.swedbankPayHttpClient.SendHttpRequestAndProcessHttpResponse<PaymentResponseContainer>(httpOperation.Method, url, OnError, payload);
             return res;
         }
 

@@ -46,7 +46,7 @@ namespace SwedbankPay.Sdk.Consumers
                 return new CouldNotGetShippingDetailsException(url, m);
             }
 
-            var shippingDetails = await this.swedbankPayHttpClient.HttpRequest<ShippingDetails>(HttpMethod.Get, url, OnError);
+            var shippingDetails = await this.swedbankPayHttpClient.SendHttpRequestAndProcessHttpResponse<ShippingDetails>(HttpMethod.Get, url, OnError);
             return shippingDetails;
         }
 
@@ -68,7 +68,7 @@ namespace SwedbankPay.Sdk.Consumers
                 return new CouldNotGetBillingDetailsException(url, m);
             }
 
-            var billingDetails = await this.swedbankPayHttpClient.HttpRequest<BillingDetails>(HttpMethod.Get, url, OnError);
+            var billingDetails = await this.swedbankPayHttpClient.SendHttpRequestAndProcessHttpResponse<BillingDetails>(HttpMethod.Get, url, OnError);
             return billingDetails;
         }
     }
