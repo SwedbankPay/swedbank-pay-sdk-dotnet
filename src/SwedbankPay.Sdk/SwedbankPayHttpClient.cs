@@ -82,14 +82,6 @@ namespace SwedbankPay.Sdk
 
 
         internal async Task<T> HttpRequest
-            <T>(string httpMethod, string url, Func<ProblemsContainer, Exception> onError, object payload = null)
-            where T : new()
-        {
-            return await HttpRequest<T>(new HttpMethod(httpMethod), url, onError, payload);
-        }
-
-
-        internal async Task<T> HttpRequest
             <T>(HttpMethod httpMethod, string url, Func<ProblemsContainer, Exception> onError, object payload = null)
             where T : new()
         {
