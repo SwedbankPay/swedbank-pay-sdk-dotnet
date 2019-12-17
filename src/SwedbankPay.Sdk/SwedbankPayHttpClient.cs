@@ -81,19 +81,19 @@ namespace SwedbankPay.Sdk
         }
 
 
-        internal async Task<T> SendHttpRequestAndProcessHttpResponse
-            <T>(HttpMethod httpMethod, string url, Func<ProblemsContainer, Exception> onError, object payload = null)
-            where T : new()
+        internal async Task<TResponse> SendHttpRequestAndProcessHttpResponse
+            <TResponse>(HttpMethod httpMethod, string url, Func<ProblemsContainer, Exception> onError, object payload = null)
+            where TResponse : new()
         {
             var requestMessage = new HttpRequestMessage(httpMethod, url);
 
-            return await SendHttpRequestAndProcessHttpResponse<T>(requestMessage, onError, payload);
+            return await SendHttpRequestAndProcessHttpResponse<TResponse>(requestMessage, onError, payload);
         }
 
 
-        internal async Task<T> SendHttpRequestAndProcessHttpResponse
-            <T>(HttpRequestMessage requestMessage, Func<ProblemsContainer, Exception> onError, object payload = null)
-            where T : new()
+        internal async Task<TResponse> SendHttpRequestAndProcessHttpResponse
+            <TResponse>(HttpRequestMessage requestMessage, Func<ProblemsContainer, Exception> onError, object payload = null)
+            where TResponse : new()
         {
             UpdateRequest(requestMessage, payload);
 
@@ -103,7 +103,7 @@ namespace SwedbankPay.Sdk
             {
                 var res = await response.Content.ReadAsStringAsync();
                 this.logger.LogInformation(res);
-                return JsonConvert.DeserializeObject<T>(res, JsonSerialization.JsonSerialization.Settings);
+                return JsonConvert.DeserializeObject<TResponse>(res, JsonSerialization.JsonSerialization.Settings);
             }
 
             var responseMessage = await response.Content.ReadAsStringAsync();
