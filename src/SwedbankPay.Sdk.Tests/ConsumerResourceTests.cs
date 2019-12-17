@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Net.Cache;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 using SwedbankPay.Sdk.Exceptions;
@@ -42,7 +44,7 @@ namespace SwedbankPay.Sdk.Tests
             var uri = "xxx";
 
             //ASSERT
-            await Assert.ThrowsAsync<BadRequestException>(() => this.Sut.Consumers.GetBillingDetails(uri));
+            await Assert.ThrowsAsync<HttpRequestException>(() => this.Sut.Consumers.GetBillingDetails(uri));
         }
 
 
@@ -75,7 +77,7 @@ namespace SwedbankPay.Sdk.Tests
             var uri = "xxx";
 
             //ASSERT
-            await Assert.ThrowsAsync<BadRequestException>(() => this.Sut.Consumers.GetShippingDetails(uri));
+            await Assert.ThrowsAsync<HttpRequestException>(() => this.Sut.Consumers.GetShippingDetails(uri));
         }
 
 
