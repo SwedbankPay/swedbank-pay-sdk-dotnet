@@ -98,15 +98,14 @@ namespace SwedbankPay.Sdk
             UpdateRequest(requestMessage, payload);
 
             var response = await this.client.SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
+            var responseMessage = await response.Content.ReadAsStringAsync();
 
             if (response.IsSuccessStatusCode)
             {
-                var res = await response.Content.ReadAsStringAsync();
-                this.logger.LogInformation(res);
-                return JsonConvert.DeserializeObject<TResponse>(res, JsonSerialization.JsonSerialization.Settings);
+                this.logger.LogInformation(responseMessage);
+                return JsonConvert.DeserializeObject<TResponse>(responseMessage, JsonSerialization.JsonSerialization.Settings);
             }
-
-            var responseMessage = await response.Content.ReadAsStringAsync();
+            
             this.logger.LogInformation(responseMessage);
             ProblemsContainer problems;
             if (!string.IsNullOrEmpty(responseMessage) && IsValidJson(responseMessage))
