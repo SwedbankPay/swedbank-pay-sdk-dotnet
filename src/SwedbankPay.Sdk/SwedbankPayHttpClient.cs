@@ -97,8 +97,8 @@ namespace SwedbankPay.Sdk
         {
             UpdateRequest(requestMessage, payload);
 
-            HttpResponseMessage response = await this.client.SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
-            
+            var response = await this.client.SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
+
             if (response.IsSuccessStatusCode)
             {
                 var res = await response.Content.ReadAsStringAsync();
