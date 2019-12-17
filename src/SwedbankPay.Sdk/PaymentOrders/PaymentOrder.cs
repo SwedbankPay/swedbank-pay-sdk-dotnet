@@ -47,7 +47,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                             httpOperation.Request, client, m => new CouldNotPostTransactionException(httpOperation.Href, m),
                             new PaymentAbortRequestContainer());
                         break;
-                    case "view-paymentorder":
+                    case PaymentOrderResourceOperations.ViewPaymentOrder:
                         operations.View = httpOperation;
                         break;
                 }
