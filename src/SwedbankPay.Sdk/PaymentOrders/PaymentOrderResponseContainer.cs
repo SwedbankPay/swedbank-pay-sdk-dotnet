@@ -25,7 +25,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
         public string GetPaymentUrl()
         {
-            var httpOperation = Operations.FirstOrDefault(o => o.Rel.Value == LinkRelation.RedirectPaymentorder.Value);
+            var httpOperation = Operations.FirstOrDefault(o => o.Rel.Value == LinkRelation.RedirectPaymentOrder.Value);
             if (httpOperation == null)
             {
                 if (Operations.Any())
@@ -62,7 +62,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
         public string GetUpdatePaymentOrderUrl()
         {
-            var httpOperation = Operations.FirstOrDefault(o => o.Rel.Value == LinkRelation.UpdatePaymentorderUpdateorder.Value);
+            var httpOperation = Operations.FirstOrDefault(o => o.Rel.Value == LinkRelation.UpdatePaymentOrderUpdateOrder.Value);
             if (httpOperation == null)
             {
                 if (Operations.Any())
