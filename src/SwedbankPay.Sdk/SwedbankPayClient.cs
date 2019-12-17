@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 
@@ -31,14 +32,15 @@ namespace SwedbankPay.Sdk
 
             if (httpClient.DefaultRequestHeaders.Authorization == null)
             {
-                throw new ArgumentException($"Please configure the {nameof(httpClient)} with an Authorization header."); 
+                throw new ArgumentException($"Please configure the {nameof(httpClient)} with an Authorization header.");
             }
 
             var swedbankLogger = logger ?? NullLogger.Instance;
-            PaymentOrder = new PaymentOrderResource(swedbankLogger, httpClient);
+            var swedbankPayHttpClient = new SwedbankPayHttpClient(httpClient, swedbankLogger);
+            PaymentOrder = new PaymentOrderResource(swedbankPayHttpClient);
             //Payment = new PaymentsResource(swedbankPayOptions, swedbankLogger, httpClient);
-            Consumers = new ConsumersResource(swedbankLogger, httpClient);
-            
+            Consumers = new ConsumersResource(swedbankPayHttpClient);
+
         }
 
 

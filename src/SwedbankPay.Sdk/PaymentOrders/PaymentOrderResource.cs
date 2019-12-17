@@ -5,11 +5,10 @@ using Microsoft.Extensions.Logging;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class PaymentOrderResource : ResourceBase, IPaymentOrderResource
+    internal class PaymentOrderResource : ResourceBase, IPaymentOrderResource
     {
-        public PaymentOrderResource(ILogger logger,
-                                    HttpClient client)
-            : base(logger, client)
+        public PaymentOrderResource(SwedbankPayHttpClient swedbankPayHttpClient)
+            : base(swedbankPayHttpClient)
         {
         }
 

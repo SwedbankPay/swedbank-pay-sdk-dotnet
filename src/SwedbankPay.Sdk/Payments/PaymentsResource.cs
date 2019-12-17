@@ -1,17 +1,15 @@
-﻿using System;
+﻿using SwedbankPay.Sdk.Exceptions;
+using SwedbankPay.Sdk.Transactions;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-using Microsoft.Extensions.Logging;
-
-using SwedbankPay.Sdk.Exceptions;
-using SwedbankPay.Sdk.Transactions;
-
 namespace SwedbankPay.Sdk.Payments
 {
-    public class PaymentsResource : ResourceBase, IPaymentsResource
+    internal class PaymentsResource : ResourceBase, IPaymentsResource
     {
         private const string PspVippsPaymentsBaseUrl = "/psp/vipps/payments/";
         private const string PspCreditCardPaymentsBaseUrl = "/psp/creditcard/payments/";
@@ -19,9 +17,8 @@ namespace SwedbankPay.Sdk.Payments
         private const string PspDirectDebitPaymentsBaseUrl = "/psp/directdebit/payments";
 
 
-        public PaymentsResource(ILogger logger,
-                                HttpClient client)
-            : base(logger, client)
+        public PaymentsResource(SwedbankPayHttpClient swedbankPayHttpClient)
+            : base(swedbankPayHttpClient)
         {
         }
 

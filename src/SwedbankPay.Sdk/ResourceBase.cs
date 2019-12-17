@@ -1,29 +1,19 @@
-﻿using System;
+﻿using SwedbankPay.Sdk.PaymentOrders;
+
+using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
-
-using Microsoft.Extensions.Logging;
-
-using SwedbankPay.Sdk.PaymentOrders;
 
 namespace SwedbankPay.Sdk
 {
-    public abstract class ResourceBase
+    internal abstract class ResourceBase
     {
         internal SwedbankPayHttpClient swedbankPayHttpClient;
 
 
-        internal ResourceBase(ILogger logger,
-                              HttpClient client)
+        internal ResourceBase(SwedbankPayHttpClient swedbankPayHttpClient)
         {
-            if (client == null)
-                throw new ArgumentNullException(nameof(client));
-
-            if (client.BaseAddress == null || !client.DefaultRequestHeaders.Contains("Authorization"))
-                throw new ArgumentException("Invalid client configuration. Check config.");
-
-            this.swedbankPayHttpClient = new SwedbankPayHttpClient(client, logger);
+            this.swedbankPayHttpClient = swedbankPayHttpClient;
         }
 
 

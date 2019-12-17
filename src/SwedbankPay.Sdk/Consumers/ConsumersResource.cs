@@ -1,22 +1,18 @@
-﻿using System;
+﻿using SwedbankPay.Sdk.Exceptions;
+
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-using Microsoft.Extensions.Logging;
-
-using SwedbankPay.Sdk.Exceptions;
-
 namespace SwedbankPay.Sdk.Consumers
 {
-    public class ConsumersResource : ResourceBase, IConsumersResource
+    internal class ConsumersResource : ResourceBase, IConsumersResource
     {
-        public ConsumersResource(ILogger logger,
-                                 HttpClient client)
-            : base(logger, client)
+        public ConsumersResource(SwedbankPayHttpClient swedbankPayHttpClient)
+            : base(swedbankPayHttpClient)
         {
         }
-
-
+        
         /// <summary>
         ///     Payer identification is done through this operation. The more information that is provided, the easier an
         ///     identification process for the payer.
