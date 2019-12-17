@@ -12,4 +12,15 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Base
             AbsenceTimeout = 20;
         }
     }
+
+    public class WaitForPaymentProcessingAttribute : WaitForElementAttribute
+    {
+        public WaitForPaymentProcessingAttribute(TriggerEvents on = TriggerEvents.Init)
+            : base(WaitBy.Class, "loader", Until.VisibleThenMissing, on)
+        {
+            PresenceTimeout = 3;
+            ThrowOnPresenceFailure = false;
+            AbsenceTimeout = 20;
+        }
+    }
 }

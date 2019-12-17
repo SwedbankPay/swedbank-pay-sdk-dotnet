@@ -15,6 +15,17 @@ namespace Sample.AspNetCore.SystemTests.Services
             return page;
         }
 
+        public static TOwner WaitUntilExists<TOwner>(this Control<TOwner> component)
+            where TOwner : PageObject<TOwner>
+        {
+            if(component.Exists(new SearchOptions { Timeout = new TimeSpan(0, 0, 5), IsSafely = true })) 
+            {
+
+            }
+
+            return component.Owner;
+        }
+
 
         public static TOwner StorePrice<TOwner>(this UIComponent<TOwner> component, out int value)
             where TOwner : PageObject<TOwner>

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-
+using System.Configuration;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using Atata;
-
 using NUnit.Framework;
-
 using Sample.AspNetCore.SystemTests.PageObjectModels;
 using Sample.AspNetCore.SystemTests.PageObjectModels.Orders;
 using Sample.AspNetCore.SystemTests.PageObjectModels.Payment;
@@ -13,6 +13,7 @@ using Sample.AspNetCore.SystemTests.PageObjectModels.ThankYou;
 using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Base;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
+using SwedbankPay.Sdk;
 
 namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
 {
@@ -24,13 +25,28 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
         }
 
 
-        protected HttpClientService HttpClientService;
+        protected HttpClientService HttpClientService { get; private set; }
+        protected SwedbankPayClient SwedbankPayClient { get; private set; }
 
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            this.HttpClientService = new HttpClientService();
+            #if DEBUG
+            var httpClient = new HttpClient()
+            {
+                BaseAddress = new Uri("https://api.externalintegration.payex.com")
+            };
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", ConfigurationManager.AppSettings["payexTestToken"]);
+            #elif RELEASE
+            var httpClient = new HttpClient()
+            {
+                BaseAddress = new Uri(Environment.GetEnvironmentVariable("Payex.Api.Url"))
+            };
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Environment.GetEnvironmentVariable("Payex.Api.Token"));
+            #endif
+
+            SwedbankPayClient = new SwedbankPayClient(httpClient);
         }
 
 
@@ -134,7 +150,6 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
                     .Cvc.Set(info.Cvc)
                     .Pay.ClickAndGo();
         }
-
 
         protected ThankYouPage PayWithPayexInvoice(Product[] products, PayexInvoiceInfo info, bool standardCheckout = false)
         {

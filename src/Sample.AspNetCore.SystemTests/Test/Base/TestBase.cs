@@ -1,9 +1,6 @@
 ﻿using System;
-
 using Atata;
-
 using NUnit.Framework;
-
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
@@ -16,13 +13,13 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
 
     #if DEBUG
     [TestFixture(DriverAliases.Chrome)]
-#elif DEV
+    #elif DEV
     [TestFixture(DriverAliases.Chrome)]
     //[TestFixtureSource(typeof(Profiles.ProfileDEV))]
-#elif RELEASE
+    #elif RELEASE
     [TestFixture(DriverAliases.Chrome)]
     //[TestFixtureSource(typeof(Profiles.ProfileRelease))]
-#endif
+    #endif
     public abstract class TestBase
     {
         private readonly string _driverAlias;
@@ -53,25 +50,26 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
         [SetUp]
         public void SetUp()
         {
-#if DEBUG
+            #if DEBUG
             AtataContext.Configure()
                 .UseDriver(_driverAlias)
-                    .UseBaseUrl("https://localhost:44389/")
+                    .UseBaseUrl("http://localhost:44344/")
             .Build();
             AtataContext.Current.Driver.Maximize();
-#elif DEV
+            #elif DEV
             AtataContext.Configure()
                 .UseDriver(_driverAlias)
                     .UseBaseUrl("https://YourBaseUrl.com/")
             .Build();
             AtataContext.Current.Driver.Maximize();
-#elif RELEASE
+            #elif RELEASE
             AtataContext.Configure()
-                .ApplyJsonConfig(environmentAlias: "TST") // Applies "Atata.TST.json" for build configuration with "UAT" conditional compilation symbol.
+                .ApplyJsonConfig(environmentAlias: "Release") // Applies "Atata.Release.json" for build configuration with "Release" conditional compilation symbol.
                 .UseDriver(_driverAlias)
+                    .UseBaseUrl(Environment.GetEnvironmentVariable("Swedbank.Pay.Sdk.SampleWebsite.BaseUrl"))
             .Build();
             AtataContext.Current.Driver.Maximize();
-#endif
+            #endif
         }
 
         protected TestBase(string driverAlias) => this._driverAlias = driverAlias;

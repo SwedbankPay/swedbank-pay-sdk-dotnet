@@ -1,7 +1,5 @@
 ﻿using Atata;
-
 using NUnit.Framework;
-
 using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 
