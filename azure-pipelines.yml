@@ -86,11 +86,12 @@ steps:
 - task: DotNetCoreCLI@2
   displayName: 'Create NuGet Package - $(buildConfiguration) Version'
   inputs:
-    command: pack
+    command: 'pack'
     packagesToPack: '**/SwedbankPay.Sdk.csproj'
     packDirectory: '$(Build.ArtifactStagingDirectory)/packages'
-    arguments: '--configuration $(buildConfiguration)'
     nobuild: true
+    versioningScheme: 'off'
+    buildProperties: 'PackageVersion=$(GitVersion.NuGetVersionV2)'
 
 
 - task: PublishBuildArtifacts@1
