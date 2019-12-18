@@ -6,6 +6,9 @@ pool:
   - msbuild
   - visualstudio
 
+variables:
+  GitVersion.SemVer: ''
+
 steps:
 
 - task: PowerShell@2
@@ -19,11 +22,11 @@ steps:
       [System.Environment]::SetEnvironmentVariable("SwedbankPayConnectionSettings.Token", $Token, "User")
       
 
-- task: GitVersion@5
+- task: GitVersion@5 
+  displayName: GitVersion
   inputs:
-    runtime: 'core'
-    preferBundledVersion: false
-    updateAssemblyInfo: true
+    useConfigFile: true
+    configFilePath: GitVersion.yml
 
 #- script: echo %Action%%BuildVersion%
 #  displayName: 'Set build version'
@@ -54,9 +57,7 @@ steps:
     command: 'build'
     projects: |
       **/*.sln
-    arguments: '--configuration $(BuildConfiguration)'    
-  
-
+    arguments: '--configuration $(BuildConfiguration) /p:Version=$(GitVersion.NuGetVersionV2)'
 
 
 - task: MSBuild@1
