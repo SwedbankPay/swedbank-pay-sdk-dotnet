@@ -14,10 +14,10 @@ namespace SwedbankPay.Sdk.Consumers
         ///     received through the event OnBillingDetailsAvailable.
         /// </summary>
         /// <param name="url"></param>
-        /// <exception cref="HttpRequestException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="CouldNotGetBillingDetailsException"></exception>
-        /// <exception cref="SdkException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="HttpResponseException"></exception>
         /// <returns></returns>
         Task<BillingDetails> GetBillingDetails(string url);
 
@@ -28,10 +28,10 @@ namespace SwedbankPay.Sdk.Consumers
         ///     received through the event onShippingDetailsAvailable.
         /// </summary>
         /// <param name="url"></param>
-        /// <exception cref="HttpRequestException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="CouldNotGetShippingDetailsException"></exception>
-        /// <exception cref="SdkException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="HttpResponseException"></exception>
         /// <returns></returns>
         Task<ShippingDetails> GetShippingDetails(string url);
 
@@ -41,9 +41,10 @@ namespace SwedbankPay.Sdk.Consumers
         ///     identification process for the payer.
         /// </summary>
         /// <param name="consumersRequest"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
         /// <exception cref="HttpRequestException"></exception>
-        /// <exception cref="CouldNotInitiateConsumerSessionException"></exception>
-        /// <exception cref="SdkException"></exception>
+        /// <exception cref="HttpResponseException"></exception>
         /// <returns></returns>
         Task<Consumer> InitiateSession(ConsumersRequest consumersRequest);
     }

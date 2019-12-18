@@ -13,9 +13,10 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// </summary>
         /// <param name="paymentOrderRequest"></param>
         /// <param name="paymentOrderExpand"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
         /// <exception cref="HttpRequestException"></exception>
-        /// <exception cref="CouldNotPlacePaymentOrderException"></exception>
-        /// <exception cref="SdkException"></exception>
+        /// <exception cref="HttpResponseException"></exception>
         /// <returns></returns>
         Task<PaymentOrder> Create(PaymentOrderRequest paymentOrderRequest, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None);
 
@@ -25,10 +26,10 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// </summary>
         /// <param name="id"></param>
         /// <param name="paymentOrderExpand"></param>
-        /// <exception cref="HttpRequestException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="CouldNotFindPaymentException"></exception>
-        /// <exception cref="SdkException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="HttpResponseException"></exception>
         /// <returns></returns>
         Task<PaymentOrder> Get(string id, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None);
     }
