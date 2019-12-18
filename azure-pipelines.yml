@@ -27,14 +27,6 @@ steps:
   inputs:
     useConfigFile: true
     configFilePath: GitVersion.yml
-    updateAssemblyInfo: true
-    updateAssemblyInfoFilename: true
-
-#- script: echo %Action%%BuildVersion%
-#  displayName: 'Set build version'
-#  env:
-#    Action: '##vso[build.updatebuildnumber]'
-#    BuildVersion: $(GitVersion.NuGetVersionV2)
 
 - task: NuGetToolInstaller@1
   inputs:
@@ -83,7 +75,7 @@ steps:
     command: 'publish'
     publishWebProjects: true
     zipAfterPublish: true
-    arguments: '--output $(Build.ArtifactStagingDirectory) --configuration $(buildConfiguration) -p:Version=$(GitVersion.NugetVersion2)'
+    arguments: '--output $(Build.ArtifactStagingDirectory) --configuration $(buildConfiguration) -p:Version=$(GitVersion.NuGetVersionV2)'
 
 
 - task: DotNetCoreCLI@2
