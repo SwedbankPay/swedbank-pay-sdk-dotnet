@@ -17,9 +17,6 @@ namespace SwedbankPay.Sdk.Payments
         Task<PaymentResponseContainer> GetPayment(Uri id, PaymentExpand paymentExpand = PaymentExpand.All);
 
 
-        Task<string> GetRaw(Uri id, PaymentOrderExpand paymentOrderExpand);
-
-
         /// <summary>
         ///     Gets all sales for a payment.
         /// </summary>
