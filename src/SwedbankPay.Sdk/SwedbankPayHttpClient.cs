@@ -89,24 +89,8 @@ namespace SwedbankPay.Sdk
         }
 
 
-        internal async Task<TResponse> HttpPatch
-            <TPayLoad, TResponse>(Uri url, TPayLoad payload)
-            where TResponse : new()
-        {
-            return await SendHttpRequestAndProcessHttpResponse<TResponse>(new HttpMethod("PATCH"), url, payload);
-        }
-
-
-        internal async Task<TResponse> HttpPost
-            <TPayLoad, TResponse>(Uri url, TPayLoad payload)
-            where TResponse : new()
-        {
-            return await SendHttpRequestAndProcessHttpResponse<TResponse>(HttpMethod.Post, url, payload);
-        }
-
-
         /// <summary>
-        /// Send the HttpRequest and Process HttpResponse
+        ///     Send the HttpRequest and Process HttpResponse
         /// </summary>
         /// <typeparam name="TResponse"></typeparam>
         /// <param name="httpMethod"></param>
