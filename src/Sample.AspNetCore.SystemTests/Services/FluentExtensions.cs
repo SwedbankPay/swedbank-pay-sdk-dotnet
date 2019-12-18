@@ -35,10 +35,11 @@ namespace Sample.AspNetCore.SystemTests.Services
         }
 
 
-        public static TOwner StoreValue<TOwner>(this UIComponent<TOwner> component, out string value)
+        public static TOwner StoreValue<TOwner>(this UIComponent<TOwner> component, out Uri value)
             where TOwner : PageObject<TOwner>
         {
-            value = component.Content.Value;
+            var val = component.Content.Value;
+            value = new Uri(val, UriKind.RelativeOrAbsolute);
             return component.Owner;
         }
     }

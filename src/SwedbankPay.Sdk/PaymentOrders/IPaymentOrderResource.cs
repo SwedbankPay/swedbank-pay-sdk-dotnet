@@ -31,6 +31,6 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <exception cref="HttpRequestException"></exception>
         /// <exception cref="HttpResponseException"></exception>
         /// <returns></returns>
-        Task<PaymentOrder> Get(string id, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None);
+        Task<PaymentOrder> Get(Uri id, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None);
     }
 }

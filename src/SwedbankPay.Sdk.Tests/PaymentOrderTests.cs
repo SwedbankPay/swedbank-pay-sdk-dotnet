@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 using SwedbankPay.Sdk.Exceptions;
 using SwedbankPay.Sdk.PaymentOrders;
@@ -17,7 +18,7 @@ namespace SwedbankPay.Sdk.Tests
         public async Task CreateAndAbortPaymentOrder_ShouldReturnAbortedState()
         {
             //ARRANGE
-            
+
             var paymentOrderRequest = this.paymentOrderRequestBuilder.WithTestValues().Build();
 
             //ACT
@@ -43,7 +44,7 @@ namespace SwedbankPay.Sdk.Tests
             Assert.NotNull(paymentOrder.PaymentOrderResponse);
             var amount = paymentOrder.PaymentOrderResponse.Amount;
 
-            var paymentOrder2 = await this.Sut.PaymentOrder.Get(paymentOrder.PaymentOrderResponse.Id.OriginalString);
+            var paymentOrder2 = await this.Sut.PaymentOrder.Get(paymentOrder.PaymentOrderResponse.Id);
             Assert.NotNull(paymentOrder2);
             Assert.NotNull(paymentOrder2.PaymentOrderResponse);
             Assert.Equal(amount.Value, paymentOrder2.PaymentOrderResponse.Amount.Value);
@@ -127,7 +128,7 @@ namespace SwedbankPay.Sdk.Tests
         public async Task GetPaymentOrder_WithPayment_ShouldReturnCurrentPaymentIfExpanded()
         {
             //ACT
-            var paymentOrder = await this.Sut.PaymentOrder.Get("/psp/paymentorders/472e6f26-a9b5-4e91-1b70-08d756b9b7d8",
+            var paymentOrder = await this.Sut.PaymentOrder.Get(new Uri("/psp/paymentorders/472e6f26-a9b5-4e91-1b70-08d756b9b7d8", UriKind.Relative),
                                                                PaymentOrderExpand.CurrentPayment);
 
             //ASSERT
@@ -140,7 +141,7 @@ namespace SwedbankPay.Sdk.Tests
         public async Task GetPaymentOrder_WithSwishPayment_ShouldReturnSales()
         {
             //ACT
-            var paymentOrder = await this.Sut.PaymentOrder.Get("/psp/paymentorders/472e6f26-a9b5-4e91-1b70-08d756b9b7d8",
+            var paymentOrder = await this.Sut.PaymentOrder.Get(new Uri("/psp/paymentorders/472e6f26-a9b5-4e91-1b70-08d756b9b7d8", UriKind.Relative),
                                                                PaymentOrderExpand.CurrentPayment);
             //var sales = await this.Sut.Payment.GetSales(paymentOrder.PaymentOrderResponse.CurrentPayment.Payment.Sales.Id);
 
@@ -153,7 +154,7 @@ namespace SwedbankPay.Sdk.Tests
         [Fact]
         public async Task GetUnknownPaymentOrder_ShouldThrowHttpResponseException()
         {
-            var id = "/psp/paymentorders/56a45c8a-9605-437a-fb80-08d742822747";
+            var id = new Uri("/psp/paymentorders/56a45c8a-9605-437a-fb80-08d742822747", UriKind.Relative);
 
             await Assert.ThrowsAsync<HttpResponseException>(() => this.Sut.PaymentOrder.Get(id));
         }

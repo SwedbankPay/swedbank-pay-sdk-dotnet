@@ -11,10 +11,10 @@ namespace SwedbankPay.Sdk.Payments
 {
     internal class PaymentsResource : ResourceBase, IPaymentsResource
     {
-        private const string PspVippsPaymentsBaseUrl = "/psp/vipps/payments/";
-        private const string PspCreditCardPaymentsBaseUrl = "/psp/creditcard/payments/";
-        private const string PspSwishPaymentsBaseUrl = "/psp/swish/payments/";
-        private const string PspDirectDebitPaymentsBaseUrl = "/psp/directdebit/payments";
+        private Uri PspVippsPaymentsBaseUrl = new Uri("/psp/vipps/payments/", UriKind.Relative);
+        private Uri PspCreditCardPaymentsBaseUrl = new Uri("/psp/creditcard/payments/", UriKind.Relative);
+        private Uri PspSwishPaymentsBaseUrl = new Uri("/psp/swish/payments/", UriKind.Relative);
+        private Uri PspDirectDebitPaymentsBaseUrl = new Uri("/psp/directdebit/payments", UriKind.Relative);
 
 
         public PaymentsResource(SwedbankPayHttpClient swedbankPayHttpClient)
@@ -50,11 +50,13 @@ namespace SwedbankPay.Sdk.Payments
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<PaymentResponseContainer> GetPayment(string id, PaymentExpand paymentExpand = PaymentExpand.All)
+        public async Task<PaymentResponseContainer> GetPayment(Uri id, PaymentExpand paymentExpand = PaymentExpand.All)
         {
-            if (string.IsNullOrEmpty(id))
+            if (id == null)
                 throw new ArgumentNullException(nameof(id));
-            var url = $"{id}{GetExpandQueryString(paymentExpand)}";
+
+            var paymentOrderExpand = GetExpandQueryString(paymentExpand);
+            var url = !string.IsNullOrWhiteSpace(paymentOrderExpand) ? new UriBuilder(id) { Query = paymentOrderExpand }.Uri : id;
 
             var res = await this.swedbankPayHttpClient.SendHttpRequestAndProcessHttpResponse<PaymentResponseContainer>(HttpMethod.Get, url);
             return res;
@@ -66,7 +68,7 @@ namespace SwedbankPay.Sdk.Payments
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<SaleResponse>> GetSales(string id)
+        public async Task<IEnumerable<SaleResponse>> GetSales(Uri id)
         {
             var res = await this.swedbankPayHttpClient.SendHttpRequestAndProcessHttpResponse<SaleResponseContainer>(HttpMethod.Get, id);
             return res.Sales.SaleList;
@@ -79,9 +81,10 @@ namespace SwedbankPay.Sdk.Payments
         /// <param name="id"></param>
         /// <param name="paymentExpand"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<TransactionResponse>> GetTransactions(string id, PaymentExpand paymentExpand = PaymentExpand.All)
+        public async Task<IEnumerable<TransactionResponse>> GetTransactions(Uri id, PaymentExpand paymentExpand = PaymentExpand.All)
         {
-            var url = $"{id}{GetExpandQueryString(paymentExpand)}";
+            var paymentOrderExpand = GetExpandQueryString(paymentExpand);
+            var url = !string.IsNullOrWhiteSpace(paymentOrderExpand) ? new UriBuilder(id) { Query = paymentOrderExpand }.Uri : id;
 
             var res = await this.swedbankPayHttpClient.SendHttpRequestAndProcessHttpResponse<AllTransactionResponseContainer>(HttpMethod.Get, url);
             return res.Transactions.TransactionList;
@@ -91,7 +94,7 @@ namespace SwedbankPay.Sdk.Payments
         /// <summary>
         ///     Captures a payment a.k.a POSTs a transaction.
         /// </summary>
-        public async Task<TransactionResponse> PostCapture(string id, TransactionRequest transaction)
+        public async Task<TransactionResponse> PostCapture(Uri id, TransactionRequest transaction)
         {
             var payment = await GetPayment(id);
 
@@ -119,7 +122,7 @@ namespace SwedbankPay.Sdk.Payments
         /// <summary>
         ///     Reverses a payment a.k.a POSTs a transaction.
         /// </summary>
-        public async Task<TransactionResponse> PostReversal(string id, TransactionRequest transaction)
+        public async Task<TransactionResponse> PostReversal(Uri id, TransactionRequest transaction)
         {
             var payment = await GetPayment(id);
 
@@ -146,7 +149,7 @@ namespace SwedbankPay.Sdk.Payments
         /// <summary>
         ///     Cancels a payment a.k.a POSTs a transaction.
         /// </summary>
-        public async Task<TransactionResponse> PostCancellation(string id, TransactionRequest transaction)
+        public async Task<TransactionResponse> PostCancellation(Uri id, TransactionRequest transaction)
         {
             var payment = await GetPayment(id);
 
@@ -174,7 +177,7 @@ namespace SwedbankPay.Sdk.Payments
         /// <summary>
         ///     Cancels an unauthorized creditcard payment a.k.a PATCH with a static abort object.
         /// </summary>
-        public async Task<PaymentResponseContainer> PatchAbortPayment(string id)
+        public async Task<PaymentResponseContainer> PatchAbortPayment(Uri id)
         {
             var payment = await GetPayment(id);
 
@@ -198,11 +201,13 @@ namespace SwedbankPay.Sdk.Payments
         }
 
 
-        private async Task<PaymentResponseContainer> CreatePayment(string baseUrl, PaymentRequest payment)
+        private async Task<PaymentResponseContainer> CreatePayment(Uri baseUrl, PaymentRequest payment)
         {
             var payload = new PaymentRequestContainer(payment);
 
-            var url = $"{baseUrl}{GetExpandQueryString(PaymentExpand.All)}";
+            var paymentOrderExpand = GetExpandQueryString(PaymentExpand.All);
+            var url = !string.IsNullOrWhiteSpace(paymentOrderExpand) ? new Uri(baseUrl.OriginalString + paymentOrderExpand, UriKind.RelativeOrAbsolute) : baseUrl;
+            
             var res = await this.swedbankPayHttpClient.HttpPost<PaymentRequestContainer, PaymentResponseContainer>(url, payload);
             return res;
         }

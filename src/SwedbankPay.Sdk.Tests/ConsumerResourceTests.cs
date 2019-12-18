@@ -19,18 +19,7 @@ namespace SwedbankPay.Sdk.Tests
         public async Task GetBillingDetails_ThrowsArgumentNullException_IfUriIsNull()
         {
             //ARRANGE
-            string url = null;
-
-            //ASSERT
-            await Assert.ThrowsAsync<ArgumentNullException>(nameof(url), () => this.Sut.Consumers.GetBillingDetails(url));
-        }
-
-
-        [Fact]
-        public async Task GetBillingDetails_ThrowsArgumentNullException_IfUriIsWhitespace()
-        {
-            //ARRANGE
-            var url = " ";
+            Uri url = null;
 
             //ASSERT
             await Assert.ThrowsAsync<ArgumentNullException>(nameof(url), () => this.Sut.Consumers.GetBillingDetails(url));
@@ -41,7 +30,7 @@ namespace SwedbankPay.Sdk.Tests
         public async Task GetBillingDetails_ThrowsHttpRequestException_IfUriIsIncorrect()
         {
             //ARRANGE
-            var uri = "xxx";
+            var uri = new Uri("http://xxx");
 
             //ASSERT
             await Assert.ThrowsAsync<HttpRequestException>(() => this.Sut.Consumers.GetBillingDetails(uri));
@@ -52,18 +41,7 @@ namespace SwedbankPay.Sdk.Tests
         public async Task GetShippingDetails_ThrowsArgumentNullException_IfUriIsNull()
         {
             //ARRANGE
-            string url = null;
-
-            //ASSERT
-            await Assert.ThrowsAsync<ArgumentNullException>(nameof(url), () => this.Sut.Consumers.GetShippingDetails(url));
-        }
-
-
-        [Fact]
-        public async Task GetShippingDetails_ThrowsArgumentNullException_IfUriIsWhitespace()
-        {
-            //ARRANGE
-            var url = " ";
+            Uri url = null;
 
             //ASSERT
             await Assert.ThrowsAsync<ArgumentNullException>(nameof(url), () => this.Sut.Consumers.GetShippingDetails(url));
@@ -74,7 +52,7 @@ namespace SwedbankPay.Sdk.Tests
         public async Task GetShippingDetails_ThrowsHttpRequestException_IfUriIsIncorrect()
         {
             //ARRANGE
-            var uri = "xxx";
+            var uri = new Uri("http://xxx");
 
             //ASSERT
             await Assert.ThrowsAsync<HttpRequestException>(() => this.Sut.Consumers.GetShippingDetails(uri));

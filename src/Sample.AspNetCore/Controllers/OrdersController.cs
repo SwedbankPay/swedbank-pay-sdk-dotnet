@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
@@ -74,7 +75,7 @@ namespace Sample.AspNetCore.Controllers
             if (order == null)
                 return NotFound();
 
-            var paymentOrder = await this.swedbankPayClient.PaymentOrder.Get(order.PaymentOrderLink);
+            var paymentOrder = await this.swedbankPayClient.PaymentOrder.Get(new Uri(order.PaymentOrderLink, UriKind.RelativeOrAbsolute));
 
             var paymentOrderOperations = paymentOrder.Operations.Where(r => r.Key.Value.Contains("paymentorder")).Select(x => x.Value);
 

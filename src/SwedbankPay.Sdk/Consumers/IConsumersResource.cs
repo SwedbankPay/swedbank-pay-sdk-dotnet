@@ -19,7 +19,7 @@ namespace SwedbankPay.Sdk.Consumers
         /// <exception cref="HttpRequestException"></exception>
         /// <exception cref="HttpResponseException"></exception>
         /// <returns></returns>
-        Task<BillingDetails> GetBillingDetails(string url);
+        Task<BillingDetails> GetBillingDetails(Uri url);
 
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace SwedbankPay.Sdk.Consumers
         /// <exception cref="HttpRequestException"></exception>
         /// <exception cref="HttpResponseException"></exception>
         /// <returns></returns>
-        Task<ShippingDetails> GetShippingDetails(string url);
+        Task<ShippingDetails> GetShippingDetails(Uri url);
 
 
         /// <summary>

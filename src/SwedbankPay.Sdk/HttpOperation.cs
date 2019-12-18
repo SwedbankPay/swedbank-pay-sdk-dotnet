@@ -1,10 +1,11 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 
 namespace SwedbankPay.Sdk
 {
     public class HttpOperation
     {
-        public HttpOperation(string href, LinkRelation rel, string method, string contentType)
+        public HttpOperation(Uri href, LinkRelation rel, string method, string contentType)
         {
             Href = href;
             Rel = rel;
@@ -27,7 +28,7 @@ namespace SwedbankPay.Sdk
         ///     The target URI of the operation.
         /// </summary>
 
-        public string Href { get; }
+        public Uri Href { get; }
 
         /// <summary>
         ///     The HTTP method to use when performing the operation.

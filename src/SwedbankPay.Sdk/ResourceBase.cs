@@ -17,11 +17,11 @@ namespace SwedbankPay.Sdk
         }
 
 
-        public async Task<string> GetRaw(string id, PaymentOrderExpand paymentOrderExpand)
+        public async Task<string> GetRaw(Uri id, PaymentOrderExpand paymentOrderExpand)
         {
             var expandQueryString = GetExpandQueryString(paymentOrderExpand);
-            var url = $"{id}?$expand={expandQueryString}";
-
+            var url = !string.IsNullOrWhiteSpace(expandQueryString) ? new Uri(id.OriginalString + paymentOrderExpand, UriKind.RelativeOrAbsolute) : id;
+            
             return await this.swedbankPayHttpClient.GetRaw(url);
         }
 

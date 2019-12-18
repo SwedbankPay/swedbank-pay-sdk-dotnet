@@ -26,7 +26,7 @@ namespace SwedbankPay.Sdk
         }
 
 
-        internal async Task<string> GetRaw(string url)
+        internal async Task<string> GetRaw(Uri url)
         {
             var httpRequest = new HttpRequestMessage(HttpMethod.Get, url);
             var httpResponse = await this.client.SendAsync(httpRequest);
@@ -65,7 +65,7 @@ namespace SwedbankPay.Sdk
         }
 
 
-        internal async Task<TResponse> HttpGet<TResponse>(string url)
+        internal async Task<TResponse> HttpGet<TResponse>(Uri url)
             where TResponse : new()
         {
             return await SendHttpRequestAndProcessHttpResponse<TResponse>(HttpMethod.Get, url);
@@ -73,7 +73,7 @@ namespace SwedbankPay.Sdk
 
 
         internal async Task<TResponse> HttpPatch
-            <TPayLoad, TResponse>(string url, TPayLoad payload)
+            <TPayLoad, TResponse>(Uri url, TPayLoad payload)
             where TResponse : new()
         {
             return await SendHttpRequestAndProcessHttpResponse<TResponse>(new HttpMethod("PATCH"), url, payload);
@@ -81,7 +81,7 @@ namespace SwedbankPay.Sdk
 
 
         internal async Task<TResponse> HttpPost
-            <TPayLoad, TResponse>(string url, TPayLoad payload)
+            <TPayLoad, TResponse>(Uri url, TPayLoad payload)
             where TResponse : new()
         {
             return await SendHttpRequestAndProcessHttpResponse<TResponse>(HttpMethod.Post, url, payload);
@@ -102,7 +102,7 @@ namespace SwedbankPay.Sdk
         /// <returns></returns>
         internal async Task<TResponse> SendHttpRequestAndProcessHttpResponse
             <TResponse>(HttpMethod httpMethod,
-                        string url,
+                        Uri url,
                         object payload = null)
             where TResponse : new()
         {

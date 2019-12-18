@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 using SwedbankPay.Sdk.Exceptions;
@@ -62,7 +63,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                                         SwedbankPayHttpClient client,
                                                         string paymentOrderExpand)
         {
-            var url = $"/psp/paymentorders{paymentOrderExpand}";
+            var url = new Uri($"/psp/paymentorders{paymentOrderExpand}", UriKind.Relative);
 
             var payload = new PaymentOrderRequestContainer(paymentOrderRequest);
 
@@ -81,10 +82,9 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <param name="paymentOrderExpand"></param>
         /// <exception cref="HttpResponseException"></exception>
         /// <returns></returns>
-        internal static async Task<PaymentOrder> Get(string id, SwedbankPayHttpClient client, string paymentOrderExpand)
+        internal static async Task<PaymentOrder> Get(Uri id, SwedbankPayHttpClient client, string paymentOrderExpand)
         {
-            var url = $"{id}{paymentOrderExpand}";
-
+            var url = !string.IsNullOrWhiteSpace(paymentOrderExpand) ? new Uri(id.OriginalString + paymentOrderExpand, UriKind.RelativeOrAbsolute) : id;
             var paymentOrderResponseContainer = await client.HttpGet<PaymentOrderResponseContainer>(url);
 
             return new PaymentOrder(paymentOrderResponseContainer, client);

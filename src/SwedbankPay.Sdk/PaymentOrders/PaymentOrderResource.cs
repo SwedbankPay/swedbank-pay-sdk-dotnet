@@ -30,10 +30,10 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <param name="id"></param>
         /// <param name="paymentOrderExpand"></param>
         /// <returns></returns>
-        public async Task<PaymentOrder> Get(string id, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
+        public async Task<PaymentOrder> Get(Uri id, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
         {
-            if (string.IsNullOrEmpty(id))
-                throw new ArgumentNullException(nameof(id), $"{id} cannot be null or empty");
+            if (id == null)
+                throw new ArgumentNullException(nameof(id), $"{id} cannot be null");
 
             return await PaymentOrder.Get(id, this.swedbankPayHttpClient, GetExpandQueryString(paymentOrderExpand));
         }
