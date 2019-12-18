@@ -21,7 +21,7 @@ branches:
   feature-checkout:
     regex: ^feature/checkout?[/-]
     source-branches: ['develop']
-    mode: ContinuousDelivery
+    mode: ContinuousDeployment
     tag: alpha
     increment: Inherit
     prevent-increment-of-merged-branch-version: false
