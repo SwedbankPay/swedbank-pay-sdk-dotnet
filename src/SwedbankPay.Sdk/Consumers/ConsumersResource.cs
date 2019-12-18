@@ -22,7 +22,7 @@ namespace SwedbankPay.Sdk.Consumers
         public async Task<BillingDetails> GetBillingDetails(Uri url)
         {
             if (url == null)
-                throw new ArgumentNullException(nameof(url), "url cannot be null or whitespace");
+                throw new ArgumentNullException(nameof(url));
 
             var billingDetails =
                 await this.swedbankPayHttpClient.HttpGet<BillingDetails>(url);
@@ -40,7 +40,7 @@ namespace SwedbankPay.Sdk.Consumers
         public async Task<ShippingDetails> GetShippingDetails(Uri url)
         {
             if (url == null)
-                throw new ArgumentNullException(nameof(url), "url cannot be null or whitespace");
+                throw new ArgumentNullException(nameof(url));
 
             var shippingDetails =
                 await this.swedbankPayHttpClient.HttpGet<ShippingDetails>(url);
