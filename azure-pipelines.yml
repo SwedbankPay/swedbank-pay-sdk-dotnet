@@ -36,17 +36,20 @@ steps:
     versionSpec: '5.3.1'
 
 - task: NuGetCommand@2
+  displayName: 'Restoring packages'
   inputs:
      command: 'restore'
      restoreSolution: '**/*.sln'
      feedsToUse: 'select'
 
 - task: UseDotNet@2
+  displayName: 'Setting up framework for build'
   inputs:
     packageType: 'sdk'
     version: '3.x'
 
 - task: DotNetCoreCLI@2
+  displayName: 'Build solution for .net core projects'
   inputs:
     command: 'build'
     projects: |
@@ -60,16 +63,18 @@ steps:
   inputs:
     solution: '**\Sample.AspNetCore.SystemTests.csproj'
     platform: AnyCPU
-    configuration: Release
+    configuration: $(buildConfiguration)
   enabled: false
 
 - task: DotNetCoreCLI@2
+  displayName: 'Run unit / integration tests'
   inputs:
     command: test
     projects: 'D:\a\1\s\src\SwedbankPay.Sdk.Tests\SwedbankPay.Sdk.Tests.csproj'
     arguments: '--configuration $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
+  displayName: 'Create release'
   inputs:
     command: 'publish'
     publishWebProjects: true
@@ -77,12 +82,14 @@ steps:
     arguments: '--output $(Build.ArtifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
+  displayName: 'Publish .net core build artifacts'
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
 
 - task: PublishBuildArtifacts@1
+  displayName: 'Publish system test project build artifacts'
   inputs:
     PathtoPublish: 'src\Sample.AspNetCore.SystemTests'
     ArtifactName: 'SystemTests'
