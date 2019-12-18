@@ -7,6 +7,10 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Primitives;
 using Moq;
 
+#if RELEASE
+using System.Text;
+#endif
+
 namespace SwedbankPay.Sdk.Tests.TestHelpers
 {
     public class TestHelper
