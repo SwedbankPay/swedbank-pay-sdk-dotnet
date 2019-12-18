@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Net;
 using System.Net.Http;
+using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,126 +28,137 @@ namespace SwedbankPay.Sdk
 
         internal async Task<string> GetRaw(string url)
         {
-            var msg = new HttpRequestMessage(HttpMethod.Get, url);
-            msg.Headers.Add("Accept", "application/json");
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, url);
+            var httpResponse = await this.client.SendAsync(httpRequest);
 
-            HttpResponseMessage response;
+            string BuildErrorMessage(string httpResponseBody)
+            {
+                return
+                    $"{httpRequest.Method}: {httpRequest.RequestUri} failed with error code {httpResponse.StatusCode} using bearer token {httpRequest.Headers.Authorization.Parameter}. Response body: {httpResponseBody}";
+            }
+
             try
             {
-                response = await this.client.SendAsync(msg);
+                var httpResponseBody = await httpResponse.Content.ReadAsStringAsync();
+                if (!httpResponse.IsSuccessStatusCode)
+                    throw new HttpResponseException(
+                        httpResponse,
+                        JsonConvert.DeserializeObject<ProblemsContainer>(httpResponseBody),
+                        BuildErrorMessage(httpResponseBody));
+                var indentedResponseBody = JToken.Parse(httpResponseBody).ToString(Formatting.Indented);
+                this.logger.LogInformation(indentedResponseBody);
+                return indentedResponseBody;
             }
-            catch (HttpRequestException e)
+            catch (HttpResponseException ex)
             {
-                throw new BadRequestException(e);
+                ExceptionDispatchInfo.Capture(ex).Throw();
+                throw;
             }
-            catch (TaskCanceledException te)
+            catch (Exception ex)
             {
-                throw new ApiTimeOutException(te);
+                var httpResponseBody = await httpResponse.Content.ReadAsStringAsync();
+                throw new HttpResponseException(
+                    httpResponse,
+                    message : BuildErrorMessage(httpResponseBody),
+                    innerException : ex);
             }
-
-            if (response.IsSuccessStatusCode)
-            {
-                var res = await response.Content.ReadAsStringAsync();
-                var res2 = JToken.Parse(res).ToString(Formatting.Indented);
-                this.logger.LogInformation(res2);
-                return res2;
-            }
-
-            return null;
         }
 
 
-        internal async Task<TResponse> HttpGet<TResponse>(string url, Func<HttpResponseMessage, ProblemsContainer, Exception> onError)
+        internal async Task<TResponse> HttpGet<TResponse>(string url)
             where TResponse : new()
         {
-            return await SendHttpRequestAndProcessHttpResponse<TResponse>(HttpMethod.Get, url, onError);
+            return await SendHttpRequestAndProcessHttpResponse<TResponse>(HttpMethod.Get, url);
         }
 
 
         internal async Task<TResponse> HttpPatch
-            <TPayLoad, TResponse>(string url, Func<HttpResponseMessage, ProblemsContainer, Exception> onError, TPayLoad payload)
+            <TPayLoad, TResponse>(string url, TPayLoad payload)
             where TResponse : new()
         {
-            return await SendHttpRequestAndProcessHttpResponse<TResponse>(new HttpMethod("PATCH"), url, onError, payload);
+            return await SendHttpRequestAndProcessHttpResponse<TResponse>(new HttpMethod("PATCH"), url, payload);
         }
 
 
         internal async Task<TResponse> HttpPost
-            <TPayLoad, TResponse>(string url, Func<HttpResponseMessage, ProblemsContainer, Exception> onError, TPayLoad payload)
+            <TPayLoad, TResponse>(string url, TPayLoad payload)
             where TResponse : new()
         {
-            return await SendHttpRequestAndProcessHttpResponse<TResponse>(HttpMethod.Post, url, onError, payload);
+            return await SendHttpRequestAndProcessHttpResponse<TResponse>(HttpMethod.Post, url, payload);
         }
 
 
+        /// <summary>
+        /// Send the HttpRequest and Process HttpResponse
+        /// </summary>
+        /// <typeparam name="TResponse"></typeparam>
+        /// <param name="httpMethod"></param>
+        /// <param name="url"></param>
+        /// <param name="payload"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="HttpResponseException"></exception>
+        /// <returns></returns>
         internal async Task<TResponse> SendHttpRequestAndProcessHttpResponse
             <TResponse>(HttpMethod httpMethod,
                         string url,
-                        Func<HttpResponseMessage, ProblemsContainer, Exception> onError,
                         object payload = null)
             where TResponse : new()
         {
             var requestMessage = new HttpRequestMessage(httpMethod, url);
 
-            return await SendHttpRequestAndProcessHttpResponse<TResponse>(requestMessage, onError, payload);
+            return await SendHttpRequestAndProcessHttpResponse<TResponse>(requestMessage, payload);
         }
 
-
+        /// <summary>
+        /// Send the HttpRequest and Process HttpResponse
+        /// </summary>
+        /// <typeparam name="TResponse"></typeparam>
+        /// <param name="httpRequest"></param>
+        /// <param name="payload"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="HttpResponseException"></exception>
+        /// <returns></returns>
         internal async Task<TResponse> SendHttpRequestAndProcessHttpResponse
-            <TResponse>(HttpRequestMessage requestMessage,
-                        Func<HttpResponseMessage, ProblemsContainer, Exception> onError,
-                        object payload = null)
+            <TResponse>(HttpRequestMessage httpRequest, object payload = null)
             where TResponse : new()
         {
-            UpdateRequest(requestMessage, payload);
+            UpdateRequest(httpRequest, payload);
 
-            HttpResponseMessage httpResponseMessage = null;
-            ProblemsContainer problems = null;
+            var httpResponse = await this.client.SendAsync(httpRequest);
+
+            string BuildErrorMessage(string httpResponseBody)
+            {
+                return
+                    $"{httpRequest.Method}: {httpRequest.RequestUri} failed with error code {httpResponse.StatusCode} using bearer token {httpRequest.Headers.Authorization.Parameter}. Response body: {httpResponseBody}";
+            }
+
             try
             {
-                httpResponseMessage = await this.client.SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
-                var responseMessage = await httpResponseMessage.Content.ReadAsStringAsync();
-
-                if (httpResponseMessage.IsSuccessStatusCode)
-                {
-                    this.logger.LogInformation(responseMessage);
-                    return JsonConvert.DeserializeObject<TResponse>(responseMessage, JsonSerialization.JsonSerialization.Settings);
-                }
-
-                this.logger.LogInformation(responseMessage);
-                if (!string.IsNullOrWhiteSpace(responseMessage) && IsValidJson(responseMessage))
-                    problems = JsonConvert.DeserializeObject<ProblemsContainer>(responseMessage);
+                var httpResponseBody = await httpResponse.Content.ReadAsStringAsync();
+                if (!httpResponse.IsSuccessStatusCode)
+                    throw new HttpResponseException(
+                        httpResponse,
+                        JsonConvert.DeserializeObject<ProblemsContainer>(httpResponseBody),
+                        BuildErrorMessage(httpResponseBody));
+                return JsonConvert.DeserializeObject<TResponse>(httpResponseBody, JsonSerialization.JsonSerialization.Settings);
             }
-            catch (HttpRequestException)
+            catch (HttpResponseException ex)
             {
+                ExceptionDispatchInfo.Capture(ex).Throw();
                 throw;
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                throw new SdkException(httpResponseMessage, exception);
+                var httpResponseBody = await httpResponse.Content.ReadAsStringAsync();
+                throw new HttpResponseException(
+                    httpResponse,
+                    message : BuildErrorMessage(httpResponseBody),
+                    innerException : ex);
             }
-
-            var ex = onError(httpResponseMessage, problems);
-            throw ex;
-        }
-
-
-        private static bool IsValidJson(string responseString)
-        {
-            responseString = responseString.Trim();
-            if (responseString.StartsWith("{") && responseString.EndsWith("}")
-                || responseString.StartsWith("[") && responseString.EndsWith("]"))
-                try
-                {
-                    JToken.Parse(responseString);
-                    return true;
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
-
-            return false;
         }
 
 

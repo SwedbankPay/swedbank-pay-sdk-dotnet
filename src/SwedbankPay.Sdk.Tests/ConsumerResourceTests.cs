@@ -22,7 +22,7 @@ namespace SwedbankPay.Sdk.Tests
             string url = null;
 
             //ASSERT
-            await Assert.ThrowsAsync<ArgumentNullException>($"{url} Cannot be null or whitespace", () => this.Sut.Consumers.GetBillingDetails(url));
+            await Assert.ThrowsAsync<ArgumentNullException>(nameof(url), () => this.Sut.Consumers.GetBillingDetails(url));
         }
 
 
@@ -33,7 +33,7 @@ namespace SwedbankPay.Sdk.Tests
             var url = " ";
 
             //ASSERT
-            await Assert.ThrowsAsync<ArgumentNullException>($"{url} Cannot be null or whitespace", () => this.Sut.Consumers.GetBillingDetails(url));
+            await Assert.ThrowsAsync<ArgumentNullException>(nameof(url), () => this.Sut.Consumers.GetBillingDetails(url));
         }
 
 
@@ -55,7 +55,7 @@ namespace SwedbankPay.Sdk.Tests
             string url = null;
 
             //ASSERT
-            await Assert.ThrowsAsync<ArgumentNullException>($"{url} Cannot be null or whitespace", () => this.Sut.Consumers.GetShippingDetails(url));
+            await Assert.ThrowsAsync<ArgumentNullException>(nameof(url), () => this.Sut.Consumers.GetShippingDetails(url));
         }
 
 
@@ -66,7 +66,7 @@ namespace SwedbankPay.Sdk.Tests
             var url = " ";
 
             //ASSERT
-            await Assert.ThrowsAsync<ArgumentNullException>($"{url} Cannot be null or whitespace", () => this.Sut.Consumers.GetShippingDetails(url));
+            await Assert.ThrowsAsync<ArgumentNullException>(nameof(url), () => this.Sut.Consumers.GetShippingDetails(url));
         }
 
 

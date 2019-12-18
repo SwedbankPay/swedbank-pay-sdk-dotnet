@@ -2,8 +2,6 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 
-using SwedbankPay.Sdk.Exceptions;
-
 namespace SwedbankPay.Sdk.Consumers
 {
     internal class ConsumersResource : ResourceBase, IConsumersResource
@@ -24,15 +22,10 @@ namespace SwedbankPay.Sdk.Consumers
         public async Task<BillingDetails> GetBillingDetails(string url)
         {
             if (string.IsNullOrWhiteSpace(url))
-                throw new ArgumentNullException($"{url} Cannot be null or whitespace", url);
-
-            Exception OnError(HttpResponseMessage httpResponseMessage, ProblemsContainer problemsContainer)
-            {
-                return new CouldNotGetBillingDetailsException(httpResponseMessage, url, problemsContainer);
-            }
+                throw new ArgumentNullException(nameof(url), "url cannot be null or whitespace");
 
             var billingDetails =
-                await this.swedbankPayHttpClient.SendHttpRequestAndProcessHttpResponse<BillingDetails>(HttpMethod.Get, url, OnError);
+                await this.swedbankPayHttpClient.SendHttpRequestAndProcessHttpResponse<BillingDetails>(HttpMethod.Get, url);
             return billingDetails;
         }
 
@@ -47,15 +40,10 @@ namespace SwedbankPay.Sdk.Consumers
         public async Task<ShippingDetails> GetShippingDetails(string url)
         {
             if (string.IsNullOrWhiteSpace(url))
-                throw new ArgumentNullException($"{url} Cannot be null or whitespace", url);
-
-            Exception OnError(HttpResponseMessage httpResponseMessage, ProblemsContainer problemsContainer)
-            {
-                return new CouldNotGetShippingDetailsException(url, problemsContainer);
-            }
+                throw new ArgumentNullException(nameof(url), "url cannot be null or whitespace");
 
             var shippingDetails =
-                await this.swedbankPayHttpClient.SendHttpRequestAndProcessHttpResponse<ShippingDetails>(HttpMethod.Get, url, OnError);
+                await this.swedbankPayHttpClient.SendHttpRequestAndProcessHttpResponse<ShippingDetails>(HttpMethod.Get, url);
             return shippingDetails;
         }
 

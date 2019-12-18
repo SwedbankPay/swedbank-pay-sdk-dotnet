@@ -51,7 +51,7 @@ namespace SwedbankPay.Sdk.Tests
 
 
         [Fact]
-        public async Task CreateAndUpdateOnlyAmountOnPaymentOrder_ShouldThrowCouldNotUpdatePaymentOrderException()
+        public async Task CreateAndUpdateOnlyAmountOnPaymentOrder_ShouldThrowHttpResponseException()
         {
             var paymentOrderRequest = this.paymentOrderRequestBuilder.WithTestValues().WithAmounts().Build();
             var paymentOrder = await this.Sut.PaymentOrder.Create(paymentOrderRequest, PaymentOrderExpand.All);
@@ -65,7 +65,7 @@ namespace SwedbankPay.Sdk.Tests
                 Amount = Amount.FromDecimal(newAmount)
             };
 
-            await Assert.ThrowsAsync<CouldNotUpdatePaymentOrderException>(
+            await Assert.ThrowsAsync<HttpResponseException>(
                 () => paymentOrder.Operations.Update?.Execute(new PaymentOrderUpdateRequestContainer(updateRequest)));
         }
 
@@ -151,11 +151,11 @@ namespace SwedbankPay.Sdk.Tests
 
 
         [Fact]
-        public async Task GetUnknownPaymentOrder_ShouldThrowCouldNotFindPaymentException()
+        public async Task GetUnknownPaymentOrder_ShouldThrowHttpResponseException()
         {
             var id = "/psp/paymentorders/56a45c8a-9605-437a-fb80-08d742822747";
 
-            await Assert.ThrowsAsync<CouldNotFindPaymentException>(() => this.Sut.PaymentOrder.Get(id));
+            await Assert.ThrowsAsync<HttpResponseException>(() => this.Sut.PaymentOrder.Get(id));
         }
     }
 }

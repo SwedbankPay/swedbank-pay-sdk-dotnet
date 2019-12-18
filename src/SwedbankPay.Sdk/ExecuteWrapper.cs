@@ -13,23 +13,22 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
+using SwedbankPay.Sdk.Exceptions;
+
 namespace SwedbankPay.Sdk
 {
     public class ExecuteWrapper<TResponse>
         where TResponse : new()
     {
         protected readonly HttpRequestMessage HttpRequestMessage;
-        private readonly Func<HttpResponseMessage, ProblemsContainer, Exception> OnError;
         private readonly object Request;
 
 
         internal ExecuteWrapper(HttpRequestMessage httpRequestMessage,
                                 SwedbankPayHttpClient swedbankPayHttpClient,
-                                Func<HttpResponseMessage, ProblemsContainer, Exception> onError,
                                 object request = null)
         {
             this.HttpRequestMessage = httpRequestMessage;
-            this.OnError = onError;
             Client = swedbankPayHttpClient;
             this.Request = request;
         }
@@ -38,9 +37,17 @@ namespace SwedbankPay.Sdk
         private SwedbankPayHttpClient Client { get; }
 
 
+        /// <summary>
+        /// Execute the HttpRequest
+        /// </summary>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="HttpResponseException"></exception>
+        /// <returns></returns>
         public async Task<TResponse> Execute()
         {
-            return await Client.SendHttpRequestAndProcessHttpResponse<TResponse>(this.HttpRequestMessage, this.OnError, this.Request);
+            return await Client.SendHttpRequestAndProcessHttpResponse<TResponse>(this.HttpRequestMessage, this.Request);
         }
     }
 }

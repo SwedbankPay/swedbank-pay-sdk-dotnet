@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
 
 using SwedbankPay.Sdk.Exceptions;
@@ -26,26 +24,25 @@ namespace SwedbankPay.Sdk.PaymentOrders
                     case PaymentOrderResourceOperations.CreatePaymentOrderCapture:
                         operations.Capture =
                             new ExecuteRequestWrapper<TransactionRequestContainer, CaptureTransactionResponseContainer>(
-                                httpOperation.Request, client, (httpResponseMessage, problemsContainer) => new CouldNotPostTransactionException(httpResponseMessage, httpOperation.Href, problemsContainer));
+                                httpOperation.Request, client);
                         break;
                     case PaymentOrderResourceOperations.CreatePaymentOrderCancel:
                         operations.Cancel =
                             new ExecuteRequestWrapper<TransactionRequestContainer, CancellationTransactionResponseContainer>(
-                                httpOperation.Request, client, (httpResponseMessage, problemsContainer) => new CouldNotPostTransactionException(httpResponseMessage, httpOperation.Href, problemsContainer));
+                                httpOperation.Request, client);
                         break;
                     case PaymentOrderResourceOperations.CreatePaymentOrderReversal:
                         operations.Reversal =
                             new ExecuteRequestWrapper<TransactionRequestContainer, ReversalTransactionResponseContainer>(
-                                httpOperation.Request, client, (httpResponseMessage, problemsContainer) => new CouldNotPostTransactionException(httpResponseMessage, httpOperation.Href, problemsContainer));
+                                httpOperation.Request, client);
                         break;
-                    case PaymentOrderResourceOperations.UpdatePaymentOrderUpdateOrder: 
+                    case PaymentOrderResourceOperations.UpdatePaymentOrderUpdateOrder:
                         operations.Update = new ExecuteRequestWrapper<PaymentOrderUpdateRequestContainer, PaymentOrderResponseContainer>(
-                            httpOperation.Request, client, (httpResponseMessage, problemsContainer) => new CouldNotUpdatePaymentOrderException(httpResponseMessage, httpOperation.Href, problemsContainer));
+                            httpOperation.Request, client);
                         break;
                     case PaymentOrderResourceOperations.UpdatePaymentOrderAbort:
                         operations.Abort = new ExecuteWrapper<PaymentOrderResponseContainer>(
-                            httpOperation.Request, client, (httpResponseMessage, problemsContainer) => new CouldNotPostTransactionException(httpResponseMessage, httpOperation.Href, problemsContainer),
-                            new PaymentAbortRequestContainer());
+                            httpOperation.Request, client, new PaymentAbortRequestContainer());
                         break;
                     case PaymentOrderResourceOperations.ViewPaymentOrder:
                         operations.View = httpOperation;
@@ -59,45 +56,36 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
         public Operations Operations { get; }
         public PaymentOrderResponse PaymentOrderResponse { get; }
-        
+
+
         internal static async Task<PaymentOrder> Create(PaymentOrderRequest paymentOrderRequest,
-                                                        SwedbankPayHttpClient client, string paymentOrderExpand)
+                                                        SwedbankPayHttpClient client,
+                                                        string paymentOrderExpand)
         {
             var url = $"/psp/paymentorders{paymentOrderExpand}";
-            
+
             var payload = new PaymentOrderRequestContainer(paymentOrderRequest);
 
-            Exception OnError(HttpResponseMessage httpResponseMessage, ProblemsContainer problemsContainer)
-            {
-                return new CouldNotPlacePaymentOrderException(httpResponseMessage, payload, problemsContainer);
-            }
-
             var paymentOrderResponseContainer =
-                await client.SendHttpRequestAndProcessHttpResponse<PaymentOrderResponseContainer>(HttpMethod.Post, url, OnError, payload);
+                await client.SendHttpRequestAndProcessHttpResponse<PaymentOrderResponseContainer>(HttpMethod.Post, url, payload);
 
             return new PaymentOrder(paymentOrderResponseContainer, client);
         }
 
 
         /// <summary>
-        /// Gets the payment
+        ///     Gets the payment
         /// </summary>
         /// <param name="id"></param>
         /// <param name="client"></param>
         /// <param name="paymentOrderExpand"></param>
-        /// <exception cref="CouldNotFindPaymentException"></exception>
-        /// <exception cref="SdkException"></exception>
+        /// <exception cref="HttpResponseException"></exception>
         /// <returns></returns>
         internal static async Task<PaymentOrder> Get(string id, SwedbankPayHttpClient client, string paymentOrderExpand)
         {
             var url = $"{id}{paymentOrderExpand}";
 
-            Exception OnError(HttpResponseMessage httpResponseMessage, ProblemsContainer problemsContainer)
-            {
-                return new CouldNotFindPaymentException(httpResponseMessage, id, problemsContainer);
-            }
-
-            var paymentOrderResponseContainer = await client.HttpGet<PaymentOrderResponseContainer>(url, OnError);
+            var paymentOrderResponseContainer = await client.HttpGet<PaymentOrderResponseContainer>(url);
 
             return new PaymentOrder(paymentOrderResponseContainer, client);
         }
