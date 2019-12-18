@@ -22,7 +22,7 @@ branches:
     regex: ^feature/checkout?[/-]
     source-branches: ['develop']
     mode: ContinuousDeployment
-    tag: alpha
+    tag: alpha.check
     increment: Inherit
     prevent-increment-of-merged-branch-version: false
     track-merge-target: false
@@ -31,7 +31,7 @@ branches:
   feature:
     regex: ^feature?[/-]
     mode: ContinuousDelivery
-    tag: useBranchName
+    tag: alpha.{BranchName}
     increment: Inherit
     prevent-increment-of-merged-branch-version: false
     track-merge-target: false
