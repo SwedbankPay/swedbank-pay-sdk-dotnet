@@ -17,7 +17,7 @@ using SwedbankPay.Sdk.Exceptions;
 
 namespace SwedbankPay.Sdk
 {
-    public class ExecuteRequestWrapper<TRequest, TResponse>
+    public class ExecuteRequestWrapper<TRequest, TResponse> : ExecuteWrapperBase
         where TResponse : new()
     {
         private readonly SwedbankPayHttpClient Client;
@@ -42,7 +42,8 @@ namespace SwedbankPay.Sdk
         /// <returns></returns>
         public async Task<TResponse> Execute(TRequest objRequest)
         {
-            return await this.Client.SendHttpRequestAndProcessHttpResponse<TResponse>(this.HttpRequestMessage, objRequest);
+            UpdateRequest(this.HttpRequestMessage, objRequest);
+            return await this.Client.SendHttpRequestAndProcessHttpResponse<TResponse>(this.HttpRequestMessage);
         }
     }
 }

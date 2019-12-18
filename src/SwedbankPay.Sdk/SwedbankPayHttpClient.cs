@@ -26,6 +26,14 @@ namespace SwedbankPay.Sdk
         }
 
 
+        /// <summary>
+        ///     Get request in raw json
+        /// </summary>
+        /// <param name="url"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="HttpResponseException"></exception>
         internal async Task<string> GetRaw(Uri url)
         {
             var httpRequest = new HttpRequestMessage(HttpMethod.Get, url);
@@ -65,6 +73,15 @@ namespace SwedbankPay.Sdk
         }
 
 
+        /// <summary>
+        ///     Send a HttpRequest and Process HttpResponse for a url
+        /// </summary>
+        /// <typeparam name="TResponse"></typeparam>
+        /// <param name="url"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="HttpResponseException"></exception>
         internal async Task<TResponse> HttpGet<TResponse>(Uri url)
             where TResponse : new()
         {
@@ -108,26 +125,32 @@ namespace SwedbankPay.Sdk
         {
             var requestMessage = new HttpRequestMessage(httpMethod, url);
 
-            return await SendHttpRequestAndProcessHttpResponse<TResponse>(requestMessage, payload);
+            if (payload != null)
+            {
+                var content = JsonConvert.SerializeObject(payload, JsonSerialization.JsonSerialization.Settings);
+                requestMessage.Content = new StringContent(content, Encoding.UTF8, "application/json");
+            }
+
+            requestMessage.Headers.Add("Accept", "application/json");
+
+            return await SendHttpRequestAndProcessHttpResponse<TResponse>(requestMessage);
         }
 
+
         /// <summary>
-        /// Send the HttpRequest and Process HttpResponse
+        ///     Send the HttpRequest and Process HttpResponse
         /// </summary>
         /// <typeparam name="TResponse"></typeparam>
         /// <param name="httpRequest"></param>
-        /// <param name="payload"></param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="InvalidOperationException"></exception>
         /// <exception cref="HttpRequestException"></exception>
         /// <exception cref="HttpResponseException"></exception>
         /// <returns></returns>
         internal async Task<TResponse> SendHttpRequestAndProcessHttpResponse
-            <TResponse>(HttpRequestMessage httpRequest, object payload = null)
+            <TResponse>(HttpRequestMessage httpRequest)
             where TResponse : new()
         {
-            UpdateRequest(httpRequest, payload);
-
             var httpResponse = await this.client.SendAsync(httpRequest);
 
             string BuildErrorMessage(string httpResponseBody)
@@ -159,23 +182,6 @@ namespace SwedbankPay.Sdk
                     message : BuildErrorMessage(httpResponseBody),
                     innerException : ex);
             }
-        }
-
-
-        /// <summary>
-        ///     Updates the rest request with parameters.
-        /// </summary>
-        /// <param name="msg">The http request message.</param>
-        /// <param name="request">The request.</param>
-        private void UpdateRequest(HttpRequestMessage msg, object request)
-        {
-            if (request != null)
-            {
-                var content = JsonConvert.SerializeObject(request, JsonSerialization.JsonSerialization.Settings);
-                msg.Content = new StringContent(content, Encoding.UTF8, "application/json");
-            }
-
-            msg.Headers.Add("Accept", "application/json");
         }
     }
 }

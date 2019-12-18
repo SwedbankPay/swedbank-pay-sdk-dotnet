@@ -17,12 +17,11 @@ using SwedbankPay.Sdk.Exceptions;
 
 namespace SwedbankPay.Sdk
 {
-    public class ExecuteWrapper<TResponse>
+    public class ExecuteWrapper<TResponse> : ExecuteWrapperBase
         where TResponse : new()
     {
         protected readonly HttpRequestMessage HttpRequestMessage;
-        private readonly object Request;
-
+        
 
         internal ExecuteWrapper(HttpRequestMessage httpRequestMessage,
                                 SwedbankPayHttpClient swedbankPayHttpClient,
@@ -30,7 +29,7 @@ namespace SwedbankPay.Sdk
         {
             this.HttpRequestMessage = httpRequestMessage;
             Client = swedbankPayHttpClient;
-            this.Request = request;
+            UpdateRequest(this.HttpRequestMessage, request);
         }
 
 
@@ -47,7 +46,7 @@ namespace SwedbankPay.Sdk
         /// <returns></returns>
         public async Task<TResponse> Execute()
         {
-            return await Client.SendHttpRequestAndProcessHttpResponse<TResponse>(this.HttpRequestMessage, this.Request);
+            return await Client.SendHttpRequestAndProcessHttpResponse<TResponse>(this.HttpRequestMessage);
         }
     }
 }
