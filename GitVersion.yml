@@ -19,7 +19,7 @@ branches:
     is-release-branch: true
     pre-release-weight: 1000
   feature-checkout:
-    regex: feature/checkout
+    regex: ^feature/checkout?[/-]
     mode: ContinuousDelivery
     tag: alpha
     increment: Inherit
