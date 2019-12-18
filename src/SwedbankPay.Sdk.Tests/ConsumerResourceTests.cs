@@ -16,24 +16,24 @@ namespace SwedbankPay.Sdk.Tests
 
 
         [Fact]
-        public async Task GetBillingDetails_ThrowsArgumentException_IfUriIsNull()
+        public async Task GetBillingDetails_ThrowsArgumentNullException_IfUriIsNull()
         {
             //ARRANGE
             string url = null;
 
             //ASSERT
-            await Assert.ThrowsAsync<ArgumentException>(url, () => this.Sut.Consumers.GetBillingDetails(url));
+            await Assert.ThrowsAsync<ArgumentNullException>($"{url} Cannot be null or whitespace", () => this.Sut.Consumers.GetBillingDetails(url));
         }
 
 
         [Fact]
-        public async Task GetBillingDetails_ThrowsArgumentException_IfUriIsWhitespace()
+        public async Task GetBillingDetails_ThrowsArgumentNullException_IfUriIsWhitespace()
         {
             //ARRANGE
             var url = " ";
 
             //ASSERT
-            await Assert.ThrowsAsync<ArgumentException>(url, () => this.Sut.Consumers.GetBillingDetails(url));
+            await Assert.ThrowsAsync<ArgumentNullException>($"{url} Cannot be null or whitespace", () => this.Sut.Consumers.GetBillingDetails(url));
         }
 
 
@@ -49,24 +49,24 @@ namespace SwedbankPay.Sdk.Tests
 
 
         [Fact]
-        public async Task GetShippingDetails_ThrowsArgumentException_IfUriIsNull()
+        public async Task GetShippingDetails_ThrowsArgumentNullException_IfUriIsNull()
         {
             //ARRANGE
             string url = null;
 
             //ASSERT
-            await Assert.ThrowsAsync<ArgumentException>(url, () => this.Sut.Consumers.GetShippingDetails(url));
+            await Assert.ThrowsAsync<ArgumentNullException>($"{url} Cannot be null or whitespace", () => this.Sut.Consumers.GetShippingDetails(url));
         }
 
 
         [Fact]
-        public async Task GetShippingDetails_ThrowsArgumentException_IfUriIsWhitespace()
+        public async Task GetShippingDetails_ThrowsArgumentNullException_IfUriIsWhitespace()
         {
             //ARRANGE
             var url = " ";
 
             //ASSERT
-            await Assert.ThrowsAsync<ArgumentException>(url, () => this.Sut.Consumers.GetShippingDetails(url));
+            await Assert.ThrowsAsync<ArgumentNullException>($"{url} Cannot be null or whitespace", () => this.Sut.Consumers.GetShippingDetails(url));
         }
 
 
