@@ -207,8 +207,8 @@ namespace SwedbankPay.Sdk.Payments
 
             var paymentOrderExpand = GetExpandQueryString(PaymentExpand.All);
             var url = !string.IsNullOrWhiteSpace(paymentOrderExpand) ? new Uri(baseUrl.OriginalString + paymentOrderExpand, UriKind.RelativeOrAbsolute) : baseUrl;
-            
-            var res = await this.swedbankPayHttpClient.HttpPost<PaymentRequestContainer, PaymentResponseContainer>(url, payload);
+
+            var res = await this.swedbankPayHttpClient.SendHttpRequestAndProcessHttpResponse<PaymentResponseContainer>(HttpMethod.Post, url, payload);
             return res;
         }
     }
