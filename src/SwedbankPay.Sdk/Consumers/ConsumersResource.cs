@@ -25,7 +25,7 @@ namespace SwedbankPay.Sdk.Consumers
                 throw new ArgumentNullException(nameof(url), "url cannot be null or whitespace");
 
             var billingDetails =
-                await this.swedbankPayHttpClient.SendHttpRequestAndProcessHttpResponse<BillingDetails>(HttpMethod.Get, url);
+                await this.swedbankPayHttpClient.HttpGet<BillingDetails>(url);
             return billingDetails;
         }
 
@@ -43,7 +43,7 @@ namespace SwedbankPay.Sdk.Consumers
                 throw new ArgumentNullException(nameof(url), "url cannot be null or whitespace");
 
             var shippingDetails =
-                await this.swedbankPayHttpClient.SendHttpRequestAndProcessHttpResponse<ShippingDetails>(HttpMethod.Get, url);
+                await this.swedbankPayHttpClient.HttpGet<ShippingDetails>(url);
             return shippingDetails;
         }
 

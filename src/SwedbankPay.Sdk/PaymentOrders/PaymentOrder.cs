@@ -68,7 +68,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
             var payload = new PaymentOrderRequestContainer(paymentOrderRequest);
 
             var paymentOrderResponseContainer =
-                await client.SendHttpRequestAndProcessHttpResponse<PaymentOrderResponseContainer>(HttpMethod.Post, url, payload);
+                await client.HttpPost<PaymentOrderResponseContainer>(url, payload);
 
             return new PaymentOrder(paymentOrderResponseContainer, client);
         }

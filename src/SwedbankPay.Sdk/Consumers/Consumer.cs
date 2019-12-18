@@ -41,7 +41,7 @@ namespace SwedbankPay.Sdk.Consumers
         {
             var url = new Uri("/psp/consumers", UriKind.Relative);
 
-            var consumersResponse = await client.SendHttpRequestAndProcessHttpResponse<ConsumersResponse>(HttpMethod.Post, url, consumersRequest);
+            var consumersResponse = await client.HttpPost<ConsumersResponse>(url, consumersRequest);
 
             return new Consumer(consumersResponse);
         }

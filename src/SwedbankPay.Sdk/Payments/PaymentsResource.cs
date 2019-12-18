@@ -58,7 +58,7 @@ namespace SwedbankPay.Sdk.Payments
             var paymentOrderExpand = GetExpandQueryString(paymentExpand);
             var url = !string.IsNullOrWhiteSpace(paymentOrderExpand) ? new UriBuilder(id) { Query = paymentOrderExpand }.Uri : id;
 
-            var res = await this.swedbankPayHttpClient.SendHttpRequestAndProcessHttpResponse<PaymentResponseContainer>(HttpMethod.Get, url);
+            var res = await this.swedbankPayHttpClient.HttpGet<PaymentResponseContainer>(url);
             return res;
         }
 
@@ -70,7 +70,7 @@ namespace SwedbankPay.Sdk.Payments
         /// <returns></returns>
         public async Task<IEnumerable<SaleResponse>> GetSales(Uri id)
         {
-            var res = await this.swedbankPayHttpClient.SendHttpRequestAndProcessHttpResponse<SaleResponseContainer>(HttpMethod.Get, id);
+            var res = await this.swedbankPayHttpClient.HttpGet<SaleResponseContainer>(id);
             return res.Sales.SaleList;
         }
 
@@ -86,7 +86,7 @@ namespace SwedbankPay.Sdk.Payments
             var paymentOrderExpand = GetExpandQueryString(paymentExpand);
             var url = !string.IsNullOrWhiteSpace(paymentOrderExpand) ? new UriBuilder(id) { Query = paymentOrderExpand }.Uri : id;
 
-            var res = await this.swedbankPayHttpClient.SendHttpRequestAndProcessHttpResponse<AllTransactionResponseContainer>(HttpMethod.Get, url);
+            var res = await this.swedbankPayHttpClient.HttpGet<AllTransactionResponseContainer>(url);
             return res.Transactions.TransactionList;
         }
 
@@ -114,7 +114,7 @@ namespace SwedbankPay.Sdk.Payments
             var url = httpOperation.Href;
 
             var payload = new TransactionRequestContainer(transaction);
-            var res = await this.swedbankPayHttpClient.SendHttpRequestAndProcessHttpResponse<CaptureTransactionResponseContainer>(HttpMethod.Post, url, payload);
+            var res = await this.swedbankPayHttpClient.SendHttpRequestAndProcessHttpResponse<CaptureTransactionResponseContainer>(httpOperation.Method, url, payload);
             return res.Capture.Transaction;
         }
 
@@ -141,7 +141,7 @@ namespace SwedbankPay.Sdk.Payments
             var url = httpOperation.Href;
 
             var payload = new TransactionRequestContainer(transaction);
-            var res = await this.swedbankPayHttpClient.SendHttpRequestAndProcessHttpResponse<ReversalTransactionResponseContainer>(HttpMethod.Post, url, payload);
+            var res = await this.swedbankPayHttpClient.SendHttpRequestAndProcessHttpResponse<ReversalTransactionResponseContainer>(httpOperation.Method, url, payload);
             return res.Reversal.Transaction;
         }
 
