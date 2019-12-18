@@ -25,11 +25,11 @@ steps:
     preferBundledVersion: false
     updateAssemblyInfo: true
 
-- script: echo %Action%%BuildVersion%
-  displayName: 'Set build version'
-  env:
-    Action: '##vso[build.updatebuildnumber]'
-    BuildVersion: $(GitVersion.NuGetVersionV2)
+#- script: echo %Action%%BuildVersion%
+#  displayName: 'Set build version'
+#  env:
+#    Action: '##vso[build.updatebuildnumber]'
+#    BuildVersion: $(GitVersion.NuGetVersionV2)
 
 - task: NuGetToolInstaller@1
   inputs:
