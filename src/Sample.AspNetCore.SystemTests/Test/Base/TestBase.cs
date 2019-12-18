@@ -66,7 +66,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
             AtataContext.Configure()
                 .ApplyJsonConfig(environmentAlias: "Release") // Applies "Atata.Release.json" for build configuration with "Release" conditional compilation symbol.
                 .UseDriver(_driverAlias)
-                    .UseBaseUrl(Environment.GetEnvironmentVariable("Swedbank.Pay.Sdk.SampleWebsite.BaseUrl"))
+                    .UseBaseUrl(Environment.GetEnvironmentVariable("Swedbank.Pay.Sdk.SampleWebsite.BaseUrl", EnvironmentVariableTarget.User))
             .Build();
             AtataContext.Current.Driver.Maximize();
             #endif

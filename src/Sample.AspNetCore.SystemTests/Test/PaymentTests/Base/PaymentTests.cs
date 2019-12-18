@@ -41,9 +41,9 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
             #elif RELEASE
             var httpClient = new HttpClient()
             {
-                BaseAddress = new Uri(Environment.GetEnvironmentVariable("Payex.Api.Url"))
+                BaseAddress = new Uri(Environment.GetEnvironmentVariable("Payex.Api.Url", EnvironmentVariableTarget.User))
             };
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Environment.GetEnvironmentVariable("Payex.Api.Token"));
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Environment.GetEnvironmentVariable("Payex.Api.Token", EnvironmentVariableTarget.User));
             #endif
 
             SwedbankPayClient = new SwedbankPayClient(httpClient);
