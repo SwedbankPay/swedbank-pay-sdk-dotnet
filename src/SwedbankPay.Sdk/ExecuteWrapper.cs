@@ -19,13 +19,13 @@ namespace SwedbankPay.Sdk
         where TResponse : new()
     {
         protected readonly HttpRequestMessage HttpRequestMessage;
-        private readonly Func<ProblemsContainer, Exception> OnError;
+        private readonly Func<HttpResponseMessage, ProblemsContainer, Exception> OnError;
         private readonly object Request;
 
 
         internal ExecuteWrapper(HttpRequestMessage httpRequestMessage,
                                 SwedbankPayHttpClient swedbankPayHttpClient,
-                                Func<ProblemsContainer, Exception> onError,
+                                Func<HttpResponseMessage, ProblemsContainer, Exception> onError,
                                 object request = null)
         {
             this.HttpRequestMessage = httpRequestMessage;

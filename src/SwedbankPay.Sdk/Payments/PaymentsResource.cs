@@ -56,9 +56,9 @@ namespace SwedbankPay.Sdk.Payments
                 throw new CouldNotFindPaymentException(id);
             var url = $"{id}{GetExpandQueryString(paymentExpand)}";
 
-            Exception OnError(ProblemsContainer m)
+            Exception OnError(HttpResponseMessage httpResponseMessage, ProblemsContainer problemsContainer)
             {
-                return new CouldNotFindPaymentException(id, m);
+                return new CouldNotFindPaymentException(httpResponseMessage, id, problemsContainer);
             }
 
             var res = await this.swedbankPayHttpClient.SendHttpRequestAndProcessHttpResponse<PaymentResponseContainer>(HttpMethod.Get, url, OnError);
@@ -73,7 +73,7 @@ namespace SwedbankPay.Sdk.Payments
         /// <returns></returns>
         public async Task<IEnumerable<SaleResponse>> GetSales(string id)
         {
-            Func<ProblemsContainer, Exception> onError = m => new CouldNotFindTransactionException(id, m);
+            Func<HttpResponseMessage, ProblemsContainer, Exception> onError = (httpResponseMessage, problemsContainer) => new CouldNotFindTransactionException(id, problemsContainer);
 
             var res = await this.swedbankPayHttpClient.SendHttpRequestAndProcessHttpResponse<SaleResponseContainer>(HttpMethod.Get, id, onError);
             return res.Sales.SaleList;
@@ -90,9 +90,9 @@ namespace SwedbankPay.Sdk.Payments
         {
             var url = $"{id}{GetExpandQueryString(paymentExpand)}";
 
-            Exception OnError(ProblemsContainer m)
+            Exception OnError(HttpResponseMessage httpResponseMessage, ProblemsContainer problemsContainer)
             {
-                return new CouldNotFindTransactionException(id, m);
+                return new CouldNotFindTransactionException(id, problemsContainer);
             }
 
             var res = await this.swedbankPayHttpClient.SendHttpRequestAndProcessHttpResponse<AllTransactionResponseContainer>(HttpMethod.Get, url, OnError);
@@ -122,9 +122,9 @@ namespace SwedbankPay.Sdk.Payments
 
             var url = httpOperation.Href;
 
-            Exception OnError(ProblemsContainer m)
+            Exception OnError(HttpResponseMessage httpResponseMessage, ProblemsContainer problemsContainer)
             {
-                return new CouldNotPostTransactionException(id, m);
+                return new CouldNotPostTransactionException(httpResponseMessage, id, problemsContainer);
             }
 
             var payload = new TransactionRequestContainer(transaction);
@@ -154,9 +154,9 @@ namespace SwedbankPay.Sdk.Payments
 
             var url = httpOperation.Href;
 
-            Exception OnError(ProblemsContainer m)
+            Exception OnError(HttpResponseMessage httpResponseMessage, ProblemsContainer problemsContainer)
             {
-                return new CouldNotPostTransactionException(id, m);
+                return new CouldNotPostTransactionException(httpResponseMessage, id, problemsContainer);
             }
 
             var payload = new TransactionRequestContainer(transaction);
@@ -187,9 +187,9 @@ namespace SwedbankPay.Sdk.Payments
 
             var url = httpOperation.Href;
 
-            Exception OnError(ProblemsContainer m)
+            Exception OnError(HttpResponseMessage httpResponseMessage, ProblemsContainer problemsContainer)
             {
-                return new CouldNotPostTransactionException(id, m);
+                return new CouldNotPostTransactionException(httpResponseMessage, id, problemsContainer);
             }
 
             var payload = new TransactionRequestContainer(transaction);
@@ -220,9 +220,9 @@ namespace SwedbankPay.Sdk.Payments
 
             var url = httpOperation.Href;
 
-            Exception OnError(ProblemsContainer m)
+            Exception OnError(HttpResponseMessage httpResponseMessage, ProblemsContainer problemsContainer)
             {
-                return new CouldNotPostTransactionException(id, m);
+                return new CouldNotPostTransactionException(httpResponseMessage, id, problemsContainer);
             }
 
             var payload = new PaymentAbortRequestContainer();
@@ -237,9 +237,9 @@ namespace SwedbankPay.Sdk.Payments
 
             var payload = new PaymentRequestContainer(payment);
 
-            Exception OnError(ProblemsContainer m)
+            Exception OnError(HttpResponseMessage httpResponseMessage, ProblemsContainer problemsContainer)
             {
-                return new CouldNotPlacePaymentException(payment, m);
+                return new CouldNotPlacePaymentException(payment, problemsContainer);
             }
 
             var url = $"{baseUrl}{GetExpandQueryString(PaymentExpand.All)}";

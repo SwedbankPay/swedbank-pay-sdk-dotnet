@@ -41,9 +41,9 @@ namespace SwedbankPay.Sdk.Consumers
         {
             var url = "/psp/consumers";
 
-            Exception OnError(ProblemsContainer m)
+            Exception OnError(HttpResponseMessage httpResponseMessage, ProblemsContainer problemsContainer)
             {
-                return new CouldNotInitiateConsumerSessionException(consumersRequest, m);
+                return new CouldNotInitiateConsumerSessionException(consumersRequest, problemsContainer);
             }
 
             var consumersResponse = await client.SendHttpRequestAndProcessHttpResponse<ConsumersResponse>(HttpMethod.Post, url, OnError, consumersRequest);

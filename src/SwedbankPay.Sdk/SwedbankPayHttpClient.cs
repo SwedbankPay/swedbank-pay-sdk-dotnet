@@ -8,7 +8,6 @@ using Microsoft.Extensions.Logging;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Serialization;
 
 using SwedbankPay.Sdk.Exceptions;
 
@@ -58,7 +57,7 @@ namespace SwedbankPay.Sdk
         }
 
 
-        internal async Task<TResponse> HttpGet<TResponse>(string url, Func<ProblemsContainer, Exception> onError)
+        internal async Task<TResponse> HttpGet<TResponse>(string url, Func<HttpResponseMessage, ProblemsContainer, Exception> onError)
             where TResponse : new()
         {
             return await SendHttpRequestAndProcessHttpResponse<TResponse>(HttpMethod.Get, url, onError);
@@ -66,7 +65,7 @@ namespace SwedbankPay.Sdk
 
 
         internal async Task<TResponse> HttpPatch
-            <TPayLoad, TResponse>(string url, Func<ProblemsContainer, Exception> onError, TPayLoad payload)
+            <TPayLoad, TResponse>(string url, Func<HttpResponseMessage, ProblemsContainer, Exception> onError, TPayLoad payload)
             where TResponse : new()
         {
             return await SendHttpRequestAndProcessHttpResponse<TResponse>(new HttpMethod("PATCH"), url, onError, payload);
@@ -74,7 +73,7 @@ namespace SwedbankPay.Sdk
 
 
         internal async Task<TResponse> HttpPost
-            <TPayLoad, TResponse>(string url, Func<ProblemsContainer, Exception> onError, TPayLoad payload)
+            <TPayLoad, TResponse>(string url, Func<HttpResponseMessage, ProblemsContainer, Exception> onError, TPayLoad payload)
             where TResponse : new()
         {
             return await SendHttpRequestAndProcessHttpResponse<TResponse>(HttpMethod.Post, url, onError, payload);
@@ -82,7 +81,10 @@ namespace SwedbankPay.Sdk
 
 
         internal async Task<TResponse> SendHttpRequestAndProcessHttpResponse
-            <TResponse>(HttpMethod httpMethod, string url, Func<ProblemsContainer, Exception> onError, object payload = null)
+            <TResponse>(HttpMethod httpMethod,
+                        string url,
+                        Func<HttpResponseMessage, ProblemsContainer, Exception> onError,
+                        object payload = null)
             where TResponse : new()
         {
             var requestMessage = new HttpRequestMessage(httpMethod, url);
@@ -92,30 +94,40 @@ namespace SwedbankPay.Sdk
 
 
         internal async Task<TResponse> SendHttpRequestAndProcessHttpResponse
-            <TResponse>(HttpRequestMessage requestMessage, Func<ProblemsContainer, Exception> onError, object payload = null)
+            <TResponse>(HttpRequestMessage requestMessage,
+                        Func<HttpResponseMessage, ProblemsContainer, Exception> onError,
+                        object payload = null)
             where TResponse : new()
         {
             UpdateRequest(requestMessage, payload);
 
-            var response = await this.client.SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
-            var responseMessage = await response.Content.ReadAsStringAsync();
-
-            if (response.IsSuccessStatusCode)
+            HttpResponseMessage httpResponseMessage = null;
+            ProblemsContainer problems = null;
+            try
             {
-                this.logger.LogInformation(responseMessage);
-                return JsonConvert.DeserializeObject<TResponse>(responseMessage, JsonSerialization.JsonSerialization.Settings);
-            }
-            
-            this.logger.LogInformation(responseMessage);
-            ProblemsContainer problems;
-            if (!string.IsNullOrWhiteSpace(responseMessage) && IsValidJson(responseMessage))
-                problems = JsonConvert.DeserializeObject<ProblemsContainer>(responseMessage);
-            else if (response.StatusCode == HttpStatusCode.NotFound)
-                problems = new ProblemsContainer("id", "Not found");
-            else
-                problems = new ProblemsContainer("Other", $"Response when calling SwedbankPay was: '{response.StatusCode}'");
+                httpResponseMessage = await this.client.SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
+                var responseMessage = await httpResponseMessage.Content.ReadAsStringAsync();
 
-            var ex = onError(problems);
+                if (httpResponseMessage.IsSuccessStatusCode)
+                {
+                    this.logger.LogInformation(responseMessage);
+                    return JsonConvert.DeserializeObject<TResponse>(responseMessage, JsonSerialization.JsonSerialization.Settings);
+                }
+
+                this.logger.LogInformation(responseMessage);
+                if (!string.IsNullOrWhiteSpace(responseMessage) && IsValidJson(responseMessage))
+                    problems = JsonConvert.DeserializeObject<ProblemsContainer>(responseMessage);
+            }
+            catch (HttpRequestException)
+            {
+                throw;
+            }
+            catch (Exception exception)
+            {
+                throw new SdkException(httpResponseMessage, exception);
+            }
+
+            var ex = onError(httpResponseMessage, problems);
             throw ex;
         }
 

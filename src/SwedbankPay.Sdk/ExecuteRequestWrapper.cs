@@ -20,12 +20,12 @@ namespace SwedbankPay.Sdk
     {
         private readonly SwedbankPayHttpClient Client;
         private readonly HttpRequestMessage HttpRequestMessage;
-        private readonly Func<ProblemsContainer, Exception> OnError;
+        private readonly Func<HttpResponseMessage, ProblemsContainer, Exception> OnError;
 
 
         internal ExecuteRequestWrapper(HttpRequestMessage httpRequestMessage,
                                        SwedbankPayHttpClient swedbankPayHttpClient,
-                                       Func<ProblemsContainer, Exception> onError)
+                                       Func<HttpResponseMessage, ProblemsContainer, Exception> onError)
         {
             this.HttpRequestMessage = httpRequestMessage;
             this.Client = swedbankPayHttpClient;

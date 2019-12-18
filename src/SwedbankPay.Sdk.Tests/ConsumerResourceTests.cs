@@ -38,7 +38,7 @@ namespace SwedbankPay.Sdk.Tests
 
 
         [Fact]
-        public async Task GetBillingDetails_ThrowsCouldNotGetBillingDetails_IfUriIsIncorrect()
+        public async Task GetBillingDetails_ThrowsHttpRequestException_IfUriIsIncorrect()
         {
             //ARRANGE
             var uri = "xxx";
@@ -71,7 +71,7 @@ namespace SwedbankPay.Sdk.Tests
 
 
         [Fact]
-        public async Task GetShippingDetails_ThrowsCouldNotGetShippingDetails_IfUriIsIncorrect()
+        public async Task GetShippingDetails_ThrowsHttpRequestException_IfUriIsIncorrect()
         {
             //ARRANGE
             var uri = "xxx";

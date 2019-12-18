@@ -1,13 +1,14 @@
 ﻿using System;
+using System.Net.Http;
 
 using SwedbankPay.Sdk.PaymentOrders;
 
 namespace SwedbankPay.Sdk.Exceptions
 {
-    public class CouldNotPlacePaymentOrderException : Exception
+    public class CouldNotPlacePaymentOrderException : SdkException
     {
-        public CouldNotPlacePaymentOrderException(PaymentOrderRequestContainer payment, ProblemsContainer problems)
-            : base(problems.ToString())
+        public CouldNotPlacePaymentOrderException(HttpResponseMessage httpResponseMessage, PaymentOrderRequestContainer payment, ProblemsContainer problems)
+            : base(httpResponseMessage,problems.ToString())
         {
             Problems = problems;
             Payment = payment;
