@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Net.Http;
 using System.Threading.Tasks;
 
-using SwedbankPay.Sdk.Exceptions;
 using SwedbankPay.Sdk.Payments;
 using SwedbankPay.Sdk.Transactions;
 
@@ -80,11 +78,16 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <param name="id"></param>
         /// <param name="client"></param>
         /// <param name="paymentOrderExpand"></param>
-        /// <exception cref="HttpResponseException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="System.Net.Http.HttpRequestException"></exception>
+        /// <exception cref="SwedbankPay.Sdk.Exceptions.HttpResponseException"></exception>
         /// <returns></returns>
         internal static async Task<PaymentOrder> Get(Uri id, SwedbankPayHttpClient client, string paymentOrderExpand)
         {
-            var url = !string.IsNullOrWhiteSpace(paymentOrderExpand) ? new Uri(id.OriginalString + paymentOrderExpand, UriKind.RelativeOrAbsolute) : id;
+            var url = !string.IsNullOrWhiteSpace(paymentOrderExpand)
+                ? new Uri(id.OriginalString + paymentOrderExpand, UriKind.RelativeOrAbsolute)
+                : id;
             var paymentOrderResponseContainer = await client.HttpGet<PaymentOrderResponseContainer>(url);
 
             return new PaymentOrder(paymentOrderResponseContainer, client);

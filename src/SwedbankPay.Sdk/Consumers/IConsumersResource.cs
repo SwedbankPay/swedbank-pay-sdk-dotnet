@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Net.Http;
 using System.Threading.Tasks;
 
-using SwedbankPay.Sdk.Exceptions;
 
 namespace SwedbankPay.Sdk.Consumers
 {
@@ -16,8 +14,8 @@ namespace SwedbankPay.Sdk.Consumers
         /// <param name="url"></param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="InvalidOperationException"></exception>
-        /// <exception cref="HttpRequestException"></exception>
-        /// <exception cref="HttpResponseException"></exception>
+        /// <exception cref="System.Net.Http.HttpRequestException"></exception>
+        /// <exception cref="SwedbankPay.Sdk.Exceptions.HttpResponseException"></exception>
         /// <returns></returns>
         Task<BillingDetails> GetBillingDetails(Uri url);
 
@@ -30,8 +28,8 @@ namespace SwedbankPay.Sdk.Consumers
         /// <param name="url"></param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="InvalidOperationException"></exception>
-        /// <exception cref="HttpRequestException"></exception>
-        /// <exception cref="HttpResponseException"></exception>
+        /// <exception cref="System.Net.Http.HttpRequestException"></exception>
+        /// <exception cref="SwedbankPay.Sdk.Exceptions.HttpResponseException"></exception>
         /// <returns></returns>
         Task<ShippingDetails> GetShippingDetails(Uri url);
 
@@ -43,8 +41,8 @@ namespace SwedbankPay.Sdk.Consumers
         /// <param name="consumersRequest"></param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="InvalidOperationException"></exception>
-        /// <exception cref="HttpRequestException"></exception>
-        /// <exception cref="HttpResponseException"></exception>
+        /// <exception cref="System.Net.Http.HttpRequestException"></exception>
+        /// <exception cref="SwedbankPay.Sdk.Exceptions.HttpResponseException"></exception>
         /// <returns></returns>
         Task<Consumer> InitiateSession(ConsumersRequest consumersRequest);
     }
