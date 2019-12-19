@@ -8,7 +8,7 @@ using SwedbankPay.Sdk.PaymentOrders;
 
 namespace SwedbankPay.Sdk.JsonSerialization
 {
-    internal class JsonSerialization
+    internal static class JsonSerialization
     {
         internal static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
         {

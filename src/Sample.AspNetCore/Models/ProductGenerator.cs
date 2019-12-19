@@ -8,7 +8,7 @@ using Sample.AspNetCore.Data;
 
 namespace Sample.AspNetCore.Models
 {
-    public class ProductGenerator
+    public static class ProductGenerator
     {
         public static void Initialize(IServiceProvider serviceProvider)
         {
