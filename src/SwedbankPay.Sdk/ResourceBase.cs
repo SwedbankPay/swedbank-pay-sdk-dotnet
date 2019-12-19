@@ -8,7 +8,7 @@ namespace SwedbankPay.Sdk
         internal SwedbankPayHttpClient swedbankPayHttpClient;
 
 
-        internal ResourceBase(SwedbankPayHttpClient swedbankPayHttpClient)
+        protected ResourceBase(SwedbankPayHttpClient swedbankPayHttpClient)
         {
             this.swedbankPayHttpClient = swedbankPayHttpClient;
         }
