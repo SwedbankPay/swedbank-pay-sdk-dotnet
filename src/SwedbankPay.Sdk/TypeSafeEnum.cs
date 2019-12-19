@@ -52,6 +52,27 @@ namespace SwedbankPay.Sdk
             this.value;
 
 
+        public override bool Equals(object obj)
+        {
+            return obj is TypeSafeEnum<TEnum, TValue> other && Equals(other);
+        }
+
+
+        public virtual bool Equals(TypeSafeEnum<TEnum, TValue> other)
+        {
+            // check if same instance
+            if (ReferenceEquals(this, other))
+                return true;
+
+            // it's not same instance so 
+            // check if it's not null and is same value
+            if (other is null)
+                return false;
+
+            return this.value.Equals(other.value);
+        }
+
+
         public static TEnum FromName(string name, bool ignoreCase = false)
         {
             if (string.IsNullOrEmpty(name))
@@ -154,58 +175,5 @@ namespace SwedbankPay.Sdk
 
             return options.OrderBy(t => t.Name).ToList();
         }
-
-
-        //public override bool Equals(object obj) =>
-        //    (obj is TypeSafeEnum<TEnum, TValue> other) && Equals(other);
-
-        //public virtual bool Equals(TypeSafeEnum<TEnum, TValue> other)
-        //{
-        //    // check if same instance
-        //    if (Object.ReferenceEquals(this, other))
-        //        return true;
-
-        //    // it's not same instance so 
-        //    // check if it's not null and is same value
-        //    if (other is null)
-        //        return false;
-
-        //    return _value.Equals(other._value);
-
-        //}
-
-        //public static bool operator ==(TypeSafeEnum<TEnum, TValue> left, TypeSafeEnum<TEnum, TValue> right)
-        //{
-        //    // Handle null on left side
-        //    if (left is null)
-        //        return right is null; // null == null = true
-
-        //    // Equals handles null on right side
-        //    return left.Equals(right);
-        //}
-
-        //public static bool operator !=(TypeSafeEnum<TEnum, TValue> left, TypeSafeEnum<TEnum, TValue> right) =>
-        //    !(left == right);
-
-        //public virtual int CompareTo(TypeSafeEnum<TEnum, TValue> other) =>
-        //    _value.CompareTo(other._value);
-
-        //public static bool operator <(TypeSafeEnum<TEnum, TValue> left, TypeSafeEnum<TEnum, TValue> right) =>
-        //    left.CompareTo(right) < 0;
-
-        //public static bool operator <=(TypeSafeEnum<TEnum, TValue> left, TypeSafeEnum<TEnum, TValue> right) =>
-        //    left.CompareTo(right) <= 0;
-
-        //public static bool operator >(TypeSafeEnum<TEnum, TValue> left, TypeSafeEnum<TEnum, TValue> right) =>
-        //    left.CompareTo(right) > 0;
-
-        //public static bool operator >=(TypeSafeEnum<TEnum, TValue> left, TypeSafeEnum<TEnum, TValue> right) =>
-        //    left.CompareTo(right) >= 0;
-
-        //public static implicit operator TValue(TypeSafeEnum<TEnum, TValue> indicatorEnum) =>
-        //    indicatorEnum._value;
-
-        //public static explicit operator TypeSafeEnum<TEnum, TValue>(TValue value) =>
-        //    FromValue(value);
     }
 }
