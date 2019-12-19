@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace SwedbankPay.Sdk
 {
-    public abstract class TypeSafeEnum<TEnum, TValue>
+    public abstract class TypeSafeEnum<TEnum, TValue> : IEquatable<TypeSafeEnum<TEnum, TValue>>
         where TEnum : TypeSafeEnum<TEnum, TValue>
     {
         private static readonly Lazy<Dictionary<string, TEnum>> fromName =
