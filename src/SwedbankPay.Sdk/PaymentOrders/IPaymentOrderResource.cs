@@ -1,6 +1,7 @@
-﻿using SwedbankPay.Sdk.Exceptions;
-
+﻿using System;
 using System.Threading.Tasks;
+
+using SwedbankPay.Sdk.Exceptions;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
@@ -11,8 +12,8 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// </summary>
         /// <param name="paymentOrderRequest"></param>
         /// <param name="paymentOrderExpand"></param>
-        /// <exception cref="System.ArgumentNullException"></exception>
-        /// <exception cref="System.InvalidOperationException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
         /// <exception cref="System.Net.Http.HttpRequestException"></exception>
         /// <exception cref="HttpResponseException"></exception>
         /// <returns></returns>
@@ -24,8 +25,8 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// </summary>
         /// <param name="id"></param>
         /// <param name="paymentOrderExpand"></param>
-        /// <exception cref="System.ArgumentNullException"></exception>
-        /// <exception cref="System.InvalidOperationException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
         /// <exception cref="System.Net.Http.HttpRequestException"></exception>
         /// <exception cref="HttpResponseException"></exception>
         /// <returns></returns>
