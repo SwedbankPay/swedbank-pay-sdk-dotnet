@@ -138,11 +138,13 @@ namespace SwedbankPay.Sdk
             }
             catch (HttpResponseException ex)
             {
+                this.logger.LogError(ex, ex.Message);
                 ExceptionDispatchInfo.Capture(ex).Throw();
                 throw;
             }
             catch (Exception ex)
             {
+                this.logger.LogError(ex, ex.Message);
                 var httpResponseBody = await httpResponse.Content.ReadAsStringAsync();
                 throw new HttpResponseException(
                     httpResponse,
