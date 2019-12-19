@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
-using SwedbankPay.Sdk.PaymentOrders;
 using SwedbankPay.Sdk.Transactions;
 
 namespace SwedbankPay.Sdk.Payments

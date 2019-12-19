@@ -11,10 +11,10 @@ namespace SwedbankPay.Sdk.Payments
 {
     internal class PaymentsResource : ResourceBase, IPaymentsResource
     {
-        private Uri PspVippsPaymentsBaseUrl = new Uri("/psp/vipps/payments/", UriKind.Relative);
-        private Uri PspCreditCardPaymentsBaseUrl = new Uri("/psp/creditcard/payments/", UriKind.Relative);
-        private Uri PspSwishPaymentsBaseUrl = new Uri("/psp/swish/payments/", UriKind.Relative);
-        private Uri PspDirectDebitPaymentsBaseUrl = new Uri("/psp/directdebit/payments", UriKind.Relative);
+        private readonly Uri PspVippsPaymentsBaseUrl = new Uri("/psp/vipps/payments/", UriKind.Relative);
+        private readonly Uri PspCreditCardPaymentsBaseUrl = new Uri("/psp/creditcard/payments/", UriKind.Relative);
+        private readonly Uri PspSwishPaymentsBaseUrl = new Uri("/psp/swish/payments/", UriKind.Relative);
+        private readonly Uri PspDirectDebitPaymentsBaseUrl = new Uri("/psp/directdebit/payments", UriKind.Relative);
 
 
         public PaymentsResource(SwedbankPayHttpClient swedbankPayHttpClient)
@@ -44,17 +44,26 @@ namespace SwedbankPay.Sdk.Payments
             return await CreatePayment(PspCreditCardPaymentsBaseUrl, payment);
         }
 
+        /// <summary>
+        ///     Gets an existing payment.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Task<PaymentResponseContainer> GetPayment(Uri id, PaymentExpand paymentExpand = PaymentExpand.All)
+        {
+            if (id == null)
+                throw new ArgumentNullException(nameof(id));
+
+            return GetPaymentInternalAsync(id, paymentExpand);
+        }
 
         /// <summary>
         ///     Gets an existing payment.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<PaymentResponseContainer> GetPayment(Uri id, PaymentExpand paymentExpand = PaymentExpand.All)
+        public async Task<PaymentResponseContainer> GetPaymentInternalAsync(Uri id, PaymentExpand paymentExpand = PaymentExpand.All)
         {
-            if (id == null)
-                throw new ArgumentNullException(nameof(id));
-
             var paymentOrderExpand = GetExpandQueryString(paymentExpand);
             var url = !string.IsNullOrWhiteSpace(paymentOrderExpand) ? new UriBuilder(id) { Query = paymentOrderExpand }.Uri : id;
 

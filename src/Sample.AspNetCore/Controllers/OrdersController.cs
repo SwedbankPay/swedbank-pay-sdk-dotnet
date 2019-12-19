@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-
 using Sample.AspNetCore.Data;
 using Sample.AspNetCore.Models;
 using Sample.AspNetCore.Models.ViewModels;
@@ -134,9 +131,8 @@ namespace Sample.AspNetCore.Controllers
 
 
         // GET: Orders
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var orders = await this.context.Orders.ToListAsync();
             return View();
         }
 

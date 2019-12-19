@@ -46,21 +46,6 @@ namespace Sample.AspNetCore.Controllers
         }
 
 
-        // GET: Products/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-                return NotFound();
-
-            var product = await this.context.Products
-                .FirstOrDefaultAsync(m => m.ProductId == id);
-            if (product == null)
-                return NotFound();
-
-            return View(product);
-        }
-
-
         // POST: Products/Delete/5
         [HttpPost]
         [ActionName("Delete")]
@@ -146,5 +131,7 @@ namespace Sample.AspNetCore.Controllers
         {
             return this.context.Products.Any(e => e.ProductId == id);
         }
+
+
     }
 }

@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
-using Sample.AspNetCore.Data;
 using Sample.AspNetCore.Models;
 
 namespace Sample.AspNetCore
@@ -22,7 +20,6 @@ namespace Sample.AspNetCore
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-                var context = services.GetRequiredService<StoreDbContext>();
                 ProductGenerator.Initialize(services);
             }
 

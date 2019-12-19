@@ -23,6 +23,19 @@ namespace SwedbankPay.Sdk.PaymentOrders
             return await PaymentOrder.Create(paymentOrderRequest, this.swedbankPayHttpClient, GetExpandQueryString(paymentOrderExpand));
         }
 
+        /// <summary>
+        ///     Get payment order by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="paymentOrderExpand"></param>
+        /// <returns></returns>
+        public Task<PaymentOrder> Get(Uri id, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
+        {
+            if (id == null)
+                throw new ArgumentNullException(nameof(id), $"{id} cannot be null");
+
+            return GetInternalAsync(id, paymentOrderExpand);
+        }
 
         /// <summary>
         ///     Get payment order by id
@@ -30,11 +43,8 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <param name="id"></param>
         /// <param name="paymentOrderExpand"></param>
         /// <returns></returns>
-        public async Task<PaymentOrder> Get(Uri id, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
+        public async Task<PaymentOrder> GetInternalAsync(Uri id, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
         {
-            if (id == null)
-                throw new ArgumentNullException(nameof(id), $"{id} cannot be null");
-
             return await PaymentOrder.Get(id, this.swedbankPayHttpClient, GetExpandQueryString(paymentOrderExpand));
         }
     }

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-using SwedbankPay.Sdk.Exceptions;
-
 namespace SwedbankPay.Sdk.PaymentOrders
 {
     public interface IPaymentOrderResource
