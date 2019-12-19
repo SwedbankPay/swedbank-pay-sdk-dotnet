@@ -21,7 +21,7 @@ namespace SwedbankPay.Sdk
                 throw new ArgumentNullException(nameof(httpClient));
 
             if (httpClient.BaseAddress == null)
-                throw new ArgumentNullException(nameof(httpClient.BaseAddress), $"{nameof(httpClient.BaseAddress)} cannot be null.");
+                throw new ArgumentNullException(nameof(httpClient), $"{nameof(httpClient.BaseAddress)} cannot be null.");
 
             if (httpClient.DefaultRequestHeaders.Authorization == null)
                 throw new ArgumentException($"Please configure the {nameof(httpClient)} with an Authorization header.");
