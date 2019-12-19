@@ -8,12 +8,8 @@
 // --------------------------------------------------
 
 #endregion
-
-using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-
-using SwedbankPay.Sdk.Exceptions;
 
 namespace SwedbankPay.Sdk
 {
@@ -35,10 +31,10 @@ namespace SwedbankPay.Sdk
         /// <summary>
         ///     Execute the HttpRequest
         /// </summary>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="System.ArgumentNullException"></exception>
+        /// <exception cref="System.InvalidOperationException"></exception>
         /// <exception cref="HttpRequestException"></exception>
-        /// <exception cref="HttpResponseException"></exception>
+        /// <exception cref="SwedbankPay.Sdk.Exceptions.HttpResponseException"></exception>
         /// <returns></returns>
         public async Task<TResponse> Execute(TRequest objRequest)
         {

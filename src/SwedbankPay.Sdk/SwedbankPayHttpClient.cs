@@ -1,15 +1,14 @@
-﻿using Microsoft.Extensions.Logging;
-
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-
-using SwedbankPay.Sdk.Exceptions;
-
-using System;
+﻿using System;
 using System.Net.Http;
 using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading.Tasks;
+
+using Microsoft.Extensions.Logging;
+
+using Newtonsoft.Json;
+
+using SwedbankPay.Sdk.Exceptions;
 
 namespace SwedbankPay.Sdk
 {
@@ -25,7 +24,7 @@ namespace SwedbankPay.Sdk
             this.logger = logger;
         }
 
-        
+
         /// <summary>
         ///     Send a HttpGet and Process HttpResponse for a url
         /// </summary>
@@ -151,6 +150,7 @@ namespace SwedbankPay.Sdk
                     innerException : ex);
             }
         }
+
 
         private HttpRequestMessage CreateHttpRequestMessage(HttpMethod httpMethod, Uri url, object payload = null)
         {
