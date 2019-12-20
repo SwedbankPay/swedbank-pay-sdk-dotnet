@@ -7,7 +7,7 @@ using Sample.AspNetCore.SystemTests.Test.Helpers;
 
 namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
 {
-    public class AbortTests : PaymentTests
+    public class AbortTests : Base.PaymentTests
     {
         public AbortTests(string driverAlias)
             : base(driverAlias)

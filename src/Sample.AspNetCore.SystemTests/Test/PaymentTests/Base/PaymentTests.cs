@@ -4,8 +4,11 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Net.Http;
 using System.Net.Http.Headers;
+
 using Atata;
+
 using NUnit.Framework;
+
 using Sample.AspNetCore.SystemTests.PageObjectModels;
 using Sample.AspNetCore.SystemTests.PageObjectModels.Orders;
 using Sample.AspNetCore.SystemTests.PageObjectModels.Payment;
@@ -13,9 +16,10 @@ using Sample.AspNetCore.SystemTests.PageObjectModels.ThankYou;
 using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Base;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
+
 using SwedbankPay.Sdk;
 
-namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
+namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
 {
     public abstract class PaymentTests : TestBase
     {

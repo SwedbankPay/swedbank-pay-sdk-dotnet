@@ -8,7 +8,7 @@ using SwedbankPay.Sdk;
 
 namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
 {
-    public class ReversalTests : PaymentTests
+    public class ReversalTests : Base.PaymentTests
     {
         public ReversalTests(string driverAlias)
             : base(driverAlias)

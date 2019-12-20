@@ -8,7 +8,7 @@ using SwedbankPay.Sdk;
 
 namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
 {
-    public class CaptureTests : PaymentTests
+    public class CaptureTests : Base.PaymentTests
     {
         public CaptureTests(string driverAlias)
             : base(driverAlias)

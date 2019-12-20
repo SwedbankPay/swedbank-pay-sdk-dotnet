@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Product>
+﻿@using System.Globalization
+@model IEnumerable<Product>
 @inject Cart CartService
 @{
     ViewData["Title"] = "Index";
@@ -57,9 +58,9 @@ else if (TempData["ErrorMessage"] != null)
             <td>
                 @Html.DisplayFor(modelItem => item.Class)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
+	        <td>
+                @item.Price.ToString("c", CultureInfo.CreateSpecificCulture("sv-SE"))
+	        </td>
             <td>
                 @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                         <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
