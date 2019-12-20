@@ -6,6 +6,9 @@ pool:
   - msbuild
   - visualstudio
 
+variables:
+  GitVersion.SemVer: ''
+
 steps:
 
 - task: PowerShell@2
@@ -19,70 +22,82 @@ steps:
       [System.Environment]::SetEnvironmentVariable("SwedbankPayConnectionSettings.Token", $Token, "User")
       
 
-- task: GitVersion@5
+- task: GitVersion@5 
+  displayName: GitVersion
   inputs:
-    runtime: 'core'
-    preferBundledVersion: false
-    updateAssemblyInfo: true
-
-- script: echo %Action%%BuildVersion%
-  displayName: 'Set build version'
-  env:
-    Action: '##vso[build.updatebuildnumber]'
-    BuildVersion: $(GitVersion.NuGetVersionV2)
+    useConfigFile: true
+    configFilePath: GitVersion.yml
 
 - task: NuGetToolInstaller@1
   inputs:
     versionSpec: '5.3.1'
 
 - task: NuGetCommand@2
+  displayName: 'Restoring packages'
   inputs:
      command: 'restore'
-     restoreSolution: '**/*.sln'
+     restoreSolution: '$(Build.SourcesDirectory)\src\SwedbankPay.Sdk.sln'
      feedsToUse: 'select'
 
 - task: UseDotNet@2
+  displayName: 'Setting up framework for build'
   inputs:
     packageType: 'sdk'
     version: '3.x'
 
 - task: DotNetCoreCLI@2
+  displayName: 'Build solution for .net core projects'
   inputs:
     command: 'build'
     projects: |
       **/*.sln
-    arguments: '--configuration $(BuildConfiguration)'    
-  
+    arguments: '--configuration $(BuildConfiguration) /p:Version=$(GitVersion.NuGetVersionV2)'
 
 
 - task: MSBuild@1
   displayName: 'Build system tests project'
   inputs:
-    solution: '**\Sample.AspNetCore.SystemTests.csproj'
+    solution: '$(Build.SourcesDirectory)\src\Sample.AspNetCore.SystemTests\Sample.AspNetCore.SystemTests.csproj'
     platform: AnyCPU
-    configuration: Release
+    configuration: $(buildConfiguration)
   enabled: false
 
 - task: DotNetCoreCLI@2
+  displayName: 'Run unit / integration tests'
   inputs:
     command: test
-    projects: 'D:\a\1\s\src\SwedbankPay.Sdk.Tests\SwedbankPay.Sdk.Tests.csproj'
+    projects: '$(Build.SourcesDirectory)\src\SwedbankPay.Sdk.Tests\SwedbankPay.Sdk.Tests.csproj'
     arguments: '--configuration $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
+  displayName: 'Create release'
   inputs:
     command: 'publish'
     publishWebProjects: true
     zipAfterPublish: true
-    arguments: '--output $(Build.ArtifactStagingDirectory)'
+    arguments: '--output $(Build.ArtifactStagingDirectory) --configuration $(buildConfiguration) -p:Version=$(GitVersion.NuGetVersionV2)'
+
+
+- task: DotNetCoreCLI@2
+  displayName: 'Create NuGet Package - $(buildConfiguration) Version'
+  inputs:
+    command: 'pack'
+    packagesToPack: '$(Build.SourcesDirectory)\src\SwedbankPay.Sdk\SwedbankPay.Sdk.csproj'
+    packDirectory: '$(Build.ArtifactStagingDirectory)/packages'
+    nobuild: true
+    versioningScheme: 'off'
+    buildProperties: 'PackageVersion=$(GitVersion.NuGetVersionV2)'
+
 
 - task: PublishBuildArtifacts@1
+  displayName: 'Publish .net core build artifacts'
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
 
 - task: PublishBuildArtifacts@1
+  displayName: 'Publish system test project build artifacts'
   inputs:
     PathtoPublish: 'src\Sample.AspNetCore.SystemTests'
     ArtifactName: 'SystemTests'

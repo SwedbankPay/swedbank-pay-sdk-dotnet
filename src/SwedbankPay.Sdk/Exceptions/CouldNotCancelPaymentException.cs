@@ -4,7 +4,7 @@ namespace SwedbankPay.Sdk.Exceptions
 {
     public class CouldNotCancelPaymentException : Exception
     {
-        public CouldNotCancelPaymentException(string id, ProblemsContainer problems)
+        public CouldNotCancelPaymentException(Uri id, ProblemsContainer problems)
             : base(problems.ToString())
         {
             Problems = problems;
@@ -12,13 +12,13 @@ namespace SwedbankPay.Sdk.Exceptions
         }
 
 
-        public CouldNotCancelPaymentException(string id, string value)
+        public CouldNotCancelPaymentException(Uri id, string value)
             : this(id, new ProblemsContainer("paymentId", value))
         {
         }
 
 
-        public string Id { get; }
+        public Uri Id { get; }
         public ProblemsContainer Problems { get; }
     }
 }

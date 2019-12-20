@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-
-using SwedbankPay.Sdk.PaymentOrders;
 using SwedbankPay.Sdk.Transactions;
 
 namespace SwedbankPay.Sdk.Payments
@@ -13,10 +12,7 @@ namespace SwedbankPay.Sdk.Payments
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<PaymentResponseContainer> GetPayment(string id, PaymentExpand paymentExpand = PaymentExpand.All);
-
-
-        Task<string> GetRaw(string id, PaymentOrderExpand paymentOrderExpand);
+        Task<PaymentResponseContainer> GetPayment(Uri id, PaymentExpand paymentExpand = PaymentExpand.All);
 
 
         /// <summary>
@@ -24,7 +20,7 @@ namespace SwedbankPay.Sdk.Payments
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<IEnumerable<SaleResponse>> GetSales(string id);
+        Task<IEnumerable<SaleResponse>> GetSales(Uri id);
 
 
         /// <summary>
@@ -32,25 +28,25 @@ namespace SwedbankPay.Sdk.Payments
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<IEnumerable<TransactionResponse>> GetTransactions(string id, PaymentExpand paymentExpand = PaymentExpand.All);
+        Task<IEnumerable<TransactionResponse>> GetTransactions(Uri id, PaymentExpand paymentExpand = PaymentExpand.All);
 
 
         /// <summary>
         ///     Cancels an unauthorized creditcard payment a.k.a PATCH with a static abort object.
         /// </summary>
-        Task<PaymentResponseContainer> PatchAbortPayment(string id);
+        Task<PaymentResponseContainer> PatchAbortPayment(Uri id);
 
 
         /// <summary>
         ///     Cancels a payment a.k.a POSTs a transaction.
         /// </summary>
-        Task<TransactionResponse> PostCancellation(string id, TransactionRequest transaction);
+        Task<TransactionResponse> PostCancellation(Uri id, TransactionRequest transaction);
 
 
         /// <summary>
         ///     Captures a payment a.k.a POSTs a transaction.
         /// </summary>
-        Task<TransactionResponse> PostCapture(string id, TransactionRequest transaction);
+        Task<TransactionResponse> PostCapture(Uri id, TransactionRequest transaction);
 
 
         /// <summary>
@@ -64,7 +60,7 @@ namespace SwedbankPay.Sdk.Payments
         /// <summary>
         ///     Reverses a payment a.k.a POSTs a transaction.
         /// </summary>
-        Task<TransactionResponse> PostReversal(string id, TransactionRequest transaction);
+        Task<TransactionResponse> PostReversal(Uri id, TransactionRequest transaction);
 
 
         /// <summary>

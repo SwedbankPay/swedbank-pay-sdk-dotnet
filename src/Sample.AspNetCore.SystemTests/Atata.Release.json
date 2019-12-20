@@ -7,7 +7,6 @@
       }
     }
   ],
-  "baseUrl": "http://YourBaseUrl.com",
   "culture": "en-US",
   "useNUnitTestName": true,
   "logNUnitError": true,

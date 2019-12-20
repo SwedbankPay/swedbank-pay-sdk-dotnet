@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Primitives;
@@ -25,7 +24,7 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
             #elif RELEASE
 
             var json = $@"{{ ""SwedbankPayConnectionSettings"": {{ ""Token"": ""{Environment.GetEnvironmentVariable("SwedbankPayConnectionSettings.Token", EnvironmentVariableTarget.User)}""}}}}";
-            var memoryJsonFile = new MemoryFileInfo("config.json", Encoding.UTF8.GetBytes(json), DateTimeOffset.Now);
+            var memoryJsonFile = new MemoryFileInfo("config.json", System.Text.Encoding.UTF8.GetBytes(json), DateTimeOffset.Now);
             var memoryFileProvider = new MockFileProvider(memoryJsonFile);
 
             return new ConfigurationBuilder()

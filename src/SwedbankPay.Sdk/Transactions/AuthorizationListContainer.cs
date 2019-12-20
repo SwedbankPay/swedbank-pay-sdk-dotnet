@@ -9,7 +9,6 @@ namespace SwedbankPay.Sdk.Transactions
         public AuthorizationListContainer()
         {
             AuthorizationList = new List<TransactionContainerResponse>();
-            ;
         }
 
 

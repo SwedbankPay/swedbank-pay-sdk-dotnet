@@ -16,32 +16,21 @@ namespace SwedbankPay.Sdk.Tests
 
 
         [Fact]
-        public async Task GetBillingDetails_ThrowsArgumentException_IfUriIsNull()
+        public async Task GetBillingDetails_ThrowsArgumentNullException_IfUriIsNull()
         {
             //ARRANGE
-            string url = null;
+            Uri url = null;
 
             //ASSERT
-            await Assert.ThrowsAsync<ArgumentException>(url, () => this.Sut.Consumers.GetBillingDetails(url));
+            await Assert.ThrowsAsync<ArgumentNullException>(nameof(url), () => this.Sut.Consumers.GetBillingDetails(url));
         }
 
 
         [Fact]
-        public async Task GetBillingDetails_ThrowsArgumentException_IfUriIsWhitespace()
+        public async Task GetBillingDetails_ThrowsHttpRequestException_IfUriIsIncorrect()
         {
             //ARRANGE
-            var url = " ";
-
-            //ASSERT
-            await Assert.ThrowsAsync<ArgumentException>(url, () => this.Sut.Consumers.GetBillingDetails(url));
-        }
-
-
-        [Fact]
-        public async Task GetBillingDetails_ThrowsCouldNotGetBillingDetails_IfUriIsIncorrect()
-        {
-            //ARRANGE
-            var uri = "xxx";
+            var uri = new Uri("http://xxx");
 
             //ASSERT
             await Assert.ThrowsAsync<HttpRequestException>(() => this.Sut.Consumers.GetBillingDetails(uri));
@@ -49,32 +38,21 @@ namespace SwedbankPay.Sdk.Tests
 
 
         [Fact]
-        public async Task GetShippingDetails_ThrowsArgumentException_IfUriIsNull()
+        public async Task GetShippingDetails_ThrowsArgumentNullException_IfUriIsNull()
         {
             //ARRANGE
-            string url = null;
+            Uri url = null;
 
             //ASSERT
-            await Assert.ThrowsAsync<ArgumentException>(url, () => this.Sut.Consumers.GetShippingDetails(url));
+            await Assert.ThrowsAsync<ArgumentNullException>(nameof(url), () => this.Sut.Consumers.GetShippingDetails(url));
         }
 
 
         [Fact]
-        public async Task GetShippingDetails_ThrowsArgumentException_IfUriIsWhitespace()
+        public async Task GetShippingDetails_ThrowsHttpRequestException_IfUriIsIncorrect()
         {
             //ARRANGE
-            var url = " ";
-
-            //ASSERT
-            await Assert.ThrowsAsync<ArgumentException>(url, () => this.Sut.Consumers.GetShippingDetails(url));
-        }
-
-
-        [Fact]
-        public async Task GetShippingDetails_ThrowsCouldNotGetShippingDetails_IfUriIsIncorrect()
-        {
-            //ARRANGE
-            var uri = "xxx";
+            var uri = new Uri("http://xxx");
 
             //ASSERT
             await Assert.ThrowsAsync<HttpRequestException>(() => this.Sut.Consumers.GetShippingDetails(uri));

@@ -1,5 +1,4 @@
 using System;
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -7,12 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
 using Sample.AspNetCore.Data;
 using Sample.AspNetCore.Extensions;
 using Sample.AspNetCore.Models;
-
-using SwedbankPay.Sdk;
 
 namespace Sample.AspNetCore
 {

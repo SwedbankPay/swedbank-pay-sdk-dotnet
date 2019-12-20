@@ -26,7 +26,7 @@ namespace SwedbankPay.Sdk.Payments
         public PaymentResponse Payment { get; set; }
 
 
-        public string GetPaymentUrl()
+        public Uri GetPaymentUrl()
         {
             var httpOperation = Operations.FirstOrDefault(o => o.Rel.Value == "redirect-authorization");
             if (httpOperation == null)
@@ -44,7 +44,7 @@ namespace SwedbankPay.Sdk.Payments
         }
 
 
-        public string GetRedirectVerificationUrl()
+        public Uri GetRedirectVerificationUrl()
         {
             var httpOperation = Operations.FirstOrDefault(o => o.Rel.Value == "redirect-verification");
             if (httpOperation == null)
@@ -63,7 +63,7 @@ namespace SwedbankPay.Sdk.Payments
         }
 
 
-        public string TryGetPaymentUrl()
+        public Uri TryGetPaymentUrl()
         {
             try
             {

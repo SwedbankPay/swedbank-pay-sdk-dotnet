@@ -9,13 +9,13 @@
 @await Html.PartialAsync("_SwedbankPayCheckOut", Model)
 
 
-@if (!string.IsNullOrEmpty(Model.AbortOperationLink))
+@if (!string.IsNullOrEmpty(Model.AbortOperationLink?.OriginalString))
 {
     <div class="row justify-content-center">
         <div class="col">
             <form asp-action="AbortPaymentOrder" asp-controller="Payment" method="post">
                 <input type="hidden" name="paymentOrderId"
-                       value="@Model.AbortOperationLink"/>
+                       value="@Model.AbortOperationLink.OriginalString"/>
                 <button type="submit" class="btn btn-lg btn-danger" automation="button-abort">
                     Abort
                 </button>

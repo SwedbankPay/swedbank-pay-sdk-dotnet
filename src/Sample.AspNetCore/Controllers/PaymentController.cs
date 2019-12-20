@@ -35,7 +35,7 @@ namespace Sample.AspNetCore.Controllers
         {
             try
             {
-                var paymentOrder = await this.swedbankPayClient.PaymentOrder.Get(paymentOrderId);
+                var paymentOrder = await this.swedbankPayClient.PaymentOrder.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
 
                 var response = await paymentOrder.Operations.Abort.Execute();
 
@@ -63,7 +63,7 @@ namespace Sample.AspNetCore.Controllers
                     Description = "Cancelling parts of the total amount"
                 };
 
-                var paymentOrder = await this.swedbankPayClient.PaymentOrder.Get(paymentOrderId);
+                var paymentOrder = await this.swedbankPayClient.PaymentOrder.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
                 var container = new TransactionRequestContainer(transactionRequestObject);
                 if (paymentOrder.Operations.Cancel != null)
                 {
@@ -92,7 +92,7 @@ namespace Sample.AspNetCore.Controllers
             try
             {
                 var transActionRequestObject = await GetTransactionRequest("Capturing the authorized payment");
-                var paymentOrder = await this.swedbankPayClient.PaymentOrder.Get(paymentOrderId);
+                var paymentOrder = await this.swedbankPayClient.PaymentOrder.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
 
                 var container = new TransactionRequestContainer(transActionRequestObject);
                 var response = await paymentOrder.Operations.Capture.Execute(container);
@@ -134,7 +134,7 @@ namespace Sample.AspNetCore.Controllers
             try
             {
                 var transActionRequestObject = await GetTransactionRequest("Reversing the capture amount");
-                var paymentOrder = await this.swedbankPayClient.PaymentOrder.Get(paymentOrderId);
+                var paymentOrder = await this.swedbankPayClient.PaymentOrder.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
                 var container = new TransactionRequestContainer(transActionRequestObject);
                 var response = await paymentOrder.Operations.Reversal.Execute(container);
 

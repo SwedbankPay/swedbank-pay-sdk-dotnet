@@ -8,9 +8,9 @@ using SwedbankPay.Sdk.PaymentOrders;
 
 namespace SwedbankPay.Sdk.JsonSerialization
 {
-    public class JsonSerialization
+    internal static class JsonSerialization
     {
-        public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
+        internal static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
         {
             ContractResolver = new CamelCasePropertyNamesContractResolver(),
             Converters = new List<JsonConverter>

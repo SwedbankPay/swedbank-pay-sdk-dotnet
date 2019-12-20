@@ -1,8 +1,5 @@
-﻿using SwedbankPay.Sdk.PaymentOrders;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk
 {
@@ -11,18 +8,9 @@ namespace SwedbankPay.Sdk
         internal SwedbankPayHttpClient swedbankPayHttpClient;
 
 
-        internal ResourceBase(SwedbankPayHttpClient swedbankPayHttpClient)
+        protected ResourceBase(SwedbankPayHttpClient swedbankPayHttpClient)
         {
             this.swedbankPayHttpClient = swedbankPayHttpClient;
-        }
-
-
-        public async Task<string> GetRaw(string id, PaymentOrderExpand paymentOrderExpand)
-        {
-            var expandQueryString = GetExpandQueryString(paymentOrderExpand);
-            var url = $"{id}?$expand={expandQueryString}";
-
-            return await this.swedbankPayHttpClient.GetRaw(url);
         }
 
 

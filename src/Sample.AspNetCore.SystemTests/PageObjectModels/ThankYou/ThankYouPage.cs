@@ -7,9 +7,10 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.ThankYou
 {
     using _ = ThankYouPage;
 
-    [VerifyH2(ResourceContentService.ThankYouH2)]
-    [VerifyContent(ResourceContentService.ThankYouContent)]
+    [VerifyContent(ResourceContentService.ThankYouH2)]
+    //[VerifyContent(ResourceContentService.ThankYouContent)]
     public class ThankYouPage : BasePage<_>
     {
+        [FindByContent(ResourceContentService.ThankYouH2)] public Text<_> ThankYou { get; private set; }
     }
 }

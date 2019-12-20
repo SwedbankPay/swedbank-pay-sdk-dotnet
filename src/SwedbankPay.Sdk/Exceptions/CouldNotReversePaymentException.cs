@@ -4,7 +4,7 @@ namespace SwedbankPay.Sdk.Exceptions
 {
     public class CouldNotReversePaymentException : Exception
     {
-        public CouldNotReversePaymentException(string id, ProblemsContainer problems)
+        public CouldNotReversePaymentException(Uri id, ProblemsContainer problems)
             : base(problems.ToString())
         {
             Problems = problems;
@@ -12,13 +12,13 @@ namespace SwedbankPay.Sdk.Exceptions
         }
 
 
-        public CouldNotReversePaymentException(string id, string value)
+        public CouldNotReversePaymentException(Uri id, string value)
             : this(id, new ProblemsContainer("paymentId", value))
         {
         }
 
 
-        public string Id { get; }
+        public Uri Id { get; }
         public ProblemsContainer Problems { get; }
     }
 }

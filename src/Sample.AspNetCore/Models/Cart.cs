@@ -43,10 +43,7 @@ namespace Sample.AspNetCore.Models
         {
             var line = CartLineCollection.FirstOrDefault(p => p.Product.ProductId == product.ProductId);
 
-            if (line == null)
-            {
-            }
-            else
+            if (line != null)
             {
                 if (quantity >= line.Quantity)
                     CartLineCollection.Remove(line);

@@ -13,14 +13,12 @@ namespace Sample.AspNetCore.Controllers
 {
     public class CartController : Controller
     {
-        private readonly ILogger<CartController> logger;
         private readonly Cart cartService;
         private readonly StoreDbContext storesContext;
 
 
         public CartController(ILogger<CartController> logger, StoreDbContext storesContext, Cart cartService)
         {
-            this.logger = logger;
             this.storesContext = storesContext;
             this.cartService = cartService;
         }
@@ -40,9 +38,9 @@ namespace Sample.AspNetCore.Controllers
         public IActionResult Create(Cart cart)
         {
             if (ModelState.IsValid)
-                //cart.Product = _context.Products.First();
-
+            {
                 return RedirectToAction("Index", "Payment", cart);
+            }
 
             return View(cart);
         }

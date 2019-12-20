@@ -1,13 +1,11 @@
 ﻿using Atata;
-
 using NUnit.Framework;
-
 using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 
 namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
 {
-    public class ValidationTests : PaymentTests
+    public class ValidationTests : Base.PaymentTests
     {
         public ValidationTests(string driverAlias)
             : base(driverAlias)

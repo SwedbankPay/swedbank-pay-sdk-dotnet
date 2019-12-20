@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Net.Http;
 using System.Threading.Tasks;
-
-using SwedbankPay.Sdk.Exceptions;
 
 namespace SwedbankPay.Sdk.Consumers
 {
@@ -39,14 +36,9 @@ namespace SwedbankPay.Sdk.Consumers
 
         internal static async Task<Consumer> Initiate(ConsumersRequest consumersRequest, SwedbankPayHttpClient client)
         {
-            var url = "/psp/consumers";
+            var url = new Uri("/psp/consumers", UriKind.Relative);
 
-            Exception OnError(ProblemsContainer m)
-            {
-                return new CouldNotInitiateConsumerSessionException(consumersRequest, m);
-            }
-
-            var consumersResponse = await client.SendHttpRequestAndProcessHttpResponse<ConsumersResponse>(HttpMethod.Post, url, OnError, consumersRequest);
+            var consumersResponse = await client.HttpPost<ConsumersResponse>(url, consumersRequest);
 
             return new Consumer(consumersResponse);
         }

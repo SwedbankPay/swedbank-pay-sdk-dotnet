@@ -1,4 +1,5 @@
-﻿@model Cart
+﻿@using System.Globalization
+@model Cart
 
 <h2>Your cart</h2>
 <table class="table table-bordered table-striped">
@@ -26,9 +27,9 @@
                 </form>
             </td>
             <td class="text-left">@line.Product.Name</td>
-            <td class="text-right">@line.Product.Price.ToString("c")</td>
+            <td class="text-right"> @line.Product.Price.ToString("c", CultureInfo.CreateSpecificCulture("sv-SE"))</td>
             <td class="text-right">
-                @((line.Quantity * line.Product.Price).ToString("c"))
+                @((line.Quantity * line.Product.Price).ToString("c", CultureInfo.CreateSpecificCulture("sv-SE")))
             </td>
             <td>
                 <form asp-action="RemoveFromCart" asp-controller="Cart" method="post">
@@ -49,7 +50,7 @@
     <tr>
         <td colspan="3" class="text-right">Total:</td>
         <td class="text-right">
-            @Model.CalculateTotal().ToString("c")
+            @Model.CalculateTotal().ToString("c", CultureInfo.CreateSpecificCulture("sv-SE"))
         </td>
     </tr>
     </tfoot>
