@@ -10,6 +10,7 @@ branches:
     is-release-branch: false
   mastertest:
     regex: ^mastertest
+    source-branches: ['develop', 'release', 'hotfix', 'feature']
     mode: ContinuousDelivery
     tag: ''
     increment: Patch
