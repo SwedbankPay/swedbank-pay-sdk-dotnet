@@ -8,6 +8,16 @@ branches:
     track-merge-target: false
     tracks-release-branches: false
     is-release-branch: false
+  mastertest:
+    regex: ^mastertest
+    source-branches: ['develop', 'release', 'hotfix', 'feature']
+    mode: ContinuousDelivery
+    tag: ''
+    increment: Patch
+    prevent-increment-of-merged-branch-version: true
+    track-merge-target: false
+    tracks-release-branches: false
+    is-release-branch: false
   release:
     regex: ^releases?[/-]
     mode: ContinuousDelivery
