@@ -36,18 +36,17 @@ steps:
   displayName: 'Restoring packages'
   inputs:
      command: 'restore'
-     restoreSolution: '**/*.sln'
+     restoreSolution: '$(Build.SourcesDirectory)\src\SwedbankPay.Sdk.sln'
      feedsToUse: 'select'
 
 
-- task: NuGetCommand@2
-  displayName: 'Restoring packages for system test'
-  inputs:
-     command: 'restore'
-     restoreSolution: '**/Sample.AspNetCore.SystemTests/packages.config'
-     feedsToUse: 'select'
-     restoreDirectory: '$(Build.SourcesDirectory)\src\packages'
-
+#- task: NuGetCommand@2
+#  displayName: 'Restoring packages for system test'
+#  inputs:
+#     command: 'restore'
+#     restoreSolution: '$(Build.SourcesDirectory)\src\Sample.AspNetCore.SystemTests\packages.config'
+#     feedsToUse: 'select'
+#     restoreDirectory: '$(Build.SourcesDirectory)\src\packages'
 
 
 - task: UseDotNet@2
@@ -68,7 +67,7 @@ steps:
 - task: MSBuild@1
   displayName: 'Build system tests project'
   inputs:
-    solution: '**\Sample.AspNetCore.SystemTests.csproj'
+    solution: '$(Build.SourcesDirectory)\src\Sample.AspNetCore.SystemTests\Sample.AspNetCore.SystemTests.csproj'
     platform: AnyCPU
     configuration: $(buildConfiguration)
   enabled: false
@@ -77,7 +76,7 @@ steps:
   displayName: 'Run unit / integration tests'
   inputs:
     command: test
-    projects: '**/SwedbankPay.Sdk.Tests.csproj'
+    projects: '$(Build.SourcesDirectory)\src\SwedbankPay.Sdk.Tests\SwedbankPay.Sdk.Tests.csproj'
     arguments: '--configuration $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
@@ -93,7 +92,7 @@ steps:
   displayName: 'Create NuGet Package - $(buildConfiguration) Version'
   inputs:
     command: 'pack'
-    packagesToPack: '**/SwedbankPay.Sdk.csproj'
+    packagesToPack: '$(Build.SourcesDirectory)\src\SwedbankPay.Sdk\SwedbankPay.Sdk.csproj'
     packDirectory: '$(Build.ArtifactStagingDirectory)/packages'
     nobuild: true
     versioningScheme: 'off'
