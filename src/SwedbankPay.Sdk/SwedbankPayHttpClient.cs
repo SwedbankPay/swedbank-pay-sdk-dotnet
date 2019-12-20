@@ -139,7 +139,6 @@ namespace SwedbankPay.Sdk
             catch (HttpResponseException ex)
             {
                 this.logger.LogError(ex, ex.Message);
-                ExceptionDispatchInfo.Capture(ex).Throw();
                 throw;
             }
             catch (Exception ex)
