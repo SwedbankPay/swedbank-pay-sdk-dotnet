@@ -39,6 +39,15 @@ steps:
      restoreSolution: '**/*.sln'
      feedsToUse: 'select'
 
+
+- task: NuGetCommand@2
+  displayName: 'Restoring packages for system test'
+  inputs:
+     command: 'restore'
+     restoreSolution: '**/Sample.AspNetCore.SystemTests/packages.config'
+     feedsToUse: 'select'
+
+
 - task: UseDotNet@2
   displayName: 'Setting up framework for build'
   inputs:
@@ -66,7 +75,7 @@ steps:
   displayName: 'Run unit / integration tests'
   inputs:
     command: test
-    projects: 'D:\a\1\s\src\SwedbankPay.Sdk.Tests\SwedbankPay.Sdk.Tests.csproj'
+    projects: '**/SwedbankPay.Sdk.Tests.csproj'
     arguments: '--configuration $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
