@@ -46,6 +46,8 @@ steps:
      command: 'restore'
      restoreSolution: '**/Sample.AspNetCore.SystemTests/packages.config'
      feedsToUse: 'select'
+     restoreDirectory: '$(Build.SourcesDirectory)\src\packages'
+
 
 
 - task: UseDotNet@2
