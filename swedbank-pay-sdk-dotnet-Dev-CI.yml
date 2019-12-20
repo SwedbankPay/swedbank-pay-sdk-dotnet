@@ -39,16 +39,6 @@ steps:
      restoreSolution: '$(Build.SourcesDirectory)\src\SwedbankPay.Sdk.sln'
      feedsToUse: 'select'
 
-
-#- task: NuGetCommand@2
-#  displayName: 'Restoring packages for system test'
-#  inputs:
-#     command: 'restore'
-#     restoreSolution: '$(Build.SourcesDirectory)\src\Sample.AspNetCore.SystemTests\packages.config'
-#     feedsToUse: 'select'
-#     restoreDirectory: '$(Build.SourcesDirectory)\src\packages'
-
-
 - task: UseDotNet@2
   displayName: 'Setting up framework for build'
   inputs:
