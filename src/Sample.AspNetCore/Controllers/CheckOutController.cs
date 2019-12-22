@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -53,7 +54,7 @@ namespace Sample.AspNetCore.Controllers
                 var paymentOrderRequest = new PaymentOrderRequest(Operation.Purchase, new CurrencyCode("SEK"),
                                                                   Amount.FromDecimal(totalAmount),
                                                                   Amount.FromDecimal(0), "Test description", "useragent",
-                                                                  new Language("sv-SE"),
+                                                                  new Language(CultureInfo.CreateSpecificCulture("sv-SE")),
                                                                   false,
                                                                   new Urls(this.urls.HostUrls, this.urls.CompleteUrl,
                                                                            this.urls.TermsOfServiceUrl, this.urls.CancelUrl,
