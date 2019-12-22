@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Net;
 using System.Net.Http;
 
@@ -23,7 +23,7 @@ namespace SwedbankPay.Sdk
             if (httpClient.BaseAddress == null)
                 throw new ArgumentNullException(nameof(httpClient), $"{nameof(httpClient.BaseAddress)} cannot be null.");
 
-            if (httpClient.DefaultRequestHeaders.Authorization == null)
+            if (httpClient.DefaultRequestHeaders?.Authorization?.Parameter == null)
                 throw new ArgumentException($"Please configure the {nameof(httpClient)} with an Authorization header.");
 
             var swedbankLogger = logger ?? NullLogger.Instance;
