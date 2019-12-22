@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.PaymentOrders
@@ -43,7 +43,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <param name="id"></param>
         /// <param name="paymentOrderExpand"></param>
         /// <returns></returns>
-        public async Task<PaymentOrder> GetInternalAsync(Uri id, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
+        private async Task<PaymentOrder> GetInternalAsync(Uri id, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
         {
             return await PaymentOrder.Get(id, this.swedbankPayHttpClient, GetExpandQueryString(paymentOrderExpand));
         }
