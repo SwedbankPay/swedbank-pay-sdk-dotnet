@@ -2,8 +2,15 @@
 {
     public class Price
     {
-        public long? Amount { get; set; }
-        public PriceType Type { get; set; }
-        public long? VatAmount { get; set; }
+        public Price(Amount amount, PriceType type, Amount vatAmount)
+        {
+            Amount = amount;
+            Type = type;
+            VatAmount = vatAmount;
+        }
+
+        public Amount Amount { get; }
+        public PriceType Type { get; }
+        public Amount VatAmount { get; }
     }
 }
