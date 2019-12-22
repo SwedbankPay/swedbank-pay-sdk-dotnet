@@ -8,8 +8,19 @@ namespace SwedbankPay.Sdk
 {
     public class Language
     {
+        public Language(CultureInfo cultureInfo)
+        {
+            if (cultureInfo == null)
+            {
+                throw new ArgumentException(nameof(cultureInfo));
+            }
+          
+            Value = cultureInfo.Name;
+        }
+
+
         [JsonConstructor]
-        public Language(string languageCode)
+        internal Language(string languageCode)
         {
             if (string.IsNullOrEmpty(languageCode))
                 throw new ArgumentNullException(nameof(languageCode), "Language code can't be null or empty");
