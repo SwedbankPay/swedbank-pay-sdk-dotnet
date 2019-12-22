@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net.Http;
-using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -35,7 +34,6 @@ namespace SwedbankPay.Sdk
         /// <exception cref="HttpRequestException"></exception>
         /// <exception cref="HttpResponseException"></exception>
         internal async Task<TResponse> HttpGet<TResponse>(Uri url)
-            where TResponse : new()
         {
             var httpRequestMessage = CreateHttpRequestMessage(HttpMethod.Get, url);
             return await SendHttpRequestAndProcessHttpResponse<TResponse>(httpRequestMessage);
@@ -73,7 +71,6 @@ namespace SwedbankPay.Sdk
         /// <exception cref="HttpResponseException"></exception>
         internal async Task<TResponse> HttpPost
             <TResponse>(Uri url, object payload)
-            where TResponse : new()
         {
             var httpRequestMessage = CreateHttpRequestMessage(HttpMethod.Post, url, payload);
             return await SendHttpRequestAndProcessHttpResponse<TResponse>(httpRequestMessage);
@@ -96,7 +93,6 @@ namespace SwedbankPay.Sdk
             <TResponse>(HttpMethod httpMethod,
                         Uri url,
                         object payload = null)
-            where TResponse : new()
         {
             var httpRequestMessage = CreateHttpRequestMessage(httpMethod, url, payload);
 
@@ -116,7 +112,6 @@ namespace SwedbankPay.Sdk
         /// <returns></returns>
         internal async Task<TResponse> SendHttpRequestAndProcessHttpResponse
             <TResponse>(HttpRequestMessage httpRequest)
-            where TResponse : new()
         {
             var httpResponse = await this.client.SendAsync(httpRequest);
 

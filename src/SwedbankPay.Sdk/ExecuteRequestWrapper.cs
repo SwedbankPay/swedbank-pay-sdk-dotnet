@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 namespace SwedbankPay.Sdk
 {
     public class ExecuteRequestWrapper<TRequest, TResponse> : ExecuteWrapperBase
-        where TResponse : new()
     {
         private readonly SwedbankPayHttpClient Client;
         private readonly HttpRequestMessage HttpRequestMessage;

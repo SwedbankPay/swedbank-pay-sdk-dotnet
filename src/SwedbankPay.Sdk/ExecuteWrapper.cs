@@ -15,7 +15,6 @@ using System.Threading.Tasks;
 namespace SwedbankPay.Sdk
 {
     public class ExecuteWrapper<TResponse> : ExecuteWrapperBase
-        where TResponse : new()
     {
         protected readonly HttpRequestMessage HttpRequestMessage;
 
