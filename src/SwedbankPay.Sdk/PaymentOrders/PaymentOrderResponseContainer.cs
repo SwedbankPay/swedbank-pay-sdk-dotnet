@@ -6,12 +6,7 @@ using SwedbankPay.Sdk.Exceptions;
 namespace SwedbankPay.Sdk.PaymentOrders
 {
     public class PaymentOrderResponseContainer
-    {
-        public PaymentOrderResponseContainer()
-        {
-        }
-
-
+    { 
         public PaymentOrderResponseContainer(PaymentOrderResponse paymentOrder)
         {
             PaymentOrder = paymentOrder;
