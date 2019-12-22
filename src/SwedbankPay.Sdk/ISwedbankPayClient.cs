@@ -1,5 +1,6 @@
 ﻿using SwedbankPay.Sdk.Consumers;
 using SwedbankPay.Sdk.PaymentOrders;
+using SwedbankPay.Sdk.Payments;
 
 namespace SwedbankPay.Sdk
 {
@@ -7,5 +8,6 @@ namespace SwedbankPay.Sdk
     {
         IConsumersResource Consumers { get; }
         IPaymentOrderResource PaymentOrder { get; }
+        IPaymentsResource Payment { get; }
     }
 }

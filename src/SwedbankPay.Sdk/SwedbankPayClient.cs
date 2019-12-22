@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Net;
 using System.Net.Http;
 
@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging.Abstractions;
 
 using SwedbankPay.Sdk.Consumers;
 using SwedbankPay.Sdk.PaymentOrders;
+using SwedbankPay.Sdk.Payments;
 
 namespace SwedbankPay.Sdk
 {
@@ -30,11 +31,14 @@ namespace SwedbankPay.Sdk
             var swedbankPayHttpClient = new SwedbankPayHttpClient(httpClient, swedbankLogger);
             PaymentOrder = new PaymentOrderResource(swedbankPayHttpClient);
             Consumers = new ConsumersResource(swedbankPayHttpClient);
+            Payment = new PaymentsResource(swedbankPayHttpClient);
         }
 
 
         public IPaymentOrderResource PaymentOrder { get; }
 
         public IConsumersResource Consumers { get; }
+
+        public IPaymentsResource Payment { get; }
     }
 }
