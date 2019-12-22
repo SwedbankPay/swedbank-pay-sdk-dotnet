@@ -16,7 +16,7 @@ namespace SwedbankPay.Sdk.Payments
                                State state,
                                CurrencyCode currency,
                                PricesContainer prices,
-                               long amount,
+                               Amount amount,
                                string description,
                                string payerReference,
                                string userAgent,
@@ -57,7 +57,7 @@ namespace SwedbankPay.Sdk.Payments
         }
 
 
-        public long Amount { get; }
+        public Amount Amount { get; }
 
         public AuthorizationListContainer Authorizations { get; }
 
