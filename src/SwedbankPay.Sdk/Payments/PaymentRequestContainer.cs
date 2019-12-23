@@ -8,6 +8,6 @@
         }
 
 
-        public PaymentRequest Payment { get; set; }
+        public PaymentRequest Payment { get; }
     }
 }

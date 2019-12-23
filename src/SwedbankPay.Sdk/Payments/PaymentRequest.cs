@@ -31,8 +31,8 @@ namespace SwedbankPay.Sdk.Payments
                               PrefillInfo prefillInfo,
                               bool generatePaymentToken,
                               string paymentToken,
-                              long amount,
-                              long vatAmount)
+                              Amount amount,
+                              Amount vatAmount)
         {
             Operation = operation ?? throw new ArgumentNullException(nameof(operation));
             Intent = intent;
@@ -52,7 +52,7 @@ namespace SwedbankPay.Sdk.Payments
         }
 
 
-        public long Amount { get; set; }
+        public Amount Amount { get; set; }
 
         public CurrencyCode Currency { get; set; }
 
@@ -79,6 +79,6 @@ namespace SwedbankPay.Sdk.Payments
 
         public string UserAgent { get; set; }
 
-        public long VatAmount { get; set; }
+        public Amount VatAmount { get; set; }
     }
 }

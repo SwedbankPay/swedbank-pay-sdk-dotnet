@@ -10,7 +10,9 @@ namespace SwedbankPay.Sdk.Payments
     public class PaymentResponseContainer
     {
         [JsonConstructor]
-        public PaymentResponseContainer(OperationList operations, PaymentResponse payment)
+        public PaymentResponseContainer(
+            OperationList operations,
+            PaymentResponse payment)
         {
             Operations = operations;
             Payment = payment;

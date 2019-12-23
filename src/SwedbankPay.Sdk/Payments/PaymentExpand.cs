@@ -14,6 +14,7 @@ namespace SwedbankPay.Sdk.Payments
         Captures = 32,
         Reversals = 64,
         Cancellations = 128,
-        All = 255
+        Sales = 256,
+        All = 511
     }
 }
