@@ -5,14 +5,6 @@ namespace SwedbankPay.Sdk.Exceptions
 {
     public class HttpResponseException : Exception
     {
-        public HttpResponseException(string message) : base(message)
-        {
-        }
-
-        public HttpResponseException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
         public HttpResponseException(HttpResponseMessage httpResponse, ProblemsContainer problemsContainer = null, string message = null, Exception innerException = null)
             : base(message, innerException)
         {
