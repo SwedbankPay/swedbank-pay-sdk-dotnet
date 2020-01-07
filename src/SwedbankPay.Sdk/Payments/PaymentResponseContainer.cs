@@ -1,15 +1,9 @@
-using System;
-using System.Linq;
-
-using Newtonsoft.Json;
-
-using SwedbankPay.Sdk.Exceptions;
+﻿using Newtonsoft.Json;
 
 namespace SwedbankPay.Sdk.Payments
 {
     public class PaymentResponseContainer
     {
-        [JsonConstructor]
         public PaymentResponseContainer(
             OperationList operations,
             PaymentResponse paymentResponse)
@@ -23,54 +17,5 @@ namespace SwedbankPay.Sdk.Payments
 
         [JsonProperty("payment")]
         public PaymentResponse PaymentResponse { get; }
-
-        public Uri GetPaymentUrl()
-        {
-            var httpOperation = Operations.FirstOrDefault(o => o.Rel.Value == "redirect-authorization");
-            if (httpOperation == null)
-            {
-                if (Operations.Any())
-                {
-                    var availableOps = Operations.ToString();
-                    throw new BadRequestException($"Cannot get PaymentUrl from this payment. Available operations: {availableOps}");
-                }
-
-                throw new NoOperationsLeftException();
-            }
-
-            return httpOperation.Href;
-        }
-
-
-        public Uri GetRedirectVerificationUrl()
-        {
-            var httpOperation = Operations.FirstOrDefault(o => o.Rel.Value == "redirect-verification");
-            if (httpOperation == null)
-            {
-                if (Operations.Any())
-                {
-                    var availableOps = Operations.ToString();
-                    throw new BadRequestException(
-                        $"Cannot get RedirectVerificationUrl from this payment. Available operations: {availableOps}");
-                }
-
-                throw new NoOperationsLeftException();
-            }
-
-            return httpOperation.Href;
-        }
-
-
-        public Uri TryGetPaymentUrl()
-        {
-            try
-            {
-                return GetPaymentUrl();
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
     }
 }
