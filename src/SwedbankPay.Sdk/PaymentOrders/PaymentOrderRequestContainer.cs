@@ -1,13 +1,15 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrders
+﻿using Newtonsoft.Json;
+
+namespace SwedbankPay.Sdk.PaymentOrders
 {
     public class PaymentOrderRequestContainer
     {
-        public PaymentOrderRequestContainer(PaymentOrderRequest paymentOrder)
+        public PaymentOrderRequestContainer(PaymentOrderRequest paymentOrderRequest)
         {
-            PaymentOrder = paymentOrder;
+            PaymentOrderRequest = paymentOrderRequest;
         }
 
-
-        public PaymentOrderRequest PaymentOrder { get; }
+        [JsonProperty("paymentorder")]
+        public PaymentOrderRequest PaymentOrderRequest { get; }
     }
 }
