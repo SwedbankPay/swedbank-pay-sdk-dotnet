@@ -39,7 +39,7 @@ namespace Sample.AspNetCore.Controllers
 
                 var response = await paymentOrder.Operations.Abort.Execute();
 
-                TempData["AbortMessage"] = $"Payment Order: {response.PaymentOrder.Id} has been {response.PaymentOrder.State}";
+                TempData["AbortMessage"] = $"Payment Order: {response.PaymentOrderResponse.Id} has been {response.PaymentOrderResponse.State}";
                 this.cartService.PaymentOrderLink = null;
 
                 return RedirectToAction(nameof(Index), "Products");
