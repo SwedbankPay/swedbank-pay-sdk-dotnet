@@ -11,7 +11,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         private PaymentOrder(PaymentOrderResponseContainer paymentOrderResponseContainer,
                              SwedbankPayHttpClient client)
         {
-            PaymentOrderResponse = paymentOrderResponseContainer.PaymentOrder;
+            PaymentOrderResponse = paymentOrderResponseContainer.PaymentOrderResponse;
             var operations = new Operations();
 
             foreach (var httpOperation in paymentOrderResponseContainer.Operations)

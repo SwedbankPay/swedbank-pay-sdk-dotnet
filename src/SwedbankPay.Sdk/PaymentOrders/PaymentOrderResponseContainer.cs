@@ -1,21 +1,25 @@
 ﻿using System;
 using System.Linq;
 
+using Newtonsoft.Json;
+
 using SwedbankPay.Sdk.Exceptions;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
     public class PaymentOrderResponseContainer
     { 
-        public PaymentOrderResponseContainer(PaymentOrderResponse paymentOrder)
+        public PaymentOrderResponseContainer(OperationList operations, PaymentOrderResponse paymentOrderResponse)
         {
-            PaymentOrder = paymentOrder;
+            Operations = operations;
+            PaymentOrderResponse = paymentOrderResponse;
         }
 
 
-        public OperationList Operations { get; set; } = new OperationList();
+        public OperationList Operations { get; }
 
-        public PaymentOrderResponse PaymentOrder { get; set; }
+        [JsonProperty("paymentorder")]
+        public PaymentOrderResponse PaymentOrderResponse { get; }
 
 
         public Uri GetPaymentUrl()
