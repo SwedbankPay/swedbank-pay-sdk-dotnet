@@ -81,29 +81,6 @@ namespace SwedbankPay.Sdk
         ///     Send the HttpRequest and Process HttpResponse
         /// </summary>
         /// <typeparam name="TResponse"></typeparam>
-        /// <param name="httpMethod"></param>
-        /// <param name="url"></param>
-        /// <param name="payload"></param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="InvalidOperationException"></exception>
-        /// <exception cref="HttpRequestException"></exception>
-        /// <exception cref="HttpResponseException"></exception>
-        /// <returns></returns>
-        internal async Task<TResponse> SendHttpRequestAndProcessHttpResponse
-            <TResponse>(HttpMethod httpMethod,
-                        Uri url,
-                        object payload = null)
-        {
-            var httpRequestMessage = CreateHttpRequestMessage(httpMethod, url, payload);
-
-            return await SendHttpRequestAndProcessHttpResponse<TResponse>(httpRequestMessage);
-        }
-
-
-        /// <summary>
-        ///     Send the HttpRequest and Process HttpResponse
-        /// </summary>
-        /// <typeparam name="TResponse"></typeparam>
         /// <param name="httpRequest"></param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="InvalidOperationException"></exception>
