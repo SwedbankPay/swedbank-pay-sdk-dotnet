@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 
 using Newtonsoft.Json;
@@ -12,17 +12,17 @@ namespace SwedbankPay.Sdk.Payments
         [JsonConstructor]
         public PaymentResponseContainer(
             OperationList operations,
-            PaymentResponse payment)
+            PaymentResponse paymentResponse)
         {
             Operations = operations;
-            Payment = payment;
+            PaymentResponse = paymentResponse;
         }
 
 
         public OperationList Operations { get; }
 
-        public PaymentResponse Payment { get; }
-
+        [JsonProperty("payment")]
+        public PaymentResponse PaymentResponse { get; }
 
         public Uri GetPaymentUrl()
         {

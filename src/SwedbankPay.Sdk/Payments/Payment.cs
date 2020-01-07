@@ -10,7 +10,7 @@ namespace SwedbankPay.Sdk.Payments
     {
         private Payment(PaymentResponseContainer paymentResponseContainer, SwedbankPayHttpClient client)
         {
-            PaymentResponse = paymentResponseContainer.Payment;
+            PaymentResponse = paymentResponseContainer.PaymentResponse;
             var operations = new Operations();
 
             foreach (var httpOperation in paymentResponseContainer.Operations)

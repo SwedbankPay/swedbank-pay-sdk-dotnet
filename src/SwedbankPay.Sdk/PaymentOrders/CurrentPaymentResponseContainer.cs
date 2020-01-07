@@ -8,7 +8,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
     {
         public CurrentPaymentResponseContainer(Uri id, string menuElementName,
                                                OperationList operations,
-                                               PaymentResponse payment) : base(operations, payment)
+                                               PaymentResponse paymentResponse) : base(operations, paymentResponse)
         {
             Id = id;
             MenuElementName = menuElementName;
