@@ -41,7 +41,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                         break;
                     case PaymentOrderResourceOperations.UpdatePaymentOrderAbort:
                         operations.Abort = new ExecuteWrapper<PaymentOrderResponseContainer>(
-                            httpOperation.Request, client, new PaymentAbortRequestContainer());
+                            httpOperation.Request, client, new PaymentOrderAbortRequestContainer());
                         break;
                     case PaymentOrderResourceOperations.ViewPaymentOrder:
                         operations.View = httpOperation;
