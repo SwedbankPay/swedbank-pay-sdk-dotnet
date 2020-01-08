@@ -58,7 +58,7 @@ namespace Sample.AspNetCore.Controllers
         {
             try
             {
-                var transactionRequestObject = new TransactionRequest(null,"Cancelling parts of the total amount", null, DateTime.Now.Ticks.ToString(), 0);
+                var transactionRequestObject = new TransactionRequest(null,"Cancelling parts of the total amount", null, DateTime.Now.Ticks.ToString(),  Amount.FromDecimal(0));
 
                 var paymentOrder = await this.swedbankPayClient.PaymentOrder.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
                 var container = new TransactionRequestContainer<TransactionRequest>(transactionRequestObject);
@@ -158,7 +158,7 @@ namespace Sample.AspNetCore.Controllers
                                                                   description,
                                                                   orderItems.ToList(),
                                                                   DateTime.Now.Ticks.ToString(),
-                                                                  0
+                                                                  Amount.FromDecimal(0)
             );
 
             return transActionRequestObject;

@@ -6,7 +6,7 @@ namespace SwedbankPay.Sdk.Transactions
 {
     public class TransactionRequest
     {
-        public TransactionRequest(Amount amount, string description, List<OrderItem> orderItems, string payeeReference, long? vatAmount)
+        public TransactionRequest(Amount amount, string description, List<OrderItem> orderItems, string payeeReference, Amount vatAmount)
         {
             Amount = amount;
             Description = description;
@@ -19,6 +19,6 @@ namespace SwedbankPay.Sdk.Transactions
         public string Description { get; }
         public List<OrderItem> OrderItems { get; }
         public string PayeeReference { get; }
-        public long? VatAmount { get; }
+        public Amount VatAmount { get; }
     }
 }
