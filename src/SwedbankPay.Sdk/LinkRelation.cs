@@ -74,6 +74,8 @@ namespace SwedbankPay.Sdk
 
         public static readonly LinkRelation ViewPayment = new LinkRelation(nameof(ViewPayment), PaymentResourceOperations.ViewPayment);
 
+        public  static readonly LinkRelation ViewVerification = new LinkRelation(nameof(ViewVerification), PaymentResourceOperations.ViewVerification);
+
         private LinkRelation(string name, string value)
             : base(name, value)
         {
