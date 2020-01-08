@@ -4,11 +4,11 @@ using SwedbankPay.Sdk.Payments;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class CurrentPaymentResponseContainer : PaymentResponseContainer<Payments.Card.PaymentResponse>
+    public class CurrentPaymentResponseContainer : PaymentResponseContainer<CurrentPaymentResponse>
     {
         public CurrentPaymentResponseContainer(Uri id, string menuElementName,
                                                OperationList operations,
-                                               Payments.Card.PaymentResponse paymentResponse) : base(operations, paymentResponse)
+                                               CurrentPaymentResponse paymentResponse) : base(operations, paymentResponse)
         {
             Id = id;
             MenuElementName = menuElementName;
