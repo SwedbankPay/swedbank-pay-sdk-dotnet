@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 
 using SwedbankPay.Sdk.PaymentOrders;
-using SwedbankPay.Sdk.Transactions;
 
 namespace SwedbankPay.Sdk.Payments.Card
 {
@@ -24,37 +23,29 @@ namespace SwedbankPay.Sdk.Payments.Card
                             new ExecuteRequestWrapper<PaymentOrderUpdateRequestContainer, PaymentOrderResponseContainer>(
                                 httpOperation.Request, client);
                         break;
+                        
+                    case PaymentResourceOperations.RedirectAuthorization:
+                        operations.RedirectAuthorization = httpOperation;
+                        break;
 
                     case PaymentResourceOperations.ViewAuthorization:
                         operations.ViewAuthorization = httpOperation;
                         break;
 
-                    case PaymentResourceOperations.RedirectAuthorization:
-                        operations.RedirectAuthorization = httpOperation;
-                        break;
-
                     case PaymentResourceOperations.DirectAuthorization:
-                        operations.DirectAuthorization =
-                            new ExecuteRequestWrapper<TransactionRequestContainer, PaymentOrderResponseContainer>(
-                                httpOperation.Request, client);
+                        operations.DirectAuthorization = httpOperation;
                         break;
 
                     case PaymentResourceOperations.CreateCapture:
-                        operations.Capture =
-                            new ExecuteRequestWrapper<TransactionRequestContainer, CaptureTransactionResponseContainer>(
-                                httpOperation.Request, client);
+                        operations.Capture = httpOperation;
                         break;
 
                     case PaymentResourceOperations.CreateCancellation:
-                        operations.Cancel =
-                            new ExecuteRequestWrapper<TransactionRequestContainer, CancellationTransactionResponseContainer>(
-                                httpOperation.Request, client);
+                        operations.Cancel = httpOperation;
                         break;
 
                     case PaymentResourceOperations.CreateReversal:
-                        operations.Reversal =
-                            new ExecuteRequestWrapper<TransactionRequestContainer, ReversalTransactionResponseContainer>(
-                                httpOperation.Request, client);
+                        operations.Reversal = httpOperation;
                         break;
 
                     case PaymentResourceOperations.RedirectVerification:
@@ -66,15 +57,11 @@ namespace SwedbankPay.Sdk.Payments.Card
                         break;
 
                     case PaymentResourceOperations.DirectVerification:
-                        operations.DirectVerification =
-                            new ExecuteRequestWrapper<TransactionRequestContainer, ReversalTransactionResponseContainer>(
-                                httpOperation.Request, client);
+                        operations.DirectVerification = httpOperation;
                         break;
 
                     case PaymentResourceOperations.PaidPayment:
-                        operations.PaidPayment =
-                            new ExecuteRequestWrapper<TransactionRequestContainer, ReversalTransactionResponseContainer>(
-                                httpOperation.Request, client);
+                        operations.PaidPayment = httpOperation;
                         break;
                 }
             }
@@ -88,12 +75,11 @@ namespace SwedbankPay.Sdk.Payments.Card
         public PaymentResponse PaymentResponse { get; }
 
 
-        internal static async Task<Payment> Create(PaymentType paymentType,
-                                                   PaymentRequest paymentRequest,
+        internal static async Task<Payment> Create(PaymentRequest paymentRequest,
                                                    SwedbankPayHttpClient client,
                                                    string paymentExpand)
         {
-            var url = new Uri($"/psp/{paymentType}/payments{paymentExpand}", UriKind.Relative);
+            var url = new Uri($"/psp/creditcard/payments{paymentExpand}", UriKind.Relative);
 
             var payload = new PaymentRequestContainer(paymentRequest);
 

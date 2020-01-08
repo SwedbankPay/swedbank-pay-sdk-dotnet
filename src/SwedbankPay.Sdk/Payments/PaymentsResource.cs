@@ -23,7 +23,7 @@ namespace SwedbankPay.Sdk.Payments
 
         public async Task<Card.Payment> CreateCreditCardPayment(Card.PaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None)
         {
-           throw new NotImplementedException();
+            return await Card.Payment.Create(paymentRequest, this.swedbankPayHttpClient, GetExpandQueryString(paymentExpand));
         }
 
 

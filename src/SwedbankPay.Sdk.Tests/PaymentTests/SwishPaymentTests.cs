@@ -1,24 +1,17 @@
 ﻿using System;
-using System.Linq;
-using System.Threading;
-
-using SwedbankPay.Sdk.Tests.TestBuilders;
-
 using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 
-using SwedbankPay.Sdk.PaymentOrders;
 using SwedbankPay.Sdk.Payments;
 using SwedbankPay.Sdk.Payments.Swish.Transactions;
+using SwedbankPay.Sdk.Tests.TestBuilders;
 
 using Xunit;
 
-using TransactionRequest = SwedbankPay.Sdk.Transactions.TransactionRequest;
-
-namespace SwedbankPay.Sdk.Tests
+namespace SwedbankPay.Sdk.Tests.PaymentTests
 {
-    public class PaymentResourceTests : ResourceTestsBase
+    public class SwishPaymentTests : ResourceTestsBase
     {
         private readonly PaymentRequestBuilder paymentRequestBuilder = new PaymentRequestBuilder();
 
@@ -35,7 +28,7 @@ namespace SwedbankPay.Sdk.Tests
         [Fact]
         public async Task CreateSale()
         {
-            var paymentRequest = this.paymentRequestBuilder.WithTestValues().BuildSwishPaymentRequest();
+            var paymentRequest = this.paymentRequestBuilder.WithSwishTestValues().BuildSwishPaymentRequest();
             var payment = await this.Sut.Payment.CreateSwishPayment(paymentRequest);
 
             Assert.NotNull(payment);
@@ -51,7 +44,7 @@ namespace SwedbankPay.Sdk.Tests
         [Fact]
         public async Task CreateMCommerceSale()
         {
-            var paymentRequest = this.paymentRequestBuilder.WithTestValues().BuildSwishPaymentRequest();
+            var paymentRequest = this.paymentRequestBuilder.WithSwishTestValues().BuildSwishPaymentRequest();
             var payment = await this.Sut.Payment.CreateSwishPayment(paymentRequest);
 
             Assert.NotNull(payment);
@@ -76,7 +69,7 @@ namespace SwedbankPay.Sdk.Tests
         [Fact]
         public async Task AbortPayment()
         {
-            var paymentRequest = this.paymentRequestBuilder.WithTestValues().BuildSwishPaymentRequest();
+            var paymentRequest = this.paymentRequestBuilder.WithSwishTestValues().BuildSwishPaymentRequest();
             
             var payment = await this.Sut.Payment.CreateSwishPayment(paymentRequest);
 
@@ -119,7 +112,7 @@ namespace SwedbankPay.Sdk.Tests
         [Fact]
         public async Task CreateSwishPayment_ShouldReturnPayment()
         {
-            var paymentRequest = this.paymentRequestBuilder.WithTestValues().BuildSwishPaymentRequest();
+            var paymentRequest = this.paymentRequestBuilder.WithSwishTestValues().BuildSwishPaymentRequest();
             var swishPayment = await this.Sut.Payment.CreateSwishPayment(paymentRequest);
             Assert.NotNull(swishPayment);
             Assert.NotNull(swishPayment.PaymentResponse);

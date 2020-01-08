@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-using SwedbankPay.Sdk.PaymentOrders;
-using SwedbankPay.Sdk.Payments;
+﻿using SwedbankPay.Sdk.Payments;
 using SwedbankPay.Sdk.Payments.Swish;
+
+using System;
+using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.Tests.TestBuilders
 {
@@ -19,6 +18,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private PayeeInfo payeeInfo;
         private PrefillInfo prefillInfo;
         private bool generatePaymentToken;
+        private bool generateReccurrenceToken;
         private Amount amount;
         private Amount vatAmount;
         private string payerReference;
@@ -28,7 +28,20 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
 
         public Payments.Card.PaymentRequest BuildCreditardPaymentRequest()
         {
-            return null;
+            return new Payments.Card.PaymentRequest(
+                this.operation, 
+                this.intent,
+                this.currency, 
+                this.price,  
+                this.description,
+                this.payerReference,
+                this.generatePaymentToken,
+                this.generateReccurrenceToken,
+                this.userAgent,
+                this.language,
+                this.urls,
+                this.payeeInfo,
+                null);
         }
 
         public Payments.Swish.PaymentRequest BuildSwishPaymentRequest()
@@ -48,12 +61,31 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         }
 
 
-        public PaymentRequestBuilder WithTestValues()
+        public PaymentRequestBuilder WithCreditcardTestValues(Operation operation = null, string intent = null)
         {
+            this.operation = operation ??  Operation.Purchase;
+            this.intent = intent ?? "Authorization";
+            this.currency = new CurrencyCode("SEK");
+            this.description = "Test Description";
+            this.payerReference = "AB1234";
+            this.userAgent = "useragent";
+            this.language = new Language("sv-SE");
+            this.urls = new Urls(new List<Uri> { new Uri("https://example.com") }, new Uri("https://example.com/payment-completed"), new Uri("https://example.com/termsandconditoons.pdf"), new Uri("https://example.com/payment-canceled"));
+            this.payeeInfo = new PayeeInfo(Guid.Parse("91a4c8e0-72ac-425c-a687-856706f9e9a1"), DateTime.Now.Ticks.ToString());
+            this.generatePaymentToken = false;
+            this.amount = Amount.FromDecimal(1600);
+            this.vatAmount = Amount.FromDecimal(0);
+
             this.price = new List<Price>
             {
-                new Price(Amount.FromInt(1600), PriceType.Swish, Amount.FromInt(0))
+                new Price(this.amount, PriceType.CreditCard, this.vatAmount)
             };
+            return this;
+        }
+
+
+        public PaymentRequestBuilder WithSwishTestValues()
+        {
             this.operation = Operation.Purchase;
             this.intent = "Sale";
             this.currency = new CurrencyCode("SEK");
@@ -62,12 +94,17 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.userAgent = "useragent";
             this.language = new Language("sv-SE");
             this.urls = new Urls(new List<Uri> { new Uri("https://example.com") }, new Uri("https://example.com/payment-completed"), new Uri("https://example.com/termsandconditoons.pdf"), new Uri("https://example.com/payment-canceled"));
-            this.payeeInfo = new PayeeInfo("91a4c8e0-72ac-425c-a687-856706f9e9a1", DateTime.Now.Ticks.ToString());
+            this.payeeInfo = new PayeeInfo(Guid.Parse("91a4c8e0-72ac-425c-a687-856706f9e9a1"), DateTime.Now.Ticks.ToString());
             this.prefillInfo = new PrefillInfo(new Msisdn("+46701234567"));
             this.generatePaymentToken = false;
             this.amount = Amount.FromDecimal(1600);
             this.vatAmount = Amount.FromDecimal(0);
             this.swish = new SwishRequest();
+
+            this.price = new List<Price>
+            {
+                new Price(this.amount, PriceType.Swish, this.vatAmount)
+            };
             return this;
         }
     }

@@ -7,32 +7,23 @@ namespace SwedbankPay.Sdk.Payments.Card
 {
     public class PaymentRequest : Payments.PaymentRequest
     {
-        public PaymentRequest(string useragent, string description, string payerReference, string payeeReference, params Price[] prices)
-        {
-            UserAgent = useragent;
-            Description = description;
-            if (prices != null)
-                Prices.AddRange(prices);
-
-            PayerReference = payerReference;
-        }
-
-
         public PaymentRequest(Operation operation,
                               string intent,
                               CurrencyCode currency,
                               List<Price> prices,
                               string description,
                               string payerReference,
+                              bool generatePaymentToken,
+                              bool generateReccurenceToken,
                               string userAgent,
                               Language language,
                               Urls urls,
                               PayeeInfo payeeInfo,
-                              PrefillInfo prefillInfo,
-                              bool generatePaymentToken,
-                              string paymentToken,
-                              Amount amount,
-                              Amount vatAmount)
+                              RiskIndicator riskIndicator = null,
+                              Cardholder cardholder = null,
+                              CreditCard creditCard = null,
+                              Dictionary<string, object> metaData = null,
+                              string paymentToken = null)
         {
             Operation = operation ?? throw new ArgumentNullException(nameof(operation));
             Intent = intent;
@@ -44,41 +35,31 @@ namespace SwedbankPay.Sdk.Payments.Card
             Language = language;
             Urls = urls;
             PayeeInfo = payeeInfo;
-            PrefillInfo = prefillInfo;
+            RiskIndicator = riskIndicator;
+            Cardholder = cardholder;
+            CreditCard = creditCard;
+            MetaData = metaData;
             GeneratePaymentToken = generatePaymentToken;
+            GenerateReccurenceToken = generateReccurenceToken;
             PaymentToken = paymentToken;
-            Amount = amount;
-            VatAmount = vatAmount;
         }
 
-
-        public Amount Amount { get; set; }
-
-        public CurrencyCode Currency { get; set; }
-
-        public string Description { get; set; }
-
-        public bool GeneratePaymentToken { get; set; }
-        public string Intent { get; set; }
-
-        public Language Language { get; set; }
-
         public Operation Operation { get; set; }
-
-        public PayeeInfo PayeeInfo { get; internal set; }
-
-        public string PayerReference { get; set; }
-
-        public string PaymentToken { get; set; }
-
-        public PrefillInfo PrefillInfo { get; }
-
+        public string Intent { get; set; }
+        public CurrencyCode Currency { get; set; }
         public List<Price> Prices { get; set; }
-
-        public Urls Urls { get; }
-
+        public string Description { get; set; }
+        public bool GeneratePaymentToken { get; set; }
+        public bool GenerateReccurenceToken { get; set; }
         public string UserAgent { get; set; }
-
-        public Amount VatAmount { get; set; }
+        public Language Language { get; set; }
+        public Urls Urls { get; }
+        public PayeeInfo PayeeInfo { get; internal set; }
+        public RiskIndicator RiskIndicator { get; }
+        public Cardholder Cardholder { get; }
+        public CreditCard CreditCard { get; }
+        public Dictionary<string, object> MetaData { get; }
+        public string PayerReference { get; set; }
+        public string PaymentToken { get; set; }
     }
 }
