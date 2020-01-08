@@ -2,8 +2,15 @@
 {
     public class Item
     {
-        public CreditCard CreditCard { get; set; }
-        public Invoice Invoice { get; set; }
-        public Swish Swish { get; set; }
+        public Item(CreditCard creditCard, Invoice invoice, Swish swish)
+        {
+            CreditCard = creditCard;
+            Invoice = invoice;
+            Swish = swish;
+        }
+
+        public CreditCard CreditCard { get; }
+        public Invoice Invoice { get; }
+        public Swish Swish { get; }
     }
 }
