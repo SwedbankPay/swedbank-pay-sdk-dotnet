@@ -10,6 +10,7 @@ using Sample.AspNetCore.Extensions;
 using Sample.AspNetCore.Models;
 
 using SwedbankPay.Sdk;
+using SwedbankPay.Sdk.Payments;
 using SwedbankPay.Sdk.Transactions;
 
 namespace Sample.AspNetCore.Controllers
@@ -60,7 +61,7 @@ namespace Sample.AspNetCore.Controllers
                 var transactionRequestObject = new TransactionRequest(null,"Cancelling parts of the total amount", null, DateTime.Now.Ticks.ToString(), 0);
 
                 var paymentOrder = await this.swedbankPayClient.PaymentOrder.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
-                var container = new TransactionRequestContainer(transactionRequestObject);
+                var container = new TransactionRequestContainer<TransactionRequest>(transactionRequestObject);
                 if (paymentOrder.Operations.Cancel != null)
                 {
                     var response = await paymentOrder.Operations.Cancel.Execute(container);
@@ -90,7 +91,7 @@ namespace Sample.AspNetCore.Controllers
                 var transActionRequestObject = await GetTransactionRequest("Capturing the authorized payment");
                 var paymentOrder = await this.swedbankPayClient.PaymentOrder.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
 
-                var container = new TransactionRequestContainer(transActionRequestObject);
+                var container = new TransactionRequestContainer<TransactionRequest>(transActionRequestObject);
                 var response = await paymentOrder.Operations.Capture.Execute(container);
 
                 TempData["CaptureMessage"] =
@@ -131,7 +132,7 @@ namespace Sample.AspNetCore.Controllers
             {
                 var transActionRequestObject = await GetTransactionRequest("Reversing the capture amount");
                 var paymentOrder = await this.swedbankPayClient.PaymentOrder.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
-                var container = new TransactionRequestContainer(transActionRequestObject);
+                var container = new TransactionRequestContainer<TransactionRequest>(transActionRequestObject);
                 var response = await paymentOrder.Operations.Reversal.Execute(container);
 
                 TempData["ReversalMessage"] =
