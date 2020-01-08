@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 using Newtonsoft.Json;
 
-namespace SwedbankPay.Sdk.PaymentOrders
+namespace SwedbankPay.Sdk
 {
     public class EmailAddress
     {

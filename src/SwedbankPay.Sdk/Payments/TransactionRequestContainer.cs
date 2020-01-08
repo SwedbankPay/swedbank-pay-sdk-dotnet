@@ -1,4 +1,4 @@
-﻿namespace SwedbankPay.Sdk.Payments.Swish.Transactions
+﻿namespace SwedbankPay.Sdk.Payments
 {
     public class TransactionRequestContainer<T>
     {

@@ -2,7 +2,7 @@
 
 using Newtonsoft.Json;
 
-namespace SwedbankPay.Sdk.PaymentOrders
+namespace SwedbankPay.Sdk
 {
     public class Msisdn
     {

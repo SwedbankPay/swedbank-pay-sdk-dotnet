@@ -1,8 +1,10 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrders
+﻿using System;
+
+namespace SwedbankPay.Sdk
 {
     public class PayeeInfo : IdLink
     {
-        public PayeeInfo(string payeeId,
+        public PayeeInfo(Guid payeeId,
                          string payeeReference,
                          string payeeName = null,
                          string productCategory = null,
@@ -26,7 +28,7 @@
         /// <summary>
         ///     This is the unique id that identifies this payee (like merchant) set by PayEx.
         /// </summary>
-        public string PayeeId { get; }
+        public Guid PayeeId { get; }
 
         /// <summary>
         ///     The name of the payee, usually the name of the merchant.
