@@ -22,17 +22,17 @@ namespace SwedbankPay.Sdk.PaymentOrders
                 {
                     case PaymentOrderResourceOperations.CreatePaymentOrderCapture:
                         operations.Capture =
-                            new ExecuteRequestWrapper<TransactionRequestContainer, CaptureTransactionResponseContainer>(
+                            new ExecuteRequestWrapper<TransactionRequestContainer<TransactionRequest>, CaptureTransactionResponseContainer>(
                                 httpOperation.Request, client);
                         break;
                     case PaymentOrderResourceOperations.CreatePaymentOrderCancel:
                         operations.Cancel =
-                            new ExecuteRequestWrapper<TransactionRequestContainer, CancellationTransactionResponseContainer>(
+                            new ExecuteRequestWrapper<TransactionRequestContainer<TransactionRequest>, CancellationTransactionResponseContainer>(
                                 httpOperation.Request, client);
                         break;
                     case PaymentOrderResourceOperations.CreatePaymentOrderReversal:
                         operations.Reversal =
-                            new ExecuteRequestWrapper<TransactionRequestContainer, ReversalTransactionResponseContainer>(
+                            new ExecuteRequestWrapper<TransactionRequestContainer<TransactionRequest>, ReversalTransactionResponseContainer>(
                                 httpOperation.Request, client);
                         break;
                     case PaymentOrderResourceOperations.UpdatePaymentOrderUpdateOrder:
