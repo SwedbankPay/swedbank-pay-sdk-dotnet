@@ -4,12 +4,12 @@ namespace SwedbankPay.Sdk.Payments
 {
     public class SaleListContainer : IdLink
     {
-        public SaleListContainer(List<SaleResponse> saleList)
+        public SaleListContainer(List<SaleListItem> saleList)
         {
             SaleList = saleList;
         }
 
 
-        public List<SaleResponse> SaleList { get; }
+        public List<SaleListItem> SaleList { get; }
     }
 }

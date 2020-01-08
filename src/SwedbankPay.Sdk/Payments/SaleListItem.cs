@@ -4,9 +4,9 @@ using SwedbankPay.Sdk.Transactions;
 
 namespace SwedbankPay.Sdk.Payments
 {
-    public class SaleResponse
+    public class SaleListItem
     {
-        public SaleResponse(DateTime date,
+        public SaleListItem(DateTime date,
                             string payerAlias,
                             string swishPaymentReference,
                             string swishStatus,
