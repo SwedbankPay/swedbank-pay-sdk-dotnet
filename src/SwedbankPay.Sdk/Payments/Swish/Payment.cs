@@ -1,10 +1,8 @@
-﻿using SwedbankPay.Sdk.Transactions;
+﻿
+using SwedbankPay.Sdk.Payments.Swish.Transactions;
 
 using System;
 using System.Threading.Tasks;
-
-using SwedbankPay.Sdk.PaymentOrders;
-using SwedbankPay.Sdk.Payments.Swish.Transactions;
 
 namespace SwedbankPay.Sdk.Payments.Swish
 {
@@ -27,7 +25,7 @@ namespace SwedbankPay.Sdk.Payments.Swish
                         break;
 
                     case PaymentResourceOperations.CreateSale:
-                        operations.CreateSale = new ExecuteRequestWrapper<Swish.Transactions.TransactionRequestContainer<SaleTransactionRequest>, SaleResponseContainer>(
+                        operations.CreateSale = new ExecuteRequestWrapper<TransactionRequestContainer<SaleTransactionRequest>, SaleResponseContainer>(
                             httpOperation.Request, client);
 
                         break;
@@ -39,7 +37,7 @@ namespace SwedbankPay.Sdk.Payments.Swish
                         operations.ViewSales = httpOperation;
                         break;
                     case PaymentResourceOperations.CreateReversal:
-                        operations.CreateReversal = new ExecuteRequestWrapper<Swish.Transactions.TransactionRequestContainer<ReversalTransactionRequest>, ReversalResponseContainer>(httpOperation.Request, client);
+                        operations.CreateReversal = new ExecuteRequestWrapper<TransactionRequestContainer<ReversalTransactionRequest>, ReversalResponseContainer>(httpOperation.Request, client);
                         break;
                     case PaymentResourceOperations.PaidPayment:
                         operations.PaidPayment = httpOperation;

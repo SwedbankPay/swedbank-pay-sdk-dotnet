@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
 
-using SwedbankPay.Sdk.PaymentOrders;
-
 using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.Payments.Swish

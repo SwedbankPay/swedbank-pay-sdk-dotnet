@@ -1,6 +1,5 @@
 ﻿using System;
 
-using SwedbankPay.Sdk.PaymentOrders;
 using SwedbankPay.Sdk.Transactions;
 
 namespace SwedbankPay.Sdk.Payments.Swish
