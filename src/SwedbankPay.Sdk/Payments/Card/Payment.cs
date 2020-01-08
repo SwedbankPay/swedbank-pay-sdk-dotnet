@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 using SwedbankPay.Sdk.PaymentOrders;
 using SwedbankPay.Sdk.Transactions;
 
-namespace SwedbankPay.Sdk.Payments
+namespace SwedbankPay.Sdk.Payments.Card
 {
     public class Payment
     {
-        private Payment(PaymentResponseContainer paymentResponseContainer, SwedbankPayHttpClient client)
+        private Payment(PaymentResponseContainer<PaymentResponse> paymentResponseContainer, SwedbankPayHttpClient client)
         {
             PaymentResponse = paymentResponseContainer.PaymentResponse;
             var operations = new Operations();
@@ -25,7 +25,7 @@ namespace SwedbankPay.Sdk.Payments
                                 httpOperation.Request, client);
                         break;
 
-                    case PaymentOperations.ViewAuthorization:
+                    case PaymentResourceOperations.ViewAuthorization:
                         operations.ViewAuthorization = httpOperation;
                         break;
 
@@ -33,7 +33,7 @@ namespace SwedbankPay.Sdk.Payments
                         operations.RedirectAuthorization = httpOperation;
                         break;
 
-                    case PaymentOperations.DirectAuthorization:
+                    case PaymentResourceOperations.DirectAuthorization:
                         operations.DirectAuthorization =
                             new ExecuteRequestWrapper<TransactionRequestContainer, PaymentOrderResponseContainer>(
                                 httpOperation.Request, client);
@@ -57,15 +57,15 @@ namespace SwedbankPay.Sdk.Payments
                                 httpOperation.Request, client);
                         break;
 
-                    case PaymentOperations.RedirectVerification:
+                    case PaymentResourceOperations.RedirectVerification:
                         operations.RedirectVerification = httpOperation;
                         break;
 
-                    case PaymentOperations.ViewVerification:
+                    case PaymentResourceOperations.ViewVerification:
                         operations.ViewVerification = httpOperation;
                         break;
 
-                    case PaymentOperations.DirectVerification:
+                    case PaymentResourceOperations.DirectVerification:
                         operations.DirectVerification =
                             new ExecuteRequestWrapper<TransactionRequestContainer, ReversalTransactionResponseContainer>(
                                 httpOperation.Request, client);
@@ -75,7 +75,6 @@ namespace SwedbankPay.Sdk.Payments
                         operations.PaidPayment =
                             new ExecuteRequestWrapper<TransactionRequestContainer, ReversalTransactionResponseContainer>(
                                 httpOperation.Request, client);
-
                         break;
                 }
             }
@@ -98,9 +97,12 @@ namespace SwedbankPay.Sdk.Payments
 
             var payload = new PaymentRequestContainer(paymentRequest);
 
-            var paymentResponseContainer = await client.HttpPost<PaymentResponseContainer>(url, payload);
+            var paymentResponseContainer = await client.HttpPost<PaymentResponseContainer<PaymentResponse>>(url, payload);
             return new Payment(paymentResponseContainer, client);
         }
+
+
+
 
         internal static async Task<Payment> Get(Uri id, SwedbankPayHttpClient client, string paymentExpand)
         {
@@ -108,7 +110,7 @@ namespace SwedbankPay.Sdk.Payments
                 ? new Uri(id.OriginalString + paymentExpand, UriKind.RelativeOrAbsolute)
                 : id;
 
-            var paymentResponseContainer = await client.HttpGet<PaymentResponseContainer>(url);
+            var paymentResponseContainer = await client.HttpGet<PaymentResponseContainer<PaymentResponse>>(url);
             return new Payment(paymentResponseContainer, client); 
         }
     }

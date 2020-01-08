@@ -1,4 +1,6 @@
-﻿namespace SwedbankPay.Sdk.Payments
+﻿using SwedbankPay.Sdk.Payments.Card;
+
+namespace SwedbankPay.Sdk.Payments
 {
     public class PaymentRequestContainer
     {
