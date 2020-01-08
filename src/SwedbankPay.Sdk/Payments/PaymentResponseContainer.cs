@@ -2,11 +2,11 @@
 
 namespace SwedbankPay.Sdk.Payments
 {
-    public class PaymentResponseContainer
+    public class PaymentResponseContainer<T>
     {
         public PaymentResponseContainer(
             OperationList operations,
-            PaymentResponse paymentResponse)
+            T paymentResponse)
         {
             Operations = operations;
             PaymentResponse = paymentResponse;
@@ -16,6 +16,6 @@ namespace SwedbankPay.Sdk.Payments
         public OperationList Operations { get; }
 
         [JsonProperty("payment")]
-        public PaymentResponse PaymentResponse { get; }
+        public T PaymentResponse { get; }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 
+
+
 namespace SwedbankPay.Sdk.Payments
 {
     internal class PaymentsResource : ResourceBase, IPaymentsResource
@@ -10,34 +12,34 @@ namespace SwedbankPay.Sdk.Payments
         {
         }
 
-
-        public async Task<Payment> Create(PaymentType paymentType,
-                                          PaymentRequest paymentRequest,
-                                          PaymentExpand paymentExpand = PaymentExpand.None)
-        {
-            return await Payment.Create(paymentType, paymentRequest, this.swedbankPayHttpClient, GetExpandQueryString(paymentExpand));
-        }
-
-
-        public async Task<Payment> CreateCreditCardPayment(PaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None)
-        {
-            return await Payment.Create(PaymentType.CreditCard, paymentRequest, this.swedbankPayHttpClient,
-                                        GetExpandQueryString(paymentExpand));
-        }
-
-
-        public Task<Payment> Get(Uri id, PaymentExpand paymentExpand)
+        public async Task<Card.Payment> GetCreditCardPayment(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
         {
             if (id == null)
                 throw new ArgumentNullException(nameof(id));
 
-            return GetInternalAsync(id, paymentExpand);
+            return await Card.Payment.Get(id, this.swedbankPayHttpClient, GetExpandQueryString(paymentExpand));
         }
 
 
-        private async Task<Payment> GetInternalAsync(Uri id, PaymentExpand paymentExpand)
+        public async Task<Card.Payment> CreateCreditCardPayment(Card.PaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None)
         {
-            return await Payment.Get(id, this.swedbankPayHttpClient, GetExpandQueryString(paymentExpand));
+           throw new NotImplementedException();
+        }
+
+
+        public async Task<Swish.Payment> GetSwishPayment(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
+        {
+            if (id == null)
+                throw new ArgumentNullException(nameof(id));
+
+            return await Swish.Payment.Get(id, this.swedbankPayHttpClient, GetExpandQueryString(paymentExpand));
+        }
+
+
+
+        public async Task<Swish.Payment> CreateSwishPayment(Swish.PaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None)
+        {
+            return await Swish.Payment.Create(paymentRequest, this.swedbankPayHttpClient, GetExpandQueryString(paymentExpand));
         }
     }
 }

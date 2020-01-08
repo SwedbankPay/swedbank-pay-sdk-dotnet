@@ -11,9 +11,12 @@ namespace SwedbankPay.Sdk
             Rel = rel;
             Method = new HttpMethod(method);
             ContentType = contentType;
-            var request = new HttpRequestMessage(new HttpMethod(method), href);
-            request.Headers.Add("Accept", contentType);
-            Request = request;
+            if (href.Scheme == Uri.UriSchemeHttp || href.Scheme == Uri.UriSchemeHttps)
+            {
+                var request = new HttpRequestMessage(new HttpMethod(method), href);
+                request.Headers.Add("Accept", contentType);
+                Request = request;
+            }
         }
 
 

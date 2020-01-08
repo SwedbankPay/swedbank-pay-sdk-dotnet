@@ -38,10 +38,6 @@ namespace SwedbankPay.Sdk
         public const string RedirectAuthorization = "redirect-authorization";
         public const string CreateReversal = "create-reversal";
         public const string PaidPayment = "paid-payment";
-    }
-
-    public static class PaymentOperations
-    {
         public const string ViewAuthorization = "view-authorization";
         public const string DirectAuthorization = "direct-authorization";
         public const string RedirectVerification = "redirect-verification";
@@ -50,5 +46,8 @@ namespace SwedbankPay.Sdk
         public const string CreateSale = "create-sale";
         public const string RedirectSale = "redirect-sale";
         public const string ViewSales = "view-sales";
+        public const string ViewPayment = "view-payment";
+        public const string AbortedPayment = "aborted-payment";
+        public const string RedirectAppSwish = "redirect-app-swish";
     }
 }

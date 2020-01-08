@@ -11,6 +11,7 @@
         public static readonly State Ready = new State(nameof(Ready), "Ready");
         public static readonly State Pending = new State(nameof(Pending), "Pending");
         public static readonly State Aborted = new State(nameof(Aborted), "Aborted");
+        public static readonly State AwaitingActivity = new State(nameof(AwaitingActivity), "AwaitingActivity");
 
 
         public State(string name, string value)

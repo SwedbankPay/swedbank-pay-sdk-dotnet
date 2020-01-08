@@ -22,7 +22,8 @@ namespace SwedbankPay.Sdk.Transactions
                                    long vatAmount,
                                    string description,
                                    string payeeReference,
-                                   bool isOperational)
+                                   bool isOperational,
+                                   OperationList operations)
         {
             Id = id;
             Created = created;
@@ -35,6 +36,7 @@ namespace SwedbankPay.Sdk.Transactions
             Description = description;
             PayeeReference = payeeReference;
             IsOperational = isOperational;
+            Operations = operations;
         }
 
 
@@ -49,5 +51,6 @@ namespace SwedbankPay.Sdk.Transactions
         public string Type { get; }
         public DateTime Updated { get; }
         public long VatAmount { get; }
+        public OperationList Operations { get; }
     }
 }

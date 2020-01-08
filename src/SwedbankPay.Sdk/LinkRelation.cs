@@ -59,15 +59,18 @@ namespace SwedbankPay.Sdk
 
         public static readonly LinkRelation UpdatePaymentAbort = new LinkRelation(nameof(UpdatePaymentAbort), PaymentResourceOperations.UpdatePaymentAbort);
 
-        public static readonly LinkRelation ViewAuthorization = new LinkRelation(nameof(ViewAuthorization), PaymentOperations.ViewAuthorization);
+        public static readonly LinkRelation ViewAuthorization = new LinkRelation(nameof(ViewAuthorization), PaymentResourceOperations.ViewAuthorization);
         public static readonly LinkRelation RedirectAuthorization = new LinkRelation(nameof(RedirectAuthorization), PaymentResourceOperations.RedirectAuthorization);
 
-        public static readonly LinkRelation CreateSale = new LinkRelation(nameof(CreateSale), PaymentOperations.CreateSale);
+        public static readonly LinkRelation CreateSale = new LinkRelation(nameof(CreateSale), PaymentResourceOperations.CreateSale);
 
-        public static readonly LinkRelation RedirectSale = new LinkRelation(nameof(RedirectSale), PaymentOperations.RedirectSale);
-        public static readonly LinkRelation ViewSales = new LinkRelation(nameof(ViewSales), PaymentOperations.ViewSales);
+        public static readonly LinkRelation RedirectSale = new LinkRelation(nameof(RedirectSale), PaymentResourceOperations.RedirectSale);
+        public static readonly LinkRelation ViewSales = new LinkRelation(nameof(ViewSales), PaymentResourceOperations.ViewSales);
 
 
+        public static readonly LinkRelation AbortedPayment = new LinkRelation(nameof(AbortedPayment), PaymentResourceOperations.AbortedPayment);
+
+        public static readonly LinkRelation RedirectAppSwish = new LinkRelation(nameof(RedirectAppSwish), PaymentResourceOperations.RedirectAppSwish);
 
         private LinkRelation(string name, string value)
             : base(name, value)
