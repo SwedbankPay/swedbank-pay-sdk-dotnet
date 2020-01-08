@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-using SwedbankPay.Sdk.PaymentOrders;
+using SwedbankPay.Sdk.Transactions;
 
 namespace SwedbankPay.Sdk.Payments.Card
 {
@@ -19,9 +19,7 @@ namespace SwedbankPay.Sdk.Payments.Card
                 switch (httpOperation.Rel.Value)
                 {
                     case PaymentResourceOperations.UpdatePaymentAbort:
-                        operations.Update =
-                            new ExecuteRequestWrapper<PaymentOrderUpdateRequestContainer, PaymentOrderResponseContainer>(
-                                httpOperation.Request, client);
+                        operations.Update = httpOperation;
                         break;
                         
                     case PaymentResourceOperations.RedirectAuthorization:
@@ -37,7 +35,7 @@ namespace SwedbankPay.Sdk.Payments.Card
                         break;
 
                     case PaymentResourceOperations.CreateCapture:
-                        operations.Capture = httpOperation;
+                        operations.Capture = new ExecuteRequestWrapper<TransactionRequestContainer<TransactionRequest>, CaptureTransactionResponseContainer>(httpOperation.Request, client);
                         break;
 
                     case PaymentResourceOperations.CreateCancellation:

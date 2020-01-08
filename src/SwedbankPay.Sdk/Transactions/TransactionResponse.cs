@@ -1,17 +1,9 @@
 ﻿using System;
 
-using Newtonsoft.Json;
-
 namespace SwedbankPay.Sdk.Transactions
 {
     public class TransactionResponse
     {
-        public TransactionResponse()
-        {
-        }
-
-
-        [JsonConstructor]
         public TransactionResponse(string id,
                                    DateTime created,
                                    DateTime updated,
