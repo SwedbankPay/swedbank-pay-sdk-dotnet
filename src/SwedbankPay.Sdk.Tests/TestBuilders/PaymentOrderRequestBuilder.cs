@@ -88,7 +88,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.urls = new Urls(new List<Uri>{ new Uri("https://example.com") },new Uri("https://example.com/payment-completed"),new Uri("https://example.com/termsandconditoons.pdf"), new Uri("https://example.com/payment-canceled"));
             this.userAgent = "useragent";
             this.language = new Language("sv-SE");
-            this.payeeInfo = new PayeeInfo("91a4c8e0-72ac-425c-a687-856706f9e9a1", DateTime.Now.Ticks.ToString());
+            this.payeeInfo = new PayeeInfo( Guid.Parse("91a4c8e0-72ac-425c-a687-856706f9e9a1"), DateTime.Now.Ticks.ToString());
             return this;
         }
     }
