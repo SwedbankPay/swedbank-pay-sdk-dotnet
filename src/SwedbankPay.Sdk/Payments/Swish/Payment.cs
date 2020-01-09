@@ -4,6 +4,8 @@ using SwedbankPay.Sdk.Payments.Swish.Transactions;
 using System;
 using System.Threading.Tasks;
 
+using SwedbankPay.Sdk.Transactions;
+
 namespace SwedbankPay.Sdk.Payments.Swish
 {
     public class Payment

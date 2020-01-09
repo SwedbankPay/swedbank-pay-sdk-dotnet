@@ -43,7 +43,7 @@ namespace SwedbankPay.Sdk.Payments.Card
                         break;
 
                     case PaymentResourceOperations.CreateReversal:
-                        operations.Reversal = httpOperation;
+                        operations.Reversal = new ExecuteRequestWrapper<TransactionRequestContainer<ReversalTransactionRequest>, ReversalTransactionResponseContainer>(httpOperation.Request, client);
                         break;
 
                     case PaymentResourceOperations.RedirectVerification:
