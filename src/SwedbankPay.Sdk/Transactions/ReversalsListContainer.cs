@@ -1,20 +1,13 @@
-﻿using System.Collections.Generic;
-
-using Newtonsoft.Json;
+﻿using System;
+using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.Transactions
 {
     public class ReversalsListContainer : IdLink
     {
-        public ReversalsListContainer()
+        public ReversalsListContainer(Uri id, List<TransactionContainerResponse> reversalList)
         {
-            ReversalList = new List<TransactionContainerResponse>();
-        }
-
-
-        [JsonConstructor]
-        public ReversalsListContainer(List<TransactionContainerResponse> reversalList)
-        {
+            Id = id;
             ReversalList = reversalList;
         }
 

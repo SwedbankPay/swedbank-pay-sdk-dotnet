@@ -1,17 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using System;
 
 namespace SwedbankPay.Sdk.Transactions
 {
     public class TransactionContainerResponse : IdLink
     {
-        public TransactionContainerResponse()
+        public TransactionContainerResponse(Uri id, TransactionResponse transaction)
         {
-        }
-
-
-        [JsonConstructor]
-        public TransactionContainerResponse(TransactionResponse transaction)
-        {
+            Id = id;
             Transaction = transaction;
         }
 

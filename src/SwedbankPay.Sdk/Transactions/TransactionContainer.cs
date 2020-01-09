@@ -2,15 +2,13 @@
 
 namespace SwedbankPay.Sdk.Transactions
 {
-    public class TransactionContainer
+    public class TransactionContainer : IdLink
     {
         public TransactionContainer(Uri id, TransactionResponse transaction)
         {
             Id = id;
             Transaction = transaction;
         }
-
-        public Uri Id { get; }
 
         public TransactionResponse Transaction { get; }
     }

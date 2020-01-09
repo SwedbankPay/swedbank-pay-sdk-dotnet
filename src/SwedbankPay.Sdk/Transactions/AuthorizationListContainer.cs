@@ -1,24 +1,16 @@
-﻿using System.Collections.Generic;
-
-using Newtonsoft.Json;
+﻿using System;
+using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.Transactions
 {
     public class AuthorizationListContainer : IdLink
     {
-        public AuthorizationListContainer()
+        public AuthorizationListContainer(Uri id, List<TransactionContainerResponse> authorizationList)
         {
-            AuthorizationList = new List<TransactionContainerResponse>();
-        }
-
-
-        [JsonConstructor]
-        public AuthorizationListContainer(List<TransactionContainerResponse> authorizationList)
-        {
+            Id = id;
             AuthorizationList = authorizationList;
         }
-
-
+        
         public List<TransactionContainerResponse> AuthorizationList { get; }
     }
 }

@@ -1,24 +1,16 @@
-﻿using System.Collections.Generic;
-
-using Newtonsoft.Json;
+﻿using System;
+using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.Transactions
 {
     public class CancellationsListContainer : IdLink
     {
-        public CancellationsListContainer()
+        public CancellationsListContainer(Uri id,  List<TransactionContainerResponse> cancellationList)
         {
-            CancellationList = new List<TransactionContainerResponse>();
-        }
-
-
-        [JsonConstructor]
-        public CancellationsListContainer(List<TransactionContainerResponse> cancellationList)
-        {
+            Id = id;
             CancellationList = cancellationList;
         }
-
-
+        
         public List<TransactionContainerResponse> CancellationList { get; }
     }
 }
