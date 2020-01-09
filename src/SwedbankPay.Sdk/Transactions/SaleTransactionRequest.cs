@@ -1,6 +1,4 @@
-﻿using SwedbankPay.Sdk.PaymentOrders;
-
-namespace SwedbankPay.Sdk.Payments.Swish.Transactions
+﻿namespace SwedbankPay.Sdk.Transactions
 {
     public class SaleTransactionRequest
     {

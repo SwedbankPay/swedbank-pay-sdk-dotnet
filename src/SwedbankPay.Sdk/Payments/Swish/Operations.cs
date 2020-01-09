@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 
-using SwedbankPay.Sdk.Payments.Swish.Transactions;
 using SwedbankPay.Sdk.Transactions;
 
 namespace SwedbankPay.Sdk.Payments.Swish

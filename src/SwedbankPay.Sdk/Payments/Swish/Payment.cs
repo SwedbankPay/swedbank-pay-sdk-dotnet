@@ -1,7 +1,4 @@
-﻿
-using SwedbankPay.Sdk.Payments.Swish.Transactions;
-
-using System;
+﻿using System;
 using System.Threading.Tasks;
 
 using SwedbankPay.Sdk.Transactions;

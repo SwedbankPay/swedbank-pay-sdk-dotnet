@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 using SwedbankPay.Sdk.Payments;
-using SwedbankPay.Sdk.Payments.Swish.Transactions;
 using SwedbankPay.Sdk.Tests.TestBuilders;
+using SwedbankPay.Sdk.Transactions;
 
 using Xunit;
 
@@ -34,7 +34,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             Assert.NotNull(payment);
 
             var saleResponseContainer = await payment.Operations.CreateSale?.Execute(
-                new TransactionRequestContainer<SaleTransactionRequest>(new Payments.Swish.Transactions.SaleTransactionRequest(new Msisdn("+46701234567"))));
+                new TransactionRequestContainer<SaleTransactionRequest>(new SaleTransactionRequest(new Msisdn("+46701234567"))));
 
             Assert.NotNull(saleResponseContainer);
             Assert.NotNull(saleResponseContainer.Sale);
@@ -50,7 +50,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             Assert.NotNull(payment);
 
             var saleResponseContainer = await payment.Operations.CreateSale?.Execute(
-                new TransactionRequestContainer<SaleTransactionRequest>(new Payments.Swish.Transactions.SaleTransactionRequest(null)));
+                new TransactionRequestContainer<SaleTransactionRequest>(new SaleTransactionRequest(null)));
 
             Assert.NotNull(saleResponseContainer);
             Assert.NotNull(saleResponseContainer.Sale);
