@@ -31,7 +31,7 @@ namespace SwedbankPay.Sdk.Payments.Card
                         break;
 
                     case PaymentResourceOperations.DirectAuthorization:
-                        operations.DirectAuthorization = httpOperation;
+                        operations.DirectAuthorization = new ExecuteRequestWrapper<TransactionRequestContainer<AuthorizationTransactionRequest>, AuthorizationTransactionResponseContainer>(httpOperation.Request, client);
                         break;
 
                     case PaymentResourceOperations.CreateCapture:

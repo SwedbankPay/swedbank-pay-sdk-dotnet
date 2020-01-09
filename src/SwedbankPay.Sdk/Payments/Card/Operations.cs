@@ -14,7 +14,7 @@ namespace SwedbankPay.Sdk.Payments.Card
         public HttpOperation Update { get; internal set; }
         public HttpOperation RedirectAuthorization { get; internal set; }
         public HttpOperation ViewAuthorization { get; internal set; }
-        public HttpOperation DirectAuthorization { get; internal set; }
+        public ExecuteRequestWrapper<TransactionRequestContainer<AuthorizationTransactionRequest>, AuthorizationTransactionResponseContainer> DirectAuthorization { get; internal set; }
         public ExecuteRequestWrapper<TransactionRequestContainer<TransactionRequest>, CaptureTransactionResponseContainer> Capture { get; internal set; }
         public ExecuteRequestWrapper<TransactionRequestContainer<CancelTransactionRequest>, CancellationTransactionResponseContainer> Cancel { get; internal set; }
         public ExecuteRequestWrapper<TransactionRequestContainer<ReversalTransactionRequest>, ReversalTransactionResponseContainer> Reversal { get; internal set; }
