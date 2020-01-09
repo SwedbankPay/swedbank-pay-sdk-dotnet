@@ -1,47 +1,40 @@
-﻿using System;
-using System.Threading.Tasks;
-
-using SwedbankPay.Sdk.Payments;
+﻿using SwedbankPay.Sdk.PaymentOrders.OperationRequests;
 using SwedbankPay.Sdk.Transactions;
+
+using System;
+using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
     public class PaymentOrder
     {
-        private PaymentOrder(PaymentOrderResponseContainer paymentOrderResponseContainer,
+        private PaymentOrder(PaymentOrderResponse paymentOrderResponse,
                              SwedbankPayHttpClient client)
         {
-            PaymentOrderResponse = paymentOrderResponseContainer.PaymentOrderResponse;
+            PaymentOrderResponse = paymentOrderResponse.PaymentOrderResponseObject;
             var operations = new Operations();
 
-            foreach (var httpOperation in paymentOrderResponseContainer.Operations)
+            
+            foreach (var httpOperation in paymentOrderResponse.Operations)
             {
                 operations.Add(httpOperation.Rel, httpOperation);
 
                 switch (httpOperation.Rel.Value)
                 {
                     case PaymentOrderResourceOperations.CreatePaymentOrderCapture:
-                        operations.Capture =
-                            new ExecuteRequestWrapper<TransactionRequestContainer<TransactionRequest>, CaptureTransactionResponseContainer>(
-                                httpOperation.Request, client);
+                        operations.Capture = async payload => await client.SendHttpRequestAndProcessHttpResponse<CaptureTransactionResponse>(httpOperation.Request.AttachPayload(payload));
                         break;
                     case PaymentOrderResourceOperations.CreatePaymentOrderCancel:
-                        operations.Cancel =
-                            new ExecuteRequestWrapper<TransactionRequestContainer<TransactionRequest>, CancellationTransactionResponseContainer>(
-                                httpOperation.Request, client);
+                        operations.Cancel = async payload => await client.SendHttpRequestAndProcessHttpResponse<CancellationTransactionResponse>(httpOperation.Request.AttachPayload(payload));
                         break;
                     case PaymentOrderResourceOperations.CreatePaymentOrderReversal:
-                        operations.Reversal =
-                            new ExecuteRequestWrapper<TransactionRequestContainer<TransactionRequest>, ReversalTransactionResponseContainer>(
-                                httpOperation.Request, client);
+                        operations.Reversal = async payload => await client.SendHttpRequestAndProcessHttpResponse<ReversalTransactionResponse>(httpOperation.Request.AttachPayload(payload));
                         break;
                     case PaymentOrderResourceOperations.UpdatePaymentOrderUpdateOrder:
-                        operations.Update = new ExecuteRequestWrapper<PaymentOrderUpdateRequestContainer, PaymentOrderResponseContainer>(
-                            httpOperation.Request, client);
+                        operations.Update = async payload => await client.SendHttpRequestAndProcessHttpResponse<PaymentOrderResponse>(httpOperation.Request.AttachPayload(payload));
                         break;
                     case PaymentOrderResourceOperations.UpdatePaymentOrderAbort:
-                        operations.Abort = new ExecuteWrapper<PaymentOrderResponseContainer>(
-                            httpOperation.Request, client, new PaymentOrderAbortRequestContainer());
+                        operations.Abort = async () => await client.SendHttpRequestAndProcessHttpResponse<PaymentOrderResponse>(httpOperation.Request.AttachPayload(new AbortRequest()));
                         break;
                     case PaymentOrderResourceOperations.ViewPaymentOrder:
                         operations.View = httpOperation;
@@ -54,7 +47,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
 
         public Operations Operations { get; }
-        public PaymentOrderResponse PaymentOrderResponse { get; }
+        public PaymentOrderResponseObject PaymentOrderResponse { get; }
 
 
         internal static async Task<PaymentOrder> Create(PaymentOrderRequest paymentOrderRequest,
@@ -62,11 +55,8 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                                         string paymentOrderExpand)
         {
             var url = new Uri($"/psp/paymentorders{paymentOrderExpand}", UriKind.Relative);
-
-            var payload = new PaymentOrderRequestContainer(paymentOrderRequest);
-
-            var paymentOrderResponseContainer =
-                await client.HttpPost<PaymentOrderResponseContainer>(url, payload);
+            
+            var paymentOrderResponseContainer = await client.HttpPost<PaymentOrderResponse>(url, paymentOrderRequest);
 
             return new PaymentOrder(paymentOrderResponseContainer, client);
         }
@@ -88,7 +78,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
             var url = !string.IsNullOrWhiteSpace(paymentOrderExpand)
                 ? new Uri(id.OriginalString + paymentOrderExpand, UriKind.RelativeOrAbsolute)
                 : id;
-            var paymentOrderResponseContainer = await client.HttpGet<PaymentOrderResponseContainer>(url);
+            var paymentOrderResponseContainer = await client.HttpGet<PaymentOrderResponse>(url);
 
             return new PaymentOrder(paymentOrderResponseContainer, client);
         }

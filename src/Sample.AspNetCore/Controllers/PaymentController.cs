@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 using Sample.AspNetCore.Data;
@@ -10,8 +6,11 @@ using Sample.AspNetCore.Extensions;
 using Sample.AspNetCore.Models;
 
 using SwedbankPay.Sdk;
-using SwedbankPay.Sdk.Payments;
-using SwedbankPay.Sdk.Transactions;
+using SwedbankPay.Sdk.PaymentOrders.OperationRequests;
+
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Sample.AspNetCore.Controllers
 {
@@ -38,9 +37,9 @@ namespace Sample.AspNetCore.Controllers
             {
                 var paymentOrder = await this.swedbankPayClient.PaymentOrder.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
 
-                var response = await paymentOrder.Operations.Abort.Execute();
+                var response = await paymentOrder.Operations.Abort();
 
-                TempData["AbortMessage"] = $"Payment Order: {response.PaymentOrderResponse.Id} has been {response.PaymentOrderResponse.State}";
+                TempData["AbortMessage"] = $"Payment Order: {response.PaymentOrderResponseObject.Id} has been {response.PaymentOrderResponseObject.State}";
                 this.cartService.PaymentOrderLink = null;
 
                 return RedirectToAction(nameof(Index), "Products");
@@ -58,13 +57,12 @@ namespace Sample.AspNetCore.Controllers
         {
             try
             {
-                var transactionRequestObject = new TransactionRequest(null,"Cancelling parts of the total amount", null, DateTime.Now.Ticks.ToString(),  Amount.FromDecimal(0));
-
                 var paymentOrder = await this.swedbankPayClient.PaymentOrder.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
-                var container = new TransactionRequestContainer<TransactionRequest>(transactionRequestObject);
+                
                 if (paymentOrder.Operations.Cancel != null)
                 {
-                    var response = await paymentOrder.Operations.Cancel.Execute(container);
+                    var cancelRequest = new CancelRequest("payeeReference", "Cancelling parts of the total amount");
+                    var response = await paymentOrder.Operations.Cancel(cancelRequest);
                     TempData["CancelMessage"] = $"Payment has been cancelled: {response.Cancellation.Transaction.Id}";
                     this.cartService.PaymentOrderLink = null;
                 }
@@ -91,8 +89,8 @@ namespace Sample.AspNetCore.Controllers
                 var transActionRequestObject = await GetTransactionRequest("Capturing the authorized payment");
                 var paymentOrder = await this.swedbankPayClient.PaymentOrder.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
 
-                var container = new TransactionRequestContainer<TransactionRequest>(transActionRequestObject);
-                var response = await paymentOrder.Operations.Capture.Execute(container);
+                
+                var response = await paymentOrder.Operations.Capture(transActionRequestObject);
 
                 TempData["CaptureMessage"] =
                     $"{response.Capture.Transaction.Id}, {response.Capture.Transaction.State}, {response.Capture.Transaction.Type}"; 
@@ -130,10 +128,10 @@ namespace Sample.AspNetCore.Controllers
         {
             try
             {
-                var transActionRequestObject = await GetTransactionRequest("Reversing the capture amount");
+                var transActionRequestObject = await GetReversalRequest("Reversing the capture amount");
                 var paymentOrder = await this.swedbankPayClient.PaymentOrder.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
-                var container = new TransactionRequestContainer<TransactionRequest>(transActionRequestObject);
-                var response = await paymentOrder.Operations.Reversal.Execute(container);
+               
+                var response = await paymentOrder.Operations.Reversal.Invoke(transActionRequestObject);
 
                 TempData["ReversalMessage"] =
                     $"{response.Reversal.Transaction.Id}, {response.Reversal.Transaction.Type}, {response.Reversal.Transaction.State}";
@@ -149,17 +147,24 @@ namespace Sample.AspNetCore.Controllers
         }
 
 
-        private async Task<TransactionRequest> GetTransactionRequest(string description)
+        private async Task<CaptureRequest> GetTransactionRequest(string description)
         {
             var order = await this.context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
             var orderItems = order.Lines.ToOrderItems();
 
-            var transActionRequestObject = new TransactionRequest(Amount.FromDecimal(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
-                                                                  description,
-                                                                  orderItems.ToList(),
-                                                                  DateTime.Now.Ticks.ToString(),
-                                                                  Amount.FromDecimal(0)
-            );
+            var transActionRequestObject = new CaptureRequest(Amount.FromDecimal(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
+                                                                  Amount.FromDecimal(0), orderItems.ToList(), description,  DateTime.Now.Ticks.ToString());
+
+            return transActionRequestObject;
+        }
+
+        private async Task<ReversalRequest> GetReversalRequest(string description)
+        {
+            var order = await this.context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
+            var orderItems = order.Lines.ToOrderItems();
+
+            var transActionRequestObject = new ReversalRequest(Amount.FromDecimal(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
+                                                              Amount.FromDecimal(0), orderItems.ToList(), description, DateTime.Now.Ticks.ToString());
 
             return transActionRequestObject;
         }

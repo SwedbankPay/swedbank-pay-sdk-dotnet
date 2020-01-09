@@ -48,7 +48,7 @@ namespace SwedbankPay.Sdk.Tests.Json
             var paymentOrderRequest = builder.WithTestValues().WithLanguageCode(this.languageCode).Build();
 
             //ACT
-            var result = JsonConvert.SerializeObject(paymentOrderRequest, JsonSerialization.JsonSerialization.Settings);
+            var result = JsonConvert.SerializeObject(paymentOrderRequest.PaymentOrder, JsonSerialization.JsonSerialization.Settings);
             var obj = JObject.Parse(result);
             obj.TryGetValue("Language", StringComparison.InvariantCultureIgnoreCase, out var code);
             //ASSERT

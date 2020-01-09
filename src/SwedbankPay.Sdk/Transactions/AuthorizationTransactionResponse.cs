@@ -2,9 +2,9 @@
 
 namespace SwedbankPay.Sdk.Transactions
 {
-    public class AuthorizationTransactionResponseContainer
+    public class AuthorizationTransactionResponse
     {
-        public AuthorizationTransactionResponseContainer(Uri payment, CapturesListContainer captures)
+        public AuthorizationTransactionResponse(Uri payment, CapturesListContainer captures)
         {
             Payment = payment;
             Captures = captures;

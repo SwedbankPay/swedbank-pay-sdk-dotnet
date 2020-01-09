@@ -11,7 +11,7 @@ namespace SwedbankPay.Sdk.Payments
                             string swishPaymentReference,
                             string swishStatus,
                             Uri id,
-                            TransactionResponse transaction)
+                            Transaction transaction)
         {
             Date = date;
             PayerAlias = payerAlias;
@@ -28,6 +28,6 @@ namespace SwedbankPay.Sdk.Payments
         public string PayerAlias { get; }
         public string SwishPaymentReference { get; }
         public string SwishStatus { get; }
-        public TransactionResponse Transaction { get; }
+        public Transaction Transaction { get; }
     }
 }

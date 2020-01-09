@@ -24,12 +24,12 @@ namespace SwedbankPay.Sdk.Payments.Card
                                string initiatingSystemUserAgent,
                                string userAgent,
                                Language language,
-                               PricesContainer prices,
-                               TransactionListContainer transactions,
-                               AuthorizationListContainer authorizations,
+                               PricesListResponse prices,
+                               TransactionListResponse transactions,
+                               AuthorizationListResponse authorizations,
                                CapturesListContainer captures,
-                               ReversalsListContainer reversals,
-                               CancellationsListContainer cancellations,
+                               ReversalsListResponse reversals,
+                               CancellationsListResponse cancellations,
                                Urls urls,
                                PayeeInfo payeeInfo)
         {
@@ -66,8 +66,8 @@ namespace SwedbankPay.Sdk.Payments.Card
         public Amount RemainingCaptureAmount { get; }
         public Amount RemainingCancellationAmount { get; }
         public Amount RemainingReversalAmount { get; }
-        public AuthorizationListContainer Authorizations { get; }
-        public CancellationsListContainer Cancellations { get; }
+        public AuthorizationListResponse Authorizations { get; }
+        public CancellationsListResponse Cancellations { get; }
         public CapturesListContainer Captures { get; }
         public DateTime Created { get; }
         public DateTime Updated { get; }
@@ -82,10 +82,10 @@ namespace SwedbankPay.Sdk.Payments.Card
         public PayeeInfo PayeeInfo { get; }
         public string PayerReference { get; }
         public string InitiatingSystemUserAgent { get; }
-        public PricesContainer Prices { get; }
-        public ReversalsListContainer Reversals { get; }
+        public PricesListResponse Prices { get; }
+        public ReversalsListResponse Reversals { get; }
         public State State { get; }
-        public TransactionListContainer Transactions { get; }
+        public TransactionListResponse Transactions { get; }
         public Urls Urls { get; }
         public string UserAgent { get; }
     }

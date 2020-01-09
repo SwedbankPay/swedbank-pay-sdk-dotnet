@@ -3,7 +3,9 @@ using System.Threading.Tasks;
 
 using SwedbankPay.Sdk.Exceptions;
 using SwedbankPay.Sdk.PaymentOrders;
+using SwedbankPay.Sdk.PaymentOrders.OperationRequests;
 using SwedbankPay.Sdk.Tests.TestBuilders;
+using SwedbankPay.Sdk.Transactions;
 
 using Xunit;
 
@@ -27,11 +29,11 @@ namespace SwedbankPay.Sdk.Tests
             Assert.NotEmpty(paymentOrder.Operations);
             Assert.NotNull(paymentOrder.Operations.Abort);
 
-            var responseContainer = await paymentOrder.Operations.Abort.Execute();
+            var responseContainer = await paymentOrder.Operations.Abort();
 
             Assert.NotNull(responseContainer);
-            Assert.NotNull(responseContainer.PaymentOrderResponse);
-            Assert.Equal("Aborted", responseContainer.PaymentOrderResponse.State.Value);
+            Assert.NotNull(responseContainer.PaymentOrderResponseObject);
+            Assert.Equal("Aborted", responseContainer.PaymentOrderResponseObject.State.Value);
         }
 
 
@@ -61,13 +63,9 @@ namespace SwedbankPay.Sdk.Tests
             var amount = paymentOrder.PaymentOrderResponse.Amount;
 
             var newAmount = 50000;
-            var updateRequest = new PaymentOrderUpdateRequest
-            {
-                Amount = Amount.FromDecimal(newAmount)
-            };
-
-            await Assert.ThrowsAsync<HttpResponseException>(
-                () => paymentOrder.Operations.Update?.Execute(new PaymentOrderUpdateRequestContainer(updateRequest)));
+            var updateRequest = new UpdateRequest(Amount.FromDecimal(newAmount), null);
+            
+            await Assert.ThrowsAsync<HttpResponseException>(() => paymentOrder.Operations.Update?.Invoke(updateRequest));
         }
 
 
@@ -82,17 +80,13 @@ namespace SwedbankPay.Sdk.Tests
 
             var newAmount = 50000;
             var newVatAmount = 10000;
-            var updateRequest = new PaymentOrderUpdateRequest
-            {
-                Amount = Amount.FromDecimal(newAmount),
-                VatAmount = Amount.FromDecimal(newVatAmount)
-            };
+            var updateRequest = new UpdateRequest(Amount.FromDecimal(newAmount), Amount.FromDecimal(newVatAmount));
             Assert.NotNull(paymentOrder.Operations.Update);
 
-            var response = await paymentOrder.Operations.Update?.Execute(new PaymentOrderUpdateRequestContainer(updateRequest));
+            var response = await paymentOrder.Operations.Update?.Invoke(updateRequest);
 
-            Assert.Equal(updateRequest.Amount.Value, response.PaymentOrderResponse.Amount.Value);
-            Assert.Equal(updateRequest.VatAmount.Value, response.PaymentOrderResponse.VatAmount.Value);
+            Assert.Equal(updateRequest.PaymentOrder.Amount.Value, response.PaymentOrderResponseObject.Amount.Value);
+            Assert.Equal(updateRequest.PaymentOrder.VatAmount.Value, response.PaymentOrderResponseObject.VatAmount.Value);
         }
 
         [Fact]
@@ -101,7 +95,7 @@ namespace SwedbankPay.Sdk.Tests
             var paymentOrderRequest = this.paymentOrderRequestBuilder.WithTestValues().Build();
             var paymentOrder = await this.Sut.PaymentOrder.Create(paymentOrderRequest);
             Assert.NotNull(paymentOrder.PaymentOrderResponse);
-            Assert.Equal(paymentOrderRequest.Amount.Value, paymentOrder.PaymentOrderResponse.Amount.Value);
+            Assert.Equal(paymentOrderRequest.PaymentOrder.Amount.Value, paymentOrder.PaymentOrderResponse.Amount.Value);
         }
 
 

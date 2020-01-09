@@ -2,9 +2,9 @@
 
 namespace SwedbankPay.Sdk.Payments
 {
-    public class PricesContainer : IdLink
+    public class PricesListResponse : IdLink
     {
-        public PricesContainer(List<Price> priceList)
+        public PricesListResponse(List<Price> priceList)
         {
             PriceList = priceList;
         }

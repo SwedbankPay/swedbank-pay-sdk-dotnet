@@ -44,9 +44,9 @@ namespace SwedbankPay.Sdk.Payments.Swish
 
        public Amount Amount { get; }
 
-        public AuthorizationListContainer Authorizations { get; }
+        public AuthorizationListResponse Authorizations { get; }
 
-        public CancellationsListContainer Cancellations { get; }
+        public CancellationsListResponse Cancellations { get; }
 
         public CapturesListContainer Captures { get; }
 
@@ -74,15 +74,15 @@ namespace SwedbankPay.Sdk.Payments.Swish
 
         public string PaymentToken { get; }
 
-        public PricesContainer Prices { get; }
+        public PricesListResponse Prices { get; }
 
-        public ReversalsListContainer Reversals { get; }
+        public ReversalsListResponse Reversals { get; }
 
         public SaleListContainer Sales { get; }
 
         public State State { get; }
 
-        public TransactionListContainer Transactions { get; }
+        public TransactionListResponse Transactions { get; }
 
         public Urls Urls { get; }
 
