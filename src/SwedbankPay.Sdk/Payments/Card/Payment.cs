@@ -39,7 +39,7 @@ namespace SwedbankPay.Sdk.Payments.Card
                         break;
 
                     case PaymentResourceOperations.CreateCancellation:
-                        operations.Cancel = httpOperation;
+                        operations.Cancel = new ExecuteRequestWrapper<TransactionRequestContainer<CancelTransactionRequest>, CancellationTransactionResponseContainer>(httpOperation.Request, client);
                         break;
 
                     case PaymentResourceOperations.CreateReversal:
