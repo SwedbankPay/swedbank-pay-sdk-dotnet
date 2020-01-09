@@ -19,8 +19,6 @@ namespace SwedbankPay.Sdk
                 var content = JsonConvert.SerializeObject(request, JsonSerialization.JsonSerialization.Settings);
                 msg.Content = new StringContent(content, Encoding.UTF8, "application/json");
             }
-
-            msg.Headers.Add("Accept", "application/json");
         }
     }
 }
