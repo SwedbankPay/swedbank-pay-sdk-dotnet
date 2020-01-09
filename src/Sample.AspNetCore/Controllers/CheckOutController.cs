@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
@@ -88,7 +89,7 @@ namespace Sample.AspNetCore.Controllers
 
         public async Task<IActionResult> InitiateConsumerSession()
         {
-            var initiateConsumerRequest = new ConsumersRequest(CountryCode.SE, Operation.Initiate);
+            var initiateConsumerRequest = new ConsumersRequest(shippingAddressRestrictedToCountryCodes: new List<string>{"SE"}, language: new Language(new CultureInfo("sv-SE")));
             var response = await this.swedbankPayClient.Consumers.InitiateSession(initiateConsumerRequest);
             var jsSource = response.Operations.ViewConsumerIdentification?.Href;
 

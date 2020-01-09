@@ -1,28 +1,27 @@
-﻿using SwedbankPay.Sdk.PaymentOrders;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+
+using SwedbankPay.Sdk.PaymentOrders;
 
 namespace SwedbankPay.Sdk.Consumers
 {
     public class ConsumersRequest
     {
-        public ConsumersRequest(CountryCode consumerCountryCode,
+        public ConsumersRequest(Language language,
+                                ICollection<string> shippingAddressRestrictedToCountryCodes,
                                 Operation operation = null,
                                 Msisdn msisdn = null,
                                 EmailAddress email = null,
                                 NationalIdentifier nationalIdentifier = null)
         {
             Operation = operation ?? Operation.Initiate;
-            ConsumerCountryCode = consumerCountryCode;
+            Language = language;
             Msisdn = msisdn;
             Email = email;
             NationalIdentifier = nationalIdentifier;
+            ShippingAddressRestrictedToCountryCodes = shippingAddressRestrictedToCountryCodes ?? new List<string>();
         }
-
-
-        /// <summary>
-        ///     Consumers country of residence. Used by the consumerUi for validation on all input fields.
-        /// </summary>
-        public CountryCode ConsumerCountryCode { get; }
-
+        
         /// <summary>
         ///     The e-mail address of the payer.
         /// </summary>
@@ -39,5 +38,15 @@ namespace SwedbankPay.Sdk.Consumers
         ///     the operation to perform.
         /// </summary>
         public Operation Operation { get; }
+
+        /// <summary>
+        /// List of supported shipping countries for merchant. Using ISO-3166 standard.
+        /// </summary>
+        public ICollection<string> ShippingAddressRestrictedToCountryCodes { get; }
+
+        /// <summary>
+        /// Selected language to be used in Checkin. Supported values are nb-NO, sv-SE and en-US
+        /// </summary>
+        public Language Language { get; }
     }
 }
