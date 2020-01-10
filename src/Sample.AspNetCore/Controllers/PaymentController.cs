@@ -61,7 +61,7 @@ namespace Sample.AspNetCore.Controllers
                 
                 if (paymentOrder.Operations.Cancel != null)
                 {
-                    var cancelRequest = new CancelRequest("payeeReference", "Cancelling parts of the total amount");
+                    var cancelRequest = new CancelRequest(DateTime.Now.Ticks.ToString(), "Cancelling parts of the total amount");
                     var response = await paymentOrder.Operations.Cancel(cancelRequest);
                     TempData["CancelMessage"] = $"Payment has been cancelled: {response.Cancellation.Transaction.Id}";
                     this.cartService.PaymentOrderLink = null;
