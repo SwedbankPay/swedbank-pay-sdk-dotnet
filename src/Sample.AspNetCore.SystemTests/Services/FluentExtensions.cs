@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Globalization;
+using System.Text.RegularExpressions;
 using Atata;
 
 namespace Sample.AspNetCore.SystemTests.Services
 {
     public static class FluentExtensions
     {
+        private static Regex regex = new Regex(@"[0-9\.]+");
+
         public static TOwner RepeatFor<TOwner>(this TOwner page, Action<TOwner, string> action, string[] values)
             where TOwner : PageObject<TOwner>
         {
@@ -30,7 +33,9 @@ namespace Sample.AspNetCore.SystemTests.Services
         public static TOwner StorePrice<TOwner>(this UIComponent<TOwner> component, out double value)
             where TOwner : PageObject<TOwner>
         {
-            value = double.Parse(component.Content.Value.ToString(), CultureInfo.InvariantCulture) * 100;
+            var extractedDecimalNumber = regex.Match(component.Content.Value).Value;
+
+            value = double.Parse(extractedDecimalNumber, CultureInfo.InvariantCulture) * 100;
             return component.Owner;
         }
 
