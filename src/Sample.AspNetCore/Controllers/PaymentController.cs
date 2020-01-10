@@ -86,7 +86,7 @@ namespace Sample.AspNetCore.Controllers
         {
             try
             {
-                var transActionRequestObject = await GetTransactionRequest("Capturing the authorized payment");
+                var transActionRequestObject = await GetCaptureRequest("Capturing the authorized payment");
                 var paymentOrder = await this.swedbankPayClient.PaymentOrder.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
 
                 
@@ -147,15 +147,13 @@ namespace Sample.AspNetCore.Controllers
         }
 
 
-        private async Task<CaptureRequest> GetTransactionRequest(string description)
+        private async Task<CaptureRequest> GetCaptureRequest(string description)
         {
             var order = await this.context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
             var orderItems = order.Lines.ToOrderItems();
 
-            var transActionRequestObject = new CaptureRequest(Amount.FromDecimal(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
+            return new CaptureRequest(Amount.FromDecimal(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
                                                                   Amount.FromDecimal(0), orderItems.ToList(), description,  DateTime.Now.Ticks.ToString());
-
-            return transActionRequestObject;
         }
 
         private async Task<ReversalRequest> GetReversalRequest(string description)
@@ -163,10 +161,8 @@ namespace Sample.AspNetCore.Controllers
             var order = await this.context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
             var orderItems = order.Lines.ToOrderItems();
 
-            var transActionRequestObject = new ReversalRequest(Amount.FromDecimal(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
+            return new ReversalRequest(Amount.FromDecimal(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
                                                               Amount.FromDecimal(0), orderItems.ToList(), description, DateTime.Now.Ticks.ToString());
-
-            return transActionRequestObject;
-        }
+         }
     }
 }
