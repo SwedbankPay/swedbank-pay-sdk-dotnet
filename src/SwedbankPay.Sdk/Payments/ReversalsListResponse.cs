@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SwedbankPay.Sdk.Transactions
+namespace SwedbankPay.Sdk.Payments
 {
     public class ReversalsListResponse : IdLink
     {

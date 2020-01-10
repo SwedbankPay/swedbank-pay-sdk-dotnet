@@ -1,8 +1,8 @@
-﻿using SwedbankPay.Sdk.PaymentOrders;
+﻿using System.Collections.Generic;
 
-using System.Collections.Generic;
+using SwedbankPay.Sdk.PaymentOrders;
 
-namespace SwedbankPay.Sdk.Payments.Card.OperationRequests
+namespace SwedbankPay.Sdk.Payments.Card
 {
     public class CaptureRequest
     {

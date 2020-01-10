@@ -1,6 +1,4 @@
-﻿using SwedbankPay.Sdk.Transactions;
-
-using System;
+﻿using System;
 
 namespace SwedbankPay.Sdk.Payments.Card
 {
@@ -27,7 +25,7 @@ namespace SwedbankPay.Sdk.Payments.Card
                                PricesListResponse prices,
                                TransactionListResponse transactions,
                                AuthorizationListResponse authorizations,
-                               CapturesListContainer captures,
+                               CapturesListResponse captures,
                                ReversalsListResponse reversals,
                                CancellationsListResponse cancellations,
                                Urls urls,
@@ -68,7 +66,7 @@ namespace SwedbankPay.Sdk.Payments.Card
         public Amount RemainingReversalAmount { get; }
         public AuthorizationListResponse Authorizations { get; }
         public CancellationsListResponse Cancellations { get; }
-        public CapturesListContainer Captures { get; }
+        public CapturesListResponse Captures { get; }
         public DateTime Created { get; }
         public DateTime Updated { get; }
         public CurrencyCode Currency { get; }

@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using SwedbankPay.Sdk.Payments;
 using SwedbankPay.Sdk.Payments.Card;
 using SwedbankPay.Sdk.Tests.TestBuilders;
-using SwedbankPay.Sdk.Transactions;
 
 using Xunit;
 

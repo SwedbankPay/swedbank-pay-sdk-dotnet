@@ -1,8 +1,9 @@
 ﻿using SwedbankPay.Sdk.PaymentOrders.OperationRequests;
-using SwedbankPay.Sdk.Transactions;
 
 using System;
 using System.Threading.Tasks;
+
+using SwedbankPay.Sdk.Payments;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
@@ -22,13 +23,13 @@ namespace SwedbankPay.Sdk.PaymentOrders
                 switch (httpOperation.Rel.Value)
                 {
                     case PaymentOrderResourceOperations.CreatePaymentOrderCapture:
-                        operations.Capture = async payload => await client.SendHttpRequestAndProcessHttpResponse<CaptureTransactionResponse>(httpOperation.Request.AttachPayload(payload));
+                        operations.Capture = async payload => await client.SendHttpRequestAndProcessHttpResponse<CaptureResponse>(httpOperation.Request.AttachPayload(payload));
                         break;
                     case PaymentOrderResourceOperations.CreatePaymentOrderCancel:
-                        operations.Cancel = async payload => await client.SendHttpRequestAndProcessHttpResponse<CancellationTransactionResponse>(httpOperation.Request.AttachPayload(payload));
+                        operations.Cancel = async payload => await client.SendHttpRequestAndProcessHttpResponse<CancellationResponse>(httpOperation.Request.AttachPayload(payload));
                         break;
                     case PaymentOrderResourceOperations.CreatePaymentOrderReversal:
-                        operations.Reversal = async payload => await client.SendHttpRequestAndProcessHttpResponse<ReversalTransactionResponse>(httpOperation.Request.AttachPayload(payload));
+                        operations.Reversal = async payload => await client.SendHttpRequestAndProcessHttpResponse<ReversalResponse>(httpOperation.Request.AttachPayload(payload));
                         break;
                     case PaymentOrderResourceOperations.UpdatePaymentOrderUpdateOrder:
                         operations.Update = async payload => await client.SendHttpRequestAndProcessHttpResponse<PaymentOrderResponse>(httpOperation.Request.AttachPayload(payload));

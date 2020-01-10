@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-using SwedbankPay.Sdk.Transactions;
-
 namespace SwedbankPay.Sdk.Payments.Card
 {
     public class Payment
@@ -31,19 +29,19 @@ namespace SwedbankPay.Sdk.Payments.Card
                         break;
 
                     case PaymentResourceOperations.DirectAuthorization:
-                        operations.DirectAuthorization = async payload => await client.SendHttpRequestAndProcessHttpResponse<AuthorizationTransactionResponse>(httpOperation.Request.AttachPayload(payload));
+                        operations.DirectAuthorization = async payload => await client.SendHttpRequestAndProcessHttpResponse<AuthorizationResponse>(httpOperation.Request.AttachPayload(payload));
                         break;
 
                     case PaymentResourceOperations.CreateCapture:
-                        operations.Capture = async payload => await client.SendHttpRequestAndProcessHttpResponse<CaptureTransactionResponse>(httpOperation.Request.AttachPayload(payload));
+                        operations.Capture = async payload => await client.SendHttpRequestAndProcessHttpResponse<CaptureResponse>(httpOperation.Request.AttachPayload(payload));
                         break;
 
                     case PaymentResourceOperations.CreateCancellation:
-                        operations.Cancel = async payload => await client.SendHttpRequestAndProcessHttpResponse<CancellationTransactionResponse>(httpOperation.Request.AttachPayload(payload));
+                        operations.Cancel = async payload => await client.SendHttpRequestAndProcessHttpResponse<CancellationResponse>(httpOperation.Request.AttachPayload(payload));
                         break;
 
                     case PaymentResourceOperations.CreateReversal:
-                        operations.Reversal = async payload => await client.SendHttpRequestAndProcessHttpResponse<ReversalTransactionResponse>(httpOperation.Request.AttachPayload(payload));
+                        operations.Reversal = async payload => await client.SendHttpRequestAndProcessHttpResponse<ReversalResponse>(httpOperation.Request.AttachPayload(payload));
                         break;
 
                     case PaymentResourceOperations.RedirectVerification:

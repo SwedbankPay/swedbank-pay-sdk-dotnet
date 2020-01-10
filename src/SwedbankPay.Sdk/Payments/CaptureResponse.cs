@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace SwedbankPay.Sdk.Transactions
+namespace SwedbankPay.Sdk.Payments
 {
-    public class CaptureTransactionResponse
+    public class CaptureResponse
     {
-        public CaptureTransactionResponse(Uri payment, TransactionResponse capture)
+        public CaptureResponse(Uri payment, TransactionResponse capture)
         {
             Payment = payment;
             Capture = capture;
@@ -12,6 +12,7 @@ namespace SwedbankPay.Sdk.Transactions
 
 
         public TransactionResponse Capture { get; }
+
         public Uri Payment { get; }
     }
 }

@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace SwedbankPay.Sdk.Transactions
+namespace SwedbankPay.Sdk.Payments
 {
-    public class ReversalTransactionResponse
+    public class ReversalResponse
     {
-        public ReversalTransactionResponse(Uri payment, TransactionResponse reversal)
+        public ReversalResponse(Uri payment, TransactionResponse reversal)
         {
             Payment = payment;
             Reversal = reversal;
