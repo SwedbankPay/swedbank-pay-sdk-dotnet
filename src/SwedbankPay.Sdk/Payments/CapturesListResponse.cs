@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SwedbankPay.Sdk.Transactions
+namespace SwedbankPay.Sdk.Payments
 {
-    public class CapturesListContainer : IdLink
+    public class CapturesListResponse : IdLink
     {
-        public CapturesListContainer(Uri id, List<TransactionResponse> captureList)
+        public CapturesListResponse(Uri id, List<TransactionResponse> captureList)
         {
             Id = id;
             CaptureList = captureList;

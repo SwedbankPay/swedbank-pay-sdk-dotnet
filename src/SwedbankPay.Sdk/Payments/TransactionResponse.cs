@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SwedbankPay.Sdk.Transactions
+namespace SwedbankPay.Sdk.Payments
 {
     public class TransactionResponse : IdLink
     {

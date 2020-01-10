@@ -1,4 +1,4 @@
-﻿namespace SwedbankPay.Sdk.Payments.Swish.OperationRequests
+﻿namespace SwedbankPay.Sdk.Payments.Swish
 {
     public class SaleRequest
     {

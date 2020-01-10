@@ -1,13 +1,14 @@
 ﻿using System;
 
 using SwedbankPay.Sdk.Payments;
-using SwedbankPay.Sdk.Transactions;
+using SwedbankPay.Sdk.Payments.Card;
+using SwedbankPay.Sdk.Payments.Swish;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
     public class CurrentPaymentResponse : IdLink
     {
-        public CurrentPaymentResponse(string number, string instrument, DateTime created, DateTime updated, Amount amount, AuthorizationListResponse authorizations, CancellationsListResponse cancellations, CapturesListContainer captures, CurrencyCode currency, string description, string intent, Language language, Operation operation, PayeeInfo payeeInfo, string payerReference, string paymentToken, PricesListResponse prices, ReversalsListResponse reversals, State state, TransactionListResponse transactions, IdLink urls, string userAgent, SaleListContainer sales)
+        public CurrentPaymentResponse(string number, string instrument, DateTime created, DateTime updated, Amount amount, AuthorizationListResponse authorizations, CancellationsListResponse cancellations, CapturesListResponse captures, CurrencyCode currency, string description, string intent, Language language, Operation operation, PayeeInfo payeeInfo, string payerReference, string paymentToken, PricesListResponse prices, ReversalsListResponse reversals, State state, TransactionListResponse transactions, IdLink urls, string userAgent, SaleListResponse sales)
         {
             Number = number;
             Instrument = instrument;
@@ -42,7 +43,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public Amount Amount { get; }
         public AuthorizationListResponse Authorizations { get; }
         public CancellationsListResponse Cancellations { get; }
-        public CapturesListContainer Captures { get; }
+        public CapturesListResponse Captures { get; }
         public CurrencyCode Currency { get; }
         public string Description { get; }
         public string Intent { get; }
@@ -57,7 +58,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public TransactionListResponse Transactions { get; }
         public IdLink Urls { get; }
         public string UserAgent { get; }
-        public SaleListContainer Sales { get; }
+        public SaleListResponse Sales { get; }
 
     }
 }

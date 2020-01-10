@@ -5,7 +5,6 @@ using SwedbankPay.Sdk.Exceptions;
 using SwedbankPay.Sdk.PaymentOrders;
 using SwedbankPay.Sdk.PaymentOrders.OperationRequests;
 using SwedbankPay.Sdk.Tests.TestBuilders;
-using SwedbankPay.Sdk.Transactions;
 
 using Xunit;
 

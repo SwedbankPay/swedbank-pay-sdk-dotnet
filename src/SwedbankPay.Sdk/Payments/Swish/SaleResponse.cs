@@ -1,7 +1,5 @@
 ﻿using System;
 
-using SwedbankPay.Sdk.Transactions;
-
 namespace SwedbankPay.Sdk.Payments.Swish
 {
     public class SaleResponse

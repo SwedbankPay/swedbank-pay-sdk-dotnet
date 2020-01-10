@@ -1,21 +1,21 @@
 ﻿using System;
 
-namespace SwedbankPay.Sdk.Transactions
+namespace SwedbankPay.Sdk.Payments
 {
     public class Transaction
     {
-        public Transaction(string id,
-                                   DateTime created,
-                                   DateTime updated,
-                                   string type,
-                                   State state,
-                                   string number,
-                                   long amount,
-                                   long vatAmount,
-                                   string description,
-                                   string payeeReference,
-                                   bool isOperational,
-                                   OperationList operations)
+        public Transaction(Uri id,
+                           DateTime created,
+                           DateTime updated,
+                           string type,
+                           State state,
+                           string number,
+                           Amount amount,
+                           Amount vatAmount,
+                           string description,
+                           string payeeReference,
+                           bool isOperational,
+                           OperationList operations)
         {
             Id = id;
             Created = created;
@@ -32,17 +32,17 @@ namespace SwedbankPay.Sdk.Transactions
         }
 
 
-        public long Amount { get; }
+        public Amount Amount { get; }
         public DateTime Created { get; }
         public string Description { get; }
-        public string Id { get; }
+        public Uri Id { get; }
         public bool IsOperational { get; }
         public string Number { get; }
         public string PayeeReference { get; }
         public State State { get; }
         public string Type { get; }
         public DateTime Updated { get; }
-        public long VatAmount { get; }
+        public Amount VatAmount { get; }
         public OperationList Operations { get; }
     }
 }
