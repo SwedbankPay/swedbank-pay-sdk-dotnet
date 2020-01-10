@@ -4,7 +4,20 @@ namespace SwedbankPay.Sdk.Payments.Card
 {
     public class PaymentResponse
     {
-        public PaymentResponse(Uri id,
+        public PaymentResponse(PaymentResponseObject payment,
+                               OperationList operations)
+        {
+            this.Payment = payment;
+            this.Operations = operations;
+        }
+
+        public PaymentResponseObject Payment { get; }
+        public OperationList Operations { get; }
+    }
+
+    public class PaymentResponseObject
+    {
+        public PaymentResponseObject(Uri id,
                                string number,
                                string instrument,
                                DateTime created,

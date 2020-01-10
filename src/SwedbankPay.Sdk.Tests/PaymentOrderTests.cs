@@ -127,7 +127,7 @@ namespace SwedbankPay.Sdk.Tests
             //ASSERT
             Assert.NotNull(paymentOrder);
             Assert.NotNull(paymentOrder.PaymentOrderResponse.CurrentPayment);
-            Assert.NotNull(paymentOrder.PaymentOrderResponse.CurrentPayment.PaymentResponse);
+            Assert.NotNull(paymentOrder.PaymentOrderResponse.CurrentPayment.Payment);
         }
 
         [Fact]

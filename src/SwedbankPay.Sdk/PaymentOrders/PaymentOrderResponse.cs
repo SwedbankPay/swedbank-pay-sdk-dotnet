@@ -20,7 +20,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
     public class PaymentOrderResponseObject : IdLink
     {
-        public PaymentOrderResponseObject(Amount amount, DateTime created, CurrencyCode currency, CurrentPaymentResponseContainer currentPayment, string description, Language language, MetaDataContainer metaData, string operation, OrderItems orderItems, PayeeInfo payeeInfo, Payer payers, IdLink payments, Amount remainingCancellationAmount, Amount remainingCaptureAmount, Amount remainingReversalAmount, IdLink settings, State state, DateTime updated, Urls urls, string userAgent, Amount vatAmount)
+        public PaymentOrderResponseObject(Amount amount, DateTime created, CurrencyCode currency, CurrentPaymentResponse currentPayment, string description, Language language, MetaDataContainer metaData, string operation, OrderItems orderItems, PayeeInfo payeeInfo, Payer payers, IdLink payments, Amount remainingCancellationAmount, Amount remainingCaptureAmount, Amount remainingReversalAmount, IdLink settings, State state, DateTime updated, Urls urls, string userAgent, Amount vatAmount)
         {
             Amount = amount;
             Created = created;
@@ -48,7 +48,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public Amount Amount { get; }
         public DateTime Created { get; }
         public CurrencyCode Currency { get; }
-        public CurrentPaymentResponseContainer CurrentPayment { get; }
+        public CurrentPaymentResponse CurrentPayment { get; }
         public string Description { get; }
         public Language Language { get; }
         public MetaDataContainer MetaData { get; }

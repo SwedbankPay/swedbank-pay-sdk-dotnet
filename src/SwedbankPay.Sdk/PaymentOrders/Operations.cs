@@ -9,8 +9,6 @@
 
 #endregion
 
-using SwedbankPay.Sdk.PaymentOrders.OperationRequests;
-
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

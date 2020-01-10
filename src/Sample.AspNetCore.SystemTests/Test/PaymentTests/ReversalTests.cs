@@ -35,12 +35,12 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
             Assert.That(order.Operations[LinkRelation.PaidPaymentOrder], Is.Not.Null);
 
             // Transactions
-            Assert.That(order.PaymentOrderResponse.CurrentPayment.PaymentResponse.Transactions.TransactionList.Count, Is.EqualTo(3));
-            Assert.That(order.PaymentOrderResponse.CurrentPayment.PaymentResponse.Transactions.TransactionList.First(x => x.Type == "Authorization").State.Value,
+            Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment.Transactions.TransactionList.Count, Is.EqualTo(3));
+            Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == "Authorization").State.Value,
                         Is.EqualTo("Completed"));
-            Assert.That(order.PaymentOrderResponse.CurrentPayment.PaymentResponse.Transactions.TransactionList.First(x => x.Type == "Capture").State.Value,
+            Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == "Capture").State.Value,
                         Is.EqualTo("Completed"));
-            Assert.That(order.PaymentOrderResponse.CurrentPayment.PaymentResponse.Transactions.TransactionList.First(x => x.Type == "Reversal").State.Value,
+            Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == "Reversal").State.Value,
                         Is.EqualTo("Completed"));
         }
 
@@ -64,12 +64,12 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
             Assert.That(order.Operations[LinkRelation.PaidPaymentOrder], Is.Not.Null);
 
             // Transactions
-            Assert.That(order.PaymentOrderResponse.CurrentPayment.PaymentResponse.Transactions.TransactionList.Count, Is.EqualTo(3));
-            Assert.That(order.PaymentOrderResponse.CurrentPayment.PaymentResponse.Transactions.TransactionList.First(x => x.Type == "Authorization").State.Value,
+            Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment.Transactions.TransactionList.Count, Is.EqualTo(3));
+            Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == "Authorization").State.Value,
                         Is.EqualTo("Completed"));
-            Assert.That(order.PaymentOrderResponse.CurrentPayment.PaymentResponse.Transactions.TransactionList.First(x => x.Type == "Capture").State.Value,
+            Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == "Capture").State.Value,
                         Is.EqualTo("Completed"));
-            Assert.That(order.PaymentOrderResponse.CurrentPayment.PaymentResponse.Transactions.TransactionList.First(x => x.Type == "Reversal").State.Value,
+            Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == "Reversal").State.Value,
                         Is.EqualTo("Completed"));
         }
     }

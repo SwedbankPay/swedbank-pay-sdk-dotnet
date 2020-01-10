@@ -32,7 +32,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
             Assert.That(order.Operations, Is.Null);
 
             // Transactions
-            Assert.That(order.PaymentOrderResponse.CurrentPayment.PaymentResponse, Is.Null);
+            Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment, Is.Null);
         }
     }
 }
