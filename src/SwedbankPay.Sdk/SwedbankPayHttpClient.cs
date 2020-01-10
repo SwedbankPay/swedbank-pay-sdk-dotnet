@@ -104,7 +104,7 @@ namespace SwedbankPay.Sdk
                 if (!httpResponse.IsSuccessStatusCode)
                     throw new HttpResponseException(
                         httpResponse,
-                        JsonConvert.DeserializeObject<ProblemsContainer>(httpResponseBody),
+                        JsonConvert.DeserializeObject<ProblemResponse>(httpResponseBody),
                         BuildErrorMessage(httpResponseBody));
                 return JsonConvert.DeserializeObject<TResponse>(httpResponseBody, JsonSerialization.JsonSerialization.Settings);
             }
