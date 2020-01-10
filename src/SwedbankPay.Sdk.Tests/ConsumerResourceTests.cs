@@ -74,7 +74,17 @@ namespace SwedbankPay.Sdk.Tests
             Assert.NotNull(consumer.Operations);
             Assert.NotEmpty(consumer.Operations);
         }
-
+        [Fact]
+        public async Task EmptyShippingAddressRestrictedToCountryCodes_ShouldThrow_HttpResponseException()
+        {
+            //ARRANGE
+            var orderResoureRequest = this.consumerResourceRequestContainer.WithTestValues().WithEmptyShippingAddressCountryCodes()
+                .Build();
+            
+            //ASSERT
+            await Assert.ThrowsAsync<HttpResponseException>(() => this.Sut.Consumers.InitiateSession(orderResoureRequest));
+            
+        }
 
         [Fact]
         public async Task InitializeConsumer_ShouldReturn_NonEmptyToken()
