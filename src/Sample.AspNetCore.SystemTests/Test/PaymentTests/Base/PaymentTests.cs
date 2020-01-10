@@ -146,6 +146,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
         {
             return standardCheckout
                 ? GoToPayexCardPaymentFrame(products, standardCheckout)
+                    .PreFilledCards.Items[x => x.CreditCardNumber.Value.Contains(info.CreditCardNumber.Substring(info.CreditCardNumber.Length - 4))].Click()
                     .Cvc.Set(info.Cvc)
                     .Pay.ClickAndGo()
                 : GoToPayexCardPaymentFrame(products, standardCheckout)
