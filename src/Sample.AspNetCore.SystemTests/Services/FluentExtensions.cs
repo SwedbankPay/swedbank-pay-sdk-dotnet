@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Globalization;
 using Atata;
 
 namespace Sample.AspNetCore.SystemTests.Services
@@ -27,10 +27,10 @@ namespace Sample.AspNetCore.SystemTests.Services
         }
 
 
-        public static TOwner StorePrice<TOwner>(this UIComponent<TOwner> component, out int value)
+        public static TOwner StorePrice<TOwner>(this UIComponent<TOwner> component, out double value)
             where TOwner : PageObject<TOwner>
         {
-            value = int.Parse(component.Content.Value, System.Globalization.NumberStyles.AllowDecimalPoint) * 100;
+            value = double.Parse(component.Content.Value.ToString(), CultureInfo.InvariantCulture) * 100;
             return component.Owner;
         }
 
