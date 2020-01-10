@@ -8,7 +8,7 @@ namespace SwedbankPay.Sdk
     public class Urls : IdLink
     {
         [JsonConstructor]
-        internal Urls(Uri id, 
+        internal Urls(Uri id,
                       ICollection<Uri> hostUrls = null,
                       Uri completeUrl = null,
                       Uri termsOfServiceUrl = null,
@@ -26,24 +26,27 @@ namespace SwedbankPay.Sdk
             CallbackUrl = callbackUrl;
             LogoUrl = logoUrl;
         }
-        
+
+
         public Urls(ICollection<Uri> hostUrls,
                     Uri completeUrl,
                     Uri termsOfServiceUrl,
                     Uri cancelUrl = null,
                     Uri paymentUrl = null,
                     Uri callbackUrl = null,
-                    Uri logoUrl = null) 
+                    Uri logoUrl = null)
         {
             HostUrls = hostUrls ?? throw new ArgumentNullException(nameof(hostUrls), $"{nameof(hostUrls)} is required.");
             CompleteUrl = completeUrl ?? throw new ArgumentNullException(nameof(completeUrl), $"{nameof(completeUrl)} is required.");
-            TermsOfServiceUrl = termsOfServiceUrl ?? throw new ArgumentNullException(nameof(termsOfServiceUrl), $"{nameof(termsOfServiceUrl)} is required.");
+            TermsOfServiceUrl = termsOfServiceUrl
+                                ?? throw new ArgumentNullException(nameof(termsOfServiceUrl), $"{nameof(termsOfServiceUrl)} is required.");
             CancelUrl = cancelUrl;
             PaymentUrl = paymentUrl;
             CallbackUrl = callbackUrl;
             LogoUrl = logoUrl;
         }
-        
+
+
         /// <summary>
         ///     The URI to the API endpoint receiving  POST requests on transaction activity related to the payment order.
         /// </summary>

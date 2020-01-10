@@ -1,33 +1,28 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-
-using SwedbankPay.Sdk.PaymentOrders;
-
-using System;
+﻿using System;
 using System.Linq;
+
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace SwedbankPay.Sdk.JsonSerialization
 {
     public class CustomMsisdnConverter : JsonConverter
     {
         private readonly Type[] types;
-        
+
+
         public CustomMsisdnConverter(params Type[] types)
         {
             this.types = types;
         }
 
-        
+
         public override bool CanRead => true;
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-        {
-            var t = JToken.FromObject(value);
 
-            if (t.Type != JTokenType.Object)
-                t.WriteTo(writer);
-            else
-                writer.WriteValue(value.ToString());
+        public override bool CanConvert(Type objectType)
+        {
+            return this.types.Any(t => t == objectType);
         }
 
 
@@ -44,9 +39,14 @@ namespace SwedbankPay.Sdk.JsonSerialization
         }
 
 
-        public override bool CanConvert(Type objectType)
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            return this.types.Any(t => t == objectType);
+            var t = JToken.FromObject(value);
+
+            if (t.Type != JTokenType.Object)
+                t.WriteTo(writer);
+            else
+                writer.WriteValue(value.ToString());
         }
     }
 }

@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
 
-using SwedbankPay.Sdk.PaymentOrders;
-
 namespace SwedbankPay.Sdk.Consumers
 {
     public class BillingDetails

@@ -7,6 +7,7 @@
             Transaction = new CancelTransaction(payeeReference, description);
         }
 
+
         public CancelTransaction Transaction { get; }
 
         public class CancelTransaction
@@ -17,8 +18,10 @@
                 Description = description;
             }
 
-            public string PayeeReference { get; }
+
             public string Description { get; }
+
+            public string PayeeReference { get; }
         }
     }
 }

@@ -4,7 +4,6 @@
     {
         public PaymentAbortRequestObject Payment { get; } = new PaymentAbortRequestObject();
 
-
         public class PaymentAbortRequestObject
         {
             public PaymentAbortRequestObject()

@@ -9,6 +9,7 @@
             Swish = swish;
         }
 
+
         public CreditCard CreditCard { get; }
         public Invoice Invoice { get; }
         public Swish Swish { get; }

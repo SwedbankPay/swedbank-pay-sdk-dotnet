@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 
+using SwedbankPay.Sdk.Payments.Card;
+
 namespace SwedbankPay.Sdk.Payments
 {
     public interface IPaymentsResource
@@ -11,8 +13,7 @@ namespace SwedbankPay.Sdk.Payments
         /// <param name="paymentRequest"></param>
         /// <param name="paymentExpand"></param>
         /// <returns></returns>
-
-        Task<Card.Payment> CreateCreditCardPayment(Card.PaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None);
+        Task<Payment> CreateCreditCardPayment(PaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None);
 
 
         /// <summary>
@@ -30,7 +31,8 @@ namespace SwedbankPay.Sdk.Payments
         ///// <param name="id"></param>
         ///// <param name="paymentExpand"></param>
         ///// <returns></returns>
-        Task<Card.Payment> GetCreditCardPayment(Uri id, PaymentExpand paymentExpand);
+        Task<Payment> GetCreditCardPayment(Uri id, PaymentExpand paymentExpand);
+
 
         ///// <summary>
         /////     Gets an existing swish payment.

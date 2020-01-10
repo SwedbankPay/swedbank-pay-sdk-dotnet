@@ -1,5 +1,4 @@
 ﻿using SwedbankPay.Sdk.Consumers;
-using SwedbankPay.Sdk.PaymentOrders;
 
 namespace SwedbankPay.Sdk
 {

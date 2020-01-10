@@ -19,7 +19,7 @@ namespace SwedbankPay.Sdk.Payments.Card
                     case PaymentResourceOperations.UpdatePaymentAbort:
                         operations.Update = httpOperation;
                         break;
-                        
+
                     case PaymentResourceOperations.RedirectAuthorization:
                         operations.RedirectAuthorization = httpOperation;
                         break;
@@ -29,19 +29,27 @@ namespace SwedbankPay.Sdk.Payments.Card
                         break;
 
                     case PaymentResourceOperations.DirectAuthorization:
-                        operations.DirectAuthorization = async payload => await client.SendHttpRequestAndProcessHttpResponse<AuthorizationResponse>(httpOperation.Request.AttachPayload(payload));
+                        operations.DirectAuthorization = async payload =>
+                            await client.SendHttpRequestAndProcessHttpResponse<AuthorizationResponse>(
+                                httpOperation.Request.AttachPayload(payload));
                         break;
 
                     case PaymentResourceOperations.CreateCapture:
-                        operations.Capture = async payload => await client.SendHttpRequestAndProcessHttpResponse<CaptureResponse>(httpOperation.Request.AttachPayload(payload));
+                        operations.Capture = async payload =>
+                            await client.SendHttpRequestAndProcessHttpResponse<CaptureResponse>(
+                                httpOperation.Request.AttachPayload(payload));
                         break;
 
                     case PaymentResourceOperations.CreateCancellation:
-                        operations.Cancel = async payload => await client.SendHttpRequestAndProcessHttpResponse<CancellationResponse>(httpOperation.Request.AttachPayload(payload));
+                        operations.Cancel = async payload =>
+                            await client.SendHttpRequestAndProcessHttpResponse<CancellationResponse>(
+                                httpOperation.Request.AttachPayload(payload));
                         break;
 
                     case PaymentResourceOperations.CreateReversal:
-                        operations.Reversal = async payload => await client.SendHttpRequestAndProcessHttpResponse<ReversalResponse>(httpOperation.Request.AttachPayload(payload));
+                        operations.Reversal = async payload =>
+                            await client.SendHttpRequestAndProcessHttpResponse<ReversalResponse>(
+                                httpOperation.Request.AttachPayload(payload));
                         break;
 
                     case PaymentResourceOperations.RedirectVerification:
@@ -76,12 +84,10 @@ namespace SwedbankPay.Sdk.Payments.Card
                                                    string paymentExpand)
         {
             var url = new Uri($"/psp/creditcard/payments{paymentExpand}", UriKind.Relative);
-            
+
             var paymentResponse = await client.HttpPost<PaymentResponse>(url, paymentRequest);
             return new Payment(paymentResponse, client);
         }
-
-
 
 
         internal static async Task<Payment> Get(Uri id, SwedbankPayHttpClient client, string paymentExpand)
@@ -91,7 +97,7 @@ namespace SwedbankPay.Sdk.Payments.Card
                 : id;
 
             var paymentResponseContainer = await client.HttpGet<PaymentResponse>(url);
-            return new Payment(paymentResponseContainer, client); 
+            return new Payment(paymentResponseContainer, client);
         }
     }
 }

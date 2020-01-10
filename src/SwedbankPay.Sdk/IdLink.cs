@@ -11,6 +11,5 @@ namespace SwedbankPay.Sdk
         /// </summary>
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         public Uri Id { get; protected set; }
-        
     }
 }

@@ -21,29 +21,31 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                    Dictionary<string, object> metaData = null,
                                    List<Item> items = null)
         {
-            PaymentOrder = new PaymentOrderRequestObject(operation, currency, amount, vatAmount, description, userAgent, language, generateRecurrenceToken, urls, payeeInfo, payer, orderItems, riskIndicator, metaData, items);
+            PaymentOrder = new PaymentOrderRequestObject(operation, currency, amount, vatAmount, description, userAgent, language,
+                                                         generateRecurrenceToken, urls, payeeInfo, payer, orderItems, riskIndicator,
+                                                         metaData, items);
         }
 
-        public PaymentOrderRequestObject PaymentOrder { get; }
 
+        public PaymentOrderRequestObject PaymentOrder { get; }
 
         public class PaymentOrderRequestObject
         {
             protected internal PaymentOrderRequestObject(Operation operation,
-                                       CurrencyCode currency,
-                                       Amount amount,
-                                       Amount vatAmount,
-                                       string description,
-                                       string userAgent,
-                                       Language language,
-                                       bool generateRecurrenceToken,
-                                       Urls urls,
-                                       PayeeInfo payeeInfo,
-                                       Payer payer = null,
-                                       List<OrderItem> orderItems = null,
-                                       RiskIndicator riskIndicator = null,
-                                       Dictionary<string, object> metaData = null,
-                                       List<Item> items = null)
+                                                         CurrencyCode currency,
+                                                         Amount amount,
+                                                         Amount vatAmount,
+                                                         string description,
+                                                         string userAgent,
+                                                         Language language,
+                                                         bool generateRecurrenceToken,
+                                                         Urls urls,
+                                                         PayeeInfo payeeInfo,
+                                                         Payer payer = null,
+                                                         List<OrderItem> orderItems = null,
+                                                         RiskIndicator riskIndicator = null,
+                                                         Dictionary<string, object> metaData = null,
+                                                         List<Item> items = null)
             {
                 Operation = operation ?? throw new ArgumentNullException(nameof(operation));
                 Currency = currency ?? throw new ArgumentNullException(nameof(currency));

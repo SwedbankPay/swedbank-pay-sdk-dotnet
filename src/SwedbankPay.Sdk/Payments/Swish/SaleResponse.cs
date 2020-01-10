@@ -10,6 +10,7 @@ namespace SwedbankPay.Sdk.Payments.Swish
             Sale = sale;
         }
 
+
         public Uri Payment { get; }
         public Sale Sale { get; }
     }
@@ -24,9 +25,10 @@ namespace SwedbankPay.Sdk.Payments.Swish
             Transaction = transaction;
         }
 
+
         public DateTime Date { get; }
-        public string PaymentRequestToken { get; }
         public Uri Id { get; }
+        public string PaymentRequestToken { get; }
         public Transaction Transaction { get; }
     }
 }

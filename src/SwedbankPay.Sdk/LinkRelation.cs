@@ -56,25 +56,32 @@ namespace SwedbankPay.Sdk
 
         public static readonly LinkRelation PaidPayment = new LinkRelation(nameof(PaidPayment), PaymentResourceOperations.PaidPayment);
 
-        public static readonly LinkRelation UpdatePaymentAbort = new LinkRelation(nameof(UpdatePaymentAbort), PaymentResourceOperations.UpdatePaymentAbort);
+        public static readonly LinkRelation UpdatePaymentAbort =
+            new LinkRelation(nameof(UpdatePaymentAbort), PaymentResourceOperations.UpdatePaymentAbort);
 
-        public static readonly LinkRelation ViewAuthorization = new LinkRelation(nameof(ViewAuthorization), PaymentResourceOperations.ViewAuthorization);
+        public static readonly LinkRelation ViewAuthorization =
+            new LinkRelation(nameof(ViewAuthorization), PaymentResourceOperations.ViewAuthorization);
 
-        public static readonly LinkRelation RedirectAuthorization = new LinkRelation(nameof(RedirectAuthorization), PaymentResourceOperations.RedirectAuthorization);
+        public static readonly LinkRelation RedirectAuthorization =
+            new LinkRelation(nameof(RedirectAuthorization), PaymentResourceOperations.RedirectAuthorization);
 
         public static readonly LinkRelation CreateSale = new LinkRelation(nameof(CreateSale), PaymentResourceOperations.CreateSale);
 
         public static readonly LinkRelation RedirectSale = new LinkRelation(nameof(RedirectSale), PaymentResourceOperations.RedirectSale);
-        
-        public static readonly LinkRelation ViewSales = new LinkRelation(nameof(ViewSales), PaymentResourceOperations.ViewSales);
-        
-        public static readonly LinkRelation AbortedPayment = new LinkRelation(nameof(AbortedPayment), PaymentResourceOperations.AbortedPayment);
 
-        public static readonly LinkRelation RedirectAppSwish = new LinkRelation(nameof(RedirectAppSwish), PaymentResourceOperations.RedirectAppSwish);
+        public static readonly LinkRelation ViewSales = new LinkRelation(nameof(ViewSales), PaymentResourceOperations.ViewSales);
+
+        public static readonly LinkRelation AbortedPayment =
+            new LinkRelation(nameof(AbortedPayment), PaymentResourceOperations.AbortedPayment);
+
+        public static readonly LinkRelation RedirectAppSwish =
+            new LinkRelation(nameof(RedirectAppSwish), PaymentResourceOperations.RedirectAppSwish);
 
         public static readonly LinkRelation ViewPayment = new LinkRelation(nameof(ViewPayment), PaymentResourceOperations.ViewPayment);
 
-        public  static readonly LinkRelation ViewVerification = new LinkRelation(nameof(ViewVerification), PaymentResourceOperations.ViewVerification);
+        public static readonly LinkRelation ViewVerification =
+            new LinkRelation(nameof(ViewVerification), PaymentResourceOperations.ViewVerification);
+
 
         private LinkRelation(string name, string value)
             : base(name, value)

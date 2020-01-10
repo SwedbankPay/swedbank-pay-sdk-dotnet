@@ -15,7 +15,6 @@ namespace SwedbankPay.Sdk.Payments
 
         public OperationList Operations { get; }
 
-        [JsonProperty("payment")]
-        public T PaymentResponse { get; }
+        [JsonProperty("payment")] public T PaymentResponse { get; }
     }
 }

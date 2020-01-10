@@ -7,6 +7,7 @@
         public static readonly PaymentType Vipps = new PaymentType(nameof(Vipps), "vipps");
         public static readonly PaymentType DirectDebit = new PaymentType(nameof(DirectDebit), "directdebit");
 
+
         private PaymentType(string name, string value)
             : base(name, value)
         {

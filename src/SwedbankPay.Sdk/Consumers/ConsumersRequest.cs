@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
 
 using SwedbankPay.Sdk.PaymentOrders;
 
@@ -21,11 +20,17 @@ namespace SwedbankPay.Sdk.Consumers
             NationalIdentifier = nationalIdentifier;
             ShippingAddressRestrictedToCountryCodes = shippingAddressRestrictedToCountryCodes ?? new List<string>();
         }
-        
+
+
         /// <summary>
         ///     The e-mail address of the payer.
         /// </summary>
         public EmailAddress Email { get; }
+
+        /// <summary>
+        ///     Selected language to be used in Checkin. Supported values are nb-NO, sv-SE and en-US
+        /// </summary>
+        public Language Language { get; }
 
         /// <summary>
         ///     The MSISDN (mobile phone number) of the payer. Format Sweden: +46707777777. Format Norway: +4799999999.
@@ -40,13 +45,8 @@ namespace SwedbankPay.Sdk.Consumers
         public Operation Operation { get; }
 
         /// <summary>
-        /// List of supported shipping countries for merchant. Using ISO-3166 standard.
+        ///     List of supported shipping countries for merchant. Using ISO-3166 standard.
         /// </summary>
         public ICollection<string> ShippingAddressRestrictedToCountryCodes { get; }
-
-        /// <summary>
-        /// Selected language to be used in Checkin. Supported values are nb-NO, sv-SE and en-US
-        /// </summary>
-        public Language Language { get; }
     }
 }

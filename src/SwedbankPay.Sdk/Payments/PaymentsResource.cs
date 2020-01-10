@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-
+using SwedbankPay.Sdk.Payments.Card;
 
 namespace SwedbankPay.Sdk.Payments
 {
@@ -12,18 +12,19 @@ namespace SwedbankPay.Sdk.Payments
         {
         }
 
-        public async Task<Card.Payment> GetCreditCardPayment(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
+
+        public async Task<Payment> GetCreditCardPayment(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
         {
             if (id == null)
                 throw new ArgumentNullException(nameof(id));
 
-            return await Card.Payment.Get(id, this.swedbankPayHttpClient, GetExpandQueryString(paymentExpand));
+            return await Payment.Get(id, this.swedbankPayHttpClient, GetExpandQueryString(paymentExpand));
         }
 
 
-        public async Task<Card.Payment> CreateCreditCardPayment(Card.PaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None)
+        public async Task<Payment> CreateCreditCardPayment(PaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None)
         {
-            return await Card.Payment.Create(paymentRequest, this.swedbankPayHttpClient, GetExpandQueryString(paymentExpand));
+            return await Payment.Create(paymentRequest, this.swedbankPayHttpClient, GetExpandQueryString(paymentExpand));
         }
 
 
@@ -36,8 +37,8 @@ namespace SwedbankPay.Sdk.Payments
         }
 
 
-
-        public async Task<Swish.Payment> CreateSwishPayment(Swish.PaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None)
+        public async Task<Swish.Payment> CreateSwishPayment(Swish.PaymentRequest paymentRequest,
+                                                            PaymentExpand paymentExpand = PaymentExpand.None)
         {
             return await Swish.Payment.Create(paymentRequest, this.swedbankPayHttpClient, GetExpandQueryString(paymentExpand));
         }

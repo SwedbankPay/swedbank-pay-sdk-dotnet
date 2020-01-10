@@ -10,6 +10,7 @@ namespace SwedbankPay.Sdk.Consumers
         {
         }
 
+
         /// <summary>
         ///     Retrieve Consumer Billing Details.
         ///     When the payer has been identified through checkin you can retrieve the consumers billing details with the url
@@ -25,17 +26,6 @@ namespace SwedbankPay.Sdk.Consumers
             return GetBillingDetailsInternalAsync(url);
         }
 
-        /// <summary>
-        ///     Retrieve Consumer Billing Details.
-        ///     When the payer has been identified through checkin you can retrieve the consumers billing details with the url
-        ///     received through the event OnBillingDetailsAvailable.
-        /// </summary>
-        /// <param name="url"></param>
-        /// <returns></returns>
-        public async Task<BillingDetails> GetBillingDetailsInternalAsync(Uri url)
-        {
-            return await this.swedbankPayHttpClient.HttpGet<BillingDetails>(url);
-        }
 
         /// <summary>
         ///     Retrieve Consumer Shipping Details.
@@ -52,17 +42,6 @@ namespace SwedbankPay.Sdk.Consumers
             return GetShippingDetailsInternalAsync(url);
         }
 
-        /// <summary>
-        ///     Retrieve Consumer Shipping Details.
-        ///     When the payer has been identified through checkin you can retrieve the consumers shipping details with the url
-        ///     received through the event onShippingDetailsAvailable.
-        /// </summary>
-        /// <param name="url"></param>
-        /// <returns></returns>
-        public async Task<ShippingDetails> GetShippingDetailsInternalAsync(Uri url)
-        {
-            return await this.swedbankPayHttpClient.HttpGet<ShippingDetails>(url);
-        }
 
         /// <summary>
         ///     Payer identification is done through this operation. The more information that is provided, the easier an
@@ -73,6 +52,32 @@ namespace SwedbankPay.Sdk.Consumers
         public async Task<Consumer> InitiateSession(ConsumersRequest consumersRequest)
         {
             return await Consumer.Initiate(consumersRequest, this.swedbankPayHttpClient);
+        }
+
+
+        /// <summary>
+        ///     Retrieve Consumer Billing Details.
+        ///     When the payer has been identified through checkin you can retrieve the consumers billing details with the url
+        ///     received through the event OnBillingDetailsAvailable.
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public async Task<BillingDetails> GetBillingDetailsInternalAsync(Uri url)
+        {
+            return await this.swedbankPayHttpClient.HttpGet<BillingDetails>(url);
+        }
+
+
+        /// <summary>
+        ///     Retrieve Consumer Shipping Details.
+        ///     When the payer has been identified through checkin you can retrieve the consumers shipping details with the url
+        ///     received through the event onShippingDetailsAvailable.
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public async Task<ShippingDetails> GetShippingDetailsInternalAsync(Uri url)
+        {
+            return await this.swedbankPayHttpClient.HttpGet<ShippingDetails>(url);
         }
     }
 }

@@ -11,10 +11,8 @@ namespace SwedbankPay.Sdk
         public Language(CultureInfo cultureInfo)
         {
             if (cultureInfo == null)
-            {
                 throw new ArgumentException(nameof(cultureInfo));
-            }
-          
+
             Value = cultureInfo.Name;
         }
 

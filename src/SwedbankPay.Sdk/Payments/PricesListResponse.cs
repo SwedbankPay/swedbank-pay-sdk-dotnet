@@ -9,6 +9,7 @@ namespace SwedbankPay.Sdk.Payments
             PriceList = priceList;
         }
 
+
         public List<Price> PriceList { get; }
     }
 }

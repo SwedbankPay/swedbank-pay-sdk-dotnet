@@ -9,11 +9,16 @@ namespace SwedbankPay.Sdk.PaymentOrders
             Transaction = new CaptureTransaction(amount, vatAmount, orderItems, description, payeeReference);
         }
 
+
         public CaptureTransaction Transaction { get; }
 
         public class CaptureTransaction
         {
-            protected internal CaptureTransaction(Amount amount, Amount vatAmount, List<OrderItem> orderItems, string description, string payeeReference)
+            protected internal CaptureTransaction(Amount amount,
+                                                  Amount vatAmount,
+                                                  List<OrderItem> orderItems,
+                                                  string description,
+                                                  string payeeReference)
             {
                 Amount = amount;
                 VatAmount = vatAmount;
@@ -22,11 +27,12 @@ namespace SwedbankPay.Sdk.PaymentOrders
                 PayeeReference = payeeReference;
             }
 
+
             public Amount Amount { get; }
-            public Amount VatAmount { get; }
-            public List<OrderItem> OrderItems { get; }
             public string Description { get; }
+            public List<OrderItem> OrderItems { get; }
             public string PayeeReference { get; }
+            public Amount VatAmount { get; }
         }
     }
 }

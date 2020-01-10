@@ -37,7 +37,6 @@ namespace SwedbankPay.Sdk.JsonSerialization
                 new TypedSafeEnumValueConverter<OrderItemType, string>(),
                 new CustomAmountConverter(typeof(Amount)),
                 new CustomMsisdnConverter(typeof(Msisdn))
-
             },
             NullValueHandling = NullValueHandling.Ignore,
             DateFormatString = "yyyyMMdd"

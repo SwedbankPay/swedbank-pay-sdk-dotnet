@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
 
-using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace SwedbankPay.Sdk.Payments.Swish
 {
@@ -17,8 +17,10 @@ namespace SwedbankPay.Sdk.Payments.Swish
                               PrefillInfo prefillInfo,
                               SwishRequest swishRequest)
         {
-            Payment = new PaymentRequestObject(currency, prices, description, payerReference, userAgent, language, urls, payeeInfo, prefillInfo, swishRequest);
+            Payment = new PaymentRequestObject(currency, prices, description, payerReference, userAgent, language, urls, payeeInfo,
+                                               prefillInfo, swishRequest);
         }
+
 
         public PaymentRequestObject Payment { get; }
 
@@ -50,20 +52,21 @@ namespace SwedbankPay.Sdk.Payments.Swish
             }
 
 
-            public Operation Operation { get; }
-            public string Intent { get; }
             public CurrencyCode Currency { get; }
-            public List<Price> Prices { get; }
             public string Description { get; }
-            public string PayerReference { get; }
-            public string UserAgent { get; }
+            public string Intent { get; }
             public Language Language { get; }
-            public Urls Urls { get; }
-            public PayeeInfo PayeeInfo { get; }
-            public PrefillInfo PrefillInfo { get; }
 
-            [JsonProperty("swish")]
-            public SwishRequest SwishRequest { get; }
+            public Operation Operation { get; }
+            public PayeeInfo PayeeInfo { get; }
+            public string PayerReference { get; }
+            public PrefillInfo PrefillInfo { get; }
+            public List<Price> Prices { get; }
+
+            [JsonProperty("swish")] public SwishRequest SwishRequest { get; }
+
+            public Urls Urls { get; }
+            public string UserAgent { get; }
         }
     }
 
@@ -73,6 +76,7 @@ namespace SwedbankPay.Sdk.Payments.Swish
         {
             EcomOnlyEnabled = ecomOnlyEnabled;
         }
+
 
         public bool EcomOnlyEnabled { get; }
     }

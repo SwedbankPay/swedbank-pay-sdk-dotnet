@@ -38,11 +38,11 @@ namespace SwedbankPay.Sdk.Payments
         public Uri Id { get; }
         public bool IsOperational { get; }
         public string Number { get; }
+        public OperationList Operations { get; }
         public string PayeeReference { get; }
         public State State { get; }
         public string Type { get; }
         public DateTime Updated { get; }
         public Amount VatAmount { get; }
-        public OperationList Operations { get; }
     }
 }

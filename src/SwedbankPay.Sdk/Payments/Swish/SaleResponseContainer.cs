@@ -10,6 +10,7 @@ namespace SwedbankPay.Sdk.Payments.Swish
             Sales = sales;
         }
 
+
         public Uri Payment { get; }
         public SaleListResponse Sales { get; }
     }

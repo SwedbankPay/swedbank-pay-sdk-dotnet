@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-
 namespace SwedbankPay.Sdk.Consumers
 {
     public interface IConsumersResource

@@ -9,6 +9,7 @@
             VatAmount = vatAmount;
         }
 
+
         public Amount Amount { get; }
         public PriceType Type { get; }
         public Amount VatAmount { get; }

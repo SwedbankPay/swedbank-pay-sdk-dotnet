@@ -5,7 +5,13 @@ namespace SwedbankPay.Sdk
 {
     public class ProblemResponse
     {
-        public ProblemResponse(string type, string title, string detail, string instance, int status, string action, IEnumerable<ProblemItem> problems)
+        public ProblemResponse(string type,
+                               string title,
+                               string detail,
+                               string instance,
+                               int status,
+                               string action,
+                               IEnumerable<ProblemItem> problems)
         {
             Type = type;
             Title = title;
@@ -15,14 +21,16 @@ namespace SwedbankPay.Sdk
             Action = action;
             Problems = problems;
         }
-        
-        public string Type { get; }
-        public string Title { get; }
+
+
+        public string Action { get; }
         public string Detail { get; }
         public string Instance { get; }
-        public int Status { get; }
-        public string Action { get; }
         public IEnumerable<ProblemItem> Problems { get; }
+        public int Status { get; }
+        public string Title { get; }
+
+        public string Type { get; }
 
 
         public override string ToString()
@@ -39,8 +47,10 @@ namespace SwedbankPay.Sdk
             Name = name;
         }
 
-        public string Name { get; }
+
         public string Description { get; }
+
+        public string Name { get; }
 
 
         public override string ToString()

@@ -9,11 +9,16 @@ namespace SwedbankPay.Sdk.PaymentOrders
             Transaction = new ReversalTransaction(amount, vatAmount, orderItems, description, payeeReference);
         }
 
+
         public ReversalTransaction Transaction { get; }
 
         public class ReversalTransaction
         {
-            protected internal ReversalTransaction(Amount amount, Amount vatAmount, List<OrderItem> orderItems, string description, string payeeReference)
+            protected internal ReversalTransaction(Amount amount,
+                                                   Amount vatAmount,
+                                                   List<OrderItem> orderItems,
+                                                   string description,
+                                                   string payeeReference)
             {
                 Amount = amount;
                 VatAmount = vatAmount;
@@ -22,11 +27,12 @@ namespace SwedbankPay.Sdk.PaymentOrders
                 PayeeReference = payeeReference;
             }
 
+
             public Amount Amount { get; }
-            public Amount VatAmount { get; }
-            public List<OrderItem> OrderItems { get; }
             public string Description { get; }
+            public List<OrderItem> OrderItems { get; }
             public string PayeeReference { get; }
+            public Amount VatAmount { get; }
         }
     }
 }

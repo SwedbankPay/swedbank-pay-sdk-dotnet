@@ -10,7 +10,9 @@ namespace SwedbankPay.Sdk.Payments.Card
             AuthorizationList = authorizationList;
         }
 
-        public Uri Payment { get; }
+
         public AuthorizationListResponse AuthorizationList { get; }
+
+        public Uri Payment { get; }
     }
 }

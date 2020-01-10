@@ -52,12 +52,6 @@ namespace SwedbankPay.Sdk
             this.value;
 
 
-        public override bool Equals(object obj)
-        {
-            return obj is TypeSafeEnum<TEnum, TValue> other && Equals(other);
-        }
-
-
         public virtual bool Equals(TypeSafeEnum<TEnum, TValue> other)
         {
             // check if same instance
@@ -70,6 +64,12 @@ namespace SwedbankPay.Sdk
                 return false;
 
             return this.value.Equals(other.value);
+        }
+
+
+        public override bool Equals(object obj)
+        {
+            return obj is TypeSafeEnum<TEnum, TValue> other && Equals(other);
         }
 
 

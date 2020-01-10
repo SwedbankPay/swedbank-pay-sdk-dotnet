@@ -17,11 +17,14 @@ namespace SwedbankPay.Sdk.Payments.Swish
                 switch (httpOperation.Rel.Value)
                 {
                     case PaymentResourceOperations.UpdatePaymentAbort:
-                        operations.Abort = async () => await client.SendHttpRequestAndProcessHttpResponse<PaymentResponse>(httpOperation.Request.AttachPayload(new PaymentAbortRequest()));
+                        operations.Abort = async () =>
+                            await client.SendHttpRequestAndProcessHttpResponse<PaymentResponse>(
+                                httpOperation.Request.AttachPayload(new PaymentAbortRequest()));
                         break;
 
                     case PaymentResourceOperations.CreateSale:
-                        operations.CreateSale = async payload => await client.SendHttpRequestAndProcessHttpResponse<SaleResponse>(httpOperation.Request.AttachPayload(payload));
+                        operations.CreateSale = async payload =>
+                            await client.SendHttpRequestAndProcessHttpResponse<SaleResponse>(httpOperation.Request.AttachPayload(payload));
                         break;
                     case PaymentResourceOperations.RedirectSale:
                         operations.RedirectSale = httpOperation;
@@ -31,7 +34,9 @@ namespace SwedbankPay.Sdk.Payments.Swish
                         operations.ViewSales = httpOperation;
                         break;
                     case PaymentResourceOperations.CreateReversal:
-                        operations.CreateReversal = async payload => await client.SendHttpRequestAndProcessHttpResponse<ReversalResponse>(httpOperation.Request.AttachPayload(payload));
+                        operations.CreateReversal = async payload =>
+                            await client.SendHttpRequestAndProcessHttpResponse<ReversalResponse>(
+                                httpOperation.Request.AttachPayload(payload));
                         break;
                     case PaymentResourceOperations.PaidPayment:
                         operations.PaidPayment = httpOperation;
@@ -57,8 +62,6 @@ namespace SwedbankPay.Sdk.Payments.Swish
             var paymentResponse = await client.HttpPost<PaymentResponse>(url, paymentRequest);
             return new Payment(paymentResponse, client);
         }
-
-
 
 
         internal static async Task<Payment> Get(Uri id, SwedbankPayHttpClient client, string paymentExpand)

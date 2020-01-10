@@ -34,11 +34,11 @@ namespace SwedbankPay.Sdk.Payments.Swish
             Transaction = transaction;
         }
 
-        
+
         public DateTime Date { get; }
-        public string PaymentRequestToken { get; }
         public Uri Id { get; }
         public string PayerAlias { get; }
+        public string PaymentRequestToken { get; }
         public string SwishPaymentReference { get; }
         public string SwishStatus { get; }
         public Transaction Transaction { get; }
