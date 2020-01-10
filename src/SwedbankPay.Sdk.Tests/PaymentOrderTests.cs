@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 
 using SwedbankPay.Sdk.Exceptions;
 using SwedbankPay.Sdk.PaymentOrders;
-using SwedbankPay.Sdk.PaymentOrders.OperationRequests;
 using SwedbankPay.Sdk.Tests.TestBuilders;
 
 using Xunit;
