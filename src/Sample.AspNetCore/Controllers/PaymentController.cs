@@ -6,11 +6,12 @@ using Sample.AspNetCore.Extensions;
 using Sample.AspNetCore.Models;
 
 using SwedbankPay.Sdk;
-using SwedbankPay.Sdk.PaymentOrders.OperationRequests;
 
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+
+using SwedbankPay.Sdk.PaymentOrders;
 
 namespace Sample.AspNetCore.Controllers
 {
