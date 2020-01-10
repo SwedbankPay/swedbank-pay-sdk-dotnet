@@ -5,12 +5,12 @@ namespace SwedbankPay.Sdk.Payments.Card
 {
     public class AuthorizationListResponse : IdLink
     {
-        public AuthorizationListResponse(Uri id, List<TransactionResponse> authorizationList)
+        public AuthorizationListResponse(Uri id, List<Authorization> authorizationList)
         {
             Id = id;
             AuthorizationList = authorizationList;
         }
         
-        public List<TransactionResponse> AuthorizationList { get; }
+        public List<Authorization> AuthorizationList { get; }
     }
 }
