@@ -1,4 +1,4 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrders.OperationRequests
+﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
     public class UpdateRequest
     {

@@ -1,6 +1,4 @@
-﻿using SwedbankPay.Sdk.PaymentOrders.OperationRequests;
-
-using System;
+﻿using System;
 using System.Threading.Tasks;
 
 using SwedbankPay.Sdk.Payments;
