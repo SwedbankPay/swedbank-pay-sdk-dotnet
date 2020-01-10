@@ -1,10 +1,26 @@
 ﻿using System;
 
+using Newtonsoft.Json;
+
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class PaymentOrderResponse : IdLink
+    public class PaymentOrderResponse
+    { 
+        public PaymentOrderResponse(OperationList operations, PaymentOrderResponseObject paymentorder)
+        {
+            Operations = operations;
+            PaymentOrderResponseObject = paymentorder;
+        }
+
+        public OperationList Operations { get; }
+
+        [JsonProperty("paymentorder")]
+        public PaymentOrderResponseObject PaymentOrderResponseObject { get; }
+    }
+
+    public class PaymentOrderResponseObject : IdLink
     {
-        public PaymentOrderResponse(Amount amount, DateTime created, CurrencyCode currency, CurrentPaymentResponseContainer currentPayment, string description, Language language, MetaDataContainer metaData, string operation, OrderItems orderItems, PayeeInfo payeeInfo, Payer payers, IdLink payments, Amount remainingCancellationAmount, Amount remainingCaptureAmount, Amount remainingReversalAmount, IdLink settings, State state, DateTime updated, Urls urls, string userAgent, Amount vatAmount)
+        public PaymentOrderResponseObject(Amount amount, DateTime created, CurrencyCode currency, CurrentPaymentResponseContainer currentPayment, string description, Language language, MetaDataContainer metaData, string operation, OrderItems orderItems, PayeeInfo payeeInfo, Payer payers, IdLink payments, Amount remainingCancellationAmount, Amount remainingCaptureAmount, Amount remainingReversalAmount, IdLink settings, State state, DateTime updated, Urls urls, string userAgent, Amount vatAmount)
         {
             Amount = amount;
             Created = created;

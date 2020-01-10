@@ -1,8 +1,9 @@
-﻿using SwedbankPay.Sdk.PaymentOrders;
-
-using System.Collections.Generic;
-
+﻿using SwedbankPay.Sdk.Payments.Card.OperationRequests;
 using SwedbankPay.Sdk.Transactions;
+
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Payments.Card
 {
@@ -14,10 +15,10 @@ namespace SwedbankPay.Sdk.Payments.Card
         public HttpOperation Update { get; internal set; }
         public HttpOperation RedirectAuthorization { get; internal set; }
         public HttpOperation ViewAuthorization { get; internal set; }
-        public HttpOperation DirectAuthorization { get; internal set; }
-        public ExecuteRequestWrapper<TransactionRequestContainer<TransactionRequest>, CaptureTransactionResponseContainer> Capture { get; internal set; }
-        public HttpOperation Cancel { get; internal set; }
-        public ExecuteRequestWrapper<TransactionRequestContainer<ReversalTransactionRequest>, ReversalTransactionResponseContainer> Reversal { get; internal set; }
+        public Func<AuthorizationRequest, Task<AuthorizationTransactionResponse>> DirectAuthorization { get; internal set; }
+        public Func<CaptureRequest, Task<CaptureTransactionResponse>> Capture { get; internal set; }
+        public Func<CancelRequest, Task<CancellationTransactionResponse>> Cancel { get; internal set; }
+        public Func<ReversalRequest, Task<ReversalTransactionResponse>> Reversal { get; internal set; }
         public HttpOperation RedirectVerification { get; internal set; }
         public HttpOperation ViewVerification { get; internal set; }
         public HttpOperation DirectVerification { get; internal set; }

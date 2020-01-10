@@ -2,14 +2,20 @@
 {
     public class PaymentAbortRequest
     {
-        public PaymentAbortRequest()
+        public PaymentAbortRequestObject Payment { get; } = new PaymentAbortRequestObject();
+
+
+        public class PaymentAbortRequestObject
         {
-            Operation = "Abort";
-            AbortReason = "CancelledByConsumer";
+            public PaymentAbortRequestObject()
+            {
+                Operation = "Abort";
+                AbortReason = "CancelledByConsumer";
+            }
+
+
+            public string AbortReason { get; }
+            public string Operation { get; }
         }
-
-
-        public string AbortReason { get; }
-        public string Operation { get; }
     }
 }

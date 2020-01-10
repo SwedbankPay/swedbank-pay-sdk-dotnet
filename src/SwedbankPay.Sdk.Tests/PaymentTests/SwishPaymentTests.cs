@@ -4,8 +4,9 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 using SwedbankPay.Sdk.Payments;
-using SwedbankPay.Sdk.Payments.Swish.Transactions;
+using SwedbankPay.Sdk.Payments.Swish.OperationRequests;
 using SwedbankPay.Sdk.Tests.TestBuilders;
+using SwedbankPay.Sdk.Transactions;
 
 using Xunit;
 
@@ -20,7 +21,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         [Fact]
         public async Task GetPayment()
         {
-            var payment = await this.Sut.Payment.GetSwishPayment(new Uri("/psp/swish/payments/6112db70-97db-427a-3830-08d7935a285d", UriKind.Relative), PaymentExpand.All);
+            var payment = await this.Sut.Payment.GetSwishPayment(new Uri("/psp/swish/payments/631afe5f-71db-45d9-f5f7-08d7942d8c7e", UriKind.Relative), PaymentExpand.All);
             Assert.NotNull(payment);
         }
 
@@ -33,8 +34,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
 
             Assert.NotNull(payment);
 
-            var saleResponseContainer = await payment.Operations.CreateSale?.Execute(
-                new TransactionRequestContainer<SaleTransactionRequest>(new Payments.Swish.Transactions.SaleTransactionRequest(new Msisdn("+46701234567"))));
+            var saleResponseContainer = await payment.Operations.CreateSale?.Invoke(new SaleRequest(new Msisdn("+46701234567")));
 
             Assert.NotNull(saleResponseContainer);
             Assert.NotNull(saleResponseContainer.Sale);
@@ -49,8 +49,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
 
             Assert.NotNull(payment);
 
-            var saleResponseContainer = await payment.Operations.CreateSale?.Execute(
-                new TransactionRequestContainer<SaleTransactionRequest>(new Payments.Swish.Transactions.SaleTransactionRequest(null)));
+            var saleResponseContainer = await payment.Operations.CreateSale?.Invoke(new SaleRequest(null));
 
             Assert.NotNull(saleResponseContainer);
             Assert.NotNull(saleResponseContainer.Sale);
@@ -61,7 +60,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         public void A()
         {
             string content = "{\"payment\":\"/psp/swish/payments/638a76cd-3074-46a3-3863-08d7935a285d\",\"sale\":{\"date\":\"1/8/2020 10:09:48 AM +00:00\",\"paymentRequestToken\":\"02cc96518a6743da984aecf4eab908b1\",\"id\":\"/psp/swish/payments/638a76cd-3074-46a3-3863-08d7935a285d/sales/0f9be3dd-d5b8-4ec5-272f-08d7935a28f5\",\"transaction\":{\"id\":\"0f9be3dd-d5b8-4ec5-272f-08d7935a28f5\",\"created\":\"2020-01-08T10:08:29.8561754Z\",\"updated\":\"2020-01-08T10:09:48.7980445Z\",\"type\":\"Sale\",\"state\":\"AwaitingActivity\",\"number\":44100037133,\"amount\":160000,\"vatAmount\":0,\"description\":\"Test Description\",\"payeeReference\":\"637140785650600350\",\"isOperational\":true,\"operations\":[{\"method\":\"GET\",\"href\":\"swish://paymentrequest?token=02cc96518a6743da984aecf4eab908b1&callbackurl=https://example.com/payment-completed\",\"rel\":\"redirect-app-swish\"}]}}}";
-            var transactionRequestContainer = JsonConvert.DeserializeObject<SwedbankPay.Sdk.Payments.Swish.SaleResponseContainer>(content, JsonSerialization.JsonSerialization.Settings);
+            var transactionRequestContainer = JsonConvert.DeserializeObject<SwedbankPay.Sdk.Payments.Swish.SaleResponse>(content, JsonSerialization.JsonSerialization.Settings);
 
         }
 
@@ -75,7 +74,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
 
             Assert.NotNull(payment);
 
-            var paymentResponseContainer = await payment.Operations.Abort.Execute();
+            var paymentResponseContainer = await payment.Operations.Abort.Invoke();
 
             Assert.NotNull(paymentResponseContainer);
         }

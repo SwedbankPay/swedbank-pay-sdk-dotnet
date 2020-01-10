@@ -31,19 +31,19 @@ namespace SwedbankPay.Sdk.Payments.Card
                         break;
 
                     case PaymentResourceOperations.DirectAuthorization:
-                        operations.DirectAuthorization = httpOperation;
+                        operations.DirectAuthorization = async payload => await client.SendHttpRequestAndProcessHttpResponse<AuthorizationTransactionResponse>(httpOperation.Request.AttachPayload(payload));
                         break;
 
                     case PaymentResourceOperations.CreateCapture:
-                        operations.Capture = new ExecuteRequestWrapper<TransactionRequestContainer<TransactionRequest>, CaptureTransactionResponseContainer>(httpOperation.Request, client);
+                        operations.Capture = async payload => await client.SendHttpRequestAndProcessHttpResponse<CaptureTransactionResponse>(httpOperation.Request.AttachPayload(payload));
                         break;
 
                     case PaymentResourceOperations.CreateCancellation:
-                        operations.Cancel = httpOperation;
+                        operations.Cancel = async payload => await client.SendHttpRequestAndProcessHttpResponse<CancellationTransactionResponse>(httpOperation.Request.AttachPayload(payload));
                         break;
 
                     case PaymentResourceOperations.CreateReversal:
-                        operations.Reversal = new ExecuteRequestWrapper<TransactionRequestContainer<ReversalTransactionRequest>, ReversalTransactionResponseContainer>(httpOperation.Request, client);
+                        operations.Reversal = async payload => await client.SendHttpRequestAndProcessHttpResponse<ReversalTransactionResponse>(httpOperation.Request.AttachPayload(payload));
                         break;
 
                     case PaymentResourceOperations.RedirectVerification:
@@ -78,10 +78,8 @@ namespace SwedbankPay.Sdk.Payments.Card
                                                    string paymentExpand)
         {
             var url = new Uri($"/psp/creditcard/payments{paymentExpand}", UriKind.Relative);
-
-            var payload = new PaymentRequestContainer(paymentRequest);
-
-            var paymentResponseContainer = await client.HttpPost<PaymentResponseContainer<PaymentResponse>>(url, payload);
+            
+            var paymentResponseContainer = await client.HttpPost<PaymentResponseContainer<PaymentResponse>>(url, paymentRequest);
             return new Payment(paymentResponseContainer, client);
         }
 
