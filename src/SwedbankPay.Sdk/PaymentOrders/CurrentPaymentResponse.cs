@@ -1,14 +1,29 @@
-﻿using System;
-
-using SwedbankPay.Sdk.Payments;
+﻿using SwedbankPay.Sdk.Payments;
 using SwedbankPay.Sdk.Payments.Card;
 using SwedbankPay.Sdk.Payments.Swish;
 
+using System;
+
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class CurrentPaymentResponse : IdLink
+    public class CurrentPaymentResponse
     {
-        public CurrentPaymentResponse(string number, string instrument, DateTime created, DateTime updated, Amount amount, AuthorizationListResponse authorizations, CancellationsListResponse cancellations, CapturesListResponse captures, CurrencyCode currency, string description, string intent, Language language, Operation operation, PayeeInfo payeeInfo, string payerReference, string paymentToken, PricesListResponse prices, ReversalsListResponse reversals, State state, TransactionListResponse transactions, IdLink urls, string userAgent, SaleListResponse sales)
+        public CurrentPaymentResponse(Uri paymentOrder, string menuElementName, CurrentPaymentResponseObject payment)
+        {
+            PaymentOrder = paymentOrder;
+            MenuElementName = menuElementName;
+            Payment = payment;
+        }
+
+        public Uri PaymentOrder { get; }
+        public string  MenuElementName { get; }
+        public CurrentPaymentResponseObject Payment { get; }
+
+    }
+
+    public class CurrentPaymentResponseObject : IdLink
+    {
+        public CurrentPaymentResponseObject(string number, string instrument, DateTime created, DateTime updated, Amount amount, AuthorizationListResponse authorizations, CancellationsListResponse cancellations, CapturesListResponse captures, CurrencyCode currency, string description, string intent, Language language, Operation operation, PayeeInfo payeeInfo, string payerReference, string paymentToken, PricesListResponse prices, ReversalsListResponse reversals, State state, TransactionListResponse transactions, IdLink urls, string userAgent, SaleListResponse sales)
         {
             Number = number;
             Instrument = instrument;
@@ -59,6 +74,5 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public IdLink Urls { get; }
         public string UserAgent { get; }
         public SaleListResponse Sales { get; }
-
     }
 }

@@ -5,12 +5,12 @@ namespace SwedbankPay.Sdk.Payments.Card
 {
     public class Payment
     {
-        private Payment(PaymentResponseContainer<PaymentResponse> paymentResponseContainer, SwedbankPayHttpClient client)
+        private Payment(PaymentResponse paymentResponse, SwedbankPayHttpClient client)
         {
-            PaymentResponse = paymentResponseContainer.PaymentResponse;
+            PaymentResponse = paymentResponse.Payment;
             var operations = new Operations();
 
-            foreach (var httpOperation in paymentResponseContainer.Operations)
+            foreach (var httpOperation in paymentResponse.Operations)
             {
                 operations.Add(httpOperation.Rel, httpOperation);
 
@@ -68,7 +68,7 @@ namespace SwedbankPay.Sdk.Payments.Card
 
         public Operations Operations { get; }
 
-        public PaymentResponse PaymentResponse { get; }
+        public PaymentResponseObject PaymentResponse { get; }
 
 
         internal static async Task<Payment> Create(PaymentRequest paymentRequest,
@@ -77,8 +77,8 @@ namespace SwedbankPay.Sdk.Payments.Card
         {
             var url = new Uri($"/psp/creditcard/payments{paymentExpand}", UriKind.Relative);
             
-            var paymentResponseContainer = await client.HttpPost<PaymentResponseContainer<PaymentResponse>>(url, paymentRequest);
-            return new Payment(paymentResponseContainer, client);
+            var paymentResponse = await client.HttpPost<PaymentResponse>(url, paymentRequest);
+            return new Payment(paymentResponse, client);
         }
 
 
@@ -90,7 +90,7 @@ namespace SwedbankPay.Sdk.Payments.Card
                 ? new Uri(id.OriginalString + paymentExpand, UriKind.RelativeOrAbsolute)
                 : id;
 
-            var paymentResponseContainer = await client.HttpGet<PaymentResponseContainer<PaymentResponse>>(url);
+            var paymentResponseContainer = await client.HttpGet<PaymentResponse>(url);
             return new Payment(paymentResponseContainer, client); 
         }
     }
