@@ -9,6 +9,7 @@ namespace Sample.AspNetCore.Models
         private List<CartLine> CartLineCollection { get; } = new List<CartLine>();
         public virtual IEnumerable<CartLine> CartLines => CartLineCollection;
         public string PaymentOrderLink { get; set; }
+        public string PaymentLink { get; set; }
         public bool Vat { get; set; }
 
 
