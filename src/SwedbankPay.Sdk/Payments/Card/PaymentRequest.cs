@@ -8,17 +8,17 @@ namespace SwedbankPay.Sdk.Payments.Card
     public class PaymentRequest
     {
         public PaymentRequest(Operation operation,
-                              string intent,
+                              Intent intent,
                               CurrencyCode currency,
                               List<Price> prices,
                               string description,
-                              string payerReference,
-                              bool generatePaymentToken,
-                              bool generateReccurenceToken,
                               string userAgent,
                               Language language,
                               Urls urls,
                               PayeeInfo payeeInfo,
+                              bool generatePaymentToken = false,
+                              bool generateReccurenceToken = false,
+                              string payerReference = null,
                               RiskIndicator riskIndicator = null,
                               Cardholder cardholder = null,
                               CreditCard creditCard = null,
@@ -36,7 +36,7 @@ namespace SwedbankPay.Sdk.Payments.Card
         public class PaymentRequestObject
         {
             protected internal PaymentRequestObject(Operation operation,
-                                                    string intent,
+                                                    Intent intent,
                                                     CurrencyCode currency,
                                                     List<Price> prices,
                                                     string description,
@@ -79,7 +79,7 @@ namespace SwedbankPay.Sdk.Payments.Card
             public string Description { get; set; }
             public bool GeneratePaymentToken { get; set; }
             public bool GenerateReccurenceToken { get; set; }
-            public string Intent { get; set; }
+            public Intent Intent { get; set; }
             public Language Language { get; set; }
             public Dictionary<string, object> MetaData { get; }
 

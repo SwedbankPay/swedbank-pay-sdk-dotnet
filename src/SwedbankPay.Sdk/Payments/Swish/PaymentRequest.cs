@@ -38,7 +38,7 @@ namespace SwedbankPay.Sdk.Payments.Swish
                                                     SwishRequest swishRequest)
             {
                 Operation = Operation.Purchase;
-                Intent = "Sale";
+                Intent = Intent.Sale;
                 Currency = currency;
                 Prices = prices;
                 Description = description;
@@ -54,7 +54,7 @@ namespace SwedbankPay.Sdk.Payments.Swish
 
             public CurrencyCode Currency { get; }
             public string Description { get; }
-            public string Intent { get; }
+            public Intent Intent { get; }
             public Language Language { get; }
 
             public Operation Operation { get; }

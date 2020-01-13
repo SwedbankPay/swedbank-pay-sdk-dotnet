@@ -9,7 +9,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
     public class PaymentRequestBuilder
     {
         private Operation operation;
-        private string intent;
+        private Intent intent;
         private CurrencyCode currency;
         private string description;
         private string userAgent;
@@ -34,14 +34,11 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
                 this.currency, 
                 this.price,  
                 this.description,
-                this.payerReference,
-                this.generatePaymentToken,
-                this.generateReccurrenceToken,
                 this.userAgent,
                 this.language,
                 this.urls,
                 this.payeeInfo,
-                null);
+                generatePaymentToken : this.generatePaymentToken, generateReccurenceToken : this.generateReccurrenceToken, payerReference : this.payerReference, riskIndicator : null);
         }
 
         public Payments.Swish.PaymentRequest BuildSwishPaymentRequest()
@@ -61,10 +58,10 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         }
 
 
-        public PaymentRequestBuilder WithCreditcardTestValues(Operation operation = null, string intent = null)
+        public PaymentRequestBuilder WithCreditcardTestValues(Operation operation = null, Intent intent = Intent.Authorization)
         {
             this.operation = operation ??  Operation.Purchase;
-            this.intent = intent ?? "Authorization";
+            this.intent = intent;
             this.currency = new CurrencyCode("SEK");
             this.description = "Test Description";
             this.payerReference = "AB1234";
@@ -87,7 +84,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         public PaymentRequestBuilder WithSwishTestValues()
         {
             this.operation = Operation.Purchase;
-            this.intent = "Sale";
+            this.intent = Intent.Sale;
             this.currency = new CurrencyCode("SEK");
             this.description = "Test Description";
             this.payerReference = "AB1234";
