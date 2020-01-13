@@ -9,7 +9,7 @@
     <Copyright>ADACA Authority AB</Copyright>
     <PackageTags>SwedbankPay sdk</PackageTags>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>Vipps payment handling. CreditCard payment handling.</PackageReleaseNotes>
+    <PackageReleaseNotes>Swish payment handling. CreditCard payment handling. Checkout handling.</PackageReleaseNotes>
     <AssemblyName>SwedbankPay.Sdk</AssemblyName>
     <RootNamespace>SwedbankPay.Sdk</RootNamespace>
     <LangVersion>latest</LangVersion>
