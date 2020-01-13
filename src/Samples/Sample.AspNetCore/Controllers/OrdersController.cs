@@ -8,6 +8,7 @@ using Sample.AspNetCore.Models;
 using Sample.AspNetCore.Models.ViewModels;
 
 using SwedbankPay.Sdk;
+using SwedbankPay.Sdk.Payments;
 
 namespace Sample.AspNetCore.Controllers
 {
@@ -72,11 +73,30 @@ namespace Sample.AspNetCore.Controllers
             if (order == null)
                 return NotFound();
 
-            var paymentOrder = await this.swedbankPayClient.PaymentOrder.Get(new Uri(order.PaymentOrderLink, UriKind.RelativeOrAbsolute));
+            OperationList operations = null;
 
-            var paymentOrderOperations = paymentOrder.Operations.Where(r => r.Key.Value.Contains("paymentorder")).Select(x => x.Value);
-
-            var operations = new OperationList(paymentOrderOperations);
+            if (!string.IsNullOrWhiteSpace(order.PaymentOrderLink))
+            {
+                var paymentOrder = await this.swedbankPayClient.PaymentOrder.Get(new Uri(order.PaymentOrderLink, UriKind.RelativeOrAbsolute));
+                var paymentOrderOperations = paymentOrder.Operations.Where(r => r.Key.Value.Contains("paymentorder")).Select(x => x.Value);
+                operations = new OperationList(paymentOrderOperations);
+            }
+            else
+            {
+                switch (order.Instrument)
+                {
+                    case "swish":
+                        var swishPayment = await this.swedbankPayClient.Payment.GetSwishPayment(order.PaymentLink, PaymentExpand.All);
+                        var swishOperations = swishPayment.Operations;
+                        operations = new OperationList(swishOperations.Values);
+                        break;
+                    case "creditcard":
+                        var cardPayment = await this.swedbankPayClient.Payment.GetSwishPayment(order.PaymentLink, PaymentExpand.All);
+                        var cardOperations = cardPayment.Operations;
+                        operations = new OperationList(cardOperations.Values);
+                        break;
+                }
+            }
 
             return View(new OrderViewModel
             {

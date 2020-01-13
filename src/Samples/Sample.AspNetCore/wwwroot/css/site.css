@@ -63,3 +63,27 @@ body {
     white-space: nowrap;
     width: 100%;
 }
+
+
+.px-loader-circle, .px-loader-circle:after
+
+{
+    border-radius: 50%;
+    width: 76px;
+    height: 76px;
+}
+
+.px-loader-circle {
+    font-size: 10px;
+    position: relative;
+    top: 50px;
+    left: 50%;
+    margin-left: -46px;
+    text-indent: -9999em;
+    border-top: 8px solid #e5e5e5;
+    border-right: 8px solid #e5e5e5;
+    border-bottom: 8px solid #e5e5e5;
+    border-left: 8px solid #cccccc;
+    /* transform: translateZ(0); */
+    /* animation: load8 1s infinite linear; */
+}

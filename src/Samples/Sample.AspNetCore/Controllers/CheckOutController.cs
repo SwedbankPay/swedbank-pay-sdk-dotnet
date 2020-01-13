@@ -72,6 +72,7 @@ namespace Sample.AspNetCore.Controllers
                 var paymentOrder = await this.swedbankPayClient.PaymentOrder.Create(paymentOrderRequest);
 
                 this.cartService.PaymentOrderLink = paymentOrder.PaymentOrderResponse.Id.OriginalString;
+                this.cartService.PaymentLink = null;
                 this.cartService.Update();
 
                 return paymentOrder;
@@ -105,6 +106,8 @@ namespace Sample.AspNetCore.Controllers
 
                 SwedbankPay.Sdk.Payments.Card.Payment cardPayment = await this.swedbankPayClient.Payment.CreateCreditCardPayment(cardRequest);
                 this.cartService.PaymentLink = cardPayment.PaymentResponse.Id.OriginalString;
+                this.cartService.Instrument = "creditcard";
+                this.cartService.PaymentOrderLink = null;
                 this.cartService.Update();
                 return cardPayment;
             }
@@ -132,10 +135,11 @@ namespace Sample.AspNetCore.Controllers
                                                                                               this.urls.TermsOfServiceUrl, this.urls.CancelUrl,
                                                                                               this.urls.PaymentUrl, this.urls.CallbackUrl, this.urls.LogoUrl),
                                                                                      new PayeeInfo(this.payeeInfoOptions.PayeeId,
-                                                                                                   this.payeeInfoOptions.PayeeReference), new PrefillInfo(new Msisdn("0739000001")), new SwishRequest());
+                                                                                                   this.payeeInfoOptions.PayeeReference), new PrefillInfo(new Msisdn("+46739000001")), new SwishRequest());
                 SwedbankPay.Sdk.Payments.Swish.Payment swishPayment = await this.swedbankPayClient.Payment.CreateSwishPayment(swishRequest);
                 this.cartService.PaymentLink = swishPayment.PaymentResponse.Id.OriginalString;
-                
+                this.cartService.Instrument = "swish";
+                this.cartService.PaymentOrderLink = null;
                 this.cartService.Update();
 
                 return swishPayment;
@@ -191,12 +195,6 @@ namespace Sample.AspNetCore.Controllers
 
         public async Task<IActionResult> LoadCardPaymentMenu()
         {
-            var response = await CreateCardPayment();
-
-            //var jsSource = response.Operations.View.Href;
-
-            
-
             return View("Payment");
         }
 
@@ -244,11 +242,11 @@ namespace Sample.AspNetCore.Controllers
             {
                 case "creditcard":
                     var cardPayment = await CreateCardPayment();
-                    return new JsonResult(cardPayment.Operations.RedirectAuthorization.Href);
+                    return new JsonResult(cardPayment.Operations.ViewAuthorization.Href);
                     
                 case "swish":
                     var swishPayment = await CreateSwishPayment();
-                    return new JsonResult(swishPayment.Operations.RedirectSale.Href);
+                    return new JsonResult(swishPayment.Operations.ViewSales.Href);
                 default :
                     return null;
             }

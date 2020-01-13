@@ -2,113 +2,126 @@
 @model Sample.AspNetCore.Models.ViewModels.OrderViewModel
 
 @{
-    ViewData["Title"] = "OrderDetails";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "OrderDetails";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @{
-    var actionName = "";
+	var actionName = "";
 }
 
 @if (TempData["CancelMessage"] != null)
 {
-    <div class="alert alert-success">@TempData["CancelMessage"]</div>
+	<div class="alert alert-success">@TempData["CancelMessage"]</div>
 }
 else if (TempData["CaptureMessage"] != null)
 {
-    <div class="alert alert-success">@TempData["CaptureMessage"]</div>
+	<div class="alert alert-success">@TempData["CaptureMessage"]</div>
 }
 else if (TempData["ReversalMessage"] != null)
 {
-    <div class="alert alert-success">@TempData["ReversalMessage"]</div>
+	<div class="alert alert-success">@TempData["ReversalMessage"]</div>
 }
 else if (TempData["ErrorMessage"] != null)
 {
-    <div class="alert alert-warning">@TempData["ErrorMessage"]</div>
+	<div class="alert alert-warning">@TempData["ErrorMessage"]</div>
 }
 
 <h1>Details</h1>
 
 <div>
-    <h4>Order</h4>
-    <hr/>
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Order.PaymentOrderLink)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Order.PaymentOrderLink)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Order.PaymentLink)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Order.PaymentLink)
-        </dd>
-    </dl>
+	<h4>Order</h4>
+	<hr />
+	<dl class="row">
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Order.PaymentOrderLink)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Order.PaymentOrderLink)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Order.PaymentLink)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Order.PaymentLink)
+		</dd>
+	</dl>
 </div>
 
 <table class="table">
-    <thead>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.OperationList[0].Method)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OperationList[0].Rel)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OperationList[0].Href)
-        </th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model.OperationList)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Method)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rel)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Href)
-            </td>
-            <td>
-                @switch (item.Rel.Value)
-                {
-                    case PaymentOrderResourceOperations.CreatePaymentOrderCancel:
-                        actionName = "CancelPayment";
-                        break;
-                    case PaymentOrderResourceOperations.CreatePaymentOrderCapture:
-                        actionName = "CapturePayment";
-                        break;
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.OperationList[0].Method)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.OperationList[0].Rel)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.OperationList[0].Href)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model.OperationList)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Method)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Rel)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Href)
+				</td>
+				<td>
+					@switch (item.Rel.Value)
+					{
+						case PaymentOrderResourceOperations.CreatePaymentOrderCancel:
+							actionName = "PaymentOrderCancel";
+							break;
+						case PaymentOrderResourceOperations.CreatePaymentOrderCapture:
+							actionName = "PaymentOrderCapture";
+							break;
+						case PaymentOrderResourceOperations.CreatePaymentOrderReversal:
+							actionName = "PaymentOrderReversal";
+							break;
+						case PaymentOrderResourceOperations.RedirectPaymentOrder:
+							break;
+						case PaymentOrderResourceOperations.UpdatePaymentOrderUpdateOrder:
+							break;
+						case PaymentOrderResourceOperations.ViewPaymentOrder:
+							break;
+						case PaymentResourceOperations.CreateReversal:
+							actionName = "Reversal";
+							break;
 
-                    case PaymentOrderResourceOperations.CreatePaymentOrderReversal:
-                        actionName = "ReversalPayment";
-                        break;
-                    case PaymentOrderResourceOperations.RedirectPaymentOrder:
-                        break;
-                    case PaymentOrderResourceOperations.UpdatePaymentOrderUpdateOrder:
-                        break;
-                    case PaymentOrderResourceOperations.ViewPaymentOrder:
-                        break;
-                }
-                @if (!string.IsNullOrEmpty(actionName))
-                {
-                    var automationTagName = $"a-{actionName.ToLower()}";
-                    <a class="btn btn-primary" asp-controller="Payment" asp-action=@actionName asp-route-paymentOrderId=@Model.Order.PaymentOrderLink automation=@automationTagName>Execute</a>
-                }
-                else
-                {
-                    <span class="badge badge-warning">Not implemented</span>
-                }
+						case PaymentResourceOperations.CreateCapture:
+							actionName = "Capture";
+							break;
+						case PaymentResourceOperations.CreateCancellation:
+							actionName = "Cancel";
+							break;
+					}
+					@if (!string.IsNullOrEmpty(actionName))
 
-            </td>
-        </tr>
-        actionName = null;
-    }
-    </tbody>
+					{
+						var automationTagName = $"a-{actionName.ToLower()}";
+
+						<a class="btn btn-primary" asp-controller="Payment" asp-action=@actionName asp-route-paymentOrderId=@Model.Order.PaymentOrderLink asp-route-paymentId="@Model.Order.PaymentLink" asp-route-instrument="@Model.Order.Instrument" automation=@automationTagName>Execute</a>
+
+					}
+					else
+					{
+						<span class="badge badge-warning">Not implemented</span>
+
+					}
+
+				</td>
+			</tr>
+			actionName = null;
+		}
+	</tbody>
 </table>

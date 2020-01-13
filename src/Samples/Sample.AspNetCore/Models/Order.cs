@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
@@ -10,8 +11,10 @@ namespace Sample.AspNetCore.Models
 
         [BindNever] public int OrderId { get; set; }
 
-        public string PaymentLink { get; set; }
+        public Uri PaymentLink { get; set; }
 
         public string PaymentOrderLink { get; set; }
+
+        public string Instrument { get; set; }
     }
 }
