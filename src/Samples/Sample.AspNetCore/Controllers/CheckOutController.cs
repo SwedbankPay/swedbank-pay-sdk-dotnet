@@ -10,10 +10,16 @@ using Microsoft.Extensions.Options;
 
 using Sample.AspNetCore.Extensions;
 using Sample.AspNetCore.Models;
+using Sample.AspNetCore.Models.ViewModels;
 
 using SwedbankPay.Sdk;
 using SwedbankPay.Sdk.Consumers;
 using SwedbankPay.Sdk.PaymentOrders;
+using SwedbankPay.Sdk.Payments;
+using SwedbankPay.Sdk.Payments.Swish;
+
+using Payment = SwedbankPay.Sdk.Payments.Card.Payment;
+using PaymentRequest = SwedbankPay.Sdk.Payments.Card.PaymentRequest;
 
 namespace Sample.AspNetCore.Controllers
 {
@@ -77,6 +83,69 @@ namespace Sample.AspNetCore.Controllers
             }
         }
 
+        public async Task<SwedbankPay.Sdk.Payments.Card.Payment> CreateCardPayment()
+        {
+            var totalAmount = this.cartService.CalculateTotal();
+            var vatAmount = Amount.FromDecimal(0);
+            try
+            {
+                var cardRequest = new SwedbankPay.Sdk.Payments.Card.PaymentRequest(Operation.Purchase, Intent.Authorization, new CurrencyCode("SEK"),
+                                                                                   new List<Price>
+                                                                                   {
+                                                                                       new Price(Amount.FromDecimal(totalAmount),
+                                                                                                 PriceType.CreditCard, vatAmount)
+                                                                                   },
+                                                                                   "Test Purchase", this.payeeInfoOptions.PayeeReference,
+                                                                                   new Language(CultureInfo.GetCultureInfo("sv-SE")),
+                                                                                   new Urls(this.urls.HostUrls, this.urls.CompleteUrl,
+                                                                                            this.urls.TermsOfServiceUrl, this.urls.CancelUrl,
+                                                                                            this.urls.PaymentUrl, this.urls.CallbackUrl, this.urls.LogoUrl),
+                                                                                   new PayeeInfo(this.payeeInfoOptions.PayeeId,
+                                                                                                 this.payeeInfoOptions.PayeeReference));
+
+                SwedbankPay.Sdk.Payments.Card.Payment cardPayment = await this.swedbankPayClient.Payment.CreateCreditCardPayment(cardRequest);
+                this.cartService.PaymentLink = cardPayment.PaymentResponse.Id.OriginalString;
+                this.cartService.Update();
+                return cardPayment;
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.Message);
+                return null;
+            }
+        }
+
+        public async Task<SwedbankPay.Sdk.Payments.Swish.Payment> CreateSwishPayment()
+        {
+            var totalAmount = this.cartService.CalculateTotal();
+            var vatAmount = Amount.FromDecimal(0);
+            try
+            {
+                var swishRequest = new SwedbankPay.Sdk.Payments.Swish.PaymentRequest(new CurrencyCode("SEK"),
+                                                                                     new List<Price>
+                                                                                     {
+                                                                                         new Price(Amount.FromDecimal(totalAmount),
+                                                                                                   PriceType.Swish, vatAmount)
+                                                                                     },
+                                                                                     "Test Purchase", this.payeeInfoOptions.PayeeReference, "useragent", new Language(CultureInfo.GetCultureInfo("sv-SE")),
+                                                                                     new Urls(this.urls.HostUrls, this.urls.CompleteUrl,
+                                                                                              this.urls.TermsOfServiceUrl, this.urls.CancelUrl,
+                                                                                              this.urls.PaymentUrl, this.urls.CallbackUrl, this.urls.LogoUrl),
+                                                                                     new PayeeInfo(this.payeeInfoOptions.PayeeId,
+                                                                                                   this.payeeInfoOptions.PayeeReference), new PrefillInfo(new Msisdn("0739000001")), new SwishRequest());
+                SwedbankPay.Sdk.Payments.Swish.Payment swishPayment = await this.swedbankPayClient.Payment.CreateSwishPayment(swishRequest);
+                this.cartService.PaymentLink = swishPayment.PaymentResponse.Id.OriginalString;
+                
+                this.cartService.Update();
+
+                return swishPayment;
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.Message);
+                return null;
+            }
+        }
 
         [HttpPost]
         public async Task<JsonResult> GetViewPaymentOrderHref(string consumerProfileRef = null)
@@ -120,6 +189,71 @@ namespace Sample.AspNetCore.Controllers
             return View("Checkout", swedBankPaySource);
         }
 
+        public async Task<IActionResult> LoadCardPaymentMenu()
+        {
+            var response = await CreateCardPayment();
+
+            //var jsSource = response.Operations.View.Href;
+
+            
+
+            return View("Payment");
+        }
+
+        //public async Task<IActionResult> Details(int? id)
+        //{
+        //    var order = await this.context.Orders
+        //        .FirstOrDefaultAsync();
+        //    if (order == null)
+        //        return NotFound();
+
+        //    var paymentOrder = await this.swedbankPayClient.PaymentOrder.Get(new Uri(order.PaymentOrderLink, UriKind.RelativeOrAbsolute));
+
+        //    var paymentOrderOperations = paymentOrder.Operations.Where(r => r.Key.Value.Contains("paymentorder")).Select(x => x.Value);
+
+        //    var operations = new OperationList(paymentOrderOperations);
+
+        //    return View(new OrderViewModel
+        //    {
+        //        Order = order,
+        //        OperationList = operations
+        //    });
+        //}
+
+        public async Task<IActionResult> LoadSwishPaymentMenu()
+        {
+            var response = await CreateSwishPayment();
+
+            var jsSource = response.Operations.ViewSales.Href;
+
+            var swedBankPaySource = new SwedbankPayCheckoutSource
+            {
+                JavascriptSource = jsSource,
+                Culture = CultureInfo.GetCultureInfo("sv-SE"),
+                UseAnonymousCheckout = true,
+                AbortOperationLink = response.Operations[LinkRelation.UpdateAbort].Href
+            };
+
+            return View("Checkout", swedBankPaySource);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> GetPaymentJsSource(string instrument)
+        {
+            switch (instrument)
+            {
+                case "creditcard":
+                    var cardPayment = await CreateCardPayment();
+                    return new JsonResult(cardPayment.Operations.RedirectAuthorization.Href);
+                    
+                case "swish":
+                    var swishPayment = await CreateSwishPayment();
+                    return new JsonResult(swishPayment.Operations.RedirectSale.Href);
+                default :
+                    return null;
+            }
+        }
+ 
 
         public ViewResult Thankyou()
         {
