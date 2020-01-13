@@ -134,6 +134,7 @@
     <Compile Include="PageObjectModels\Base\WaitForLoadingIndicatorAttribute.cs" />
     <Compile Include="PageObjectModels\Orders\OrdersPage.cs" />
     <Compile Include="PageObjectModels\Payment\IdentificationFramePage.cs" />
+    <Compile Include="PageObjectModels\Payment\LocalPaymentMenuPage.cs" />
     <Compile Include="PageObjectModels\Payment\PayexInvoiceFramePage.cs" />
     <Compile Include="PageObjectModels\Payment\PayexSwishFramePage.cs" />
     <Compile Include="PageObjectModels\Payment\PaymentFramePage.cs" />
@@ -153,6 +154,7 @@
     <Compile Include="Test\Base\Profiles.cs" />
     <Compile Include="Test\Base\TestCategory.cs" />
     <Compile Include="Services\HttpClientService.cs" />
+    <Compile Include="Test\Helpers\Checkout.cs" />
     <Compile Include="Test\Helpers\Product.cs" />
     <Compile Include="Test\PaymentTests\AbortTests.cs" />
     <Compile Include="Test\PaymentTests\AuthorizationTests.cs" />

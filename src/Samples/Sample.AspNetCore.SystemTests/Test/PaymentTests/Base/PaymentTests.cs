@@ -54,111 +54,177 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
         }
 
 
-        protected OrdersPage GoToOrdersPage(Product[] products, PayexInfo payexInfo, bool standardCheckout = false)
+        protected OrdersPage GoToOrdersPage(Product[] products, PayexInfo payexInfo, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
             switch (payexInfo)
             {
                 case PayexCardInfo cardInfo:
 
-                    return PayWithPayexCard(products, cardInfo, standardCheckout).Header.Orders.ClickAndGo();
+                    return PayWithPayexCard(products, cardInfo, checkout).Header.Orders.ClickAndGo();
 
                 case PayexSwishInfo swishInfo:
 
-                    return PayWithPayexSwish(products, swishInfo, standardCheckout).Header.Orders.ClickAndGo();
+                    return PayWithPayexSwish(products, swishInfo, checkout).Header.Orders.ClickAndGo();
 
                 case PayexInvoiceInfo invoiceInfo:
 
-                    return PayWithPayexInvoice(products, invoiceInfo, standardCheckout).Header.Orders.ClickAndGo();
+                    return PayWithPayexInvoice(products, invoiceInfo, checkout).Header.Orders.ClickAndGo();
             }
 
             return null;
         }
 
 
-        protected PayexCardFramePage GoToPayexCardPaymentFrame(Product[] products, bool standardCheckout = false)
+        protected PayexCardFramePage GoToPayexCardPaymentFrame(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
-            return GoToPaymentFramePage(products, standardCheckout)
-                .PaymentMethods[x => x.Name == PaymentMethods.Card].Click()
-                .PaymentMethods[x => x.Name == PaymentMethods.Card].PaymentFrame.SwitchTo<PayexCardFramePage>();
+            switch (checkout)
+            {
+                case Checkout.Option.LocalPaymentMenu:
+                    return GoToLocalPaymentPage(products, checkout)
+                        .CreditCard.Click()
+                        .PaymentFrame.SwitchTo<PayexCardFramePage>();
+
+                case Checkout.Option.Anonymous:
+                case Checkout.Option.Standard:
+                default:
+
+                    return GoToPaymentFramePage(products, checkout)
+                        .PaymentMethods[x => x.Name == PaymentMethods.Card].Click()
+                        .PaymentMethods[x => x.Name == PaymentMethods.Card].PaymentFrame.SwitchTo<PayexCardFramePage>();
+
+
+            }
+            
         }
 
 
-        protected PayexInvoiceFramePage GoToPayexInvoicePaymentFrame(Product[] products, bool standardCheckout = false)
+        protected PayexInvoiceFramePage GoToPayexInvoicePaymentFrame(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
-            return GoToPaymentFramePage(products, standardCheckout)
+            return GoToPaymentFramePage(products, checkout)
                 .PaymentMethods[x => x.Name == PaymentMethods.Invoice].Click()
                 .PaymentMethods[x => x.Name == PaymentMethods.Invoice].PaymentFrame.SwitchTo<PayexInvoiceFramePage>();
         }
 
 
-        protected PayexSwishFramePage GoToPayexSwishPaymentFrame(Product[] products, bool standardCheckout = false)
+        protected PayexSwishFramePage GoToPayexSwishPaymentFrame(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
-            return GoToPaymentFramePage(products, standardCheckout)
-                .PaymentMethods[x => x.Name == PaymentMethods.Swish].Click()
-                .PaymentMethods[x => x.Name == PaymentMethods.Swish].PaymentFrame.SwitchTo<PayexSwishFramePage>();
+            switch (checkout)
+            {
+                case Checkout.Option.LocalPaymentMenu:
+                    return GoToLocalPaymentPage(products, checkout)
+                        .Swish.Click()
+                        .PaymentFrame.SwitchTo<PayexSwishFramePage>();
+
+                case Checkout.Option.Anonymous:
+                case Checkout.Option.Standard:
+                default:
+
+                    return GoToPaymentFramePage(products, checkout)
+                        .PaymentMethods[x => x.Name == PaymentMethods.Swish].Click()
+                        .PaymentMethods[x => x.Name == PaymentMethods.Swish].PaymentFrame.SwitchTo<PayexSwishFramePage>();
+
+
+            }
+            
         }
 
 
-        protected PaymentFramePage GoToPaymentFramePage(Product[] products, bool standardCheckout = false)
+        protected PaymentFramePage GoToPaymentFramePage(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
-            return standardCheckout
-                ? GoToPaymentPage(products, standardCheckout)
+            switch (checkout)
+            {
+                case Checkout.Option.Standard:
+
+                    return GoToPayexPaymentPage(products, checkout)
                     .IdentificationFrame.SwitchTo()
                     .Email.Set(TestDataService.Email)
                     .PhoneNumber.Set(TestDataService.SwedishPhoneNumber)
                     .Next.Click().SwitchToRoot<PaymentPage>()
-                    .PaymentMethodsFrame.SwitchTo()
-                : GoToPaymentPage(products, standardCheckout)
                     .PaymentMethodsFrame.SwitchTo();
-        }
 
+                case Checkout.Option.Anonymous:
+                default:
 
-        protected PaymentPage GoToPaymentPage(Product[] products, bool standardCheckout = false)
-        {
-            var page = Go.To<ProductsPage>();
+                    return GoToPayexPaymentPage(products, checkout)
+                    .PaymentMethodsFrame.SwitchTo();
 
-            if (page.Header.ClearOrders.Exists(new SearchOptions { Timeout = new TimeSpan(0, 0, 0, 0, 500), IsSafely = true }))
-                page
-                    .Header.ClearOrders.Click()
-                    .Header.Products.Click();
-
-            foreach (var product in products)
-            {
-                page
-                    .Products.Rows[x => x.Name == product.Name].AddToCart.Click()
-                    .Products.Rows[x => x.Name == product.Name].Price.StorePrice(out var price);
-
-                product.UnitPrice = price;
-
-                if (product.Quantity != 1)
-                    page
-                        .CartProducts.Rows[x => x.Name == product.Name].Quantity.Set(product.Quantity)
-                        .CartProducts.Rows[x => x.Name == product.Name].Update.Click();
             }
-
-            return standardCheckout
-                ? page.StandardCheckout.ClickAndGo()
-                : page.Checkout.ClickAndGo();
         }
 
 
-        protected ThankYouPage PayWithPayexCard(Product[] products, PayexCardInfo info, bool standardCheckout = false)
+        protected LocalPaymentMenuPage GoToLocalPaymentPage(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
-            return standardCheckout
-                ? GoToPayexCardPaymentFrame(products, standardCheckout)
+            return SelectProducts(products)
+                    .LocalPaymentMenu.ClickAndGo();
+        }
+
+
+        protected PaymentPage GoToPayexPaymentPage(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)
+        {
+            switch (checkout)
+            {
+                case Checkout.Option.Standard:
+                    return SelectProducts(products).StandardCheckout.ClickAndGo();
+
+                case Checkout.Option.Anonymous:
+                default:
+                    return SelectProducts(products).AnonymousCheckout.ClickAndGo();
+            }
+        }
+
+
+        protected ProductsPage SelectProducts(Product[] products)
+        {
+            return Go.To<ProductsPage>()
+                .Do((x) => 
+                {
+                    if (x.Header.ClearOrders.Exists(new SearchOptions { Timeout = new TimeSpan(0, 0, 0, 0, 500), IsSafely = true }))
+                        x
+                        .Header.ClearOrders.Click()
+                        .Header.Products.Click();
+
+                    foreach (var product in products)
+                    {
+                        x
+                        .Products.Rows[y => y.Name == product.Name].AddToCart.Click()
+                        .Products.Rows[y => y.Name == product.Name].Price.StorePrice(out var price);
+
+                        product.UnitPrice = price;
+
+                        if (product.Quantity != 1)
+                            x
+                            .CartProducts.Rows[y => y.Name == product.Name].Quantity.Set(product.Quantity)
+                            .CartProducts.Rows[y => y.Name == product.Name].Update.Click();
+                    }
+                });
+        }
+
+        protected ThankYouPage PayWithPayexCard(Product[] products, PayexCardInfo info, Checkout.Option checkout = Checkout.Option.Anonymous)
+        {
+            switch (checkout)
+            {
+                case Checkout.Option.Standard:
+                    return GoToPayexCardPaymentFrame(products, checkout)
                     .PreFilledCards.Items[x => x.CreditCardNumber.Value.Contains(info.CreditCardNumber.Substring(info.CreditCardNumber.Length - 4))].Click()
                     .Cvc.Set(info.Cvc)
-                    .Pay.ClickAndGo()
-                : GoToPayexCardPaymentFrame(products, standardCheckout)
+                    .Pay.ClickAndGo();
+
+                case Checkout.Option.LocalPaymentMenu:
+                case Checkout.Option.Anonymous:
+                default:
+
+                    return GoToPayexCardPaymentFrame(products, checkout)
                     .CreditCardNumber.Set(info.CreditCardNumber)
                     .ExpiryDate.Set(info.ExpiryDate)
                     .Cvc.Set(info.Cvc)
                     .Pay.ClickAndGo();
+            }
         }
 
-        protected ThankYouPage PayWithPayexInvoice(Product[] products, PayexInvoiceInfo info, bool standardCheckout = false)
+
+        protected ThankYouPage PayWithPayexInvoice(Product[] products, PayexInvoiceInfo info, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
-            return GoToPayexInvoicePaymentFrame(products, standardCheckout)
+            return GoToPayexInvoicePaymentFrame(products, checkout)
                 .PersonalNumber.Set(info.PersonalNumber)
                 .Email.Set(info.Email)
                 .PhoneNumber.Set(info.PhoneNumber)
@@ -168,14 +234,23 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
         }
 
 
-        protected ThankYouPage PayWithPayexSwish(Product[] products, PayexSwishInfo info, bool standardCheckout = false)
+        protected ThankYouPage PayWithPayexSwish(Product[] products, PayexSwishInfo info, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
-            return standardCheckout
-                ? GoToPayexSwishPaymentFrame(products, standardCheckout)
-                    .Pay.ClickAndGo()
-                : GoToPayexSwishPaymentFrame(products, standardCheckout)
+            switch (checkout)
+            {
+                case Checkout.Option.Standard:
+
+                    return GoToPayexSwishPaymentFrame(products, checkout)
+                    .Pay.ClickAndGo();
+
+                case Checkout.Option.LocalPaymentMenu:
+                case Checkout.Option.Anonymous:
+                default:
+
+                    return GoToPayexSwishPaymentFrame(products, checkout)
                     .SwishNumber.Set(info.SwishNumber)
                     .Pay.ClickAndGo();
+            }
         }
 
 

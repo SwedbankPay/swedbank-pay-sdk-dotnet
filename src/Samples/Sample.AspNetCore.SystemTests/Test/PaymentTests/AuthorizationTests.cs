@@ -140,7 +140,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Card })]
         public async Task NormalFlowPaymentMultipleProductsCard(Product[] products, PayexInfo payexInfo)
         {
-            GoToOrdersPage(products, payexInfo, true)
+            GoToOrdersPage(products, payexInfo, Checkout.Option.Standard)
                 .PaymentOrderLink.StoreValue(out var orderLink)
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderCancel)].Should.BeVisible()
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderCapture)].Should.BeVisible()
@@ -183,7 +183,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
         [TestCaseSource(nameof(TestData), new object[] { true, PaymentMethods.Card })]
         public async Task NormalFlowPaymentSingleProductCard(Product[] products, PayexInfo payexInfo)
         {
-            GoToOrdersPage(products, payexInfo, true)
+            GoToOrdersPage(products, payexInfo, Checkout.Option.Standard)
                 .PaymentOrderLink.StoreValue(out var orderLink)
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderCancel)].Should.BeVisible()
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderCapture)].Should.BeVisible()
@@ -221,7 +221,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
         [TestCaseSource(nameof(TestData), new object[] { true, PaymentMethods.Swish })]
         public async Task NormalFlowPaymentSingleProductSwish(Product[] products, PayexInfo payexInfo)
         {
-            GoToOrdersPage(products, payexInfo, true)
+            GoToOrdersPage(products, payexInfo, Checkout.Option.Standard)
                 .PaymentOrderLink.StoreValue(out var orderLink)
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderReversal)].Should.BeVisible()
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible()
@@ -254,5 +254,82 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
             Assert.That(order.PaymentOrderResponse.OrderItems.OrderItemList[0].Quantity, Is.EqualTo(products[0].Quantity));
             Assert.That(order.PaymentOrderResponse.OrderItems.OrderItemList[0].Amount.Value, Is.EqualTo(products[0].UnitPrice * products[0].Quantity));
         }
+
+        [Test]
+        [TestCaseSource(nameof(TestData), new object[] { true, PaymentMethods.Card })]
+        public async Task NormalFlowPaymentSingleProductLocalMenuCard(Product[] products, PayexInfo payexInfo)
+        {
+            GoToOrdersPage(products, payexInfo, Checkout.Option.LocalPaymentMenu)
+                .PaymentOrderLink.StoreValue(out var orderLink)
+                .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderCancel)].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderCapture)].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible()
+                .Actions.Rows.Count.Should.Equal(3);
+
+            var order = await SwedbankPayClient.PaymentOrder.Get(orderLink, SwedbankPay.Sdk.PaymentOrders.PaymentOrderExpand.All);
+
+            // Global Order
+            Assert.That(order.PaymentOrderResponse.Amount.Value, Is.EqualTo(products.Select(x => x.UnitPrice * x.Quantity).Sum()));
+            Assert.That(order.PaymentOrderResponse.Currency.ToString(), Is.EqualTo("SEK"));
+            Assert.That(order.PaymentOrderResponse.State.Value, Is.EqualTo("Ready"));
+
+            // Operations
+            Assert.That(order.Operations[LinkRelation.CreatePaymentOrderReversal], Is.Null);
+            Assert.That(order.Operations[LinkRelation.CreateCancellation], Is.Not.Null);
+            Assert.That(order.Operations[LinkRelation.CreatePaymentOrderCapture], Is.Not.Null);
+            Assert.That(order.Operations[LinkRelation.PaidPaymentOrder], Is.Not.Null);
+
+            // Transactions
+            Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment.Transactions.TransactionList.Count, Is.EqualTo(1));
+            Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == "Authorization").State.Value,
+                        Is.EqualTo("Completed"));
+
+            // Order Items
+            Assert.That(order.PaymentOrderResponse.OrderItems.OrderItemList.Count, Is.EqualTo(1));
+
+            Assert.That(order.PaymentOrderResponse.OrderItems.OrderItemList[0].Name, Is.EqualTo(products[0].Name));
+            Assert.That(order.PaymentOrderResponse.OrderItems.OrderItemList[0].UnitPrice.Value, Is.EqualTo(products[0].UnitPrice));
+            Assert.That(order.PaymentOrderResponse.OrderItems.OrderItemList[0].Quantity, Is.EqualTo(products[0].Quantity));
+            Assert.That(order.PaymentOrderResponse.OrderItems.OrderItemList[0].Amount.Value, Is.EqualTo(products[0].UnitPrice * products[0].Quantity));
+        }
+
+        [Test]
+        [TestCaseSource(nameof(TestData), new object[] { true, PaymentMethods.Swish })]
+        public async Task NormalFlowPaymentSingleProductLocalMenuSwish(Product[] products, PayexInfo payexInfo)
+        {
+            GoToOrdersPage(products, payexInfo, Checkout.Option.LocalPaymentMenu)
+                .PaymentOrderLink.StoreValue(out var orderLink)
+                .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderReversal)].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible()
+                .Actions.Rows.Count.Should.Equal(2);
+
+            var order = await SwedbankPayClient.PaymentOrder.Get(orderLink, SwedbankPay.Sdk.PaymentOrders.PaymentOrderExpand.All);
+
+            // Global Order
+            Assert.That(order.PaymentOrderResponse.Amount.Value, Is.EqualTo(products.Select(x => x.UnitPrice * x.Quantity).Sum()));
+            Assert.That(order.PaymentOrderResponse.Currency.ToString(), Is.EqualTo("SEK"));
+            Assert.That(order.PaymentOrderResponse.State.Value, Is.EqualTo("Ready"));
+
+            // Operations
+            // Operations
+            Assert.That(order.Operations[LinkRelation.CreateCancellation], Is.Null);
+            Assert.That(order.Operations[LinkRelation.CreatePaymentOrderCapture], Is.Null);
+            Assert.That(order.Operations[LinkRelation.CreatePaymentOrderReversal], Is.Not.Null);
+            Assert.That(order.Operations[LinkRelation.PaidPaymentOrder], Is.Not.Null);
+
+            // Transactions
+            Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment.Transactions.TransactionList.Count, Is.EqualTo(1));
+            Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == "Sale").State.Value,
+                        Is.EqualTo("Completed"));
+
+            // Order Items
+            Assert.That(order.PaymentOrderResponse.OrderItems.OrderItemList.Count, Is.EqualTo(1));
+
+            Assert.That(order.PaymentOrderResponse.OrderItems.OrderItemList[0].Name, Is.EqualTo(products[0].Name));
+            Assert.That(order.PaymentOrderResponse.OrderItems.OrderItemList[0].UnitPrice.Value, Is.EqualTo(products[0].UnitPrice));
+            Assert.That(order.PaymentOrderResponse.OrderItems.OrderItemList[0].Quantity, Is.EqualTo(products[0].Quantity));
+            Assert.That(order.PaymentOrderResponse.OrderItems.OrderItemList[0].Amount.Value, Is.EqualTo(products[0].UnitPrice * products[0].Quantity));
+        }
+
     }
 }
