@@ -96,7 +96,7 @@ namespace Sample.AspNetCore.Controllers
             var swedBankPaySource = new SwedbankPayCheckoutSource
             {
                 JavascriptSource = jsSource,
-                Culture = "sv-SE",
+                Culture = CultureInfo.GetCultureInfo("sv-SE"),
                 UseAnonymousCheckout = false
             };
             return View("Checkout", swedBankPaySource);
@@ -112,7 +112,7 @@ namespace Sample.AspNetCore.Controllers
             var swedBankPaySource = new SwedbankPayCheckoutSource
             {
                 JavascriptSource = jsSource,
-                Culture = "sv-SE",
+                Culture = CultureInfo.GetCultureInfo("sv-SE"),
                 UseAnonymousCheckout = true,
                 AbortOperationLink = response.Operations[LinkRelation.UpdateAbort].Href
             };

@@ -76,7 +76,7 @@
 
     var config1 = {
         container: 'swedbankpay-paymentmenu-@containerId',
-        culture: '@Model.Culture',
+        culture: '@Model.Culture.Name',
         style: style,
         onPaymentCreated: onCreatedPaymentHandler
     };
@@ -127,7 +127,7 @@ else
 
         var paymentMenuConfig = {
             container: "swedbankpay-consumer-@containerId",
-            culture: '@Model.Culture',
+            culture: '@Model.Culture.Name',
             style: style,
             onConsumerIdentified: onIdentifiedConsumerHandler,
             //onShippingDetailsAvailable: onShippingDetailsAvailableHandler //TODO Add support for onShipping
