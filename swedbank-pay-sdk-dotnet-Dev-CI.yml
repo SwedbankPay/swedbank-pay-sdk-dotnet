@@ -57,7 +57,7 @@ steps:
 - task: MSBuild@1
   displayName: 'Build system tests project'
   inputs:
-    solution: '$(Build.SourcesDirectory)\src\Sample.AspNetCore.SystemTests\Sample.AspNetCore.SystemTests.csproj'
+    solution: '$(Build.SourcesDirectory)\src\Samples\Sample.AspNetCore.SystemTests\Sample.AspNetCore.SystemTests.csproj'
     platform: AnyCPU
     configuration: $(buildConfiguration)
   enabled: false
@@ -99,7 +99,7 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: 'Publish system test project build artifacts'
   inputs:
-    PathtoPublish: 'src\Sample.AspNetCore.SystemTests'
+    PathtoPublish: 'src\Samples\Sample.AspNetCore.SystemTests'
     ArtifactName: 'SystemTests'
     publishLocation: 'Container'
 
