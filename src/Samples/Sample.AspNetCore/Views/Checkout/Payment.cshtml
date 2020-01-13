@@ -1,0 +1,23 @@
+﻿
+@model Sample.AspNetCore.Models.ViewModels.PaymentMenuViewModel
+
+@{
+    ViewData["Title"] = "Payment";
+}
+
+<h1>Payment</h1>
+
+<div class="">
+    
+    <a class="btn btn-secondary" automation="button-checkout" asp-action="LoadSwishPaymentMenu" asp-controller="CheckOut">
+        Swish
+    </a>
+    <a class="btn btn-secondary" automation="button-checkout" asp-action="LoadCardPaymentMenu" asp-controller="CheckOut">
+        Card
+    </a>
+</div>
+
+<div id="swedbank-pay-seamless-view-page">
+    <script id="payment-page-script" src="https://ecom.dev.payex.com/creditcard/core/ scripts/client/px.creditcard.client.js"></script>
+</div>
+
