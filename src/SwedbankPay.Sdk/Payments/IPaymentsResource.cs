@@ -31,7 +31,7 @@ namespace SwedbankPay.Sdk.Payments
         ///// <param name="id"></param>
         ///// <param name="paymentExpand"></param>
         ///// <returns></returns>
-        Task<Payment> GetCreditCardPayment(Uri id, PaymentExpand paymentExpand);
+        Task<Payment> GetCreditCardPayment(Uri id, PaymentExpand paymentExpand = PaymentExpand.None);
 
 
         ///// <summary>
