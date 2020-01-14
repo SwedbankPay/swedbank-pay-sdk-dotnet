@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 using SwedbankPay.Sdk.PaymentOrders;
@@ -12,7 +13,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private CurrencyCode currency;
         private string description;
         private bool generateRecurrenceToken;
-        private Language language;
+        private CultureInfo language;
         private Dictionary<string, object> metaData;
         private Operation operation;
         private List<OrderItem> orderItems;
@@ -44,7 +45,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
 
         public PaymentOrderRequestBuilder WithLanguageCode(string code)
         {
-            this.language = new Language(code);
+            this.language = new CultureInfo(code);
             return this;
         }
 
@@ -87,7 +88,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.generateRecurrenceToken = false;
             this.urls = new Urls(new List<Uri>{ new Uri("https://example.com") },new Uri("https://example.com/payment-completed"),new Uri("https://example.com/termsandconditoons.pdf"), new Uri("https://example.com/payment-canceled"));
             this.userAgent = "useragent";
-            this.language = new Language("sv-SE");
+            this.language = new CultureInfo("sv-SE");
             this.payeeInfo = new PayeeInfo( Guid.Parse("91a4c8e0-72ac-425c-a687-856706f9e9a1"), DateTime.Now.Ticks.ToString());
             return this;
         }

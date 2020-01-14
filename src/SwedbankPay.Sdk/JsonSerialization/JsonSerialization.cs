@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 
 using SwedbankPay.Sdk.PaymentOrders;
+
+using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.JsonSerialization
 {
@@ -31,8 +31,8 @@ namespace SwedbankPay.Sdk.JsonSerialization
                 new TypedSafeEnumValueConverter<State, string>(),
                 new TypedSafeEnumValueConverter<PaymentOrderLanguage, string>(),
                 new CustomCurrencyCodeConverter(typeof(CurrencyCode)),
-                new CustomLanguageConverter(typeof(Language)),
                 new CustomUriConverter(),
+                new CustomCultureInfoConverter(),
                 new TypedSafeEnumValueConverter<LinkRelation, string>(),
                 new TypedSafeEnumValueConverter<OrderItemType, string>(),
                 new CustomAmountConverter(typeof(Amount)),

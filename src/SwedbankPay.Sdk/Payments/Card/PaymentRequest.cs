@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 using SwedbankPay.Sdk.PaymentOrders;
 
@@ -13,7 +14,7 @@ namespace SwedbankPay.Sdk.Payments.Card
                               List<Price> prices,
                               string description,
                               string userAgent,
-                              Language language,
+                              CultureInfo language,
                               Urls urls,
                               PayeeInfo payeeInfo,
                               bool generatePaymentToken = false,
@@ -44,7 +45,7 @@ namespace SwedbankPay.Sdk.Payments.Card
                                                     bool generatePaymentToken,
                                                     bool generateReccurenceToken,
                                                     string userAgent,
-                                                    Language language,
+                                                    CultureInfo language,
                                                     Urls urls,
                                                     PayeeInfo payeeInfo,
                                                     RiskIndicator riskIndicator = null,
@@ -80,7 +81,7 @@ namespace SwedbankPay.Sdk.Payments.Card
             public bool GeneratePaymentToken { get; set; }
             public bool GenerateReccurenceToken { get; set; }
             public Intent Intent { get; set; }
-            public Language Language { get; set; }
+            public CultureInfo Language { get; set; }
             public Dictionary<string, object> MetaData { get; }
 
             public Operation Operation { get; set; }

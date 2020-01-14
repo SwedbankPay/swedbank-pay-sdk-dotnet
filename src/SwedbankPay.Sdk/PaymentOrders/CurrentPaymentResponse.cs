@@ -3,6 +3,7 @@ using SwedbankPay.Sdk.Payments.Card;
 using SwedbankPay.Sdk.Payments.Swish;
 
 using System;
+using System.Globalization;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
@@ -23,7 +24,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
     public class CurrentPaymentResponseObject : IdLink
     {
-        public CurrentPaymentResponseObject(string number, string instrument, DateTime created, DateTime updated, Amount amount, AuthorizationListResponse authorizations, CancellationsListResponse cancellations, CapturesListResponse captures, CurrencyCode currency, string description, Intent intent, Language language, Operation operation, PayeeInfo payeeInfo, string payerReference, string paymentToken, PricesListResponse prices, ReversalsListResponse reversals, State state, TransactionListResponse transactions, IdLink urls, string userAgent, SaleListResponse sales)
+        public CurrentPaymentResponseObject(string number, string instrument, DateTime created, DateTime updated, Amount amount, AuthorizationListResponse authorizations, CancellationsListResponse cancellations, CapturesListResponse captures, CurrencyCode currency, string description, Intent intent, CultureInfo language, Operation operation, PayeeInfo payeeInfo, string payerReference, string paymentToken, PricesListResponse prices, ReversalsListResponse reversals, State state, TransactionListResponse transactions, IdLink urls, string userAgent, SaleListResponse sales)
         {
             Number = number;
             Instrument = instrument;
@@ -62,7 +63,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public CurrencyCode Currency { get; }
         public string Description { get; }
         public Intent Intent { get; }
-        public Language Language { get; }
+        public CultureInfo Language { get; }
         public Operation Operation { get; }
         public PayeeInfo PayeeInfo { get; }
         public string PayerReference { get; }

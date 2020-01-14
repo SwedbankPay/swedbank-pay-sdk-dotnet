@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace SwedbankPay.Sdk.Payments.Swish
 {
@@ -33,7 +34,7 @@ namespace SwedbankPay.Sdk.Payments.Swish
                                string payerReference,
                                string initiatingSystemUserAgent,
                                string userAgent,
-                               Language language,
+                               CultureInfo language,
                                TransactionListResponse transactions,
                                SaleListResponse sales,
                                ReversalsListResponse reversals,
@@ -80,7 +81,7 @@ namespace SwedbankPay.Sdk.Payments.Swish
         public string PayerReference { get; }
         public string InitiatingSystemUserAgent { get; }
         public string UserAgent { get; }
-        public Language Language { get; }
+        public CultureInfo Language { get; }
         public TransactionListResponse Transactions { get; }
         public SaleListResponse Sales { get; }
         public ReversalsListResponse Reversals { get; }

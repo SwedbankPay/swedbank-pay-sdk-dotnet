@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 
 using SwedbankPay.Sdk.PaymentOrders;
 
@@ -6,7 +7,7 @@ namespace SwedbankPay.Sdk.Consumers
 {
     public class ConsumersRequest
     {
-        public ConsumersRequest(Language language,
+        public ConsumersRequest(CultureInfo language,
                                 ICollection<string> shippingAddressRestrictedToCountryCodes,
                                 Operation operation = null,
                                 Msisdn msisdn = null,
@@ -30,7 +31,7 @@ namespace SwedbankPay.Sdk.Consumers
         /// <summary>
         ///     Selected language to be used in Checkin. Supported values are nb-NO, sv-SE and en-US
         /// </summary>
-        public Language Language { get; }
+        public CultureInfo Language { get; }
 
         /// <summary>
         ///     The MSISDN (mobile phone number) of the payer. Format Sweden: +46707777777. Format Norway: +4799999999.

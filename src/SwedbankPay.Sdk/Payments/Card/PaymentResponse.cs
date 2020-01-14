@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace SwedbankPay.Sdk.Payments.Card
 {
@@ -34,7 +35,7 @@ namespace SwedbankPay.Sdk.Payments.Card
                                string payerReference,
                                string initiatingSystemUserAgent,
                                string userAgent,
-                               Language language,
+                               CultureInfo language,
                                PricesListResponse prices,
                                TransactionListResponse transactions,
                                AuthorizationListResponse authorizations,
@@ -87,7 +88,7 @@ namespace SwedbankPay.Sdk.Payments.Card
         public Uri Id { get; }
         public string Instrument { get; }
         public string Intent { get; }
-        public Language Language { get; }
+        public CultureInfo Language { get; }
         public string Number { get; }
         public Operation Operation { get; }
         public PayeeInfo PayeeInfo { get; }

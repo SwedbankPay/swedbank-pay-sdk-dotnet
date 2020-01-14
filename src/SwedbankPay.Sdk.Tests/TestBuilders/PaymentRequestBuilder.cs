@@ -3,6 +3,7 @@ using SwedbankPay.Sdk.Payments.Swish;
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace SwedbankPay.Sdk.Tests.TestBuilders
 {
@@ -13,7 +14,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private CurrencyCode currency;
         private string description;
         private string userAgent;
-        private Language language;
+        private CultureInfo language;
         private Urls urls;
         private PayeeInfo payeeInfo;
         private PrefillInfo prefillInfo;
@@ -66,7 +67,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.description = "Test Description";
             this.payerReference = "AB1234";
             this.userAgent = "useragent";
-            this.language = new Language("sv-SE");
+            this.language = new CultureInfo("sv-SE");
             this.urls = new Urls(new List<Uri> { new Uri("https://example.com") }, new Uri("https://example.com/payment-completed"), new Uri("https://example.com/termsandconditoons.pdf"), new Uri("https://example.com/payment-canceled"));
             this.payeeInfo = new PayeeInfo(Guid.Parse("91a4c8e0-72ac-425c-a687-856706f9e9a1"), DateTime.Now.Ticks.ToString());
             this.generatePaymentToken = false;
@@ -89,7 +90,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.description = "Test Description";
             this.payerReference = "AB1234";
             this.userAgent = "useragent";
-            this.language = new Language("sv-SE");
+            this.language = new CultureInfo("sv-SE");
             this.urls = new Urls(new List<Uri> { new Uri("https://example.com") }, new Uri("https://example.com/payment-completed"), new Uri("https://example.com/termsandconditoons.pdf"), new Uri("https://example.com/payment-canceled"));
             this.payeeInfo = new PayeeInfo(Guid.Parse("91a4c8e0-72ac-425c-a687-856706f9e9a1"), DateTime.Now.Ticks.ToString());
             this.prefillInfo = new PrefillInfo(new Msisdn("+46701234567"));

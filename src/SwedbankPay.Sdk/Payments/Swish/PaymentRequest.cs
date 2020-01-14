@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
 
-using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace SwedbankPay.Sdk.Payments.Swish
 {
@@ -11,7 +12,7 @@ namespace SwedbankPay.Sdk.Payments.Swish
                               string description,
                               string payerReference,
                               string userAgent,
-                              Language language,
+                              CultureInfo language,
                               Urls urls,
                               PayeeInfo payeeInfo,
                               PrefillInfo prefillInfo,
@@ -31,7 +32,7 @@ namespace SwedbankPay.Sdk.Payments.Swish
                                                     string description,
                                                     string payerReference,
                                                     string userAgent,
-                                                    Language language,
+                                                    CultureInfo language,
                                                     Urls urls,
                                                     PayeeInfo payeeInfo,
                                                     PrefillInfo prefillInfo,
@@ -55,7 +56,7 @@ namespace SwedbankPay.Sdk.Payments.Swish
             public CurrencyCode Currency { get; }
             public string Description { get; }
             public Intent Intent { get; }
-            public Language Language { get; }
+            public CultureInfo Language { get; }
 
             public Operation Operation { get; }
             public PayeeInfo PayeeInfo { get; }

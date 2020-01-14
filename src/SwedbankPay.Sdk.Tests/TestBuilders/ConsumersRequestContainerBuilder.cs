@@ -13,7 +13,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private Msisdn msisdn;
         private NationalIdentifier nationalIdentifier;
         private Operation operation;
-        private Language language;
+        private CultureInfo language;
         private ICollection<string> shippingAddressRestrictedToCountryCodes;
 
 
@@ -26,7 +26,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         public ConsumersRequestContainerBuilder WithTestValues()
         {
             this.operation = Operation.Initiate;
-            this.language = new Language(new CultureInfo("sv-SE"));
+            this.language = new CultureInfo("sv-SE");
             this.shippingAddressRestrictedToCountryCodes = new List<string>{"SE", "NO", "DK"};
             return this;
         }

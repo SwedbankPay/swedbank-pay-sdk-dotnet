@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
@@ -11,7 +12,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                    Amount vatAmount,
                                    string description,
                                    string userAgent,
-                                   Language language,
+                                   CultureInfo language,
                                    bool generateRecurrenceToken,
                                    Urls urls,
                                    PayeeInfo payeeInfo,
@@ -37,7 +38,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                                          Amount vatAmount,
                                                          string description,
                                                          string userAgent,
-                                                         Language language,
+                                                         CultureInfo language,
                                                          bool generateRecurrenceToken,
                                                          Urls urls,
                                                          PayeeInfo payeeInfo,
@@ -95,7 +96,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
             /// <summary>
             ///     The language of the payer.
             /// </summary>
-            public Language Language { get; }
+            public CultureInfo Language { get; }
 
             /// <summary>
             ///     The keys and values that should be associated with the payment order. Can be additional identifiers and data you

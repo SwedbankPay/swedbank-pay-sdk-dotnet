@@ -61,7 +61,7 @@ namespace Sample.AspNetCore.Controllers
                 var paymentOrderRequest = new PaymentOrderRequest(Operation.Purchase, new CurrencyCode("SEK"),
                                                                   Amount.FromDecimal(totalAmount),
                                                                   Amount.FromDecimal(0), "Test description", "useragent",
-                                                                  new Language(CultureInfo.CreateSpecificCulture("sv-SE")),
+                                                                  CultureInfo.CreateSpecificCulture("sv-SE"),
                                                                   false,
                                                                   new Urls(this.urls.HostUrls, this.urls.CompleteUrl,
                                                                            this.urls.TermsOfServiceUrl, this.urls.CancelUrl,
@@ -97,7 +97,7 @@ namespace Sample.AspNetCore.Controllers
                                                                                                  PriceType.CreditCard, vatAmount)
                                                                                    },
                                                                                    "Test Purchase", this.payeeInfoOptions.PayeeReference,
-                                                                                   new Language(CultureInfo.GetCultureInfo("sv-SE")),
+                                                                                   CultureInfo.GetCultureInfo("sv-SE"),
                                                                                    new Urls(this.urls.HostUrls, this.urls.CompleteUrl,
                                                                                             this.urls.TermsOfServiceUrl, this.urls.CancelUrl,
                                                                                             this.urls.PaymentUrl, this.urls.CallbackUrl, this.urls.LogoUrl),
@@ -130,7 +130,7 @@ namespace Sample.AspNetCore.Controllers
                                                                                          new Price(Amount.FromDecimal(totalAmount),
                                                                                                    PriceType.Swish, vatAmount)
                                                                                      },
-                                                                                     "Test Purchase", this.payeeInfoOptions.PayeeReference, "useragent", new Language(CultureInfo.GetCultureInfo("sv-SE")),
+                                                                                     "Test Purchase", this.payeeInfoOptions.PayeeReference, "useragent", CultureInfo.GetCultureInfo("sv-SE"),
                                                                                      new Urls(this.urls.HostUrls, this.urls.CompleteUrl,
                                                                                               this.urls.TermsOfServiceUrl, this.urls.CancelUrl,
                                                                                               this.urls.PaymentUrl, this.urls.CallbackUrl, this.urls.LogoUrl),
@@ -162,7 +162,7 @@ namespace Sample.AspNetCore.Controllers
 
         public async Task<IActionResult> InitiateConsumerSession()
         {
-            var initiateConsumerRequest = new ConsumersRequest(shippingAddressRestrictedToCountryCodes: new List<string>{"SE"}, language: new Language(new CultureInfo("sv-SE")));
+            var initiateConsumerRequest = new ConsumersRequest(shippingAddressRestrictedToCountryCodes: new List<string>{"SE"}, language: new CultureInfo("sv-SE"));
             var response = await this.swedbankPayClient.Consumers.InitiateSession(initiateConsumerRequest);
             var jsSource = response.Operations.ViewConsumerIdentification?.Href;
 
