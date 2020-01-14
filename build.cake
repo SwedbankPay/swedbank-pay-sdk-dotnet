@@ -1,9 +1,11 @@
-var target = Argument("target", "Pack");
+var target = Argument("target", "Copy-And-Publish-Artifacts");
 var configuration = Argument("configuration", "Release");
-var proj = $"./src/PayEx.Client/PayEx.Client.csproj";
+var proj = $"./src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj";
 
-var version = "4.0.0"; 
-var outputDir = "./output";
+var version = "1.0.0"; 
+
+var artifactsDir = MakeAbsolute(Directory("artifacts"));
+var packagesDir = artifactsDir.Combine(Directory("packages"));
 
 Task("Build")    
     .Does(() => {
@@ -14,7 +16,7 @@ Task("Test")
     .IsDependentOn("Build")
     .Does(() => {
         Warning("Lacking tests."); 
-        //var testproj = $"./src/PayEx.Client/PayEx.Client.csproj";       
+        //var testproj = $"./src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj";       
         //DotNetCoreTest(testproj);     
 });
 
@@ -24,7 +26,7 @@ Task("Pack")
         var coresettings = new DotNetCorePackSettings
         {
             Configuration = "Release",
-            OutputDirectory = outputDir,
+            OutputDirectory = packagesDir,
         };
         coresettings.MSBuildSettings = new DotNetCoreMSBuildSettings()
                                         .WithProperty("Version", new[] { version });
@@ -32,6 +34,14 @@ Task("Pack")
         
         DotNetCorePack(proj, coresettings);
 });
+
+Task("Copy-And-Publish-Artifacts")
+	.IsDependentOn("Pack")
+    .Does(() =>
+    {
+        Information($"Uploading files from packagesDir directory: {packagesDir} to TFS");
+        TFBuild.Commands.UploadArtifactDirectory($"{packagesDir}");
+    });
 
 Task("PublishToNugetOrg")
     .IsDependentOn("Pack")
@@ -42,7 +52,7 @@ Task("PublishToNugetOrg")
             ApiKey = Argument("nugetapikey", "must-be-given")
         };
 
-        DotNetCoreNuGetPush($"{outputDir}/PayEx.Client.{version}.nupkg", settings);        
+        DotNetCoreNuGetPush($"{packagesDir}/SwedbankPay.Sdk.{version}.nupkg", settings);        
 });
 
 RunTarget(target);

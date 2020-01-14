@@ -1,0 +1,202 @@
+﻿<div class="container">
+	<div class="row">
+		<div class="col-md-5 col-xs-12">
+			<h2>Betala med</h2>
+			<div class="btn-group-vertical btn-block">
+				<button id="creditCard" class="btn btn-default" onclick="startPayment('creditcard')">
+					<img class="img-paymentmethod-padding" src="/img/cards.png" alt="Credit card">
+				</button>
+				<button id="swish" class="btn btn-default" onclick="startPayment('swish')">
+					<img class="img-paymentmethod-padding" src="/img/swish_logo.png" alt="Swish">
+				</button>
+			</div>
+		</div>
+		<div class="col-md-7 col-xs-12" id="paymentPageFrame">
+			<h2>&nbsp;</h2>
+			<div id="payex-paymentpage" class="bordered-div padded-div payment-panel-bg"></div>
+		</div>
+		<div class="col-md-7 col-xs-12" id="redirectFrame" hidden="">
+			<h2>&nbsp;</h2>
+			<button id="btnRedirectPayment" class="btn btn-checkout" style="width: 100%">Gå till betalning</button>
+		</div>
+		<div class="col-md-7 col-xs-12" id="errorFrame" hidden=""><h2>&nbsp;</h2>
+			<div id="errorContainer"></div>
+		</div>
+		<div class="col-md-7 col-xs-12" id="loaderFrame" hidden="">
+			<div class="px-loader-circle" id="loaderContainer"></div>
+		</div>
+	</div>
+</div>
+
+
+
+<script type="text/javascript">
+
+
+	var loadScriptAsync = function(uri) {
+		return new Promise(function(resolve, reject) {
+			var tag = document.createElement('script');
+			tag.src = uri;
+			tag.async = true;
+			tag.onload = function() {
+				resolve();
+			};
+			var firstScriptTag = document.getElementsByTagName('script')[0];
+			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+		});
+	};
+
+
+
+
+
+	var currentInstrument = "";
+	
+	function setFrameError(message) {
+		removeError();
+
+		var lineBreak = document.createElement("h2");
+		lineBreak.innerHTML = "&nbsp;";
+
+		var errorMsgContainer = document.createElement("div");
+		errorMsgContainer.setAttribute("id", "errorContainer");
+		errorMsgContainer.classList = ["alert alert-danger center"];
+		errorMsgContainer.textContent = message;
+
+		var errorMsgFrame = document.getElementById("errorFrame");
+		errorMsgFrame.appendChild(lineBreak);
+		errorMsgFrame.appendChild(errorMsgContainer);
+		selectUIFrame("errorFrame");
+	}
+
+	function removeError() {
+		var errorFrame = document.getElementById("errorFrame");
+
+		if (errorFrame.hasChildNodes()) {
+			errorFrame.removeChild(errorFrame.firstChild);
+		}
+	}
+
+	function resetPaymentFrame() {
+		if (currentInstrument && getPaymentPageFunction(currentInstrument) !== null)
+			getPaymentPageFunction(currentInstrument)().close();
+
+		var paymentPageScript = document.getElementById("paymentPageScript");
+		if (paymentPageScript) {
+			paymentPageScript.parentNode.removeChild(paymentPageScript);
+		}
+		var paymentPage = document.getElementById("payex-paymentpage");
+		if (paymentPage.hasChildNodes()) {
+			paymentPage.removeChild(paymentPage.firstChild);
+		}
+
+		removeError();
+		hideLoader();
+	}
+
+	function hideLoader() {
+		var loaderFrame = document.getElementById("loaderFrame");
+		if (!loaderFrame.hasAttribute("hidden")) {
+			loaderFrame.setAttribute("hidden", "");
+		}
+	}
+
+
+	function startPayment(instrument) {
+		resetPaymentFrame();
+		currentInstrument = instrument;
+		
+		$.post("/checkout/GetPaymentJsSource",
+			{ instrument: instrument },
+			function (paymentPageUrl) {
+				setFrameHostedView(paymentPageUrl, instrument);
+				removeError();
+			})
+			.fail(function () {
+				setFrameError("Betalningssätt är för närvarande inte tillgängligt i Demoshop");
+				hideLoader();
+			});
+	}
+
+
+	function paymentCompleted(paymentCompletedEvent) {
+		console.log(paymentCompletedEvent);
+
+		$.ajax({
+			async: false,
+			type: "POST",
+			cache: false,
+			url: "/payment/OnCompleted",
+			data: { "paymentLinkId": paymentCompletedEvent.id },
+			success: function(result) {
+				console.log('payment created');
+			}
+		});
+
+		window.location.href = paymentCompletedEvent.redirectUrl;
+	}
+
+	function setFrameHostedView(paymentPageUrl, instrument) {
+		selectUIFrame("paymentPageFrame");
+		var scriptLoaded = loadScriptAsync(paymentPageUrl);
+
+		scriptLoaded.then(function() {
+			var configPaymentPage = {
+				container: "payex-paymentpage",
+				culture: "sv-SE",
+				onPaymentCompleted: paymentCompleted
+			};
+			getPaymentPageFunction(instrument)(configPaymentPage).open();
+
+			var newPaymentPage = document.getElementById("payex-paymentpage");
+			while (newPaymentPage.childNodes.length > 1) {
+				newPaymentPage.removeChild(newPaymentPage.firstChild);
+			}
+		});
+	}
+
+	function getPaymentPageFunction(instrument) {
+		if (window.payex === undefined) {
+			return null;
+		}
+		switch (instrument.toLocaleLowerCase()) {
+		case "creditcard":
+			return window.payex.hostedView.creditCard;
+		case "invoice":
+			return window.payex.hostedView.invoice;
+		case "vipps":
+			return window.payex.hostedView.vipps;
+		case "swish":
+			return window.payex.hostedView.swish;
+		case "trustly":
+			return window.payex.hostedView.trustly;
+		default:
+			return null;
+		}
+	}
+
+	function selectUIFrame(frame) {
+		var ddPaymentPage = document.getElementById("redirectFrame");
+		var paymentPageFrame = document.getElementById("paymentPageFrame");
+		var errorFrame = document.getElementById("errorFrame");
+
+		if (!paymentPageFrame.hasAttribute("hidden")) {
+			paymentPageFrame.setAttribute("hidden", "");
+		}
+
+		if (!ddPaymentPage.hasAttribute("hidden")) {
+			ddPaymentPage.setAttribute("hidden", "");
+		}
+
+		if (!errorFrame.hasAttribute("hidden")) {
+			errorFrame.setAttribute("hidden", "");
+		}
+
+		var selectedFrame = document.getElementById(frame);
+		if (selectedFrame.hasAttribute("hidden")) {
+			selectedFrame.removeAttribute("hidden");
+		}
+	}
+
+
+</script>

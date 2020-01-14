@@ -1,0 +1,79 @@
+﻿using SwedbankPay.Sdk.Payments;
+using SwedbankPay.Sdk.Payments.Card;
+using SwedbankPay.Sdk.Payments.Swish;
+
+using System;
+using System.Globalization;
+
+namespace SwedbankPay.Sdk.PaymentOrders
+{
+    public class CurrentPaymentResponse
+    {
+        public CurrentPaymentResponse(Uri paymentOrder, string menuElementName, CurrentPaymentResponseObject payment)
+        {
+            PaymentOrder = paymentOrder;
+            MenuElementName = menuElementName;
+            Payment = payment;
+        }
+
+        public Uri PaymentOrder { get; }
+        public string  MenuElementName { get; }
+        public CurrentPaymentResponseObject Payment { get; }
+
+    }
+
+    public class CurrentPaymentResponseObject : IdLink
+    {
+        public CurrentPaymentResponseObject(string number, string instrument, DateTime created, DateTime updated, Amount amount, AuthorizationListResponse authorizations, CancellationsListResponse cancellations, CapturesListResponse captures, CurrencyCode currency, string description, Intent intent, CultureInfo language, Operation operation, PayeeInfo payeeInfo, string payerReference, string paymentToken, PricesListResponse prices, ReversalsListResponse reversals, State state, TransactionListResponse transactions, IdLink urls, string userAgent, SaleListResponse sales)
+        {
+            Number = number;
+            Instrument = instrument;
+            Created = created;
+            Updated = updated;
+            Amount = amount;
+            Authorizations = authorizations;
+            Cancellations = cancellations;
+            Captures = captures;
+            Currency = currency;
+            Description = description;
+            Intent = intent;
+            Language = language;
+            Operation = operation;
+            PayeeInfo = payeeInfo;
+            PayerReference = payerReference;
+            PaymentToken = paymentToken;
+            Prices = prices;
+            Reversals = reversals;
+            State = state;
+            Transactions = transactions;
+            Urls = urls;
+            UserAgent = userAgent;
+            Sales = sales;
+        }
+
+
+        public string Number { get; }
+        public string Instrument { get; }
+        public DateTime Created { get; }
+        public DateTime Updated { get; }
+        public Amount Amount { get; }
+        public AuthorizationListResponse Authorizations { get; }
+        public CancellationsListResponse Cancellations { get; }
+        public CapturesListResponse Captures { get; }
+        public CurrencyCode Currency { get; }
+        public string Description { get; }
+        public Intent Intent { get; }
+        public CultureInfo Language { get; }
+        public Operation Operation { get; }
+        public PayeeInfo PayeeInfo { get; }
+        public string PayerReference { get; }
+        public string PaymentToken { get; }
+        public PricesListResponse Prices { get; }
+        public ReversalsListResponse Reversals { get; }
+        public State State { get; }
+        public TransactionListResponse Transactions { get; }
+        public IdLink Urls { get; }
+        public string UserAgent { get; }
+        public SaleListResponse Sales { get; }
+    }
+}
