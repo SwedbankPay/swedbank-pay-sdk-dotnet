@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
@@ -207,6 +208,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                     return GoToPayexCardPaymentFrame(products, checkout)
                     .PreFilledCards.Items[x => x.CreditCardNumber.Value.Contains(info.CreditCardNumber.Substring(info.CreditCardNumber.Length - 4))].Click()
                     .Cvc.Set(info.Cvc)
+                    .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
                     .Pay.ClickAndGo();
 
                 case Checkout.Option.LocalPaymentMenu:
@@ -217,6 +219,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                     .CreditCardNumber.Set(info.CreditCardNumber)
                     .ExpiryDate.Set(info.ExpiryDate)
                     .Cvc.Set(info.Cvc)
+                    .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
                     .Pay.ClickAndGo();
             }
         }
@@ -230,6 +233,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 .PhoneNumber.Set(info.PhoneNumber)
                 .ZipCode.Set(info.ZipCode)
                 .Next.Click()
+                .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
                 .Pay.ClickAndGo();
         }
 
@@ -241,6 +245,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 case Checkout.Option.Standard:
 
                     return GoToPayexSwishPaymentFrame(products, checkout)
+                    .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice * x.Quantity)))} kr")
                     .Pay.ClickAndGo();
 
                 case Checkout.Option.LocalPaymentMenu:
@@ -249,6 +254,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
 
                     return GoToPayexSwishPaymentFrame(products, checkout)
                     .SwishNumber.Set(info.SwishNumber)
+                    .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice * x.Quantity)))} kr")
                     .Pay.ClickAndGo();
             }
         }

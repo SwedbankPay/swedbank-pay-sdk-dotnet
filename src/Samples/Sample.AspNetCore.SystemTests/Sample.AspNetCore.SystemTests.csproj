@@ -156,8 +156,6 @@
     <Compile Include="Services\HttpClientService.cs" />
     <Compile Include="Test\Helpers\Checkout.cs" />
     <Compile Include="Test\Helpers\Product.cs" />
-    <Compile Include="Test\PaymentTests\AbortTests.cs" />
-    <Compile Include="Test\PaymentTests\AuthorizationTests.cs" />
     <Compile Include="Test\PaymentTests\Base\PaymentTests.cs" />
     <Compile Include="Test\Base\TestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -167,11 +165,24 @@
     <Compile Include="Test\Helpers\PayexSwishInfo.cs" />
     <Compile Include="Test\Helpers\PaymentMethods.cs" />
     <Compile Include="Test\Helpers\Products.cs" />
-    <Compile Include="Test\PaymentTests\CancellationTests.cs" />
-    <Compile Include="Test\PaymentTests\CaptureTests.cs" />
-    <Compile Include="Test\PaymentTests\RejectionTests.cs" />
-    <Compile Include="Test\PaymentTests\ReversalTests.cs" />
-    <Compile Include="Test\PaymentTests\ValidationTests.cs" />
+    <Compile Include="Test\PaymentTests\PaymentOrder\Abort\AbortTests.cs" />
+    <Compile Include="Test\PaymentTests\PaymentOrder\Anonymous\AnonymousPaymentOrderAuthorizationTests.cs" />
+    <Compile Include="Test\PaymentTests\PaymentOrder\Anonymous\AnonymousPaymentOrderCancellationTests.cs" />
+    <Compile Include="Test\PaymentTests\PaymentOrder\Anonymous\AnonymousPaymentOrderCaptureTests.cs" />
+    <Compile Include="Test\PaymentTests\PaymentOrder\Anonymous\AnonymousPaymentOrderReversalTests.cs" />
+    <Compile Include="Test\PaymentTests\PaymentOrder\Anonymous\AnonymousPaymentOrderSaleTests.cs" />
+    <Compile Include="Test\PaymentTests\PaymentOrder\Standard\StandardPaymentOrderAuthorizationTests.cs" />
+    <Compile Include="Test\PaymentTests\PaymentOrder\Standard\StandardPaymentOrderCancellationTests.cs" />
+    <Compile Include="Test\PaymentTests\PaymentOrder\Standard\StandardPaymentOrderCaptureTests.cs" />
+    <Compile Include="Test\PaymentTests\PaymentOrder\Standard\StandardPaymentOrderReversalTests.cs" />
+    <Compile Include="Test\PaymentTests\PaymentOrder\Standard\StandardPaymentOrderSaleTests.cs" />
+    <Compile Include="Test\PaymentTests\PaymentOrder\Update\UpdateTests.cs" />
+    <Compile Include="Test\PaymentTests\Payment\PaymentAuthorizationTests.cs" />
+    <Compile Include="Test\PaymentTests\Payment\PaymentCancellationTests.cs" />
+    <Compile Include="Test\PaymentTests\Payment\PaymentCaptureTests.cs" />
+    <Compile Include="Test\PaymentTests\Payment\PaymentReversalTests.cs" />
+    <Compile Include="Test\PaymentTests\Payment\PaymentSaleTests.cs" />
+    <Compile Include="Test\PaymentTests\Validation\ValidationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
