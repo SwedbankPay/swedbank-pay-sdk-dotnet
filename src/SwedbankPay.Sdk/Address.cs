@@ -1,4 +1,6 @@
-﻿using SwedbankPay.Sdk.Consumers;
+﻿using System.Globalization;
+
+using SwedbankPay.Sdk.Consumers;
 
 namespace SwedbankPay.Sdk
 {
@@ -6,7 +8,7 @@ namespace SwedbankPay.Sdk
     {
         public string City { get; set; }
         public string CoAddress { get; set; }
-        public CountryCode CountryCode { get; set; }
+        public RegionInfo CountryCode { get; set; }
         public EmailAddress Email { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

@@ -7,30 +7,30 @@ using System.Linq;
 
 namespace SwedbankPay.Sdk.JsonSerialization
 {
-    public class CustomCultureInfoConverter : JsonConverter
+    public class CustomRegionInfoConverter : JsonConverter
     {
         public override bool CanConvert(Type objectType)
         {
-            return objectType == typeof(CultureInfo);
+            return objectType == typeof(RegionInfo);
         }
 
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             if (reader.TokenType == JsonToken.String)
-                return new CultureInfo((string)reader.Value);
+                return new RegionInfo((string)reader.Value);
             if (reader.TokenType == JsonToken.StartObject)
             {
                 var jo = JObject.Load(reader);
-                var language = jo.Values().FirstOrDefault()?.ToString();
-                return language != null ? new CultureInfo(language) : null;
+                var region = jo.Values().FirstOrDefault()?.ToString();
+                return region != null ? new RegionInfo(region) : null;
             }
 
             if (reader.TokenType == JsonToken.Null)
                 return null;
 
             throw new InvalidOperationException(
-                "Unhandled case for CustomCultureInfoConverter. Check to see if this converter has been applied to the wrong serialization type.");
+                "Unhandled case for CustomRegionInfoConverter. Check to see if this converter has been applied to the wrong serialization type.");
         }
 
 
@@ -42,14 +42,14 @@ namespace SwedbankPay.Sdk.JsonSerialization
                 return;
             }
 
-            if (value is CultureInfo cultureInfo)
+            if (value is RegionInfo regionInfo)
             {
-                writer.WriteValue(cultureInfo.Name);
+                writer.WriteValue(regionInfo.Name);
                 return;
             }
 
             throw new InvalidOperationException(
-                "Unhandled case for CustomCultureInfoConverter. Check to see if this converter has been applied to the wrong serialization type.");
+                "Unhandled case for CustomRegionInfoConverter. Check to see if this converter has been applied to the wrong serialization type.");
         }
     }
 }

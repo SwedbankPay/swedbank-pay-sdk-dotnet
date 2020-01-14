@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -26,7 +27,7 @@ namespace SwedbankPay.Sdk.Tests.Json
                 ReOrderPurchaseIndicator = ReOrderPurchaseIndicator.MerchandiseAvailable,
                 PickUpAddress = new PickUpAddress
                 {
-                    CountryCode = CountryCode.NO
+                    CountryCode = new RegionInfo("NO")
                 }
             };
 

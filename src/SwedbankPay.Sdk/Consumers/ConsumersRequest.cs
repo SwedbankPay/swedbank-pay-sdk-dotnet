@@ -8,7 +8,7 @@ namespace SwedbankPay.Sdk.Consumers
     public class ConsumersRequest
     {
         public ConsumersRequest(CultureInfo language,
-                                ICollection<string> shippingAddressRestrictedToCountryCodes,
+                                IEnumerable<RegionInfo> shippingAddressRestrictedToCountryCodes,
                                 Operation operation = null,
                                 Msisdn msisdn = null,
                                 EmailAddress email = null,
@@ -19,7 +19,7 @@ namespace SwedbankPay.Sdk.Consumers
             Msisdn = msisdn;
             Email = email;
             NationalIdentifier = nationalIdentifier;
-            ShippingAddressRestrictedToCountryCodes = shippingAddressRestrictedToCountryCodes ?? new List<string>();
+            ShippingAddressRestrictedToCountryCodes = shippingAddressRestrictedToCountryCodes ?? new List<RegionInfo>();
         }
 
 
@@ -48,6 +48,6 @@ namespace SwedbankPay.Sdk.Consumers
         /// <summary>
         ///     List of supported shipping countries for merchant. Using ISO-3166 standard.
         /// </summary>
-        public IEnumerable<string> ShippingAddressRestrictedToCountryCodes { get; }
+        public IEnumerable<RegionInfo> ShippingAddressRestrictedToCountryCodes { get; }
     }
 }

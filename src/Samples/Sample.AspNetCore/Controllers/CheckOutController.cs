@@ -162,7 +162,7 @@ namespace Sample.AspNetCore.Controllers
 
         public async Task<IActionResult> InitiateConsumerSession()
         {
-            var initiateConsumerRequest = new ConsumersRequest(shippingAddressRestrictedToCountryCodes: new List<string>{"SE"}, language: new CultureInfo("sv-SE"));
+            var initiateConsumerRequest = new ConsumersRequest(shippingAddressRestrictedToCountryCodes: new List<RegionInfo>{new RegionInfo("SE")}, language: new CultureInfo("sv-SE"));
             var response = await this.swedbankPayClient.Consumers.InitiateSession(initiateConsumerRequest);
             var jsSource = response.Operations.ViewConsumerIdentification?.Href;
 
