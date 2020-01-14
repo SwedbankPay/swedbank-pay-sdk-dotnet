@@ -19,7 +19,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
         [TestCaseSource(nameof(TestData), new object[] { true, null })]
         public async Task AbortFlowPaymentSingleProduct(Product[] products)
         {
-            GoToPaymentPage(products)
+            GoToPayexPaymentPage(products)
                 .Abort.ClickAndGo()
                 .Message.StoreValue(out var message)
                 .Header.Products.ClickAndGo();
