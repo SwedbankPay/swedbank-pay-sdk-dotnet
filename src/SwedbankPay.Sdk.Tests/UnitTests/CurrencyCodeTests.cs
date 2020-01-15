@@ -29,7 +29,7 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
         public void ThrowsArgumentException_WhenGivenInvalidCurrencyCode(string currencyCode)
         {
             //ASSERT
-            Assert.Throws<ArgumentException>(nameof(currencyCode), () => new CurrencyCode(currencyCode));
+            Assert.Throws<ArgumentException>(() => new CurrencyCode(currencyCode));
         }
 
 

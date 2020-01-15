@@ -5,7 +5,7 @@ using NUnit.Framework;
 using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 
-namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
+namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Abort
 {
     public class AbortTests : Base.PaymentTests
     {
@@ -17,7 +17,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
 
         [Test]
         [TestCaseSource(nameof(TestData), new object[] { true, null })]
-        public async Task AbortFlowPaymentSingleProduct(Product[] products)
+        public async Task Abort_PaymentOrder(Product[] products)
         {
             GoToPayexPaymentPage(products)
                 .Abort.ClickAndGo()

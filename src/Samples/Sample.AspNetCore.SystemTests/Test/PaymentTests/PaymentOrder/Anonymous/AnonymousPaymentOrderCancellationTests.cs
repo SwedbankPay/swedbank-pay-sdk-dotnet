@@ -6,11 +6,11 @@ using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
 
-namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
+namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Anonymous
 {
-    public class CancellationTests : Base.PaymentTests
+    public class AnonymousPaymentOrderCancellationTests : Base.PaymentTests
     {
-        public CancellationTests(string driverAlias)
+        public AnonymousPaymentOrderCancellationTests(string driverAlias)
             : base(driverAlias)
         {
         }
@@ -18,9 +18,9 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
 
         [Test]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Card })]
-        public async Task Cancellation_Flow_Payment_Multiple_Product(Product[] products, PayexInfo payexInfo)
+        public async Task Anonymous_PaymentOrder_Card_Cancellation(Product[] products, PayexInfo payexInfo)
         {
-            GoToOrdersPage(products, payexInfo)
+            GoToOrdersPage(products, payexInfo, Checkout.Option.Anonymous)
                 .PaymentOrderLink.StoreValue(out var orderLink)
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderCancel)].ExecuteAction.ClickAndGo()
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible()
@@ -36,18 +36,18 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
 
             // Transactions
             Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment.Transactions.TransactionList.Count, Is.EqualTo(2));
-            Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == "Authorization").State.Value,
-                        Is.EqualTo("Completed"));
-            Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == "Cancellation").State.Value,
-                        Is.EqualTo("Completed"));
+            Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionTypes.Authorization).State,
+                        Is.EqualTo(State.Completed));
+            Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == "Cancellation").State,
+                        Is.EqualTo(State.Completed));
         }
 
 
         [Test]
-        [TestCaseSource(nameof(TestData), new object[] { true, PaymentMethods.Card })]
-        public async Task Cancellation_Flow_Payment_Single_Product(Product[] products, PayexInfo payexInfo)
+        [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Invoice })]
+        public async Task Anonymous_PaymentOrder_Invoice_Cancellation(Product[] products, PayexInfo payexInfo)
         {
-            GoToOrdersPage(products, payexInfo)
+            GoToOrdersPage(products, payexInfo, Checkout.Option.Anonymous)
                 .PaymentOrderLink.StoreValue(out var orderLink)
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderCancel)].ExecuteAction.ClickAndGo()
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible()
@@ -62,11 +62,14 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
             Assert.That(order.Operations[LinkRelation.PaidPaymentOrder], Is.Not.Null);
 
             // Transactions
-            Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment.Transactions.TransactionList.Count, Is.EqualTo(2));
-            Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == "Authorization").State.Value,
-                        Is.EqualTo("Completed"));
-            Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == "Cancellation").State.Value,
-                        Is.EqualTo("Completed"));
+            Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment.Transactions.TransactionList.Count, Is.EqualTo(3));
+            Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == "Initialization").State,
+                        Is.EqualTo(State.Completed));
+            Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionTypes.Authorization).State,
+                        Is.EqualTo(State.Completed));
+            Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionTypes.Cancellation).State,
+                        Is.EqualTo(State.Completed));
         }
+
     }
 }
