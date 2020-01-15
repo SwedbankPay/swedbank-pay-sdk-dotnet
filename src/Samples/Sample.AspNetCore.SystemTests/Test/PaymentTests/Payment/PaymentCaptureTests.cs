@@ -30,10 +30,10 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
             var cardPayment = await SwedbankPayClient.Payment.GetCreditCardPayment(paymentLink, SwedbankPay.Sdk.Payments.PaymentExpand.All);
 
             // Operations
-            Assert.That(cardPayment.Operations[LinkRelation.CreatePaymentOrderCancel], Is.Null);
-            Assert.That(cardPayment.Operations[LinkRelation.CreatePaymentOrderCapture], Is.Null);
-            Assert.That(cardPayment.Operations[LinkRelation.PaidPaymentOrder], Is.Not.Null);
-            Assert.That(cardPayment.Operations[LinkRelation.CreatePaymentOrderReversal], Is.Not.Null);
+            Assert.That(cardPayment.Operations[LinkRelation.CreateCancellation], Is.Null);
+            Assert.That(cardPayment.Operations[LinkRelation.CreateCapture], Is.Null);
+            Assert.That(cardPayment.Operations[LinkRelation.PaidPayment], Is.Not.Null);
+            Assert.That(cardPayment.Operations[LinkRelation.CreateReversal], Is.Not.Null);
 
             // Transactions
             Assert.That(cardPayment.PaymentResponse.Transactions.TransactionList.Count, Is.EqualTo(2));

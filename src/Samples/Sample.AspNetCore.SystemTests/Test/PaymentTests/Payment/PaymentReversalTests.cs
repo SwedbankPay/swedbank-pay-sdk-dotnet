@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Atata;
 using NUnit.Framework;
@@ -28,13 +29,13 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.PaidPayment)].Should.BeVisible()
                 .Actions.Rows.Count.Should.Equal(1);
 
-            var order = await SwedbankPayClient.Payment.GetCreditCardPayment(paymentLink, SwedbankPay.Sdk.Payments.PaymentExpand.All);
+            var order = await SwedbankPayClient.Payment.GetCreditCardPayment(paymentLink, PaymentExpand.All);
 
             // Operations
-            Assert.That(order.Operations[LinkRelation.CreatePaymentOrderCancel], Is.Null);
-            Assert.That(order.Operations[LinkRelation.CreatePaymentOrderCapture], Is.Null);
-            Assert.That(order.Operations[LinkRelation.CreatePaymentOrderReversal], Is.Null);
-            Assert.That(order.Operations[LinkRelation.PaidPaymentOrder], Is.Not.Null);
+            Assert.That(order.Operations[LinkRelation.CreateCancellation], Is.Null);
+            Assert.That(order.Operations[LinkRelation.CreateCapture], Is.Null);
+            Assert.That(order.Operations[LinkRelation.CreateReversal], Is.Null);
+            Assert.That(order.Operations[LinkRelation.PaidPayment], Is.Not.Null);
 
             // Transactions
             Assert.That(order.PaymentResponse.Transactions.TransactionList.Count, Is.EqualTo(3));
@@ -54,16 +55,24 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
             GoToOrdersPage(products, payexInfo, Checkout.Option.LocalPaymentMenu)
                 .PaymentLink.StoreValue(out var paymentLink)
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateReversal)].ExecuteAction.ClickAndGo()
-                .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.PaidPayment)].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.ViewPayment)].Should.BeVisible()
                 .Actions.Rows.Count.Should.Equal(1);
 
-            var swishPayment = await SwedbankPayClient.Payment.GetSwishPayment(paymentLink, SwedbankPay.Sdk.Payments.PaymentExpand.All);
+            var swishPayment = await SwedbankPayClient.Payment.GetSwishPayment(paymentLink, PaymentExpand.All);
+            var counter = 0;
+
+            while (swishPayment.PaymentResponse.Transactions.TransactionList.First(x => x.Type == TransactionTypes.Reversal).State != State.Completed && counter <= 15)
+            {
+                Thread.Sleep(1000);
+                swishPayment = await SwedbankPayClient.Payment.GetSwishPayment(paymentLink, PaymentExpand.All);
+                counter++;
+            }
 
             // Operations
-            Assert.That(swishPayment.Operations[LinkRelation.CreatePaymentOrderCancel], Is.Null);
-            Assert.That(swishPayment.Operations[LinkRelation.CreatePaymentOrderCapture], Is.Null);
-            Assert.That(swishPayment.Operations[LinkRelation.CreatePaymentOrderReversal], Is.Null);
-            Assert.That(swishPayment.Operations[LinkRelation.PaidPaymentOrder], Is.Not.Null);
+            Assert.That(swishPayment.Operations[LinkRelation.CreateCancellation], Is.Null);
+            Assert.That(swishPayment.Operations[LinkRelation.CreateCapture], Is.Null);
+            Assert.That(swishPayment.Operations[LinkRelation.CreateReversal], Is.Null);
+            Assert.That(swishPayment.Operations[LinkRelation.ViewPayment], Is.Not.Null);
 
             // Transactions
             Assert.That(swishPayment.PaymentResponse.Transactions.TransactionList.Count, Is.EqualTo(2));
