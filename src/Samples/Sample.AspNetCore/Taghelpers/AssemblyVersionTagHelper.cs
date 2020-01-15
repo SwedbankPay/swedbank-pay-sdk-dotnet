@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 
-using Microsoft.AspNetCore.Razor.TagHelpers;
+using System.Diagnostics;
+using System.Reflection;
 
 namespace Sample.AspNetCore.TagHelpers
 {
@@ -13,9 +10,12 @@ namespace Sample.AspNetCore.TagHelpers
     {
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
+            var executingAssembly = Assembly.GetExecutingAssembly();
+            var versionInfo = FileVersionInfo.GetVersionInfo(executingAssembly.Location);
+            var productVersion = versionInfo.ProductVersion;
+            
             output.TagName = "";
-            output.Content.Append(GetType().Assembly.GetName().Version.ToString());
+            output.Content.Append(productVersion);
         }
     }
-    
 }
