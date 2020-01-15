@@ -3,8 +3,11 @@ using NUnit.Framework;
 using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
+using SwedbankPay.Sdk.Payments;
+using SwedbankPay.Sdk.PaymentOrders;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
 {
@@ -21,39 +24,29 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
         public async Task Payment_Swish_Sale(Product[] products, PayexInfo payexInfo)
         {
             GoToOrdersPage(products, payexInfo, Checkout.Option.LocalPaymentMenu)
-                .PaymentOrderLink.StoreValue(out var orderLink)
+                .PaymentLink.StoreValue(out var paymentLink)
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateReversal)].Should.BeVisible()
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.PaidPayment)].Should.BeVisible()
-                .Actions.Rows.Count.Should.Equal(2);
+                .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.ViewPayment)].Should.BeVisible()
+                .Actions.Rows.Count.Should.Equal(3);
 
-            var order = await SwedbankPayClient.PaymentOrder.Get(orderLink, SwedbankPay.Sdk.PaymentOrders.PaymentOrderExpand.All);
+            var swishPayment = await SwedbankPayClient.Payment.GetSwishPayment(paymentLink, PaymentExpand.All);
 
             // Global Order
-            Assert.That(order.PaymentOrderResponse.Amount.Value, Is.EqualTo(products.Select(x => x.UnitPrice * x.Quantity).Sum()));
-            Assert.That(order.PaymentOrderResponse.Currency.ToString(), Is.EqualTo("SEK"));
-            Assert.That(order.PaymentOrderResponse.State.Value, Is.EqualTo("Ready"));
+            Assert.That(swishPayment.PaymentResponse.Amount.Value, Is.EqualTo(products.Select(x => x.UnitPrice * x.Quantity).Sum()));
+            Assert.That(swishPayment.PaymentResponse.Currency.ToString(), Is.EqualTo("SEK"));
+            Assert.That(swishPayment.PaymentResponse.State, Is.EqualTo(State.Ready));
 
             // Operations
-            // Operations
-            Assert.That(order.Operations[LinkRelation.CreateCancellation], Is.Null);
-            Assert.That(order.Operations[LinkRelation.CreatePaymentOrderCapture], Is.Null);
-            Assert.That(order.Operations[LinkRelation.CreatePaymentOrderReversal], Is.Not.Null);
-            Assert.That(order.Operations[LinkRelation.PaidPaymentOrder], Is.Not.Null);
+            Assert.That(swishPayment.Operations[LinkRelation.CreateCancellation], Is.Null);
+            Assert.That(swishPayment.Operations[LinkRelation.CreateCapture], Is.Null);
+            Assert.That(swishPayment.Operations[LinkRelation.CreateReversal], Is.Not.Null);
+            Assert.That(swishPayment.Operations[LinkRelation.ViewPayment], Is.Not.Null);
 
             // Transactions
-            Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment.Transactions.TransactionList.Count, Is.EqualTo(1));
-            Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == "Sale").State.Value,
+            Assert.That(swishPayment.PaymentResponse.Transactions.TransactionList.Count, Is.EqualTo(1));
+            Assert.That(swishPayment.PaymentResponse.Transactions.TransactionList.First(x => x.Type == Intent.Sale.ToString()).State,
                         Is.EqualTo(State.Completed));
-
-            // Order Items
-            Assert.That(order.PaymentOrderResponse.OrderItems.OrderItemList.Count, Is.EqualTo(products.Count()));
-            for (var i = 0; i < products.Count(); i++)
-            {
-                Assert.That(order.PaymentOrderResponse.OrderItems.OrderItemList[i].Name, Is.EqualTo(products[i].Name));
-                Assert.That(order.PaymentOrderResponse.OrderItems.OrderItemList[i].UnitPrice.Value, Is.EqualTo(products[i].UnitPrice));
-                Assert.That(order.PaymentOrderResponse.OrderItems.OrderItemList[i].Quantity, Is.EqualTo(products[i].Quantity));
-                Assert.That(order.PaymentOrderResponse.OrderItems.OrderItemList[i].Amount.Value, Is.EqualTo(products[i].UnitPrice * products[i].Quantity));
-            }
         }
 
     }

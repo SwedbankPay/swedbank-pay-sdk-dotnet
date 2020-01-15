@@ -227,14 +227,26 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
 
         protected ThankYouPage PayWithPayexInvoice(Product[] products, PayexInvoiceInfo info, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
-            return GoToPayexInvoicePaymentFrame(products, checkout)
-                .PersonalNumber.Set(info.PersonalNumber)
-                .Email.Set(info.Email)
-                .PhoneNumber.Set(info.PhoneNumber)
-                .ZipCode.Set(info.ZipCode)
-                .Next.Click()
-                .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
-                .Pay.ClickAndGo();
+            switch (checkout)
+            {
+                case Checkout.Option.Standard:
+                    return GoToPayexInvoicePaymentFrame(products, checkout)
+                        .PersonalNumber.Set(info.PersonalNumber.Substring(info.PersonalNumber.Length - 4))
+                        .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
+                        .Pay.ClickAndGo();
+
+                case Checkout.Option.Anonymous:
+                default:
+
+                    return GoToPayexInvoicePaymentFrame(products, checkout)
+                        .PersonalNumber.Set(info.PersonalNumber)
+                        .Email.Set(info.Email)
+                        .PhoneNumber.Set(info.PhoneNumber)
+                        .ZipCode.Set(info.ZipCode)
+                        .Next.Click()
+                        .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
+                        .Pay.ClickAndGo();
+            }
         }
 
 
@@ -245,7 +257,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 case Checkout.Option.Standard:
 
                     return GoToPayexSwishPaymentFrame(products, checkout)
-                    .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice * x.Quantity)))} kr")
+                    .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
                     .Pay.ClickAndGo();
 
                 case Checkout.Option.LocalPaymentMenu:
@@ -254,7 +266,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
 
                     return GoToPayexSwishPaymentFrame(products, checkout)
                     .SwishNumber.Set(info.SwishNumber)
-                    .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice * x.Quantity)))} kr")
+                    .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
                     .Pay.ClickAndGo();
             }
         }

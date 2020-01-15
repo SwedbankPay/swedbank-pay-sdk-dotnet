@@ -27,19 +27,19 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.PaidPayment)].Should.BeVisible()
                 .Actions.Rows.Count.Should.Equal(2);
 
-            var order = await SwedbankPayClient.Payment.GetCreditCardPayment(paymentLink, SwedbankPay.Sdk.Payments.PaymentExpand.All);
+            var cardPayment = await SwedbankPayClient.Payment.GetCreditCardPayment(paymentLink, SwedbankPay.Sdk.Payments.PaymentExpand.All);
 
             // Operations
-            Assert.That(order.Operations[LinkRelation.CreatePaymentOrderCancel], Is.Null);
-            Assert.That(order.Operations[LinkRelation.CreatePaymentOrderCapture], Is.Null);
-            Assert.That(order.Operations[LinkRelation.PaidPaymentOrder], Is.Not.Null);
-            Assert.That(order.Operations[LinkRelation.CreatePaymentOrderReversal], Is.Not.Null);
+            Assert.That(cardPayment.Operations[LinkRelation.CreateCancellation], Is.Null);
+            Assert.That(cardPayment.Operations[LinkRelation.CreateCapture], Is.Null);
+            Assert.That(cardPayment.Operations[LinkRelation.PaidPayment], Is.Not.Null);
+            Assert.That(cardPayment.Operations[LinkRelation.CreateReversal], Is.Not.Null);
 
             // Transactions
-            Assert.That(order.PaymentResponse.Transactions.TransactionList.Count, Is.EqualTo(2));
-            Assert.That(order.PaymentResponse.Transactions.TransactionList.First(x => x.Type == "Authorization").State.Value,
+            Assert.That(cardPayment.PaymentResponse.Transactions.TransactionList.Count, Is.EqualTo(2));
+            Assert.That(cardPayment.PaymentResponse.Transactions.TransactionList.First(x => x.Type == TransactionTypes.Authorization).State,
                         Is.EqualTo(State.Completed));
-            Assert.That(order.PaymentResponse.Transactions.TransactionList.First(x => x.Type == "Capture").State.Value,
+            Assert.That(cardPayment.PaymentResponse.Transactions.TransactionList.First(x => x.Type == TransactionTypes.Capture).State,
                         Is.EqualTo(State.Completed));
         }
 

@@ -30,9 +30,9 @@ namespace Sample.AspNetCore.SystemTests.Services
 
         public static string Password => "Passw0rd!.";
 
-        public static string PersonalNumber => "19590719-5662";
+        public static string PersonalNumber => "19971020-2392";
 
-        public static string PersonalNumberShort => "590719-5662";
+        public static string PersonalNumberShort => "971020-2392";
 
         public static string PhoneNumber => "0706050403";
 

@@ -5,6 +5,7 @@ using NUnit.Framework;
 using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
+using SwedbankPay.Sdk.Payments;
 
 namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
 {
@@ -26,19 +27,19 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.PaidPayment)].Should.BeVisible()
                 .Actions.Rows.Count.Should.Equal(1);
 
-            var order = await SwedbankPayClient.Payment.GetCreditCardPayment(paymentLink, SwedbankPay.Sdk.Payments.PaymentExpand.All);
+            var cardPayment = await SwedbankPayClient.Payment.GetCreditCardPayment(paymentLink, PaymentExpand.All);
 
             // Operations
-            Assert.That(order.Operations[LinkRelation.CreatePaymentOrderCancel], Is.Null);
-            Assert.That(order.Operations[LinkRelation.CreatePaymentOrderCapture], Is.Null);
-            Assert.That(order.Operations[LinkRelation.CreatePaymentOrderReversal], Is.Null);
-            Assert.That(order.Operations[LinkRelation.PaidPaymentOrder], Is.Not.Null);
+            Assert.That(cardPayment.Operations[LinkRelation.CreateCancellation], Is.Null);
+            Assert.That(cardPayment.Operations[LinkRelation.CreateCapture], Is.Null);
+            Assert.That(cardPayment.Operations[LinkRelation.CreateReversal], Is.Null);
+            Assert.That(cardPayment.Operations[LinkRelation.PaidPayment], Is.Not.Null);
 
             // Transactions
-            Assert.That(order.PaymentResponse.Transactions.TransactionList.Count, Is.EqualTo(2));
-            Assert.That(order.PaymentResponse.Transactions.TransactionList.First(x => x.Type == "Authorization").State.Value,
+            Assert.That(cardPayment.PaymentResponse.Transactions.TransactionList.Count, Is.EqualTo(2));
+            Assert.That(cardPayment.PaymentResponse.Transactions.TransactionList.First(x => x.Type == TransactionTypes.Authorization).State,
                         Is.EqualTo(State.Completed));
-            Assert.That(order.PaymentResponse.Transactions.TransactionList.First(x => x.Type == "Cancellation").State.Value,
+            Assert.That(cardPayment.PaymentResponse.Transactions.TransactionList.First(x => x.Type == TransactionTypes.Cancellation).State,
                         Is.EqualTo(State.Completed));
         }
 

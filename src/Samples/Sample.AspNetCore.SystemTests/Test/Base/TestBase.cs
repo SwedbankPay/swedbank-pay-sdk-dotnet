@@ -37,7 +37,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
                 UseInternetExplorer().
                     WithOptions(DriverOptionsFactory.GetDriverOptions(Driver.InternetExplorer) as InternetExplorerOptions).
                 AddNUnitTestContextLogging().
-                WithMinLevel(Atata.LogLevel.Trace).
+                WithMinLevel(LogLevel.Trace).
                 TakeScreenshotOnNUnitError().
                     AddScreenshotFileSaving().
                         WithFolderPath(() => $@"Logs\{AtataContext.BuildStart:yyyy-MM-dd HH_mm_ss}").

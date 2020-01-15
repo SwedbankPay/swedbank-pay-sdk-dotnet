@@ -3,6 +3,7 @@ using NUnit.Framework;
 using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
+using SwedbankPay.Sdk.Payments;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -31,7 +32,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Standard
             // Global Order
             Assert.That(order.PaymentOrderResponse.Amount.Value, Is.EqualTo(products.Select(x => x.UnitPrice * x.Quantity).Sum()));
             Assert.That(order.PaymentOrderResponse.Currency.ToString(), Is.EqualTo("SEK"));
-            Assert.That(order.PaymentOrderResponse.State.Value, Is.EqualTo("Ready"));
+            Assert.That(order.PaymentOrderResponse.State, Is.EqualTo(State.Ready));
 
             // Operations
             Assert.That(order.Operations[LinkRelation.CreateCancellation], Is.Null);
@@ -41,7 +42,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Standard
 
             // Transactions
             Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment.Transactions.TransactionList.Count, Is.EqualTo(1));
-            Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == "Sale").State.Value,
+            Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == Intent.Sale.ToString()).State,
                         Is.EqualTo(State.Completed));
 
             // Order Items
