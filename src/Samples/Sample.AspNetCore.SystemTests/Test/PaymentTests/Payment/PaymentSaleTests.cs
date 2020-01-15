@@ -3,6 +3,7 @@ using NUnit.Framework;
 using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
+using SwedbankPay.Sdk.Payments;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -31,7 +32,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
             // Global Order
             Assert.That(order.PaymentOrderResponse.Amount.Value, Is.EqualTo(products.Select(x => x.UnitPrice * x.Quantity).Sum()));
             Assert.That(order.PaymentOrderResponse.Currency.ToString(), Is.EqualTo("SEK"));
-            Assert.That(order.PaymentOrderResponse.State.Value, Is.EqualTo("Ready"));
+            Assert.That(order.PaymentOrderResponse.State, Is.EqualTo(State.Ready));
 
             // Operations
             // Operations
@@ -42,18 +43,8 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
 
             // Transactions
             Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment.Transactions.TransactionList.Count, Is.EqualTo(1));
-            Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == "Sale").State.Value,
+            Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == Intent.Sale.ToString()).State,
                         Is.EqualTo(State.Completed));
-
-            // Order Items
-            Assert.That(order.PaymentOrderResponse.OrderItems.OrderItemList.Count, Is.EqualTo(products.Count()));
-            for (var i = 0; i < products.Count(); i++)
-            {
-                Assert.That(order.PaymentOrderResponse.OrderItems.OrderItemList[i].Name, Is.EqualTo(products[i].Name));
-                Assert.That(order.PaymentOrderResponse.OrderItems.OrderItemList[i].UnitPrice.Value, Is.EqualTo(products[i].UnitPrice));
-                Assert.That(order.PaymentOrderResponse.OrderItems.OrderItemList[i].Quantity, Is.EqualTo(products[i].Quantity));
-                Assert.That(order.PaymentOrderResponse.OrderItems.OrderItemList[i].Amount.Value, Is.EqualTo(products[i].UnitPrice * products[i].Quantity));
-            }
         }
 
     }

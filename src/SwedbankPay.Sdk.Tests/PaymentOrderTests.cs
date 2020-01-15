@@ -31,7 +31,7 @@ namespace SwedbankPay.Sdk.Tests
 
             Assert.NotNull(responseContainer);
             Assert.NotNull(responseContainer.PaymentOrderResponseObject);
-            Assert.Equal("Aborted", responseContainer.PaymentOrderResponseObject.State.Value);
+            Assert.Equal(State.Aborted, responseContainer.PaymentOrderResponseObject.State);
         }
 
 
