@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 using Newtonsoft.Json;
@@ -21,7 +22,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
     public class PaymentOrderResponseObject : IdLink
     {
-        public PaymentOrderResponseObject(Amount amount, DateTime created, CurrencyCode currency, CurrentPaymentResponse currentPayment, string description, CultureInfo language, MetaDataContainer metaData, string operation, OrderItems orderItems, PayeeInfo payeeInfo, Payer payers, IdLink payments, Amount remainingCancellationAmount, Amount remainingCaptureAmount, Amount remainingReversalAmount, IdLink settings, State state, DateTime updated, Urls urls, string userAgent, Amount vatAmount)
+        public PaymentOrderResponseObject(Amount amount, DateTime created, CurrencyCode currency, CurrentPaymentResponse currentPayment, string description, CultureInfo language, MetaDataResponse metaData, string operation, OrderItems orderItems, PayeeInfo payeeInfo, Payer payers, IdLink payments, Amount remainingCancellationAmount, Amount remainingCaptureAmount, Amount remainingReversalAmount, IdLink settings, State state, DateTime updated, Urls urls, string userAgent, Amount vatAmount)
         {
             Amount = amount;
             Created = created;
@@ -52,7 +53,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public CurrentPaymentResponse CurrentPayment { get; }
         public string Description { get; }
         public CultureInfo Language { get; }
-        public MetaDataContainer MetaData { get; }
+        public MetaDataResponse MetaData { get; }
         public string Operation { get; }
         public OrderItems OrderItems { get; }
         public PayeeInfo PayeeInfo { get; }

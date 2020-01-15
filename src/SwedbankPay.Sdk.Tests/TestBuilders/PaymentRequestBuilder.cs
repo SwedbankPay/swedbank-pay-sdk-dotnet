@@ -25,6 +25,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private string payerReference;
         private SwishRequest swish;
         private List<Price> price;
+        private Dictionary<string, object> metaData;
 
 
         public Payments.Card.PaymentRequest BuildCreditardPaymentRequest()
@@ -39,7 +40,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
                 this.language,
                 this.urls,
                 this.payeeInfo,
-                generatePaymentToken : this.generatePaymentToken, generateReccurenceToken : this.generateReccurrenceToken, payerReference : this.payerReference, riskIndicator : null);
+                generatePaymentToken : this.generatePaymentToken, generateReccurenceToken : this.generateReccurrenceToken, payerReference : this.payerReference, riskIndicator : null, metaData: this.metaData);
         }
 
         public Payments.Swish.PaymentRequest BuildSwishPaymentRequest()
@@ -53,7 +54,8 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
                                       this.urls,
                                       this.payeeInfo,
                                       this.prefillInfo,
-                                      this.swish
+                                      this.swish,
+                                      this.metaData
 
             );
         }
@@ -73,6 +75,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.generatePaymentToken = false;
             this.amount = Amount.FromDecimal(1600);
             this.vatAmount = Amount.FromDecimal(0);
+            this.metaData = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
 
             this.price = new List<Price>
             {
@@ -98,6 +101,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.amount = Amount.FromDecimal(1600);
             this.vatAmount = Amount.FromDecimal(0);
             this.swish = new SwishRequest();
+            this.metaData = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
 
             this.price = new List<Price>
             {

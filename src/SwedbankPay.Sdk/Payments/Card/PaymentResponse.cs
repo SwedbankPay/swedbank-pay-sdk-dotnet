@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Globalization;
 
+using SwedbankPay.Sdk.PaymentOrders;
+
 namespace SwedbankPay.Sdk.Payments.Card
 {
     public class PaymentResponse
@@ -43,7 +45,8 @@ namespace SwedbankPay.Sdk.Payments.Card
                                ReversalsListResponse reversals,
                                CancellationsListResponse cancellations,
                                Urls urls,
-                               PayeeInfo payeeInfo)
+                               PayeeInfo payeeInfo,
+                               MetaDataResponse metaData)
         {
             Id = id;
             Number = number;
@@ -71,6 +74,7 @@ namespace SwedbankPay.Sdk.Payments.Card
             Captures = captures;
             Reversals = reversals;
             Cancellations = cancellations;
+            MetaData = metaData;
         }
 
 
@@ -100,5 +104,6 @@ namespace SwedbankPay.Sdk.Payments.Card
         public TransactionListResponse Transactions { get; }
         public Urls Urls { get; }
         public string UserAgent { get; }
+        public MetaDataResponse MetaData { get; }
     }
 }

@@ -74,6 +74,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             var creditCardPayment = await this.Sut.Payment.CreateCreditCardPayment(paymentRequest, PaymentExpand.All);
 
             Assert.NotNull(creditCardPayment);
+            Assert.Equal(paymentRequest.Payment.MetaData["key1"], creditCardPayment.PaymentResponse.MetaData["key1"]);
         }
     }
 }

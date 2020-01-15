@@ -87,9 +87,10 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         public async Task CreateSwishPayment_ShouldReturnPayment()
         {
             var paymentRequest = this.paymentRequestBuilder.WithSwishTestValues().BuildSwishPaymentRequest();
-            var swishPayment = await this.Sut.Payment.CreateSwishPayment(paymentRequest);
+            var swishPayment = await this.Sut.Payment.CreateSwishPayment(paymentRequest, PaymentExpand.All);
             Assert.NotNull(swishPayment);
             Assert.NotNull(swishPayment.PaymentResponse);
+            Assert.Equal(paymentRequest.Payment.MetaData["key1"], swishPayment.PaymentResponse.MetaData["key1"]);
         }
 
 
