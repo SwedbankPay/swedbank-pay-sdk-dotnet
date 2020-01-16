@@ -16,10 +16,11 @@ namespace SwedbankPay.Sdk.Payments.Swish
                               Urls urls,
                               PayeeInfo payeeInfo,
                               PrefillInfo prefillInfo,
-                              SwishRequest swishRequest)
+                              SwishRequest swishRequest,
+                              Dictionary<string, object> metaData = null)
         {
             Payment = new PaymentRequestObject(currency, prices, description, payerReference, userAgent, language, urls, payeeInfo,
-                                               prefillInfo, swishRequest);
+                                               prefillInfo, swishRequest, metaData);
         }
 
 
@@ -36,7 +37,8 @@ namespace SwedbankPay.Sdk.Payments.Swish
                                                     Urls urls,
                                                     PayeeInfo payeeInfo,
                                                     PrefillInfo prefillInfo,
-                                                    SwishRequest swishRequest)
+                                                    SwishRequest swishRequest,
+                                                    Dictionary<string, object> metaData = null)
             {
                 Operation = Operation.Purchase;
                 Intent = Intent.Sale;
@@ -50,9 +52,11 @@ namespace SwedbankPay.Sdk.Payments.Swish
                 PayeeInfo = payeeInfo;
                 PrefillInfo = prefillInfo;
                 SwishRequest = swishRequest;
+                MetaData = metaData;
             }
 
 
+            
             public CurrencyCode Currency { get; }
             public string Description { get; }
             public Intent Intent { get; }
@@ -68,6 +72,7 @@ namespace SwedbankPay.Sdk.Payments.Swish
 
             public Urls Urls { get; }
             public string UserAgent { get; }
+            public Dictionary<string, object> MetaData { get; }
         }
     }
 

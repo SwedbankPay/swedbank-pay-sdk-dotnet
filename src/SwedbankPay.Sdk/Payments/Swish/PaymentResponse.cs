@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Globalization;
 
+using SwedbankPay.Sdk.PaymentOrders;
+
 namespace SwedbankPay.Sdk.Payments.Swish
 {
     public class PaymentResponse
@@ -39,7 +41,8 @@ namespace SwedbankPay.Sdk.Payments.Swish
                                SaleListResponse sales,
                                ReversalsListResponse reversals,
                                Urls urls,
-                               PayeeInfo payeeInfo)
+                               PayeeInfo payeeInfo,
+                               MetaDataResponse metaData)
         {
             Id = id;
             Number = number;
@@ -63,6 +66,7 @@ namespace SwedbankPay.Sdk.Payments.Swish
             Reversals = reversals;
             Urls = urls;
             PayeeInfo = payeeInfo;
+            MetaData = metaData;
         }
         
         
@@ -88,5 +92,6 @@ namespace SwedbankPay.Sdk.Payments.Swish
         public Urls Urls { get; }
         public PayeeInfo PayeeInfo { get; }
         public Uri Id { get; }
+        public MetaDataResponse MetaData { get; }
     }
 }

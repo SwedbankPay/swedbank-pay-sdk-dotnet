@@ -20,11 +20,12 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                    List<OrderItem> orderItems = null,
                                    RiskIndicator riskIndicator = null,
                                    Dictionary<string, object> metaData = null,
-                                   List<Item> items = null)
+                                   List<Item> items = null,
+                                   bool? disablePaymentMenu = null)
         {
             PaymentOrder = new PaymentOrderRequestObject(operation, currency, amount, vatAmount, description, userAgent, language,
                                                          generateRecurrenceToken, urls, payeeInfo, payer, orderItems, riskIndicator,
-                                                         metaData, items);
+                                                         metaData, items, disablePaymentMenu);
         }
 
 
@@ -46,7 +47,8 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                                          List<OrderItem> orderItems = null,
                                                          RiskIndicator riskIndicator = null,
                                                          Dictionary<string, object> metaData = null,
-                                                         List<Item> items = null)
+                                                         List<Item> items = null,
+                                                         bool? disablePaymentMenu = null)
             {
                 Operation = operation ?? throw new ArgumentNullException(nameof(operation));
                 Currency = currency ?? throw new ArgumentNullException(nameof(currency));
@@ -63,6 +65,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                 RiskIndicator = riskIndicator;
                 MetaData = metaData;
                 Items = items;
+                DisablePaymentMenu = disablePaymentMenu;
             }
 
 
@@ -147,6 +150,11 @@ namespace SwedbankPay.Sdk.PaymentOrders
             ///     NOK.
             /// </summary>
             public Amount VatAmount { get; }
+
+            /// <summary>
+            /// If set to true, disables the frame around the payment menu. Usefull when only showing one payment instrument.
+            /// </summary>
+            public bool? DisablePaymentMenu { get; }
         }
     }
 }
