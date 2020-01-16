@@ -49,10 +49,10 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Anonymous
             Assert.That(order.PaymentOrderResponse.OrderItems.OrderItemList.Count, Is.EqualTo(products.Count()));
             for (var i = 0; i < products.Count(); i++)
             {
-                Assert.That(order.PaymentOrderResponse.OrderItems.OrderItemList[i].Name, Is.EqualTo(products[i].Name));
-                Assert.That(order.PaymentOrderResponse.OrderItems.OrderItemList[i].UnitPrice.Value, Is.EqualTo(products[i].UnitPrice));
-                Assert.That(order.PaymentOrderResponse.OrderItems.OrderItemList[i].Quantity, Is.EqualTo(products[i].Quantity));
-                Assert.That(order.PaymentOrderResponse.OrderItems.OrderItemList[i].Amount.Value, Is.EqualTo(products[i].UnitPrice * products[i].Quantity));
+                Assert.That(order.PaymentOrderResponse.OrderItems.OrderItemList.ElementAt(i).Name, Is.EqualTo(products[i].Name));
+                Assert.That(order.PaymentOrderResponse.OrderItems.OrderItemList.ElementAt(i).UnitPrice.Value, Is.EqualTo(products[i].UnitPrice));
+                Assert.That(order.PaymentOrderResponse.OrderItems.OrderItemList.ElementAt(i).Quantity, Is.EqualTo(products[i].Quantity));
+                Assert.That(order.PaymentOrderResponse.OrderItems.OrderItemList.ElementAt(i).Amount.Value, Is.EqualTo(products[i].UnitPrice * products[i].Quantity));
             }
         }
 
