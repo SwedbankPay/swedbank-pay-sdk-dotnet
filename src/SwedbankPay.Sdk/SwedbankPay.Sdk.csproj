@@ -1,13 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>SwedbankPay.Sdk</PackageId>
-    <Authors>ADACA Authority AB</Authors>
-    <Description>
-      A client library for Swedbank Pay REST APIs
-    </Description>
-    <Copyright>ADACA Authority AB</Copyright>
-    <PackageTags>SwedbankPay sdk</PackageTags>
+    <Authors>Swedbank Pay</Authors>
+    <Description>A client library and SDK for Swedbank Pay's RESTful API Platform</Description>
+    <Copyright>Swedbank Pay</Copyright>
+    <PackageTags>SwedbankPay sdk payments payment client api rest restful</PackageTags>
     <RepositoryType>git</RepositoryType>
     <PackageReleaseNotes>Swish payment handling. CreditCard payment handling. Checkout handling.</PackageReleaseNotes>
     <AssemblyName>SwedbankPay.Sdk</AssemblyName>
