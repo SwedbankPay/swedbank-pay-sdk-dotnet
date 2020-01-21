@@ -32,7 +32,7 @@ namespace SwedbankPay.Sdk.JsonSerialization
                 new TypedSafeEnumValueConverter<PaymentOrderLanguage, string>(),
                 new CustomCurrencyCodeConverter(typeof(CurrencyCode)),
                 new CustomUriConverter(),
-                new CustomCultureInfoConverter(),
+                new CustomLanguageConverter(),
                 new CustomRegionInfoConverter(),
                 new TypedSafeEnumValueConverter<LinkRelation, string>(),
                 new TypedSafeEnumValueConverter<OrderItemType, string>(),
