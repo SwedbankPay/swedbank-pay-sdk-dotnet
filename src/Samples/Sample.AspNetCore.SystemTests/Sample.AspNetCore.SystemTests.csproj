@@ -54,9 +54,6 @@
     <Reference Include="Atata, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Atata.1.4.0\lib\net45\Atata.dll</HintPath>
     </Reference>
-    <Reference Include="Atata.Configuration.Json, Version=0.16.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Atata.Configuration.Json.0.16.0\lib\net45\Atata.Configuration.Json.dll</HintPath>
-    </Reference>
     <Reference Include="Atata.WebDriverExtras, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Atata.WebDriverExtras.1.2.0\lib\net45\Atata.WebDriverExtras.dll</HintPath>
     </Reference>
@@ -186,12 +183,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Atata.Release.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Atata.DEV.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config" />
     <None Include="projectname.runsettings" />
   </ItemGroup>
