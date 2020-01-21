@@ -42,7 +42,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
 
             // Transactions
             Assert.That(cardPayment.PaymentResponse.Transactions.TransactionList.Count, Is.EqualTo(1));
-            Assert.That(cardPayment.PaymentResponse.Transactions.TransactionList.First(x => x.Type == TransactionTypes.Authorization).State,
+            Assert.That(cardPayment.PaymentResponse.Transactions.TransactionList.First(x => x.Type == TransactionType.Authorization).State,
                         Is.EqualTo(State.Completed));
 
         }
