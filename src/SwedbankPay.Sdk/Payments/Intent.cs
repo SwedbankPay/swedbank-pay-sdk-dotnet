@@ -9,6 +9,7 @@ namespace SwedbankPay.Sdk.Payments
     public enum Intent
     {
         Authorization,
-        Sale
+        Sale,
+        AutoCapture
     }
 }

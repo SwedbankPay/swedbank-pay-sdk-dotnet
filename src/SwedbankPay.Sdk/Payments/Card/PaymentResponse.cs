@@ -27,7 +27,7 @@ namespace SwedbankPay.Sdk.Payments.Card
                                DateTime updated,
                                State state,
                                Operation operation,
-                               string intent,
+                               Intent intent,
                                CurrencyCode currency,
                                Amount amount,
                                Amount remainingCaptureAmount,
@@ -91,7 +91,7 @@ namespace SwedbankPay.Sdk.Payments.Card
         public string Description { get; }
         public Uri Id { get; }
         public Instrument Instrument { get; }
-        public string Intent { get; }
+        public Intent Intent { get; }
         public CultureInfo Language { get; }
         public string Number { get; }
         public Operation Operation { get; }
