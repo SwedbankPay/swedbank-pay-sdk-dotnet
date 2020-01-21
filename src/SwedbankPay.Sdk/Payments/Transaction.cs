@@ -7,7 +7,7 @@ namespace SwedbankPay.Sdk.Payments
         public Transaction(Uri id,
                            DateTime created,
                            DateTime updated,
-                           string type,
+                           TransactionType type,
                            State state,
                            string number,
                            Amount amount,
@@ -41,7 +41,7 @@ namespace SwedbankPay.Sdk.Payments
         public OperationList Operations { get; }
         public string PayeeReference { get; }
         public State State { get; }
-        public string Type { get; }
+        public TransactionType Type { get; }
         public DateTime Updated { get; }
         public Amount VatAmount { get; }
     }
