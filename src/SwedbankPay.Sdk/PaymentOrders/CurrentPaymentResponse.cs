@@ -25,7 +25,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
     public class CurrentPaymentResponseObject : IdLink
     {
         public CurrentPaymentResponseObject(string number,
-                                            string instrument,
+                                            Instrument instrument,
                                             DateTime created,
                                             DateTime updated,
                                             Amount amount,
@@ -75,7 +75,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
 
         public string Number { get; }
-        public string Instrument { get; }
+        public Instrument Instrument { get; }
         public DateTime Created { get; }
         public DateTime Updated { get; }
         public Amount Amount { get; }

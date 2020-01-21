@@ -24,7 +24,7 @@ namespace SwedbankPay.Sdk.Payments.Swish
                                string number,
                                DateTime created,
                                DateTime updated,
-                               string instrument,
+                               Instrument instrument,
                                Operation operation,
                                string intent,
                                State state,
@@ -73,7 +73,7 @@ namespace SwedbankPay.Sdk.Payments.Swish
         public string Number { get; }
         public DateTime Created { get; }
         public DateTime Updated { get; }
-        public string Instrument { get; }
+        public Instrument Instrument { get; }
         public Operation Operation { get; }
         public string Intent { get; }
         public State State { get; }

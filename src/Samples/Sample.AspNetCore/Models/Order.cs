@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
+using SwedbankPay.Sdk;
+
 namespace Sample.AspNetCore.Models
 {
     public class Order
@@ -15,6 +17,6 @@ namespace Sample.AspNetCore.Models
 
         public string PaymentOrderLink { get; set; }
 
-        public string Instrument { get; set; }
+        public Instrument Instrument { get; set; }
     }
 }

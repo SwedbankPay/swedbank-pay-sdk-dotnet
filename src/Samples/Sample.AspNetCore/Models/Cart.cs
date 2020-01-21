@@ -2,6 +2,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
+using SwedbankPay.Sdk;
+
 namespace Sample.AspNetCore.Models
 {
     public class Cart
@@ -11,7 +13,7 @@ namespace Sample.AspNetCore.Models
         public string PaymentOrderLink { get; set; }
         public string PaymentLink { get; set; }
         public bool Vat { get; set; }
-        public string Instrument { get; set; }
+        public Instrument Instrument { get; set; }
 
 
         public virtual void AddItem(Product product, int quantity)
