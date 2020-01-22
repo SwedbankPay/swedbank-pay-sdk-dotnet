@@ -85,12 +85,12 @@ namespace Sample.AspNetCore.Controllers
             {
                 switch (order.Instrument)
                 {
-                    case "swish":
+                    case Instrument.Swish:
                         var swishPayment = await this.swedbankPayClient.Payment.GetSwishPayment(order.PaymentLink, PaymentExpand.All);
                         var swishOperations = swishPayment.Operations;
                         operations = new OperationList(swishOperations.Values);
                         break;
-                    case "creditcard":
+                    case Instrument.CreditCard:
                         var cardPayment = await this.swedbankPayClient.Payment.GetSwishPayment(order.PaymentLink, PaymentExpand.All);
                         var cardOperations = cardPayment.Operations;
                         operations = new OperationList(cardOperations.Values);

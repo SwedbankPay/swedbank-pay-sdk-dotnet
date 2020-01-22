@@ -9,7 +9,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
     public class ConsumersRequestContainerBuilder
     {
         private EmailAddress email;
-        private CultureInfo language;
+        private Language language;
         private Msisdn msisdn;
         private NationalIdentifier nationalIdentifier;
         private Operation operation;
@@ -30,10 +30,17 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         }
 
 
+        public ConsumersRequestContainerBuilder WithNationalIdentifier()
+        {
+            this.nationalIdentifier = new NationalIdentifier(new RegionInfo("sv-SE"), "19891010292" );
+            return this;
+        }
+
+
         public ConsumersRequestContainerBuilder WithTestValues()
         {
             this.operation = Operation.Initiate;
-            this.language = new CultureInfo("sv-SE");
+            this.language = new Language("sv-SE"); 
             this.shippingAddressRestrictedToCountryCodes = new List<RegionInfo>
                 { new RegionInfo("SE"), new RegionInfo("NO"), new RegionInfo("DK") };
             return this;

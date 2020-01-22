@@ -39,11 +39,11 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
 
             // Transactions
             Assert.That(order.PaymentResponse.Transactions.TransactionList.Count, Is.EqualTo(3));
-            Assert.That(order.PaymentResponse.Transactions.TransactionList.First(x => x.Type == TransactionTypes.Authorization).State,
+            Assert.That(order.PaymentResponse.Transactions.TransactionList.First(x => x.Type == TransactionType.Authorization).State,
                         Is.EqualTo(State.Completed));
-            Assert.That(order.PaymentResponse.Transactions.TransactionList.First(x => x.Type == TransactionTypes.Capture).State,
+            Assert.That(order.PaymentResponse.Transactions.TransactionList.First(x => x.Type == TransactionType.Capture).State,
                         Is.EqualTo(State.Completed));
-            Assert.That(order.PaymentResponse.Transactions.TransactionList.First(x => x.Type == TransactionTypes.Reversal).State,
+            Assert.That(order.PaymentResponse.Transactions.TransactionList.First(x => x.Type == TransactionType.Reversal).State,
                         Is.EqualTo(State.Completed));
         }
 
@@ -61,7 +61,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
             var swishPayment = await SwedbankPayClient.Payment.GetSwishPayment(paymentLink, PaymentExpand.All);
             var counter = 0;
 
-            while (swishPayment.PaymentResponse.Transactions.TransactionList.First(x => x.Type == TransactionTypes.Reversal).State != State.Completed && counter <= 15)
+            while (swishPayment.PaymentResponse.Transactions.TransactionList.First(x => x.Type == TransactionType.Reversal).State != State.Completed && counter <= 15)
             {
                 Thread.Sleep(1000);
                 swishPayment = await SwedbankPayClient.Payment.GetSwishPayment(paymentLink, PaymentExpand.All);
@@ -76,9 +76,9 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
 
             // Transactions
             Assert.That(swishPayment.PaymentResponse.Transactions.TransactionList.Count, Is.EqualTo(2));
-            Assert.That(swishPayment.PaymentResponse.Transactions.TransactionList.First(x => x.Type == Intent.Sale.ToString()).State,
+            Assert.That(swishPayment.PaymentResponse.Transactions.TransactionList.First(x => x.Type == TransactionType.Sale).State,
                         Is.EqualTo(State.Completed));
-            Assert.That(swishPayment.PaymentResponse.Transactions.TransactionList.First(x => x.Type == TransactionTypes.Reversal).State,
+            Assert.That(swishPayment.PaymentResponse.Transactions.TransactionList.First(x => x.Type == TransactionType.Reversal).State,
                         Is.EqualTo(State.Completed));
         }
 

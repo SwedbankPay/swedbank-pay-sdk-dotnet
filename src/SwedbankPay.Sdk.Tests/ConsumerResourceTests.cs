@@ -74,6 +74,7 @@ namespace SwedbankPay.Sdk.Tests
             Assert.NotNull(consumer.Operations);
             Assert.NotEmpty(consumer.Operations);
         }
+        
         [Fact]
         public async Task EmptyShippingAddressRestrictedToCountryCodes_ShouldThrow_HttpResponseException()
         {

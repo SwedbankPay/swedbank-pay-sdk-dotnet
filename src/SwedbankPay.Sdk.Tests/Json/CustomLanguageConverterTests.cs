@@ -8,32 +8,32 @@ using Xunit;
 
 namespace SwedbankPay.Sdk.Tests.Json
 {
-    public class CustomCultureInfoConverterTests
+    public class CustomLanguageConverterTests
     {
-        private readonly string cultureInfoString = "sv-SE";
+        private readonly string languageString = "sv-SE";
 
 
         [Fact]
-        public void CanDeSerialize_CultureInfo()
+        public void CanDeSerialize_Language()
         {
             //ARRANGE
-            var jsonObject = new JObject { { "language", this.cultureInfoString } };
+            var jsonObject = new JObject { { "language", this.languageString } };
 
             //ACT
-            var result = JsonConvert.DeserializeObject<CultureInfo>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);
+            var result = JsonConvert.DeserializeObject<Language>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);
 
             //ASSERT
-            Assert.Equal(this.cultureInfoString, result.Name);
+            Assert.Equal(this.languageString, result.ToString());
         }
 
 
         [Fact]
-        public void CanSerialize_CultureInfo()
+        public void CanSerialize_Language()
         {
             //ARRANGE
             var dummy = new
             {
-                Language = new CultureInfo(this.cultureInfoString)
+                Language = new Language(this.languageString)
             };
 
             //ACT
@@ -42,7 +42,7 @@ namespace SwedbankPay.Sdk.Tests.Json
 
             obj.TryGetValue("Language", StringComparison.InvariantCultureIgnoreCase, out var language);
             //ASSERT
-            Assert.Equal(this.cultureInfoString, language);
+            Assert.Equal(this.languageString, language);
         }
     }
 }

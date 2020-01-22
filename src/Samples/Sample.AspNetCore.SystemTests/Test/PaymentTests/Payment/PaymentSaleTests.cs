@@ -45,7 +45,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
 
             // Transactions
             Assert.That(swishPayment.PaymentResponse.Transactions.TransactionList.Count, Is.EqualTo(1));
-            Assert.That(swishPayment.PaymentResponse.Transactions.TransactionList.First(x => x.Type == Intent.Sale.ToString()).State,
+            Assert.That(swishPayment.PaymentResponse.Transactions.TransactionList.First(x => x.Type == TransactionType.Sale).State,
                         Is.EqualTo(State.Completed));
         }
 
