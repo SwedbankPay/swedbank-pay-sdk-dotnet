@@ -37,9 +37,9 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
 
             // Transactions
             Assert.That(cardPayment.PaymentResponse.Transactions.TransactionList.Count, Is.EqualTo(2));
-            Assert.That(cardPayment.PaymentResponse.Transactions.TransactionList.First(x => x.Type == TransactionTypes.Authorization).State,
+            Assert.That(cardPayment.PaymentResponse.Transactions.TransactionList.First(x => x.Type == TransactionType.Authorization).State,
                         Is.EqualTo(State.Completed));
-            Assert.That(cardPayment.PaymentResponse.Transactions.TransactionList.First(x => x.Type == TransactionTypes.Capture).State,
+            Assert.That(cardPayment.PaymentResponse.Transactions.TransactionList.First(x => x.Type == TransactionType.Capture).State,
                         Is.EqualTo(State.Completed));
         }
 

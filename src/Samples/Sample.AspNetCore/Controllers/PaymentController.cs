@@ -140,7 +140,7 @@ namespace Sample.AspNetCore.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Capture(string paymentId, string instrument)
+        public async Task<IActionResult> Capture(string paymentId, Instrument instrument)
         {
             try
             {
@@ -149,7 +149,7 @@ namespace Sample.AspNetCore.Controllers
 
                 switch (instrument)
                 {
-                    case "creditcard":
+                    case Instrument.CreditCard:
                         var cardPayment = await this.swedbankPayClient.Payment.GetCreditCardPayment(new Uri(paymentId, UriKind.RelativeOrAbsolute));
 
                         var order = await this.context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
@@ -214,7 +214,7 @@ namespace Sample.AspNetCore.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Reversal(string paymentId, string instrument)
+        public async Task<IActionResult> Reversal(string paymentId, Instrument instrument)
         {
             try
             {
@@ -224,14 +224,14 @@ namespace Sample.AspNetCore.Controllers
                 var order = await this.context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
                 switch (instrument)
                 {
-                    case "swish":
+                    case Instrument.Swish:
                         var swishPayment = await this.swedbankPayClient.Payment.GetSwishPayment(new Uri(paymentId, UriKind.RelativeOrAbsolute));
                         var swishReversal =  new SwedbankPay.Sdk.Payments.Swish.ReversalRequest(
                             Amount.FromDecimal(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
                             Amount.FromDecimal(0), description, DateTime.Now.Ticks.ToString());
                         response = await swishPayment.Operations.CreateReversal.Invoke(swishReversal);
                         break;
-                    case "creditcard":
+                    case Instrument.CreditCard:
                         var cardPayment = await this.swedbankPayClient.Payment.GetCreditCardPayment(new Uri(paymentId, UriKind.RelativeOrAbsolute));
                         var cardReversal = new SwedbankPay.Sdk.Payments.Card.ReversalRequest(
                             Amount.FromDecimal(order.Lines.Sum(e => e.Quantity * e.Product.Price)),

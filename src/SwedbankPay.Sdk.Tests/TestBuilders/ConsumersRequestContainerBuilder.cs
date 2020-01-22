@@ -30,6 +30,13 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         }
 
 
+        public ConsumersRequestContainerBuilder WithNationalIdentifier()
+        {
+            this.nationalIdentifier = new NationalIdentifier(new RegionInfo("sv-SE"), "19891010292" );
+            return this;
+        }
+
+
         public ConsumersRequestContainerBuilder WithTestValues()
         {
             this.operation = Operation.Initiate;

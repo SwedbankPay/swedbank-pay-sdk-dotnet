@@ -106,7 +106,7 @@ namespace Sample.AspNetCore.Controllers
 
                 SwedbankPay.Sdk.Payments.Card.Payment cardPayment = await this.swedbankPayClient.Payment.CreateCreditCardPayment(cardRequest);
                 this.cartService.PaymentLink = cardPayment.PaymentResponse.Id.OriginalString;
-                this.cartService.Instrument = "creditcard";
+                this.cartService.Instrument = Instrument.CreditCard;
                 this.cartService.PaymentOrderLink = null;
                 this.cartService.Update();
                 return cardPayment;
@@ -138,7 +138,7 @@ namespace Sample.AspNetCore.Controllers
                                                                                                    this.payeeInfoOptions.PayeeReference), new PrefillInfo(new Msisdn("+46739000001")), new SwishRequest());
                 SwedbankPay.Sdk.Payments.Swish.Payment swishPayment = await this.swedbankPayClient.Payment.CreateSwishPayment(swishRequest);
                 this.cartService.PaymentLink = swishPayment.PaymentResponse.Id.OriginalString;
-                this.cartService.Instrument = "swish";
+                this.cartService.Instrument = Instrument.Swish;
                 this.cartService.PaymentOrderLink = null;
                 this.cartService.Update();
 
@@ -162,7 +162,7 @@ namespace Sample.AspNetCore.Controllers
 
         public async Task<IActionResult> InitiateConsumerSession()
         {
-            var initiateConsumerRequest = new ConsumersRequest(shippingAddressRestrictedToCountryCodes: new List<RegionInfo>{new RegionInfo("SE")}, language: new CultureInfo("sv-SE"));
+            var initiateConsumerRequest = new ConsumersRequest(shippingAddressRestrictedToCountryCodes: new List<RegionInfo>{new RegionInfo("SE")}, language: new Language("sv-SE"));
             var response = await this.swedbankPayClient.Consumers.InitiateSession(initiateConsumerRequest);
             var jsSource = response.Operations.ViewConsumerIdentification?.Href;
 
@@ -236,15 +236,15 @@ namespace Sample.AspNetCore.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> GetPaymentJsSource(string instrument)
+        public async Task<JsonResult> GetPaymentJsSource(Instrument instrument)
         {
             switch (instrument)
             {
-                case "creditcard":
+                case Instrument.CreditCard:
                     var cardPayment = await CreateCardPayment();
                     return new JsonResult(cardPayment.Operations.ViewAuthorization.Href);
                     
-                case "swish":
+                case Instrument.Swish:
                     var swishPayment = await CreateSwishPayment();
                     return new JsonResult(swishPayment.Operations.ViewSales.Href);
                 default :
