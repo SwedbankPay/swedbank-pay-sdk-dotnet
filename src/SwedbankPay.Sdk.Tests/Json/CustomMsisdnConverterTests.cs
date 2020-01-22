@@ -17,7 +17,7 @@ namespace SwedbankPay.Sdk.Tests.Json
     public class CustomMsisdnConverterTests
     {
         [Fact]
-        public void CanDeSerialize_Amount()
+        public void CanDeSerialize_Msisdn()
         {
             //ARRANGE
             var jsonObject = new JObject { { "msisdn", "+46701234567" } };

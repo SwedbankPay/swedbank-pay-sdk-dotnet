@@ -2,11 +2,12 @@
 
 using Newtonsoft.Json;
 
+using SwedbankPay.Sdk.JsonSerialization;
+
 namespace SwedbankPay.Sdk
 {
     public class Msisdn
     {
-        [JsonConstructor]
         public Msisdn(string msisdn)
         {
             if (!IsValidMsisdn(msisdn))
