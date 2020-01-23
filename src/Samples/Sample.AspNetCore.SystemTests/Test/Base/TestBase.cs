@@ -11,15 +11,15 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
 {
     using static Drivers;
 
-    #if DEBUG
+#if DEBUG
     [TestFixture(DriverAliases.Chrome)]
-    #elif DEV
+#elif DEV
     [TestFixture(DriverAliases.Chrome)]
     //[TestFixtureSource(typeof(Profiles.ProfileDEV))]
-    #elif RELEASE
+#elif RELEASE
     [TestFixture(DriverAliases.Chrome)]
     //[TestFixtureSource(typeof(Profiles.ProfileRelease))]
-    #endif
+#endif
     public abstract class TestBase
     {
         private readonly string _driverAlias;
@@ -28,7 +28,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
         [OneTimeSetUp]
         public void GlobalSetup()
         {
-            #if DEBUG
+#if DEBUG
             AtataContext.GlobalConfiguration.
                 UseChrome().
                     WithOptions(DriverOptionsFactory.GetDriverOptions(Driver.Chrome) as ChromeOptions).
@@ -43,33 +43,34 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
                         WithFolderPath(() => $@"Logs\{AtataContext.BuildStart:yyyy-MM-dd HH_mm_ss}").
                         WithFileName(screenshotInfo => $"{AtataContext.Current.TestName} - {screenshotInfo.PageObjectFullName}").
                 UseTestName(() => $"[{_driverAlias}]{TestContext.CurrentContext.Test.Name}");
-            #endif
+#endif
         }
 
 
         [SetUp]
         public void SetUp()
         {
-            #if DEBUG
+#if DEBUG
             AtataContext.Configure()
                 .UseDriver(_driverAlias)
                     .UseBaseUrl("https://localhost:44344/")
             .Build();
             AtataContext.Current.Driver.Maximize();
-            #elif DEV
+#elif DEV
             AtataContext.Configure()
                 .UseDriver(_driverAlias)
                     .UseBaseUrl("https://YourBaseUrl.com/")
             .Build();
             AtataContext.Current.Driver.Maximize();
-            #elif RELEASE
+#elif RELEASE
+
             AtataContext.Configure()
-                .ApplyJsonConfig(environmentAlias: "Release") // Applies "Atata.Release.json" for build configuration with "Release" conditional compilation symbol.
-                .UseDriver(_driverAlias)
-                    .UseBaseUrl(Environment.GetEnvironmentVariable("Swedbank.Pay.Sdk.SampleWebsite.BaseUrl", EnvironmentVariableTarget.User))
-            .Build();
+                .UseChrome()
+                .WithOptions(DriverOptionsFactory.GetDriverOptions(Driver.Chrome) as ChromeOptions)
+                .UseBaseUrl(Environment.GetEnvironmentVariable("Swedbank.Pay.Sdk.SampleWebsite.BaseUrl", EnvironmentVariableTarget.User))
+                .Build();
             AtataContext.Current.Driver.Maximize();
-            #endif
+#endif
         }
 
         protected TestBase(string driverAlias) => this._driverAlias = driverAlias;
