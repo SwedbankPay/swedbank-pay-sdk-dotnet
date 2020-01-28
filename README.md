@@ -6,23 +6,23 @@
 
 ## About
 
-`SwedbankPay.Sdk` is a `netstandard2` library to talk to SwedbankPay direct REST APIs.
+`SwedbankPay.Sdk` is a `netstandard2` library that allows you to interact with Swedbank Pay's API Platform in a statically typed client.
 
 ## Supported APIs
 
-* PaymentOrder
+* **Payment Order**
   * create payment order
   * get payment order
   * capture
   * cancel
   * reversal
   * abort
-* Swish
+* **Swish Payments**
   * create swish payment
   * get swish payment
   * abort
   * reversal
-* CreditCard
+* **Card Payments**
   * create card payment
   * get card payment
   * capture
