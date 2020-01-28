@@ -8,9 +8,9 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.JsonSerialization
 {
-    internal static class JsonSerialization
+    public static class JsonSerialization
     {
-        internal static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
+        public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
         {
             ContractResolver = new CamelCasePropertyNamesContractResolver(),
             Converters = new List<JsonConverter>
@@ -32,7 +32,7 @@ namespace SwedbankPay.Sdk.JsonSerialization
                 new TypedSafeEnumValueConverter<PaymentOrderLanguage, string>(),
                 new CustomCurrencyCodeConverter(typeof(CurrencyCode)),
                 new CustomUriConverter(),
-                new CustomCultureInfoConverter(),
+                new CustomLanguageConverter(),
                 new CustomRegionInfoConverter(),
                 new TypedSafeEnumValueConverter<LinkRelation, string>(),
                 new TypedSafeEnumValueConverter<OrderItemType, string>(),

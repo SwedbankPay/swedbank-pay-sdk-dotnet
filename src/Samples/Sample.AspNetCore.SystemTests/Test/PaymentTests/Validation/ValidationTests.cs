@@ -3,7 +3,7 @@ using NUnit.Framework;
 using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 
-namespace Sample.AspNetCore.SystemTests.Test.PaymentTests
+namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
 {
     public class ValidationTests : Base.PaymentTests
     {

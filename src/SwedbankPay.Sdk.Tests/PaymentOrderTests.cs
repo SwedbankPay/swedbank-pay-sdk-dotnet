@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+
+using Newtonsoft.Json;
 
 using SwedbankPay.Sdk.Exceptions;
 using SwedbankPay.Sdk.PaymentOrders;
@@ -31,12 +34,13 @@ namespace SwedbankPay.Sdk.Tests
 
             Assert.NotNull(responseContainer);
             Assert.NotNull(responseContainer.PaymentOrderResponseObject);
-            Assert.Equal("Aborted", responseContainer.PaymentOrderResponseObject.State.Value);
+            Assert.Equal(State.Aborted, responseContainer.PaymentOrderResponseObject.State);
         }
 
 
+
         [Fact]
-        public async Task CreateAndGetPaymentOrder_ShouldReturnPaymentOrderWithSameAmount()
+        public async Task CreateAndGetPaymentOrder_ShouldReturnPaymentOrderWithSameAmountAndMetaData()
         {
             var paymentOrderRequest = this.paymentOrderRequestBuilder.WithTestValues().Build();
             var paymentOrder = await this.Sut.PaymentOrder.Create(paymentOrderRequest, PaymentOrderExpand.All);
@@ -44,11 +48,23 @@ namespace SwedbankPay.Sdk.Tests
             Assert.NotNull(paymentOrder.PaymentOrderResponse);
             var amount = paymentOrder.PaymentOrderResponse.Amount;
 
-            var paymentOrder2 = await this.Sut.PaymentOrder.Get(paymentOrder.PaymentOrderResponse.Id);
+            var paymentOrder2 = await this.Sut.PaymentOrder.Get(paymentOrder.PaymentOrderResponse.Id, PaymentOrderExpand.All);
             Assert.NotNull(paymentOrder2);
             Assert.NotNull(paymentOrder2.PaymentOrderResponse);
             Assert.Equal(amount.Value, paymentOrder2.PaymentOrderResponse.Amount.Value);
+            
+            Assert.Equal(paymentOrderRequest.PaymentOrder.MetaData["key1"], paymentOrder2.PaymentOrderResponse.MetaData["key1"]);
         }
+
+
+        [Fact]
+        public void T()
+        {
+            string json = "{\"id\": \"/psp/paymentorders/52bab34b-a149-4da4-8bb2-08d7942f0ac7/metadata\",\"key1\": \"value1\",\"key2\": 2,\"key3\": 3.1,\"key4\": false }";
+            var deserializeObject = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
+
+        }
+
 
 
         [Fact]

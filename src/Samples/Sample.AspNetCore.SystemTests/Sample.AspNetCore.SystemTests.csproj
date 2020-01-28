@@ -54,9 +54,6 @@
     <Reference Include="Atata, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Atata.1.4.0\lib\net45\Atata.dll</HintPath>
     </Reference>
-    <Reference Include="Atata.Configuration.Json, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Atata.Configuration.Json.1.2.0\lib\net45\Atata.Configuration.Json.dll</HintPath>
-    </Reference>
     <Reference Include="Atata.WebDriverExtras, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Atata.WebDriverExtras.1.2.0\lib\net45\Atata.WebDriverExtras.dll</HintPath>
     </Reference>
@@ -67,8 +64,8 @@
     <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=3.0.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Extensions.Logging.Abstractions.3.0.1\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework, Version=3.12.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NUnit.3.12.0\lib\net45\nunit.framework.dll</HintPath>
@@ -156,8 +153,6 @@
     <Compile Include="Services\HttpClientService.cs" />
     <Compile Include="Test\Helpers\Checkout.cs" />
     <Compile Include="Test\Helpers\Product.cs" />
-    <Compile Include="Test\PaymentTests\AbortTests.cs" />
-    <Compile Include="Test\PaymentTests\AuthorizationTests.cs" />
     <Compile Include="Test\PaymentTests\Base\PaymentTests.cs" />
     <Compile Include="Test\Base\TestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -167,20 +162,27 @@
     <Compile Include="Test\Helpers\PayexSwishInfo.cs" />
     <Compile Include="Test\Helpers\PaymentMethods.cs" />
     <Compile Include="Test\Helpers\Products.cs" />
-    <Compile Include="Test\PaymentTests\CancellationTests.cs" />
-    <Compile Include="Test\PaymentTests\CaptureTests.cs" />
-    <Compile Include="Test\PaymentTests\RejectionTests.cs" />
-    <Compile Include="Test\PaymentTests\ReversalTests.cs" />
-    <Compile Include="Test\PaymentTests\ValidationTests.cs" />
+    <Compile Include="Test\PaymentTests\PaymentOrder\Abort\AbortTests.cs" />
+    <Compile Include="Test\PaymentTests\PaymentOrder\Anonymous\AnonymousPaymentOrderAuthorizationTests.cs" />
+    <Compile Include="Test\PaymentTests\PaymentOrder\Anonymous\AnonymousPaymentOrderCancellationTests.cs" />
+    <Compile Include="Test\PaymentTests\PaymentOrder\Anonymous\AnonymousPaymentOrderCaptureTests.cs" />
+    <Compile Include="Test\PaymentTests\PaymentOrder\Anonymous\AnonymousPaymentOrderReversalTests.cs" />
+    <Compile Include="Test\PaymentTests\PaymentOrder\Anonymous\AnonymousPaymentOrderSaleTests.cs" />
+    <Compile Include="Test\PaymentTests\PaymentOrder\Standard\StandardPaymentOrderAuthorizationTests.cs" />
+    <Compile Include="Test\PaymentTests\PaymentOrder\Standard\StandardPaymentOrderCancellationTests.cs" />
+    <Compile Include="Test\PaymentTests\PaymentOrder\Standard\StandardPaymentOrderCaptureTests.cs" />
+    <Compile Include="Test\PaymentTests\PaymentOrder\Standard\StandardPaymentOrderReversalTests.cs" />
+    <Compile Include="Test\PaymentTests\PaymentOrder\Standard\StandardPaymentOrderSaleTests.cs" />
+    <Compile Include="Test\PaymentTests\PaymentOrder\Update\UpdateTests.cs" />
+    <Compile Include="Test\PaymentTests\Payment\PaymentAuthorizationTests.cs" />
+    <Compile Include="Test\PaymentTests\Payment\PaymentCancellationTests.cs" />
+    <Compile Include="Test\PaymentTests\Payment\PaymentCaptureTests.cs" />
+    <Compile Include="Test\PaymentTests\Payment\PaymentReversalTests.cs" />
+    <Compile Include="Test\PaymentTests\Payment\PaymentSaleTests.cs" />
+    <Compile Include="Test\PaymentTests\Validation\ValidationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Atata.Release.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Atata.DEV.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config" />
     <None Include="projectname.runsettings" />
   </ItemGroup>
@@ -199,8 +201,8 @@
     <Error Condition="!Exists('..\..\packages\NUnit.3.12.0\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\NUnit.3.12.0\build\NUnit.props'))" />
     <Error Condition="!Exists('..\..\packages\NUnit3TestAdapter.3.15.1\build\net35\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\NUnit3TestAdapter.3.15.1\build\net35\NUnit3TestAdapter.props'))" />
     <Error Condition="!Exists('..\..\packages\Selenium.Firefox.WebDriver.0.26.0\build\Selenium.Firefox.WebDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Selenium.Firefox.WebDriver.0.26.0\build\Selenium.Firefox.WebDriver.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Selenium.WebDriver.ChromeDriver.77.0.3865.4000\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Selenium.WebDriver.ChromeDriver.77.0.3865.4000\build\Selenium.WebDriver.ChromeDriver.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Selenium.WebDriver.ChromeDriver.79.0.3945.3600\build\Selenium.WebDriver.ChromeDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Selenium.WebDriver.ChromeDriver.79.0.3945.3600\build\Selenium.WebDriver.ChromeDriver.targets'))" />
   </Target>
   <Import Project="..\..\packages\Selenium.Firefox.WebDriver.0.26.0\build\Selenium.Firefox.WebDriver.targets" Condition="Exists('..\..\packages\Selenium.Firefox.WebDriver.0.26.0\build\Selenium.Firefox.WebDriver.targets')" />
-  <Import Project="..\..\packages\Selenium.WebDriver.ChromeDriver.77.0.3865.4000\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('..\..\packages\Selenium.WebDriver.ChromeDriver.77.0.3865.4000\build\Selenium.WebDriver.ChromeDriver.targets')" />
+  <Import Project="..\..\packages\Selenium.WebDriver.ChromeDriver.79.0.3945.3600\build\Selenium.WebDriver.ChromeDriver.targets" Condition="Exists('..\..\packages\Selenium.WebDriver.ChromeDriver.79.0.3945.3600\build\Selenium.WebDriver.ChromeDriver.targets')" />
 </Project>

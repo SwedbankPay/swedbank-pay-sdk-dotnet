@@ -2,12 +2,10 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>SwedbankPay.Sdk</PackageId>
-    <Authors>ADACA Authority AB</Authors>
-    <Description>
-      A client library for Swedbank Pay REST APIs
-    </Description>
-    <Copyright>ADACA Authority AB</Copyright>
-    <PackageTags>SwedbankPay sdk</PackageTags>
+    <Authors>Swedbank Pay</Authors>
+    <Description>A client library and SDK for Swedbank Pay's RESTful API Platform</Description>
+    <Copyright>Swedbank Pay</Copyright>
+    <PackageTags>SwedbankPay sdk payments payment client api rest restful</PackageTags>
     <RepositoryType>git</RepositoryType>
     <PackageReleaseNotes>Swish payment handling. CreditCard payment handling. Checkout handling.</PackageReleaseNotes>
     <AssemblyName>SwedbankPay.Sdk</AssemblyName>
@@ -15,9 +13,8 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Http" Version="3.0.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.0.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
   </ItemGroup>
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">

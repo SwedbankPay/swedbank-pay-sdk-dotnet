@@ -15,6 +15,7 @@ namespace SwedbankPay.Sdk.Payments
         Reversals = 64,
         Cancellations = 128,
         Sales = 256,
-        All = 511
+        MetaData = 512,
+        All = 1023
     }
 }

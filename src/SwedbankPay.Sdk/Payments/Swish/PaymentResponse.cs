@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Globalization;
 
+using SwedbankPay.Sdk.PaymentOrders;
+
 namespace SwedbankPay.Sdk.Payments.Swish
 {
     public class PaymentResponse
@@ -22,9 +24,9 @@ namespace SwedbankPay.Sdk.Payments.Swish
                                string number,
                                DateTime created,
                                DateTime updated,
-                               string instrument,
+                               Instrument instrument,
                                Operation operation,
-                               string intent,
+                               Intent intent,
                                State state,
                                CurrencyCode currency,
                                PricesListResponse prices,
@@ -39,7 +41,8 @@ namespace SwedbankPay.Sdk.Payments.Swish
                                SaleListResponse sales,
                                ReversalsListResponse reversals,
                                Urls urls,
-                               PayeeInfo payeeInfo)
+                               PayeeInfo payeeInfo,
+                               MetaDataResponse metaData)
         {
             Id = id;
             Number = number;
@@ -63,15 +66,16 @@ namespace SwedbankPay.Sdk.Payments.Swish
             Reversals = reversals;
             Urls = urls;
             PayeeInfo = payeeInfo;
+            MetaData = metaData;
         }
         
         
         public string Number { get; }
         public DateTime Created { get; }
         public DateTime Updated { get; }
-        public string Instrument { get; }
+        public Instrument Instrument { get; }
         public Operation Operation { get; }
-        public string Intent { get; }
+        public Intent Intent { get; }
         public State State { get; }
         public CurrencyCode Currency { get; }
         public PricesListResponse Prices { get; }
@@ -88,5 +92,6 @@ namespace SwedbankPay.Sdk.Payments.Swish
         public Urls Urls { get; }
         public PayeeInfo PayeeInfo { get; }
         public Uri Id { get; }
+        public MetaDataResponse MetaData { get; }
     }
 }

@@ -1,5 +1,8 @@
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
+
+using SwedbankPay.Sdk.Exceptions;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
@@ -29,6 +32,10 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <param name="id"></param>
         /// <param name="paymentOrderExpand"></param>
         /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="HttpResponseException"></exception>
         public Task<PaymentOrder> Get(Uri id, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
         {
             if (id == null)

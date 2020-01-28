@@ -13,7 +13,7 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Payment
         [WaitFor(Until.VisibleThenMissingOrHidden, TriggerEvents.AfterClick, AbsenceTimeout = 30)]
         [Wait(0.5, TriggerEvents.BeforeClick)]
         [FindById("px-submit")]
-        public ButtonDelegate<ThankYouPage, _> Pay { get; set; }
+        public Button<ThankYouPage, _> Pay { get; set; }
 
         [FindById("msisdnInput")] public TelInput<_> SwishNumber { get; set; }
     }

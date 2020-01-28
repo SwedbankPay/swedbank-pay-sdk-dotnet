@@ -6,7 +6,7 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Payment
 {
     using _ = PaymentPage;
 
-    public class PaymentPage : Page<_>
+    public class PaymentPage : BasePage<_>
     {
         [FindByAutomation("button", "button-abort")]
         public ButtonDelegate<ProductsPage, _> Abort { get; set; }

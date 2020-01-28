@@ -25,7 +25,7 @@ namespace SwedbankPay.Sdk
             if (string.IsNullOrEmpty(currencyCode))
                 throw new ArgumentNullException(nameof(currencyCode), "Currency code can't be null or empty");
             if (!IsValidCurrencyCode(currencyCode))
-                throw new ArgumentException($"Invalid currency code: {currencyCode}", nameof(currencyCode));
+                throw new ArgumentException($"Invalid currency code: {currencyCode}");
             Value = currencyCode;
         }
 
@@ -38,9 +38,21 @@ namespace SwedbankPay.Sdk
             if (string.IsNullOrWhiteSpace(currencyCode))
                 return false;
 
-            var regions = CultureInfo.GetCultures(CultureTypes.SpecificCultures).Select(x => new RegionInfo(x.LCID));
+            var regions = CultureInfo.GetCultures(CultureTypes.AllCultures)
+                .Where(c => !c.IsNeutralCulture)
+                .Select(culture =>
+                {
+                    try
+                    {
+                        return new RegionInfo(culture.Name);
+                    }
+                    catch
+                    {
+                        return null;
+                    }
+                });
 
-            return regions.Any(x => x.ISOCurrencySymbol.Equals(currencyCode));
+            return regions.Any(ri => ri != null && ri.ISOCurrencySymbol.Equals(currencyCode));
         }
 
 
