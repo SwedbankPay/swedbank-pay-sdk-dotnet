@@ -9,7 +9,15 @@ trigger:
 pool:
   vmImage: 'macOS-latest'
 
+variables:
+  GitVersion.SemVer: ''
+
 steps:
+- task: GitVersion@5 
+  displayName: GitVersion
+  inputs:
+    useConfigFile: true
+    configFilePath: GitVersion.yml
 - task: NuGetToolInstaller@1
   #inputs:
     #versionSpec: '5.3.1'
@@ -34,4 +42,4 @@ steps:
     projects: |
       **/SwedbankPay.Sdk.csproj
       **/Sample.AspNetCore.csproj
-    arguments: '--configuration $(BuildConfiguration)'
+    arguments: '--configuration $(BuildConfiguration) /p:Version=$(GitVersion.NuGetVersionV2)'
