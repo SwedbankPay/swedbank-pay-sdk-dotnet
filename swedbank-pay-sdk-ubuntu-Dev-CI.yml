@@ -25,12 +25,13 @@ steps:
   displayName: 'Setting up framework for build'
   inputs:
     packageType: 'sdk'
-    version: '3.0.x'
+    version: '3.x'
 
 - task: DotNetCoreCLI@2
   displayName: 'Build solution for .net core projects'
   inputs:
     command: 'build'
     projects: |
-      **/*.sln
+      **/SwedbankPay.Sdk.csproj
+      **/Sample.AspNetCore.csproj
     arguments: '--configuration $(BuildConfiguration)'
