@@ -6,12 +6,19 @@
     <Description>A client library and SDK for Swedbank Pay's RESTful API Platform</Description>
     <Copyright>Swedbank Pay</Copyright>
     <PackageTags>SwedbankPay sdk payments payment client api rest restful</PackageTags>
+    <PackageIcon>icon.png</PackageIcon>
     <RepositoryType>git</RepositoryType>
     <PackageReleaseNotes>Swish payment handling. CreditCard payment handling. Checkout handling.</PackageReleaseNotes>
     <AssemblyName>SwedbankPay.Sdk</AssemblyName>
     <RootNamespace>SwedbankPay.Sdk</RootNamespace>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
