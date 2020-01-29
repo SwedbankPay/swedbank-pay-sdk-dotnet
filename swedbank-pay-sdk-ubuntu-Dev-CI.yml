@@ -9,26 +9,28 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
-
 steps:
 - task: NuGetToolInstaller@1
+  #inputs:
+    #versionSpec: '5.3.1'
 
 - task: NuGetCommand@2
+  displayName: 'Restoring packages'
   inputs:
-    restoreSolution: '$(solution)'
+     command: 'restore'
+     restoreSolution: '$(Build.SourcesDirectory)\src\SwedbankPay.Sdk.sln'
+     feedsToUse: 'select'
 
-- task: VSBuild@1
+- task: UseDotNet@2
+  displayName: 'Setting up framework for build'
   inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    packageType: 'sdk'
+    version: '3.x'
 
-- task: VSTest@2
+- task: DotNetCoreCLI@2
+  displayName: 'Build solution for .net core projects'
   inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    command: 'build'
+    projects: |
+      **/*.sln
+    arguments: '--configuration $(BuildConfiguration) /p:Version=$(GitVersion.NuGetVersionV2)'
