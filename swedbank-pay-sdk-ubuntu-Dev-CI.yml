@@ -33,4 +33,4 @@ steps:
     command: 'build'
     projects: |
       **/*.sln
-    arguments: '--configuration $(BuildConfiguration) /p:Version=$(GitVersion.NuGetVersionV2)'
+    arguments: '--configuration $(BuildConfiguration)'
