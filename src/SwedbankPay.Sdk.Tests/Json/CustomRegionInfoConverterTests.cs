@@ -39,8 +39,6 @@ namespace SwedbankPay.Sdk.Tests.Json
                 Region = new RegionInfo(regionInfoString)
             };
 
-            var regionInfo = new RegionInfo("NO");
-
             //ACT
             var result = JsonConvert.SerializeObject(dummy, JsonSerialization.JsonSerialization.Settings);
             var obj = JObject.Parse(result);

@@ -62,7 +62,7 @@ namespace SwedbankPay.Sdk.Tests
         {
             string json = "{\"id\": \"/psp/paymentorders/52bab34b-a149-4da4-8bb2-08d7942f0ac7/metadata\",\"key1\": \"value1\",\"key2\": 2,\"key3\": 3.1,\"key4\": false }";
             var deserializeObject = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
-
+            Assert.NotNull(deserializeObject);
         }
 
 
@@ -144,20 +144,6 @@ namespace SwedbankPay.Sdk.Tests
             Assert.NotNull(paymentOrder.PaymentOrderResponse.CurrentPayment);
             Assert.NotNull(paymentOrder.PaymentOrderResponse.CurrentPayment.Payment);
         }
-
-        [Fact]
-        public async Task GetPaymentOrder_WithSwishPayment_ShouldReturnSales()
-        {
-            //ACT
-            var paymentOrder = await Sut.PaymentOrder.Get(new Uri("/psp/paymentorders/472e6f26-a9b5-4e91-1b70-08d756b9b7d8", UriKind.Relative),
-                                                               PaymentOrderExpand.CurrentPayment);
-            //var sales = await this.Sut.Payment.GetSales(paymentOrder.PaymentOrderResponse.CurrentPayment.Payment.Sales.Id);
-
-            //ASSERT
-            //Assert.NotNull(sales);
-            //Assert.NotEmpty(sales);
-        }
-
 
         [Fact]
         public async Task GetUnknownPaymentOrder_ShouldThrowHttpResponseException()

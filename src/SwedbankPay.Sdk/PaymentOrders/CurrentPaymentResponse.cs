@@ -3,7 +3,6 @@ using SwedbankPay.Sdk.Payments.Card;
 using SwedbankPay.Sdk.Payments.Swish;
 
 using System;
-using System.Globalization;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {

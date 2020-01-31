@@ -1,6 +1,6 @@
 ﻿namespace Sample.AspNetCore.SystemTests.Test.Helpers
 {
-    public class PaymentMethods
+    public static class PaymentMethods
     {
         public const string Card = "Kort";
         public const string Swish = "Swish";

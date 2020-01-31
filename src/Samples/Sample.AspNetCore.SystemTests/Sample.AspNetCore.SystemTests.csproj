@@ -118,9 +118,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PageObjectModels\Base\ControlDefinitionAutomation.cs" />
+    <Compile Include="PageObjectModels\Base\ControlAutomationDefinition.cs" />
+    <Compile Include="PageObjectModels\Base\ScopeDefinitionAutomationAttribute.cs" />
     <Compile Include="PageObjectModels\Base\FindByAutomationAttribute.cs" />
     <Compile Include="PageObjectModels\Base\HomePage.cs" />
+    <Compile Include="PageObjectModels\Base\UiComponentDefinitionAutomationAttribute.cs" />
     <Compile Include="PageObjectModels\Base\ValidationIcon.cs" />
     <Compile Include="PageObjectModels\Base\ValidationIconsVerification.cs" />
     <Compile Include="PageObjectModels\Base\BasePage.cs" />
@@ -129,14 +131,20 @@
     <Compile Include="PageObjectModels\Base\ValidationMessage.cs" />
     <Compile Include="PageObjectModels\Base\ValidationMessagesVerification.cs" />
     <Compile Include="PageObjectModels\Base\WaitForLoadingIndicatorAttribute.cs" />
+    <Compile Include="PageObjectModels\Base\WaitForPaymentProcessingAttribute.cs" />
+    <Compile Include="PageObjectModels\Orders\ActionRow.cs" />
     <Compile Include="PageObjectModels\Orders\OrdersPage.cs" />
     <Compile Include="PageObjectModels\Payment\IdentificationFramePage.cs" />
     <Compile Include="PageObjectModels\Payment\LocalPaymentMenuPage.cs" />
     <Compile Include="PageObjectModels\Payment\PayexInvoiceFramePage.cs" />
+    <Compile Include="PageObjectModels\Payment\PayexItem.cs" />
     <Compile Include="PageObjectModels\Payment\PayexSwishFramePage.cs" />
     <Compile Include="PageObjectModels\Payment\PaymentFramePage.cs" />
     <Compile Include="PageObjectModels\Payment\PaymentPage.cs" />
     <Compile Include="PageObjectModels\Payment\PayexCardFramePage.cs" />
+    <Compile Include="PageObjectModels\Payment\PreFilledCreditCard.cs" />
+    <Compile Include="PageObjectModels\Products\ProductBasketItem.cs" />
+    <Compile Include="PageObjectModels\Products\ProductItem.cs" />
     <Compile Include="PageObjectModels\Products\ProductsPage.cs" />
     <Compile Include="PageObjectModels\ThankYou\ThankYouPage.cs" />
     <Compile Include="Services\FluentExtensions.cs" />

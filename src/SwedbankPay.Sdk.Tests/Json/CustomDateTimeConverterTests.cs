@@ -3,8 +3,6 @@ using System.Globalization;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-
-using SwedbankPay.Sdk.Consumers;
 using SwedbankPay.Sdk.PaymentOrders;
 
 using Xunit;

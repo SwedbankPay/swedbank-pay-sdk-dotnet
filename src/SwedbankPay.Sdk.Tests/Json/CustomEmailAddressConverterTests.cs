@@ -19,8 +19,10 @@ namespace SwedbankPay.Sdk.Tests.Json
         {
             //ARRANGE
 
-            var jsonObject = new JObject();
-            jsonObject.Add("xX123xxaddress", address);
+            var jsonObject = new JObject
+            {
+                { "xX123xxaddress", address }
+            };
 
             //ACT
             var result = JsonConvert.DeserializeObject<EmailAddress>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);

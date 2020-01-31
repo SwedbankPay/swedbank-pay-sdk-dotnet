@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 using Sample.AspNetCore.Data;
 using Sample.AspNetCore.Models;
@@ -17,7 +16,7 @@ namespace Sample.AspNetCore.Controllers
         private readonly StoreDbContext storesContext;
 
 
-        public CartController(ILogger<CartController> logger, StoreDbContext storesContext, Cart cartService)
+        public CartController(StoreDbContext storesContext, Cart cartService)
         {
             this.storesContext = storesContext;
             this.cartService = cartService;

@@ -6,16 +6,9 @@ using Sample.AspNetCore.SystemTests.PageObjectModels.ThankYou;
 namespace Sample.AspNetCore.SystemTests.PageObjectModels.Payment
 {
     using _ = PayexCardFramePage;
-
     [WaitForLoadingIndicator]
     public class PayexCardFramePage : Page<_>
     {
-        public class PreFilledCreditCard : ListItem<_>
-        {
-            [FindByClass("prefill-info-data")]
-            public Text<_> CreditCardNumber { get; set; }
-        }
-
         [FindByClass("cards")] 
         public UnorderedList<PreFilledCreditCard, _> PreFilledCards { get; set; }
 

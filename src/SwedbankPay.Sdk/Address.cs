@@ -1,7 +1,5 @@
 ﻿using System.Globalization;
 
-using SwedbankPay.Sdk.Consumers;
-
 namespace SwedbankPay.Sdk
 {
     public class Address
