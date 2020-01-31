@@ -70,7 +70,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="InvalidOperationException"></exception>
         /// <exception cref="System.Net.Http.HttpRequestException"></exception>
-        /// <exception cref="SwedbankPay.Sdk.Exceptions.HttpResponseException"></exception>
+        /// <exception cref="Exceptions.HttpResponseException"></exception>
         /// <returns></returns>
         internal static async Task<PaymentOrder> Get(Uri id, SwedbankPayHttpClient client, string paymentOrderExpand)
         {
