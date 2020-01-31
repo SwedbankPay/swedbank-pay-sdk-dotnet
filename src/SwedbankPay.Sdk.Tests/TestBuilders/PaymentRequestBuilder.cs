@@ -30,31 +30,31 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         public Payments.Card.PaymentRequest BuildCreditardPaymentRequest()
         {
             return new Payments.Card.PaymentRequest(
-                operation,
-                intent,
-                currency,
-                price,
-                description,
-                userAgent,
-                language,
-                urls,
-                payeeInfo,
-                generatePaymentToken: generatePaymentToken, generateReccurenceToken: false, payerReference: payerReference, riskIndicator: null, metaData: metaData);
+                this.operation,
+                this.intent,
+                this.currency,
+                this.price,
+                this.description,
+                this.userAgent,
+                this.language,
+                this.urls,
+                this.payeeInfo,
+                generatePaymentToken: this.generatePaymentToken, generateReccurenceToken: this.generateReccurrenceToken, payerReference: this.payerReference, riskIndicator: null, metaData: this.metaData);
         }
 
         public PaymentRequest BuildSwishPaymentRequest()
         {
-            return new PaymentRequest(currency,
-                                      price,
-                                      description,
-                                      payerReference,
-                                      userAgent,
-                                      language,
-                                      urls,
-                                      payeeInfo,
-                                      prefillInfo,
-                                      swish,
-                                      metaData
+            return new PaymentRequest(this.currency,
+                                      this.price,
+                                      this.description,
+                                      this.payerReference,
+                                      this.userAgent,
+                                      this.language,
+                                      this.urls,
+                                      this.payeeInfo,
+                                      this.prefillInfo,
+                                      this.swish,
+                                      this.metaData
 
             );
         }
@@ -64,21 +64,21 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         {
             this.operation = operation ?? Operation.Purchase;
             this.intent = intent;
-            currency = new CurrencyCode("SEK");
-            description = "Test Description";
-            payerReference = "AB1234";
-            userAgent = "useragent";
-            language = new CultureInfo("sv-SE");
-            urls = new Urls(new List<Uri> { new Uri("https://example.com") }, new Uri("https://example.com/payment-completed"), new Uri("https://example.com/termsandconditoons.pdf"), new Uri("https://example.com/payment-canceled"));
-            payeeInfo = new PayeeInfo(Guid.Parse("91a4c8e0-72ac-425c-a687-856706f9e9a1"), DateTime.Now.Ticks.ToString());
-            generatePaymentToken = false;
-            amount = Amount.FromDecimal(1600);
-            vatAmount = Amount.FromDecimal(0);
-            metaData = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
+            this.currency = new CurrencyCode("SEK");
+            this.description = "Test Description";
+            this.payerReference = "AB1234";
+            this.userAgent = "useragent";
+            this.language = new CultureInfo("sv-SE");
+            this.urls = new Urls(new List<Uri> { new Uri("https://example.com") }, new Uri("https://example.com/payment-completed"), new Uri("https://example.com/termsandconditoons.pdf"), new Uri("https://example.com/payment-canceled"));
+            this.payeeInfo = new PayeeInfo(Guid.Parse("91a4c8e0-72ac-425c-a687-856706f9e9a1"), DateTime.Now.Ticks.ToString());
+            this.generatePaymentToken = false;
+            this.amount = Amount.FromDecimal(1600);
+            this.vatAmount = Amount.FromDecimal(0);
+            this.metaData = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
 
-            price = new List<Price>
+            this.price = new List<Price>
             {
-                new Price(amount, PriceType.CreditCard, vatAmount)
+                new Price(this.amount, PriceType.CreditCard, this.vatAmount)
             };
             return this;
         }
@@ -86,25 +86,25 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
 
         public PaymentRequestBuilder WithSwishTestValues()
         {
-            operation = Operation.Purchase;
-            intent = Intent.Sale;
-            currency = new CurrencyCode("SEK");
-            description = "Test Description";
-            payerReference = "AB1234";
-            userAgent = "useragent";
-            language = new CultureInfo("sv-SE");
-            urls = new Urls(new List<Uri> { new Uri("https://example.com") }, new Uri("https://example.com/payment-completed"), new Uri("https://example.com/termsandconditoons.pdf"), new Uri("https://example.com/payment-canceled"));
-            payeeInfo = new PayeeInfo(Guid.Parse("91a4c8e0-72ac-425c-a687-856706f9e9a1"), DateTime.Now.Ticks.ToString());
-            prefillInfo = new PrefillInfo(new Msisdn("+46701234567"));
-            generatePaymentToken = false;
-            amount = Amount.FromDecimal(1600);
-            vatAmount = Amount.FromDecimal(0);
-            swish = new SwishRequest();
-            metaData = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
+            this.operation = Operation.Purchase;
+            this.intent = Intent.Sale;
+            this.currency = new CurrencyCode("SEK");
+            this.description = "Test Description";
+            this.payerReference = "AB1234";
+            this.userAgent = "useragent";
+            this.language = new CultureInfo("sv-SE");
+            this.urls = new Urls(new List<Uri> { new Uri("https://example.com") }, new Uri("https://example.com/payment-completed"), new Uri("https://example.com/termsandconditoons.pdf"), new Uri("https://example.com/payment-canceled"));
+            this.payeeInfo = new PayeeInfo(Guid.Parse("91a4c8e0-72ac-425c-a687-856706f9e9a1"), DateTime.Now.Ticks.ToString());
+            this.prefillInfo = new PrefillInfo(new Msisdn("+46701234567"));
+            this.generatePaymentToken = false;
+            this.amount = Amount.FromDecimal(1600);
+            this.vatAmount = Amount.FromDecimal(0);
+            this.swish = new SwishRequest();
+            this.metaData = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
 
-            price = new List<Price>
+            this.price = new List<Price>
             {
-                new Price(amount, PriceType.Swish, vatAmount)
+                new Price(this.amount, PriceType.Swish, this.vatAmount)
             };
             return this;
         }
