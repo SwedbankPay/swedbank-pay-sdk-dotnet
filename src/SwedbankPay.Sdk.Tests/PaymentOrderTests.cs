@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 
 using Newtonsoft.Json;
@@ -55,16 +56,6 @@ namespace SwedbankPay.Sdk.Tests
             
             Assert.Equal(paymentOrderRequest.PaymentOrder.MetaData["key1"], paymentOrder2.PaymentOrderResponse.MetaData["key1"]);
         }
-
-
-        [Fact]
-        public void T()
-        {
-            string json = "{\"id\": \"/psp/paymentorders/52bab34b-a149-4da4-8bb2-08d7942f0ac7/metadata\",\"key1\": \"value1\",\"key2\": 2,\"key3\": 3.1,\"key4\": false }";
-            var deserializeObject = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
-            Assert.NotNull(deserializeObject);
-        }
-
 
 
         [Fact]
@@ -150,7 +141,8 @@ namespace SwedbankPay.Sdk.Tests
         {
             var id = new Uri("/psp/paymentorders/56a45c8a-9605-437a-fb80-08d742822747", UriKind.Relative);
 
-            await Assert.ThrowsAsync<HttpResponseException>(() => Sut.PaymentOrder.Get(id));
+            var thrownException = await Assert.ThrowsAsync<HttpResponseException>(() => Sut.PaymentOrder.Get(id));
+            Assert.Equal(HttpStatusCode.NotFound, thrownException.HttpResponse.StatusCode);
         }
     }
 }
