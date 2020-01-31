@@ -84,13 +84,13 @@ namespace Sample.AspNetCore.Controllers
             }
         }
 
-        public async Task<SwedbankPay.Sdk.Payments.Card.Payment> CreateCardPayment()
+        public async Task<Payment> CreateCardPayment()
         {
             var totalAmount = this.cartService.CalculateTotal();
             var vatAmount = Amount.FromDecimal(0);
             try
             {
-                var cardRequest = new SwedbankPay.Sdk.Payments.Card.PaymentRequest(Operation.Purchase, Intent.Authorization, new CurrencyCode("SEK"),
+                var cardRequest = new PaymentRequest(Operation.Purchase, Intent.Authorization, new CurrencyCode("SEK"),
                                                                                    new List<Price>
                                                                                    {
                                                                                        new Price(Amount.FromDecimal(totalAmount),
@@ -104,7 +104,7 @@ namespace Sample.AspNetCore.Controllers
                                                                                    new PayeeInfo(this.payeeInfoOptions.PayeeId,
                                                                                                  this.payeeInfoOptions.PayeeReference));
 
-                SwedbankPay.Sdk.Payments.Card.Payment cardPayment = await this.swedbankPayClient.Payment.CreateCreditCardPayment(cardRequest);
+                Payment cardPayment = await this.swedbankPayClient.Payment.CreateCreditCardPayment(cardRequest);
                 this.cartService.PaymentLink = cardPayment.PaymentResponse.Id.OriginalString;
                 this.cartService.Instrument = Instrument.CreditCard;
                 this.cartService.PaymentOrderLink = null;
@@ -193,7 +193,7 @@ namespace Sample.AspNetCore.Controllers
             return View("Checkout", swedBankPaySource);
         }
 
-        public async Task<IActionResult> LoadCardPaymentMenu()
+        public IActionResult LoadCardPaymentMenu()
         {
             return View("Payment");
         }

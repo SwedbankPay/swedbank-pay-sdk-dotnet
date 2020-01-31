@@ -19,7 +19,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private PayeeInfo payeeInfo;
         private PrefillInfo prefillInfo;
         private bool generatePaymentToken;
-        private bool generateReccurrenceToken;
+        private readonly bool generateReccurrenceToken;
         private Amount amount;
         private Amount vatAmount;
         private string payerReference;
@@ -31,21 +31,21 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         public Payments.Card.PaymentRequest BuildCreditardPaymentRequest()
         {
             return new Payments.Card.PaymentRequest(
-                this.operation, 
+                this.operation,
                 this.intent,
-                this.currency, 
-                this.price,  
+                this.currency,
+                this.price,
                 this.description,
                 this.userAgent,
                 this.language,
                 this.urls,
                 this.payeeInfo,
-                generatePaymentToken : this.generatePaymentToken, generateReccurenceToken : this.generateReccurrenceToken, payerReference : this.payerReference, riskIndicator : null, metaData: this.metaData);
+                generatePaymentToken: this.generatePaymentToken, generateReccurenceToken: this.generateReccurrenceToken, payerReference: this.payerReference, riskIndicator: null, metaData: this.metaData);
         }
 
-        public Payments.Swish.PaymentRequest BuildSwishPaymentRequest()
+        public PaymentRequest BuildSwishPaymentRequest()
         {
-            return new SwedbankPay.Sdk.Payments.Swish.PaymentRequest(this.currency,
+            return new PaymentRequest(this.currency,
                                       this.price,
                                       this.description,
                                       this.payerReference,
@@ -63,7 +63,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
 
         public PaymentRequestBuilder WithCreditcardTestValues(Operation operation = null, Intent intent = Intent.Authorization)
         {
-            this.operation = operation ??  Operation.Purchase;
+            this.operation = operation ?? Operation.Purchase;
             this.intent = intent;
             this.currency = new CurrencyCode("SEK");
             this.description = "Test Description";
