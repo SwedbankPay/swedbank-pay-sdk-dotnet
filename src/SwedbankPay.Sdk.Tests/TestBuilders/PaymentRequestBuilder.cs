@@ -39,7 +39,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
                 this.language,
                 this.urls,
                 this.payeeInfo,
-                generatePaymentToken: this.generatePaymentToken, generateReccurenceToken: this.generateReccurrenceToken, payerReference: this.payerReference, riskIndicator: null, metaData: this.metaData);
+                generatePaymentToken: this.generatePaymentToken, generateReccurenceToken: false, payerReference: this.payerReference, riskIndicator: null, metaData: this.metaData);
         }
 
         public PaymentRequest BuildSwishPaymentRequest()
@@ -55,7 +55,6 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
                                       this.prefillInfo,
                                       this.swish,
                                       this.metaData
-
             );
         }
 
