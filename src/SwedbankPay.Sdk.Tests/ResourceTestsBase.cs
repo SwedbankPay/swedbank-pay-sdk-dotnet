@@ -14,7 +14,7 @@ namespace SwedbankPay.Sdk.Tests
 
         private readonly SwedbankPayConnectionSettings connectionSettings;
         
-        public ResourceTestsBase()
+        protected ResourceTestsBase()
         {
             connectionSettings = TestHelper.GetSwedbankPayConnectionSettings(Environment.CurrentDirectory);
             urls = TestHelper.GetUrls(Environment.CurrentDirectory);
