@@ -19,5 +19,17 @@ namespace SwedbankPay.Sdk.Exceptions
         public HttpResponseMessage HttpResponse { get; }
 
         public ProblemResponse ProblemResponse { get; }
+
+        public HttpResponseException()
+        {
+        }
+
+        public HttpResponseException(string message) : base(message)
+        {
+        }
+
+        public HttpResponseException(string message, Exception innerException) : base(message, innerException)
+        {
+        }
     }
 }

@@ -69,7 +69,7 @@ namespace Sample.AspNetCore.Controllers
         public async Task<IActionResult> Details(int? id)
         {
             var order = await context.Orders
-                .FirstOrDefaultAsync();
+                .FindAsync(id);
             if (order == null)
                 return NotFound();
 

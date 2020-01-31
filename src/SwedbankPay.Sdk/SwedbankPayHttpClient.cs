@@ -125,7 +125,7 @@ namespace SwedbankPay.Sdk
         }
 
 
-        private HttpRequestMessage CreateHttpRequestMessage(HttpMethod httpMethod, Uri url, object payload = null)
+        private static HttpRequestMessage CreateHttpRequestMessage(HttpMethod httpMethod, Uri url, object payload = null)
         {
             var httpRequestMessage = new HttpRequestMessage(httpMethod, url);
 

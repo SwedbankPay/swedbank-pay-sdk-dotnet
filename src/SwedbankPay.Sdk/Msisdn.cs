@@ -1,9 +1,5 @@
 ﻿using System;
 
-using Newtonsoft.Json;
-
-using SwedbankPay.Sdk.JsonSerialization;
-
 namespace SwedbankPay.Sdk
 {
     public class Msisdn

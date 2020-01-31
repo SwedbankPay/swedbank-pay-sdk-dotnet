@@ -34,6 +34,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
             ImageUrl = imageUrl;
             Description = description;
             DiscountDescription = discountDescription;
+            DiscountPrice = discountPrice;
             Quantity = quantity;
             QuantityUnit = quantityUnit;
             UnitPrice = unitPrice ?? throw new ArgumentNullException(nameof(unitPrice));

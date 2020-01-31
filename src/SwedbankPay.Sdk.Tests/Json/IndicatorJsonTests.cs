@@ -14,8 +14,10 @@ namespace SwedbankPay.Sdk.Tests.Json
         {
             //ARRANGE
 
-            var jsonObject = new JObject();
-            jsonObject.Add("AccountAgeIndicator", "01");
+            var jsonObject = new JObject
+            {
+                { "AccountAgeIndicator", "01" }
+            };
 
             //ACT
             var result = JsonConvert.DeserializeObject<AccountInfo>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);

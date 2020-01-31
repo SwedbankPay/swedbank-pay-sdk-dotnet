@@ -7,7 +7,7 @@ namespace Sample.AspNetCore.SystemTests.Services
 {
     public static class FluentExtensions
     {
-        private static Regex regex = new Regex(@"[0-9\.]+");
+        private static readonly Regex regex = new Regex(@"[0-9\.]+");
 
         public static TOwner RepeatFor<TOwner>(this TOwner page, Action<TOwner, string> action, string[] values)
             where TOwner : PageObject<TOwner>

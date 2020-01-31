@@ -5,7 +5,7 @@ using Sample.AspNetCore.Models;
 
 namespace Sample.AspNetCore
 {
-    public class Program
+    public static class Program
     {
         public static IHostBuilder CreateHostBuilder(string[] args)
         {

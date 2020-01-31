@@ -10,7 +10,6 @@ using Microsoft.Extensions.Options;
 
 using Sample.AspNetCore.Extensions;
 using Sample.AspNetCore.Models;
-using Sample.AspNetCore.Models.ViewModels;
 
 using SwedbankPay.Sdk;
 using SwedbankPay.Sdk.Consumers;
