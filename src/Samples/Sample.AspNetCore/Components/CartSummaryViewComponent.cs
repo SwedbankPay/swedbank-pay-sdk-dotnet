@@ -11,13 +11,13 @@ namespace Sample.AspNetCore.Components
 
         public CartSummaryViewComponent(Cart cartService)
         {
-            this.cart = cartService;
+            cart = cartService;
         }
 
 
         public IViewComponentResult Invoke()
         {
-            return View(this.cart);
+            return View(cart);
         }
     }
 }

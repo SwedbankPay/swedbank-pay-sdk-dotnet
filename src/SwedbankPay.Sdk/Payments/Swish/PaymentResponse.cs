@@ -10,8 +10,8 @@ namespace SwedbankPay.Sdk.Payments.Swish
         public PaymentResponse(PaymentResponseObject payment,
                                OperationList operations)
         {
-            this.Payment = payment;
-            this.Operations = operations;
+            Payment = payment;
+            Operations = operations;
         }
         
         public PaymentResponseObject Payment { get; }

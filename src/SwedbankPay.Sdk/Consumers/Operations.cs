@@ -22,7 +22,7 @@ namespace SwedbankPay.Sdk.Consumers
         }
 
 
-        public HttpOperation this[LinkRelation rel] => ContainsKey(rel) ? base[rel] : null;
+        public new HttpOperation this[LinkRelation rel] => ContainsKey(rel) ? base[rel] : null;
         public HttpOperation RedirectConsumerIdentification { get; internal set; }
         public HttpOperation ViewConsumerIdentification { get; internal set; }
     }

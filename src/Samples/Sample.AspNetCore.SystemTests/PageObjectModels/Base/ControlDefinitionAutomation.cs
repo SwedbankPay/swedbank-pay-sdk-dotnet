@@ -93,7 +93,7 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Base
 
         protected ScopeDefinitionAutomationAttribute(string type = DefaultScopeXPath, string automationAttribute = "")
         {
-            this.baseScopeXPath = string.Format("{0}[@automation='{1}']", type, automationAttribute);
+            baseScopeXPath = string.Format("{0}[@automation='{1}']", type, automationAttribute);
         }
 
 
@@ -126,7 +126,7 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Base
         /// <returns>The built XPath.</returns>
         protected virtual string BuildScopeXPath()
         {
-            var scopeXPath = this.baseScopeXPath ?? DefaultScopeXPath;
+            var scopeXPath = baseScopeXPath ?? DefaultScopeXPath;
 
             if (ContainingClasses?.Any() ?? false)
             {

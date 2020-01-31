@@ -28,7 +28,7 @@ namespace SwedbankPay.Sdk.JsonSerialization
 
         public override bool CanConvert(Type objectType)
         {
-            return this.types.Any(t => t == objectType);
+            return types.Any(t => t == objectType);
         }
 
 
