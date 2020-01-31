@@ -19,7 +19,6 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private PayeeInfo payeeInfo;
         private PrefillInfo prefillInfo;
         private bool generatePaymentToken;
-        private readonly bool generateReccurrenceToken;
         private Amount amount;
         private Amount vatAmount;
         private string payerReference;
@@ -40,7 +39,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
                 language,
                 urls,
                 payeeInfo,
-                generatePaymentToken: generatePaymentToken, generateReccurenceToken: generateReccurrenceToken, payerReference: payerReference, riskIndicator: null, metaData: metaData);
+                generatePaymentToken: generatePaymentToken, generateReccurenceToken: false, payerReference: payerReference, riskIndicator: null, metaData: metaData);
         }
 
         public PaymentRequest BuildSwishPaymentRequest()

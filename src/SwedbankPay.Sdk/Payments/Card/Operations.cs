@@ -10,7 +10,7 @@ namespace SwedbankPay.Sdk.Payments.Card
         public Func<CaptureRequest, Task<CaptureResponse>> Capture { get; internal set; }
         public Func<AuthorizationRequest, Task<AuthorizationResponse>> DirectAuthorization { get; internal set; }
         public HttpOperation DirectVerification { get; internal set; }
-        public HttpOperation this[LinkRelation rel] => ContainsKey(rel) ? base[rel] : null;
+        public new HttpOperation this[LinkRelation rel] => ContainsKey(rel) ? base[rel] : null;
         public HttpOperation PaidPayment { get; internal set; }
         public HttpOperation RedirectAuthorization { get; internal set; }
         public HttpOperation RedirectVerification { get; internal set; }

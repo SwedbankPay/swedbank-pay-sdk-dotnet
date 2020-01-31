@@ -90,7 +90,7 @@ namespace SwedbankPay.Sdk
         internal async Task<TResponse> SendHttpRequestAndProcessHttpResponse
             <TResponse>(HttpRequestMessage httpRequest)
         {
-            var httpResponse = await this.client.SendAsync(httpRequest);
+            var httpResponse = await client.SendAsync(httpRequest);
 
             string BuildErrorMessage(string httpResponseBody)
             {
@@ -110,12 +110,12 @@ namespace SwedbankPay.Sdk
             }
             catch (HttpResponseException ex)
             {
-                this.logger.LogError(ex, ex.Message);
+                logger.LogError(ex, ex.Message);
                 throw;
             }
             catch (Exception ex)
             {
-                this.logger.LogError(ex, ex.Message);
+                logger.LogError(ex, ex.Message);
                 var httpResponseBody = await httpResponse.Content.ReadAsStringAsync();
                 throw new HttpResponseException(
                     httpResponse,

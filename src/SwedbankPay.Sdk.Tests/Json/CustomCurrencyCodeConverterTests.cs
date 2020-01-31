@@ -18,13 +18,13 @@ namespace SwedbankPay.Sdk.Tests.Json
         {
             //ARRANGE
 
-            var jsonObject = new JObject { { "currency", this.currencyCode } };
+            var jsonObject = new JObject { { "currency", currencyCode } };
 
             //ACT
             var result = JsonConvert.DeserializeObject<CurrencyCode>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);
 
             //ASSERT
-            Assert.Equal(this.currencyCode, result.ToString());
+            Assert.Equal(currencyCode, result.ToString());
         }
 
 
@@ -40,7 +40,7 @@ namespace SwedbankPay.Sdk.Tests.Json
             var obj = JObject.Parse(result);
             obj.TryGetValue("Currency", StringComparison.InvariantCultureIgnoreCase, out var code);
             //ASSERT
-            Assert.Equal(this.currencyCode, code);
+            Assert.Equal(currencyCode, code);
         }
     }
 }
