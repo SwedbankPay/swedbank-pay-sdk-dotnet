@@ -92,12 +92,6 @@ namespace SwedbankPay.Sdk
         {
             var httpResponse = await client.SendAsync(httpRequest);
 
-            string BuildErrorMessage(string httpResponseBody)
-            {
-                return
-                    $"{httpRequest.Method}: {httpRequest.RequestUri} failed with error code {httpResponse.StatusCode} using bearer token {httpRequest.Headers.Authorization.Parameter}. Response body: {httpResponseBody}";
-            }
-
             try
             {
                 var httpResponseBody = await httpResponse.Content.ReadAsStringAsync();
@@ -105,7 +99,7 @@ namespace SwedbankPay.Sdk
                     throw new HttpResponseException(
                         httpResponse,
                         JsonConvert.DeserializeObject<ProblemResponse>(httpResponseBody),
-                        BuildErrorMessage(httpResponseBody));
+                        BuildErrorMessage(httpResponseBody, httpRequest, httpResponse));
                 return JsonConvert.DeserializeObject<TResponse>(httpResponseBody, JsonSerialization.JsonSerialization.Settings);
             }
             catch (HttpResponseException ex)
@@ -119,9 +113,15 @@ namespace SwedbankPay.Sdk
                 var httpResponseBody = await httpResponse.Content.ReadAsStringAsync();
                 throw new HttpResponseException(
                     httpResponse,
-                    message : BuildErrorMessage(httpResponseBody),
+                    message : BuildErrorMessage(httpResponseBody, httpRequest, httpResponse),
                     innerException : ex);
             }
+        }
+
+        private static string BuildErrorMessage(string httpResponseBody, HttpRequestMessage httpRequest, HttpResponseMessage httpResponse)
+        {
+            return
+                $"{httpRequest.Method}: {httpRequest.RequestUri} failed with error code {httpResponse.StatusCode} using bearer token {httpRequest.Headers.Authorization.Parameter}. Response body: {httpResponseBody}";
         }
 
 
