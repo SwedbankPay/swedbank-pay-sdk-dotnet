@@ -1,12 +1,14 @@
-﻿using System;
+﻿using SwedbankPay.Sdk.Extensions;
+using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Consumers
 {
     internal class ConsumersResource : ResourceBase, IConsumersResource
     {
-        public ConsumersResource(SwedbankPayHttpClient swedbankPayHttpClient)
-            : base(swedbankPayHttpClient)
+        public ConsumersResource(HttpClient httpClient)
+            : base(httpClient)
         {
         }
 
@@ -49,9 +51,9 @@ namespace SwedbankPay.Sdk.Consumers
         /// </summary>
         /// <param name="consumersRequest"></param>
         /// <returns></returns>
-        public async Task<Consumer> InitiateSession(ConsumersRequest consumersRequest)
+        public Task<Consumer> InitiateSession(ConsumersRequest consumersRequest)
         {
-            return await Consumer.Initiate(consumersRequest, swedbankPayHttpClient);
+            return Consumer.Initiate(consumersRequest, httpClient);
         }
 
 
@@ -62,9 +64,9 @@ namespace SwedbankPay.Sdk.Consumers
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        public async Task<BillingDetails> GetBillingDetailsInternalAsync(Uri url)
+        public Task<BillingDetails> GetBillingDetailsInternalAsync(Uri url)
         {
-            return await swedbankPayHttpClient.HttpGet<BillingDetails>(url);
+            return httpClient.GetAsJsonAsync<BillingDetails>(url);
         }
 
 
@@ -75,9 +77,9 @@ namespace SwedbankPay.Sdk.Consumers
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        public async Task<ShippingDetails> GetShippingDetailsInternalAsync(Uri url)
+        public Task<ShippingDetails> GetShippingDetailsInternalAsync(Uri url)
         {
-            return await swedbankPayHttpClient.HttpGet<ShippingDetails>(url);
+            return httpClient.GetAsJsonAsync<ShippingDetails>(url);
         }
     }
 }

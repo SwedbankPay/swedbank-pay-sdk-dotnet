@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Net.Http;
 using System.Threading.Tasks;
-
+using SwedbankPay.Sdk.Extensions;
 using SwedbankPay.Sdk.Payments;
 
 namespace SwedbankPay.Sdk.PaymentOrders
@@ -8,7 +9,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
     public class PaymentOrder
     {
         private PaymentOrder(PaymentOrderResponse paymentOrderResponse,
-                             SwedbankPayHttpClient client)
+                             HttpClient client)
         {
             PaymentOrderResponse = paymentOrderResponse.PaymentOrderResponseObject;
             var operations = new Operations();
@@ -21,19 +22,19 @@ namespace SwedbankPay.Sdk.PaymentOrders
                 switch (httpOperation.Rel.Value)
                 {
                     case PaymentOrderResourceOperations.CreatePaymentOrderCapture:
-                        operations.Capture = async payload => await client.SendHttpRequestAndProcessHttpResponse<CaptureResponse>(httpOperation.Request.AttachPayload(payload));
+                        operations.Capture = async payload => await client.PostAsJsonAsync<CaptureResponse>(httpOperation.Href, payload);
                         break;
                     case PaymentOrderResourceOperations.CreatePaymentOrderCancel:
-                        operations.Cancel = async payload => await client.SendHttpRequestAndProcessHttpResponse<CancellationResponse>(httpOperation.Request.AttachPayload(payload));
+                        operations.Cancel = async payload => await client.PostAsJsonAsync<CancellationResponse>(httpOperation.Href, payload);
                         break;
                     case PaymentOrderResourceOperations.CreatePaymentOrderReversal:
-                        operations.Reversal = async payload => await client.SendHttpRequestAndProcessHttpResponse<ReversalResponse>(httpOperation.Request.AttachPayload(payload));
+                        operations.Reversal = async payload => await client.PostAsJsonAsync<ReversalResponse>(httpOperation.Href, payload);
                         break;
                     case PaymentOrderResourceOperations.UpdatePaymentOrderUpdateOrder:
-                        operations.Update = async payload => await client.SendHttpRequestAndProcessHttpResponse<PaymentOrderResponse>(httpOperation.Request.AttachPayload(payload));
+                        operations.Update = async payload => await client.PatchAsJsonAsync<PaymentOrderResponse>(httpOperation.Href, payload);
                         break;
                     case PaymentOrderResourceOperations.UpdatePaymentOrderAbort:
-                        operations.Abort = async () => await client.SendHttpRequestAndProcessHttpResponse<PaymentOrderResponse>(httpOperation.Request.AttachPayload(new AbortRequest()));
+                        operations.Abort = async () => await client.PatchAsJsonAsync<PaymentOrderResponse>(httpOperation.Href, new AbortRequest());
                         break;
                     case PaymentOrderResourceOperations.ViewPaymentOrder:
                         operations.View = httpOperation;
@@ -50,12 +51,12 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
 
         internal static async Task<PaymentOrder> Create(PaymentOrderRequest paymentOrderRequest,
-                                                        SwedbankPayHttpClient client,
+                                                        HttpClient client,
                                                         string paymentOrderExpand)
         {
             var url = new Uri($"/psp/paymentorders{paymentOrderExpand}", UriKind.Relative);
             
-            var paymentOrderResponseContainer = await client.HttpPost<PaymentOrderResponse>(url, paymentOrderRequest);
+            var paymentOrderResponseContainer = await client.PostAsJsonAsync<PaymentOrderResponse>(url, paymentOrderRequest);
 
             return new PaymentOrder(paymentOrderResponseContainer, client);
         }
@@ -72,12 +73,13 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <exception cref="System.Net.Http.HttpRequestException"></exception>
         /// <exception cref="Exceptions.HttpResponseException"></exception>
         /// <returns></returns>
-        internal static async Task<PaymentOrder> Get(Uri id, SwedbankPayHttpClient client, string paymentOrderExpand)
+        internal static async Task<PaymentOrder> Get(Uri id, HttpClient client, string paymentOrderExpand)
         {
             var url = !string.IsNullOrWhiteSpace(paymentOrderExpand)
                 ? new Uri(id.OriginalString + paymentOrderExpand, UriKind.RelativeOrAbsolute)
                 : id;
-            var paymentOrderResponseContainer = await client.HttpGet<PaymentOrderResponse>(url);
+
+            var paymentOrderResponseContainer = await client.GetAsJsonAsync<PaymentOrderResponse>(url);
 
             return new PaymentOrder(paymentOrderResponseContainer, client);
         }

@@ -22,8 +22,9 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             var payment = await Sut.Payment.CreateSwishPayment(paymentRequest);
 
             Assert.NotNull(payment);
+            Assert.NotNull(payment.Operations.Abort);
 
-            var paymentResponseContainer = await payment.Operations.Abort.Invoke();
+            var paymentResponseContainer = await payment.Operations.Abort();
 
             Assert.NotNull(paymentResponseContainer);
         }

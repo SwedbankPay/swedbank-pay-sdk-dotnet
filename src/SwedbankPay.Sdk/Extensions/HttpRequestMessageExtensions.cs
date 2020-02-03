@@ -3,7 +3,7 @@ using System.Text;
 
 using Newtonsoft.Json;
 
-namespace SwedbankPay.Sdk
+namespace SwedbankPay.Sdk.Extensions
 {
     public static class HttpRequestMessageExtensions
     {
