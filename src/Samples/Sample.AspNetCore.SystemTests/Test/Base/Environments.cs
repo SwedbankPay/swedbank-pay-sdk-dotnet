@@ -1,6 +1,6 @@
 ﻿namespace Sample.AspNetCore.SystemTests.Test.Base
 {
-    public static class Environments
+    public class Environments
     {
         public const string WindowsChrome1 = "windowsChrome1";
         public const string WindowsChrome2 = "windowsChrome2";

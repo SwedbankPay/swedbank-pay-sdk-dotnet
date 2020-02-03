@@ -6,6 +6,7 @@ using NUnit.Framework;
 using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
+using SwedbankPay.Sdk.Payments;
 
 namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Standard
 {

@@ -4,8 +4,10 @@ using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
 using SwedbankPay.Sdk.Payments;
+using SwedbankPay.Sdk.PaymentOrders;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
 {

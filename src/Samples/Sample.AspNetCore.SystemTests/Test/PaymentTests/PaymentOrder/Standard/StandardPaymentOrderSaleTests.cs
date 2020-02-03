@@ -3,6 +3,7 @@ using NUnit.Framework;
 using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
+using SwedbankPay.Sdk.Payments;
 using System.Linq;
 using System.Threading.Tasks;
 

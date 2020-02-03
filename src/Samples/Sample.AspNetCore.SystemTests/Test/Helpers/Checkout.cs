@@ -1,6 +1,12 @@
-﻿namespace Sample.AspNetCore.SystemTests.Test.Helpers
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Sample.AspNetCore.SystemTests.Test.Helpers
 {
-    public static class Checkout
+    public class Checkout
     {
         public enum Option
         {

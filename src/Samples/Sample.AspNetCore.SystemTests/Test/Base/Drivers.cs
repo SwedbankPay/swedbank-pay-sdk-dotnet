@@ -2,7 +2,7 @@
 
 namespace Sample.AspNetCore.SystemTests.Test.Base
 {
-    public static class Drivers
+    public class Drivers
     {
         public enum Driver
         {

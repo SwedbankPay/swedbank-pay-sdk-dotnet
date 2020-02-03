@@ -55,7 +55,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
         }
 
 
-        protected static OrdersPage GoToOrdersPage(Product[] products, PayexInfo payexInfo, Checkout.Option checkout = Checkout.Option.Anonymous)
+        protected OrdersPage GoToOrdersPage(Product[] products, PayexInfo payexInfo, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
             switch (payexInfo)
             {
@@ -76,12 +76,12 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
         }
 
 
-        protected static PayexCardFramePage GoToPayexCardPaymentFrame(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)
+        protected PayexCardFramePage GoToPayexCardPaymentFrame(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
             switch (checkout)
             {
                 case Checkout.Option.LocalPaymentMenu:
-                    return GoToLocalPaymentPage(products)
+                    return GoToLocalPaymentPage(products, checkout)
                         .CreditCard.Click()
                         .PaymentFrame.SwitchTo<PayexCardFramePage>();
 
@@ -99,7 +99,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
         }
 
 
-        protected static PayexInvoiceFramePage GoToPayexInvoicePaymentFrame(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)
+        protected PayexInvoiceFramePage GoToPayexInvoicePaymentFrame(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
             return GoToPaymentFramePage(products, checkout)
                 .PaymentMethods[x => x.Name == PaymentMethods.Invoice].Click()
@@ -107,12 +107,12 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
         }
 
 
-        protected static PayexSwishFramePage GoToPayexSwishPaymentFrame(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)
+        protected PayexSwishFramePage GoToPayexSwishPaymentFrame(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
             switch (checkout)
             {
                 case Checkout.Option.LocalPaymentMenu:
-                    return GoToLocalPaymentPage(products)
+                    return GoToLocalPaymentPage(products, checkout)
                         .Swish.Click()
                         .PaymentFrame.SwitchTo<PayexSwishFramePage>();
 
@@ -130,7 +130,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
         }
 
 
-        protected static PaymentFramePage GoToPaymentFramePage(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)
+        protected PaymentFramePage GoToPaymentFramePage(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
             switch (checkout)
             {
@@ -153,14 +153,14 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
         }
 
 
-        protected static LocalPaymentMenuPage GoToLocalPaymentPage(Product[] products)
+        protected LocalPaymentMenuPage GoToLocalPaymentPage(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
             return SelectProducts(products)
                     .LocalPaymentMenu.ClickAndGo();
         }
 
 
-        protected static PaymentPage GoToPayexPaymentPage(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)
+        protected PaymentPage GoToPayexPaymentPage(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
             switch (checkout)
             {
@@ -174,7 +174,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
         }
 
 
-        protected static ProductsPage SelectProducts(Product[] products)
+        protected ProductsPage SelectProducts(Product[] products)
         {
             return Go.To<ProductsPage>()
                 .Do((x) => 
@@ -200,7 +200,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 });
         }
 
-        protected static ThankYouPage PayWithPayexCard(Product[] products, PayexCardInfo info, Checkout.Option checkout = Checkout.Option.Anonymous)
+        protected ThankYouPage PayWithPayexCard(Product[] products, PayexCardInfo info, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
             switch (checkout)
             {
@@ -225,7 +225,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
         }
 
 
-        protected static ThankYouPage PayWithPayexInvoice(Product[] products, PayexInvoiceInfo info, Checkout.Option checkout = Checkout.Option.Anonymous)
+        protected ThankYouPage PayWithPayexInvoice(Product[] products, PayexInvoiceInfo info, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
             switch (checkout)
             {
@@ -250,7 +250,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
         }
 
 
-        protected static ThankYouPage PayWithPayexSwish(Product[] products, PayexSwishInfo info, Checkout.Option checkout = Checkout.Option.Anonymous)
+        protected ThankYouPage PayWithPayexSwish(Product[] products, PayexSwishInfo info, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
             switch (checkout)
             {
