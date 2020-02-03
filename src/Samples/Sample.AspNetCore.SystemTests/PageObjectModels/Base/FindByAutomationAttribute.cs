@@ -8,7 +8,7 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Base
     ///     Specifies that a control should be found by CSS selector with the automation attribute.
     ///     Finds the descendant or self control in the scope of the element found by the specified CSS selector.
     /// </summary>
-    public sealed class FindByAutomationAttribute : FindAttribute, ITermFindAttribute
+    public class FindByAutomationAttribute : FindAttribute, ITermFindAttribute
     {
         public FindByAutomationAttribute(string type, string automationAttribute)
         {

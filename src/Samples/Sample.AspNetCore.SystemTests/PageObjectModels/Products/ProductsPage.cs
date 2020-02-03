@@ -26,5 +26,30 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels
 
         [FindByXPath("table[2]//tfoot[1]//td[2]")]
         public Text<_> TotalAmount { get; set; }
+
+        public class ProductBasketItem : TableRow<_>
+        {
+            [FindByXPath("td[2]")] public Text<_> Name { get; set; }
+
+            [FindByXPath("td[3]")] public Text<_> Price { get; set; }
+
+            [FindByName("Quantity")] public NumberInput<_> Quantity { get; set; }
+
+            [Wait(0.5, TriggerEvents.AfterClick)]
+            [FindByXPath("button[1]")]
+            public Button<_> Update { get; set; }
+        }
+
+        public class ProductItem : TableRow<_>
+        {
+            [FindByAutomation("a", "button-addtocart")]
+            public Link<_> AddToCart { get; set; }
+
+            [FindByXPath("td[1]")] public Text<_> Name { get; set; }
+
+            [FindByXPath("a[1]")] public Link<_> Open { get; set; }
+
+            [FindByXPath("td[5]")] public Text<_> Price { get; set; }
+        }
     }
 }

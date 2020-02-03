@@ -73,7 +73,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
 #endif
         }
 
-        protected TestBase(string driverAlias) => _driverAlias = driverAlias;
+        protected TestBase(string driverAlias) => this._driverAlias = driverAlias;
 
         [TearDown]
         public void TearDown()

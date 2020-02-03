@@ -13,8 +13,8 @@ namespace Sample.AspNetCore.SystemTests.Services
 
         public HttpClientService()
         {
-            httpClient = new HttpClient();
-            httpClient.DefaultRequestHeaders.Authorization =
+            this.httpClient = new HttpClient();
+            this.httpClient.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", ConfigurationManager.AppSettings["payexTestToken"]);
         }
 
@@ -24,7 +24,7 @@ namespace Sample.AspNetCore.SystemTests.Services
             if (paymentOrderId == null || expand == null)
                 throw new Exception($"paymentOrderId [{paymentOrderId}] or expand [{expand}] parameters cannot be null");
 
-            var response = await httpClient.GetAsync($"https://api.externalintegration.payex.com{paymentOrderId}?$expand={expand}");
+            var response = await this.httpClient.GetAsync($"https://api.externalintegration.payex.com{paymentOrderId}?$expand={expand}");
 
             if (response.IsSuccessStatusCode)
             {

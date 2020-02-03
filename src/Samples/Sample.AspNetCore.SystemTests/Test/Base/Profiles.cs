@@ -2,9 +2,8 @@
 
 namespace Sample.AspNetCore.SystemTests.Test.Base
 {
-    public static class Profiles
+    public class Profiles
     {
-#pragma warning disable CA1034 // Nested types should not be visible
         public class ProfileDev : IEnumerable
         {
             public IEnumerator GetEnumerator()
@@ -64,6 +63,5 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
                 yield return new object[] { Executions.Parallel, Environments.IPhoneSafari1 };
             }
         }
-#pragma warning restore CA1034 // Nested types should not be visible
     }
 }
