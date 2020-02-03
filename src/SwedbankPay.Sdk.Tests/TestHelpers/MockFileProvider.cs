@@ -9,20 +9,20 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
 {
     public class MockFileProvider : IFileProvider
     {
-        private readonly IEnumerable<IFileInfo> _files;
-        private readonly Dictionary<string, IChangeToken> _changeTokens;
+        private readonly IEnumerable<IFileInfo> files;
+        private readonly Dictionary<string, IChangeToken> changeTokens;
 
         public MockFileProvider()
         { }
 
         public MockFileProvider(params IFileInfo[] files)
         {
-            _files = files;
+            this.files = files;
         }
 
         public MockFileProvider(params KeyValuePair<string, IChangeToken>[] changeTokens)
         {
-            _changeTokens = changeTokens.ToDictionary(
+            this.changeTokens = changeTokens.ToDictionary(
                 changeToken => changeToken.Key,
                 changeToken => changeToken.Value,
                 StringComparer.Ordinal);
@@ -35,11 +35,11 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
 
             if (string.IsNullOrEmpty(subpath))
             {
-                contents.Setup(m => m.GetEnumerator()).Returns(_files.GetEnumerator());
+                contents.Setup(m => m.GetEnumerator()).Returns(this.files.GetEnumerator());
                 return contents.Object;
             }
 
-            var filesInFolder = _files.Where(f => f.Name.StartsWith(subpath, StringComparison.Ordinal));
+            var filesInFolder = this.files.Where(f => f.Name.StartsWith(subpath, StringComparison.Ordinal));
             if (filesInFolder.Any())
             {
                 contents.Setup(m => m.GetEnumerator()).Returns(filesInFolder.GetEnumerator());
@@ -50,15 +50,15 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
 
         public IFileInfo GetFileInfo(string subpath)
         {
-            var file = _files.FirstOrDefault(f => f.Name == subpath);
+            var file = this.files.FirstOrDefault(f => f.Name == subpath);
             return file ?? new NotFoundFileInfo(subpath);
         }
 
         public IChangeToken Watch(string filter)
         {
-            if (_changeTokens != null && _changeTokens.ContainsKey(filter))
+            if (this.changeTokens != null && this.changeTokens.ContainsKey(filter))
             {
-                return _changeTokens[filter];
+                return this.changeTokens[filter];
             }
             return NullChangeToken.Singleton;
         }

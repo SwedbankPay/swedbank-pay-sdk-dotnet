@@ -19,13 +19,13 @@ namespace SwedbankPay.Sdk.Payments
             if (id == null)
                 throw new ArgumentNullException(nameof(id));
 
-            return await Payment.Get(id, httpClient, GetExpandQueryString(paymentExpand));
+            return await Payment.Get(id, this.httpClient, GetExpandQueryString(paymentExpand));
         }
 
 
         public async Task<Payment> CreateCreditCardPayment(PaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None)
         {
-            return await Payment.Create(paymentRequest, httpClient, GetExpandQueryString(paymentExpand));
+            return await Payment.Create(paymentRequest, this.httpClient, GetExpandQueryString(paymentExpand));
         }
 
 
@@ -34,14 +34,14 @@ namespace SwedbankPay.Sdk.Payments
             if (id == null)
                 throw new ArgumentNullException(nameof(id));
 
-            return await Swish.Payment.Get(id, httpClient, GetExpandQueryString(paymentExpand));
+            return await Swish.Payment.Get(id, this.httpClient, GetExpandQueryString(paymentExpand));
         }
 
 
         public async Task<Swish.Payment> CreateSwishPayment(Swish.PaymentRequest paymentRequest,
                                                             PaymentExpand paymentExpand = PaymentExpand.None)
         {
-            return await Swish.Payment.Create(paymentRequest, httpClient, GetExpandQueryString(paymentExpand));
+            return await Swish.Payment.Create(paymentRequest, this.httpClient, GetExpandQueryString(paymentExpand));
         }
     }
 }

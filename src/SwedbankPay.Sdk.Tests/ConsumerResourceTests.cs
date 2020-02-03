@@ -21,7 +21,7 @@ namespace SwedbankPay.Sdk.Tests
             Uri url = null;
 
             //ASSERT
-            await Assert.ThrowsAsync<ArgumentNullException>(nameof(url), () => Sut.Consumers.GetBillingDetails(url));
+            await Assert.ThrowsAsync<ArgumentNullException>(nameof(url), () => this.Sut.Consumers.GetBillingDetails(url));
         }
 
 
@@ -32,7 +32,7 @@ namespace SwedbankPay.Sdk.Tests
             var uri = new Uri("http://xxx");
 
             //ASSERT
-            await Assert.ThrowsAsync<HttpRequestException>(() => Sut.Consumers.GetBillingDetails(uri));
+            await Assert.ThrowsAsync<HttpRequestException>(() => this.Sut.Consumers.GetBillingDetails(uri));
         }
 
 
@@ -43,7 +43,7 @@ namespace SwedbankPay.Sdk.Tests
             Uri url = null;
 
             //ASSERT
-            await Assert.ThrowsAsync<ArgumentNullException>(nameof(url), () => Sut.Consumers.GetShippingDetails(url));
+            await Assert.ThrowsAsync<ArgumentNullException>(nameof(url), () => this.Sut.Consumers.GetShippingDetails(url));
         }
 
 
@@ -54,7 +54,7 @@ namespace SwedbankPay.Sdk.Tests
             var uri = new Uri("http://xxx");
 
             //ASSERT
-            await Assert.ThrowsAsync<HttpRequestException>(() => Sut.Consumers.GetShippingDetails(uri));
+            await Assert.ThrowsAsync<HttpRequestException>(() => this.Sut.Consumers.GetShippingDetails(uri));
         }
 
 
@@ -62,11 +62,11 @@ namespace SwedbankPay.Sdk.Tests
         public async Task InitializeConsumer_ReturnsNonEmptyOperationsCollection()
         {
             //ARRANGE
-            var orderResoureRequest = consumerResourceRequestContainer.WithTestValues()
+            var orderResoureRequest = this.consumerResourceRequestContainer.WithTestValues()
                 .Build();
 
             //ACT
-            var consumer = await Sut.Consumers.InitiateSession(orderResoureRequest);
+            var consumer = await this.Sut.Consumers.InitiateSession(orderResoureRequest);
 
             //ASSERT
             Assert.NotNull(consumer);
@@ -78,11 +78,11 @@ namespace SwedbankPay.Sdk.Tests
         public async Task EmptyShippingAddressRestrictedToCountryCodes_ShouldThrow_HttpResponseException()
         {
             //ARRANGE
-            var orderResoureRequest = consumerResourceRequestContainer.WithTestValues().WithEmptyShippingAddressCountryCodes()
+            var orderResoureRequest = this.consumerResourceRequestContainer.WithTestValues().WithEmptyShippingAddressCountryCodes()
                 .Build();
             
             //ASSERT
-            await Assert.ThrowsAsync<HttpResponseException>(() => Sut.Consumers.InitiateSession(orderResoureRequest));
+            await Assert.ThrowsAsync<HttpResponseException>(() => this.Sut.Consumers.InitiateSession(orderResoureRequest));
             
         }
 
@@ -90,10 +90,10 @@ namespace SwedbankPay.Sdk.Tests
         public async Task InitializeConsumer_ShouldReturn_NonEmptyToken()
         {
             //ARRANGE
-            var orderResoureRequest = consumerResourceRequestContainer.WithTestValues()
+            var orderResoureRequest = this.consumerResourceRequestContainer.WithTestValues()
                 .Build();
             //ACT
-            var consumer = await Sut.Consumers.InitiateSession(orderResoureRequest);
+            var consumer = await this.Sut.Consumers.InitiateSession(orderResoureRequest);
             //ASSERT
 
             Assert.NotNull(consumer);
@@ -106,10 +106,10 @@ namespace SwedbankPay.Sdk.Tests
         public async Task InitializeConsumer_ShouldReturn_TokenNotNull()
         {
             //ARRANGE
-            var orderResoureRequest = consumerResourceRequestContainer.WithTestValues()
+            var orderResoureRequest = this.consumerResourceRequestContainer.WithTestValues()
                 .Build();
             //ACT
-            var consumer = await Sut.Consumers.InitiateSession(orderResoureRequest);
+            var consumer = await this.Sut.Consumers.InitiateSession(orderResoureRequest);
             //ASSERT
 
             Assert.NotNull(consumer);

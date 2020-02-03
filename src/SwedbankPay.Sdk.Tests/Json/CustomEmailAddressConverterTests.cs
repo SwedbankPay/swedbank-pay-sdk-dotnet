@@ -21,14 +21,14 @@ namespace SwedbankPay.Sdk.Tests.Json
 
             var jsonObject = new JObject
             {
-                { "xX123xxaddress", address }
+                { "xX123xxaddress", this.address }
             };
 
             //ACT
             var result = JsonConvert.DeserializeObject<EmailAddress>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);
 
             //ASSERT
-            Assert.Equal(address, result.ToString());
+            Assert.Equal(this.address, result.ToString());
         }
 
 
