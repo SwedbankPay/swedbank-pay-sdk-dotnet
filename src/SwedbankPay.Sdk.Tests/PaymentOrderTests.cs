@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-
-using Newtonsoft.Json;
 
 using SwedbankPay.Sdk.Exceptions;
 using SwedbankPay.Sdk.PaymentOrders;
@@ -88,7 +85,7 @@ namespace SwedbankPay.Sdk.Tests
             var updateRequest = new UpdateRequest(Amount.FromDecimal(newAmount), Amount.FromDecimal(newVatAmount));
             Assert.NotNull(paymentOrder.Operations.Update);
 
-            var response = await paymentOrder.Operations.Update?.Invoke(updateRequest);
+            var response = await paymentOrder.Operations.Update(updateRequest);
 
             Assert.Equal(updateRequest.PaymentOrder.Amount.Value, response.PaymentOrderResponseObject.Amount.Value);
             Assert.Equal(updateRequest.PaymentOrder.VatAmount.Value, response.PaymentOrderResponseObject.VatAmount.Value);
@@ -122,10 +119,16 @@ namespace SwedbankPay.Sdk.Tests
             Assert.NotEmpty(paymentOrder.PaymentOrderResponse.OrderItems.OrderItemList);
         }
 
-
+        
         [Fact]
         public async Task GetPaymentOrder_WithPayment_ShouldReturnCurrentPaymentIfExpanded()
         {
+            //ARRANGE
+            var paymentOrderRequestContainer =
+                paymentOrderRequestBuilder.WithTestValues()
+                    .WithOrderItems()
+                    .Build();
+
             //ACT
             var paymentOrder = await Sut.PaymentOrder.Get(new Uri("/psp/paymentorders/472e6f26-a9b5-4e91-1b70-08d756b9b7d8", UriKind.Relative),
                                                                PaymentOrderExpand.CurrentPayment);

@@ -2,9 +2,6 @@
 using System.Net;
 using System.Net.Http;
 
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
-
 using SwedbankPay.Sdk.Consumers;
 using SwedbankPay.Sdk.PaymentOrders;
 using SwedbankPay.Sdk.Payments;
@@ -13,8 +10,7 @@ namespace SwedbankPay.Sdk
 {
     public class SwedbankPayClient : ISwedbankPayClient
     {
-        public SwedbankPayClient(HttpClient httpClient,
-                                 ILogger logger = null)
+        public SwedbankPayClient(HttpClient httpClient)
         {
             if (!ServicePointManager.SecurityProtocol.HasFlag(SecurityProtocolType.Tls12))
                 ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
@@ -27,11 +23,9 @@ namespace SwedbankPay.Sdk
             if (httpClient.DefaultRequestHeaders?.Authorization?.Parameter == null)
                 throw new ArgumentException($"Please configure the {nameof(httpClient)} with an Authorization header.");
 
-            var swedbankLogger = logger ?? NullLogger.Instance;
-            var swedbankPayHttpClient = new SwedbankPayHttpClient(httpClient, swedbankLogger);
-            PaymentOrder = new PaymentOrderResource(swedbankPayHttpClient);
-            Consumers = new ConsumersResource(swedbankPayHttpClient);
-            Payment = new PaymentsResource(swedbankPayHttpClient);
+            PaymentOrder = new PaymentOrderResource(httpClient);
+            Consumers = new ConsumersResource(httpClient);
+            Payment = new PaymentsResource(httpClient);
         }
 
 

@@ -1,11 +1,13 @@
-﻿using System;
+﻿using SwedbankPay.Sdk.Extensions;
+using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Payments.Card
 {
     public class Payment
     {
-        private Payment(PaymentResponse paymentResponse, SwedbankPayHttpClient client)
+        private Payment(PaymentResponse paymentResponse, HttpClient client)
         {
             PaymentResponse = paymentResponse.Payment;
             var operations = new Operations();
@@ -30,26 +32,22 @@ namespace SwedbankPay.Sdk.Payments.Card
 
                     case PaymentResourceOperations.DirectAuthorization:
                         operations.DirectAuthorization = async payload =>
-                            await client.SendHttpRequestAndProcessHttpResponse<AuthorizationResponse>(
-                                httpOperation.Request.AttachPayload(payload));
+                            await client.PostAsJsonAsync<AuthorizationResponse>(httpOperation.Href, payload);
                         break;
 
                     case PaymentResourceOperations.CreateCapture:
                         operations.Capture = async payload =>
-                            await client.SendHttpRequestAndProcessHttpResponse<CaptureResponse>(
-                                httpOperation.Request.AttachPayload(payload));
+                            await client.PostAsJsonAsync<CaptureResponse>(httpOperation.Href,payload);
                         break;
 
                     case PaymentResourceOperations.CreateCancellation:
                         operations.Cancel = async payload =>
-                            await client.SendHttpRequestAndProcessHttpResponse<CancellationResponse>(
-                                httpOperation.Request.AttachPayload(payload));
+                            await client.PostAsJsonAsync<CancellationResponse>(httpOperation.Href, payload);
                         break;
 
                     case PaymentResourceOperations.CreateReversal:
                         operations.Reversal = async payload =>
-                            await client.SendHttpRequestAndProcessHttpResponse<ReversalResponse>(
-                                httpOperation.Request.AttachPayload(payload));
+                            await client.PostAsJsonAsync<ReversalResponse>(httpOperation.Href, payload);
                         break;
 
                     case PaymentResourceOperations.RedirectVerification:
@@ -80,23 +78,23 @@ namespace SwedbankPay.Sdk.Payments.Card
 
 
         internal static async Task<Payment> Create(PaymentRequest paymentRequest,
-                                                   SwedbankPayHttpClient client,
+                                                   HttpClient client,
                                                    string paymentExpand)
         {
             var url = new Uri($"/psp/creditcard/payments{paymentExpand}", UriKind.Relative);
 
-            var paymentResponse = await client.HttpPost<PaymentResponse>(url, paymentRequest);
+            var paymentResponse = await client.PostAsJsonAsync<PaymentResponse>(url, paymentRequest);
             return new Payment(paymentResponse, client);
         }
 
 
-        internal static async Task<Payment> Get(Uri id, SwedbankPayHttpClient client, string paymentExpand)
+        internal static async Task<Payment> Get(Uri id, HttpClient client, string paymentExpand)
         {
             var url = !string.IsNullOrWhiteSpace(paymentExpand)
                 ? new Uri(id.OriginalString + paymentExpand, UriKind.RelativeOrAbsolute)
                 : id;
 
-            var paymentResponseContainer = await client.HttpGet<PaymentResponse>(url);
+            var paymentResponseContainer = await client.GetAsJsonAsync<PaymentResponse>(url);
             return new Payment(paymentResponseContainer, client);
         }
     }

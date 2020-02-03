@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using SwedbankPay.Sdk.Extensions;
+using System;
+using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Consumers
@@ -34,13 +38,13 @@ namespace SwedbankPay.Sdk.Consumers
         public Operations Operations { get; }
 
 
-        internal static async Task<Consumer> Initiate(ConsumersRequest consumersRequest, SwedbankPayHttpClient client)
+        internal static async Task<Consumer> Initiate(ConsumersRequest consumersRequest, HttpClient client)
         {
             var url = new Uri("/psp/consumers", UriKind.Relative);
 
-            var consumersResponse = await client.HttpPost<ConsumersResponse>(url, consumersRequest);
+            var consumerResponse = await client.PostAsJsonAsync<ConsumersResponse>(url, consumersRequest);
 
-            return new Consumer(consumersResponse);
+            return new Consumer(consumerResponse);
         }
     }
 }

@@ -1,11 +1,13 @@
-﻿using System;
+﻿using SwedbankPay.Sdk.Extensions;
+using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Payments.Swish
 {
     public class Payment
     {
-        private Payment(PaymentResponse paymentResponse, SwedbankPayHttpClient client)
+        private Payment(PaymentResponse paymentResponse, HttpClient client)
         {
             PaymentResponse = paymentResponse.Payment;
             var operations = new Operations();
@@ -18,13 +20,12 @@ namespace SwedbankPay.Sdk.Payments.Swish
                 {
                     case PaymentResourceOperations.UpdatePaymentAbort:
                         operations.Abort = async () =>
-                            await client.SendHttpRequestAndProcessHttpResponse<PaymentResponse>(
-                                httpOperation.Request.AttachPayload(new PaymentAbortRequest()));
+                            await client.PatchAsJsonAsync<PaymentResponse>(httpOperation.Href, new PaymentAbortRequest());
                         break;
 
                     case PaymentResourceOperations.CreateSale:
                         operations.CreateSale = async payload =>
-                            await client.SendHttpRequestAndProcessHttpResponse<SaleResponse>(httpOperation.Request.AttachPayload(payload));
+                            await client.PostAsJsonAsync<SaleResponse>(httpOperation.Href, payload);
                         break;
                     case PaymentResourceOperations.RedirectSale:
                         operations.RedirectSale = httpOperation;
@@ -35,8 +36,7 @@ namespace SwedbankPay.Sdk.Payments.Swish
                         break;
                     case PaymentResourceOperations.CreateReversal:
                         operations.CreateReversal = async payload =>
-                            await client.SendHttpRequestAndProcessHttpResponse<ReversalResponse>(
-                                httpOperation.Request.AttachPayload(payload));
+                            await client.PostAsJsonAsync<ReversalResponse>(httpOperation.Href, payload);
                         break;
                     case PaymentResourceOperations.PaidPayment:
                         operations.PaidPayment = httpOperation;
@@ -54,23 +54,23 @@ namespace SwedbankPay.Sdk.Payments.Swish
 
 
         internal static async Task<Payment> Create(PaymentRequest paymentRequest,
-                                                   SwedbankPayHttpClient client,
+                                                   HttpClient client,
                                                    string paymentExpand)
         {
             var url = new Uri($"/psp/swish/payments{paymentExpand}", UriKind.Relative);
 
-            var paymentResponse = await client.HttpPost<PaymentResponse>(url, paymentRequest);
+            var paymentResponse = await client.PostAsJsonAsync<PaymentResponse>(url, paymentRequest);
             return new Payment(paymentResponse, client);
         }
 
 
-        internal static async Task<Payment> Get(Uri id, SwedbankPayHttpClient client, string paymentExpand)
+        internal static async Task<Payment> Get(Uri id, HttpClient client, string paymentExpand)
         {
             var url = !string.IsNullOrWhiteSpace(paymentExpand)
                 ? new Uri(id.OriginalString + paymentExpand, UriKind.RelativeOrAbsolute)
                 : id;
 
-            var paymentResponse = await client.HttpGet<PaymentResponse>(url);
+            var paymentResponse = await client.GetAsJsonAsync<PaymentResponse>(url);
             return new Payment(paymentResponse, client);
         }
     }
