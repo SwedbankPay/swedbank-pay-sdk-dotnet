@@ -49,7 +49,7 @@ namespace SwedbankPay.Sdk
         public string Name { get; }
 
         public TValue Value =>
-            value;
+            this.value;
 
 
         public virtual bool Equals(TypeSafeEnum<TEnum, TValue> other)
@@ -63,7 +63,7 @@ namespace SwedbankPay.Sdk
             if (other is null)
                 return false;
 
-            return value.Equals(other.value);
+            return this.value.Equals(other.value);
         }
 
 
@@ -116,7 +116,7 @@ namespace SwedbankPay.Sdk
 
         public override int GetHashCode()
         {
-            return value.GetHashCode();
+            return this.value.GetHashCode();
         }
 
 
