@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public interface IPaymentOrderResource
+    public interface IPaymentOrdersClient
     {
         /// <summary>
         ///     Creates a payment order

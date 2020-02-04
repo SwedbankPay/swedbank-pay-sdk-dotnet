@@ -1,4 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
+#if RELEASE
+using System;
+#endif
 
 namespace SwedbankPay.Sdk.Tests.TestHelpers
 {

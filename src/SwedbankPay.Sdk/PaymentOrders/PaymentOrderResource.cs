@@ -6,7 +6,7 @@ using SwedbankPay.Sdk.Exceptions;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    internal class PaymentOrderResource : ResourceBase, IPaymentOrderResource
+    internal class PaymentOrderResource : ResourceBase, IPaymentOrdersClient
     {
         public PaymentOrderResource(HttpClient httpClient)
             : base(httpClient)
