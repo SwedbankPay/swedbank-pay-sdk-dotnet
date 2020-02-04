@@ -22,19 +22,19 @@ namespace SwedbankPay.Sdk.PaymentOrders
                 switch (httpOperation.Rel.Value)
                 {
                     case PaymentOrderResourceOperations.CreatePaymentOrderCapture:
-                        operations.Capture = async payload => await client.PostAsJsonAsync<CaptureResponse>(httpOperation.Href, payload);
+                        operations.Capture = async payload => await client.SendAsJsonAsync<CaptureResponse>(httpOperation.Method, httpOperation.Href, payload);
                         break;
                     case PaymentOrderResourceOperations.CreatePaymentOrderCancel:
-                        operations.Cancel = async payload => await client.PostAsJsonAsync<CancellationResponse>(httpOperation.Href, payload);
+                        operations.Cancel = async payload => await client.SendAsJsonAsync<CancellationResponse>(httpOperation.Method, httpOperation.Href, payload);
                         break;
                     case PaymentOrderResourceOperations.CreatePaymentOrderReversal:
-                        operations.Reversal = async payload => await client.PostAsJsonAsync<ReversalResponse>(httpOperation.Href, payload);
+                        operations.Reversal = async payload => await client.SendAsJsonAsync<ReversalResponse>(httpOperation.Method, httpOperation.Href, payload);
                         break;
                     case PaymentOrderResourceOperations.UpdatePaymentOrderUpdateOrder:
-                        operations.Update = async payload => await client.PatchAsJsonAsync<PaymentOrderResponse>(httpOperation.Href, payload);
+                        operations.Update = async payload => await client.SendAsJsonAsync<PaymentOrderResponse>(httpOperation.Method, httpOperation.Href, payload);
                         break;
                     case PaymentOrderResourceOperations.UpdatePaymentOrderAbort:
-                        operations.Abort = async () => await client.PatchAsJsonAsync<PaymentOrderResponse>(httpOperation.Href, new AbortRequest());
+                        operations.Abort = async () => await client.SendAsJsonAsync<PaymentOrderResponse>(httpOperation.Method, httpOperation.Href, new AbortRequest());
                         break;
                     case PaymentOrderResourceOperations.ViewPaymentOrder:
                         operations.View = httpOperation;
