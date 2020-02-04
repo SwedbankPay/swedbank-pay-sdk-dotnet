@@ -6,7 +6,7 @@ using SwedbankPay.Sdk.Payments.Card;
 
 namespace SwedbankPay.Sdk.Payments
 {
-    internal class PaymentsResource : ResourceBase, IPaymentsResource
+    internal class PaymentsResource : ResourceBase, IPaymentsClient
     {
         public PaymentsResource(HttpClient httpClient)
             : base(httpClient)

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Consumers
 {
-    public interface IConsumersResource
+    public interface IConsumersClient
     {
         /// <summary>
         ///     Retrieve Consumer Billing Details.

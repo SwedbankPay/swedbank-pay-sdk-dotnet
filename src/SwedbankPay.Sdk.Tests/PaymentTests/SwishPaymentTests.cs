@@ -13,13 +13,12 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
     {
         private readonly PaymentRequestBuilder paymentRequestBuilder = new PaymentRequestBuilder();
 
-
         [Fact]
         public async Task AbortPayment()
         {
             var paymentRequest = this.paymentRequestBuilder.WithSwishTestValues().BuildSwishPaymentRequest();
 
-            var payment = await this.Sut.Payment.CreateSwishPayment(paymentRequest);
+            var payment = await this.Sut.CreateSwishPayment(paymentRequest);
 
             Assert.NotNull(payment);
             Assert.NotNull(payment.Operations.Abort);
@@ -34,7 +33,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         public async Task CreateMCommerceSale()
         {
             var paymentRequest = this.paymentRequestBuilder.WithSwishTestValues().BuildSwishPaymentRequest();
-            var payment = await this.Sut.Payment.CreateSwishPayment(paymentRequest);
+            var payment = await this.Sut.CreateSwishPayment(paymentRequest);
 
             Assert.NotNull(payment);
 
@@ -49,7 +48,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         public async Task CreateSale()
         {
             var paymentRequest = this.paymentRequestBuilder.WithSwishTestValues().BuildSwishPaymentRequest();
-            var payment = await this.Sut.Payment.CreateSwishPayment(paymentRequest);
+            var payment = await this.Sut.CreateSwishPayment(paymentRequest);
 
             Assert.NotNull(payment);
 
@@ -88,7 +87,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         public async Task CreateSwishPayment_ShouldReturnPayment()
         {
             var paymentRequest = this.paymentRequestBuilder.WithSwishTestValues().BuildSwishPaymentRequest();
-            var swishPayment = await this.Sut.Payment.CreateSwishPayment(paymentRequest, PaymentExpand.All);
+            var swishPayment = await this.Sut.CreateSwishPayment(paymentRequest, PaymentExpand.All);
             Assert.NotNull(swishPayment);
             Assert.NotNull(swishPayment.PaymentResponse);
             Assert.Equal(paymentRequest.Payment.MetaData["key1"], swishPayment.PaymentResponse.MetaData["key1"]);
@@ -98,7 +97,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         [Fact]
         public async Task GetPayment()
         {
-            var payment = await this.Sut.Payment.GetSwishPayment(
+            var payment = await this.Sut.GetSwishPayment(
                 new Uri("/psp/swish/payments/dda2cbde-117a-4742-cbc9-08d7942e23d8", UriKind.Relative), PaymentExpand.All);
             Assert.NotNull(payment);
         }

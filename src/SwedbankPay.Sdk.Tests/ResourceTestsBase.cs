@@ -8,7 +8,7 @@ namespace SwedbankPay.Sdk.Tests
 {
     public abstract class ResourceTestsBase
     {
-        protected SwedbankPayClient Sut;
+        protected ISwedbankPayClient Sut;
 
         protected readonly Urls urls;
 

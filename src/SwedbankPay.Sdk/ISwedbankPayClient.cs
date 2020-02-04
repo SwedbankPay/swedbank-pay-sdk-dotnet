@@ -4,10 +4,7 @@ using SwedbankPay.Sdk.Payments;
 
 namespace SwedbankPay.Sdk
 {
-    public interface ISwedbankPayClient
+    public interface ISwedbankPayClient: IPaymentOrdersClient, IConsumersClient, IPaymentsClient
     {
-        IConsumersResource Consumers { get; }
-        IPaymentsResource Payment { get; }
-        IPaymentOrderResource PaymentOrder { get; }
     }
 }
