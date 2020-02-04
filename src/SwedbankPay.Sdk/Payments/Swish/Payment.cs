@@ -20,12 +20,12 @@ namespace SwedbankPay.Sdk.Payments.Swish
                 {
                     case PaymentResourceOperations.UpdatePaymentAbort:
                         operations.Abort = async () =>
-                            await client.PatchAsJsonAsync<PaymentResponse>(httpOperation.Href, new PaymentAbortRequest());
+                            await client.SendAsJsonAsync<PaymentResponse>(httpOperation.Method, httpOperation.Href, new PaymentAbortRequest());
                         break;
 
                     case PaymentResourceOperations.CreateSale:
                         operations.CreateSale = async payload =>
-                            await client.PostAsJsonAsync<SaleResponse>(httpOperation.Href, payload);
+                            await client.SendAsJsonAsync<SaleResponse>(httpOperation.Method, httpOperation.Href, payload);
                         break;
                     case PaymentResourceOperations.RedirectSale:
                         operations.RedirectSale = httpOperation;
@@ -36,7 +36,7 @@ namespace SwedbankPay.Sdk.Payments.Swish
                         break;
                     case PaymentResourceOperations.CreateReversal:
                         operations.CreateReversal = async payload =>
-                            await client.PostAsJsonAsync<ReversalResponse>(httpOperation.Href, payload);
+                            await client.SendAsJsonAsync<ReversalResponse>(httpOperation.Method, httpOperation.Href, payload);
                         break;
                     case PaymentResourceOperations.PaidPayment:
                         operations.PaidPayment = httpOperation;

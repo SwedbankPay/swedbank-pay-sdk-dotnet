@@ -25,12 +25,6 @@ namespace SwedbankPay.Sdk.Extensions
             return JsonConvert.DeserializeObject<T>(responseString, JsonSerialization.JsonSerialization.Settings);
         }
 
-        public static Task<T> GetAsJsonAsync<T>(this HttpClient httpClient, string uri)
-        {
-            var requestUri = new Uri(uri);
-            return httpClient.GetAsJsonAsync<T>(requestUri);
-        }
-
         internal static async Task<T> SendAndProcessAsync<T>(this HttpClient httpClient, HttpMethod httpMethod, Uri uri, object payload)
             where T : class
         {
@@ -83,25 +77,11 @@ namespace SwedbankPay.Sdk.Extensions
             return httpClient.SendAndProcessAsync<T>(HttpMethod.Post, uri, payload);
         }
 
-        public static Task<T> PostAsJsonAsync<T>(this HttpClient httpClient, string url, object payload)
-            where T : class
-        {
-            var requestUri = new Uri(url);
-            return httpClient.SendAndProcessAsync<T>(HttpMethod.Post, requestUri, payload);
-        }
-
 
         public static Task<T> PutAsJsonAsync<P, T>(this HttpClient httpClient, Uri uri, object payload)
             where T : class
         {
             return httpClient.SendAndProcessAsync<T>(HttpMethod.Put, uri, payload);
-        }
-
-        public static Task<T> PutAsJsonAsync<T>(this HttpClient httpClient, string uri, object payload)
-            where T : class
-        {
-            var requestUri = new Uri(uri);
-            return httpClient.SendAndProcessAsync<T>(HttpMethod.Put, requestUri, payload);
         }
 
 
@@ -111,11 +91,10 @@ namespace SwedbankPay.Sdk.Extensions
             return httpClient.SendAndProcessAsync<T>(new HttpMethod("PATCH"), uri, payload);
         }
 
-        public static Task<T> PatchAsJsonAsync<T>(this HttpClient httpClient, string uri, object payload)
-            where T : class
+        public static Task<T> SendAsJsonAsync<T>(this HttpClient httpClient, HttpMethod httpMethod, Uri uri, object payload = null)
+            where T: class
         {
-            var requestUri = new Uri(uri);
-            return httpClient.SendAndProcessAsync<T>(new HttpMethod("PATCH"), requestUri, payload);
+            return httpClient.SendAndProcessAsync<T>(httpMethod, uri, payload);
         }
     }
 }

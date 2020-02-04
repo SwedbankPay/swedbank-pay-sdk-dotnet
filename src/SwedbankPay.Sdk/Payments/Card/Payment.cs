@@ -32,22 +32,22 @@ namespace SwedbankPay.Sdk.Payments.Card
 
                     case PaymentResourceOperations.DirectAuthorization:
                         operations.DirectAuthorization = async payload =>
-                            await client.PostAsJsonAsync<AuthorizationResponse>(httpOperation.Href, payload);
+                            await client.SendAsJsonAsync<AuthorizationResponse>(httpOperation.Method, httpOperation.Href, payload);
                         break;
 
                     case PaymentResourceOperations.CreateCapture:
                         operations.Capture = async payload =>
-                            await client.PostAsJsonAsync<CaptureResponse>(httpOperation.Href,payload);
+                            await client.SendAsJsonAsync<CaptureResponse>(httpOperation.Method, httpOperation.Href,payload);
                         break;
 
                     case PaymentResourceOperations.CreateCancellation:
                         operations.Cancel = async payload =>
-                            await client.PostAsJsonAsync<CancellationResponse>(httpOperation.Href, payload);
+                            await client.SendAsJsonAsync<CancellationResponse>(httpOperation.Method, httpOperation.Href, payload);
                         break;
 
                     case PaymentResourceOperations.CreateReversal:
                         operations.Reversal = async payload =>
-                            await client.PostAsJsonAsync<ReversalResponse>(httpOperation.Href, payload);
+                            await client.SendAsJsonAsync<ReversalResponse>(httpOperation.Method, httpOperation.Href, payload);
                         break;
 
                     case PaymentResourceOperations.RedirectVerification:
