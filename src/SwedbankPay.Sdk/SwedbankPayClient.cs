@@ -15,20 +15,20 @@ namespace SwedbankPay.Sdk
     {
         private readonly HttpClient httpClient;
 
-        public SwedbankPayClient(HttpClient httpClient)
+        public SwedbankPayClient(IHttpClientFactory httpClientFactory)
         {
             if (!ServicePointManager.SecurityProtocol.HasFlag(SecurityProtocolType.Tls12))
                 ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
-            if (httpClient == null)
-                throw new ArgumentNullException(nameof(httpClient));
+            if (httpClientFactory == null)
+                throw new ArgumentNullException(nameof(httpClientFactory));
 
-            if (httpClient.BaseAddress == null)
+            this.httpClient = httpClientFactory.CreateClient(nameof(SwedbankPayClient));
+
+            if (this.httpClient.BaseAddress == null)
                 throw new ArgumentNullException(nameof(httpClient), $"{nameof(httpClient.BaseAddress)} cannot be null.");
 
-            if (httpClient.DefaultRequestHeaders?.Authorization?.Parameter == null)
+            if (this.httpClient.DefaultRequestHeaders?.Authorization?.Parameter == null)
                 throw new ArgumentException($"Please configure the {nameof(httpClient)} with an Authorization header.");
-
-            this.httpClient = httpClient;
         }
 
         public async Task<Payment> GetCreditCardPayment(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
