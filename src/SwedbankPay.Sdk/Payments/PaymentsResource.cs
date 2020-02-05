@@ -21,5 +21,21 @@ namespace SwedbankPay.Sdk.Payments
             this.CardPayments = cardPaymentsResource ?? throw new ArgumentNullException(nameof(cardPaymentsResource));
             this.SwishPayments = swishPaymentsResource ?? throw new ArgumentNullException(nameof(swishPaymentsResource));
         }
+
+
+        public async Task<Vipps.Payment> GetVippsPayment(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
+        {
+            if (id == null)
+                throw new ArgumentNullException(nameof(id));
+
+            return await Vipps.Payment.Get(id, this.swedbankPayHttpClient, GetExpandQueryString(paymentExpand));
+        }
+
+
+        public async Task<Vipps.Payment> CreateVippsPayment(Vipps.PaymentRequest paymentRequest,
+                                                            PaymentExpand paymentExpand = PaymentExpand.None)
+        {
+            return await Vipps.Payment.Create(paymentRequest, this.swedbankPayHttpClient, GetExpandQueryString(paymentExpand));
+        }
     }
 }
