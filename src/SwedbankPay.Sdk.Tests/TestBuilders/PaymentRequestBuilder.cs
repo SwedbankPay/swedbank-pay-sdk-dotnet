@@ -56,6 +56,43 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             );
         }
 
+    public Payments.Vipps.PaymentRequest BuildVippsRequest()
+        {
+            return new Payments.Vipps.PaymentRequest(
+                this.operation,
+                this.intent,
+                this.currency,
+                this.price,
+                this.description,
+                this.userAgent,
+                this.language,
+                this.urls,
+                this.payeeInfo);
+        }
+
+        public PaymentRequestBuilder WithVippsTestValues(Operation operation = null, Intent intent = Intent.Authorization)
+        {
+            this.operation = operation ?? Operation.Purchase;
+            this.intent = intent;
+            this.currency = new CurrencyCode("NOK");
+            this.description = "Test Description";
+            this.payerReference = "AB1234";
+            this.userAgent = "useragent";
+            this.language = new CultureInfo("nb-NO");
+            this.urls = new Urls(new List<Uri> { new Uri("https://example.com") }, new Uri("https://example.com/payment-completed"), new Uri("https://example.com/termsandconditoons.pdf"), new Uri("https://example.com/payment-canceled"));
+            this.payeeInfo = new PayeeInfo(Guid.Parse("91a4c8e0-72ac-425c-a687-856706f9e9a1"), DateTime.Now.Ticks.ToString());
+            this.generatePaymentToken = false;
+            this.amount = Amount.FromDecimal(1600);
+            this.vatAmount = Amount.FromDecimal(0);
+            this.metaData = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
+
+            this.price = new List<Price>
+            {
+                new Price(this.amount, PriceType.Vipps, this.vatAmount)
+            };
+            return this;
+        }
+
 
         public PaymentRequestBuilder WithCreditcardTestValues(Guid payeeId, Operation operation = null, Intent intent = Intent.Authorization)
         {
