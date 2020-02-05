@@ -6,18 +6,14 @@ namespace SwedbankPay.Sdk.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IHttpClientBuilder AddSwedbankPayClient(this IServiceCollection services, Action<HttpClient> configureClient = null)
+        public static IHttpClientBuilder AddSwedbankPayClient(this IServiceCollection services, Action<HttpClient> configureClient)
         {
-            if(configureClient != null)
-                return services.AddHttpClient(nameof(SwedbankPayClient), configureClient);
-            return services.AddHttpClient(nameof(SwedbankPayClient));
+            return services.AddHttpClient(nameof(SwedbankPayClient), configureClient);
         }
 
-        public static IHttpClientBuilder AddSwedbankPayClient(this IServiceCollection services, Action<IServiceProvider, HttpClient> configureClient = null)
+        public static IHttpClientBuilder AddSwedbankPayClient(this IServiceCollection services, Action<IServiceProvider, HttpClient> configureClient)
         {
-            if (configureClient != null)
-                return services.AddHttpClient(nameof(SwedbankPayClient), configureClient);
-            return services.AddHttpClient(nameof(SwedbankPayClient));
+            return services.AddHttpClient(nameof(SwedbankPayClient), configureClient);
         }
     }
 }
