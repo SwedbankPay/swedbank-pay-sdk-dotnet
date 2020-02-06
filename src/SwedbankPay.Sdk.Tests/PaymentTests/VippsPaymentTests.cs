@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 using SwedbankPay.Sdk.Payments;
@@ -18,16 +19,37 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         [Fact]
         public async Task CreatePayment()
         {
-            var VippsPaymentRequest = this.paymentRequestBuilder.WithVippsTestValues(Operation.Purchase).BuildVippsRequest();
-            var VippsPayment = await this.Sut.Payment.CreateVippsPayment(VippsPaymentRequest, PaymentExpand.All);
+            var vippsPaymentRequest = this.paymentRequestBuilder.WithVippsTestValues(Operation.Purchase).BuildVippsRequest();
+            var vippsPayment = await this.Sut.Payment.CreateVippsPayment(vippsPaymentRequest, PaymentExpand.All);
 
-            Assert.NotNull(VippsPayment);
-            Assert.Equal(VippsPaymentRequest.Payment.MetaData["key1"], VippsPayment.PaymentResponse.MetaData["key1"]);
-            Assert.True(VippsPaymentRequest.Payment.Language.CultureTypes.Equals("nb-NO"));
-            Assert.True(VippsPaymentRequest.Payment.Operation.Equals(Operation.Purchase));
-            Assert.NotNull(VippsPaymentRequest.Payment.UserAgent);
+            Assert.NotNull(vippsPayment);
+            Assert.Equal(vippsPaymentRequest.Payment.MetaData["key1"], vippsPayment.PaymentResponse.MetaData["key1"]);
+            Assert.True(vippsPaymentRequest.Payment.Language.CultureTypes.Equals("nb-NO"));
+            Assert.True(vippsPaymentRequest.Payment.Operation.Equals(Operation.Purchase));
+            Assert.NotNull(vippsPaymentRequest.Payment.UserAgent);
 
             //Sjekk om Payment
+        }
+
+        [Fact]
+        public async Task CreateAndGetVippsPayment_ShouldReturnPaymentId()
+        {
+            var vippsPaymentRequest = this.paymentRequestBuilder.WithVippsTestValues(Operation.Purchase).BuildVippsRequest();
+            var vippsPayment = await this.Sut.Payment.CreateVippsPayment(vippsPaymentRequest, PaymentExpand.All);
+            var vippsPaymentId = vippsPayment.PaymentResponse.Id;
+            var getVippsPayment = await this.Sut.Payment.GetVippsPayment(vippsPaymentId);
+
+            Assert.NotNull(getVippsPayment);
+
+            var priceList = getVippsPayment.PaymentResponse.Prices.PriceList;
+
+            Assert.NotEmpty(priceList);
+            var price = priceList.First();
+
+            Assert.Equal(vippsPaymentRequest.Payment.Prices.First().Amount, price.Amount);
+
+            //Assert.Equal(VippsPaymentRequest.Payment.Prices,
+            //             GetVippsPayment.Pay;
         }
 
     }
