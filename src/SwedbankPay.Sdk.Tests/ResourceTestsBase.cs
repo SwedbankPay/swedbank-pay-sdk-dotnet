@@ -21,10 +21,7 @@ namespace SwedbankPay.Sdk.Tests
             var client = new HttpClient { BaseAddress = this.connectionSettings.ApiBaseUrl };
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this.connectionSettings.Token);
             
-            var httpClientFactory = Substitute.For<IHttpClientFactory>();
-            httpClientFactory.CreateClient(nameof(SwedbankPayClient)).Returns(client);
-
-            this.Sut = new SwedbankPayClient(httpClientFactory);
+            this.Sut = new SwedbankPayClient(client);
         }
     }
 }
