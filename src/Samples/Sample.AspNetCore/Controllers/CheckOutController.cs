@@ -27,14 +27,14 @@ namespace Sample.AspNetCore.Controllers
     {
         private readonly Cart cartService;
         private readonly PayeeInfoConfig payeeInfoOptions;
-        private readonly SwedbankPayClient swedbankPayClient;
+        private readonly ISwedbankPayClient swedbankPayClient;
         private readonly UrlsOptions urls;
 
 
         public CheckOutController(IOptionsSnapshot<PayeeInfoConfig> payeeInfoOptionsAccessor,
                                   IOptionsSnapshot<UrlsOptions> urlsAccessor,
                                   Cart cartService,
-                                  SwedbankPayClient swedbankPayClient)
+                                  ISwedbankPayClient swedbankPayClient)
         {
             this.payeeInfoOptions = payeeInfoOptionsAccessor.Value;
             this.urls = urlsAccessor.Value;
@@ -69,7 +69,7 @@ namespace Sample.AspNetCore.Controllers
                                                                   new PayeeInfo(this.payeeInfoOptions.PayeeId,
                                                                                 this.payeeInfoOptions.PayeeReference), payer,
                                                                   paymentOrderItems);
-                var paymentOrder = await this.swedbankPayClient.PaymentOrder.Create(paymentOrderRequest);
+                var paymentOrder = await this.swedbankPayClient.Create(paymentOrderRequest);
 
                 this.cartService.PaymentOrderLink = paymentOrder.PaymentOrderResponse.Id.OriginalString;
                 this.cartService.PaymentLink = null;
@@ -104,7 +104,7 @@ namespace Sample.AspNetCore.Controllers
                                                                                    new PayeeInfo(this.payeeInfoOptions.PayeeId,
                                                                                                  this.payeeInfoOptions.PayeeReference));
 
-                SwedbankPay.Sdk.Payments.Card.Payment cardPayment = await this.swedbankPayClient.Payment.CreateCreditCardPayment(cardRequest);
+                SwedbankPay.Sdk.Payments.Card.Payment cardPayment = await this.swedbankPayClient.CreateCreditCardPayment(cardRequest);
                 this.cartService.PaymentLink = cardPayment.PaymentResponse.Id.OriginalString;
                 this.cartService.Instrument = Instrument.CreditCard;
                 this.cartService.PaymentOrderLink = null;
@@ -136,7 +136,7 @@ namespace Sample.AspNetCore.Controllers
                                                                                               this.urls.PaymentUrl, this.urls.CallbackUrl, this.urls.LogoUrl),
                                                                                      new PayeeInfo(this.payeeInfoOptions.PayeeId,
                                                                                                    this.payeeInfoOptions.PayeeReference), new PrefillInfo(new Msisdn("+46739000001")), new SwishRequest());
-                SwedbankPay.Sdk.Payments.Swish.Payment swishPayment = await this.swedbankPayClient.Payment.CreateSwishPayment(swishRequest);
+                SwedbankPay.Sdk.Payments.Swish.Payment swishPayment = await this.swedbankPayClient.CreateSwishPayment(swishRequest);
                 this.cartService.PaymentLink = swishPayment.PaymentResponse.Id.OriginalString;
                 this.cartService.Instrument = Instrument.Swish;
                 this.cartService.PaymentOrderLink = null;
@@ -163,7 +163,7 @@ namespace Sample.AspNetCore.Controllers
         public async Task<IActionResult> InitiateConsumerSession()
         {
             var initiateConsumerRequest = new ConsumersRequest(shippingAddressRestrictedToCountryCodes: new List<RegionInfo>{new RegionInfo("SE")}, language: new Language("sv-SE"));
-            var response = await this.swedbankPayClient.Consumers.InitiateSession(initiateConsumerRequest);
+            var response = await this.swedbankPayClient.InitiateSession(initiateConsumerRequest);
             var jsSource = response.Operations.ViewConsumerIdentification?.Href;
 
             var swedBankPaySource = new SwedbankPayCheckoutSource

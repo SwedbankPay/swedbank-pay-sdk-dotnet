@@ -29,7 +29,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Anonymous
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible()
                 .Actions.Rows.Count.Should.Equal(1);
 
-            var order = await SwedbankPayClient.PaymentOrder.Get(orderLink, SwedbankPay.Sdk.PaymentOrders.PaymentOrderExpand.All);
+            var order = await SwedbankPayClient.Get(orderLink, SwedbankPay.Sdk.PaymentOrders.PaymentOrderExpand.All);
 
             // Operations
             Assert.That(order.Operations[LinkRelation.CreatePaymentOrderCancel], Is.Null);
@@ -59,12 +59,12 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Anonymous
                 .Actions.Rows.Count.Should.Equal(1);
 
             var counter = 0;
-            var order = await SwedbankPayClient.PaymentOrder.Get(orderLink, SwedbankPay.Sdk.PaymentOrders.PaymentOrderExpand.All);
+            var order = await SwedbankPayClient.Get(orderLink, SwedbankPay.Sdk.PaymentOrders.PaymentOrderExpand.All);
 
             while (order.PaymentOrderResponse.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionType.Reversal).State != State.Completed && counter <= 15)
             {
                 Thread.Sleep(1000);
-                order = await SwedbankPayClient.PaymentOrder.Get(orderLink, SwedbankPay.Sdk.PaymentOrders.PaymentOrderExpand.All);
+                order = await SwedbankPayClient.Get(orderLink, SwedbankPay.Sdk.PaymentOrders.PaymentOrderExpand.All);
                 counter++;
             }
 
@@ -94,7 +94,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Anonymous
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible()
                 .Actions.Rows.Count.Should.Equal(1);
 
-            var order = await SwedbankPayClient.PaymentOrder.Get(orderLink, SwedbankPay.Sdk.PaymentOrders.PaymentOrderExpand.All);
+            var order = await SwedbankPayClient.Get(orderLink, SwedbankPay.Sdk.PaymentOrders.PaymentOrderExpand.All);
 
             // Operations
             Assert.That(order.Operations[LinkRelation.CreatePaymentOrderCancel], Is.Null);
