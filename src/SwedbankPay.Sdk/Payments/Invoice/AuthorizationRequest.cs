@@ -2,13 +2,16 @@
 {
     public class AuthorizationRequest
     {
-        public AuthorizationRequest(string cardNumber,
-                                    int cardExpiryMonth,
-                                    int cardExpiryYear,
-                                    string cardVerificationCode = null,
-                                    string cardHolderName = null)
+        public AuthorizationRequest(string transactionActivity,
+                                    int socialSecurityNumber,
+                                    int customerNumber,
+                                    string ip,
+                                    string addressee,
+                                    string streetAddress
+                                    string email = null,
+                                    string msisdn = null)
         {
-            Transaction = new AuthorizationTransaction(cardNumber, cardExpiryMonth, cardExpiryYear, cardVerificationCode, cardHolderName);
+            Transaction = new AuthorizationTransaction(transactionActivity, socialSecurityNumber, customerNumber, email, msisdn, ip, addressee, streetAddress);
         }
 
 
@@ -16,26 +19,33 @@
 
         public class AuthorizationTransaction
         {
-            protected internal AuthorizationTransaction(string cardNumber,
-                                                        int cardExpiryMonth,
-                                                        int cardExpiryYear,
-                                                        string cardVerificationCode = null,
-                                                        string cardHolderName = null)
+            protected internal AuthorizationTransaction(string transactionActivity,
+                                                        int socialSecurityNumber,
+                                                        int customerNumber,
+                                                        string ip,
+                                                        string addressee,
+                                                        string streetAddress,
+                                                        string email = null,
+                                                        string msisdn = null)
             {
-                CardNumber = cardNumber;
-                CardExpiryMonth = cardExpiryMonth;
-                CardExpiryYear = cardExpiryYear;
-                CardVerificationCode = cardVerificationCode;
-                CardHolderName = cardHolderName;
+                TransactionActivity = transactionActivity;
+                SocialSecurityNumber = socialSecurityNumber;
+                CustomerNumber = customerNumber;
+                Email = email;
+                Msisdn = msisdn;
+                Ip = ip;
+                Addressee = addressee;
+                streetAddress = 
             }
 
 
-            public int CardExpiryMonth { get; }
-            public int CardExpiryYear { get; }
-            public string CardHolderName { get; }
-
-            public string CardNumber { get; }
-            public string CardVerificationCode { get; }
+            public int SocialSecurityNumber { get; }
+            public int CustomerNumber { get; }
+            public string Msisdn { get; }
+            public string Ip { get; }
+            public string TransactionActivity { get; }
+            public string Email { get; }
+            public string Addressee { get; }
         }
     }
 }
