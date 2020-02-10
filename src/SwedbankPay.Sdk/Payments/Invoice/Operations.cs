@@ -5,7 +5,7 @@ using SwedbankPay.Sdk.Payments.Vipps;
 using SwedbankPay.Sdk.Payments;
 using System.Collections.Generic;
 
-namespace swedbankpay.sdk.Payments.Vipps
+namespace swedbankpay.sdk.Payments.Invoice
 {
     public class Operations : Dictionary<LinkRelation, HttpOperation>
     {

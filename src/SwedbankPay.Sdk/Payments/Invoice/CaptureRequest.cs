@@ -2,7 +2,7 @@
 
 using SwedbankPay.Sdk.PaymentOrders;
 
-namespace SwedbankPay.Sdk.Payments.Card
+namespace SwedbankPay.Sdk.Payments.Invoice
 {
     public class CaptureRequest
     {
