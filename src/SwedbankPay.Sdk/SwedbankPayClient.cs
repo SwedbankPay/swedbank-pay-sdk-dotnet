@@ -15,14 +15,14 @@ namespace SwedbankPay.Sdk
     {
         private readonly HttpClient httpClient;
 
-        public SwedbankPayClient(IHttpClientFactory httpClientFactory)
+        public SwedbankPayClient(HttpClient httpClient)
         {
             if (!ServicePointManager.SecurityProtocol.HasFlag(SecurityProtocolType.Tls12))
                 ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
-            if (httpClientFactory == null)
-                throw new ArgumentNullException(nameof(httpClientFactory));
+            if (httpClient == null)
+                throw new ArgumentNullException(nameof(httpClient));
 
-            this.httpClient = httpClientFactory.CreateClient(nameof(SwedbankPayClient));
+            this.httpClient = httpClient;
 
             if (this.httpClient.BaseAddress == null)
                 throw new ArgumentNullException(nameof(httpClient), $"{nameof(httpClient.BaseAddress)} cannot be null.");
