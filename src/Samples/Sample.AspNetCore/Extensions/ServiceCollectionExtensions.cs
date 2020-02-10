@@ -5,6 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 using Polly;
 
+using SwedbankPay.Sdk.Extensions;
+
 using Sample.AspNetCore.Models;
 
 using SwedbankPay.Sdk;
@@ -22,18 +24,9 @@ namespace Sample.AspNetCore.Extensions
             var swedBankPayOptions = swedbankPayConSettings.Get<SwedbankPayConnectionSettings>();
             swedBankPayOptions.Token = configuration["Token"];
 
-            services.AddHttpClient<SwedbankPayClient>(s =>
-            {
-                s.BaseAddress = swedBankPayOptions.ApiBaseUrl;
-                s.DefaultRequestHeaders.Add("Authorization", $"Bearer {swedBankPayOptions.Token}");
-            }).AddTransientHttpErrorPolicy(builder => builder.WaitAndRetryAsync(new[]
-            {
-                TimeSpan.FromSeconds(1),
-                TimeSpan.FromSeconds(5),
-                TimeSpan.FromSeconds(10)
-            }));
-
             services.AddTransient(s => swedBankPayOptions);
+
+            services.AddSwedbankPayClient(swedBankPayOptions.ApiBaseUrl, swedBankPayOptions.Token);
 
             return services;
         }
