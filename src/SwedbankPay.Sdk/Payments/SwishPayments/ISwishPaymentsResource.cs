@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Payments.SwishPayments
@@ -13,7 +11,7 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
         /// <param name="paymentRequest"></param>
         /// <param name="paymentExpand"></param>
         /// <returns></returns>
-        Task<Payment> CreateSwishPayment(PaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None);
+        Task<Payment> Create(PaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None);
 
 
         ///// <summary>
@@ -22,6 +20,6 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
         ///// <param name="id"></param>
         ///// <param name="paymentExpand"></param>
         ///// <returns></returns>
-        Task<Payment> GetSwishPayment(Uri id, PaymentExpand paymentExpand = PaymentExpand.None);
+        Task<Payment> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None);
     }
 }

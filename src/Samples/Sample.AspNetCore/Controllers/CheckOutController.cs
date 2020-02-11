@@ -100,7 +100,7 @@ namespace Sample.AspNetCore.Controllers
                                                                                    new PayeeInfo(this.payeeInfoOptions.PayeeId,
                                                                                                  this.payeeInfoOptions.PayeeReference));
 
-                SwedbankPay.Sdk.Payments.CardPayments.Payment cardPayment = await this.swedbankPayClient.Payments.CardPayments.CreateCreditCardPayment(cardRequest);
+                SwedbankPay.Sdk.Payments.CardPayments.Payment cardPayment = await this.swedbankPayClient.Payments.CardPayments.Create(cardRequest);
                 this.cartService.PaymentLink = cardPayment.PaymentResponse.Id.OriginalString;
                 this.cartService.Instrument = Instrument.CreditCard;
                 this.cartService.PaymentOrderLink = null;
@@ -132,7 +132,7 @@ namespace Sample.AspNetCore.Controllers
                                                                                               this.urls.PaymentUrl, this.urls.CallbackUrl, this.urls.LogoUrl),
                                                                                      new PayeeInfo(this.payeeInfoOptions.PayeeId,
                                                                                                    this.payeeInfoOptions.PayeeReference), new PrefillInfo(new Msisdn("+46739000001")), new SwishRequest());
-                Payment swishPayment = await this.swedbankPayClient.Payments.SwishPayments.CreateSwishPayment(swishRequest);
+                Payment swishPayment = await this.swedbankPayClient.Payments.SwishPayments.Create(swishRequest);
                 this.cartService.PaymentLink = swishPayment.PaymentResponse.Id.OriginalString;
                 this.cartService.Instrument = Instrument.Swish;
                 this.cartService.PaymentOrderLink = null;

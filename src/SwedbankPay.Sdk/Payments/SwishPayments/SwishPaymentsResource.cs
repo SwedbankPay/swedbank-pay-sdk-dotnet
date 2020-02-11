@@ -10,7 +10,7 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
         {
         }
 
-        public Task<Payment> GetSwishPayment(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
+        public Task<Payment> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
         {
             if (id == null)
                 throw new ArgumentNullException(nameof(id));
@@ -18,7 +18,7 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
             return Payment.Get(id, this.httpClient, GetExpandQueryString(paymentExpand));
         }
 
-        public Task<Payment> CreateSwishPayment(PaymentRequest paymentRequest,
+        public Task<Payment> Create(PaymentRequest paymentRequest,
                                                             PaymentExpand paymentExpand = PaymentExpand.None)
         {
             return Payment.Create(paymentRequest, this.httpClient, GetExpandQueryString(paymentExpand));
