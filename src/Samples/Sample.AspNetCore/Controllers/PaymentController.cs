@@ -230,7 +230,7 @@ namespace Sample.AspNetCore.Controllers
                         var swishReversal =  new SwedbankPay.Sdk.Payments.SwishPayments.ReversalRequest(
                             Amount.FromDecimal(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
                             Amount.FromDecimal(0), description, DateTime.Now.Ticks.ToString());
-                        response = await swishPayment.Operations.CreateReversal.Invoke(swishReversal);
+                        response = await swishPayment.Operations.Reversal.Invoke(swishReversal);
                         break;
                     case Instrument.CreditCard:
                         var cardPayment = await this.swedbankPayClient.Payments.CardPayments.Get(new Uri(paymentId, UriKind.RelativeOrAbsolute));
