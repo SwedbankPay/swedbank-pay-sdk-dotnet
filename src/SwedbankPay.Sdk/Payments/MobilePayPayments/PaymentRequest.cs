@@ -4,7 +4,7 @@ using System.Globalization;
 
 using SwedbankPay.Sdk.PaymentOrders;
 
-namespace SwedbankPay.Sdk.Payments.VippsPayments
+namespace SwedbankPay.Sdk.Payments.MobilePayPayments
 {
     public class PaymentRequest
     {
@@ -22,11 +22,12 @@ namespace SwedbankPay.Sdk.Payments.VippsPayments
                               string payerReference = null,
                               Dictionary<string, object> metaData = null,
                               string paymentToken = null,
-                              PrefillInfo prefillInfo = null)
+                              PrefillInfo prefillInfo = null,
+                              MobilePayRequestObject mobilePay = null)
 
         {
             Payment = new PaymentRequestObject(operation, intent, currency, prices, description, payerReference, generatePaymentToken,
-                                               generateReccurenceToken, userAgent, language, urls, payeeInfo, metaData, paymentToken, prefillInfo);
+                                               generateReccurenceToken, userAgent, language, urls, payeeInfo, metaData, paymentToken, prefillInfo, mobilePay);
         }
 
 
@@ -48,7 +49,8 @@ namespace SwedbankPay.Sdk.Payments.VippsPayments
                                                     PayeeInfo payeeInfo,
                                                     Dictionary<string, object> metaData = null,
                                                     string paymentToken = null,
-                                                    PrefillInfo prefillInfo = null)
+                                                    PrefillInfo prefillInfo = null,
+                                                    MobilePayRequestObject mobilePay = null)
             {
                 Operation = operation ?? throw new ArgumentNullException(nameof(operation));
                 Intent = intent;
@@ -65,6 +67,7 @@ namespace SwedbankPay.Sdk.Payments.VippsPayments
                 GenerateReccurenceToken = generateReccurenceToken;
                 PaymentToken = paymentToken;
                 PrefillInfo = prefillInfo;
+                MobilePay = mobilePay;
             }
 
 
@@ -84,6 +87,7 @@ namespace SwedbankPay.Sdk.Payments.VippsPayments
             public Urls Urls { get; }
             public string UserAgent { get; set; }
             public PrefillInfo PrefillInfo { get; set; }
+            public MobilePayRequestObject MobilePay { get; set; }
         }
     }
 }
