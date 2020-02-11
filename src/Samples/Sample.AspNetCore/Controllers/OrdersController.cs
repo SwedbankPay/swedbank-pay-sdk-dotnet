@@ -77,7 +77,7 @@ namespace Sample.AspNetCore.Controllers
 
             if (!string.IsNullOrWhiteSpace(order.PaymentOrderLink))
             {
-                var paymentOrder = await this.swedbankPayClient.Get(new Uri(order.PaymentOrderLink, UriKind.RelativeOrAbsolute));
+                var paymentOrder = await this.swedbankPayClient.PaymentOrders.Get(new Uri(order.PaymentOrderLink, UriKind.RelativeOrAbsolute));
                 var paymentOrderOperations = paymentOrder.Operations.Where(r => r.Key.Value.Contains("paymentorder")).Select(x => x.Value);
                 operations = new OperationList(paymentOrderOperations);
             }
@@ -86,12 +86,12 @@ namespace Sample.AspNetCore.Controllers
                 switch (order.Instrument)
                 {
                     case Instrument.Swish:
-                        var swishPayment = await this.swedbankPayClient.GetSwishPayment(order.PaymentLink, PaymentExpand.All);
+                        var swishPayment = await this.swedbankPayClient.Payments.GetSwishPayment(order.PaymentLink, PaymentExpand.All);
                         var swishOperations = swishPayment.Operations;
                         operations = new OperationList(swishOperations.Values);
                         break;
                     case Instrument.CreditCard:
-                        var cardPayment = await this.swedbankPayClient.GetSwishPayment(order.PaymentLink, PaymentExpand.All);
+                        var cardPayment = await this.swedbankPayClient.Payments.GetSwishPayment(order.PaymentLink, PaymentExpand.All);
                         var cardOperations = cardPayment.Operations;
                         operations = new OperationList(cardOperations.Values);
                         break;

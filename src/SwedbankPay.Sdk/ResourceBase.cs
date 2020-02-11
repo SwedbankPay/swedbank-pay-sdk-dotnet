@@ -4,7 +4,7 @@ using System.Net.Http;
 
 namespace SwedbankPay.Sdk
 {
-    internal abstract class ResourceBase
+    public abstract class ResourceBase
     {
         internal HttpClient httpClient;
 

@@ -19,6 +19,9 @@ using Sample.AspNetCore.SystemTests.Test.Base;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 
 using SwedbankPay.Sdk;
+using SwedbankPay.Sdk.Consumers;
+using SwedbankPay.Sdk.PaymentOrders;
+using SwedbankPay.Sdk.Payments;
 
 namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
 {
@@ -51,7 +54,11 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Environment.GetEnvironmentVariable("Payex.Api.Token", EnvironmentVariableTarget.User));
             #endif
 
-            SwedbankPayClient = new SwedbankPayClient(httpClient);
+            SwedbankPayClient = new SwedbankPayClient(
+                httpClient,
+                new PaymentOrdersResource(httpClient),
+                new ConsumersResource(httpClient),
+                new PaymentsResource(httpClient));
         }
 
 

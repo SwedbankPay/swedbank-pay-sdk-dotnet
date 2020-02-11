@@ -27,7 +27,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Standard
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible()
                 .Actions.Rows.Count.Should.Equal(2);
 
-            var order = await SwedbankPayClient.Get(orderLink, SwedbankPay.Sdk.PaymentOrders.PaymentOrderExpand.All);
+            var order = await SwedbankPayClient.PaymentOrders.Get(orderLink, SwedbankPay.Sdk.PaymentOrders.PaymentOrderExpand.All);
 
             // Global Order
             Assert.That(order.PaymentOrderResponse.Amount.Value, Is.EqualTo(products.Select(x => x.UnitPrice * x.Quantity).Sum()));

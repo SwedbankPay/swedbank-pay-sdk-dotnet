@@ -20,7 +20,7 @@ namespace SwedbankPay.Sdk.Tests
             Uri url = null;
 
             //ASSERT
-            await Assert.ThrowsAsync<ArgumentNullException>(nameof(url), () => this.Sut.GetBillingDetails(url));
+            await Assert.ThrowsAsync<ArgumentNullException>(nameof(url), () => this.Sut.Consumers.GetBillingDetails(url));
         }
 
 
@@ -31,7 +31,7 @@ namespace SwedbankPay.Sdk.Tests
             var uri = new Uri("http://xxx");
 
             //ASSERT
-            await Assert.ThrowsAsync<HttpRequestException>(() => this.Sut.GetBillingDetails(uri));
+            await Assert.ThrowsAsync<HttpRequestException>(() => this.Sut.Consumers.GetBillingDetails(uri));
         }
 
 
@@ -42,7 +42,7 @@ namespace SwedbankPay.Sdk.Tests
             Uri url = null;
 
             //ASSERT
-            await Assert.ThrowsAsync<ArgumentNullException>(nameof(url), () => this.Sut.GetShippingDetails(url));
+            await Assert.ThrowsAsync<ArgumentNullException>(nameof(url), () => this.Sut.Consumers.GetShippingDetails(url));
         }
 
 
@@ -53,7 +53,7 @@ namespace SwedbankPay.Sdk.Tests
             var uri = new Uri("http://xxx");
 
             //ASSERT
-            await Assert.ThrowsAsync<HttpRequestException>(() => this.Sut.GetShippingDetails(uri));
+            await Assert.ThrowsAsync<HttpRequestException>(() => this.Sut.Consumers.GetShippingDetails(uri));
         }
 
 
@@ -65,7 +65,7 @@ namespace SwedbankPay.Sdk.Tests
                 .Build();
 
             //ACT
-            var consumer = await this.Sut.InitiateSession(orderResoureRequest);
+            var consumer = await this.Sut.Consumers.InitiateSession(orderResoureRequest);
 
             //ASSERT
             Assert.NotNull(consumer);
@@ -81,7 +81,7 @@ namespace SwedbankPay.Sdk.Tests
                 .Build();
             
             //ASSERT
-            await Assert.ThrowsAsync<HttpResponseException>(() => this.Sut.InitiateSession(orderResoureRequest));
+            await Assert.ThrowsAsync<HttpResponseException>(() => this.Sut.Consumers.InitiateSession(orderResoureRequest));
             
         }
 
@@ -92,7 +92,7 @@ namespace SwedbankPay.Sdk.Tests
             var orderResoureRequest = this.consumerResourceRequestContainer.WithTestValues()
                 .Build();
             //ACT
-            var consumer = await this.Sut.InitiateSession(orderResoureRequest);
+            var consumer = await this.Sut.Consumers.InitiateSession(orderResoureRequest);
             //ASSERT
 
             Assert.NotNull(consumer);
@@ -108,7 +108,7 @@ namespace SwedbankPay.Sdk.Tests
             var orderResoureRequest = this.consumerResourceRequestContainer.WithTestValues()
                 .Build();
             //ACT
-            var consumer = await this.Sut.InitiateSession(orderResoureRequest);
+            var consumer = await this.Sut.Consumers.InitiateSession(orderResoureRequest);
             //ASSERT
 
             Assert.NotNull(consumer);
