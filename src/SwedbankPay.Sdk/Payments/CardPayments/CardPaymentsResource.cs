@@ -12,7 +12,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
         {
         }
 
-        public Task<Payment> GetCreditCardPayment(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
+        public Task<Payment> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
         {
             if (id == null)
                 throw new ArgumentNullException(nameof(id));
@@ -21,7 +21,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
         }
 
 
-        public Task<Payment> CreateCreditCardPayment(CardPayments.PaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None)
+        public Task<Payment> Create(CardPayments.PaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None)
         {
             return Payment.Create(paymentRequest, this.httpClient, GetExpandQueryString(paymentExpand));
         }
