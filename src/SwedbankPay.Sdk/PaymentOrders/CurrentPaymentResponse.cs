@@ -27,7 +27,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                             DateTime created,
                                             DateTime updated,
                                             Amount amount,
-                                            AuthorizationListResponse authorizations,
+                                            CardPaymentAuthorizationListResponse authorizations,
                                             CancellationsListResponse cancellations,
                                             CapturesListResponse captures,
                                             CurrencyCode currency,
@@ -44,7 +44,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                             TransactionListResponse transactions,
                                             IdLink urls,
                                             string userAgent,
-                                            SaleListResponse sales)
+                                            SwishPaymentSaleListResponse sales)
         {
             Number = number;
             Instrument = instrument;
@@ -77,7 +77,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public DateTime Created { get; }
         public DateTime Updated { get; }
         public Amount Amount { get; }
-        public AuthorizationListResponse Authorizations { get; }
+        public CardPaymentAuthorizationListResponse Authorizations { get; }
         public CancellationsListResponse Cancellations { get; }
         public CapturesListResponse Captures { get; }
         public CurrencyCode Currency { get; }
@@ -94,6 +94,6 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public TransactionListResponse Transactions { get; }
         public IdLink Urls { get; }
         public string UserAgent { get; }
-        public SaleListResponse Sales { get; }
+        public SwishPaymentSaleListResponse Sales { get; }
     }
 }

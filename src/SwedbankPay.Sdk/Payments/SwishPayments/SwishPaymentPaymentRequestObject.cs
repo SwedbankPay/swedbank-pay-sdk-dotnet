@@ -5,9 +5,9 @@ using System.Globalization;
 
 namespace SwedbankPay.Sdk.Payments.SwishPayments
 {
-    public class PaymentRequestObject
+    public class SwishPaymentPaymentRequestObject
     {
-        protected internal PaymentRequestObject(CurrencyCode currency,
+        protected internal SwishPaymentPaymentRequestObject(CurrencyCode currency,
                                                 List<Price> prices,
                                                 string description,
                                                 string payerReference,

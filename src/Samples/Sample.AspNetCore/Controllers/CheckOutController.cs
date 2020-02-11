@@ -86,7 +86,7 @@ namespace Sample.AspNetCore.Controllers
             var vatAmount = Amount.FromDecimal(0);
             try
             {
-                var cardRequest = new SwedbankPay.Sdk.Payments.CardPayments.PaymentRequest(Operation.Purchase, Intent.Authorization, new CurrencyCode("SEK"),
+                var cardRequest = new SwedbankPay.Sdk.Payments.CardPayments.CardPaymentPaymentRequest(Operation.Purchase, Intent.Authorization, new CurrencyCode("SEK"),
                                                                                    new List<Price>
                                                                                    {
                                                                                        new Price(Amount.FromDecimal(totalAmount),
@@ -120,7 +120,7 @@ namespace Sample.AspNetCore.Controllers
             var vatAmount = Amount.FromDecimal(0);
             try
             {
-                var swishRequest = new PaymentRequest(new CurrencyCode("SEK"),
+                var swishRequest = new SwishPaymentRequest(new CurrencyCode("SEK"),
                                                                                      new List<Price>
                                                                                      {
                                                                                          new Price(Amount.FromDecimal(totalAmount),

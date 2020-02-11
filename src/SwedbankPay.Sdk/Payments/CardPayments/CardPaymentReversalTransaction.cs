@@ -1,8 +1,8 @@
-﻿namespace SwedbankPay.Sdk.Payments.SwishPayments
+﻿namespace SwedbankPay.Sdk.Payments.CardPayments
 {
-    public class ReversalTransaction
+    public class CardPaymentReversalTransaction
     {
-        public ReversalTransaction(Amount amount, Amount vatAmount, string description, string payeeReference)
+        public CardPaymentReversalTransaction(Amount amount, Amount vatAmount, string description, string payeeReference)
         {
             Amount = amount;
             VatAmount = vatAmount;

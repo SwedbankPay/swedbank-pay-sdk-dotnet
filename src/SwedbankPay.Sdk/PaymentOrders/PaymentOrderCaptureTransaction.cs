@@ -2,13 +2,13 @@
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class ReversalTransaction
+    public class PaymentOrderCaptureTransaction
     {
-        protected internal ReversalTransaction(Amount amount,
-                                               Amount vatAmount,
-                                               List<OrderItem> orderItems,
-                                               string description,
-                                               string payeeReference)
+        protected internal PaymentOrderCaptureTransaction(Amount amount,
+                                                Amount vatAmount,
+                                                List<OrderItem> orderItems,
+                                                string description,
+                                                string payeeReference)
         {
             Amount = amount;
             VatAmount = vatAmount;

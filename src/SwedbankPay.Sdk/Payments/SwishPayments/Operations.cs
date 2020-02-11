@@ -6,9 +6,9 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
 {
     public class Operations : Dictionary<LinkRelation, HttpOperation>
     {
-        public Func<Task<PaymentResponse>> Abort { get; internal set; }
-        public Func<ReversalRequest, Task<ReversalResponse>> Reversal { get; internal set; }
-        public Func<SaleRequest, Task<SaleResponse>> Sale { get; internal set; }
+        public Func<Task<SwishPaymentPaymentResponse>> Abort { get; internal set; }
+        public Func<SwishPaymentReversalRequest, Task<ReversalResponse>> Reversal { get; internal set; }
+        public Func<SwishPaymentSaleRequest, Task<SwishPaymentSaleResponse>> Sale { get; internal set; }
         public new HttpOperation this[LinkRelation rel] => ContainsKey(rel) ? base[rel] : null;
         public HttpOperation PaidPayment { get; internal set; }
         public HttpOperation RedirectSale { get; internal set; }

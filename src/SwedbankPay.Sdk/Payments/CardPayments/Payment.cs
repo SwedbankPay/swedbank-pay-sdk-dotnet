@@ -32,7 +32,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
 
                     case PaymentResourceOperations.DirectAuthorization:
                         operations.DirectAuthorization = async payload =>
-                            await client.SendAsJsonAsync<AuthorizationResponse>(httpOperation.Method, httpOperation.Href, payload);
+                            await client.SendAsJsonAsync<CardPaymentAuthorizationResponse>(httpOperation.Method, httpOperation.Href, payload);
                         break;
 
                     case PaymentResourceOperations.CreateCapture:
@@ -77,7 +77,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
         public PaymentResponseObject PaymentResponse { get; }
 
 
-        internal static async Task<Payment> Create(PaymentRequest paymentRequest,
+        internal static async Task<Payment> Create(CardPaymentPaymentRequest paymentRequest,
                                                    HttpClient client,
                                                    string paymentExpand)
         {

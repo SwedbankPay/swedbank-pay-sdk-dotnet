@@ -65,7 +65,7 @@ namespace SwedbankPay.Sdk.Tests
             var amount = paymentOrder.PaymentOrderResponse.Amount;
 
             var newAmount = 50000;
-            var updateRequest = new UpdateRequest(Amount.FromDecimal(newAmount), null);
+            var updateRequest = new PaymentOrderUpdateRequest(Amount.FromDecimal(newAmount), null);
             
             await Assert.ThrowsAsync<HttpResponseException>(() => paymentOrder.Operations.Update?.Invoke(updateRequest));
         }
@@ -82,7 +82,7 @@ namespace SwedbankPay.Sdk.Tests
 
             var newAmount = 50000;
             var newVatAmount = 10000;
-            var updateRequest = new UpdateRequest(Amount.FromDecimal(newAmount), Amount.FromDecimal(newVatAmount));
+            var updateRequest = new PaymentOrderUpdateRequest(Amount.FromDecimal(newAmount), Amount.FromDecimal(newVatAmount));
             Assert.NotNull(paymentOrder.Operations.Update);
 
             var response = await paymentOrder.Operations.Update(updateRequest);

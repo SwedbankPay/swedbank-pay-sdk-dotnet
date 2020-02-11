@@ -4,10 +4,10 @@
     {
         public PaymentOrderCancelRequest(string payeeReference, string description)
         {
-            Transaction = new CancelTransaction(payeeReference, description);
+            Transaction = new PaymentOrderCancelTransaction(payeeReference, description);
         }
 
 
-        public CancelTransaction Transaction { get; }
+        public PaymentOrderCancelTransaction Transaction { get; }
     }
 }

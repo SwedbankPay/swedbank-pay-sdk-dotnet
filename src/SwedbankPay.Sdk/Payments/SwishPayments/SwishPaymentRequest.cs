@@ -3,9 +3,9 @@ using System.Globalization;
 
 namespace SwedbankPay.Sdk.Payments.SwishPayments
 {
-    public class PaymentRequest
+    public class SwishPaymentRequest
     {
-        public PaymentRequest(CurrencyCode currency,
+        public SwishPaymentRequest(CurrencyCode currency,
                               List<Price> prices,
                               string description,
                               string payerReference,
@@ -17,11 +17,11 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
                               SwishRequest swishRequest,
                               Dictionary<string, object> metaData = null)
         {
-            Payment = new PaymentRequestObject(currency, prices, description, payerReference, userAgent, language, urls, payeeInfo,
+            Payment = new SwishPaymentPaymentRequestObject(currency, prices, description, payerReference, userAgent, language, urls, payeeInfo,
                                                prefillInfo, swishRequest, metaData);
         }
 
 
-        public PaymentRequestObject Payment { get; }
+        public SwishPaymentPaymentRequestObject Payment { get; }
     }
 }

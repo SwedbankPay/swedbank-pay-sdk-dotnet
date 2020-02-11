@@ -1,8 +1,8 @@
 ﻿namespace SwedbankPay.Sdk.Payments.SwishPayments
 {
-    public class SaleTransaction
+    public class SwishPaymentSaleTransaction
     {
-        protected internal SaleTransaction(Msisdn msisdn)
+        protected internal SwishPaymentSaleTransaction(Msisdn msisdn)
         {
             Msisdn = msisdn;
         }
