@@ -24,7 +24,7 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
                         break;
 
                     case PaymentResourceOperations.CreateSale:
-                        operations.CreateSale = async payload =>
+                        operations.Sale = async payload =>
                             await client.SendAsJsonAsync<SaleResponse>(httpOperation.Method, httpOperation.Href, payload);
                         break;
                     case PaymentResourceOperations.RedirectSale:
