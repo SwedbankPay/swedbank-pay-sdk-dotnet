@@ -22,7 +22,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public new HttpOperation this[LinkRelation rel] => ContainsKey(rel) ? base[rel] : null;
         public Func<Task<PaymentOrderResponse>> Abort { get; internal set; }
         public Func<PaymentOrderCancelRequest, Task<CancellationResponse>> Cancel { get; internal set; }
-        public Func<CaptureRequest, Task<CaptureResponse>> Capture { get; internal set; }
+        public Func<PaymentOrderCaptureRequest, Task<CaptureResponse>> Capture { get; internal set; }
         public Func<ReversalRequest, Task<ReversalResponse>> Reversal { get; internal set; }
         public Func<UpdateRequest, Task<PaymentOrderResponse>> Update { get; internal set; }
         public HttpOperation View { get; internal set; }

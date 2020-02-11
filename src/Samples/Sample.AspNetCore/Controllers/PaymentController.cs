@@ -254,12 +254,12 @@ namespace Sample.AspNetCore.Controllers
         }
 
 
-        private async Task<SwedbankPay.Sdk.PaymentOrders.CaptureRequest> GetCaptureRequest(string description)
+        private async Task<SwedbankPay.Sdk.PaymentOrders.PaymentOrderCaptureRequest> GetCaptureRequest(string description)
         {
             var order = await this.context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
             var orderItems = order.Lines.ToOrderItems();
 
-            return new SwedbankPay.Sdk.PaymentOrders.CaptureRequest(Amount.FromDecimal(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
+            return new SwedbankPay.Sdk.PaymentOrders.PaymentOrderCaptureRequest(Amount.FromDecimal(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
                                                                   Amount.FromDecimal(0), orderItems.ToList(), description,  DateTime.Now.Ticks.ToString());
         }
 
