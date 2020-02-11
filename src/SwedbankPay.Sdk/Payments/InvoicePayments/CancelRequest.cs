@@ -1,4 +1,4 @@
-﻿namespace SwedbankPay.Sdk.Payments.Invoice
+﻿namespace SwedbankPay.Sdk.Payments.InvoicePayments
 {
     public class CancelRequest
     {

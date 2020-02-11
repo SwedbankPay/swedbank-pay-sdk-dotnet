@@ -4,7 +4,7 @@ using System.Globalization;
 
 using SwedbankPay.Sdk.Payments;
 
-namespace SwedbankPay.Sdk.Payments.Invoice
+namespace SwedbankPay.Sdk.Payments.InvoicePayments
 {
     public class PaymentRequest
     {

@@ -2,7 +2,7 @@ using swedbankpay.sdk.Payments.Vipps;
 using System;
 using System.Threading.Tasks;
 
-namespace SwedbankPay.Sdk.Payments.Invoice
+namespace SwedbankPay.Sdk.Payments.InvoicePayments
 {
     public class Payment
     {
