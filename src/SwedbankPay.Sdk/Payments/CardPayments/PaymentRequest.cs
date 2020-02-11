@@ -2,8 +2,9 @@
 using System.Globalization;
 
 using SwedbankPay.Sdk.PaymentOrders;
+using SwedbankPay.Sdk.Payments.CardPayments;
 
-namespace SwedbankPay.Sdk.Payments.Card
+namespace SwedbankPay.Sdk.Payments.CardPayments
 {
     public class PaymentRequest
     {

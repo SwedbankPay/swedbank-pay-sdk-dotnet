@@ -3,7 +3,7 @@ using System.Globalization;
 
 using SwedbankPay.Sdk.PaymentOrders;
 
-namespace SwedbankPay.Sdk.Payments.Card
+namespace SwedbankPay.Sdk.Payments.CardPayments
 {
     public class PaymentResponse
     {

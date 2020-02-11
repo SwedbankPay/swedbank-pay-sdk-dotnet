@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-using SwedbankPay.Sdk.Payments.Card;
+using SwedbankPay.Sdk.Payments.CardPayments;
 
 namespace SwedbankPay.Sdk.Payments
 {

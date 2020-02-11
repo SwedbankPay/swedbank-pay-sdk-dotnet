@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SwedbankPay.Sdk.Payments.Card
+namespace SwedbankPay.Sdk.Payments.CardPayments
 {
     public class Operations : Dictionary<LinkRelation, HttpOperation>
     {
