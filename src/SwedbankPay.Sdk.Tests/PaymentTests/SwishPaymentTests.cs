@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 
 using SwedbankPay.Sdk.Payments;
-using SwedbankPay.Sdk.Payments.Swish;
+using SwedbankPay.Sdk.Payments.SwishPayments;
 using SwedbankPay.Sdk.Tests.TestBuilders;
 
 using Xunit;

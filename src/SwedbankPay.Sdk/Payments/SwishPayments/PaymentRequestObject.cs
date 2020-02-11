@@ -3,7 +3,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace SwedbankPay.Sdk.Payments.Swish
+namespace SwedbankPay.Sdk.Payments.SwishPayments
 {
     public class PaymentRequestObject
     {

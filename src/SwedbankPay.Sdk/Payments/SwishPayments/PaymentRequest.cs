@@ -1,8 +1,7 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 
-namespace SwedbankPay.Sdk.Payments.Swish
+namespace SwedbankPay.Sdk.Payments.SwishPayments
 {
     public class PaymentRequest
     {
@@ -23,6 +22,6 @@ namespace SwedbankPay.Sdk.Payments.Swish
         }
 
 
-        public PaymentRequestObject Payment { get; }        
+        public PaymentRequestObject Payment { get; }
     }
 }

@@ -15,8 +15,7 @@ using SwedbankPay.Sdk;
 using SwedbankPay.Sdk.Consumers;
 using SwedbankPay.Sdk.PaymentOrders;
 using SwedbankPay.Sdk.Payments;
-using SwedbankPay.Sdk.Payments.Swish;
-
+using SwedbankPay.Sdk.Payments.SwishPayments;
 
 namespace Sample.AspNetCore.Controllers
 {
@@ -115,13 +114,13 @@ namespace Sample.AspNetCore.Controllers
             }
         }
 
-        public async Task<SwedbankPay.Sdk.Payments.Swish.Payment> CreateSwishPayment()
+        public async Task<Payment> CreateSwishPayment()
         {
             var totalAmount = this.cartService.CalculateTotal();
             var vatAmount = Amount.FromDecimal(0);
             try
             {
-                var swishRequest = new SwedbankPay.Sdk.Payments.Swish.PaymentRequest(new CurrencyCode("SEK"),
+                var swishRequest = new PaymentRequest(new CurrencyCode("SEK"),
                                                                                      new List<Price>
                                                                                      {
                                                                                          new Price(Amount.FromDecimal(totalAmount),
@@ -133,7 +132,7 @@ namespace Sample.AspNetCore.Controllers
                                                                                               this.urls.PaymentUrl, this.urls.CallbackUrl, this.urls.LogoUrl),
                                                                                      new PayeeInfo(this.payeeInfoOptions.PayeeId,
                                                                                                    this.payeeInfoOptions.PayeeReference), new PrefillInfo(new Msisdn("+46739000001")), new SwishRequest());
-                SwedbankPay.Sdk.Payments.Swish.Payment swishPayment = await this.swedbankPayClient.Payments.CreateSwishPayment(swishRequest);
+                Payment swishPayment = await this.swedbankPayClient.Payments.CreateSwishPayment(swishRequest);
                 this.cartService.PaymentLink = swishPayment.PaymentResponse.Id.OriginalString;
                 this.cartService.Instrument = Instrument.Swish;
                 this.cartService.PaymentOrderLink = null;

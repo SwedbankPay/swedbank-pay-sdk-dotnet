@@ -90,12 +90,12 @@ namespace Sample.AspNetCore.Controllers
         {
             try
             {
-                var paymentOrder = await this.swedbankPayClient.Payments.GetCreditCardPayment(new Uri(paymentId, UriKind.RelativeOrAbsolute));
+                var payment = await this.swedbankPayClient.Payments.GetCreditCardPayment(new Uri(paymentId, UriKind.RelativeOrAbsolute));
 
-                if (paymentOrder.Operations.Cancel != null)
+                if (payment.Operations.Cancel != null)
                 {
                     var cancelRequest = new SwedbankPay.Sdk.Payments.CardPayments.CancelRequest(DateTime.Now.Ticks.ToString(), "Cancelling parts of the total amount");
-                    var response = await paymentOrder.Operations.Cancel(cancelRequest);
+                    var response = await payment.Operations.Cancel(cancelRequest);
                     TempData["CancelMessage"] = $"Payment has been cancelled: {response.Cancellation.Transaction.Id}";
                     this.cartService.PaymentOrderLink = null;
                 }
@@ -227,7 +227,7 @@ namespace Sample.AspNetCore.Controllers
                 {
                     case Instrument.Swish:
                         var swishPayment = await this.swedbankPayClient.Payments.GetSwishPayment(new Uri(paymentId, UriKind.RelativeOrAbsolute));
-                        var swishReversal =  new SwedbankPay.Sdk.Payments.Swish.ReversalRequest(
+                        var swishReversal =  new SwedbankPay.Sdk.Payments.SwishPayments.ReversalRequest(
                             Amount.FromDecimal(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
                             Amount.FromDecimal(0), description, DateTime.Now.Ticks.ToString());
                         response = await swishPayment.Operations.CreateReversal.Invoke(swishReversal);

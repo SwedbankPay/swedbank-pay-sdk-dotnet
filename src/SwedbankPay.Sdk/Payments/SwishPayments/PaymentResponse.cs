@@ -3,7 +3,7 @@ using System.Globalization;
 
 using SwedbankPay.Sdk.PaymentOrders;
 
-namespace SwedbankPay.Sdk.Payments.Swish
+namespace SwedbankPay.Sdk.Payments.SwishPayments
 {
     public class PaymentResponse
     {
@@ -13,7 +13,7 @@ namespace SwedbankPay.Sdk.Payments.Swish
             Payment = payment;
             Operations = operations;
         }
-        
+
         public PaymentResponseObject Payment { get; }
         public OperationList Operations { get; }
     }
@@ -68,8 +68,8 @@ namespace SwedbankPay.Sdk.Payments.Swish
             PayeeInfo = payeeInfo;
             MetaData = metaData;
         }
-        
-        
+
+
         public string Number { get; }
         public DateTime Created { get; }
         public DateTime Updated { get; }
