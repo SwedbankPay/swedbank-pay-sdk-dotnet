@@ -1,6 +1,5 @@
 ﻿using SwedbankPay.Sdk.Payments;
-using SwedbankPay.Sdk.Payments.Swish;
-
+using SwedbankPay.Sdk.Payments.SwishPayments;
 using System;
 using System.Collections.Generic;
 using System.Globalization;

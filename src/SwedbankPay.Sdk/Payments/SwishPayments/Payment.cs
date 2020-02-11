@@ -3,7 +3,7 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace SwedbankPay.Sdk.Payments.Swish
+namespace SwedbankPay.Sdk.Payments.SwishPayments
 {
     public class Payment
     {

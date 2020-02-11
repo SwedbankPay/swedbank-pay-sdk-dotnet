@@ -1,4 +1,4 @@
-﻿namespace SwedbankPay.Sdk.Payments.Swish
+﻿namespace SwedbankPay.Sdk.Payments.SwishPayments
 {
     public class ReversalRequest
     {

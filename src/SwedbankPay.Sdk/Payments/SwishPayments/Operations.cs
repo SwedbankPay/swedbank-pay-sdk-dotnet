@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SwedbankPay.Sdk.Payments.Swish
+namespace SwedbankPay.Sdk.Payments.SwishPayments
 {
     public class Operations : Dictionary<LinkRelation, HttpOperation>
     {
