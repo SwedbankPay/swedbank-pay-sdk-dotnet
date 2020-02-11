@@ -193,7 +193,7 @@ namespace Sample.AspNetCore.Controllers
             return View("Checkout", swedBankPaySource);
         }
 
-        public async Task<IActionResult> LoadCardPaymentMenu()
+        public IActionResult LoadCardPaymentMenu()
         {
             return View("Payment");
         }
