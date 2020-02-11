@@ -57,12 +57,16 @@ namespace SwedbankPay.Sdk.Extensions
         private static IHttpClientBuilder AddClientAndHandler(IServiceCollection services, Action<HttpClient> configureClient)
         {
             services.AddScoped<LoggingDelegatingHandler>();
-            services.AddHttpClient<IPaymentOrdersClient, SwedbankPayClient>(configureClient)
+
+            services.AddHttpClient<IPaymentOrdersResource, PaymentOrdersResource>(configureClient)
                             .AddHttpMessageHandler<LoggingDelegatingHandler>();
-            services.AddHttpClient<IConsumersClient, SwedbankPayClient>( configureClient)
+
+            services.AddHttpClient<IConsumersResource, ConsumersResource>( configureClient)
                 .AddHttpMessageHandler<LoggingDelegatingHandler>();
-            services.AddHttpClient<IPaymentsClient, SwedbankPayClient>(configureClient)
+
+            services.AddHttpClient<IPaymentsResource, PaymentsResource>(configureClient)
                 .AddHttpMessageHandler<LoggingDelegatingHandler>();
+
             return services.AddHttpClient<ISwedbankPayClient, SwedbankPayClient>(configureClient)
                 .AddHttpMessageHandler<LoggingDelegatingHandler>();
         }
@@ -70,12 +74,16 @@ namespace SwedbankPay.Sdk.Extensions
         private static IHttpClientBuilder AddClientAndHandler(IServiceCollection services, Action<IServiceProvider, HttpClient> configureClient)
         {
             services.AddScoped<LoggingDelegatingHandler>();
-            services.AddHttpClient<IPaymentOrdersClient, SwedbankPayClient>(configureClient)
+
+            services.AddHttpClient<IPaymentOrdersResource, PaymentOrdersResource>(configureClient)
                             .AddHttpMessageHandler<LoggingDelegatingHandler>();
-            services.AddHttpClient<IConsumersClient, SwedbankPayClient>(configureClient)
+
+            services.AddHttpClient<IConsumersResource, ConsumersResource>(configureClient)
                 .AddHttpMessageHandler<LoggingDelegatingHandler>();
-            services.AddHttpClient<IPaymentsClient, SwedbankPayClient>(configureClient)
+
+            services.AddHttpClient<IPaymentsResource, PaymentsResource>(configureClient)
                 .AddHttpMessageHandler<LoggingDelegatingHandler>();
+
             return services.AddHttpClient<ISwedbankPayClient, SwedbankPayClient>(configureClient)
                 .AddHttpMessageHandler<LoggingDelegatingHandler>();
         }
