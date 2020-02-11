@@ -23,8 +23,8 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public Func<Task<PaymentOrderResponse>> Abort { get; internal set; }
         public Func<PaymentOrderCancelRequest, Task<CancellationResponse>> Cancel { get; internal set; }
         public Func<PaymentOrderCaptureRequest, Task<CaptureResponse>> Capture { get; internal set; }
-        public Func<ReversalRequest, Task<ReversalResponse>> Reversal { get; internal set; }
-        public Func<UpdateRequest, Task<PaymentOrderResponse>> Update { get; internal set; }
+        public Func<PaymentOrderReversalRequest, Task<ReversalResponse>> Reversal { get; internal set; }
+        public Func<PaymentOrderUpdateRequest, Task<PaymentOrderResponse>> Update { get; internal set; }
         public HttpOperation View { get; internal set; }
     }
 }

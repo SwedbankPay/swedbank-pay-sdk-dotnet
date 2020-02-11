@@ -34,7 +34,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                         operations.Update = async payload => await client.SendAsJsonAsync<PaymentOrderResponse>(httpOperation.Method, httpOperation.Href, payload);
                         break;
                     case PaymentOrderResourceOperations.UpdatePaymentOrderAbort:
-                        operations.Abort = async () => await client.SendAsJsonAsync<PaymentOrderResponse>(httpOperation.Method, httpOperation.Href, new AbortRequest());
+                        operations.Abort = async () => await client.SendAsJsonAsync<PaymentOrderResponse>(httpOperation.Method, httpOperation.Href, new PaymentOrderAbortRequest());
                         break;
                     case PaymentOrderResourceOperations.ViewPaymentOrder:
                         operations.View = httpOperation;

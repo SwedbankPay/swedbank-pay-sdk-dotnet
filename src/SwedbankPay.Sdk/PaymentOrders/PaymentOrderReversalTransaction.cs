@@ -1,16 +1,14 @@
 ﻿using System.Collections.Generic;
 
-using SwedbankPay.Sdk.PaymentOrders;
-
-namespace SwedbankPay.Sdk.Payments.CardPayments
+namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class CaptureTransaction
+    public class PaymentOrderReversalTransaction
     {
-        protected internal CaptureTransaction(Amount amount,
-                                                Amount vatAmount,
-                                                List<OrderItem> orderItems,
-                                                string description,
-                                                string payeeReference)
+        protected internal PaymentOrderReversalTransaction(Amount amount,
+                                               Amount vatAmount,
+                                               List<OrderItem> orderItems,
+                                               string description,
+                                               string payeeReference)
         {
             Amount = amount;
             VatAmount = vatAmount;

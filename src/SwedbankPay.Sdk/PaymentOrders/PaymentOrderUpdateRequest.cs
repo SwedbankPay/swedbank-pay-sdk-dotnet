@@ -1,8 +1,8 @@
 ﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class UpdateRequest
+    public class PaymentOrderUpdateRequest
     {
-        public UpdateRequest(Amount amount, Amount vatAmount)
+        public PaymentOrderUpdateRequest(Amount amount, Amount vatAmount)
         {
             PaymentOrder = new PaymentOrderUpdateRequestObject(amount, vatAmount);
         }

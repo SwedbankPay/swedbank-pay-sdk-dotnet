@@ -6,9 +6,9 @@ using SwedbankPay.Sdk.Payments.CardPayments;
 
 namespace SwedbankPay.Sdk.Payments.CardPayments
 {
-    public class PaymentRequest
+    public class CardPaymentPaymentRequest
     {
-        public PaymentRequest(Operation operation,
+        public CardPaymentPaymentRequest(Operation operation,
                               Intent intent,
                               CurrencyCode currency,
                               List<Price> prices,
@@ -26,12 +26,12 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
                               Dictionary<string, object> metaData = null,
                               string paymentToken = null)
         {
-            Payment = new PaymentRequestObject(operation, intent, currency, prices, description, payerReference, generatePaymentToken,
+            Payment = new CardPaymentPaymentRequestObject(operation, intent, currency, prices, description, payerReference, generatePaymentToken,
                                                generateReccurenceToken, userAgent, language, urls, payeeInfo, riskIndicator, cardholder,
                                                creditCard, metaData, paymentToken);
         }
 
 
-        public PaymentRequestObject Payment { get; }
+        public CardPaymentPaymentRequestObject Payment { get; }
     }
 }

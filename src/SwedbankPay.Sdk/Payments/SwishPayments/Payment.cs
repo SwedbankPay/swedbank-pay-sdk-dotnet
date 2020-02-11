@@ -7,7 +7,7 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
 {
     public class Payment
     {
-        private Payment(PaymentResponse paymentResponse, HttpClient client)
+        private Payment(SwishPaymentPaymentResponse paymentResponse, HttpClient client)
         {
             PaymentResponse = paymentResponse.Payment;
             var operations = new Operations();
@@ -20,12 +20,12 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
                 {
                     case PaymentResourceOperations.UpdatePaymentAbort:
                         operations.Abort = async () =>
-                            await client.SendAsJsonAsync<PaymentResponse>(httpOperation.Method, httpOperation.Href, new PaymentAbortRequest());
+                            await client.SendAsJsonAsync<SwishPaymentPaymentResponse>(httpOperation.Method, httpOperation.Href, new PaymentAbortRequest());
                         break;
 
                     case PaymentResourceOperations.CreateSale:
                         operations.Sale = async payload =>
-                            await client.SendAsJsonAsync<SaleResponse>(httpOperation.Method, httpOperation.Href, payload);
+                            await client.SendAsJsonAsync<SwishPaymentSaleResponse>(httpOperation.Method, httpOperation.Href, payload);
                         break;
                     case PaymentResourceOperations.RedirectSale:
                         operations.RedirectSale = httpOperation;
@@ -53,13 +53,13 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
         public PaymentResponseObject PaymentResponse { get; }
 
 
-        internal static async Task<Payment> Create(PaymentRequest paymentRequest,
+        internal static async Task<Payment> Create(SwishPaymentRequest paymentRequest,
                                                    HttpClient client,
                                                    string paymentExpand)
         {
             var url = new Uri($"/psp/swish/payments{paymentExpand}", UriKind.Relative);
 
-            var paymentResponse = await client.PostAsJsonAsync<PaymentResponse>(url, paymentRequest);
+            var paymentResponse = await client.PostAsJsonAsync<SwishPaymentPaymentResponse>(url, paymentRequest);
             return new Payment(paymentResponse, client);
         }
 
@@ -70,7 +70,7 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
                 ? new Uri(id.OriginalString + paymentExpand, UriKind.RelativeOrAbsolute)
                 : id;
 
-            var paymentResponse = await client.GetAsJsonAsync<PaymentResponse>(url);
+            var paymentResponse = await client.GetAsJsonAsync<SwishPaymentPaymentResponse>(url);
             return new Payment(paymentResponse, client);
         }
     }

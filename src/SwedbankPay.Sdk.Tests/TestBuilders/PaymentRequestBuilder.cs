@@ -26,9 +26,9 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private Dictionary<string, object> metaData;
 
 
-        public Payments.CardPayments.PaymentRequest BuildCreditardPaymentRequest()
+        public Payments.CardPayments.CardPaymentPaymentRequest BuildCreditardPaymentRequest()
         {
-            return new Payments.CardPayments.PaymentRequest(
+            return new Payments.CardPayments.CardPaymentPaymentRequest(
                 this.operation,
                 this.intent,
                 this.currency,
@@ -41,9 +41,9 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
                 generatePaymentToken: this.generatePaymentToken, generateReccurenceToken: false, payerReference: this.payerReference, riskIndicator: null, metaData: this.metaData);
         }
 
-        public PaymentRequest BuildSwishPaymentRequest()
+        public SwishPaymentRequest BuildSwishPaymentRequest()
         {
-            return new PaymentRequest(this.currency,
+            return new SwishPaymentRequest(this.currency,
                                       this.price,
                                       this.description,
                                       this.payerReference,

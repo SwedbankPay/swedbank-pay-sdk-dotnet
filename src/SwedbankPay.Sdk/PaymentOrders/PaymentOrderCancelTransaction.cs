@@ -1,8 +1,8 @@
-﻿namespace SwedbankPay.Sdk.Payments.CardPayments
+﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class CancelTransaction
+    public class PaymentOrderCancelTransaction
     {
-        protected internal CancelTransaction(string payeeReference, string description)
+        protected internal PaymentOrderCancelTransaction(string payeeReference, string description)
         {
             PayeeReference = payeeReference;
             Description = description;

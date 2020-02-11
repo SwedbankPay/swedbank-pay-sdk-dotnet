@@ -6,15 +6,15 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
 {
     public class Operations : Dictionary<LinkRelation, HttpOperation>
     {
-        public Func<CancelRequest, Task<CancellationResponse>> Cancel { get; internal set; }
-        public Func<CaptureRequest, Task<CaptureResponse>> Capture { get; internal set; }
-        public Func<AuthorizationRequest, Task<AuthorizationResponse>> DirectAuthorization { get; internal set; }
+        public Func<CardPaymentCancelRequest, Task<CancellationResponse>> Cancel { get; internal set; }
+        public Func<CardPaymentCaptureRequest, Task<CaptureResponse>> Capture { get; internal set; }
+        public Func<CardPaymentAuthorizationRequest, Task<CardPaymentAuthorizationResponse>> DirectAuthorization { get; internal set; }
         public HttpOperation DirectVerification { get; internal set; }
         public new HttpOperation this[LinkRelation rel] => ContainsKey(rel) ? base[rel] : null;
         public HttpOperation PaidPayment { get; internal set; }
         public HttpOperation RedirectAuthorization { get; internal set; }
         public HttpOperation RedirectVerification { get; internal set; }
-        public Func<ReversalRequest, Task<ReversalResponse>> Reversal { get; internal set; }
+        public Func<CardPaymentReversalRequest, Task<ReversalResponse>> Reversal { get; internal set; }
 
         public HttpOperation Update { get; internal set; }
         public HttpOperation ViewAuthorization { get; internal set; }

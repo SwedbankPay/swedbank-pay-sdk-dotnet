@@ -40,7 +40,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
                                CultureInfo language,
                                PricesListResponse prices,
                                TransactionListResponse transactions,
-                               AuthorizationListResponse authorizations,
+                               CardPaymentAuthorizationListResponse authorizations,
                                CapturesListResponse captures,
                                ReversalsListResponse reversals,
                                CancellationsListResponse cancellations,
@@ -82,7 +82,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
         public Amount RemainingCaptureAmount { get; }
         public Amount RemainingCancellationAmount { get; }
         public Amount RemainingReversalAmount { get; }
-        public AuthorizationListResponse Authorizations { get; }
+        public CardPaymentAuthorizationListResponse Authorizations { get; }
         public CancellationsListResponse Cancellations { get; }
         public CapturesListResponse Captures { get; }
         public DateTime Created { get; }

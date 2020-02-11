@@ -18,7 +18,7 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
             return Payment.Get(id, this.httpClient, GetExpandQueryString(paymentExpand));
         }
 
-        public Task<Payment> Create(PaymentRequest paymentRequest,
+        public Task<Payment> Create(SwishPaymentRequest paymentRequest,
                                                             PaymentExpand paymentExpand = PaymentExpand.None)
         {
             return Payment.Create(paymentRequest, this.httpClient, GetExpandQueryString(paymentExpand));

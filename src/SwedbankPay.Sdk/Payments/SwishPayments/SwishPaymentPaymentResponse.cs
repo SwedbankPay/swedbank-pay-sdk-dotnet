@@ -5,9 +5,9 @@ using SwedbankPay.Sdk.PaymentOrders;
 
 namespace SwedbankPay.Sdk.Payments.SwishPayments
 {
-    public class PaymentResponse
+    public class SwishPaymentPaymentResponse
     {
-        public PaymentResponse(PaymentResponseObject payment,
+        public SwishPaymentPaymentResponse(PaymentResponseObject payment,
                                OperationList operations)
         {
             Payment = payment;
@@ -38,7 +38,7 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
                                string userAgent,
                                CultureInfo language,
                                TransactionListResponse transactions,
-                               SaleListResponse sales,
+                               SwishPaymentSaleListResponse sales,
                                ReversalsListResponse reversals,
                                Urls urls,
                                PayeeInfo payeeInfo,
@@ -87,7 +87,7 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
         public string UserAgent { get; }
         public CultureInfo Language { get; }
         public TransactionListResponse Transactions { get; }
-        public SaleListResponse Sales { get; }
+        public SwishPaymentSaleListResponse Sales { get; }
         public ReversalsListResponse Reversals { get; }
         public Urls Urls { get; }
         public PayeeInfo PayeeInfo { get; }

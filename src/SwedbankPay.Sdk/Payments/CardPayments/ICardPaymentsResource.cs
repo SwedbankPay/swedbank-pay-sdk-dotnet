@@ -11,7 +11,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
         /// <param name="paymentRequest"></param>
         /// <param name="paymentExpand"></param>
         /// <returns></returns>
-        Task<Payment> Create(PaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None);
+        Task<Payment> Create(CardPaymentPaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None);
 
 
         ///// <summary>

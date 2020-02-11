@@ -6,10 +6,10 @@ namespace SwedbankPay.Sdk.PaymentOrders
     {
         public PaymentOrderCaptureRequest(Amount amount, Amount vatAmount, List<OrderItem> orderItems, string description, string payeeReference)
         {
-            Transaction = new CaptureTransaction(amount, vatAmount, orderItems, description, payeeReference);
+            Transaction = new PaymentOrderCaptureTransaction(amount, vatAmount, orderItems, description, payeeReference);
         }
 
 
-        public CaptureTransaction Transaction { get; }
+        public PaymentOrderCaptureTransaction Transaction { get; }
     }
 }

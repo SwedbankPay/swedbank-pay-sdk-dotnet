@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace SwedbankPay.Sdk.PaymentOrders
+using SwedbankPay.Sdk.PaymentOrders;
+
+namespace SwedbankPay.Sdk.Payments.CardPayments
 {
-    public class CaptureTransaction
+    public class CardPaymentCaptureTransaction
     {
-        protected internal CaptureTransaction(Amount amount,
+        protected internal CardPaymentCaptureTransaction(Amount amount,
                                                 Amount vatAmount,
                                                 List<OrderItem> orderItems,
                                                 string description,

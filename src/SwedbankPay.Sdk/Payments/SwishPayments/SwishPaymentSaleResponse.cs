@@ -2,9 +2,9 @@
 
 namespace SwedbankPay.Sdk.Payments.SwishPayments
 {
-    public class SaleResponse
+    public class SwishPaymentSaleResponse
     {
-        public SaleResponse(Uri payment, Sale sale)
+        public SwishPaymentSaleResponse(Uri payment, Sale sale)
         {
             Payment = payment;
             Sale = sale;

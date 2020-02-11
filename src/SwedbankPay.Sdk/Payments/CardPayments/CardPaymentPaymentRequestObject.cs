@@ -7,9 +7,9 @@ using SwedbankPay.Sdk.Payments.CardPayments;
 
 namespace SwedbankPay.Sdk.Payments.CardPayments
 {
-    public class PaymentRequestObject
+    public class CardPaymentPaymentRequestObject
     {
-        protected internal PaymentRequestObject(Operation operation,
+        protected internal CardPaymentPaymentRequestObject(Operation operation,
                                                 Intent intent,
                                                 CurrencyCode currency,
                                                 List<Price> prices,

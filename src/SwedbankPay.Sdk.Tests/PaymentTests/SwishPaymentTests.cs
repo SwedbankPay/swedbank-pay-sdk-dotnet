@@ -37,7 +37,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
 
             Assert.NotNull(payment);
 
-            var saleResponseContainer = await payment.Operations.Sale?.Invoke(new SaleRequest(null));
+            var saleResponseContainer = await payment.Operations.Sale?.Invoke(new SwishPaymentSaleRequest(null));
 
             Assert.NotNull(saleResponseContainer);
             Assert.NotNull(saleResponseContainer.Sale);
@@ -52,7 +52,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
 
             Assert.NotNull(payment);
 
-            var saleResponseContainer = await payment.Operations.Sale?.Invoke(new SaleRequest(new Msisdn("+46701234567")));
+            var saleResponseContainer = await payment.Operations.Sale?.Invoke(new SwishPaymentSaleRequest(new Msisdn("+46701234567")));
 
             Assert.NotNull(saleResponseContainer);
             Assert.NotNull(saleResponseContainer.Sale);
