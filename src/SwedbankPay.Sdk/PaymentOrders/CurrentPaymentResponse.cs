@@ -1,5 +1,5 @@
 ﻿using SwedbankPay.Sdk.Payments;
-using SwedbankPay.Sdk.Payments.Card;
+using SwedbankPay.Sdk.Payments.CardPayments;
 using SwedbankPay.Sdk.Payments.Swish;
 
 using System;

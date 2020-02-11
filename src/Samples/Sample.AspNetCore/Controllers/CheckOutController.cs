@@ -10,7 +10,6 @@ using Microsoft.Extensions.Options;
 
 using Sample.AspNetCore.Extensions;
 using Sample.AspNetCore.Models;
-using Sample.AspNetCore.Models.ViewModels;
 
 using SwedbankPay.Sdk;
 using SwedbankPay.Sdk.Consumers;
@@ -18,8 +17,6 @@ using SwedbankPay.Sdk.PaymentOrders;
 using SwedbankPay.Sdk.Payments;
 using SwedbankPay.Sdk.Payments.Swish;
 
-using Payment = SwedbankPay.Sdk.Payments.Card.Payment;
-using PaymentRequest = SwedbankPay.Sdk.Payments.Card.PaymentRequest;
 
 namespace Sample.AspNetCore.Controllers
 {
@@ -84,13 +81,13 @@ namespace Sample.AspNetCore.Controllers
             }
         }
 
-        public async Task<SwedbankPay.Sdk.Payments.Card.Payment> CreateCardPayment()
+        public async Task<SwedbankPay.Sdk.Payments.CardPayments.Payment> CreateCardPayment()
         {
             var totalAmount = this.cartService.CalculateTotal();
             var vatAmount = Amount.FromDecimal(0);
             try
             {
-                var cardRequest = new SwedbankPay.Sdk.Payments.Card.PaymentRequest(Operation.Purchase, Intent.Authorization, new CurrencyCode("SEK"),
+                var cardRequest = new SwedbankPay.Sdk.Payments.CardPayments.PaymentRequest(Operation.Purchase, Intent.Authorization, new CurrencyCode("SEK"),
                                                                                    new List<Price>
                                                                                    {
                                                                                        new Price(Amount.FromDecimal(totalAmount),
@@ -104,7 +101,7 @@ namespace Sample.AspNetCore.Controllers
                                                                                    new PayeeInfo(this.payeeInfoOptions.PayeeId,
                                                                                                  this.payeeInfoOptions.PayeeReference));
 
-                SwedbankPay.Sdk.Payments.Card.Payment cardPayment = await this.swedbankPayClient.Payments.CreateCreditCardPayment(cardRequest);
+                SwedbankPay.Sdk.Payments.CardPayments.Payment cardPayment = await this.swedbankPayClient.Payments.CreateCreditCardPayment(cardRequest);
                 this.cartService.PaymentLink = cardPayment.PaymentResponse.Id.OriginalString;
                 this.cartService.Instrument = Instrument.CreditCard;
                 this.cartService.PaymentOrderLink = null;
