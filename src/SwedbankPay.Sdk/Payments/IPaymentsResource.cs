@@ -5,7 +5,7 @@ using SwedbankPay.Sdk.Payments.Card;
 
 namespace SwedbankPay.Sdk.Payments
 {
-    public interface IPaymentsClient
+    public interface IPaymentsResource
     {
         /// <summary>
         ///     Creates a new credit card payment
