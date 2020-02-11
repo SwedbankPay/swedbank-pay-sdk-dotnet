@@ -35,7 +35,7 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
                         operations.ViewSales = httpOperation;
                         break;
                     case PaymentResourceOperations.CreateReversal:
-                        operations.CreateReversal = async payload =>
+                        operations.Reversal = async payload =>
                             await client.SendAsJsonAsync<ReversalResponse>(httpOperation.Method, httpOperation.Href, payload);
                         break;
                     case PaymentResourceOperations.PaidPayment:
