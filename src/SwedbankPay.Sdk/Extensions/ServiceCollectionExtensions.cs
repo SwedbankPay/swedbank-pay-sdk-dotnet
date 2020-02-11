@@ -2,6 +2,8 @@
 using SwedbankPay.Sdk.Consumers;
 using SwedbankPay.Sdk.PaymentOrders;
 using SwedbankPay.Sdk.Payments;
+using SwedbankPay.Sdk.Payments.CardPayments;
+using SwedbankPay.Sdk.Payments.SwishPayments;
 using System;
 using System.Net.Http;
 
@@ -56,6 +58,7 @@ namespace SwedbankPay.Sdk.Extensions
 
         private static IHttpClientBuilder AddClientAndHandler(IServiceCollection services, Action<HttpClient> configureClient)
         {
+            services.AddCommonDependenciesForSdk();
             services.AddScoped<LoggingDelegatingHandler>();
 
             services.AddHttpClient<IPaymentOrdersResource, PaymentOrdersResource>(configureClient)
@@ -67,12 +70,15 @@ namespace SwedbankPay.Sdk.Extensions
             services.AddHttpClient<IPaymentsResource, PaymentsResource>(configureClient)
                 .AddHttpMessageHandler<LoggingDelegatingHandler>();
 
-            return services.AddHttpClient<ISwedbankPayClient, SwedbankPayClient>(configureClient)
+            return
+                services.AddHttpClient<ISwedbankPayClient, SwedbankPayClient>(configureClient)
                 .AddHttpMessageHandler<LoggingDelegatingHandler>();
+
         }
 
         private static IHttpClientBuilder AddClientAndHandler(IServiceCollection services, Action<IServiceProvider, HttpClient> configureClient)
         {
+            services.AddCommonDependenciesForSdk();
             services.AddScoped<LoggingDelegatingHandler>();
 
             services.AddHttpClient<IPaymentOrdersResource, PaymentOrdersResource>(configureClient)
@@ -84,8 +90,16 @@ namespace SwedbankPay.Sdk.Extensions
             services.AddHttpClient<IPaymentsResource, PaymentsResource>(configureClient)
                 .AddHttpMessageHandler<LoggingDelegatingHandler>();
 
-            return services.AddHttpClient<ISwedbankPayClient, SwedbankPayClient>(configureClient)
+            return services
+                .AddHttpClient<ISwedbankPayClient, SwedbankPayClient>(configureClient)
                 .AddHttpMessageHandler<LoggingDelegatingHandler>();
+        }
+
+        private static IServiceCollection AddCommonDependenciesForSdk(this IServiceCollection services)
+        {
+            return services
+                .AddTransient<ICardPaymentsResource, CardPaymentsResource>()
+                .AddTransient<ISwishPaymentsResource, SwishPaymentsResource>();
         }
     }
 }

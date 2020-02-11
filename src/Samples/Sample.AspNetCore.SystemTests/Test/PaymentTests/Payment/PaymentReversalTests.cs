@@ -29,7 +29,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.PaidPayment)].Should.BeVisible()
                 .Actions.Rows.Count.Should.Equal(1);
 
-            var order = await SwedbankPayClient.Payments.GetCreditCardPayment(paymentLink, PaymentExpand.All);
+            var order = await SwedbankPayClient.Payments.CardPayments.GetCreditCardPayment(paymentLink, PaymentExpand.All);
 
             // Operations
             Assert.That(order.Operations[LinkRelation.CreateCancellation], Is.Null);
@@ -58,13 +58,13 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.ViewPayment)].Should.BeVisible()
                 .Actions.Rows.Count.Should.Equal(1);
 
-            var swishPayment = await SwedbankPayClient.Payments.GetSwishPayment(paymentLink, PaymentExpand.All);
+            var swishPayment = await SwedbankPayClient.Payments.SwishPayments.GetSwishPayment(paymentLink, PaymentExpand.All);
             var counter = 0;
 
             while (swishPayment.PaymentResponse.Transactions.TransactionList.First(x => x.Type == TransactionType.Reversal).State != State.Completed && counter <= 15)
             {
                 Thread.Sleep(1000);
-                swishPayment = await SwedbankPayClient.Payments.GetSwishPayment(paymentLink, PaymentExpand.All);
+                swishPayment = await SwedbankPayClient.Payments.SwishPayments.GetSwishPayment(paymentLink, PaymentExpand.All);
                 counter++;
             }
 
