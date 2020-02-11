@@ -2,6 +2,9 @@
 using System.Net.Http;
 using System.Net.Http.Headers;
 using NSubstitute;
+using SwedbankPay.Sdk.Consumers;
+using SwedbankPay.Sdk.PaymentOrders;
+using SwedbankPay.Sdk.Payments;
 using SwedbankPay.Sdk.Tests.TestHelpers;
 
 namespace SwedbankPay.Sdk.Tests
@@ -18,10 +21,13 @@ namespace SwedbankPay.Sdk.Tests
         {
             this.connectionSettings = TestHelper.GetSwedbankPayConnectionSettings(Environment.CurrentDirectory);
             this.urls = TestHelper.GetUrls(Environment.CurrentDirectory);
-            var client = new HttpClient { BaseAddress = this.connectionSettings.ApiBaseUrl };
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this.connectionSettings.Token);
+            var httpClient = new HttpClient { BaseAddress = this.connectionSettings.ApiBaseUrl };
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this.connectionSettings.Token);
             
-            this.Sut = new SwedbankPayClient(client);
+            this.Sut = new SwedbankPayClient(httpClient,
+                                             new PaymentOrdersResource(httpClient),
+                                             new ConsumersResource(httpClient),
+                                             new PaymentsResource(httpClient));
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Consumers
 {
-    internal class ConsumersResource: ResourceBase, IConsumersResource
+    public class ConsumersResource: ResourceBase, IConsumersResource
     {
         public ConsumersResource(HttpClient httpClient) : base(httpClient)
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    internal class PaymentOrdersResource : ResourceBase, IPaymentOrdersResource
+    public class PaymentOrdersResource : ResourceBase, IPaymentOrdersResource
     {
         public PaymentOrdersResource(HttpClient httpClient) : base(httpClient)
         {
