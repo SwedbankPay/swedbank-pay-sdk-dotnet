@@ -1,8 +1,8 @@
 ﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class CancelRequest
+    public class PaymentOrderCancelRequest
     {
-        public CancelRequest(string payeeReference, string description)
+        public PaymentOrderCancelRequest(string payeeReference, string description)
         {
             Transaction = new CancelTransaction(payeeReference, description);
         }

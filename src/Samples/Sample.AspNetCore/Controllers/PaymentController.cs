@@ -64,7 +64,7 @@ namespace Sample.AspNetCore.Controllers
                 
                 if (paymentOrder.Operations.Cancel != null)
                 {
-                    var cancelRequest = new SwedbankPay.Sdk.PaymentOrders.CancelRequest(DateTime.Now.Ticks.ToString(), "Cancelling parts of the total amount");
+                    var cancelRequest = new SwedbankPay.Sdk.PaymentOrders.PaymentOrderCancelRequest(DateTime.Now.Ticks.ToString(), "Cancelling parts of the total amount");
                     var response = await paymentOrder.Operations.Cancel(cancelRequest);
                     TempData["CancelMessage"] = $"Payment has been cancelled: {response.Cancellation.Transaction.Id}";
                     this.cartService.PaymentOrderLink = null;
