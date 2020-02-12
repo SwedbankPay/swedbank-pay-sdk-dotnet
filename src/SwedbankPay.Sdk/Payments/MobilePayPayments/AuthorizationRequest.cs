@@ -2,40 +2,43 @@
 {
     public class AuthorizationRequest
     {
-        public AuthorizationRequest(string cardNumber,
-                                    int cardExpiryMonth,
-                                    int cardExpiryYear,
-                                    string cardVerificationCode = null,
-                                    string cardHolderName = null)
+        public AuthorizationRequest(string activity,
+                                    string mpoProcessPaymentSessionToken,
+                                    string mpoProcessPaymentCardType,
+                                    string mpoProcessPaymentValidUntil,
+                                    string errorCode = null,
+                                    string errorDescription = null)
         {
-            Transaction = new AuthorizationTransaction(cardNumber, cardExpiryMonth, cardExpiryYear, cardVerificationCode, cardHolderName);
+            Transaction = new AuthorizationTransaction(activity, mpoProcessPaymentSessionToken, mpoProcessPaymentCardType, mpoProcessPaymentValidUntil, errorCode, errorDescription);
         }
-
 
         public AuthorizationTransaction Transaction { get; }
 
         public class AuthorizationTransaction
         {
-            protected internal AuthorizationTransaction(string cardNumber,
-                                                        int cardExpiryMonth,
-                                                        int cardExpiryYear,
-                                                        string cardVerificationCode = null,
-                                                        string cardHolderName = null)
+            protected internal AuthorizationTransaction(string activity,
+                                                        string mpoProcessPaymentSessionToken,
+                                                        string mpoProcessPaymentCardType,
+                                                        string mpoProcessPaymentValidUntil,
+                                                        string errorCode = null,
+                                                        string errorDescription = null)
             {
-                CardNumber = cardNumber;
-                CardExpiryMonth = cardExpiryMonth;
-                CardExpiryYear = cardExpiryYear;
-                CardVerificationCode = cardVerificationCode;
-                CardHolderName = cardHolderName;
+                Activity = activity;
+                MpoProcessPaymentSessionToken = mpoProcessPaymentSessionToken;
+                MpoProcessPaymentCardType = mpoProcessPaymentCardType;
+                MpoProcessPaymentValidUntil = mpoProcessPaymentValidUntil;
+                ErrorCode = errorCode;
+                ErrorDescription = errorDescription;
             }
 
 
-            public int CardExpiryMonth { get; }
-            public int CardExpiryYear { get; }
-            public string CardHolderName { get; }
+            public string Activity { get; }
+            public string MpoProcessPaymentSessionToken { get; }
+            public string MpoProcessPaymentCardType { get; }
 
-            public string CardNumber { get; }
-            public string CardVerificationCode { get; }
+            public string MpoProcessPaymentValidUntil { get; }
+            public string ErrorCode { get; }
+            public string ErrorDescription { get; }
         }
     }
 }
