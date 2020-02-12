@@ -11,7 +11,6 @@ namespace swedbankpay.sdk.Payments.MobilePayPayments
     {
         public Func<CancelRequest, Task<CancellationResponse>> Cancel { get; internal set; }
         public Func<CaptureRequest, Task<CaptureResponse>> Capture { get; internal set; }
-        public Func<AuthorizationRequest, Task<AuthorizationResponse>> DirectAuthorization { get; internal set; }
         public HttpOperation this[LinkRelation rel] => ContainsKey(rel) ? base[rel] : null;
         public HttpOperation RedirectAuthorization { get; internal set; }
         public Func<ReversalRequest, Task<ReversalResponse>> Reversal { get; internal set; }
