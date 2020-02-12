@@ -61,7 +61,7 @@ namespace SwedbankPay.Sdk.Payments.MobilePayPayments
                                                    SwedbankPayHttpClient client,
                                                    string paymentExpand)
         {
-            var url = new Uri($"/psp/vipps/payments{paymentExpand}", UriKind.Relative);
+            var url = new Uri($"/psp/mobilepay/payments{paymentExpand}", UriKind.Relative);
 
             var paymentResponse = await client.HttpPost<PaymentResponse>(url, paymentRequest);
             return new Payment(paymentResponse, client);
