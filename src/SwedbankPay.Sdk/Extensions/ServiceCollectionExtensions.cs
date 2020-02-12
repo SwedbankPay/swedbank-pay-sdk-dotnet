@@ -14,7 +14,7 @@ namespace SwedbankPay.Sdk.Extensions
         /// <summary>
         /// Configures the named HttpClient <seealso cref="SwedbankPayClient"/> with <paramref name="baseAddress"/>
         ///    and default <seealso cref="HttpClient.DefaultRequestHeaders.Authorization"/> to be <paramref name="authenticationToken"/>.
-        ///    This also configures up a <seealso cref="LoggingDelegatingHandler"/> to logg on exceptions.
+        ///    This also configures up a <seealso cref="LoggingDelegatingHandler"/> to log on exceptions.
         /// </summary>
         /// <param name="services"></param>
         /// <param name="baseAddress"></param>
@@ -25,7 +25,7 @@ namespace SwedbankPay.Sdk.Extensions
             if (string.IsNullOrWhiteSpace(authenticationToken))
                 throw new ArgumentNullException(nameof(authenticationToken));
             if (Uri.IsWellFormedUriString(baseAddress.OriginalString, UriKind.Absolute) == false)
-                throw new ArgumentException($"{nameof(baseAddress)} is not a well formed and abosulte {nameof(Uri)}.");
+                throw new ArgumentException($"{nameof(baseAddress)} is not a well formed and absolute {nameof(Uri)}.");
 
             return AddClientAndHandler(services, a =>
             {

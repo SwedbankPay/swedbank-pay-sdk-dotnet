@@ -26,9 +26,9 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private Dictionary<string, object> metaData;
 
 
-        public Payments.CardPayments.CardPaymentPaymentRequest BuildCreditardPaymentRequest()
+        public Payments.CardPayments.CardPaymentRequest BuildCreditardPaymentRequest()
         {
-            return new Payments.CardPayments.CardPaymentPaymentRequest(
+            return new Payments.CardPayments.CardPaymentRequest(
                 this.operation,
                 this.intent,
                 this.currency,
