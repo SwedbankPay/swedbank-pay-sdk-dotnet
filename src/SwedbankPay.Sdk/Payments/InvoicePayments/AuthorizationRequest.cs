@@ -101,6 +101,7 @@
             /// The CO-address (if used)
             /// </summary>
             public string CoAddress { get; }
+            
         }
     }
 }
