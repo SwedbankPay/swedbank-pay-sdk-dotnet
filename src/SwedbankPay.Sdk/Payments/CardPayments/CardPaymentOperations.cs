@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Payments.CardPayments
 {
-    public class Operations : Dictionary<LinkRelation, HttpOperation>
+    public class CardPaymentOperations : Dictionary<LinkRelation, HttpOperation>
     {
         public Func<CardPaymentCancelRequest, Task<CancellationResponse>> Cancel { get; internal set; }
         public Func<CardPaymentCaptureRequest, Task<CaptureResponse>> Capture { get; internal set; }

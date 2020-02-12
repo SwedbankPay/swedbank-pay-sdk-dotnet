@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace SwedbankPay.Sdk.Consumers
 {
-    [Serializable]
-    public class Operations : Dictionary<LinkRelation, HttpOperation>
+    public class ConsumerOperations : Dictionary<LinkRelation, HttpOperation>
     {
-        public Operations()
+        public ConsumerOperations()
         {
         }
 
 
-        protected Operations(
+        protected ConsumerOperations(
             SerializationInfo info,
             StreamingContext context)
             : base(info, context)

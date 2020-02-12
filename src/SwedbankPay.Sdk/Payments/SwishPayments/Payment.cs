@@ -10,7 +10,7 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
         private Payment(SwishPaymentPaymentResponse paymentResponse, HttpClient client)
         {
             PaymentResponse = paymentResponse.Payment;
-            var operations = new Operations();
+            var operations = new SwishPaymentOperations();
 
             foreach (var httpOperation in paymentResponse.Operations)
             {
@@ -48,7 +48,7 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
         }
 
 
-        public Operations Operations { get; }
+        public SwishPaymentOperations Operations { get; }
 
         public PaymentResponseObject PaymentResponse { get; }
 

@@ -12,7 +12,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                              HttpClient client)
         {
             PaymentOrderResponse = paymentOrderResponse.PaymentOrderResponseObject;
-            var operations = new Operations();
+            var operations = new PaymentOrderOperations();
 
             
             foreach (var httpOperation in paymentOrderResponse.Operations)
@@ -46,7 +46,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         }
 
 
-        public Operations Operations { get; }
+        public PaymentOrderOperations Operations { get; }
         public PaymentOrderResponseObject PaymentOrderResponse { get; }
 
 
