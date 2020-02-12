@@ -26,13 +26,13 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
                                         Amount vatAmount,
                                         string description,
                                         string payeeReference,
-                                        string failedReason,
-                                        string failedActivityName,
-                                        string failedErrorCode,
-                                        string failedErrorDescription,
                                         bool isOperational,
-                                        ProblemResponse problem,
-                                        OperationList operations)
+                                        OperationList operations,
+                                        string failedReason = null,
+                                        string failedActivityName = null,
+                                        string failedErrorCode = null,
+                                        string failedErrorDescription = null,
+                                        ProblemResponse problem = null)
         {
             Created = created;
             Updated = updated;
