@@ -12,7 +12,7 @@ namespace SwedbankPay.Sdk.Consumers
         private Consumer(ConsumersResponse consumersResponse)
         {
             ConsumersResponse = consumersResponse;
-            var operations = new Operations();
+            var operations = new ConsumerOperations();
 
             foreach (var httpOperation in consumersResponse.Operations)
             {
@@ -35,7 +35,7 @@ namespace SwedbankPay.Sdk.Consumers
 
         public ConsumersResponse ConsumersResponse { get; }
 
-        public Operations Operations { get; }
+        public ConsumerOperations Operations { get; }
 
 
         internal static async Task<Consumer> Initiate(ConsumersRequest consumersRequest, HttpClient client)

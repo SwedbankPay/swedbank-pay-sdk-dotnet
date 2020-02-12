@@ -10,7 +10,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
         private CardPayment(CardPaymentResponse paymentResponse, HttpClient client)
         {
             PaymentResponse = paymentResponse.Payment;
-            var operations = new Operations();
+            var operations = new CardPaymentOperations();
 
             foreach (var httpOperation in paymentResponse.Operations)
             {
@@ -72,7 +72,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
         }
 
 
-        public Operations Operations { get; }
+        public CardPaymentOperations Operations { get; }
 
         public PaymentResponseObject PaymentResponse { get; }
 
