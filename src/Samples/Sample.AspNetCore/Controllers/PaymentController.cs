@@ -198,7 +198,7 @@ namespace Sample.AspNetCore.Controllers
                 var transActionRequestObject = await GetReversalRequest("Reversing the capture amount");
                 var paymentOrder = await this.swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
                
-                var response = await paymentOrder.Operations.Reversal.Invoke(transActionRequestObject);
+                var response = await paymentOrder.Operations.Reverse.Invoke(transActionRequestObject);
 
                 TempData["ReversalMessage"] =
                     $"{response.Reversal.Transaction.Id}, {response.Reversal.Transaction.Type}, {response.Reversal.Transaction.State}";
@@ -230,14 +230,14 @@ namespace Sample.AspNetCore.Controllers
                         var swishReversal =  new SwedbankPay.Sdk.Payments.SwishPayments.SwishPaymentReversalRequest(
                             Amount.FromDecimal(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
                             Amount.FromDecimal(0), description, DateTime.Now.Ticks.ToString());
-                        response = await swishPayment.Operations.Reversal.Invoke(swishReversal);
+                        response = await swishPayment.Operations.Reverse.Invoke(swishReversal);
                         break;
                     case Instrument.CreditCard:
                         var cardPayment = await this.swedbankPayClient.Payments.CardPayments.Get(new Uri(paymentId, UriKind.RelativeOrAbsolute));
                         var cardReversal = new SwedbankPay.Sdk.Payments.CardPayments.CardPaymentReversalRequest(
                             Amount.FromDecimal(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
                             Amount.FromDecimal(0), description, DateTime.Now.Ticks.ToString());
-                        response = await cardPayment.Operations.Reversal.Invoke(cardReversal);
+                        response = await cardPayment.Operations.Reverse.Invoke(cardReversal);
                         break;
                 }
                 
