@@ -1,4 +1,4 @@
-﻿namespace SwedbankPay.Sdk.Payments.dMobilePayPayments
+﻿namespace SwedbankPay.Sdk.Payments.MobilePayPayments
 {
     public class ReversalRequest
     {

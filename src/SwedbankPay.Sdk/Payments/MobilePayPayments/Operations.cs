@@ -1,11 +1,11 @@
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using SwedbankPay.Sdk;
-using SwedbankPay.Sdk.Payments.VippsPayments;
+using SwedbankPay.Sdk.Payments.MobilePayPayments;
 using SwedbankPay.Sdk.Payments;
 using System.Collections.Generic;
 
-namespace swedbankpay.sdk.Payments.Invoice
+namespace swedbankpay.sdk.Payments.MobilePayPayments
 {
     public class Operations : Dictionary<LinkRelation, HttpOperation>
     {
