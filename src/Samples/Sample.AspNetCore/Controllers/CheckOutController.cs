@@ -80,13 +80,13 @@ namespace Sample.AspNetCore.Controllers
             }
         }
 
-        public async Task<SwedbankPay.Sdk.Payments.CardPayments.Payment> CreateCardPayment()
+        public async Task<SwedbankPay.Sdk.Payments.CardPayments.CardPayment> CreateCardPayment()
         {
             var totalAmount = this.cartService.CalculateTotal();
             var vatAmount = Amount.FromDecimal(0);
             try
             {
-                var cardRequest = new SwedbankPay.Sdk.Payments.CardPayments.CardPaymentPaymentRequest(Operation.Purchase, Intent.Authorization, new CurrencyCode("SEK"),
+                var cardRequest = new SwedbankPay.Sdk.Payments.CardPayments.CardPaymentRequest(Operation.Purchase, Intent.Authorization, new CurrencyCode("SEK"),
                                                                                    new List<Price>
                                                                                    {
                                                                                        new Price(Amount.FromDecimal(totalAmount),
@@ -100,7 +100,7 @@ namespace Sample.AspNetCore.Controllers
                                                                                    new PayeeInfo(this.payeeInfoOptions.PayeeId,
                                                                                                  this.payeeInfoOptions.PayeeReference));
 
-                SwedbankPay.Sdk.Payments.CardPayments.Payment cardPayment = await this.swedbankPayClient.Payments.CardPayments.Create(cardRequest);
+                SwedbankPay.Sdk.Payments.CardPayments.CardPayment cardPayment = await this.swedbankPayClient.Payments.CardPayments.Create(cardRequest);
                 this.cartService.PaymentLink = cardPayment.PaymentResponse.Id.OriginalString;
                 this.cartService.Instrument = Instrument.CreditCard;
                 this.cartService.PaymentOrderLink = null;

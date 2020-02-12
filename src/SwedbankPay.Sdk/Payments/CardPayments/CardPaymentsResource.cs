@@ -12,18 +12,18 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
         {
         }
 
-        public Task<Payment> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
+        public Task<CardPayment> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
         {
             if (id == null)
                 throw new ArgumentNullException(nameof(id));
 
-            return Payment.Get(id, this.httpClient, GetExpandQueryString(paymentExpand));
+            return CardPayment.Get(id, this.httpClient, GetExpandQueryString(paymentExpand));
         }
 
 
-        public Task<Payment> Create(CardPayments.CardPaymentPaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None)
+        public Task<CardPayment> Create(CardPayments.CardPaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None)
         {
-            return Payment.Create(paymentRequest, this.httpClient, GetExpandQueryString(paymentExpand));
+            return CardPayment.Create(paymentRequest, this.httpClient, GetExpandQueryString(paymentExpand));
         }
     }
 }

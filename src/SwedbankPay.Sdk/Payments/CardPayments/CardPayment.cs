@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Payments.CardPayments
 {
-    public class Payment
+    public class CardPayment
     {
-        private Payment(PaymentResponse paymentResponse, HttpClient client)
+        private CardPayment(CardPaymentResponse paymentResponse, HttpClient client)
         {
             PaymentResponse = paymentResponse.Payment;
             var operations = new Operations();
@@ -77,25 +77,25 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
         public PaymentResponseObject PaymentResponse { get; }
 
 
-        internal static async Task<Payment> Create(CardPaymentPaymentRequest paymentRequest,
+        internal static async Task<CardPayment> Create(CardPaymentRequest paymentRequest,
                                                    HttpClient client,
                                                    string paymentExpand)
         {
             var url = new Uri($"/psp/creditcard/payments{paymentExpand}", UriKind.Relative);
 
-            var paymentResponse = await client.PostAsJsonAsync<PaymentResponse>(url, paymentRequest);
-            return new Payment(paymentResponse, client);
+            var paymentResponse = await client.PostAsJsonAsync<CardPaymentResponse>(url, paymentRequest);
+            return new CardPayment(paymentResponse, client);
         }
 
 
-        internal static async Task<Payment> Get(Uri id, HttpClient client, string paymentExpand)
+        internal static async Task<CardPayment> Get(Uri id, HttpClient client, string paymentExpand)
         {
             var url = !string.IsNullOrWhiteSpace(paymentExpand)
                 ? new Uri(id.OriginalString + paymentExpand, UriKind.RelativeOrAbsolute)
                 : id;
 
-            var paymentResponseContainer = await client.GetAsJsonAsync<PaymentResponse>(url);
-            return new Payment(paymentResponseContainer, client);
+            var paymentResponseContainer = await client.GetAsJsonAsync<CardPaymentResponse>(url);
+            return new CardPayment(paymentResponseContainer, client);
         }
     }
 }
