@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SwedbankPay.Sdk.Payments.VippsPayments
+namespace SwedbankPay.Sdk.Payments.MobilePayPayments
 {
     public class AuthorizationListResponse : IdLink
     {

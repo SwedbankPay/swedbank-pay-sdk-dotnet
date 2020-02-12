@@ -2,7 +2,7 @@
 
 using SwedbankPay.Sdk.PaymentOrders;
 
-namespace SwedbankPay.Sdk.Payments.VippsPayments
+namespace SwedbankPay.Sdk.Payments.MobilePayPayments
 {
     public class CaptureRequest
     {

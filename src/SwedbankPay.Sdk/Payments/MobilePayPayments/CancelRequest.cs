@@ -1,4 +1,4 @@
-﻿namespace SwedbankPay.Sdk.Payments.VippsPayments
+﻿namespace SwedbankPay.Sdk.Payments.MobilePayPayments
 {
     public class CancelRequest
     {

@@ -1,8 +1,8 @@
-﻿using swedbankpay.sdk.Payments.VippsPayments;
+﻿using swedbankpay.sdk.Payments.MobilePayPayments;
 using System;
 using System.Threading.Tasks;
 
-namespace SwedbankPay.Sdk.Payments.VippsPayments
+namespace SwedbankPay.Sdk.Payments.MobilePayPayments
 {
     public class Payment
     {
