@@ -22,11 +22,12 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
                               bool generateReccurenceToken = false,
                               string payerReference = null,
                               Dictionary<string, object> metaData = null,
-                              string paymentToken = null)
+                              string paymentToken = null,
+                              PrefillInfo prefillInfo = null)
         {
             Payment = new PaymentRequestObject(operation, intent, currency, prices, description, payerReference, generatePaymentToken,
                                                generateReccurenceToken, userAgent, language, urls, payeeInfo, invoice,
-                                               metaData, paymentToken);
+                                               metaData, paymentToken, prefillInfo);
         }
 
 
@@ -48,7 +49,8 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
                                                     PayeeInfo payeeInfo,
                                                     InvoiceType invoice,
                                                     Dictionary<string, object> metaData = null,
-                                                    string paymentToken = null)
+                                                    string paymentToken = null,
+                                                    PrefillInfo prefillInfo = null)
             {
                 Operation = operation ?? throw new ArgumentNullException(nameof(operation));
                 Intent = intent;
@@ -65,6 +67,7 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
                 GeneratePaymentToken = generatePaymentToken;
                 GenerateReccurenceToken = generateReccurenceToken;
                 PaymentToken = paymentToken;
+                PrefillInfo = prefillInfo;
             }
 
 
@@ -83,6 +86,7 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
             public List<Price> Prices { get; set; }
             public Urls Urls { get; }
             public string UserAgent { get; set; }
+            public PrefillInfo PrefillInfo { get; set; }
         }
     }
 }

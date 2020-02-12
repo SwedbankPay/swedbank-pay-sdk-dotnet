@@ -1,4 +1,4 @@
-using swedbankpay.sdk.Payments.Vipps;
+﻿using Swedbankpay.Sdk.Payments.InvoicePayments;
 using System;
 using System.Threading.Tasks;
 
@@ -45,6 +45,10 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
                         operations.Reversal = async payload =>
                             await client.SendHttpRequestAndProcessHttpResponse<ReversalResponse>(
                                 httpOperation.Request.AttachPayload(payload));
+                        break;
+
+                    case PaymentResourceOperations.CreateApprovedLegalAddress:
+                        operations.ApprovedLegalAddress = httpOperation;
                         break;
 
                 }

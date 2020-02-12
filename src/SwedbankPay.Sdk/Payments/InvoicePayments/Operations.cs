@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 using SwedbankPay.Sdk;
-using SwedbankPay.Sdk.Payments.VippsPayments;
+using SwedbankPay.Sdk.Payments.InvoicePayments;
 using SwedbankPay.Sdk.Payments;
 using System.Collections.Generic;
 
-namespace Swedbankpay.Sdk.Payments.Invoice
+namespace Swedbankpay.Sdk.Payments.InvoicePayments
 {
     public class Operations : Dictionary<LinkRelation, HttpOperation>
     {
@@ -17,5 +17,7 @@ namespace Swedbankpay.Sdk.Payments.Invoice
         public Func<ReversalRequest, Task<ReversalResponse>> Reversal { get; internal set; }
         public HttpOperation Update { get; internal set; }
         public HttpOperation ViewAuthorization { get; internal set; }
+        public HttpOperation ApprovedLegalAddress { get; internal set; }
+
     }
 }
