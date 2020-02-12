@@ -6,25 +6,23 @@ namespace SwedbankPay.Sdk.Payments.MobilePayPayments
 {
     public class CaptureRequest
     {
-        public CaptureRequest(Amount amount, Amount vatAmount, List<OrderItem> orderItems, string description, string payeeReference)
+        public CaptureRequest(Amount amount, Amount vatAmount, string description, string payeeReference)
         {
-            Transaction = new PaymentOrders.CaptureRequest.CaptureTransaction(amount, vatAmount, orderItems, description, payeeReference);
+            Transaction = new CaptureTransaction(amount, vatAmount, description, payeeReference);
         }
 
 
-        public PaymentOrders.CaptureRequest.CaptureTransaction Transaction { get; }
+        public CaptureTransaction Transaction { get; }
 
         public class CaptureTransaction
         {
             protected internal CaptureTransaction(Amount amount,
                                                   Amount vatAmount,
-                                                  List<OrderItem> orderItems,
                                                   string description,
                                                   string payeeReference)
             {
                 Amount = amount;
                 VatAmount = vatAmount;
-                OrderItems = orderItems;
                 Description = description;
                 PayeeReference = payeeReference;
             }
@@ -32,7 +30,6 @@ namespace SwedbankPay.Sdk.Payments.MobilePayPayments
 
             public Amount Amount { get; }
             public string Description { get; }
-            public List<OrderItem> OrderItems { get; }
             public string PayeeReference { get; }
             public Amount VatAmount { get; }
         }
