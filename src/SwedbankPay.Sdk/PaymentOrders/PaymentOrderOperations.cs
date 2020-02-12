@@ -17,9 +17,8 @@ using SwedbankPay.Sdk.Payments;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class PaymentOrderOperations : Dictionary<LinkRelation, HttpOperation>
+    public class PaymentOrderOperations : OperationsBase
     {
-        public new HttpOperation this[LinkRelation rel] => ContainsKey(rel) ? base[rel] : null;
         public Func<Task<PaymentOrderResponse>> Abort { get; internal set; }
         public Func<PaymentOrderCancelRequest, Task<CancellationResponse>> Cancel { get; internal set; }
         public Func<PaymentOrderCaptureRequest, Task<CaptureResponse>> Capture { get; internal set; }
