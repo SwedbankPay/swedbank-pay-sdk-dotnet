@@ -61,6 +61,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
                         PaidPayment = httpOperation;
                         break;
                 }
+                this.Add(httpOperation.Rel, httpOperation);
             }
         }
 

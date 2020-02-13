@@ -37,6 +37,7 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
                         PaidPayment = httpOperation;
                         break;
                 }
+                this.Add(httpOperation.Rel, httpOperation);
             }
         }
 

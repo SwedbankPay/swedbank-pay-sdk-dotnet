@@ -4,15 +4,13 @@
     {
         public SwishPaymentSaleRequest(Msisdn msisdn)
         {
-            transaction = new SwishPaymentSaleTransaction(msisdn);
+            Transaction = new SwishPaymentSaleTransaction(msisdn);
         }
 
 
-        private SwishPaymentSaleTransaction transaction;
+        public SwishPaymentSaleTransaction Transaction;
 
-        public Msisdn Msisdn => this.transaction.Msisdn;
-
-        private class SwishPaymentSaleTransaction
+        public class SwishPaymentSaleTransaction
         {
             protected internal SwishPaymentSaleTransaction(Msisdn msisdn)
             {
