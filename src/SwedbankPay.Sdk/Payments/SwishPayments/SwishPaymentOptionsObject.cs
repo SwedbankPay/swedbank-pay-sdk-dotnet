@@ -1,8 +1,8 @@
 ﻿namespace SwedbankPay.Sdk.Payments.SwishPayments
 {
-    public class SwishRequest
+    public class SwishPaymentOptionsObject
     {
-        public SwishRequest(bool ecomOnlyEnabled = false)
+        public SwishPaymentOptionsObject(bool ecomOnlyEnabled = false)
         {
             EcomOnlyEnabled = ecomOnlyEnabled;
         }
