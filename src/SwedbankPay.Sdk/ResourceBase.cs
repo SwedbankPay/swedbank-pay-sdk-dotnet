@@ -11,7 +11,7 @@ namespace SwedbankPay.Sdk
 
         protected ResourceBase(HttpClient httpClient)
         {
-            this.httpClient = httpClient;
+            this.httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
         }
 
 
