@@ -1,8 +1,8 @@
 ﻿namespace SwedbankPay.Sdk.Payments.InvoicePayments
 {
-    public class CancelRequest
+    public class InvoicePaymentCancelRequest
     {
-        public CancelRequest(Operation transactionActivity, string payeeReference, string description)
+        public InvoicePaymentCancelRequest(Operation transactionActivity, string payeeReference, string description)
         {
             Transaction = new CancelTransaction(transactionActivity, payeeReference, description);
         }

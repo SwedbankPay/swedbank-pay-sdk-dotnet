@@ -7,14 +7,14 @@ using System.Collections.Generic;
 
 namespace Swedbankpay.Sdk.Payments.InvoicePayments
 {
-    public class Operations : Dictionary<LinkRelation, HttpOperation>
+    public class InvoicePaymentOperations : Dictionary<LinkRelation, HttpOperation>
     {
-        public Func<CancelRequest, Task<CancellationResponse>> Cancel { get; internal set; }
-        public Func<CaptureRequest, Task<CaptureResponse>> Capture { get; internal set; }
-        public Func<AuthorizationRequest, Task<AuthorizationResponse>> DirectAuthorization { get; internal set; }
+        public Func<InvoicePaymentCancelRequest, Task<CancellationResponse>> Cancel { get; internal set; }
+        public Func<InvoicePaymentCaptureRequest, Task<CaptureResponse>> Capture { get; internal set; }
+        public Func<InvoicePaymentAuthorizationRequest, Task<InvoicePaymentAuthorizationResponse>> DirectAuthorization { get; internal set; }
         public HttpOperation this[LinkRelation rel] => ContainsKey(rel) ? base[rel] : null;
         public HttpOperation RedirectAuthorization { get; internal set; }
-        public Func<ReversalRequest, Task<ReversalResponse>> Reversal { get; internal set; }
+        public Func<InvoicePaymentReversalRequest, Task<ReversalResponse>> Reversal { get; internal set; }
         public HttpOperation Update { get; internal set; }
         public HttpOperation ViewAuthorization { get; internal set; }
         public HttpOperation ApprovedLegalAddress { get; internal set; }

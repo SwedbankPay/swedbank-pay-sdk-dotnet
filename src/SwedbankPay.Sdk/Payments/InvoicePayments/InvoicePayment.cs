@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Payments.InvoicePayments
 {
-    public class Payment
+    public class InvoicePayment
     {
-        private Payment(PaymentResponse paymentResponse, SwedbankPayHttpClient client)
+        private InvoicePayment(InvoicePaymentResponse paymentResponse, SwedbankPayHttpClient client)
         {
             PaymentResponse = paymentResponse.Payment;
-            var operations = new Operations();
+            var operations = new InvoicePaymentOperations();
 
             foreach (var httpOperation in paymentResponse.Operations)
             {
@@ -56,30 +56,30 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
             Operations = operations;
         }
 
-        public Operations Operations { get; }
+        public InvoicePaymentOperations Operations { get; }
 
         public PaymentResponseObject PaymentResponse { get; }
 
 
-        internal static async Task<Payment> Create(PaymentRequest paymentRequest,
+        internal static async Task<InvoicePayment> Create(InvoicePaymentRequest paymentRequest,
                                                    SwedbankPayHttpClient client,
                                                    string paymentExpand)
         {
             var url = new Uri($"/psp/vipps/payments{paymentExpand}", UriKind.Relative);
 
-            var paymentResponse = await client.HttpPost<PaymentResponse>(url, paymentRequest);
-            return new Payment(paymentResponse, client);
+            var paymentResponse = await client.HttpPost<InvoicePaymentResponse>(url, paymentRequest);
+            return new InvoicePayment(paymentResponse, client);
         }
 
 
-        internal static async Task<Payment> Get(Uri id, SwedbankPayHttpClient client, string paymentExpand)
+        internal static async Task<InvoicePayment> Get(Uri id, SwedbankPayHttpClient client, string paymentExpand)
         {
             var url = !string.IsNullOrWhiteSpace(paymentExpand)
                 ? new Uri(id.OriginalString + paymentExpand, UriKind.RelativeOrAbsolute)
                 : id;
 
-            var paymentResponseContainer = await client.HttpGet<PaymentResponse>(url);
-            return new Payment(paymentResponseContainer, client);
+            var paymentResponseContainer = await client.HttpGet<InvoicePaymentResponse>(url);
+            return new InvoicePayment(paymentResponseContainer, client);
         }
     }
 }

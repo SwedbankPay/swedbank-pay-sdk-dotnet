@@ -6,9 +6,9 @@ using SwedbankPay.Sdk.Payments;
 
 namespace SwedbankPay.Sdk.Payments.InvoicePayments
 {
-    public class PaymentRequest
+    public class InvoicePaymentRequest
     {
-        public PaymentRequest(Operation operation,
+        public InvoicePaymentRequest(Operation operation,
                               Intent intent,
                               CurrencyCode currency,
                               List<Price> prices,

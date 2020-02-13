@@ -1,8 +1,8 @@
 ﻿namespace SwedbankPay.Sdk.Payments.InvoicePayments
 {
-    public class AuthorizationRequest
+    public class InvoicePaymentAuthorizationRequest
     {
-        public AuthorizationRequest(Operation transactionActivity,
+        public InvoicePaymentAuthorizationRequest(Operation transactionActivity,
                                     int socialSecurityNumber,
                                     string ip,
                                     string addressee,

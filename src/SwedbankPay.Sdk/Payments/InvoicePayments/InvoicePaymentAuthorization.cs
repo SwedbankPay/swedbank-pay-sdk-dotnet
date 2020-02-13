@@ -2,9 +2,9 @@
 
 namespace SwedbankPay.Sdk.Payments.InvoicePayments
 {
-    public class Authorization : IdLink
+    public class InvoicePaymentAuthorization : IdLink
     {
-        public Authorization(
+        public InvoicePaymentAuthorization(
                              AuthorizationTransaction transaction)
         {
             Transaction = transaction;

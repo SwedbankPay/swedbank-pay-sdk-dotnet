@@ -1,8 +1,8 @@
 ﻿namespace SwedbankPay.Sdk.Payments.InvoicePayments
 {
-    public class ReversalRequest
+    public class InvoicePaymentReversalRequest
     {
-        public ReversalRequest(Operation activity, Amount amount, Amount vatAmount, string description, string payeeReference)
+        public InvoicePaymentReversalRequest(Operation activity, Amount amount, Amount vatAmount, string description, string payeeReference)
         {
             Transaction = new ReversalTransaction(activity, amount, vatAmount, description, payeeReference);
         }

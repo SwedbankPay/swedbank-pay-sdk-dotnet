@@ -4,9 +4,9 @@ using SwedbankPay.Sdk.PaymentOrders;
 
 namespace SwedbankPay.Sdk.Payments.InvoicePayments
 {
-    public class CaptureRequest
+    public class InvoicePaymentCaptureRequest
     {
-        public CaptureRequest(Operation transactionActivity, 
+        public InvoicePaymentCaptureRequest(Operation transactionActivity, 
                               Amount amount, 
                               Amount vatAmount, 
                               List<OrderItem> orderItems, 
