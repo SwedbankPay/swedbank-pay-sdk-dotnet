@@ -36,25 +36,25 @@ namespace SwedbankPay.Sdk.Extensions
                 httpRequestMessage.Content = new StringContent(content, Encoding.UTF8, "application/json");
             }
 
-            var httpResponse = await httpClient.SendAsync(httpRequestMessage);
+            using var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage);
 
             string httpResponseBody;
             try
             {
-                httpResponseBody = await httpResponse.Content.ReadAsStringAsync();
-                if (!httpResponse.IsSuccessStatusCode)
+                httpResponseBody = await httpResponseMessage.Content.ReadAsStringAsync();
+                if (!httpResponseMessage.IsSuccessStatusCode)
                     throw new HttpResponseException(
-                        httpResponse,
+                        httpResponseMessage,
                         JsonConvert.DeserializeObject<ProblemResponse>(httpResponseBody),
-                        BuildErrorMessage(httpResponseBody, httpRequestMessage, httpResponse));
+                        BuildErrorMessage(httpResponseBody, httpRequestMessage, httpResponseMessage));
                 return JsonConvert.DeserializeObject<T>(httpResponseBody, JsonSerialization.JsonSerialization.Settings);
             }
             catch (HttpResponseException ex)
             {
-                httpResponseBody = await httpResponse.Content.ReadAsStringAsync();
+                httpResponseBody = await httpResponseMessage.Content.ReadAsStringAsync();
                 throw new HttpResponseException(
-                    httpResponse,
-                    message: BuildErrorMessage(httpResponseBody, httpRequestMessage, httpResponse),
+                    httpResponseMessage,
+                    message: BuildErrorMessage(httpResponseBody, httpRequestMessage, httpResponseMessage),
                     innerException: ex);
             }
         }
