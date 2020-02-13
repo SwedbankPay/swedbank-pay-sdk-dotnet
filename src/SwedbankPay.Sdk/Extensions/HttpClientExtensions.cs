@@ -28,7 +28,7 @@ namespace SwedbankPay.Sdk.Extensions
         internal static async Task<T> SendAndProcessAsync<T>(this HttpClient httpClient, HttpMethod httpMethod, Uri uri, object payload)
             where T : class
         {
-            var httpRequestMessage = new HttpRequestMessage(httpMethod, uri);
+            using var httpRequestMessage = new HttpRequestMessage(httpMethod, uri);
 
             if (payload != null)
             {
