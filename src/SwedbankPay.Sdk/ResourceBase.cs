@@ -6,7 +6,7 @@ namespace SwedbankPay.Sdk
 {
     public abstract class ResourceBase
     {
-        internal HttpClient httpClient;
+        protected HttpClient httpClient;
 
 
         protected ResourceBase(HttpClient httpClient)
