@@ -26,13 +26,7 @@ namespace SwedbankPay.Sdk
         public void Add(KeyValuePair<LinkRelation, HttpOperation> item) => this.internalDictionary[item.Key] = item.Value;
         public void Clear() => this.internalDictionary.Clear();
         public bool Contains(KeyValuePair<LinkRelation, HttpOperation> item) => this.internalDictionary.ContainsKey(item.Key) && this.internalDictionary[item.Key].Equals(item.Value);
-        public void CopyTo(KeyValuePair<LinkRelation, HttpOperation>[] array, int arrayIndex)
-        {
-            foreach (var item in array)
-            {
-                this.internalDictionary.Add(item.Key, item.Value);
-            }
-        }
+        public void CopyTo(KeyValuePair<LinkRelation, HttpOperation>[] array, int arrayIndex) => ((IDictionary)this.internalDictionary).CopyTo(array, arrayIndex);
         public bool Remove(KeyValuePair<LinkRelation, HttpOperation> item) => this.internalDictionary.Remove(item.Key);
         IEnumerator<KeyValuePair<LinkRelation, HttpOperation>> IEnumerable<KeyValuePair<LinkRelation, HttpOperation>>.GetEnumerator() => this.internalDictionary.GetEnumerator();
         public HttpOperation this[LinkRelation rel] => ContainsKey(rel) ? this.internalDictionary[rel] : null;
