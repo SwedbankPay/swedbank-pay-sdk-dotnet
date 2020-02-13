@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Payments.MobilePayPayments
 {
-    public class MobilePayPayment
+    public class Payment
     {
-        private MobilePayPayment(MobilePayPaymentResponse paymentResponse, SwedbankPayHttpClient client)
+        private Payment(PaymentResponse paymentResponse, SwedbankPayHttpClient client)
         {
             PaymentResponse = paymentResponse.Payment;
-            var operations = new MobilePayOperations();
+            var operations = new Operations();
 
             foreach (var httpOperation in paymentResponse.Operations)
             {
@@ -52,30 +52,30 @@ namespace SwedbankPay.Sdk.Payments.MobilePayPayments
             Operations = operations;
         }
 
-        public MobilePayOperations Operations { get; }
+        public Operations Operations { get; }
 
         public PaymentResponseObject PaymentResponse { get; }
 
 
-        internal static async Task<MobilePayPayment> Create(MobilePayPaymentRequest paymentRequest,
+        internal static async Task<Payment> Create(PaymentRequest paymentRequest,
                                                    SwedbankPayHttpClient client,
                                                    string paymentExpand)
         {
             var url = new Uri($"/psp/mobilepay/payments{paymentExpand}", UriKind.Relative);
 
-            var paymentResponse = await client.HttpPost<MobilePayPaymentResponse>(url, paymentRequest);
-            return new MobilePayPayment(paymentResponse, client);
+            var paymentResponse = await client.HttpPost<PaymentResponse>(url, paymentRequest);
+            return new Payment(paymentResponse, client);
         }
 
 
-        internal static async Task<MobilePayPayment> Get(Uri id, SwedbankPayHttpClient client, string paymentExpand)
+        internal static async Task<Payment> Get(Uri id, SwedbankPayHttpClient client, string paymentExpand)
         {
             var url = !string.IsNullOrWhiteSpace(paymentExpand)
                 ? new Uri(id.OriginalString + paymentExpand, UriKind.RelativeOrAbsolute)
                 : id;
 
-            var paymentResponseContainer = await client.HttpGet<MobilePayPaymentResponse>(url);
-            return new MobilePayPayment(paymentResponseContainer, client);
+            var paymentResponseContainer = await client.HttpGet<PaymentResponse>(url);
+            return new Payment(paymentResponseContainer, client);
         }
     }
 }

@@ -4,22 +4,17 @@ using SwedbankPay.Sdk.PaymentOrders;
 
 namespace SwedbankPay.Sdk.Payments.MobilePayPayments
 {
-    public class MobilePayCaptureRequest
+    public class CaptureRequest
     {
-        public MobilePayCaptureRequest(Amount amount, Amount vatAmount, string description, string payeeReference)
+        public CaptureRequest(Amount amount, Amount vatAmount, string description, string payeeReference)
         {
-            transaction = new CaptureTransaction(amount, vatAmount, description, payeeReference);
+            Transaction = new CaptureTransaction(amount, vatAmount, description, payeeReference);
         }
 
 
-        private CaptureTransaction transaction;
+        public CaptureTransaction Transaction { get; }
 
-        public Amount Amount => this.transaction.Amount;
-        public Amount VatAmount => this.transaction.VatAmount;
-        public string Description => this.transaction.Description;
-        public string PayeeReference => this.transaction.PayeeReference;
-
-        private class CaptureTransaction
+        public class CaptureTransaction
         {
             protected internal CaptureTransaction(Amount amount,
                                                   Amount vatAmount,
@@ -34,9 +29,9 @@ namespace SwedbankPay.Sdk.Payments.MobilePayPayments
 
 
             public Amount Amount { get; }
-            public Amount VatAmount { get; }
             public string Description { get; }
             public string PayeeReference { get; }
+            public Amount VatAmount { get; }
         }
     }
 }
