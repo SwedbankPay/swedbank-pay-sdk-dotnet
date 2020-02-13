@@ -22,7 +22,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
     {
         public PaymentResponseObject(Uri id,
                                string number,
-                               Instrument instrument,
+                               PaymentInstrument instrument,
                                DateTime created,
                                DateTime updated,
                                State state,
@@ -90,7 +90,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
         public CurrencyCode Currency { get; }
         public string Description { get; }
         public Uri Id { get; }
-        public Instrument Instrument { get; }
+        public PaymentInstrument Instrument { get; }
         public Intent Intent { get; }
         public CultureInfo Language { get; }
         public string Number { get; }

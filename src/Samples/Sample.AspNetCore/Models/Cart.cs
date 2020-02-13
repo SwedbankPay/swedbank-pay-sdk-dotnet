@@ -13,7 +13,7 @@ namespace Sample.AspNetCore.Models
         public string PaymentOrderLink { get; set; }
         public string PaymentLink { get; set; }
         public bool Vat { get; set; }
-        public Instrument Instrument { get; set; }
+        public PaymentInstrument Instrument { get; set; }
 
 
         public virtual void AddItem(Product product, int quantity)

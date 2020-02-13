@@ -103,7 +103,7 @@ namespace Sample.AspNetCore.Controllers
 
                 var cardPayment = await this.swedbankPayClient.Payments.CardPayments.Create(cardRequest);
                 this.cartService.PaymentLink = cardPayment.PaymentResponse.Id.OriginalString;
-                this.cartService.Instrument = Instrument.CreditCard;
+                this.cartService.Instrument = PaymentInstrument.CreditCard;
                 this.cartService.PaymentOrderLink = null;
                 this.cartService.Update();
                 return cardPayment;
@@ -135,7 +135,7 @@ namespace Sample.AspNetCore.Controllers
                                                                                                    this.payeeInfoOptions.PayeeReference), new PrefillInfo(new Msisdn("+46739000001")));
                 var swishPayment = await this.swedbankPayClient.Payments.SwishPayments.Create(swishRequest);
                 this.cartService.PaymentLink = swishPayment.PaymentResponse.Id.OriginalString;
-                this.cartService.Instrument = Instrument.Swish;
+                this.cartService.Instrument = PaymentInstrument.Swish;
                 this.cartService.PaymentOrderLink = null;
                 this.cartService.Update();
 
@@ -233,15 +233,15 @@ namespace Sample.AspNetCore.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> GetPaymentJsSource(Instrument instrument)
+        public async Task<JsonResult> GetPaymentJsSource(PaymentInstrument instrument)
         {
             switch (instrument)
             {
-                case Instrument.CreditCard:
+                case PaymentInstrument.CreditCard:
                     var cardPayment = await CreateCardPayment();
                     return new JsonResult(cardPayment.Operations.ViewAuthorization.Href);
                     
-                case Instrument.Swish:
+                case PaymentInstrument.Swish:
                     var swishPayment = await CreateSwishPayment();
                     return new JsonResult(swishPayment.Operations.ViewSales.Href);
                 default :

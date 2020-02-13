@@ -4,7 +4,7 @@
     ///     Payment Instrument
     /// </summary>
 
-    public enum Instrument
+    public enum PaymentInstrument
     {
         Invoice,
         MobilePay,
