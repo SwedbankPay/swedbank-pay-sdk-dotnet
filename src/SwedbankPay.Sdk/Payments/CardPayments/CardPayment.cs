@@ -10,64 +10,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
         private CardPayment(CardPaymentResponse paymentResponse, HttpClient client)
         {
             PaymentResponse = paymentResponse.Payment;
-            var operations = new CardPaymentOperations();
-
-            foreach (var httpOperation in paymentResponse.Operations)
-            {
-                operations.Add(httpOperation.Rel, httpOperation);
-
-                switch (httpOperation.Rel.Value)
-                {
-                    case PaymentResourceOperations.UpdatePaymentAbort:
-                        operations.Update = httpOperation;
-                        break;
-
-                    case PaymentResourceOperations.RedirectAuthorization:
-                        operations.RedirectAuthorization = httpOperation;
-                        break;
-
-                    case PaymentResourceOperations.ViewAuthorization:
-                        operations.ViewAuthorization = httpOperation;
-                        break;
-
-                    case PaymentResourceOperations.DirectAuthorization:
-                        operations.DirectAuthorization = async payload =>
-                            await client.SendAsJsonAsync<CardPaymentAuthorizationResponse>(httpOperation.Method, httpOperation.Href, payload);
-                        break;
-
-                    case PaymentResourceOperations.CreateCapture:
-                        operations.Capture = async payload =>
-                            await client.SendAsJsonAsync<CaptureResponse>(httpOperation.Method, httpOperation.Href,payload);
-                        break;
-
-                    case PaymentResourceOperations.CreateCancellation:
-                        operations.Cancel = async payload =>
-                            await client.SendAsJsonAsync<CancellationResponse>(httpOperation.Method, httpOperation.Href, payload);
-                        break;
-
-                    case PaymentResourceOperations.CreateReversal:
-                        operations.Reverse = async payload =>
-                            await client.SendAsJsonAsync<ReversalResponse>(httpOperation.Method, httpOperation.Href, payload);
-                        break;
-
-                    case PaymentResourceOperations.RedirectVerification:
-                        operations.RedirectVerification = httpOperation;
-                        break;
-
-                    case PaymentResourceOperations.ViewVerification:
-                        operations.ViewVerification = httpOperation;
-                        break;
-
-                    case PaymentResourceOperations.DirectVerification:
-                        operations.DirectVerification = httpOperation;
-                        break;
-
-                    case PaymentResourceOperations.PaidPayment:
-                        operations.PaidPayment = httpOperation;
-                        break;
-                }
-            }
-
+            var operations = new CardPaymentOperations(paymentResponse.Operations, client);
             Operations = operations;
         }
 

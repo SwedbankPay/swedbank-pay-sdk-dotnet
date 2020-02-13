@@ -1,14 +1,73 @@
-﻿using System;
+﻿using SwedbankPay.Sdk.Extensions;
+using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Payments.CardPayments
 {
     public class CardPaymentOperations : OperationsBase
     {
-        public Func<CardPaymentCancelRequest, Task<CancellationResponse>> Cancel { get; internal set; }
-        public Func<CardPaymentCaptureRequest, Task<CaptureResponse>> Capture { get; internal set; }
-        public Func<CardPaymentAuthorizationRequest, Task<CardPaymentAuthorizationResponse>> DirectAuthorization { get; internal set; }
-        public Func<CardPaymentReversalRequest, Task<ReversalResponse>> Reverse { get; internal set; }
+        public CardPaymentOperations(OperationList operations, HttpClient client)
+        {
+            foreach (var httpOperation in operations)
+            {
+                switch (httpOperation.Rel.Value)
+                {
+                    case PaymentResourceOperations.UpdatePaymentAbort:
+                        Update = httpOperation;
+                        break;
+
+                    case PaymentResourceOperations.RedirectAuthorization:
+                        RedirectAuthorization = httpOperation;
+                        break;
+
+                    case PaymentResourceOperations.ViewAuthorization:
+                        ViewAuthorization = httpOperation;
+                        break;
+
+                    case PaymentResourceOperations.DirectAuthorization:
+                        DirectAuthorization = async payload =>
+                            await client.SendAsJsonAsync<CardPaymentAuthorizationResponse>(httpOperation.Method, httpOperation.Href, payload);
+                        break;
+
+                    case PaymentResourceOperations.CreateCapture:
+                        Capture = async payload =>
+                            await client.SendAsJsonAsync<CaptureResponse>(httpOperation.Method, httpOperation.Href, payload);
+                        break;
+
+                    case PaymentResourceOperations.CreateCancellation:
+                        Cancel = async payload =>
+                            await client.SendAsJsonAsync<CancellationResponse>(httpOperation.Method, httpOperation.Href, payload);
+                        break;
+
+                    case PaymentResourceOperations.CreateReversal:
+                        Reverse = async payload =>
+                            await client.SendAsJsonAsync<ReversalResponse>(httpOperation.Method, httpOperation.Href, payload);
+                        break;
+
+                    case PaymentResourceOperations.RedirectVerification:
+                        RedirectVerification = httpOperation;
+                        break;
+
+                    case PaymentResourceOperations.ViewVerification:
+                        ViewVerification = httpOperation;
+                        break;
+
+                    case PaymentResourceOperations.DirectVerification:
+                        DirectVerification = httpOperation;
+                        break;
+
+                    case PaymentResourceOperations.PaidPayment:
+                        PaidPayment = httpOperation;
+                        break;
+                }
+            }
+        }
+
+        public Func<CardPaymentCancelRequest, Task<CancellationResponse>> Cancel { get; }
+        public Func<CardPaymentCaptureRequest, Task<CaptureResponse>> Capture { get; }
+        public Func<CardPaymentAuthorizationRequest, Task<CardPaymentAuthorizationResponse>> DirectAuthorization { get; }
+        public Func<CardPaymentReversalRequest, Task<ReversalResponse>> Reverse { get; }
         public HttpOperation DirectVerification { get; internal set; }
         public HttpOperation PaidPayment { get; internal set; }
         public HttpOperation RedirectAuthorization { get; internal set; }

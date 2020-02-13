@@ -12,37 +12,8 @@ namespace SwedbankPay.Sdk.PaymentOrders
                              HttpClient client)
         {
             PaymentOrderResponse = paymentOrderResponse.PaymentOrderResponseObject;
-            var operations = new PaymentOrderOperations();
-
-            
-            foreach (var httpOperation in paymentOrderResponse.Operations)
-            {
-                operations.Add(httpOperation.Rel, httpOperation);
-
-                switch (httpOperation.Rel.Value)
-                {
-                    case PaymentOrderResourceOperations.CreatePaymentOrderCapture:
-                        operations.Capture = async payload => await client.SendAsJsonAsync<CaptureResponse>(httpOperation.Method, httpOperation.Href, payload);
-                        break;
-                    case PaymentOrderResourceOperations.CreatePaymentOrderCancel:
-                        operations.Cancel = async payload => await client.SendAsJsonAsync<CancellationResponse>(httpOperation.Method, httpOperation.Href, payload);
-                        break;
-                    case PaymentOrderResourceOperations.CreatePaymentOrderReversal:
-                        operations.Reverse = async payload => await client.SendAsJsonAsync<ReversalResponse>(httpOperation.Method, httpOperation.Href, payload);
-                        break;
-                    case PaymentOrderResourceOperations.UpdatePaymentOrderUpdateOrder:
-                        operations.Update = async payload => await client.SendAsJsonAsync<PaymentOrderResponse>(httpOperation.Method, httpOperation.Href, payload);
-                        break;
-                    case PaymentOrderResourceOperations.UpdatePaymentOrderAbort:
-                        operations.Abort = async () => await client.SendAsJsonAsync<PaymentOrderResponse>(httpOperation.Method, httpOperation.Href, new PaymentOrderAbortRequest());
-                        break;
-                    case PaymentOrderResourceOperations.ViewPaymentOrder:
-                        operations.View = httpOperation;
-                        break;
-                }
-
-                Operations = operations;
-            }
+            var operations = new PaymentOrderOperations(paymentOrderResponse.Operations, client);
+            Operations = operations;
         }
 
 
