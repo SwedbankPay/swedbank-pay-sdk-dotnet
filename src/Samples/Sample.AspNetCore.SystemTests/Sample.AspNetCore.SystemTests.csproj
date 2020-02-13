@@ -118,6 +118,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="PageObjectModels\Base\ControlDefinitionAutomation.cs" />
     <Compile Include="PageObjectModels\Base\FindByAutomationAttribute.cs" />
     <Compile Include="PageObjectModels\Base\HomePage.cs" />
