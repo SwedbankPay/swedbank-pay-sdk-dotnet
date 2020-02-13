@@ -10,40 +10,7 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
         private SwishPayment(SwishPaymentPaymentResponse paymentResponse, HttpClient client)
         {
             PaymentResponse = paymentResponse.Payment;
-            var operations = new SwishPaymentOperations();
-
-            foreach (var httpOperation in paymentResponse.Operations)
-            {
-                operations.Add(httpOperation.Rel, httpOperation);
-
-                switch (httpOperation.Rel.Value)
-                {
-                    case PaymentResourceOperations.UpdatePaymentAbort:
-                        operations.Abort = async () =>
-                            await client.SendAsJsonAsync<SwishPaymentPaymentResponse>(httpOperation.Method, httpOperation.Href, new PaymentAbortRequest());
-                        break;
-
-                    case PaymentResourceOperations.CreateSale:
-                        operations.Sale = async payload =>
-                            await client.SendAsJsonAsync<SwishPaymentSaleResponse>(httpOperation.Method, httpOperation.Href, payload);
-                        break;
-                    case PaymentResourceOperations.RedirectSale:
-                        operations.RedirectSale = httpOperation;
-                        break;
-
-                    case PaymentResourceOperations.ViewSales:
-                        operations.ViewSales = httpOperation;
-                        break;
-                    case PaymentResourceOperations.CreateReversal:
-                        operations.Reverse = async payload =>
-                            await client.SendAsJsonAsync<ReversalResponse>(httpOperation.Method, httpOperation.Href, payload);
-                        break;
-                    case PaymentResourceOperations.PaidPayment:
-                        operations.PaidPayment = httpOperation;
-                        break;
-                }
-            }
-
+            var operations = new SwishPaymentOperations(paymentResponse.Operations, client);
             Operations = operations;
         }
 
