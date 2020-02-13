@@ -6,18 +6,18 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
 {
     public class MemoryFileInfo : IFileInfo
     {
-        private readonly byte[] _content;
+        private readonly byte[] content;
 
         public MemoryFileInfo(string name, byte[] content, DateTimeOffset timestamp)
         {
             Name = name;
-            this._content = content;
+            this.content = content;
             LastModified = timestamp;
         }
 
         public bool Exists => true;
 
-        long IFileInfo.Length => this._content.LongLength;
+        long IFileInfo.Length => this.content.LongLength;
 
         public string PhysicalPath => null;
 
@@ -29,7 +29,7 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
 
         public Stream CreateReadStream()
         {
-            return new MemoryStream(this._content);
+            return new MemoryStream(this.content);
         }
     }
 }
