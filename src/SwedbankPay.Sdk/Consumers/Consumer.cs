@@ -12,24 +12,8 @@ namespace SwedbankPay.Sdk.Consumers
         private Consumer(ConsumersResponse consumersResponse)
         {
             ConsumersResponse = consumersResponse;
-            var operations = new ConsumerOperations();
-
-            foreach (var httpOperation in consumersResponse.Operations)
-            {
-                operations.Add(httpOperation.Rel, httpOperation);
-
-                switch (httpOperation.Rel.Value)
-                {
-                    case ConsumerResourceOperations.RedirectConsumerIdentification:
-                        operations.RedirectConsumerIdentification = httpOperation;
-                        break;
-                    case ConsumerResourceOperations.ViewConsumerIdentification:
-                        operations.ViewConsumerIdentification = httpOperation;
-                        break;
-                }
-
-                Operations = operations;
-            }
+            var operations = new ConsumerOperations(consumersResponse.Operations);
+            Operations = operations;
         }
 
 
