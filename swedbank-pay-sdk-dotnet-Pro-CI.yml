@@ -25,14 +25,13 @@ variables:
 steps:
 
 - task: PowerShell@2
-  env: 
-    API_TOKEN: $(SwedbankPayConnectionSettings.Token)
   displayName: Setting up Swedbank connection setting token
   inputs:
     targetType: 'inline'
     script: |
       # Write your PowerShell commands here.
-      $Token = "$(API_TOKEN)"
+
+      $Token = "$env:SWEDBANKPAYCONNECTIONSETTINGS_TOKEN"
       [System.Environment]::SetEnvironmentVariable("SwedbankPayConnectionSettings.Token", $Token, "User")
       
 
