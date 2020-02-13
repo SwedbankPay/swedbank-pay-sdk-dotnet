@@ -14,14 +14,15 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
                               Urls urls,
                               PayeeInfo payeeInfo,
                               PrefillInfo prefillInfo,
-                              SwishRequest swishRequest,
+                              bool isEnabledForEcommerceOnly = false,
                               Dictionary<string, object> metaData = null)
         {
-            Payment = new SwishPaymentPaymentRequestObject(currency, prices, description, payerReference, userAgent, language, urls, payeeInfo,
+            var swishRequest = new SwishPaymentOptionsObject(isEnabledForEcommerceOnly);
+            Payment = new SwishPaymentRequestObject(currency, prices, description, payerReference, userAgent, language, urls, payeeInfo,
                                                prefillInfo, swishRequest, metaData);
         }
 
 
-        public SwishPaymentPaymentRequestObject Payment { get; }
+        public SwishPaymentRequestObject Payment { get; }
     }
 }

@@ -21,7 +21,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private Amount amount;
         private Amount vatAmount;
         private string payerReference;
-        private SwishRequest swish;
+        private SwishPaymentOptionsObject swish;
         private List<Price> price;
         private Dictionary<string, object> metaData;
 
@@ -52,8 +52,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
                                       this.urls,
                                       this.payeeInfo,
                                       this.prefillInfo,
-                                      this.swish,
-                                      this.metaData
+                                      metaData: this.metaData
             );
         }
 
@@ -97,7 +96,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.generatePaymentToken = false;
             this.amount = Amount.FromDecimal(1600);
             this.vatAmount = Amount.FromDecimal(0);
-            this.swish = new SwishRequest();
+            this.swish = new SwishPaymentOptionsObject();
             this.metaData = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
 
             this.price = new List<Price>

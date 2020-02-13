@@ -131,7 +131,7 @@ namespace Sample.AspNetCore.Controllers
                                                                                               this.urls.TermsOfServiceUrl, this.urls.CancelUrl,
                                                                                               this.urls.PaymentUrl, this.urls.CallbackUrl, this.urls.LogoUrl),
                                                                                      new PayeeInfo(this.payeeInfoOptions.PayeeId,
-                                                                                                   this.payeeInfoOptions.PayeeReference), new PrefillInfo(new Msisdn("+46739000001")), new SwishRequest());
+                                                                                                   this.payeeInfoOptions.PayeeReference), new PrefillInfo(new Msisdn("+46739000001")));
                 SwishPayment swishPayment = await this.swedbankPayClient.Payments.SwishPayments.Create(swishRequest);
                 this.cartService.PaymentLink = swishPayment.PaymentResponse.Id.OriginalString;
                 this.cartService.Instrument = Instrument.Swish;
