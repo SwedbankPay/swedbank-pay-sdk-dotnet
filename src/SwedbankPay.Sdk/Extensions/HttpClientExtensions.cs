@@ -38,9 +38,10 @@ namespace SwedbankPay.Sdk.Extensions
 
             var httpResponse = await httpClient.SendAsync(httpRequestMessage);
 
+            string httpResponseBody;
             try
             {
-                var httpResponseBody = await httpResponse.Content.ReadAsStringAsync();
+                httpResponseBody = await httpResponse.Content.ReadAsStringAsync();
                 if (!httpResponse.IsSuccessStatusCode)
                     throw new HttpResponseException(
                         httpResponse,
@@ -50,7 +51,7 @@ namespace SwedbankPay.Sdk.Extensions
             }
             catch (HttpResponseException ex)
             {
-                var httpResponseBody = await httpResponse.Content.ReadAsStringAsync();
+                httpResponseBody = await httpResponse.Content.ReadAsStringAsync();
                 throw new HttpResponseException(
                     httpResponse,
                     message: BuildErrorMessage(httpResponseBody, httpRequestMessage, httpResponse),
