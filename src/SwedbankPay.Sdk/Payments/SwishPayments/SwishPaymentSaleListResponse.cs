@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.Payments.SwishPayments
 {
-    public class SwishPaymentSaleListResponse : IdLink
+    public class SaleListResponse : IdLink
     {
-        public SwishPaymentSaleListResponse(Uri id, List<SaleListItem> saleList)
+        public SaleListResponse(Uri id, List<SaleListItem> saleList)
         {
             Id = id;
             SaleList = saleList;

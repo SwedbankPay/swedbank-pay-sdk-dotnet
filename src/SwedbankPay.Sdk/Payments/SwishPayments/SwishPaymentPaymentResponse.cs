@@ -38,7 +38,7 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
                                string userAgent,
                                CultureInfo language,
                                TransactionListResponse transactions,
-                               SwishPaymentSaleListResponse sales,
+                               SaleListResponse sales,
                                ReversalsListResponse reversals,
                                Urls urls,
                                PayeeInfo payeeInfo,
@@ -87,7 +87,7 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
         public string UserAgent { get; }
         public CultureInfo Language { get; }
         public TransactionListResponse Transactions { get; }
-        public SwishPaymentSaleListResponse Sales { get; }
+        public SaleListResponse Sales { get; }
         public ReversalsListResponse Reversals { get; }
         public Urls Urls { get; }
         public PayeeInfo PayeeInfo { get; }
