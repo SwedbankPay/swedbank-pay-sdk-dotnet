@@ -77,20 +77,6 @@ namespace SwedbankPay.Sdk.Extensions
             return httpClient.SendAndProcessAsync<T>(HttpMethod.Post, uri, payload);
         }
 
-
-        public static Task<T> PutAsJsonAsync<T>(this HttpClient httpClient, Uri uri, object payload)
-            where T : class
-        {
-            return httpClient.SendAndProcessAsync<T>(HttpMethod.Put, uri, payload);
-        }
-
-
-        public static Task<T> PatchAsJsonAsync<T>(this HttpClient httpClient, Uri uri, object payload)
-            where T : class
-        {
-            return httpClient.SendAndProcessAsync<T>(new HttpMethod("PATCH"), uri, payload);
-        }
-
         public static Task<T> SendAsJsonAsync<T>(this HttpClient httpClient, HttpMethod httpMethod, Uri uri, object payload = null)
             where T: class
         {
