@@ -7,13 +7,13 @@ using System.Collections.Generic;
 
 namespace swedbankpay.sdk.Payments.MobilePayPayments
 {
-    public class Operations : Dictionary<LinkRelation, HttpOperation>
+    public class MobilePayPaymentOperations : Dictionary<LinkRelation, HttpOperation>
     {
-        public Func<CancelRequest, Task<CancellationResponse>> Cancel { get; internal set; }
-        public Func<CaptureRequest, Task<CaptureResponse>> Capture { get; internal set; }
+        public Func<MobilePayPaymentCancelRequest, Task<CancellationResponse>> Cancel { get; internal set; }
+        public Func<MobilePayPaymentCaptureRequest, Task<CaptureResponse>> Capture { get; internal set; }
         public HttpOperation this[LinkRelation rel] => ContainsKey(rel) ? base[rel] : null;
         public HttpOperation RedirectAuthorization { get; internal set; }
-        public Func<ReversalRequest, Task<ReversalResponse>> Reversal { get; internal set; }
+        public Func<MobilePayPaymentReversalRequest, Task<ReversalResponse>> Reversal { get; internal set; }
         public HttpOperation Update { get; internal set; }
         public HttpOperation ViewAuthorization { get; internal set; }
     }

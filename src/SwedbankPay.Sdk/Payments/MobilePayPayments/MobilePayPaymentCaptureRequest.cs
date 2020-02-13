@@ -4,9 +4,9 @@ using SwedbankPay.Sdk.PaymentOrders;
 
 namespace SwedbankPay.Sdk.Payments.MobilePayPayments
 {
-    public class CaptureRequest
+    public class MobilePayPaymentCaptureRequest
     {
-        public CaptureRequest(Amount amount, Amount vatAmount, string description, string payeeReference)
+        public MobilePayPaymentCaptureRequest(Amount amount, Amount vatAmount, string description, string payeeReference)
         {
             Transaction = new CaptureTransaction(amount, vatAmount, description, payeeReference);
         }

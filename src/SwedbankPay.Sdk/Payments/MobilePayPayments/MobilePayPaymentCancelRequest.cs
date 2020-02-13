@@ -1,8 +1,8 @@
 ﻿namespace SwedbankPay.Sdk.Payments.MobilePayPayments
 {
-    public class CancelRequest
+    public class MobilePayPaymentCancelRequest
     {
-        public CancelRequest(string payeeReference, string description)
+        public MobilePayPaymentCancelRequest(string payeeReference, string description)
         {
             Transaction = new CancelTransaction(payeeReference, description);
         }

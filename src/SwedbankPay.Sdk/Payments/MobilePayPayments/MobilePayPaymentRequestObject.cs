@@ -5,9 +5,9 @@ using Newtonsoft.Json;
 
 namespace SwedbankPay.Sdk
 {
-    public class MobilePayRequestObject
+    public class MobilePayPaymentRequestObject
     {
-        public MobilePayRequestObject(Uri shoplogoUrl)
+        public MobilePayPaymentRequestObject(Uri shoplogoUrl)
         {
             ShoplogoUrl = shoplogoUrl;
         }
