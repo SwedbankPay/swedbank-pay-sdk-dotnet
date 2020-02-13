@@ -6,9 +6,9 @@ using SwedbankPay.Sdk.PaymentOrders;
 
 namespace SwedbankPay.Sdk.Payments.MobilePayPayments
 {
-    public class PaymentRequest
+    public class MobilePayPaymentRequest
     {
-        public PaymentRequest(Operation operation,
+        public MobilePayPaymentRequest(Operation operation,
                               Intent intent,
                               CurrencyCode currency,
                               List<Price> prices,
@@ -17,23 +17,41 @@ namespace SwedbankPay.Sdk.Payments.MobilePayPayments
                               CultureInfo language,
                               Urls urls,
                               PayeeInfo payeeInfo,
+                              Uri shopLogoUrl = null,
                               bool generatePaymentToken = false,
                               bool generateReccurenceToken = false,
                               string payerReference = null,
                               Dictionary<string, object> metaData = null,
                               string paymentToken = null,
-                              PrefillInfo prefillInfo = null,
-                              MobilePayRequestObject mobilePay = null)
+                              PrefillInfo prefillInfo = null)
 
         {
-            Payment = new PaymentRequestObject(operation, intent, currency, prices, description, payerReference, generatePaymentToken,
-                                               generateReccurenceToken, userAgent, language, urls, payeeInfo, metaData, paymentToken, prefillInfo, mobilePay);
+            var requestObject = new MobilePayRequestObject(shopLogoUrl);
+            payment = new PaymentRequestObject(operation, intent, currency, prices, description, payerReference, generatePaymentToken,
+                                               generateReccurenceToken, userAgent, language, urls, payeeInfo, metaData, paymentToken, prefillInfo, requestObject);
         }
 
 
-        public PaymentRequestObject Payment { get; }
+        private PaymentRequestObject payment;
 
-        public class PaymentRequestObject
+        public CurrencyCode Currency => this.payment.Currency;
+        public string Description => this.payment.Description;
+        public bool GeneratePaymentToken => this.payment.GeneratePaymentToken;
+        public bool GenerateReccurenceToken => this.payment.GenerateReccurenceToken;
+        public Intent Intent => this.payment.Intent;
+        public CultureInfo Language => this.payment.Language;
+        public Dictionary<string, object> MetaData => this.payment.MetaData;
+        public Operation Operation => this.payment.Operation;
+        public PayeeInfo PayeeInfo => this.payment.PayeeInfo;
+        public string PayerReference => this.payment.PayerReference;
+        public string PaymentToken => this.payment.PaymentToken;
+        public List<Price> Prices => this.payment.Prices;
+        public Urls Urls => this.payment.Urls;
+        public string UserAgent => this.payment.UserAgent;
+        public PrefillInfo PrefillInfo => this.payment.PrefillInfo;
+        public MobilePayRequestObject MobilePay => this.payment.MobilePay;
+
+    private class PaymentRequestObject
         {
             protected internal PaymentRequestObject(Operation operation,
                                                     Intent intent,
@@ -71,23 +89,23 @@ namespace SwedbankPay.Sdk.Payments.MobilePayPayments
             }
 
 
-            public CurrencyCode Currency { get; set; }
-            public string Description { get; set; }
-            public bool GeneratePaymentToken { get; set; }
-            public bool GenerateReccurenceToken { get; set; }
-            public Intent Intent { get; set; }
-            public CultureInfo Language { get; set; }
+            public CurrencyCode Currency { get; }
+            public string Description { get; }
+            public bool GeneratePaymentToken { get; }
+            public bool GenerateReccurenceToken { get; }
+            public Intent Intent { get; }
+            public CultureInfo Language { get; }
             public Dictionary<string, object> MetaData { get; }
 
-            public Operation Operation { get; set; }
-            public PayeeInfo PayeeInfo { get; internal set; }
-            public string PayerReference { get; set; }
-            public string PaymentToken { get; set; }
-            public List<Price> Prices { get; set; }
+            public Operation Operation { get; }
+            public PayeeInfo PayeeInfo { get; }
+            public string PayerReference { get; }
+            public string PaymentToken { get; }
+            public List<Price> Prices { get; }
             public Urls Urls { get; }
-            public string UserAgent { get; set; }
-            public PrefillInfo PrefillInfo { get; set; }
-            public MobilePayRequestObject MobilePay { get; set; }
+            public string UserAgent { get; }
+            public PrefillInfo PrefillInfo { get; }
+            public MobilePayRequestObject MobilePay { get; }
         }
     }
 }

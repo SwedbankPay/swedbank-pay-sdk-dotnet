@@ -5,9 +5,9 @@ using SwedbankPay.Sdk.PaymentOrders;
 
 namespace SwedbankPay.Sdk.Payments.MobilePayPayments
 {
-    public class PaymentResponse
+    public class MobilePayPaymentResponse
     {
-        public PaymentResponse(PaymentResponseObject payment,
+        public MobilePayPaymentResponse(PaymentResponseObject payment,
                                OperationList operations)
         {
             this.Payment = payment;
@@ -37,7 +37,7 @@ namespace SwedbankPay.Sdk.Payments.MobilePayPayments
                                CultureInfo language,
                                PricesListResponse prices,
                                TransactionListResponse transactions,
-                               AuthorizationListResponse authorizations,
+                               MobilePayAuthorizationListResponse authorizations,
                                CapturesListResponse captures,
                                ReversalsListResponse reversals,
                                CancellationsListResponse cancellations,
@@ -73,7 +73,7 @@ namespace SwedbankPay.Sdk.Payments.MobilePayPayments
 
 
         public Amount Amount { get; }
-        public AuthorizationListResponse Authorizations { get; }
+        public MobilePayAuthorizationListResponse Authorizations { get; }
         public CancellationsListResponse Cancellations { get; }
         public CapturesListResponse Captures { get; }
         public DateTime Created { get; }
