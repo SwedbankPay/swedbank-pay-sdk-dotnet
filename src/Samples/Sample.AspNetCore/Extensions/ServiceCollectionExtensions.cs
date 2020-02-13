@@ -10,6 +10,12 @@ using SwedbankPay.Sdk.Extensions;
 using Sample.AspNetCore.Models;
 
 using SwedbankPay.Sdk;
+using System.Net.Http;
+using SwedbankPay.Sdk.Payments.CardPayments;
+using SwedbankPay.Sdk.Payments.SwishPayments;
+using SwedbankPay.Sdk.PaymentOrders;
+using SwedbankPay.Sdk.Consumers;
+using SwedbankPay.Sdk.Payments;
 
 namespace Sample.AspNetCore.Extensions
 {
@@ -26,7 +32,18 @@ namespace Sample.AspNetCore.Extensions
 
             services.AddTransient(s => swedBankPayOptions);
 
-            services.AddSwedbankPayClient(swedBankPayOptions.ApiBaseUrl, swedBankPayOptions.Token);
+            Action<HttpClient> configureClient = a =>
+            {
+                a.BaseAddress = swedBankPayOptions.ApiBaseUrl;
+                a.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", swedBankPayOptions.Token);
+            };
+
+            services
+                .AddTransient<ICardPaymentsResource, CardPaymentsResource>()
+                .AddTransient<ISwishPaymentsResource, SwishPaymentsResource>();
+            services.AddHttpClient<IPaymentOrdersResource, PaymentOrdersResource>(configureClient);
+            services.AddHttpClient<IConsumersResource, ConsumersResource>(configureClient);
+            services.AddHttpClient<IPaymentsResource, PaymentsResource>(configureClient);
 
             return services;
         }
