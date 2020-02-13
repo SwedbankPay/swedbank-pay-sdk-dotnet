@@ -15,6 +15,7 @@ using SwedbankPay.Sdk;
 using SwedbankPay.Sdk.Consumers;
 using SwedbankPay.Sdk.PaymentOrders;
 using SwedbankPay.Sdk.Payments;
+using SwedbankPay.Sdk.Payments.CardPayments;
 using SwedbankPay.Sdk.Payments.SwishPayments;
 
 namespace Sample.AspNetCore.Controllers
@@ -80,13 +81,13 @@ namespace Sample.AspNetCore.Controllers
             }
         }
 
-        public async Task<SwedbankPay.Sdk.Payments.CardPayments.CardPayment> CreateCardPayment()
+        public async Task<CardPayment> CreateCardPayment()
         {
             var totalAmount = this.cartService.CalculateTotal();
             var vatAmount = Amount.FromDecimal(0);
             try
             {
-                var cardRequest = new SwedbankPay.Sdk.Payments.CardPayments.CardPaymentRequest(Operation.Purchase, Intent.Authorization, new CurrencyCode("SEK"),
+                var cardRequest = new CardPaymentRequest(Operation.Purchase, Intent.Authorization, new CurrencyCode("SEK"),
                                                                                    new List<Price>
                                                                                    {
                                                                                        new Price(Amount.FromDecimal(totalAmount),
@@ -100,7 +101,7 @@ namespace Sample.AspNetCore.Controllers
                                                                                    new PayeeInfo(this.payeeInfoOptions.PayeeId,
                                                                                                  this.payeeInfoOptions.PayeeReference));
 
-                SwedbankPay.Sdk.Payments.CardPayments.CardPayment cardPayment = await this.swedbankPayClient.Payments.CardPayments.Create(cardRequest);
+                var cardPayment = await this.swedbankPayClient.Payments.CardPayments.Create(cardRequest);
                 this.cartService.PaymentLink = cardPayment.PaymentResponse.Id.OriginalString;
                 this.cartService.Instrument = Instrument.CreditCard;
                 this.cartService.PaymentOrderLink = null;
@@ -132,7 +133,7 @@ namespace Sample.AspNetCore.Controllers
                                                                                               this.urls.PaymentUrl, this.urls.CallbackUrl, this.urls.LogoUrl),
                                                                                      new PayeeInfo(this.payeeInfoOptions.PayeeId,
                                                                                                    this.payeeInfoOptions.PayeeReference), new PrefillInfo(new Msisdn("+46739000001")));
-                SwishPayment swishPayment = await this.swedbankPayClient.Payments.SwishPayments.Create(swishRequest);
+                var swishPayment = await this.swedbankPayClient.Payments.SwishPayments.Create(swishRequest);
                 this.cartService.PaymentLink = swishPayment.PaymentResponse.Id.OriginalString;
                 this.cartService.Instrument = Instrument.Swish;
                 this.cartService.PaymentOrderLink = null;
