@@ -114,7 +114,7 @@ namespace Sample.AspNetCore.Controllers
             }
         }
 
-        public async Task<Payment> CreateSwishPayment()
+        public async Task<SwishPayment> CreateSwishPayment()
         {
             var totalAmount = this.cartService.CalculateTotal();
             var vatAmount = Amount.FromDecimal(0);
@@ -132,7 +132,7 @@ namespace Sample.AspNetCore.Controllers
                                                                                               this.urls.PaymentUrl, this.urls.CallbackUrl, this.urls.LogoUrl),
                                                                                      new PayeeInfo(this.payeeInfoOptions.PayeeId,
                                                                                                    this.payeeInfoOptions.PayeeReference), new PrefillInfo(new Msisdn("+46739000001")), new SwishRequest());
-                Payment swishPayment = await this.swedbankPayClient.Payments.SwishPayments.Create(swishRequest);
+                SwishPayment swishPayment = await this.swedbankPayClient.Payments.SwishPayments.Create(swishRequest);
                 this.cartService.PaymentLink = swishPayment.PaymentResponse.Id.OriginalString;
                 this.cartService.Instrument = Instrument.Swish;
                 this.cartService.PaymentOrderLink = null;

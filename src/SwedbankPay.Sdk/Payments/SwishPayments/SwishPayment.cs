@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Payments.SwishPayments
 {
-    public class Payment
+    public class SwishPayment
     {
-        private Payment(SwishPaymentPaymentResponse paymentResponse, HttpClient client)
+        private SwishPayment(SwishPaymentPaymentResponse paymentResponse, HttpClient client)
         {
             PaymentResponse = paymentResponse.Payment;
             var operations = new SwishPaymentOperations();
@@ -53,25 +53,25 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
         public PaymentResponseObject PaymentResponse { get; }
 
 
-        internal static async Task<Payment> Create(SwishPaymentRequest paymentRequest,
+        internal static async Task<SwishPayment> Create(SwishPaymentRequest paymentRequest,
                                                    HttpClient client,
                                                    string paymentExpand)
         {
             var url = new Uri($"/psp/swish/payments{paymentExpand}", UriKind.Relative);
 
             var paymentResponse = await client.PostAsJsonAsync<SwishPaymentPaymentResponse>(url, paymentRequest);
-            return new Payment(paymentResponse, client);
+            return new SwishPayment(paymentResponse, client);
         }
 
 
-        internal static async Task<Payment> Get(Uri id, HttpClient client, string paymentExpand)
+        internal static async Task<SwishPayment> Get(Uri id, HttpClient client, string paymentExpand)
         {
             var url = !string.IsNullOrWhiteSpace(paymentExpand)
                 ? new Uri(id.OriginalString + paymentExpand, UriKind.RelativeOrAbsolute)
                 : id;
 
             var paymentResponse = await client.GetAsJsonAsync<SwishPaymentPaymentResponse>(url);
-            return new Payment(paymentResponse, client);
+            return new SwishPayment(paymentResponse, client);
         }
     }
 }
