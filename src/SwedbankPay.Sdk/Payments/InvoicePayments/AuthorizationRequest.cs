@@ -2,7 +2,7 @@
 {
     public class AuthorizationRequest
     {
-        public AuthorizationRequest(string transactionActivity,
+        public AuthorizationRequest(Operation transactionActivity,
                                     int socialSecurityNumber,
                                     string ip,
                                     string addressee,
@@ -23,7 +23,7 @@
 
         public class AuthorizationTransaction
         {
-            protected internal AuthorizationTransaction(string transactionActivity,
+            protected internal AuthorizationTransaction(Operation transactionActivity,
                                                         int socialSecurityNumber,
                                                         string ip,
                                                         string addressee,
@@ -72,7 +72,7 @@
             /// <summary>
             /// FinancingConsumer
             /// </summary>
-            public string TransactionActivity { get; }
+            public Operation TransactionActivity { get; }
             /// <summary>
             /// The e-mail address of the consumer.
             /// </summary>

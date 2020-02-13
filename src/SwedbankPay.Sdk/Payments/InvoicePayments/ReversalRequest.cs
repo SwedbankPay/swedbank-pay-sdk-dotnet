@@ -2,9 +2,9 @@
 {
     public class ReversalRequest
     {
-        public ReversalRequest(Amount amount, Amount vatAmount, string description, string payeeReference)
+        public ReversalRequest(Operation activity, Amount amount, Amount vatAmount, string description, string payeeReference)
         {
-            Transaction = new ReversalTransaction(amount, vatAmount, description, payeeReference);
+            Transaction = new ReversalTransaction(activity, amount, vatAmount, description, payeeReference);
         }
 
 
@@ -12,15 +12,16 @@
 
         public class ReversalTransaction
         {
-            public ReversalTransaction(Amount amount, Amount vatAmount, string description, string payeeReference)
+            public ReversalTransaction(Operation activity, Amount amount, Amount vatAmount, string description, string payeeReference)
             {
+                TransactionActivity = activity;
                 Amount = amount;
                 VatAmount = vatAmount;
                 Description = description;
                 PayeeReference = payeeReference;
             }
 
-
+            public Operation TransactionActivity { get; }
             public Amount Amount { get; }
             public string Description { get; }
             public string PayeeReference { get; }

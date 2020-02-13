@@ -2,9 +2,9 @@
 {
     public class CancelRequest
     {
-        public CancelRequest(string payeeReference, string description)
+        public CancelRequest(Operation transactionActivity, string payeeReference, string description)
         {
-            Transaction = new CancelTransaction(payeeReference, description);
+            Transaction = new CancelTransaction(transactionActivity, payeeReference, description);
         }
 
 
@@ -12,13 +12,14 @@
 
         public class CancelTransaction
         {
-            protected internal CancelTransaction(string payeeReference, string description)
+            protected internal CancelTransaction(Operation transactionActivity, string payeeReference, string description)
             {
+                TransactionActivity = transactionActivity;
                 PayeeReference = payeeReference;
                 Description = description;
             }
 
-
+            public Operation TransactionActivity { get; }
             public string Description { get; }
 
             public string PayeeReference { get; }
