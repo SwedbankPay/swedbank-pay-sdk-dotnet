@@ -27,34 +27,15 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
                               Dictionary<string, object> metaData = null,
                               string paymentToken = null)
         {
-            this.payment = new CardPaymentRequestObject(operation, intent, currency, prices, description, payerReference, generatePaymentToken,
+            this.Payment = new CardPaymentRequestObject(operation, intent, currency, prices, description, payerReference, generatePaymentToken,
                                                generateReccurenceToken, userAgent, language, urls, payeeInfo, riskIndicator, cardholder,
                                                creditCard, metaData, paymentToken);
         }
 
 
-        private CardPaymentRequestObject payment;
+        public CardPaymentRequestObject Payment;
 
-
-        public Cardholder Cardholder => this.payment.Cardholder;
-        public CreditCard CreditCard => this.payment.CreditCard;
-        public CurrencyCode Currency => this.payment.Currency;
-        public string Description => this.payment.Description;
-        public bool GeneratePaymentToken => this.payment.GeneratePaymentToken;
-        public bool GenerateReccurenceToken => this.payment.GenerateReccurenceToken;
-        public Intent Intent => this.payment.Intent;
-        public CultureInfo Language => this.payment.Language;
-        public Dictionary<string, object> MetaData => this.payment.MetaData;
-        public Operation Operation => this.payment.Operation;
-        public PayeeInfo PayeeInfo => this.payment.PayeeInfo;
-        public string PayerReference => this.payment.PayerReference;
-        public string PaymentToken => this.payment.PaymentToken;
-        public List<Price> Prices => this.payment.Prices;
-        public RiskIndicator RiskIndicator => this.payment.RiskIndicator;
-        public Urls Urls => this.payment.Urls;
-        public string UserAgent => this.payment.UserAgent;
-
-        private class CardPaymentRequestObject
+        public class CardPaymentRequestObject
         {
             protected internal CardPaymentRequestObject(Operation operation,
                                                     Intent intent,

@@ -45,6 +45,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                         View = httpOperation;
                         break;
                 }
+                this.Add(httpOperation.Rel, httpOperation);
             }
         }
 
