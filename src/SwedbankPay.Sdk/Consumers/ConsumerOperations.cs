@@ -4,8 +4,20 @@ namespace SwedbankPay.Sdk.Consumers
 {
     public class ConsumerOperations : OperationsBase
     {
-        public ConsumerOperations()
+        public ConsumerOperations(OperationList operations)
         {
+            foreach (var httpOperation in operations)
+            {
+                switch (httpOperation.Rel.Value)
+                {
+                    case ConsumerResourceOperations.RedirectConsumerIdentification:
+                        RedirectConsumerIdentification = httpOperation;
+                        break;
+                    case ConsumerResourceOperations.ViewConsumerIdentification:
+                        ViewConsumerIdentification = httpOperation;
+                        break;
+                }
+            }
         }
 
 
