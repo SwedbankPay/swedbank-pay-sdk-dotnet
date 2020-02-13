@@ -16,6 +16,7 @@ using SwedbankPay.Sdk.Payments.SwishPayments;
 using SwedbankPay.Sdk.PaymentOrders;
 using SwedbankPay.Sdk.Consumers;
 using SwedbankPay.Sdk.Payments;
+using System.Net.Http.Headers;
 
 namespace Sample.AspNetCore.Extensions
 {
@@ -35,7 +36,7 @@ namespace Sample.AspNetCore.Extensions
             void configureClient(HttpClient a)
             {
                 a.BaseAddress = swedBankPayOptions.ApiBaseUrl;
-                a.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", swedBankPayOptions.Token);
+                a.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", swedBankPayOptions.Token);
             }
 
             services
