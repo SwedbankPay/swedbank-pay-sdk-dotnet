@@ -6,8 +6,8 @@ namespace SwedbankPay.Sdk
 {
     public interface ISwedbankPayClient
     {
-        public IPaymentOrdersResource PaymentOrders { get; }
-        public IConsumersResource Consumers { get; }
-        public IPaymentsResource Payments { get; }
+        IPaymentOrdersResource PaymentOrders { get; }
+        IConsumersResource Consumers { get; }
+        IPaymentsResource Payments { get; }
     }
 }

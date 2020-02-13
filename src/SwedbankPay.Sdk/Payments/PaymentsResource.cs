@@ -8,11 +8,13 @@ namespace SwedbankPay.Sdk.Payments
 {
     public class PaymentsResource: ResourceBase, IPaymentsResource
     {
-        public ICardPaymentsResource CardPayments { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public ISwishPaymentsResource SwishPayments { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public ICardPaymentsResource CardPayments { get; private set ; }
+        public ISwishPaymentsResource SwishPayments { get; private set; }
 
-        public PaymentsResource(HttpClient httpClient) : base(httpClient)
+        public PaymentsResource(HttpClient httpClient, ICardPaymentsResource cardPaymentsResource, ISwishPaymentsResource swishPaymentsResource) : base(httpClient)
         {
+            this.CardPayments = cardPaymentsResource;
+            this.SwishPayments = swishPaymentsResource;
         }
     }
 }

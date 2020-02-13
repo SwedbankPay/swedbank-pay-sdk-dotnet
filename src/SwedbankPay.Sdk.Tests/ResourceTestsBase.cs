@@ -5,6 +5,8 @@ using NSubstitute;
 using SwedbankPay.Sdk.Consumers;
 using SwedbankPay.Sdk.PaymentOrders;
 using SwedbankPay.Sdk.Payments;
+using SwedbankPay.Sdk.Payments.CardPayments;
+using SwedbankPay.Sdk.Payments.SwishPayments;
 using SwedbankPay.Sdk.Tests.TestHelpers;
 
 namespace SwedbankPay.Sdk.Tests
@@ -27,7 +29,9 @@ namespace SwedbankPay.Sdk.Tests
             this.Sut = new SwedbankPayClient(httpClient,
                                              new PaymentOrdersResource(httpClient),
                                              new ConsumersResource(httpClient),
-                                             new PaymentsResource(httpClient));
+                                             new PaymentsResource(httpClient, 
+                                                new CardPaymentsResource(httpClient), 
+                                                new SwishPaymentsResource(httpClient)));
         }
     }
 }
