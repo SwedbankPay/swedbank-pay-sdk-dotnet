@@ -78,7 +78,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         }
 
 
-        public PaymentOrderRequestBuilder WithTestValues()
+        public PaymentOrderRequestBuilder WithTestValues(Guid payeeId)
         {
             this.operation = Operation.Purchase;
             this.currency = new CurrencyCode("SEK");
@@ -89,7 +89,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.urls = new Urls(new List<Uri> { new Uri("https://example.com") }, new Uri("https://example.com/payment-completed"), new Uri("https://example.com/termsandconditoons.pdf"), new Uri("https://example.com/payment-canceled"));
             this.userAgent = "useragent";
             this.language = new CultureInfo("sv-SE");
-            this.payeeInfo = new PayeeInfo(Guid.Parse("91a4c8e0-72ac-425c-a687-856706f9e9a1"), DateTime.Now.Ticks.ToString());
+            this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
             this.metaData = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
             return this;
         }
