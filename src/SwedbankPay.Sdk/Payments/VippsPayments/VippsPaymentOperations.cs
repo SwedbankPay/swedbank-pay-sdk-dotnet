@@ -1,13 +1,13 @@
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using SwedbankPay.Sdk;
 using SwedbankPay.Sdk.Payments.Vipps;
 using SwedbankPay.Sdk.Payments;
 using System.Collections.Generic;
 
-namespace swedbankpay.sdk.Payments.Invoice
+namespace swedbankpay.sdk.Payments.Vipps
 {
-    public class Operations : Dictionary<LinkRelation, HttpOperation>
+    public class VippsPaymentOperations : Dictionary<LinkRelation, HttpOperation>
     {
         public Func<VippsPaymentCancelRequest, Task<CancellationResponse>> Cancel { get; internal set; }
         public Func<VippsPaymentCaptureRequest, Task<CaptureResponse>> Capture { get; internal set; }

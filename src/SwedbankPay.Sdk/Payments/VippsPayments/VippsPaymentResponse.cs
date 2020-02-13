@@ -1,13 +1,13 @@
-using System;
+﻿using System;
 using System.Globalization;
 
 using SwedbankPay.Sdk.PaymentOrders;
 
 namespace SwedbankPay.Sdk.Payments.Vipps
 {
-    public class PaymentResponse
+    public class VippsPaymentResponse
     {
-        public PaymentResponse(PaymentResponseObject payment,
+        public VippsPaymentResponse(PaymentResponseObject payment,
                                OperationList operations)
         {
             this.Payment = payment;
@@ -40,7 +40,7 @@ namespace SwedbankPay.Sdk.Payments.Vipps
                                CultureInfo language,
                                PricesListResponse prices,
                                TransactionListResponse transactions,
-                               AuthorizationListResponse authorizations,
+                               VippsPaymentAuthorizationListResponse authorizations,
                                CapturesListResponse captures,
                                ReversalsListResponse reversals,
                                CancellationsListResponse cancellations,
@@ -82,7 +82,7 @@ namespace SwedbankPay.Sdk.Payments.Vipps
         public Amount RemainingCaptureAmount { get; }
         public Amount RemainingCancellationAmount { get; }
         public Amount RemainingReversalAmount { get; }
-        public AuthorizationListResponse Authorizations { get; }
+        public VippsPaymentAuthorizationListResponse Authorizations { get; }
         public CancellationsListResponse Cancellations { get; }
         public CapturesListResponse Captures { get; }
         public DateTime Created { get; }

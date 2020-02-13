@@ -1,8 +1,8 @@
 ﻿namespace SwedbankPay.Sdk.Payments.Vipps
 {
-    public class CancelRequest
+    public class VippsPaymentCancelRequest
     {
-        public CancelRequest(string payeeReference, string description)
+        public VippsPaymentCancelRequest(string payeeReference, string description)
         {
             Transaction = new CancelTransaction(payeeReference, description);
         }

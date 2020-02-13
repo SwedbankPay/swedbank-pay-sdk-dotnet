@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -6,9 +6,9 @@ using SwedbankPay.Sdk.PaymentOrders;
 
 namespace SwedbankPay.Sdk.Payments.Vipps
 {
-    public class PaymentRequest
+    public class VippsPaymentRequest
     {
-        public PaymentRequest(Operation operation,
+        public VippsPaymentRequest(Operation operation,
                               Intent intent,
                               CurrencyCode currency,
                               List<Price> prices,

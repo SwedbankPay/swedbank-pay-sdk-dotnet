@@ -73,7 +73,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
 
          public Payments.VippsPayments.PaymentRequest BuildVippsRequest()
         {
-            return new Payments.Vipps.PaymentRequest(
+            return new Payments.Vipps.VippsPaymentRequest(
                 this.operation,
                 this.intent,
                 this.currency,

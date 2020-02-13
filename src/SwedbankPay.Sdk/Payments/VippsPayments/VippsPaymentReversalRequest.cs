@@ -1,8 +1,8 @@
 ﻿namespace SwedbankPay.Sdk.Payments.Vipps
 {
-    public class ReversalRequest
+    public class VippsPaymentReversalRequest
     {
-        public ReversalRequest(Amount amount, Amount vatAmount, string description, string payeeReference)
+        public VippsPaymentReversalRequest(Amount amount, Amount vatAmount, string description, string payeeReference)
         {
             Transaction = new ReversalTransaction(amount, vatAmount, description, payeeReference);
         }

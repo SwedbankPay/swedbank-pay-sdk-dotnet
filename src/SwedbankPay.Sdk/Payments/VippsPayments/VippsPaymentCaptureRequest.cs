@@ -4,9 +4,9 @@ using SwedbankPay.Sdk.PaymentOrders;
 
 namespace SwedbankPay.Sdk.Payments.Vipps
 {
-    public class CaptureRequest
+    public class VippsPaymentCaptureRequest
     {
-        public CaptureRequest(Amount amount, Amount vatAmount, List<OrderItem> orderItems, string description, string payeeReference)
+        public VippsPaymentCaptureRequest(Amount amount, Amount vatAmount, List<OrderItem> orderItems, string description, string payeeReference)
         {
             Transaction = new PaymentOrders.CaptureRequest.CaptureTransaction(amount, vatAmount, orderItems, description, payeeReference);
         }

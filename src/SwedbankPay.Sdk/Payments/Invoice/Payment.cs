@@ -9,7 +9,7 @@ namespace SwedbankPay.Sdk.Payments.Invoice
         private Payment(PaymentResponse paymentResponse, SwedbankPayHttpClient client)
         {
             PaymentResponse = paymentResponse.Payment;
-            var operations = new Operations();
+            var operations = new VippsPaymentOperations();
 
             foreach (var httpOperation in paymentResponse.Operations)
             {
@@ -52,7 +52,7 @@ namespace SwedbankPay.Sdk.Payments.Invoice
             Operations = operations;
         }
 
-        public Operations Operations { get; }
+        public VippsPaymentOperations Operations { get; }
 
         public PaymentResponseObject PaymentResponse { get; }
 

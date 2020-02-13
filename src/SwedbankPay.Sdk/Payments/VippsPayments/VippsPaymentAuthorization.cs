@@ -2,9 +2,9 @@
 
 namespace SwedbankPay.Sdk.Payments.Vipps
 {
-    public class Authorization : IdLink
+    public class VippsPaymentAuthorization : IdLink
     {
-        public Authorization(bool direct,
+        public VippsPaymentAuthorization(bool direct,
                              string paymentToken,
                              string recurrenceToken,
                              string maskedPan,

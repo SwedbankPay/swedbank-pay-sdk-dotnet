@@ -1,15 +1,15 @@
-using swedbankpay.sdk.Payments.Vipps;
+﻿using swedbankpay.sdk.Payments.Vipps;
 using System;
 using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Payments.Vipps
 {
-    public class Payment
+    public class VippsPayment
     {
-        private Payment(PaymentResponse paymentResponse, SwedbankPayHttpClient client)
+        private VippsPayment(VippsPaymentResponse paymentResponse, SwedbankPayHttpClient client)
         {
             PaymentResponse = paymentResponse.Payment;
-            var operations = new Operations();
+            var operations = new VippsPaymentOperations();
 
             foreach (var httpOperation in paymentResponse.Operations)
             {
@@ -52,30 +52,30 @@ namespace SwedbankPay.Sdk.Payments.Vipps
             Operations = operations;
         }
 
-        public Operations Operations { get; }
+        public VippsPaymentOperations Operations { get; }
 
         public PaymentResponseObject PaymentResponse { get; }
 
 
-        internal static async Task<Payment> Create(PaymentRequest paymentRequest,
+        internal static async Task<VippsPayment> Create(VippsPaymentRequest paymentRequest,
                                                    SwedbankPayHttpClient client,
                                                    string paymentExpand)
         {
             var url = new Uri($"/psp/vipps/payments{paymentExpand}", UriKind.Relative);
 
-            var paymentResponse = await client.HttpPost<PaymentResponse>(url, paymentRequest);
-            return new Payment(paymentResponse, client);
+            var paymentResponse = await client.HttpPost<VippsPaymentResponse>(url, paymentRequest);
+            return new VippsPayment(paymentResponse, client);
         }
 
 
-        internal static async Task<Payment> Get(Uri id, SwedbankPayHttpClient client, string paymentExpand)
+        internal static async Task<VippsPayment> Get(Uri id, SwedbankPayHttpClient client, string paymentExpand)
         {
             var url = !string.IsNullOrWhiteSpace(paymentExpand)
                 ? new Uri(id.OriginalString + paymentExpand, UriKind.RelativeOrAbsolute)
                 : id;
 
-            var paymentResponseContainer = await client.HttpGet<PaymentResponse>(url);
-            return new Payment(paymentResponseContainer, client);
+            var paymentResponseContainer = await client.HttpGet<VippsPaymentResponse>(url);
+            return new VippsPayment(paymentResponseContainer, client);
         }
     }
 }

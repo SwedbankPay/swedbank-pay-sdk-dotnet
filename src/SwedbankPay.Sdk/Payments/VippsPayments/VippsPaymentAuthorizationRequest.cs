@@ -1,8 +1,8 @@
 ﻿namespace SwedbankPay.Sdk.Payments.Vipps
 {
-    public class AuthorizationRequest
+    public class VippsPaymentAuthorizationRequest
     {
-        public AuthorizationRequest(string cardNumber,
+        public VippsPaymentAuthorizationRequest(string cardNumber,
                                     int cardExpiryMonth,
                                     int cardExpiryYear,
                                     string cardVerificationCode = null,
