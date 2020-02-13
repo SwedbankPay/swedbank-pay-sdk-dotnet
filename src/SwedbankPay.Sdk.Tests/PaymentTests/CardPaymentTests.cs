@@ -59,7 +59,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         [Fact]
         public async Task CreateVerifyPayment_ShouldReturnPayment()
         {
-            var paymentRequest = this.paymentRequestBuilder.WithCreditcardTestValues(Operation.Verify).BuildCreditardPaymentRequest();
+            var paymentRequest = this.paymentRequestBuilder.WithCreditcardTestValues(this.payeeId, Operation.Verify).BuildCreditardPaymentRequest();
             var creditCardPayment = await this.Sut.Payments.CardPayments.Create(paymentRequest, PaymentExpand.All);
 
             Assert.NotNull(creditCardPayment);
@@ -69,7 +69,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         [Fact]
         public async Task CreatePayment_ShouldReturnPayment()
         {
-            var paymentRequest = this.paymentRequestBuilder.WithCreditcardTestValues().BuildCreditardPaymentRequest();
+            var paymentRequest = this.paymentRequestBuilder.WithCreditcardTestValues(this.payeeId).BuildCreditardPaymentRequest();
             var creditCardPayment = await this.Sut.Payments.CardPayments.Create(paymentRequest, PaymentExpand.All);
 
             Assert.NotNull(creditCardPayment);

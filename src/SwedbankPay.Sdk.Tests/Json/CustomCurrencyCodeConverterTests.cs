@@ -33,7 +33,7 @@ namespace SwedbankPay.Sdk.Tests.Json
         {
             //ARRANGE
             var builder = new PaymentOrderRequestBuilder();
-            var paymentOrderRequest = builder.WithTestValues().Build();
+            var paymentOrderRequest = builder.WithTestValues(Guid.NewGuid()).Build();
 
             //ACT
             var result = JsonConvert.SerializeObject(paymentOrderRequest.PaymentOrder, JsonSerialization.JsonSerialization.Settings);
