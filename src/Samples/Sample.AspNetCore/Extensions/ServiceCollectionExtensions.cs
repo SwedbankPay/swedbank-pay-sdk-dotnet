@@ -32,11 +32,11 @@ namespace Sample.AspNetCore.Extensions
 
             services.AddTransient(s => swedBankPayOptions);
 
-            Action<HttpClient> configureClient = a =>
+            void configureClient(HttpClient a)
             {
                 a.BaseAddress = swedBankPayOptions.ApiBaseUrl;
                 a.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", swedBankPayOptions.Token);
-            };
+            }
 
             services
                 .AddTransient<ICardPaymentsResource, CardPaymentsResource>()
