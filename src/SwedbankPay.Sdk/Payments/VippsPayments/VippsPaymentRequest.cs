@@ -4,7 +4,7 @@ using System.Globalization;
 
 using SwedbankPay.Sdk.PaymentOrders;
 
-namespace SwedbankPay.Sdk.Payments.Vipps
+namespace SwedbankPay.Sdk.Payments.VippsPayments
 {
     public class VippsPaymentRequest
     {
@@ -72,7 +72,6 @@ namespace SwedbankPay.Sdk.Payments.Vipps
             public Intent Intent { get; set; }
             public CultureInfo Language { get; set; }
             public Dictionary<string, object> MetaData { get; }
-
             public Operation Operation { get; set; }
             public PayeeInfo PayeeInfo { get; internal set; }
             public string PayerReference { get; set; }

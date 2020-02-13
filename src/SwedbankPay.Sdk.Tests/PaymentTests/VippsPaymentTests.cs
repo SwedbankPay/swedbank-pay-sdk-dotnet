@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using SwedbankPay.Sdk.Payments;
-using SwedbankPay.Sdk.Payments.Vipps;
+using SwedbankPay.Sdk.Payments.VippsPayments;
 using SwedbankPay.Sdk.Tests.TestBuilders;
 
 using Xunit;

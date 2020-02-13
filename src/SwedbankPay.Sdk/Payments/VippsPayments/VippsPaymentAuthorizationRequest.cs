@@ -1,4 +1,4 @@
-﻿namespace SwedbankPay.Sdk.Payments.Vipps
+﻿namespace SwedbankPay.Sdk.Payments.VippsPayments
 {
     public class VippsPaymentAuthorizationRequest
     {

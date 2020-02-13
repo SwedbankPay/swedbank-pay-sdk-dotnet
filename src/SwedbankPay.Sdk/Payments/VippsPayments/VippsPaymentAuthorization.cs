@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SwedbankPay.Sdk.Payments.Vipps
+namespace SwedbankPay.Sdk.Payments.VippsPayments
 {
     public class VippsPaymentAuthorization : IdLink
     {

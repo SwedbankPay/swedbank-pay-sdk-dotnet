@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using SwedbankPay.Sdk;
-using SwedbankPay.Sdk.Payments.Vipps;
+using SwedbankPay.Sdk.Payments.VippsPayments;
 using SwedbankPay.Sdk.Payments;
 using System.Collections.Generic;
 
