@@ -13,7 +13,7 @@ namespace SwedbankPay.Sdk
 {
     public static class PaymentResourceOperations
     {
-        public const string UpdatePaymentAbort = "update-payment-abort";
+        public const string Abort = "update-payment-abort";
         public const string CreateCapture = "create-capture";
         public const string CreateCancellation = "create-cancellation";
         public const string RedirectAuthorization = "redirect-authorization";

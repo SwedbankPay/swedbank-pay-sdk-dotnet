@@ -1,6 +1,6 @@
 ﻿namespace SwedbankPay.Sdk.Payments.CardPayments
 {
-    public class CardPaymentUpdateResponse
+    public class CardPaymentAbortRequest
     {
     }
 }
