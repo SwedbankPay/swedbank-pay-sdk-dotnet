@@ -17,9 +17,9 @@ namespace SwedbankPay.Sdk.Payments.VippsPayments
                               CultureInfo language,
                               Urls urls,
                               PayeeInfo payeeInfo,
+                              string payerReference,
                               bool generatePaymentToken = false,
                               bool generateReccurenceToken = false,
-                              string payerReference = null,
                               Dictionary<string, object> metaData = null,
                               string paymentToken = null)
 

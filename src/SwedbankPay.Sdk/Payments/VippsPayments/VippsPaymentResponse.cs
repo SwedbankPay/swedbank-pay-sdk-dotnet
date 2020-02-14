@@ -30,9 +30,6 @@ namespace SwedbankPay.Sdk.Payments.VippsPayments
                                Intent intent,
                                CurrencyCode currency,
                                Amount amount,
-                               Amount remainingCaptureAmount,
-                               Amount remainingCancellationAmount,
-                               Amount remainingReversalAmount,
                                string description,
                                string payerReference,
                                string initiatingSystemUserAgent,
@@ -59,9 +56,6 @@ namespace SwedbankPay.Sdk.Payments.VippsPayments
             Currency = currency;
             Prices = prices;
             Amount = amount;
-            RemainingCaptureAmount = remainingCaptureAmount;
-            RemainingCancellationAmount = remainingCancellationAmount;
-            RemainingReversalAmount = remainingReversalAmount;
             Description = description;
             PayerReference = payerReference;
             InitiatingSystemUserAgent = initiatingSystemUserAgent;
@@ -79,9 +73,6 @@ namespace SwedbankPay.Sdk.Payments.VippsPayments
 
 
         public Amount Amount { get; }
-        public Amount RemainingCaptureAmount { get; }
-        public Amount RemainingCancellationAmount { get; }
-        public Amount RemainingReversalAmount { get; }
         public VippsPaymentAuthorizationListResponse Authorizations { get; }
         public CancellationsListResponse Cancellations { get; }
         public CapturesListResponse Captures { get; }
