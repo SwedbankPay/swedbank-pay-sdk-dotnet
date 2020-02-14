@@ -13,7 +13,7 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
             {
                 switch (httpOperation.Rel.Value)
                 {
-                    case PaymentResourceOperations.UpdatePaymentAbort:
+                    case PaymentResourceOperations.Abort:
                         Abort = async () =>
                             await client.SendAsJsonAsync<SwishPaymentPaymentResponse>(httpOperation.Method, httpOperation.Href, new PaymentAbortRequest());
                         break;
