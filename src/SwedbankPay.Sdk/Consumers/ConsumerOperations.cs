@@ -32,6 +32,6 @@ namespace SwedbankPay.Sdk.Consumers
 
 
         public HttpOperation RedirectConsumerIdentification { get; }
-        public HttpOperation ViewConsumerIdentification { get; internal set; }
+        public HttpOperation ViewConsumerIdentification { get; }
     }
 }
