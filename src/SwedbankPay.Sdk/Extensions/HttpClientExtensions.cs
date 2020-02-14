@@ -38,7 +38,7 @@ namespace SwedbankPay.Sdk.Extensions
 
             using var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage);
 
-            string httpResponseBody;
+            string httpResponseBody = string.Empty;
             try
             {
                 httpResponseBody = await httpResponseMessage.Content.ReadAsStringAsync();
@@ -53,7 +53,6 @@ namespace SwedbankPay.Sdk.Extensions
             }
             catch (HttpResponseException ex)
             {
-                httpResponseBody = await httpResponseMessage.Content.ReadAsStringAsync();
                 ex.Data.Add(nameof(httpResponseMessage), httpResponseMessage);
                 ex.Data.Add(nameof(httpRequestMessage), httpRequestMessage);
                 ex.Data.Add(nameof(httpResponseBody), httpResponseBody);
