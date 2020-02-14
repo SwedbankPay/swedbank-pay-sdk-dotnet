@@ -29,7 +29,7 @@ namespace Sample.AspNetCore.Extensions
             services.Configure<SwedbankPayConnectionSettings>(swedbankPayConSettings);
 
             var swedBankPayOptions = swedbankPayConSettings.Get<SwedbankPayConnectionSettings>();
-            swedBankPayOptions.Token = configuration["Token"];
+            swedBankPayOptions.Token = "6430eee8fe8a2902f74494087ae79b9ff2e2f9d1efd3eeac1110e79d3502df24";
 
             services.AddTransient(s => swedBankPayOptions);
 
@@ -39,12 +39,20 @@ namespace Sample.AspNetCore.Extensions
                 a.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", swedBankPayOptions.Token);
             }
 
-            services
-                .AddTransient<ICardPaymentsResource, CardPaymentsResource>()
-                .AddTransient<ISwishPaymentsResource, SwishPaymentsResource>();
-            services.AddHttpClient<IPaymentOrdersResource, PaymentOrdersResource>(configureClient);
-            services.AddHttpClient<IConsumersResource, ConsumersResource>(configureClient);
-            services.AddHttpClient<IPaymentsResource, PaymentsResource>(configureClient);
+            services.AddHttpClient<SwedbankPayClient>(configureClient)
+                .AddTypedClient<SwedbankPayClient>(a => {
+                    a.BaseAddress = swedBankPayOptions.ApiBaseUrl;
+                    a.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", swedBankPayOptions.Token);
+                    return new SwedbankPayClient(a);
+                });
+            /*
+            services.AddTransient<ISwedbankPayClient, SwedbankPayClient>(a =>
+            {
+                var client = a.GetRequiredService<HttpClient>();
+                client.BaseAddress = swedBankPayOptions.ApiBaseUrl;
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", swedBankPayOptions.Token);
+                return new SwedbankPayClient(client);
+            });*/
 
             return services;
         }
