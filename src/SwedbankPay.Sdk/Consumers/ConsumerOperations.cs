@@ -27,7 +27,7 @@ namespace SwedbankPay.Sdk.Consumers
             : base()
         {
             RedirectConsumerIdentification = (HttpOperation)info.GetValue("RedirectConsumerIdentification", typeof(HttpOperation));
-            RedirectConsumerIdentification = (HttpOperation)info.GetValue("ViewConsumerIdentification", typeof(HttpOperation));
+            ViewConsumerIdentification = (HttpOperation)info.GetValue("ViewConsumerIdentification", typeof(HttpOperation));
         }
 
 

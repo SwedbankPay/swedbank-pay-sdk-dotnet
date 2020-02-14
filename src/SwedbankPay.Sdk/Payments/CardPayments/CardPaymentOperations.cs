@@ -13,8 +13,8 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
             {
                 switch (httpOperation.Rel.Value)
                 {
-                    case PaymentResourceOperations.Abort:
-                        Update = async payload => 
+                    case PaymentResourceOperations.UpdatePaymentAbort:
+                        Abort = async payload => 
                             await client.SendAsJsonAsync<CardPaymentResponse>(httpOperation.Method, httpOperation.Href, payload);
                         break;
 
@@ -70,7 +70,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
         public Func<CardPaymentCaptureRequest, Task<CaptureResponse>> Capture { get; }
         public Func<CardPaymentAuthorizationRequest, Task<CardPaymentAuthorizationResponse>> DirectAuthorization { get; }
         public Func<CardPaymentReversalRequest, Task<ReversalResponse>> Reverse { get; }
-        public Func<CardPaymentAbortRequest, Task<CardPaymentResponse>> Update { get; }
+        public Func<CardPaymentAbortRequest, Task<CardPaymentResponse>> Abort { get; }
         public HttpOperation DirectVerification { get; internal set; }
         public HttpOperation PaidPayment { get; internal set; }
         public HttpOperation RedirectAuthorization { get; internal set; }

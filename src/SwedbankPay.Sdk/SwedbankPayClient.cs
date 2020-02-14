@@ -27,31 +27,20 @@ namespace SwedbankPay.Sdk
             if (this.httpClient.DefaultRequestHeaders?.Authorization?.Parameter == null)
                 throw new ArgumentException($"Please configure the {nameof(httpClient)} with an Authorization header.");
 
-            PaymentOrders = paymentOrders;
-            Consumers = consumers;
-            Payments = payments;
+            PaymentOrders = paymentOrders ?? throw new ArgumentNullException(nameof(paymentOrders));
+            Consumers = consumers ?? throw new ArgumentNullException(nameof(consumers));
+            Payments = payments ?? throw new ArgumentNullException(nameof(payments));
         }
 
-        public SwedbankPayClient(HttpClient httpClient)
-        {
-            if (!ServicePointManager.SecurityProtocol.HasFlag(SecurityProtocolType.Tls12))
-                ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
-
-            this.httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
-
-            if (this.httpClient.BaseAddress == null)
-                throw new ArgumentNullException(nameof(httpClient), $"{nameof(httpClient.BaseAddress)} cannot be null.");
-
-            if (this.httpClient.DefaultRequestHeaders?.Authorization?.Parameter == null)
-                throw new ArgumentException($"Please configure the {nameof(httpClient)} with an Authorization header.");
-
-            var cardPaymentsResource = new CardPaymentsResource(this.httpClient);
-            var swishPaymentsResource = new SwishPaymentsResource(this.httpClient);
-
-            PaymentOrders = new PaymentOrdersResource(this.httpClient);
-            Consumers = new ConsumersResource(this.httpClient);
-            Payments = new PaymentsResource(this.httpClient, cardPaymentsResource, swishPaymentsResource);
-        }
+        public SwedbankPayClient(HttpClient httpClient) :
+            this(
+                httpClient,
+                new PaymentOrdersResource(httpClient),
+                new ConsumersResource(httpClient),
+                new PaymentsResource(httpClient,
+                    new CardPaymentsResource(httpClient),
+                    new SwishPaymentsResource(httpClient)))
+        { }
 
         public IPaymentOrdersResource PaymentOrders { get; }
         public IConsumersResource Consumers { get; }
