@@ -39,20 +39,13 @@ namespace Sample.AspNetCore.Extensions
                 a.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", swedBankPayOptions.Token);
             }
 
-            services.AddHttpClient<SwedbankPayClient>(configureClient)
-                .AddTypedClient<SwedbankPayClient>(a => {
-                    a.BaseAddress = swedBankPayOptions.ApiBaseUrl;
-                    a.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", swedBankPayOptions.Token);
-                    return new SwedbankPayClient(a);
-                });
-            /*
-            services.AddTransient<ISwedbankPayClient, SwedbankPayClient>(a =>
+            services.AddScoped<ISwedbankPayClient, SwedbankPayClient>((a) =>
             {
-                var client = a.GetRequiredService<HttpClient>();
-                client.BaseAddress = swedBankPayOptions.ApiBaseUrl;
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", swedBankPayOptions.Token);
+                var fac = a.GetRequiredService<IHttpClientFactory>();
+                var client = fac.CreateClient(nameof(SwedbankPayClient));
                 return new SwedbankPayClient(client);
-            });*/
+            });
+            services.AddHttpClient<SwedbankPayClient>(configureClient);
 
             return services;
         }
