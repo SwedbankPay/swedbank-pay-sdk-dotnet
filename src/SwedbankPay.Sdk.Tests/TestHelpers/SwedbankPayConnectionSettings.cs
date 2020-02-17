@@ -6,5 +6,6 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
     {
         public Uri ApiBaseUrl { get; set; }
         public string Token { get; set; }
+        public Guid PayeeId { get; set; }
     }
 }

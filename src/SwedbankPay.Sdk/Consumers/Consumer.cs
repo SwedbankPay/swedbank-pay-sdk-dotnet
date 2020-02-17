@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using SwedbankPay.Sdk.Extensions;
+using System;
+using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Consumers
@@ -8,39 +12,23 @@ namespace SwedbankPay.Sdk.Consumers
         private Consumer(ConsumersResponse consumersResponse)
         {
             ConsumersResponse = consumersResponse;
-            var operations = new Operations();
-
-            foreach (var httpOperation in consumersResponse.Operations)
-            {
-                operations.Add(httpOperation.Rel, httpOperation);
-
-                switch (httpOperation.Rel.Value)
-                {
-                    case ConsumerResourceOperations.RedirectConsumerIdentification:
-                        operations.RedirectConsumerIdentification = httpOperation;
-                        break;
-                    case ConsumerResourceOperations.ViewConsumerIdentification:
-                        operations.ViewConsumerIdentification = httpOperation;
-                        break;
-                }
-
-                Operations = operations;
-            }
+            var operations = new ConsumerOperations(consumersResponse.Operations);
+            Operations = operations;
         }
 
 
         public ConsumersResponse ConsumersResponse { get; }
 
-        public Operations Operations { get; }
+        public ConsumerOperations Operations { get; }
 
 
-        internal static async Task<Consumer> Initiate(ConsumersRequest consumersRequest, SwedbankPayHttpClient client)
+        internal static async Task<Consumer> Initiate(ConsumersRequest consumersRequest, HttpClient client)
         {
             var url = new Uri("/psp/consumers", UriKind.Relative);
 
-            var consumersResponse = await client.HttpPost<ConsumersResponse>(url, consumersRequest);
+            var consumerResponse = await client.PostAsJsonAsync<ConsumersResponse>(url, consumersRequest);
 
-            return new Consumer(consumersResponse);
+            return new Consumer(consumerResponse);
         }
     }
 }

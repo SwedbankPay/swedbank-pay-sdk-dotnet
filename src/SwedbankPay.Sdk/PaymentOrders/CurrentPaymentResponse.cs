@@ -1,9 +1,7 @@
 ﻿using SwedbankPay.Sdk.Payments;
-using SwedbankPay.Sdk.Payments.Card;
-using SwedbankPay.Sdk.Payments.Swish;
-
+using SwedbankPay.Sdk.Payments.CardPayments;
+using SwedbankPay.Sdk.Payments.SwishPayments;
 using System;
-using System.Globalization;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
@@ -25,11 +23,11 @@ namespace SwedbankPay.Sdk.PaymentOrders
     public class CurrentPaymentResponseObject : IdLink
     {
         public CurrentPaymentResponseObject(string number,
-                                            Instrument instrument,
+                                            PaymentInstrument instrument,
                                             DateTime created,
                                             DateTime updated,
                                             Amount amount,
-                                            AuthorizationListResponse authorizations,
+                                            CardPaymentAuthorizationListResponse authorizations,
                                             CancellationsListResponse cancellations,
                                             CapturesListResponse captures,
                                             CurrencyCode currency,
@@ -75,11 +73,11 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
 
         public string Number { get; }
-        public Instrument Instrument { get; }
+        public PaymentInstrument Instrument { get; }
         public DateTime Created { get; }
         public DateTime Updated { get; }
         public Amount Amount { get; }
-        public AuthorizationListResponse Authorizations { get; }
+        public IdLink Authorizations { get; }
         public CancellationsListResponse Cancellations { get; }
         public CapturesListResponse Captures { get; }
         public CurrencyCode Currency { get; }

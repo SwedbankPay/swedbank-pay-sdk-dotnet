@@ -1,15 +1,17 @@
-﻿using System;
+﻿using SwedbankPay.Sdk.Extensions;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Consumers
 {
-    internal class ConsumersResource : ResourceBase, IConsumersResource
+    public class ConsumersResource: ResourceBase, IConsumersResource
     {
-        public ConsumersResource(SwedbankPayHttpClient swedbankPayHttpClient)
-            : base(swedbankPayHttpClient)
+        public ConsumersResource(HttpClient httpClient) : base(httpClient)
         {
         }
-
 
         /// <summary>
         ///     Retrieve Consumer Billing Details.
@@ -49,9 +51,9 @@ namespace SwedbankPay.Sdk.Consumers
         /// </summary>
         /// <param name="consumersRequest"></param>
         /// <returns></returns>
-        public async Task<Consumer> InitiateSession(ConsumersRequest consumersRequest)
+        public Task<Consumer> InitiateSession(ConsumersRequest consumersRequest)
         {
-            return await Consumer.Initiate(consumersRequest, this.swedbankPayHttpClient);
+            return Consumer.Initiate(consumersRequest, this.httpClient);
         }
 
 
@@ -62,9 +64,9 @@ namespace SwedbankPay.Sdk.Consumers
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        public async Task<BillingDetails> GetBillingDetailsInternalAsync(Uri url)
+        public Task<BillingDetails> GetBillingDetailsInternalAsync(Uri url)
         {
-            return await this.swedbankPayHttpClient.HttpGet<BillingDetails>(url);
+            return this.httpClient.GetAsJsonAsync<BillingDetails>(url);
         }
 
 
@@ -75,9 +77,9 @@ namespace SwedbankPay.Sdk.Consumers
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        public async Task<ShippingDetails> GetShippingDetailsInternalAsync(Uri url)
+        public Task<ShippingDetails> GetShippingDetailsInternalAsync(Uri url)
         {
-            return await this.swedbankPayHttpClient.HttpGet<ShippingDetails>(url);
+            return this.httpClient.GetAsJsonAsync<ShippingDetails>(url);
         }
     }
 }

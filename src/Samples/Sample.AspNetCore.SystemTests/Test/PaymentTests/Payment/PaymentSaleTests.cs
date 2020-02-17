@@ -30,7 +30,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.ViewPayment)].Should.BeVisible()
                 .Actions.Rows.Count.Should.Equal(3);
 
-            var swishPayment = await SwedbankPayClient.Payment.GetSwishPayment(paymentLink, PaymentExpand.All);
+            var swishPayment = await SwedbankPayClient.Payments.SwishPayments.Get(paymentLink, PaymentExpand.All);
 
             // Global Order
             Assert.That(swishPayment.PaymentResponse.Amount.Value, Is.EqualTo(products.Select(x => x.UnitPrice * x.Quantity).Sum()));

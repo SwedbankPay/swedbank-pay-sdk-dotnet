@@ -2,6 +2,7 @@
 {
     public enum PriceType
     {
+        Unknown = default,
         CreditCard,
         Visa,
         MasterCard,
@@ -19,6 +20,8 @@
         Invoice,
         Mobilepay,
         Swish,
-        Vipps
+        Vipps,
+        Lindex,
+        Ica
     }
 }

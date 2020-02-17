@@ -17,8 +17,10 @@ namespace SwedbankPay.Sdk.Tests.Json
         {
             //ARRANGE
 
-            var jsonObject = new JObject();
-            jsonObject.Add("id", this.idstring);
+            var jsonObject = new JObject
+            {
+                { "id", this.idstring }
+            };
 
             //ACT
             var result = JsonConvert.DeserializeObject<Uri>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);

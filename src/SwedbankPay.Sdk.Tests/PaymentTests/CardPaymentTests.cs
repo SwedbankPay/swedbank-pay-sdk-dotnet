@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 
 using SwedbankPay.Sdk.Payments;
-using SwedbankPay.Sdk.Payments.Card;
 using SwedbankPay.Sdk.Tests.TestBuilders;
 
 using Xunit;
@@ -17,7 +16,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         [Fact]
         public async Task GetPayment()
         {
-            var creditCardPayment = await this.Sut.Payment.GetCreditCardPayment(
+            var creditCardPayment = await this.Sut.Payments.CardPayments.Get(
                 new Uri("/psp/creditcard/payments/23fb6fbd-3f09-4dcc-5d6e-08d7942d6bba", UriKind.Relative), PaymentExpand.All);
 
             Assert.NotNull(creditCardPayment);
@@ -60,8 +59,8 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         [Fact]
         public async Task CreateVerifyPayment_ShouldReturnPayment()
         {
-            var paymentRequest = this.paymentRequestBuilder.WithCreditcardTestValues(Operation.Verify).BuildCreditardPaymentRequest();
-            var creditCardPayment = await this.Sut.Payment.CreateCreditCardPayment(paymentRequest, PaymentExpand.All);
+            var paymentRequest = this.paymentRequestBuilder.WithCreditcardTestValues(this.payeeId, Operation.Verify).BuildCreditardPaymentRequest();
+            var creditCardPayment = await this.Sut.Payments.CardPayments.Create(paymentRequest, PaymentExpand.All);
 
             Assert.NotNull(creditCardPayment);
         }
@@ -70,8 +69,8 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         [Fact]
         public async Task CreatePayment_ShouldReturnPayment()
         {
-            var paymentRequest = this.paymentRequestBuilder.WithCreditcardTestValues().BuildCreditardPaymentRequest();
-            var creditCardPayment = await this.Sut.Payment.CreateCreditCardPayment(paymentRequest, PaymentExpand.All);
+            var paymentRequest = this.paymentRequestBuilder.WithCreditcardTestValues(this.payeeId).BuildCreditardPaymentRequest();
+            var creditCardPayment = await this.Sut.Payments.CardPayments.Create(paymentRequest, PaymentExpand.All);
 
             Assert.NotNull(creditCardPayment);
             Assert.Equal(paymentRequest.Payment.MetaData["key1"], creditCardPayment.PaymentResponse.MetaData["key1"]);

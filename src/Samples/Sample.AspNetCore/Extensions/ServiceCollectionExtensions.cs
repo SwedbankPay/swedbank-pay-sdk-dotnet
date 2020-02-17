@@ -1,13 +1,19 @@
-﻿using System;
-
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-using Polly;
+
+using SwedbankPay.Sdk.Extensions;
 
 using Sample.AspNetCore.Models;
 
 using SwedbankPay.Sdk;
+using System.Net.Http;
+using SwedbankPay.Sdk.Payments.CardPayments;
+using SwedbankPay.Sdk.Payments.SwishPayments;
+using SwedbankPay.Sdk.PaymentOrders;
+using SwedbankPay.Sdk.Consumers;
+using SwedbankPay.Sdk.Payments;
+using System.Net.Http.Headers;
 
 namespace Sample.AspNetCore.Extensions
 {
@@ -22,18 +28,21 @@ namespace Sample.AspNetCore.Extensions
             var swedBankPayOptions = swedbankPayConSettings.Get<SwedbankPayConnectionSettings>();
             swedBankPayOptions.Token = configuration["Token"];
 
-            services.AddHttpClient<SwedbankPayClient>(s =>
-            {
-                s.BaseAddress = swedBankPayOptions.ApiBaseUrl;
-                s.DefaultRequestHeaders.Add("Authorization", $"Bearer {swedBankPayOptions.Token}");
-            }).AddTransientHttpErrorPolicy(builder => builder.WaitAndRetryAsync(new[]
-            {
-                TimeSpan.FromSeconds(1),
-                TimeSpan.FromSeconds(5),
-                TimeSpan.FromSeconds(10)
-            }));
-
             services.AddTransient(s => swedBankPayOptions);
+
+            void configureClient(HttpClient a)
+            {
+                a.BaseAddress = swedBankPayOptions.ApiBaseUrl;
+                a.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", swedBankPayOptions.Token);
+            }
+
+            services.AddScoped<ISwedbankPayClient, SwedbankPayClient>((a) =>
+            {
+                var fac = a.GetRequiredService<IHttpClientFactory>();
+                var client = fac.CreateClient(nameof(SwedbankPayClient));
+                return new SwedbankPayClient(client);
+            });
+            services.AddHttpClient<SwedbankPayClient>(configureClient);
 
             return services;
         }

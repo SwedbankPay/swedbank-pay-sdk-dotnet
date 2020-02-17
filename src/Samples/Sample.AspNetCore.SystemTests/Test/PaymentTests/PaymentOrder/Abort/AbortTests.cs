@@ -26,7 +26,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Abort
 
             var orderLink = message.OriginalString.Substring(message.OriginalString.IndexOf("/")).Replace(" has been Aborted", "");
 
-            var order = await SwedbankPayClient.PaymentOrder.Get(new Uri(orderLink, UriKind.RelativeOrAbsolute), SwedbankPay.Sdk.PaymentOrders.PaymentOrderExpand.All);
+            var order = await SwedbankPayClient.PaymentOrders.Get(new Uri(orderLink, UriKind.RelativeOrAbsolute), SwedbankPay.Sdk.PaymentOrders.PaymentOrderExpand.All);
 
             // Operations
             Assert.That(order.Operations, Is.Null);

@@ -10,16 +10,13 @@ using Microsoft.Extensions.Options;
 
 using Sample.AspNetCore.Extensions;
 using Sample.AspNetCore.Models;
-using Sample.AspNetCore.Models.ViewModels;
 
 using SwedbankPay.Sdk;
 using SwedbankPay.Sdk.Consumers;
 using SwedbankPay.Sdk.PaymentOrders;
 using SwedbankPay.Sdk.Payments;
-using SwedbankPay.Sdk.Payments.Swish;
-
-using Payment = SwedbankPay.Sdk.Payments.Card.Payment;
-using PaymentRequest = SwedbankPay.Sdk.Payments.Card.PaymentRequest;
+using SwedbankPay.Sdk.Payments.CardPayments;
+using SwedbankPay.Sdk.Payments.SwishPayments;
 
 namespace Sample.AspNetCore.Controllers
 {
@@ -27,14 +24,14 @@ namespace Sample.AspNetCore.Controllers
     {
         private readonly Cart cartService;
         private readonly PayeeInfoConfig payeeInfoOptions;
-        private readonly SwedbankPayClient swedbankPayClient;
+        private readonly ISwedbankPayClient swedbankPayClient;
         private readonly UrlsOptions urls;
 
 
         public CheckOutController(IOptionsSnapshot<PayeeInfoConfig> payeeInfoOptionsAccessor,
                                   IOptionsSnapshot<UrlsOptions> urlsAccessor,
                                   Cart cartService,
-                                  SwedbankPayClient swedbankPayClient)
+                                  ISwedbankPayClient swedbankPayClient)
         {
             this.payeeInfoOptions = payeeInfoOptionsAccessor.Value;
             this.urls = urlsAccessor.Value;
@@ -69,7 +66,7 @@ namespace Sample.AspNetCore.Controllers
                                                                   new PayeeInfo(this.payeeInfoOptions.PayeeId,
                                                                                 this.payeeInfoOptions.PayeeReference), payer,
                                                                   paymentOrderItems);
-                var paymentOrder = await this.swedbankPayClient.PaymentOrder.Create(paymentOrderRequest);
+                var paymentOrder = await this.swedbankPayClient.PaymentOrders.Create(paymentOrderRequest);
 
                 this.cartService.PaymentOrderLink = paymentOrder.PaymentOrderResponse.Id.OriginalString;
                 this.cartService.PaymentLink = null;
@@ -84,13 +81,13 @@ namespace Sample.AspNetCore.Controllers
             }
         }
 
-        public async Task<SwedbankPay.Sdk.Payments.Card.Payment> CreateCardPayment()
+        public async Task<CardPayment> CreateCardPayment()
         {
             var totalAmount = this.cartService.CalculateTotal();
             var vatAmount = Amount.FromDecimal(0);
             try
             {
-                var cardRequest = new SwedbankPay.Sdk.Payments.Card.PaymentRequest(Operation.Purchase, Intent.Authorization, new CurrencyCode("SEK"),
+                var cardRequest = new CardPaymentRequest(Operation.Purchase, Intent.Authorization, new CurrencyCode("SEK"),
                                                                                    new List<Price>
                                                                                    {
                                                                                        new Price(Amount.FromDecimal(totalAmount),
@@ -104,9 +101,9 @@ namespace Sample.AspNetCore.Controllers
                                                                                    new PayeeInfo(this.payeeInfoOptions.PayeeId,
                                                                                                  this.payeeInfoOptions.PayeeReference));
 
-                SwedbankPay.Sdk.Payments.Card.Payment cardPayment = await this.swedbankPayClient.Payment.CreateCreditCardPayment(cardRequest);
+                var cardPayment = await this.swedbankPayClient.Payments.CardPayments.Create(cardRequest);
                 this.cartService.PaymentLink = cardPayment.PaymentResponse.Id.OriginalString;
-                this.cartService.Instrument = Instrument.CreditCard;
+                this.cartService.Instrument = PaymentInstrument.CreditCard;
                 this.cartService.PaymentOrderLink = null;
                 this.cartService.Update();
                 return cardPayment;
@@ -118,13 +115,13 @@ namespace Sample.AspNetCore.Controllers
             }
         }
 
-        public async Task<SwedbankPay.Sdk.Payments.Swish.Payment> CreateSwishPayment()
+        public async Task<SwishPayment> CreateSwishPayment()
         {
             var totalAmount = this.cartService.CalculateTotal();
             var vatAmount = Amount.FromDecimal(0);
             try
             {
-                var swishRequest = new SwedbankPay.Sdk.Payments.Swish.PaymentRequest(new CurrencyCode("SEK"),
+                var swishRequest = new SwishPaymentRequest(new CurrencyCode("SEK"),
                                                                                      new List<Price>
                                                                                      {
                                                                                          new Price(Amount.FromDecimal(totalAmount),
@@ -135,10 +132,10 @@ namespace Sample.AspNetCore.Controllers
                                                                                               this.urls.TermsOfServiceUrl, this.urls.CancelUrl,
                                                                                               this.urls.PaymentUrl, this.urls.CallbackUrl, this.urls.LogoUrl),
                                                                                      new PayeeInfo(this.payeeInfoOptions.PayeeId,
-                                                                                                   this.payeeInfoOptions.PayeeReference), new PrefillInfo(new Msisdn("+46739000001")), new SwishRequest());
-                SwedbankPay.Sdk.Payments.Swish.Payment swishPayment = await this.swedbankPayClient.Payment.CreateSwishPayment(swishRequest);
+                                                                                                   this.payeeInfoOptions.PayeeReference), new PrefillInfo(new Msisdn("+46739000001")));
+                var swishPayment = await this.swedbankPayClient.Payments.SwishPayments.Create(swishRequest);
                 this.cartService.PaymentLink = swishPayment.PaymentResponse.Id.OriginalString;
-                this.cartService.Instrument = Instrument.Swish;
+                this.cartService.Instrument = PaymentInstrument.Swish;
                 this.cartService.PaymentOrderLink = null;
                 this.cartService.Update();
 
@@ -193,7 +190,7 @@ namespace Sample.AspNetCore.Controllers
             return View("Checkout", swedBankPaySource);
         }
 
-        public async Task<IActionResult> LoadCardPaymentMenu()
+        public IActionResult LoadCardPaymentMenu()
         {
             return View("Payment");
         }
@@ -236,15 +233,15 @@ namespace Sample.AspNetCore.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> GetPaymentJsSource(Instrument instrument)
+        public async Task<JsonResult> GetPaymentJsSource(PaymentInstrument instrument)
         {
             switch (instrument)
             {
-                case Instrument.CreditCard:
+                case PaymentInstrument.CreditCard:
                     var cardPayment = await CreateCardPayment();
                     return new JsonResult(cardPayment.Operations.ViewAuthorization.Href);
                     
-                case Instrument.Swish:
+                case PaymentInstrument.Swish:
                     var swishPayment = await CreateSwishPayment();
                     return new JsonResult(swishPayment.Operations.ViewSales.Href);
                 default :

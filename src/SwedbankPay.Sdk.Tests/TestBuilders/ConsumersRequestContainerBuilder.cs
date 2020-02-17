@@ -8,9 +8,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
 {
     public class ConsumersRequestContainerBuilder
     {
-        private EmailAddress email;
         private Language language;
-        private Msisdn msisdn;
         private NationalIdentifier nationalIdentifier;
         private Operation operation;
         private IEnumerable<RegionInfo> shippingAddressRestrictedToCountryCodes;
@@ -18,8 +16,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
 
         public ConsumersRequest Build()
         {
-            return new ConsumersRequest(this.language, this.shippingAddressRestrictedToCountryCodes, this.operation, this.msisdn,
-                                        this.email, this.nationalIdentifier);
+            return new ConsumersRequest(this.language, this.shippingAddressRestrictedToCountryCodes, this.operation, nationalIdentifier: this.nationalIdentifier);
         }
 
 
@@ -40,7 +37,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         public ConsumersRequestContainerBuilder WithTestValues()
         {
             this.operation = Operation.Initiate;
-            this.language = new Language("sv-SE"); 
+            this.language = new Language("sv-SE");
             this.shippingAddressRestrictedToCountryCodes = new List<RegionInfo>
                 { new RegionInfo("SE"), new RegionInfo("NO"), new RegionInfo("DK") };
             return this;

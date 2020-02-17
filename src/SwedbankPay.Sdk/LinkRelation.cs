@@ -9,6 +9,8 @@
 
 #endregion
 
+using SwedbankPay.Sdk.Consumers;
+
 namespace SwedbankPay.Sdk
 {
     public sealed class LinkRelation : TypeSafeEnum<LinkRelation, string>

@@ -14,7 +14,7 @@ namespace SwedbankPay.Sdk.Consumers
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="InvalidOperationException"></exception>
         /// <exception cref="System.Net.Http.HttpRequestException"></exception>
-        /// <exception cref="SwedbankPay.Sdk.Exceptions.HttpResponseException"></exception>
+        /// <exception cref="Exceptions.HttpResponseException"></exception>
         /// <returns></returns>
         Task<BillingDetails> GetBillingDetails(Uri url);
 
@@ -28,7 +28,7 @@ namespace SwedbankPay.Sdk.Consumers
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="InvalidOperationException"></exception>
         /// <exception cref="System.Net.Http.HttpRequestException"></exception>
-        /// <exception cref="SwedbankPay.Sdk.Exceptions.HttpResponseException"></exception>
+        /// <exception cref="Exceptions.HttpResponseException"></exception>
         /// <returns></returns>
         Task<ShippingDetails> GetShippingDetails(Uri url);
 
@@ -41,7 +41,7 @@ namespace SwedbankPay.Sdk.Consumers
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="InvalidOperationException"></exception>
         /// <exception cref="System.Net.Http.HttpRequestException"></exception>
-        /// <exception cref="SwedbankPay.Sdk.Exceptions.HttpResponseException"></exception>
+        /// <exception cref="Exceptions.HttpResponseException"></exception>
         /// <returns></returns>
         Task<Consumer> InitiateSession(ConsumersRequest consumersRequest);
     }

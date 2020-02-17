@@ -1,6 +1,5 @@
 ﻿using SwedbankPay.Sdk.Payments;
-using SwedbankPay.Sdk.Payments.Swish;
-
+using SwedbankPay.Sdk.Payments.SwishPayments;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -19,33 +18,32 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private PayeeInfo payeeInfo;
         private PrefillInfo prefillInfo;
         private bool generatePaymentToken;
-        private bool generateReccurrenceToken;
         private Amount amount;
         private Amount vatAmount;
         private string payerReference;
-        private SwishRequest swish;
+        private SwishPaymentOptionsObject swish;
         private List<Price> price;
         private Dictionary<string, object> metaData;
 
 
-        public Payments.Card.PaymentRequest BuildCreditardPaymentRequest()
+        public Payments.CardPayments.CardPaymentRequest BuildCreditardPaymentRequest()
         {
-            return new Payments.Card.PaymentRequest(
-                this.operation, 
+            return new Payments.CardPayments.CardPaymentRequest(
+                this.operation,
                 this.intent,
-                this.currency, 
-                this.price,  
+                this.currency,
+                this.price,
                 this.description,
                 this.userAgent,
                 this.language,
                 this.urls,
                 this.payeeInfo,
-                generatePaymentToken : this.generatePaymentToken, generateReccurenceToken : this.generateReccurrenceToken, payerReference : this.payerReference, riskIndicator : null, metaData: this.metaData);
+                generatePaymentToken: this.generatePaymentToken, generateReccurenceToken: false, payerReference: this.payerReference, riskIndicator: null, metaData: this.metaData);
         }
 
-        public Payments.Swish.PaymentRequest BuildSwishPaymentRequest()
+        public SwishPaymentRequest BuildSwishPaymentRequest()
         {
-            return new SwedbankPay.Sdk.Payments.Swish.PaymentRequest(this.currency,
+            return new SwishPaymentRequest(this.currency,
                                       this.price,
                                       this.description,
                                       this.payerReference,
@@ -54,16 +52,14 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
                                       this.urls,
                                       this.payeeInfo,
                                       this.prefillInfo,
-                                      this.swish,
-                                      this.metaData
-
+                                      metaData: this.metaData
             );
         }
 
 
-        public PaymentRequestBuilder WithCreditcardTestValues(Operation operation = null, Intent intent = Intent.Authorization)
+        public PaymentRequestBuilder WithCreditcardTestValues(Guid payeeId, Operation operation = null, Intent intent = Intent.Authorization)
         {
-            this.operation = operation ??  Operation.Purchase;
+            this.operation = operation ?? Operation.Purchase;
             this.intent = intent;
             this.currency = new CurrencyCode("SEK");
             this.description = "Test Description";
@@ -71,7 +67,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.userAgent = "useragent";
             this.language = new CultureInfo("sv-SE");
             this.urls = new Urls(new List<Uri> { new Uri("https://example.com") }, new Uri("https://example.com/payment-completed"), new Uri("https://example.com/termsandconditoons.pdf"), new Uri("https://example.com/payment-canceled"));
-            this.payeeInfo = new PayeeInfo(Guid.Parse("91a4c8e0-72ac-425c-a687-856706f9e9a1"), DateTime.Now.Ticks.ToString());
+            this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
             this.generatePaymentToken = false;
             this.amount = Amount.FromDecimal(1600);
             this.vatAmount = Amount.FromDecimal(0);
@@ -85,7 +81,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         }
 
 
-        public PaymentRequestBuilder WithSwishTestValues()
+        public PaymentRequestBuilder WithSwishTestValues(Guid payeeId)
         {
             this.operation = Operation.Purchase;
             this.intent = Intent.Sale;
@@ -95,12 +91,12 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.userAgent = "useragent";
             this.language = new CultureInfo("sv-SE");
             this.urls = new Urls(new List<Uri> { new Uri("https://example.com") }, new Uri("https://example.com/payment-completed"), new Uri("https://example.com/termsandconditoons.pdf"), new Uri("https://example.com/payment-canceled"));
-            this.payeeInfo = new PayeeInfo(Guid.Parse("91a4c8e0-72ac-425c-a687-856706f9e9a1"), DateTime.Now.Ticks.ToString());
+            this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
             this.prefillInfo = new PrefillInfo(new Msisdn("+46701234567"));
             this.generatePaymentToken = false;
             this.amount = Amount.FromDecimal(1600);
             this.vatAmount = Amount.FromDecimal(0);
-            this.swish = new SwishRequest();
+            this.swish = new SwishPaymentOptionsObject();
             this.metaData = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
 
             this.price = new List<Price>

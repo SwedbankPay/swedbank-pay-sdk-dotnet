@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Net.Cache;
 using System.Net.Http;
 using System.Threading.Tasks;
-
+using SwedbankPay.Sdk.Consumers;
 using SwedbankPay.Sdk.Exceptions;
 using SwedbankPay.Sdk.Tests.TestBuilders;
 
@@ -13,7 +12,6 @@ namespace SwedbankPay.Sdk.Tests
     public class ConsumerResourceTests : ResourceTestsBase
     {
         private readonly ConsumersRequestContainerBuilder consumerResourceRequestContainer = new ConsumersRequestContainerBuilder();
-
 
         [Fact]
         public async Task GetBillingDetails_ThrowsArgumentNullException_IfUriIsNull()

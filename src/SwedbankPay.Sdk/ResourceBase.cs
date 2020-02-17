@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 
 namespace SwedbankPay.Sdk
 {
-    internal abstract class ResourceBase
+    public abstract class ResourceBase
     {
-        internal SwedbankPayHttpClient swedbankPayHttpClient;
+        protected HttpClient httpClient;
 
 
-        protected ResourceBase(SwedbankPayHttpClient swedbankPayHttpClient)
+        protected ResourceBase(HttpClient httpClient)
         {
-            this.swedbankPayHttpClient = swedbankPayHttpClient;
+            this.httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
         }
 
 

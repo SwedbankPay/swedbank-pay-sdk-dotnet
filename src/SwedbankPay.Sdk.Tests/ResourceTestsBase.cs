@@ -1,30 +1,40 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Reflection;
-
+using NSubstitute;
+using SwedbankPay.Sdk.Consumers;
+using SwedbankPay.Sdk.PaymentOrders;
+using SwedbankPay.Sdk.Payments;
+using SwedbankPay.Sdk.Payments.CardPayments;
+using SwedbankPay.Sdk.Payments.SwishPayments;
 using SwedbankPay.Sdk.Tests.TestHelpers;
-
-using Xunit.Sdk;
 
 namespace SwedbankPay.Sdk.Tests
 {
     public abstract class ResourceTestsBase
     {
-        protected SwedbankPayClient Sut;
+        protected ISwedbankPayClient Sut;
 
         protected readonly Urls urls;
 
+        protected readonly Guid payeeId;
+
         private readonly SwedbankPayConnectionSettings connectionSettings;
         
-        public ResourceTestsBase()
+        protected ResourceTestsBase()
         {
             this.connectionSettings = TestHelper.GetSwedbankPayConnectionSettings(Environment.CurrentDirectory);
             this.urls = TestHelper.GetUrls(Environment.CurrentDirectory);
-            var client = new HttpClient { BaseAddress = this.connectionSettings.ApiBaseUrl };
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this.connectionSettings.Token);
-            this.Sut = new SwedbankPayClient(client);
+            this.payeeId = this.connectionSettings.PayeeId;
+            var httpClient = new HttpClient { BaseAddress = this.connectionSettings.ApiBaseUrl };
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this.connectionSettings.Token);
+            
+            this.Sut = new SwedbankPayClient(httpClient,
+                                             new PaymentOrdersResource(httpClient),
+                                             new ConsumersResource(httpClient),
+                                             new PaymentsResource(httpClient, 
+                                                new CardPaymentsResource(httpClient), 
+                                                new SwishPaymentsResource(httpClient)));
         }
     }
 }

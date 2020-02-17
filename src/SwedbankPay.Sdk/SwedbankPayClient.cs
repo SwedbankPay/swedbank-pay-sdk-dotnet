@@ -1,44 +1,47 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
-
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
-
 using SwedbankPay.Sdk.Consumers;
-using SwedbankPay.Sdk.PaymentOrders;
 using SwedbankPay.Sdk.Payments;
+using SwedbankPay.Sdk.PaymentOrders;
+using SwedbankPay.Sdk.Payments.SwishPayments;
+using SwedbankPay.Sdk.Payments.CardPayments;
 
 namespace SwedbankPay.Sdk
 {
     public class SwedbankPayClient : ISwedbankPayClient
     {
-        public SwedbankPayClient(HttpClient httpClient,
-                                 ILogger logger = null)
+        private readonly HttpClient httpClient;
+
+        public SwedbankPayClient(HttpClient httpClient, IPaymentOrdersResource paymentOrders, IConsumersResource consumers, IPaymentsResource payments)
         {
             if (!ServicePointManager.SecurityProtocol.HasFlag(SecurityProtocolType.Tls12))
                 ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
-            if (httpClient == null)
-                throw new ArgumentNullException(nameof(httpClient));
 
-            if (httpClient.BaseAddress == null)
+            this.httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+
+            if (this.httpClient.BaseAddress == null)
                 throw new ArgumentNullException(nameof(httpClient), $"{nameof(httpClient.BaseAddress)} cannot be null.");
 
-            if (httpClient.DefaultRequestHeaders?.Authorization?.Parameter == null)
+            if (this.httpClient.DefaultRequestHeaders?.Authorization?.Parameter == null)
                 throw new ArgumentException($"Please configure the {nameof(httpClient)} with an Authorization header.");
 
-            var swedbankLogger = logger ?? NullLogger.Instance;
-            var swedbankPayHttpClient = new SwedbankPayHttpClient(httpClient, swedbankLogger);
-            PaymentOrder = new PaymentOrderResource(swedbankPayHttpClient);
-            Consumers = new ConsumersResource(swedbankPayHttpClient);
-            Payment = new PaymentsResource(swedbankPayHttpClient);
+            PaymentOrders = paymentOrders ?? throw new ArgumentNullException(nameof(paymentOrders));
+            Consumers = consumers ?? throw new ArgumentNullException(nameof(consumers));
+            Payments = payments ?? throw new ArgumentNullException(nameof(payments));
         }
 
+        public SwedbankPayClient(HttpClient httpClient) :
+            this(
+                httpClient,
+                new PaymentOrdersResource(httpClient),
+                new ConsumersResource(httpClient),
+                new PaymentsResource(httpClient))
+        { }
 
-        public IPaymentOrderResource PaymentOrder { get; }
-
+        public IPaymentOrdersResource PaymentOrders { get; }
         public IConsumersResource Consumers { get; }
-
-        public IPaymentsResource Payment { get; }
+        public IPaymentsResource Payments { get; }
     }
 }
