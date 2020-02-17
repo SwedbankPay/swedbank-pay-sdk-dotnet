@@ -14,8 +14,8 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
                 switch (httpOperation.Rel.Value)
                 {
                     case PaymentResourceOperations.UpdatePaymentAbort:
-                        Abort = async () =>
-                            await client.SendAsJsonAsync<SwishPaymentPaymentResponse>(httpOperation.Method, httpOperation.Href, new PaymentAbortRequest());
+                        Abort = async payload =>
+                            await client.SendAsJsonAsync<SwishPaymentPaymentResponse>(httpOperation.Method, httpOperation.Href, payload);
                         break;
 
                     case PaymentResourceOperations.CreateSale:
@@ -41,7 +41,7 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
             }
         }
 
-        public Func<Task<SwishPaymentPaymentResponse>> Abort { get; }
+        public Func<PaymentAbortRequest, Task<SwishPaymentPaymentResponse>> Abort { get; }
         public Func<SwishPaymentReversalRequest, Task<ReversalResponse>> Reverse { get; }
         public Func<SwishPaymentSaleRequest, Task<SwishPaymentSaleResponse>> Sale { get; }
         public HttpOperation PaidPayment { get; internal set; }
