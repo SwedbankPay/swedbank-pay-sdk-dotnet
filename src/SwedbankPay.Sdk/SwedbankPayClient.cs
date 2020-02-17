@@ -37,9 +37,7 @@ namespace SwedbankPay.Sdk
                 httpClient,
                 new PaymentOrdersResource(httpClient),
                 new ConsumersResource(httpClient),
-                new PaymentsResource(httpClient,
-                    new CardPaymentsResource(httpClient),
-                    new SwishPaymentsResource(httpClient)))
+                new PaymentsResource(httpClient))
         { }
 
         public IPaymentOrdersResource PaymentOrders { get; }
