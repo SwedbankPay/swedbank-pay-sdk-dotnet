@@ -20,7 +20,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         public async Task CreatePayment()
         {
             var vippsPaymentRequest = this.paymentRequestBuilder.WithVippsTestValues(Operation.Purchase).BuildVippsRequest();
-            var vippsPayment = await this.Sut.Payment.CreateVippsPayment(vippsPaymentRequest, PaymentExpand.All);
+            var vippsPayment = await this.Sut.Payments.VippsPayments.Create(vippsPaymentRequest, PaymentExpand.All);
 
             Assert.NotNull(vippsPayment);
             Assert.Equal(vippsPaymentRequest.Payment.MetaData["key1"], vippsPayment.PaymentResponse.MetaData["key1"]);
@@ -33,9 +33,9 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         public async Task CreateAndGetVippsPayment_ShouldReturnPaymentId()
         {
             var vippsPaymentRequest = this.paymentRequestBuilder.WithVippsTestValues(Operation.Purchase).BuildVippsRequest();
-            var vippsPayment = await this.Sut.Payment.CreateVippsPayment(vippsPaymentRequest, PaymentExpand.All);
+            var vippsPayment = await this.Sut.Payments.VippsPayments.Create(vippsPaymentRequest, PaymentExpand.All);
             var vippsPaymentId = vippsPayment.PaymentResponse.Id;
-            var getVippsPayment = await this.Sut.Payment.GetVippsPayment(vippsPaymentId);
+            var getVippsPayment = await this.Sut.Payments.VippsPayments.Get(vippsPaymentId);
 
             Assert.NotNull(getVippsPayment);
 

@@ -1,54 +1,18 @@
-﻿using swedbankpay.sdk.Payments.Vipps;
+﻿using swedbankpay.Sdk.Payments.VippsPayments;
+using SwedbankPay.Sdk.Extensions;
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
+
 
 namespace SwedbankPay.Sdk.Payments.VippsPayments
 {
     public class VippsPayment
     {
-        private VippsPayment(VippsPaymentResponse paymentResponse, SwedbankPayHttpClient client)
+        private VippsPayment(VippsPaymentResponse paymentResponse, HttpClient client)
         {
             PaymentResponse = paymentResponse.Payment;
-            var operations = new VippsPaymentOperations();
-
-            foreach (var httpOperation in paymentResponse.Operations)
-            {
-                operations.Add(httpOperation.Rel, httpOperation);
-
-                switch (httpOperation.Rel.Value)
-                {
-                    case PaymentResourceOperations.UpdatePaymentAbort:
-                        operations.Update = httpOperation;
-                        break;
-
-                    case PaymentResourceOperations.RedirectAuthorization:
-                        operations.RedirectAuthorization = httpOperation;
-                        break;
-
-                    case PaymentResourceOperations.ViewAuthorization:
-                        operations.ViewAuthorization = httpOperation;
-                        break;
-
-                    case PaymentResourceOperations.CreateCapture:
-                        operations.Capture = async payload =>
-                            await client.SendHttpRequestAndProcessHttpResponse<CaptureResponse>(
-                                httpOperation.Request.AttachPayload(payload));
-                        break;
-
-                    case PaymentResourceOperations.CreateCancellation:
-                        operations.Cancel = async payload =>
-                            await client.SendHttpRequestAndProcessHttpResponse<CancellationResponse>(
-                                httpOperation.Request.AttachPayload(payload));
-                        break;
-
-                    case PaymentResourceOperations.CreateReversal:
-                        operations.Reversal = async payload =>
-                            await client.SendHttpRequestAndProcessHttpResponse<ReversalResponse>(
-                                httpOperation.Request.AttachPayload(payload));
-                        break;
-
-                }
-            }
+            var operations = new VippsPaymentOperations(paymentResponse.Operations, client);
             Operations = operations;
         }
 
@@ -58,23 +22,23 @@ namespace SwedbankPay.Sdk.Payments.VippsPayments
 
 
         internal static async Task<VippsPayment> Create(VippsPaymentRequest paymentRequest,
-                                                   SwedbankPayHttpClient client,
+                                                   HttpClient client,
                                                    string paymentExpand)
         {
             var url = new Uri($"/psp/vipps/payments{paymentExpand}", UriKind.Relative);
 
-            var paymentResponse = await client.HttpPost<VippsPaymentResponse>(url, paymentRequest);
+            var paymentResponse = await client.PostAsJsonAsync<VippsPaymentResponse>(url, paymentRequest);
             return new VippsPayment(paymentResponse, client);
         }
 
 
-        internal static async Task<VippsPayment> Get(Uri id, SwedbankPayHttpClient client, string paymentExpand)
+        internal static async Task<VippsPayment> Get(Uri id, HttpClient client, string paymentExpand)
         {
             var url = !string.IsNullOrWhiteSpace(paymentExpand)
                 ? new Uri(id.OriginalString + paymentExpand, UriKind.RelativeOrAbsolute)
                 : id;
 
-            var paymentResponseContainer = await client.HttpGet<VippsPaymentResponse>(url);
+            var paymentResponseContainer = await client.GetAsJsonAsync<VippsPaymentResponse>(url);
             return new VippsPayment(paymentResponseContainer, client);
         }
     }
