@@ -24,7 +24,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
 
             Assert.NotNull(vippsPayment);
             Assert.Equal(vippsPaymentRequest.Payment.MetaData["key1"], vippsPayment.PaymentResponse.MetaData["key1"]);
-            Assert.True(vippsPaymentRequest.Payment.Language.CultureTypes.Equals("nb-NO"));
+            Assert.True(vippsPaymentRequest.Payment.Language.CultureTypes.Equals(vippsPayment.PaymentResponse.Language.CultureTypes));
             Assert.True(vippsPaymentRequest.Payment.Operation.Equals(Operation.Purchase));
             Assert.NotNull(vippsPaymentRequest.Payment.UserAgent);
         }
@@ -39,12 +39,13 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
 
             Assert.NotNull(getVippsPayment);
 
-            var priceList = getVippsPayment.PaymentResponse.Prices.PriceList;
+            var priceList = vippsPayment.PaymentResponse.Prices.PriceList;
 
             Assert.NotEmpty(priceList);
             var price = priceList.First();
 
-            Assert.Equal(vippsPaymentRequest.Payment.Prices.First().Amount, price.Amount);
+            Assert.Equal(vippsPaymentRequest.Payment.Prices.First().Amount.Value, price.Amount.Value);
+
         }
 
     }

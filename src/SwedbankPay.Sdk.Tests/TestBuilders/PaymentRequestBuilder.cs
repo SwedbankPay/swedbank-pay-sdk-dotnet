@@ -83,7 +83,10 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
                 this.language,
                 this.urls,
                 this.payeeInfo,
-                this.payerReference);
+                this.payerReference,
+                this.generatePaymentToken,
+                this.generateReccurrenceToken,
+                this.metaData);
         }
 
         public PaymentRequestBuilder WithCreditcardTestValues(Guid payeeId, Operation operation = null, Intent intent = Intent.Authorization)
