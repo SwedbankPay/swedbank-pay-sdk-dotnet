@@ -31,7 +31,37 @@
 
 # Sample apps
 
-Check the [the samples folder][samples].
+Check the [the samples folder][samples].  
+To run the sample site. Make sure to add your PayeeId and ApiBaseUrl from SwedbankPay in appsettings.json
+
+You will also need to add the token from SwedbankPay in secrets.json by running the following command in the project root folder.  
+`dotnet user-secrets set "Token" "{Your token}" --project src/Samples/Sample.AspNetCore`
+
+
+## Getting started
+
+Install the `SwedbankPay.Sdk` NuGet in your project:
+
+```
+dotnet add package SwedbankPay.Sdk
+```
+
+Configure the SDK in one line.
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddSwedbankPayClient(ApiUrl, AuthenticationToken);
+    ...
+}
+```
+
+This will add the `ISwedbankPayClient` to the system, as well as interfaces for
+all api's in case you want to have more control over what is injected.
+See the [samples][samples] for inspiration and usage.
+Using this to configure the `SwedbankPay.Sdk` will set up a
+`LoggingDelegatingHandler` that aids in logging error responses from the api.
+
 
 ## Getting started
 

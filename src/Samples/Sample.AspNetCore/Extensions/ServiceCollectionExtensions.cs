@@ -1,9 +1,6 @@
-﻿using System;
-
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-using Polly;
 
 using SwedbankPay.Sdk.Extensions;
 
@@ -29,7 +26,7 @@ namespace Sample.AspNetCore.Extensions
             services.Configure<SwedbankPayConnectionSettings>(swedbankPayConSettings);
 
             var swedBankPayOptions = swedbankPayConSettings.Get<SwedbankPayConnectionSettings>();
-            swedBankPayOptions.Token = "6430eee8fe8a2902f74494087ae79b9ff2e2f9d1efd3eeac1110e79d3502df24";
+            swedBankPayOptions.Token = configuration["Token"];
 
             services.AddTransient(s => swedBankPayOptions);
 
