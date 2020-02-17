@@ -1,5 +1,9 @@
 trigger:
-    - develop
+- develop
+
+pr:
+- develop
+
 pool:
   name: 'Hosted VS2017'
   demands:
@@ -17,10 +21,11 @@ steps:
     targetType: 'inline'
     script: |
       # Write your PowerShell commands here.
-
-      $Token = "$(SwedbankPayConnectionSettings.Token)"
+      $Token = "$(SwedbankPayConnectionSettings.Token)"    
       [System.Environment]::SetEnvironmentVariable("SwedbankPayConnectionSettings.Token", $Token, "User")
-      
+
+
+
 
 - task: GitVersion@5 
   displayName: GitVersion
