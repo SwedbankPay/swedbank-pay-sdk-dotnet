@@ -18,6 +18,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private PayeeInfo payeeInfo;
         private PrefillInfo prefillInfo;
         private bool generatePaymentToken;
+        private bool generateReccurrenceToken;
         private Amount amount;
         private Amount vatAmount;
         private string payerReference;
