@@ -46,32 +46,10 @@ Install the `SwedbankPay.Sdk` NuGet in your project:
 dotnet add package SwedbankPay.Sdk
 ```
 
-Configure the SDK in one line.
-
-```csharp
-public void ConfigureServices(IServiceCollection services)
-{
-    services.AddSwedbankPayClient(ApiUrl, AuthenticationToken);
-    ...
-}
-```
-
-This will add the `ISwedbankPayClient` to the system, as well as interfaces for
-all api's in case you want to have more control over what is injected.
-See the [samples][samples] for inspiration and usage.
-Using this to configure the `SwedbankPay.Sdk` will set up a
-`LoggingDelegatingHandler` that aids in logging error responses from the api.
-
-
-## Getting started
-
-Install the `SwedbankPay.Sdk` NuGet in your project:
-
-```
-dotnet add package SwedbankPay.Sdk
-```
-
-Configure the SDK in one line.
+To configure the SDK in one line using `Microsoft.Extensions.DependencyInjection`,
+you need to install `SwedbankPay.Sdk.Extensions`. The SDK can then be configured
+as such:
+(This requires that you have added `SwedbankPay.Sdk.Extensions`)
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
