@@ -10,7 +10,6 @@ namespace SwedbankPay.Sdk.Payments.MobilePayPayments
                              string panToken,
                              string cardBrand,
                              string cardType,
-                             string issuingBank,
                              string countryCode,
                              string acquirerTransactionType,
                              string acquirerStan,
