@@ -121,7 +121,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
 
         public PaymentRequestBuilder WithMobilePayTestValues()
         {
-            this.operation = Operation.FinancingConsumer;
+            this.operation = Operation.Purchase;
             this.intent = Intent.Authorization;
             this.currency = new CurrencyCode("SEK");
             this.description = "Test Description";
