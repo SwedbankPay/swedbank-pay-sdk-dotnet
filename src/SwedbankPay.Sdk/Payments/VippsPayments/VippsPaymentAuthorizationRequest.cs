@@ -2,13 +2,9 @@
 {
     public class VippsPaymentAuthorizationRequest
     {
-        public VippsPaymentAuthorizationRequest(string cardNumber,
-                                    int cardExpiryMonth,
-                                    int cardExpiryYear,
-                                    string cardVerificationCode = null,
-                                    string cardHolderName = null)
+        public VippsPaymentAuthorizationRequest(string msisdn)
         {
-            Transaction = new AuthorizationTransaction(cardNumber, cardExpiryMonth, cardExpiryYear, cardVerificationCode, cardHolderName);
+            Transaction = new AuthorizationTransaction(msisdn);
         }
 
 
@@ -16,26 +12,11 @@
 
         public class AuthorizationTransaction
         {
-            protected internal AuthorizationTransaction(string cardNumber,
-                                                        int cardExpiryMonth,
-                                                        int cardExpiryYear,
-                                                        string cardVerificationCode = null,
-                                                        string cardHolderName = null)
+            protected internal AuthorizationTransaction(string msisdn)
             {
-                CardNumber = cardNumber;
-                CardExpiryMonth = cardExpiryMonth;
-                CardExpiryYear = cardExpiryYear;
-                CardVerificationCode = cardVerificationCode;
-                CardHolderName = cardHolderName;
+                Msisdn = msisdn;
             }
-
-
-            public int CardExpiryMonth { get; }
-            public int CardExpiryYear { get; }
-            public string CardHolderName { get; }
-
-            public string CardNumber { get; }
-            public string CardVerificationCode { get; }
+            public string Msisdn { get; }
         }
     }
 }
