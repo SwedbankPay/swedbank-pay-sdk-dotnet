@@ -41,7 +41,7 @@ namespace Swedbankpay.Sdk.Payments.MobilePayPayments
                         break;
 
                     case PaymentResourceOperations.CreateReversal:
-                        Reversal = async payload =>
+                        Reverse = async payload =>
                             await client.SendAsJsonAsync<ReversalResponse>(httpOperation.Method, httpOperation.Href, payload);
                         break;
                 }
