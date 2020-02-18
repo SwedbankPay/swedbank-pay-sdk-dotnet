@@ -19,6 +19,9 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Payment
         [FindByClass("cards")] 
         public UnorderedList<PreFilledCreditCard, _> PreFilledCards { get; set; }
 
+        [FindByClass("custom-link", Index = 0)]
+        public Link<_> AddNewCard { get; set; }
+
         [FindById("panInput")] public TelInput<_> CreditCardNumber { get; set; }
 
         [FindById(TermMatch.Contains, "cvcInput")]

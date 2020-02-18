@@ -29,7 +29,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Abort
             var order = await SwedbankPayClient.PaymentOrders.Get(new Uri(orderLink, UriKind.RelativeOrAbsolute), SwedbankPay.Sdk.PaymentOrders.PaymentOrderExpand.All);
 
             // Operations
-            Assert.That(order.Operations, Is.Null);
+            Assert.That(order.Operations, Is.Empty);
 
             // Transactions
             Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment, Is.Null);
