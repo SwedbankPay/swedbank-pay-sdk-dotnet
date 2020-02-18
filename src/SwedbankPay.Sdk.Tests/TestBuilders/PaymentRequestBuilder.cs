@@ -58,7 +58,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
 
         public Payments.MobilePayPayments.MobilePayPaymentRequest BuildMobilePayRequest()
         {
-            return new Payments.MobilePayPayments.MobilePayPaymentRequest(
+            return new MobilePayPaymentRequest(
                 this.operation,
                 this.intent,
                 this.currency,
