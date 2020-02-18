@@ -1,4 +1,7 @@
-﻿namespace SwedbankPay.Sdk.Payments.CardPayments
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+
+namespace SwedbankPay.Sdk.Payments.CardPayments
 {
     public class CardPaymentReversalRequest
     {
@@ -8,6 +11,7 @@
         }
 
 
+        [JsonProperty]
         private CardPaymentReversalTransaction transaction { get; }
 
         public Amount Amount => this.transaction.Amount;
