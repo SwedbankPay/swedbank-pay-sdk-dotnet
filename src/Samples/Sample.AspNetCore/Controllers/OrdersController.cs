@@ -15,10 +15,10 @@ namespace Sample.AspNetCore.Controllers
     public class OrdersController : Controller
     {
         private readonly StoreDbContext context;
-        private readonly SwedbankPayClient swedbankPayClient;
+        private readonly ISwedbankPayClient swedbankPayClient;
        
         public OrdersController(StoreDbContext context,
-                                SwedbankPayClient swedbankPayClient)
+                                ISwedbankPayClient swedbankPayClient)
         {
             this.context = context;
             this.swedbankPayClient = swedbankPayClient;
