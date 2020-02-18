@@ -46,7 +46,9 @@ Install the `SwedbankPay.Sdk` NuGet in your project:
 dotnet add package SwedbankPay.Sdk
 ```
 
-Configure the SDK in one line.
+To configure the SDK in one line using `Microsoft.Extensions.DependencyInjection`,
+you need to install `SwedbankPay.Sdk.Extensions`. The SDK can then be configured
+as such:
 (This requires that you have added `SwedbankPay.Sdk.Extensions`)
 
 ```csharp
