@@ -1,5 +1,6 @@
 ﻿using SwedbankPay.Sdk.Payments.CardPayments;
 using SwedbankPay.Sdk.Payments.SwishPayments;
+using SwedbankPay.Sdk.Payments.MobilePayPayments;
 
 namespace SwedbankPay.Sdk.Payments
 {
@@ -7,5 +8,6 @@ namespace SwedbankPay.Sdk.Payments
     {
         ICardPaymentsResource CardPayments { get; }
         ISwishPaymentsResource SwishPayments { get; }
+        IMobilePayPaymentsResource MobilePayPayments { get; }
     }
 }

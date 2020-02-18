@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Payments.MobilePayPayments
 {
-    class IMobilePayPaymentsResource
+    public interface IMobilePayPaymentsResource
     {
         Task<MobilePayPayment> Create(MobilePayPaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None);
 

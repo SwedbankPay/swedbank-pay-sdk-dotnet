@@ -24,6 +24,7 @@ using SwedbankPay.Sdk.PaymentOrders;
 using SwedbankPay.Sdk.Payments;
 using SwedbankPay.Sdk.Payments.CardPayments;
 using SwedbankPay.Sdk.Payments.SwishPayments;
+using SwedbankPay.Sdk.Payments.MobilePayPayments;
 
 namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
 {
@@ -60,7 +61,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 httpClient,
                 new PaymentOrdersResource(httpClient),
                 new ConsumersResource(httpClient),
-                new PaymentsResource(httpClient, new CardPaymentsResource(httpClient), new SwishPaymentsResource(httpClient)));
+                new PaymentsResource(httpClient, new CardPaymentsResource(httpClient), new SwishPaymentsResource(httpClient), new MobilePayPaymentsResource(httpClient)));
         }
 
 

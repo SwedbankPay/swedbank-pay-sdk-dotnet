@@ -1,23 +1,10 @@
 ﻿using System;
 
-namespace SwedbankPay.Sdk.Payments.InvoicePayments
+namespace SwedbankPay.Sdk.Payments.MobilePayPayments
 {
-    public class Authorization : IdLink
+    public class MobilePayPaymentAuthorizationTransaction : IdLink
     {
-        public Authorization(
-                             AuthorizationTransaction transaction)
-        {
-            Transaction = transaction;
-        }
-
-
-      
-        public AuthorizationTransaction Transaction { get; }
-    }
-
-    public class AuthorizationTransaction : IdLink
-    {
-        public AuthorizationTransaction(DateTime created,
+        public MobilePayPaymentAuthorizationTransaction(DateTime created,
                                         DateTime updated,
                                         string type,
                                         State state,
@@ -31,7 +18,6 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
                                         string failedErrorCode,
                                         string failedErrorDescription,
                                         bool isOperational,
-                                        ProblemResponse problem,
                                         OperationList operations)
         {
             Created = created;
@@ -48,7 +34,6 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
             FailedErrorCode = failedErrorCode;
             FailedErrorDescription = failedErrorDescription;
             IsOperational = isOperational;
-            Problem = problem;
             Operations = operations;
         }
 
@@ -65,7 +50,6 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
         public string Number { get; }
         public OperationList Operations { get; }
         public string PayeeReference { get; }
-        public ProblemResponse Problem { get; }
         public State State { get; }
         public string Type { get; }
         public DateTime Updated { get; }

@@ -1,54 +1,17 @@
-﻿using swedbankpay.sdk.Payments.MobilePayPayments;
+﻿using Swedbankpay.Sdk.Payments.MobilePayPayments;
+using SwedbankPay.Sdk.Extensions;
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Payments.MobilePayPayments
 {
     public class MobilePayPayment
     {
-        private MobilePayPayment(MobilePayPaymentResponse paymentResponse, SwedbankPayHttpClient client)
+        private MobilePayPayment(MobilePayPaymentResponse paymentResponse, HttpClient client)
         {
             PaymentResponse = paymentResponse.Payment;
-            var operations = new MobilePayPaymentOperations();
-
-            foreach (var httpOperation in paymentResponse.Operations)
-            {
-                operations.Add(httpOperation.Rel, httpOperation);
-
-                switch (httpOperation.Rel.Value)
-                {
-                    case PaymentResourceOperations.UpdatePaymentAbort:
-                        operations.Update = httpOperation;
-                        break;
-
-                    case PaymentResourceOperations.RedirectAuthorization:
-                        operations.RedirectAuthorization = httpOperation;
-                        break;
-
-                    case PaymentResourceOperations.ViewAuthorization:
-                        operations.ViewAuthorization = httpOperation;
-                        break;
-
-                    case PaymentResourceOperations.CreateCapture:
-                        operations.Capture = async payload =>
-                            await client.SendHttpRequestAndProcessHttpResponse<CaptureResponse>(
-                                httpOperation.Request.AttachPayload(payload));
-                        break;
-
-                    case PaymentResourceOperations.CreateCancellation:
-                        operations.Cancel = async payload =>
-                            await client.SendHttpRequestAndProcessHttpResponse<CancellationResponse>(
-                                httpOperation.Request.AttachPayload(payload));
-                        break;
-
-                    case PaymentResourceOperations.CreateReversal:
-                        operations.Reversal = async payload =>
-                            await client.SendHttpRequestAndProcessHttpResponse<ReversalResponse>(
-                                httpOperation.Request.AttachPayload(payload));
-                        break;
-
-                }
-            }
+            var operations = new MobilePayPaymentOperations(paymentResponse.Operations, client);
             Operations = operations;
         }
 
@@ -58,23 +21,23 @@ namespace SwedbankPay.Sdk.Payments.MobilePayPayments
 
 
         internal static async Task<MobilePayPayment> Create(MobilePayPaymentRequest paymentRequest,
-                                                   SwedbankPayHttpClient client,
+                                                   HttpClient client,
                                                    string paymentExpand)
         {
             var url = new Uri($"/psp/mobilepay/payments{paymentExpand}", UriKind.Relative);
 
-            var paymentResponse = await client.HttpPost<MobilePayPaymentResponse>(url, paymentRequest);
+            var paymentResponse = await client.PostAsJsonAsync<MobilePayPaymentResponse>(url, paymentRequest);
             return new MobilePayPayment(paymentResponse, client);
         }
 
 
-        internal static async Task<MobilePayPayment> Get(Uri id, SwedbankPayHttpClient client, string paymentExpand)
+        internal static async Task<MobilePayPayment> Get(Uri id, HttpClient client, string paymentExpand)
         {
             var url = !string.IsNullOrWhiteSpace(paymentExpand)
                 ? new Uri(id.OriginalString + paymentExpand, UriKind.RelativeOrAbsolute)
                 : id;
 
-            var paymentResponseContainer = await client.HttpGet<MobilePayPaymentResponse>(url);
+            var paymentResponseContainer = await client.GetAsJsonAsync<MobilePayPaymentResponse>(url);
             return new MobilePayPayment(paymentResponseContainer, client);
         }
     }
