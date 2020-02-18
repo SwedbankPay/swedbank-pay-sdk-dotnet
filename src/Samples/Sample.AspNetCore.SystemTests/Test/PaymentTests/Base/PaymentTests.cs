@@ -61,7 +61,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 httpClient,
                 new PaymentOrdersResource(httpClient),
                 new ConsumersResource(httpClient),
-                new PaymentsResource(httpClient, new CardPaymentsResource(httpClient), new SwishPaymentsResource(httpClient), new MobilePayPaymentsResource(httpClient)));
+                new PaymentsResource(httpClient));
         }
 
 
