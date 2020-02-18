@@ -6,7 +6,7 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
     public interface IInvoicePaymentsResource
     {
         /// <summary>
-        ///     Creates a new swish payment
+        ///     Creates a new invoice payment
         /// </summary>
         /// <param name="paymentRequest"></param>
         /// <param name="paymentExpand"></param>
@@ -15,7 +15,7 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
 
 
         ///// <summary>
-        /////     Gets an existing swish payment.
+        /////     Gets an existing invoice payment.
         ///// </summary>
         ///// <param name="id"></param>
         ///// <param name="paymentExpand"></param>
