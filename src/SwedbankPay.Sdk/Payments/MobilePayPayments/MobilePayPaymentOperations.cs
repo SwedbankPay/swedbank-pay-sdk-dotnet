@@ -53,7 +53,7 @@ namespace Swedbankpay.Sdk.Payments.MobilePayPayments
         public Func<MobilePayPaymentCancelRequest, Task<CancellationResponse>> Cancel { get; }
         public Func<MobilePayPaymentCaptureRequest, Task<CaptureResponse>> Capture { get; }
         public HttpOperation RedirectAuthorization { get; }
-        public Func<MobilePayPaymentReversalRequest, Task<ReversalResponse>> Reversal { get; }
+        public Func<MobilePayPaymentReversalRequest, Task<ReversalResponse>> Reverse { get; }
         public HttpOperation ViewAuthorization { get; }
     }
 }
