@@ -8,15 +8,15 @@ namespace SwedbankPay.Sdk.Payments.VippsPayments
     {
         public VippsPaymentCaptureRequest(Amount amount, Amount vatAmount, List<OrderItem> orderItems, string description, string payeeReference)
         {
-            Transaction = new PaymentOrders.CaptureRequest.CaptureTransaction(amount, vatAmount, orderItems, description, payeeReference);
+            Transaction = new VippsPaymentCaptureTransaction(amount, vatAmount, orderItems, description, payeeReference);
         }
 
 
-        public PaymentOrders.CaptureRequest.CaptureTransaction Transaction { get; }
+        public VippsPaymentCaptureTransaction Transaction { get; }
 
-        public class CaptureTransaction
+        public class VippsPaymentCaptureTransaction
         {
-            protected internal CaptureTransaction(Amount amount,
+            protected internal VippsPaymentCaptureTransaction(Amount amount,
                                                   Amount vatAmount,
                                                   List<OrderItem> orderItems,
                                                   string description,
