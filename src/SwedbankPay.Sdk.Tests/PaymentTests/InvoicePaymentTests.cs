@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using SwedbankPay.Sdk.Payments;
 using SwedbankPay.Sdk.Payments.InvoicePayments;
 using SwedbankPay.Sdk.Tests.TestBuilders;
@@ -17,7 +18,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         public async Task CreatePayment()
         {
             var invoicePaymentRequest = this.paymentRequestBuilder.WithInvoiceTestValues(Operation.FinancingConsumer).BuildInvoiceRequest();
-            var invoicePayment = await this.Sut.Payment.InvoicePayments.Create(paymentRequest, PaymentExpand.All);
+            var invoicePayment = await this.Sut.Payments.InvoicePayments.Create(invoicePaymentRequest, PaymentExpand.All);
 
             Assert.NotNull(invoicePayment);
             Assert.Equal(invoicePaymentRequest.Payment.MetaData["key1"], invoicePayment.PaymentResponse.MetaData["key1"]);

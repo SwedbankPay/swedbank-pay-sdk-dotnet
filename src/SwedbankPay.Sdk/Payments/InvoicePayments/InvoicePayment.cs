@@ -1,58 +1,17 @@
-﻿using Swedbankpay.Sdk.Payments.InvoicePayments;
+﻿using SwedbankPay.Sdk.Extensions;
+using Swedbankpay.Sdk.Payments.InvoicePayments;
 using System;
 using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace SwedbankPay.Sdk.Payments.InvoicePayments
 {
     public class InvoicePayment
     {
-        private InvoicePayment(InvoicePaymentResponse paymentResponse, SwedbankPayHttpClient client)
+        private InvoicePayment(InvoicePaymentResponse paymentResponse, HttpClient client)
         {
             PaymentResponse = paymentResponse.Payment;
-            var operations = new InvoicePaymentOperations();
-
-            foreach (var httpOperation in paymentResponse.Operations)
-            {
-                operations.Add(httpOperation.Rel, httpOperation);
-
-                switch (httpOperation.Rel.Value)
-                {
-                    case PaymentResourceOperations.UpdatePaymentAbort:
-                        operations.Update = httpOperation;
-                        break;
-
-                    case PaymentResourceOperations.RedirectAuthorization:
-                        operations.RedirectAuthorization = httpOperation;
-                        break;
-
-                    case PaymentResourceOperations.ViewAuthorization:
-                        operations.ViewAuthorization = httpOperation;
-                        break;
-
-                    case PaymentResourceOperations.CreateCapture:
-                        operations.Capture = async payload =>
-                            await client.SendHttpRequestAndProcessHttpResponse<CaptureResponse>(
-                                httpOperation.Request.AttachPayload(payload));
-                        break;
-
-                    case PaymentResourceOperations.CreateCancellation:
-                        operations.Cancel = async payload =>
-                            await client.SendHttpRequestAndProcessHttpResponse<CancellationResponse>(
-                                httpOperation.Request.AttachPayload(payload));
-                        break;
-
-                    case PaymentResourceOperations.CreateReversal:
-                        operations.Reversal = async payload =>
-                            await client.SendHttpRequestAndProcessHttpResponse<ReversalResponse>(
-                                httpOperation.Request.AttachPayload(payload));
-                        break;
-
-                    case PaymentResourceOperations.CreateApprovedLegalAddress:
-                        operations.ApprovedLegalAddress = httpOperation;
-                        break;
-
-                }
-            }
+            var operations = new InvoicePaymentOperations(paymentResponse.Operations, client);
             Operations = operations;
         }
 
@@ -62,23 +21,23 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
 
 
         internal static async Task<InvoicePayment> Create(InvoicePaymentRequest paymentRequest,
-                                                   SwedbankPayHttpClient client,
+                                                   HttpClient client,
                                                    string paymentExpand)
         {
             var url = new Uri($"/psp/vipps/payments{paymentExpand}", UriKind.Relative);
 
-            var paymentResponse = await client.HttpPost<InvoicePaymentResponse>(url, paymentRequest);
+            var paymentResponse = await client.PostAsJsonAsync<InvoicePaymentResponse>(url, paymentRequest);
             return new InvoicePayment(paymentResponse, client);
         }
 
 
-        internal static async Task<InvoicePayment> Get(Uri id, SwedbankPayHttpClient client, string paymentExpand)
+        internal static async Task<InvoicePayment> Get(Uri id, HttpClient client, string paymentExpand)
         {
             var url = !string.IsNullOrWhiteSpace(paymentExpand)
                 ? new Uri(id.OriginalString + paymentExpand, UriKind.RelativeOrAbsolute)
                 : id;
 
-            var paymentResponseContainer = await client.HttpGet<InvoicePaymentResponse>(url);
+            var paymentResponseContainer = await client.GetAsJsonAsync<InvoicePaymentResponse>(url);
             return new InvoicePayment(paymentResponseContainer, client);
         }
     }
