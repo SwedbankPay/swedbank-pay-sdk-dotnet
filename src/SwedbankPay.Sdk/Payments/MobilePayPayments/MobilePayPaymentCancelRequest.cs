@@ -20,7 +20,6 @@
 
 
             public string Description { get; }
-
             public string PayeeReference { get; }
         }
     }
