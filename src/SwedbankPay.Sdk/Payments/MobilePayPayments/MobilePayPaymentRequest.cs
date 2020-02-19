@@ -72,6 +72,8 @@ namespace SwedbankPay.Sdk.Payments.MobilePayPayments
             public string UserAgent { get; set; }
             public PrefillInfo PrefillInfo { get; set; }
         }
+
+
         public class MobilePayPaymentRequestObject
         {
             protected internal MobilePayPaymentRequestObject(Uri shoplogoUrl)
