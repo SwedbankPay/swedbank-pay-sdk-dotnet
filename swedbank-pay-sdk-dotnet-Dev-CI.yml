@@ -28,8 +28,10 @@ steps:
   displayName: GitVersion
   inputs:
     versionSpec: '5.x'
+    runtime: 'core'
     useConfigFile: true
     configFilePath: GitVersion.yml
+
 
 - task: UseDotNet@2
   displayName: 'Setting up framework for build'
