@@ -84,6 +84,9 @@ namespace SwedbankPay.Sdk
         public static readonly LinkRelation ViewVerification =
             new LinkRelation(nameof(ViewVerification), PaymentResourceOperations.ViewVerification);
 
+        public static readonly LinkRelation UpdateAuthorizationOverchargedamount =
+            new LinkRelation(nameof(UpdateAuthorizationOverchargedamount), PaymentResourceOperations.UpdateAuthorizationOverchargedAmount);
+
 
         private LinkRelation(string name, string value)
             : base(name, value)
