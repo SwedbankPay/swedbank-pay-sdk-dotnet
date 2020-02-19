@@ -20,7 +20,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         }
 
         [Fact]
-        public async Task GetPayment()
+        public async Task GetPayment_CheckIfGetFunctionWorks()
         {
             var payment = await this.Sut.Payments.MobilePayPayments.Get(
                 new Uri("", UriKind.Relative), PaymentExpand.All);
