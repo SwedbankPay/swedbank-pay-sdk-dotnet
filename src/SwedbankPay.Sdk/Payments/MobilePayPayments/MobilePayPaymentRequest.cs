@@ -84,7 +84,6 @@ namespace SwedbankPay.Sdk.Payments.MobilePayPayments
             /// </summary>
             public Uri ShoplogoUrl { get; set; }
 
-
         }
     }
 }
