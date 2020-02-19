@@ -97,7 +97,16 @@ namespace SwedbankPay.Sdk
                 throw new ArgumentNullException(nameof(value));
 
             if (!fromValue.Value.TryGetValue(value, out var result))
+            {
+                var constructor = typeof(TEnum).GetConstructor(new Type[] { typeof(string), value.GetType() });
+                if(constructor != null)
+                {
+                    var instance = constructor.Invoke(new object[] { value.ToString(), value });
+                    return (TEnum)instance;
+                }
                 throw new KeyNotFoundException($"Key: {value} not found.");
+            }
+                
             return result;
         }
 

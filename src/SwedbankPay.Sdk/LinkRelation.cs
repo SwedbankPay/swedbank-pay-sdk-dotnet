@@ -88,7 +88,7 @@ namespace SwedbankPay.Sdk
             new LinkRelation(nameof(UpdateAuthorizationOverchargedamount), PaymentResourceOperations.UpdateAuthorizationOverchargedAmount);
 
 
-        private LinkRelation(string name, string value)
+        public LinkRelation(string name, string value)
             : base(name, value)
         {
         }
