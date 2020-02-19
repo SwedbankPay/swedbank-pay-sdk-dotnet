@@ -15,6 +15,7 @@ namespace SwedbankPay.Sdk.JsonSerialization
             ContractResolver = new CamelCasePropertyNamesContractResolver(),
             Converters = new List<JsonConverter>
             {
+                new TypesafeEnumConverter(),
                 new StringEnumConverter(),
                 new CustomEmailAddressConverter(typeof(EmailAddress)),
                 new TypedSafeEnumValueConverter<ShipIndicator, string>(),

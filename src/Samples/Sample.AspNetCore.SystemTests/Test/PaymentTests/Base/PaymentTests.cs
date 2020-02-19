@@ -24,6 +24,8 @@ using SwedbankPay.Sdk.PaymentOrders;
 using SwedbankPay.Sdk.Payments;
 using SwedbankPay.Sdk.Payments.CardPayments;
 using SwedbankPay.Sdk.Payments.SwishPayments;
+using SwedbankPay.Sdk.Payments.InvoicePayments;
+using SwedbankPay.Sdk.Payments.VippsPayments;
 using SwedbankPay.Sdk.Payments.MobilePayPayments;
 
 namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
@@ -57,11 +59,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Environment.GetEnvironmentVariable("Payex.Api.Token", EnvironmentVariableTarget.User));
             #endif
 
-            SwedbankPayClient = new SwedbankPayClient(
-                httpClient,
-                new PaymentOrdersResource(httpClient),
-                new ConsumersResource(httpClient),
-                new PaymentsResource(httpClient));
+            SwedbankPayClient = new SwedbankPayClient(httpClient);
         }
 
 
@@ -216,8 +214,27 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             {
                 case Checkout.Option.Standard:
                     return GoToPayexCardPaymentFrame(products, checkout)
-                    .PreFilledCards.Items[x => x.CreditCardNumber.Value.Contains(info.CreditCardNumber.Substring(info.CreditCardNumber.Length - 4))].Click()
-                    .Cvc.Set(info.Cvc)
+                        .Do(x =>
+                        {
+                            if(x.PreFilledCards.Items[y => y.CreditCardNumber.Value.Contains(info.CreditCardNumber.Substring(info.CreditCardNumber.Length - 4))].Exists())
+                            {
+                                x.PreFilledCards
+                                    .Items[
+                                        y => y.CreditCardNumber.Value.Contains(
+                                            info.CreditCardNumber.Substring(info.CreditCardNumber.Length - 4))].Click()
+                                    .Cvc.Set(info.Cvc);
+                            }
+                            else
+                            {
+                                x.AddNewCard.Click()
+                                    .CreditCardNumber.Set(TestDataService.CreditCardNumber)
+                                    .ExpiryDate.Set(TestDataService.CreditCardExpiratioDate)
+                                    .Cvc.Set(TestDataService.CreditCardCvc);
+                            }
+
+                                
+
+                        })
                     .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
                     .Pay.ClickAndGo();
 

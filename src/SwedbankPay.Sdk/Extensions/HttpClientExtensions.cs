@@ -38,24 +38,30 @@ namespace SwedbankPay.Sdk.Extensions
 
             using var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage);
 
-            string httpResponseBody = string.Empty;
+            string BuildErrorMessage(string httpResponseBody)
+            {
+                return $"{httpRequestMessage.Method}: {httpRequestMessage.RequestUri} failed with error code {httpResponseMessage.StatusCode} using bearer token {httpClient.DefaultRequestHeaders?.Authorization?.Parameter}. Response body: {httpResponseBody}";
+            }
+
+            string httpResponseContent = string.Empty;
             try
             {
-                httpResponseBody = await httpResponseMessage.Content.ReadAsStringAsync();
+                httpResponseContent = await httpResponseMessage.Content.ReadAsStringAsync();
                 if (!httpResponseMessage.IsSuccessStatusCode)
                 {
                     throw new HttpResponseException(
                         httpResponseMessage,
-                        JsonConvert.DeserializeObject<ProblemResponse>(httpResponseBody));
+                        JsonConvert.DeserializeObject<ProblemResponse>(httpResponseContent),
+                        BuildErrorMessage(httpResponseContent));
                 }
 
-                return JsonConvert.DeserializeObject<T>(httpResponseBody, JsonSerialization.JsonSerialization.Settings);
+                return JsonConvert.DeserializeObject<T>(httpResponseContent, JsonSerialization.JsonSerialization.Settings);
             }
             catch (HttpResponseException ex)
             {
                 ex.Data.Add(nameof(httpResponseMessage), httpResponseMessage);
                 ex.Data.Add(nameof(httpRequestMessage), httpRequestMessage);
-                ex.Data.Add(nameof(httpResponseBody), httpResponseBody);
+                ex.Data.Add(nameof(httpResponseContent), httpResponseContent);
                 throw ex;
             }
         }

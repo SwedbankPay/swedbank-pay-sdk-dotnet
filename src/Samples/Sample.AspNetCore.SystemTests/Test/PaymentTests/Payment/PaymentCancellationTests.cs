@@ -25,7 +25,8 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
                 .PaymentLink.StoreValue(out var paymentLink)
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCancellation)].ExecuteAction.ClickAndGo()
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.PaidPayment)].Should.BeVisible()
-                .Actions.Rows.Count.Should.Equal(1);
+                .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.ViewPayment)].Should.BeVisible()
+                .Actions.Rows.Count.Should.Equal(2);
 
             var cardPayment = await SwedbankPayClient.Payments.CardPayments.Get(paymentLink, PaymentExpand.All);
 

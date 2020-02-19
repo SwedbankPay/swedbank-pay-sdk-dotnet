@@ -1,4 +1,7 @@
-﻿namespace SwedbankPay.Sdk.Payments.CardPayments
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+
+namespace SwedbankPay.Sdk.Payments.CardPayments
 {
     public class CardPaymentCancelRequest
     {
@@ -7,7 +10,7 @@
             this.transaction = new CardPaymentCancelTransaction(payeeReference, description);
         }
 
-
+        [JsonProperty]
         private CardPaymentCancelTransaction transaction { get; }
 
         public string Description => this.transaction.Description;
