@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using SwedbankPay.Sdk;
 using SwedbankPay.Sdk.Payments.VippsPayments;
 using SwedbankPay.Sdk.Payments;
-using System.Collections.Generic;
 using System.Net.Http;
 using SwedbankPay.Sdk.Extensions;
 

@@ -6,7 +6,7 @@ namespace SwedbankPay.Sdk.Payments.VippsPayments
     public interface IVippsPaymentsResource
     {
         /// <summary>
-        ///     Creates a new swish payment
+        ///     Creates a new Vipps payment
         /// </summary>
         /// <param name="paymentRequest"></param>
         /// <param name="paymentExpand"></param>
@@ -15,7 +15,7 @@ namespace SwedbankPay.Sdk.Payments.VippsPayments
 
 
         ///// <summary>
-        /////     Gets an existing swish payment.
+        /////     Gets an existing Vipps payment.
         ///// </summary>
         ///// <param name="id"></param>
         ///// <param name="paymentExpand"></param>
