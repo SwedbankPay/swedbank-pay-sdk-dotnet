@@ -25,6 +25,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private SwishPaymentOptionsObject swish;
         private List<Price> price;
         private Dictionary<string, object> metaData;
+        private Uri shopslogoUrl;
 
 
         public Payments.CardPayments.CardPaymentRequest BuildCreditardPaymentRequest()
@@ -68,7 +69,8 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
                 this.userAgent,
                 this.language,
                 this.urls,
-                this.payeeInfo);
+                this.payeeInfo,
+                this.shopslogoUrl);
         }
 
         public PaymentRequestBuilder WithCreditcardTestValues(Guid payeeId, Operation operation = null, Intent intent = Intent.Authorization)
@@ -112,7 +114,6 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.vatAmount = Amount.FromDecimal(0);
             this.swish = new SwishPaymentOptionsObject();
             this.metaData = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
-
             this.price = new List<Price>
             {
                 new Price(this.amount, PriceType.Swish, this.vatAmount)
@@ -120,7 +121,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             return this;
         }
 
-        public PaymentRequestBuilder WithMobilePayTestValues()
+        public PaymentRequestBuilder WithMobilePayTestValues(Guid payeeId)
         {
             this.operation = Operation.Purchase;
             this.intent = Intent.Authorization;
@@ -130,16 +131,15 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.userAgent = "useragent";
             this.language = new CultureInfo("sv-SE");
             this.urls = new Urls(new List<Uri> { new Uri("https://example.com") }, new Uri("https://example.com/payment-completed"), new Uri("https://example.com/termsandconditoons.pdf"), new Uri("https://example.com/payment-canceled"));
-            this.payeeInfo = new PayeeInfo(Guid.Parse("91a4c8e0-72ac-425c-a687-856706f9e9a1"), DateTime.Now.Ticks.ToString());
+            this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString(), "payeeName", "productCategory");
             this.prefillInfo = new PrefillInfo(new Msisdn("+46701234567"));
-            this.generatePaymentToken = false;
             this.amount = Amount.FromDecimal(1600);
             this.vatAmount = Amount.FromDecimal(0);
             this.metaData = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
-
+            this.shopslogoUrl = new Uri("https://example.com");
             this.price = new List<Price>
             {
-                new Price(this.amount, PriceType.Invoice, this.vatAmount)
+                new Price(this.amount, PriceType.Visa, this.vatAmount)
             };
             return this;
         }

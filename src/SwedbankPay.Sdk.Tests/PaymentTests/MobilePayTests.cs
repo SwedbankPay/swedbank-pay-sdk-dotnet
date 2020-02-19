@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using SwedbankPay.Sdk.Payments;
-using SwedbankPay.Sdk.Payments.MobilePayPayments;
 using SwedbankPay.Sdk.Tests.TestBuilders;
 using Xunit;
 
@@ -17,7 +14,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         [Fact]
         public async Task CreateMobilePayPayment_ShouldReturnPayment()
         {
-            var paymentRequest = this.paymentRequestBuilder.WithMobilePayTestValues().BuildMobilePayRequest();
+            var paymentRequest = this.paymentRequestBuilder.WithMobilePayTestValues(this.payeeId).BuildMobilePayRequest();
             var mobilePayPayment = await this.Sut.Payments.MobilePayPayments.Create(paymentRequest, PaymentExpand.All);
             Assert.NotNull(mobilePayPayment);
         }
