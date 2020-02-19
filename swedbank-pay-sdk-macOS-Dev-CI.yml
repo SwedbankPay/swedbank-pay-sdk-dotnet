@@ -14,19 +14,20 @@ variables:
 
 
 steps:
+- task: GitVersion@5 
+  displayName: GitVersion
+  inputs:
+    versionSpec: '5.x'
+    runtime: 'full'
+    useConfigFile: true
+    configFilePath: GitVersion.yml
+
 - task: UseDotNet@2
   displayName: 'Setting up framework for build'
   inputs:
     packageType: 'sdk'
     version: '3.1.101'
     installationPath: $(Agent.TempDirectory)/dotnet
-
-- task: GitVersion@5 
-  displayName: GitVersion
-  inputs:
-    versionSpec: '5.x'
-    useConfigFile: true
-    configFilePath: GitVersion.yml
 
 - task: NuGetToolInstaller@1
   #inputs:
