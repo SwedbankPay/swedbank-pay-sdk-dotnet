@@ -15,6 +15,7 @@ namespace SwedbankPay.Sdk.JsonSerialization
             ContractResolver = new CamelCasePropertyNamesContractResolver(),
             Converters = new List<JsonConverter>
             {
+                new TypesafeEnumConverter(),
                 new StringEnumConverter(),
                 new CustomEmailAddressConverter(typeof(EmailAddress)),
                 new TypedSafeEnumValueConverter<ShipIndicator, string>(),
@@ -37,8 +38,7 @@ namespace SwedbankPay.Sdk.JsonSerialization
                 new TypedSafeEnumValueConverter<LinkRelation, string>(),
                 new TypedSafeEnumValueConverter<OrderItemType, string>(),
                 new CustomAmountConverter(typeof(Amount)),
-                new CustomMsisdnConverter(typeof(Msisdn)),
-                new TypesafeEnumConverter()
+                new CustomMsisdnConverter(typeof(Msisdn))
             },
             NullValueHandling = NullValueHandling.Ignore,
             DateFormatString = "yyyyMMdd"

@@ -1,9 +1,8 @@
 ﻿using Newtonsoft.Json;
+using SwedbankPay.Sdk.Payments;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using Xunit;
 
 namespace SwedbankPay.Sdk.Tests.Json
@@ -21,15 +20,17 @@ namespace SwedbankPay.Sdk.Tests.Json
         [InlineData(typeof(PaymentInstrument), "Chair")]
         [InlineData(typeof(PaymentInstrument), "Bottle")]
         [InlineData(typeof(PriceType), "Bottle")]
+        [InlineData(typeof(TransactionType), "Notebook")]
+        [InlineData(typeof(Intent), "Eraser")]
         public void DeserializingUnknownEnum_GivesDefaultValue(Type enumType, string value)
         {
-            JsonConvert.DeserializeObject(value, enumType, JsonSerialization.JsonSerialization.Settings);
+            JsonConvert.DeserializeObject($"\"{value}\"", enumType, JsonSerialization.JsonSerialization.Settings);
         }
 
         [Fact]
         public void DeserializingUnknownEnum_DoesNotThrowForAnyType()
         {
-            var enums = Assembly.GetAssembly(typeof(PaymentInstrument)).GetTypes().Where(t => t.IsEnum);
+            var enums = Assembly.GetAssembly(typeof(PaymentInstrument)).GetTypes().Where(t => t.IsEnum && !t.IsDefined(typeof(FlagsAttribute)));
             foreach (var item in enums)
             {
                 var result = JsonConvert.DeserializeObject(InvalidStringEnum, item, JsonSerialization.JsonSerialization.Settings);
@@ -37,6 +38,6 @@ namespace SwedbankPay.Sdk.Tests.Json
             }
         }
 
-        public static string InvalidStringEnum = @"ThisIsAVeryInvalidEnumValueForThisObject";
+        public static string InvalidStringEnum = "\"ThisIsAVeryInvalidEnumValueForThisObject\"";
     }
 }

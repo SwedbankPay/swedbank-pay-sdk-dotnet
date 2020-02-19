@@ -2,6 +2,7 @@
 {
     public enum TransactionType
     {
+        Unknown = default,
         Authorization,
         Capture,
         Reversal,
