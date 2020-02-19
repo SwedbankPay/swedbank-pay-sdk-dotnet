@@ -17,37 +17,15 @@ namespace SwedbankPay.Sdk.Tests.Json
         public void CanAccessDeserializedUnknownOperation()
         {
             var paymentResponse = JsonConvert.DeserializeObject<CardPaymentResponse>(TestResponse, JsonSerialization.JsonSerialization.Settings);
-            //paymentResponse.Operations["test"];
+            var operations = new CardPaymentOperations(paymentResponse.Operations, new System.Net.Http.HttpClient());
+            
+            Assert.Contains(operations, a => a.Key.Name.Equals(TestOperationName, System.StringComparison.OrdinalIgnoreCase));
+            Assert.Contains(operations, a => a.Key.Value.Equals(TestOperationName, System.StringComparison.OrdinalIgnoreCase));
         }
 
+        public static string TestOperationName = "unknown-test-operation";
         public static string TestResponse = @"{
     ""payment"": {
-        ""id"": ""/psp/creditcard/payments/07f14eae-ee4d-414d-2635-08d7b43fe32e"",
-        ""number"": 70100358890,
-        ""created"": ""2020-02-19T07:49:05.4375875Z"",
-        ""updated"": ""2020-02-19T07:49:20.2673946Z"",
-        ""instrument"": ""CreditCard"",
-        ""operation"": ""Purchase"",
-        ""intent"": ""Authorization"",
-        ""state"": ""Ready"",
-        ""currency"": ""NOK"",
-        ""prices"": {
-            ""id"": ""/psp/creditcard/payments/07f14eae-ee4d-414d-2635-08d7b43fe32e/prices""
-        },
-        ""amount"": 0,
-        ""description"": ""Doom & Gloom"",
-        ""initiatingSystemUserAgent"": ""PostmanRuntime/7.22.0"",
-        ""userAgent"": ""Mozilla/5.0 Postman"",
-        ""language"": ""nb-NO"",
-        ""urls"": {
-            ""id"": ""/psp/creditcard/payments/07f14eae-ee4d-414d-2635-08d7b43fe32e/urls""
-        },
-        ""payeeInfo"": {
-            ""id"": ""/psp/creditcard/payments/07f14eae-ee4d-414d-2635-08d7b43fe32e/payeeinfo""
-        },
-        ""metadata"": {
-            ""id"": ""/psp/creditcard/payments/07f14eae-ee4d-414d-2635-08d7b43fe32e/metadata""
-        }
     },
     ""operations"": [
         {
