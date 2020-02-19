@@ -12,7 +12,6 @@ namespace SwedbankPay.Sdk.Payments.MobilePayPayments
 
 
         public MobilePayPaymentAuthorizationListResponse AuthorizationList { get; }
-
         public Uri Payment { get; }
     }
 }
