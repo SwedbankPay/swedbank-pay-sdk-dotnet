@@ -6,16 +6,23 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
 {
     public class InvoicePaymentCaptureRequest
     {
-        public InvoicePaymentCaptureRequest(Operation transactionActivity, 
-                              Amount amount, 
-                              Amount vatAmount, 
-                              List<OrderItem> orderItems, 
-                              string description, 
-                              string payeeReference, 
-                              List<ItemDescriptions> itemDescriptions, 
-                              List<VatSummary> vatSummary)
+        public InvoicePaymentCaptureRequest(Operation transactionActivity,
+                                            Amount amount,
+                                            Amount vatAmount, 
+                                            List<OrderItem> orderItems, 
+                                            string description, 
+                                            string payeeReference, 
+                                            List<ItemDescriptions> itemDescriptions, 
+                                            List<VatSummary> vatSummary)
         {
-            Transaction = new CaptureTransaction(transactionActivity, amount, vatAmount, orderItems, description, payeeReference, itemDescriptions, vatSummary);
+            Transaction = new CaptureTransaction(transactionActivity,
+                                                 amount,
+                                                 vatAmount,
+                                                 orderItems,
+                                                 description,
+                                                 payeeReference,
+                                                 itemDescriptions,
+                                                 vatSummary);
         }
 
 

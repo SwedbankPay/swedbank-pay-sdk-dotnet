@@ -10,8 +10,6 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
             Transaction = transaction;
         }
 
-
-      
         public AuthorizationTransaction Transaction { get; }
     }
 
@@ -54,7 +52,6 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
 
 
         public Amount Amount { get; }
-
         public DateTime Created { get; }
         public string Description { get; }
         public string FailedActivityName { get; }

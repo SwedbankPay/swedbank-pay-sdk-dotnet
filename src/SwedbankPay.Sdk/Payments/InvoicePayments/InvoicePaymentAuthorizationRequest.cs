@@ -3,19 +3,30 @@
     public class InvoicePaymentAuthorizationRequest
     {
         public InvoicePaymentAuthorizationRequest(Operation transactionActivity,
-                                    int socialSecurityNumber,
-                                    string ip,
-                                    string addressee,
-                                    string zipCode,
-                                    string city,
-                                    string countryCode,
-                                    int? customerNumber = null,
-                                    EmailAddress email = null,
-                                    string msisdn = null,
-                                    string coAddress = null,
-                                    string streetAddress = null)
+                                                  int socialSecurityNumber,
+                                                  string ip,
+                                                  string addressee,
+                                                  string zipCode,
+                                                  string city,
+                                                  string countryCode,
+                                                  int? customerNumber = null,
+                                                  EmailAddress email = null,
+                                                  string msisdn = null,
+                                                  string coAddress = null,
+                                                  string streetAddress = null)
         {
-            Transaction = new AuthorizationTransaction(transactionActivity, socialSecurityNumber,  ip, addressee, zipCode, city, countryCode, customerNumber, email, msisdn, coAddress, streetAddress);
+            Transaction = new AuthorizationTransaction(transactionActivity,
+                                                       socialSecurityNumber,
+                                                       ip,
+                                                       addressee,
+                                                       zipCode,
+                                                       city,
+                                                       countryCode,
+                                                       customerNumber,
+                                                       email,
+                                                       msisdn,
+                                                       coAddress,
+                                                       streetAddress);
         }
 
 

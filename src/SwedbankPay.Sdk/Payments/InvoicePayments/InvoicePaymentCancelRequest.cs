@@ -21,7 +21,6 @@
 
             public Operation TransactionActivity { get; }
             public string Description { get; }
-
             public string PayeeReference { get; }
         }
     }

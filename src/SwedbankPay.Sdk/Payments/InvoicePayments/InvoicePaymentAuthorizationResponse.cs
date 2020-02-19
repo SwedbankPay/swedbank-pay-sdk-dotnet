@@ -12,7 +12,6 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
 
 
         public InvoicePaymentAuthorization Authorization { get; }
-
         public Uri Payment { get; }
     }
 }

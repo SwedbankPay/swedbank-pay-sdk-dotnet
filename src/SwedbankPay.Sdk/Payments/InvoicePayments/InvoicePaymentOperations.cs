@@ -5,7 +5,6 @@ using SwedbankPay.Sdk;
 using SwedbankPay.Sdk.Payments.InvoicePayments;
 using SwedbankPay.Sdk.Payments;
 using System.Net.Http;
-using System.Collections.Generic;
 
 namespace Swedbankpay.Sdk.Payments.InvoicePayments
 {
@@ -46,22 +45,27 @@ namespace Swedbankpay.Sdk.Payments.InvoicePayments
                         break;
 
                     case PaymentResourceOperations.CreateApprovedLegalAddress:
-                        ApprovedLegalAddress = httpOperation;
+                        ApprovedLegalAddress = async payload =>
+                            await client.SendAsJsonAsync<ApprovedLegalAddressResponse>(httpOperation.Method, httpOperation.Href, payload);
                         break;
 
+                    case PaymentResourceOperations.DirectAuthorization:
+                        DirectAuthorization = async payload =>
+                            await client.SendAsJsonAsync<InvoicePaymentAuthorizationResponse>(httpOperation.Method, httpOperation.Href, payload);
+                        break;
                 }
                 this.Add(httpOperation.Rel, httpOperation);
             }
         }
+
+        public Func<InvoiceApprovedLegalAddressRequest, Task<ApprovedLegalAddressResponse>> ApprovedLegalAddress{ get; }
         public Func<PaymentAbortRequest, Task<InvoicePaymentResponse>> Abort { get; }
-        public Func<InvoicePaymentCancelRequest, Task<CancellationResponse>> Cancel { get; internal set; }
-        public Func<InvoicePaymentCaptureRequest, Task<CaptureResponse>> Capture { get; internal set; }
-        public Func<InvoicePaymentAuthorizationRequest, Task<InvoicePaymentAuthorizationResponse>> DirectAuthorization { get; internal set; }
-        public HttpOperation RedirectAuthorization { get; internal set; }
-        public Func<InvoicePaymentReversalRequest, Task<ReversalResponse>> Reversal { get; internal set; }
-        public HttpOperation Update { get; internal set; }
-        public HttpOperation ViewAuthorization { get; internal set; }
-        public HttpOperation ApprovedLegalAddress { get; internal set; }
+        public Func<InvoicePaymentCancelRequest, Task<CancellationResponse>> Cancel { get; }
+        public Func<InvoicePaymentCaptureRequest, Task<CaptureResponse>> Capture { get; }
+        public Func<InvoicePaymentAuthorizationRequest, Task<InvoicePaymentAuthorizationResponse>> DirectAuthorization { get; }
+        public Func<InvoicePaymentReversalRequest, Task<ReversalResponse>> Reversal { get; }
+        public HttpOperation RedirectAuthorization { get; }
+        public HttpOperation ViewAuthorization { get; }
 
     }
 }
