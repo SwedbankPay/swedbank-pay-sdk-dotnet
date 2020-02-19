@@ -33,6 +33,12 @@ steps:
       $Token = "$(SwedbankPayConnectionSettings.Token)"    
       [System.Environment]::SetEnvironmentVariable("SwedbankPayConnectionSettings.Token", $Token, "User")
 
+- task: UseDotNet@2
+  displayName: 'Setting up framework for build'
+  inputs:
+    packageType: 'sdk'
+    version: '3.x'
+
 - task: GitVersion@5 
   displayName: GitVersion
   inputs:
@@ -49,12 +55,6 @@ steps:
      command: 'restore'
      restoreSolution: '$(Build.SourcesDirectory)\src\SwedbankPay.Sdk.sln'
      feedsToUse: 'select'
-
-- task: UseDotNet@2
-  displayName: 'Setting up framework for build'
-  inputs:
-    packageType: 'sdk'
-    version: '3.x'
 
 - task: DotNetCoreCLI@2
   displayName: 'Build solution for .net core projects'
