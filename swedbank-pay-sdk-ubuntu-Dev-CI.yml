@@ -18,6 +18,7 @@ steps:
   inputs:
     packageType: 'sdk'
     version: '3.x'
+    installationPath: $(Agent.TempDirectory)/dotnet
 
 - task: GitVersion@5
   displayName: GitVersion
@@ -25,10 +26,6 @@ steps:
     useConfigFile: true
     configFilePath: 'GitVersion.yml'
 
-- task: GitVersion@5
-  inputs:
-    runtime: 'core'
-    configFilePath: 'GitVersion.yml'
 - task: NuGetToolInstaller@1
   #inputs:
     #versionSpec: '5.3.1'
