@@ -11,6 +11,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
+using SwedbankPay.Sdk.Exceptions;
 using SwedbankPay.Sdk.PaymentOrders;
 using SwedbankPay.Sdk.Payments;
 using SwedbankPay.Sdk.Payments.CardPayments;
@@ -21,10 +22,10 @@ namespace Sample.AspNetCore.Controllers
     {
         private readonly Cart cartService;
         private readonly StoreDbContext context;
-        private readonly SwedbankPayClient swedbankPayClient;
+        private readonly ISwedbankPayClient swedbankPayClient;
 
 
-        public PaymentController(Cart cartService, StoreDbContext context, SwedbankPayClient swedbankPayClient)
+        public PaymentController(Cart cartService, StoreDbContext context, ISwedbankPayClient swedbankPayClient)
         {
             this.cartService = cartService;
             this.context = context;
@@ -94,7 +95,9 @@ namespace Sample.AspNetCore.Controllers
 
                 if (payment.Operations.Cancel != null)
                 {
-                    var cancelRequest = new SwedbankPay.Sdk.Payments.CardPayments.CardPaymentCancelRequest(DateTime.Now.Ticks.ToString(), "Cancelling parts of the total amount");
+                    var cancelRequest =
+                        new SwedbankPay.Sdk.Payments.CardPayments.CardPaymentCancelRequest(
+                            DateTime.Now.Ticks.ToString(), "Cancelling parts of the total amount");
                     var response = await payment.Operations.Cancel(cancelRequest);
                     TempData["CancelMessage"] = $"Payment has been cancelled: {response.Cancellation.Transaction.Id}";
                     this.cartService.PaymentOrderLink = null;

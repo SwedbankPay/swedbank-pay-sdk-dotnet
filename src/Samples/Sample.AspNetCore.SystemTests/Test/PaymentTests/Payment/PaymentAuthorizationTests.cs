@@ -25,7 +25,8 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCancellation)].Should.BeVisible()
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCapture)].Should.BeVisible()
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.PaidPayment)].Should.BeVisible()
-                .Actions.Rows.Count.Should.Equal(3);
+                .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.ViewPayment)].Should.BeVisible()
+                .Actions.Rows.Count.Should.Equal(4);
 
             var cardPayment = await SwedbankPayClient.Payments.CardPayments.Get(paymentLink, SwedbankPay.Sdk.Payments.PaymentExpand.All);
 
