@@ -23,6 +23,7 @@ steps:
 - task: GitVersion@5
   displayName: GitVersion
   inputs:
+    versionSpec: '5.x'
     useConfigFile: true
     configFilePath: 'GitVersion.yml'
 
