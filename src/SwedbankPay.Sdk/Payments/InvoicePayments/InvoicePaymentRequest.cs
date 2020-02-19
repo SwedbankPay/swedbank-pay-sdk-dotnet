@@ -26,12 +26,14 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
                               PrefillInfo prefillInfo = null)
         {
             Payment = new PaymentRequestObject(operation, intent, currency, prices, description, payerReference, generatePaymentToken,
-                                               generateReccurenceToken, userAgent, language, urls, payeeInfo, invoiceType,
+                                               generateReccurenceToken, userAgent, language, urls, payeeInfo,
                                                metaData, paymentToken, prefillInfo);
+            Invoice = new InvoicePaymentRequestObject(invoiceType);
         }
 
 
         public PaymentRequestObject Payment { get; }
+        public InvoicePaymentRequestObject Invoice { get; }
 
         public class PaymentRequestObject
         {
@@ -47,7 +49,6 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
                                                     CultureInfo language,
                                                     Urls urls,
                                                     PayeeInfo payeeInfo,
-                                                    InvoiceType invoiceType,
                                                     Dictionary<string, object> metaData = null,
                                                     string paymentToken = null,
                                                     PrefillInfo prefillInfo = null)
@@ -62,7 +63,6 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
                 Language = language;
                 Urls = urls;
                 PayeeInfo = payeeInfo;
-                InvoiceType = invoiceType;
                 MetaData = metaData;
                 GeneratePaymentToken = generatePaymentToken;
                 GenerateReccurenceToken = generateReccurenceToken;
@@ -78,7 +78,6 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
             public Intent Intent { get; set; }
             public CultureInfo Language { get; set; }
             public Dictionary<string, object> MetaData { get; }
-            public InvoiceType InvoiceType { get; set; }
             public Operation Operation { get; set; }
             public PayeeInfo PayeeInfo { get; internal set; }
             public string PayerReference { get; set; }
@@ -88,5 +87,15 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
             public string UserAgent { get; set; }
             public PrefillInfo PrefillInfo { get; set; }
         }
+
+    public class InvoicePaymentRequestObject
+    {
+        protected internal InvoicePaymentRequestObject(InvoiceType invoiceType)
+        {
+            InvoiceType = invoiceType;
+        }
+        public InvoiceType InvoiceType { get; set; }
+
     }
+}
 }

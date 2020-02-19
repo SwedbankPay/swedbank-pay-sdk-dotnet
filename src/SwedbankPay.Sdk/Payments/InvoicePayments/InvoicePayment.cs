@@ -24,7 +24,7 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
                                                    HttpClient client,
                                                    string paymentExpand)
         {
-            var url = new Uri($"/psp/vipps/payments{paymentExpand}", UriKind.Relative);
+            var url = new Uri($"/psp/invoice/payments{paymentExpand}", UriKind.Relative);
 
             var paymentResponse = await client.PostAsJsonAsync<InvoicePaymentResponse>(url, paymentRequest);
             return new InvoicePayment(paymentResponse, client);

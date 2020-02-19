@@ -120,7 +120,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             return this;
         }
 
-        public PaymentRequestBuilder WithInvoiceTestValues(Operation operation = null)
+        public PaymentRequestBuilder WithInvoiceTestValues(Guid payeeId, Operation operation = null)
         {
             this.operation = operation ?? Operation.FinancingConsumer;
             this.intent = Intent.Authorization;
@@ -130,7 +130,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.userAgent = "useragent";
             this.language = new CultureInfo("nb-NO");
             this.urls = new Urls(new List<Uri> { new Uri("https://example.com") }, new Uri("https://example.com/payment-completed"), new Uri("https://example.com/termsandconditoons.pdf"), new Uri("https://example.com/payment-canceled"));
-            this.payeeInfo = new PayeeInfo(Guid.Parse("91a4c8e0-72ac-425c-a687-856706f9e9a1"), DateTime.Now.Ticks.ToString());
+            this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
             this.generatePaymentToken = false;
             this.amount = Amount.FromDecimal(1600);
             this.vatAmount = Amount.FromDecimal(0);
