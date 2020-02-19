@@ -18,14 +18,5 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             var mobilePayPayment = await this.Sut.Payments.MobilePayPayments.Create(paymentRequest, PaymentExpand.All);
             Assert.NotNull(mobilePayPayment);
         }
-
-        [Fact]
-        public async Task GetPayment_CheckIfGetFunctionWorks()
-        {
-            var payment = await this.Sut.Payments.MobilePayPayments.Get(
-                new Uri("", UriKind.Relative), PaymentExpand.All);
-            Assert.NotNull(payment);
-        }
-
     }
 }
