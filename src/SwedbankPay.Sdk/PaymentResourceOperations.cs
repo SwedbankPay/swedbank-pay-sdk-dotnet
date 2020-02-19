@@ -30,5 +30,6 @@ namespace SwedbankPay.Sdk
         public const string ViewPayment = "view-payment";
         public const string AbortedPayment = "aborted-payment";
         public const string RedirectAppSwish = "redirect-app-swish";
+        public const string UpdateAuthorizationOverchargedAmount = "update-authorization-overchargedamount";
     }
 }
