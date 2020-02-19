@@ -33,17 +33,20 @@ steps:
       $Token = "$(SwedbankPayConnectionSettings.Token)"    
       [System.Environment]::SetEnvironmentVariable("SwedbankPayConnectionSettings.Token", $Token, "User")
 
+- task: GitVersion@5 
+  displayName: GitVersion
+  inputs:
+    versionSpec: '5.x'
+    runtime: 'core'
+    useConfigFile: true
+    configFilePath: GitVersion.yml
+
 - task: UseDotNet@2
   displayName: 'Setting up framework for build'
   inputs:
     packageType: 'sdk'
-    version: '3.x'
-
-- task: GitVersion@5 
-  displayName: GitVersion
-  inputs:
-    useConfigFile: true
-    configFilePath: GitVersion.yml
+    version: '3.1.101'
+    installationPath: $(Agent.TempDirectory)/dotnet
 
 - task: NuGetToolInstaller@1
   inputs:

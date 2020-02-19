@@ -20,13 +20,23 @@ steps:
   displayName: 'Setting up framework for build'
   inputs:
     packageType: 'sdk'
-    version: '3.1.101'
+    version: '2.1.804'
+    installationPath: $(Agent.TempDirectory)/dotnet
 
 - task: GitVersion@5 
   displayName: GitVersion
   inputs:
+    versionSpec: '5.x'
+    runtime: 'core'
     useConfigFile: true
     configFilePath: GitVersion.yml
+
+- task: UseDotNet@2
+  displayName: 'Setting up framework for build'
+  inputs:
+    packageType: 'sdk'
+    version: '3.1.101'
+
 
 - task: NuGetToolInstaller@1
   #inputs:
