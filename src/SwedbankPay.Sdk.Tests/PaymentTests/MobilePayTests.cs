@@ -11,7 +11,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
     {
         private readonly PaymentRequestBuilder paymentRequestBuilder = new PaymentRequestBuilder();
 
-        [Fact]
+        [Fact(Skip ="Not supported by merchants that have both Checkout and Payment Pages")]
         public async Task CreateMobilePayPayment_ShouldReturnPayment()
         {
             var paymentRequest = this.paymentRequestBuilder.WithMobilePayTestValues(this.payeeId).BuildMobilePayRequest();
