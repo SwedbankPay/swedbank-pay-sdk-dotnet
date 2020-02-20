@@ -5,11 +5,8 @@ using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-
 using Atata;
-
 using NUnit.Framework;
-
 using Sample.AspNetCore.SystemTests.PageObjectModels;
 using Sample.AspNetCore.SystemTests.PageObjectModels.Orders;
 using Sample.AspNetCore.SystemTests.PageObjectModels.Payment;
@@ -17,16 +14,9 @@ using Sample.AspNetCore.SystemTests.PageObjectModels.ThankYou;
 using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Base;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
-
 using SwedbankPay.Sdk;
-using SwedbankPay.Sdk.Consumers;
-using SwedbankPay.Sdk.PaymentOrders;
-using SwedbankPay.Sdk.Payments;
-using SwedbankPay.Sdk.Payments.CardPayments;
-using SwedbankPay.Sdk.Payments.SwishPayments;
-using SwedbankPay.Sdk.Payments.InvoicePayments;
 
-using SwedbankPay.Sdk.Payments.VippsPayments;
+
 
 namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
 {

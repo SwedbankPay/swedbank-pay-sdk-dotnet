@@ -2,7 +2,7 @@
 using SwedbankPay.Sdk.Payments.SwishPayments;
 using SwedbankPay.Sdk.Payments.InvoicePayments;
 using SwedbankPay.Sdk.Payments.VippsPayments;
-
+using SwedbankPay.Sdk.Payments.MobilePayPayments;
 
 namespace SwedbankPay.Sdk.Payments
 {
@@ -12,5 +12,7 @@ namespace SwedbankPay.Sdk.Payments
         ISwishPaymentsResource SwishPayments { get; }
         IInvoicePaymentsResource InvoicePayments { get; }
         IVippsPaymentsResource VippsPayments { get; }
+        IMobilePayPaymentsResource MobilePayPayments { get; }
+
     }
 }
