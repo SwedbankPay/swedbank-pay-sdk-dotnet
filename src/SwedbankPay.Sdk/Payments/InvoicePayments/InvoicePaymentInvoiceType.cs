@@ -2,6 +2,7 @@
 {
     public enum InvoiceType
     {
+        Unknown = default,
         PayExFinancingNO,
         PayExFinancingFI,
         PayExFinancingSE
