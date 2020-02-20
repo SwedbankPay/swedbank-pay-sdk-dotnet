@@ -4,7 +4,6 @@ using SwedbankPay.Sdk.Payments.InvoicePayments;
 using SwedbankPay.Sdk.Payments.VippsPayments;
 using System;
 using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Payments
 {
@@ -16,11 +15,16 @@ namespace SwedbankPay.Sdk.Payments
         public IVippsPaymentsResource VippsPayments { get; }
         
         public PaymentsResource(HttpClient httpClient)
-            : this(httpClient, new CardPaymentsResource(httpClient), new SwishPaymentsResource(httpClient), new InvoicePaymentsResource(httpClient), new VippsPaymentsResource(httpClient)))
+            : this(httpClient, new CardPaymentsResource(httpClient), new SwishPaymentsResource(httpClient), new InvoicePaymentsResource(httpClient), new VippsPaymentsResource(httpClient))
         {
         }
 
-        public PaymentsResource(HttpClient httpClient, ICardPaymentsResource cardPaymentsResource, ISwishPaymentsResource swishPaymentsResource, IInvoicePaymentsResource invoicePaymentsResource) : base(httpClient)
+        public PaymentsResource(HttpClient httpClient,
+                                ICardPaymentsResource cardPaymentsResource,
+                                ISwishPaymentsResource swishPaymentsResource,
+                                IInvoicePaymentsResource invoicePaymentsResource,
+                                IVippsPaymentsResource vippsPaymentsResource) 
+                                : base(httpClient)
         {
             this.CardPayments = cardPaymentsResource ?? throw new ArgumentNullException(nameof(cardPaymentsResource));
             this.SwishPayments = swishPaymentsResource ?? throw new ArgumentNullException(nameof(swishPaymentsResource));

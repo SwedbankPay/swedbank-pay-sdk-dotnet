@@ -72,7 +72,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
                 this.invoiceType);
         }
 
-         public Payments.VippsPayments.PaymentRequest BuildVippsRequest()
+         public Payments.VippsPayments.VippsPaymentRequest BuildVippsRequest()
         {
             return new Payments.VippsPayments.VippsPaymentRequest(
                 this.operation,
@@ -162,7 +162,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             return this;
         }
 
-        public PaymentRequestBuilder WithVippsTestValues(Operation operation = null, Intent intent = Intent.Authorization)
+        public PaymentRequestBuilder WithVippsTestValues(Guid payeeId, Operation operation = null, Intent intent = Intent.Authorization)
         {
             this.operation = operation ?? Operation.Purchase;
             this.intent = intent;
@@ -172,7 +172,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.userAgent = "useragent";
             this.language = new CultureInfo("nb-NO");
             this.urls = new Urls(new List<Uri> { new Uri("https://example.com") }, new Uri("https://example.com/payment-completed"), new Uri("https://example.com/termsandconditoons.pdf"), new Uri("https://example.com/payment-canceled"));
-            this.payeeInfo = new PayeeInfo(Guid.Parse("91a4c8e0-72ac-425c-a687-856706f9e9a1"), DateTime.Now.Ticks.ToString());
+            this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
             this.generatePaymentToken = false;
             this.amount = Amount.FromDecimal(1600);
             this.vatAmount = Amount.FromDecimal(0);
