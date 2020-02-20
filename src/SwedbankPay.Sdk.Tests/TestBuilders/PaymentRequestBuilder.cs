@@ -18,6 +18,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private PayeeInfo payeeInfo;
         private PrefillInfo prefillInfo;
         private bool generatePaymentToken;
+        private bool generateReccurrenceToken;
         private Amount amount;
         private Amount vatAmount;
         private string payerReference;
@@ -69,6 +70,24 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
                 this.urls,
                 this.payeeInfo,
                 this.invoiceType);
+        }
+
+         public Payments.VippsPayments.VippsPaymentRequest BuildVippsRequest()
+        {
+            return new Payments.VippsPayments.VippsPaymentRequest(
+                this.operation,
+                this.intent,
+                this.currency,
+                this.price,
+                this.description,
+                this.userAgent,
+                this.language,
+                this.urls,
+                this.payeeInfo,
+                this.payerReference,
+                this.generatePaymentToken,
+                this.generateReccurrenceToken,
+                this.metaData);
         }
 
         public PaymentRequestBuilder WithCreditcardTestValues(Guid payeeId, Operation operation = null, Intent intent = Intent.Authorization)
@@ -139,6 +158,29 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.price = new List<Price>
             {
                 new Price(this.amount, PriceType.Invoice, this.vatAmount)
+            };
+            return this;
+        }
+
+        public PaymentRequestBuilder WithVippsTestValues(Guid payeeId, Operation operation = null, Intent intent = Intent.Authorization)
+        {
+            this.operation = operation ?? Operation.Purchase;
+            this.intent = intent;
+            this.currency = new CurrencyCode("NOK");
+            this.description = "Test Description";
+            this.payerReference = "AB1234";
+            this.userAgent = "useragent";
+            this.language = new CultureInfo("nb-NO");
+            this.urls = new Urls(new List<Uri> { new Uri("https://example.com") }, new Uri("https://example.com/payment-completed"), new Uri("https://example.com/termsandconditoons.pdf"), new Uri("https://example.com/payment-canceled"));
+            this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
+            this.generatePaymentToken = false;
+            this.amount = Amount.FromDecimal(1600);
+            this.vatAmount = Amount.FromDecimal(0);
+            this.metaData = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
+
+            this.price = new List<Price>
+            {
+                new Price(this.amount, PriceType.Vipps, this.vatAmount)
             };
             return this;
         }

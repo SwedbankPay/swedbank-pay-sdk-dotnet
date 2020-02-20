@@ -8,6 +8,7 @@ using SwedbankPay.Sdk.Payments;
 using SwedbankPay.Sdk.Payments.CardPayments;
 using SwedbankPay.Sdk.Payments.SwishPayments;
 using SwedbankPay.Sdk.Payments.InvoicePayments;
+using SwedbankPay.Sdk.Payments.VippsPayments;
 using SwedbankPay.Sdk.Tests.TestHelpers;
 
 namespace SwedbankPay.Sdk.Tests
