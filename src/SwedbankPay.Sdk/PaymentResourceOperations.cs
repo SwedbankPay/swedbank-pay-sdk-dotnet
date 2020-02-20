@@ -19,6 +19,7 @@ namespace SwedbankPay.Sdk
         public const string RedirectAuthorization = "redirect-authorization";
         public const string CreateReversal = "create-reversal";
         public const string PaidPayment = "paid-payment";
+        public const string CreateAuthorization = "create-authorization";
         public const string ViewAuthorization = "view-authorization";
         public const string DirectAuthorization = "direct-authorization";
         public const string RedirectVerification = "redirect-verification";
@@ -31,5 +32,6 @@ namespace SwedbankPay.Sdk
         public const string AbortedPayment = "aborted-payment";
         public const string RedirectAppSwish = "redirect-app-swish";
         public const string UpdateAuthorizationOverchargedAmount = "update-authorization-overchargedamount";
+        public const string CreateApprovedLegalAddress = "create-approved-legal-address";
     }
 }

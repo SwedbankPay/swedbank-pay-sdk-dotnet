@@ -24,6 +24,8 @@ using SwedbankPay.Sdk.PaymentOrders;
 using SwedbankPay.Sdk.Payments;
 using SwedbankPay.Sdk.Payments.CardPayments;
 using SwedbankPay.Sdk.Payments.SwishPayments;
+using SwedbankPay.Sdk.Payments.InvoicePayments;
+
 
 namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
 {
