@@ -19,7 +19,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                                      Payer payer = null,
                                                      List<OrderItem> orderItems = null,
                                                      RiskIndicator riskIndicator = null,
-                                                     Dictionary<string, object> metaData = null,
+                                                     Dictionary<string, object> metadata = null,
                                                      List<Item> items = null,
                                                      bool? disablePaymentMenu = null)
         {
@@ -36,7 +36,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
             Payer = payer;
             OrderItems = orderItems;
             RiskIndicator = riskIndicator;
-            MetaData = metaData;
+            Metadata = metadata;
             Items = items;
             DisablePaymentMenu = disablePaymentMenu;
         }
@@ -78,7 +78,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         ///     The keys and values that should be associated with the payment order. Can be additional identifiers and data you
         ///     want to associate with the payment.
         /// </summary>
-        public Dictionary<string, object> MetaData { get; }
+        public Dictionary<string, object> Metadata { get; }
 
         /// <summary>
         ///     The operation that the payment order is supposed to perform.

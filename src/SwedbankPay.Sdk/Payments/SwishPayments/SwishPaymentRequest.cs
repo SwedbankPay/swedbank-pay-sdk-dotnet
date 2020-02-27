@@ -15,11 +15,11 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
                               PayeeInfo payeeInfo,
                               PrefillInfo prefillInfo,
                               bool isEnabledForEcommerceOnly = false,
-                              Dictionary<string, object> metaData = null)
+                              Dictionary<string, object> metadata = null)
         {
             var swishRequest = new SwishPaymentOptionsObject(isEnabledForEcommerceOnly);
             Payment = new SwishPaymentRequestObject(currency, prices, description, payerReference, userAgent, language, urls, payeeInfo,
-                                               prefillInfo, swishRequest, metaData);
+                                               prefillInfo, swishRequest, metadata);
         }
 
 

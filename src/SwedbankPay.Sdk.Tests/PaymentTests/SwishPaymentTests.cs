@@ -90,7 +90,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             var swishPayment = await this.Sut.Payments.SwishPayments.Create(paymentRequest, PaymentExpand.All);
             Assert.NotNull(swishPayment);
             Assert.NotNull(swishPayment.PaymentResponse);
-            Assert.Equal(paymentRequest.Payment.MetaData["key1"], swishPayment.PaymentResponse.MetaData["key1"]);
+            Assert.Equal(paymentRequest.Payment.Metadata["key1"], swishPayment.PaymentResponse.Metadata["key1"]);
         }
 
 

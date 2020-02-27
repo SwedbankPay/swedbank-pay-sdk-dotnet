@@ -18,13 +18,13 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                    Payer payer = null,
                                    List<OrderItem> orderItems = null,
                                    RiskIndicator riskIndicator = null,
-                                   Dictionary<string, object> metaData = null,
+                                   Dictionary<string, object> metadata = null,
                                    List<Item> items = null,
                                    bool? disablePaymentMenu = null)
         {
             PaymentOrder = new PaymentOrderRequestObject(operation, currency, amount, vatAmount, description, userAgent, language,
                                                          generateRecurrenceToken, urls, payeeInfo, payer, orderItems, riskIndicator,
-                                                         metaData, items, disablePaymentMenu);
+                                                         metadata, items, disablePaymentMenu);
         }
 
 

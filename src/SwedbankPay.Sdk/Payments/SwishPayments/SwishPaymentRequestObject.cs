@@ -17,7 +17,7 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
                                                 PayeeInfo payeeInfo,
                                                 PrefillInfo prefillInfo,
                                                 SwishPaymentOptionsObject swishRequest,
-                                                Dictionary<string, object> metaData = null)
+                                                Dictionary<string, object> metadata = null)
         {
             Operation = Operation.Purchase;
             Intent = Intent.Sale;
@@ -31,7 +31,7 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
             PayeeInfo = payeeInfo;
             PrefillInfo = prefillInfo;
             Swish = swishRequest;
-            MetaData = metaData;
+            Metadata = metadata;
         }
 
 
@@ -51,6 +51,6 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
 
         public Urls Urls { get; }
         public string UserAgent { get; }
-        public Dictionary<string, object> MetaData { get; }
+        public Dictionary<string, object> Metadata { get; }
     }
 }
