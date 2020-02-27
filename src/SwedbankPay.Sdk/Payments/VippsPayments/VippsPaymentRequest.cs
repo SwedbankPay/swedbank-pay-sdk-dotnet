@@ -18,12 +18,12 @@ namespace SwedbankPay.Sdk.Payments.VippsPayments
                               string payerReference,
                               bool generatePaymentToken = false,
                               bool generateReccurenceToken = false,
-                              Dictionary<string, object> metaData = null,
+                              Dictionary<string, object> metadata = null,
                               string paymentToken = null)
 
         {
             Payment = new PaymentRequestObject(operation, intent, currency, prices, description, payerReference, generatePaymentToken,
-                                               generateReccurenceToken, userAgent, language, urls, payeeInfo, metaData, paymentToken);
+                                               generateReccurenceToken, userAgent, language, urls, payeeInfo, metadata, paymentToken);
         }
 
 
@@ -43,7 +43,7 @@ namespace SwedbankPay.Sdk.Payments.VippsPayments
                                                     CultureInfo language,
                                                     Urls urls,
                                                     PayeeInfo payeeInfo,
-                                                    Dictionary<string, object> metaData = null,
+                                                    Dictionary<string, object> metadata = null,
                                                     string paymentToken = null)
             {
                 Operation = operation ?? throw new ArgumentNullException(nameof(operation));
@@ -56,7 +56,7 @@ namespace SwedbankPay.Sdk.Payments.VippsPayments
                 Language = language;
                 Urls = urls;
                 PayeeInfo = payeeInfo;
-                MetaData = metaData;
+                Metadata = metadata;
                 GeneratePaymentToken = generatePaymentToken;
                 GenerateReccurenceToken = generateReccurenceToken;
                 PaymentToken = paymentToken;
@@ -69,7 +69,7 @@ namespace SwedbankPay.Sdk.Payments.VippsPayments
             public bool GenerateReccurenceToken { get; set; }
             public Intent Intent { get; set; }
             public CultureInfo Language { get; set; }
-            public Dictionary<string, object> MetaData { get; }
+            public Dictionary<string, object> Metadata { get; }
             public Operation Operation { get; set; }
             public PayeeInfo PayeeInfo { get; internal set; }
             public string PayerReference { get; set; }

@@ -46,7 +46,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
                                CancellationsListResponse cancellations,
                                Urls urls,
                                PayeeInfo payeeInfo,
-                               MetaDataResponse metaData)
+                               MetadataResponse metadata)
         {
             Id = id;
             Number = number;
@@ -74,7 +74,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
             Captures = captures;
             Reversals = reversals;
             Cancellations = cancellations;
-            MetaData = metaData;
+            Metadata = metadata;
         }
 
 
@@ -104,6 +104,6 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
         public TransactionListResponse Transactions { get; }
         public Urls Urls { get; }
         public string UserAgent { get; }
-        public MetaDataResponse MetaData { get; }
+        public MetadataResponse Metadata { get; }
     }
 }

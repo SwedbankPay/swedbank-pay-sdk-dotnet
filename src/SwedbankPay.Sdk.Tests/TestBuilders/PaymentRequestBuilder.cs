@@ -25,7 +25,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private string payerReference;
         private SwishPaymentOptionsObject swish;
         private List<Price> price;
-        private Dictionary<string, object> metaData;
+        private Dictionary<string, object> metadata;
         private InvoiceType invoiceType;
         private Uri shopslogoUrl;
 
@@ -42,7 +42,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
                 this.language,
                 this.urls,
                 this.payeeInfo,
-                generatePaymentToken: this.generatePaymentToken, generateReccurenceToken: false, payerReference: this.payerReference, riskIndicator: null, metaData: this.metaData);
+                generatePaymentToken: this.generatePaymentToken, generateReccurenceToken: false, payerReference: this.payerReference, riskIndicator: null, metadata: this.metadata);
         }
 
         public SwishPaymentRequest BuildSwishPaymentRequest()
@@ -56,7 +56,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
                                       this.urls,
                                       this.payeeInfo,
                                       this.prefillInfo,
-                                      metaData: this.metaData
+                                      metadata: this.metadata
             );
         }
 
@@ -90,7 +90,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
                 this.payerReference,
                 this.generatePaymentToken,
                 this.generateReccurrenceToken,
-                this.metaData);
+                this.metadata);
         }
 
         public Payments.MobilePayPayments.MobilePayPaymentRequest BuildMobilePayRequest()
@@ -122,7 +122,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.generatePaymentToken = false;
             this.amount = Amount.FromDecimal(1600);
             this.vatAmount = Amount.FromDecimal(0);
-            this.metaData = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
+            this.metadata = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
 
             this.price = new List<Price>
             {
@@ -148,7 +148,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.amount = Amount.FromDecimal(1600);
             this.vatAmount = Amount.FromDecimal(0);
             this.swish = new SwishPaymentOptionsObject();
-            this.metaData = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
+            this.metadata = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
             this.price = new List<Price>
             {
                 new Price(this.amount, PriceType.Swish, this.vatAmount)
@@ -170,7 +170,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.generatePaymentToken = false;
             this.amount = Amount.FromDecimal(1600);
             this.vatAmount = Amount.FromDecimal(0);
-            this.metaData = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
+            this.metadata = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
             this.invoiceType = InvoiceType.PayExFinancingNO;
             this.price = new List<Price>
             {
@@ -193,7 +193,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.generatePaymentToken = false;
             this.amount = Amount.FromDecimal(1600);
             this.vatAmount = Amount.FromDecimal(0);
-            this.metaData = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
+            this.metadata = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
 
             this.price = new List<Price>
             {
@@ -216,7 +216,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.prefillInfo = new PrefillInfo(new Msisdn("+46701234567"));
             this.amount = Amount.FromDecimal(1600);
             this.vatAmount = Amount.FromDecimal(0);
-            this.metaData = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
+            this.metadata = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
             this.shopslogoUrl = new Uri("https://example.com");
             this.price = new List<Price>
             {

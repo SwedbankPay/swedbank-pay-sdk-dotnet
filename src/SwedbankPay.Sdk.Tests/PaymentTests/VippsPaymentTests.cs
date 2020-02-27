@@ -18,7 +18,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             var vippsPayment = await this.Sut.Payments.VippsPayments.Create(vippsPaymentRequest, PaymentExpand.All);
 
             Assert.NotNull(vippsPayment);
-            Assert.Equal(vippsPaymentRequest.Payment.MetaData["key1"], vippsPayment.PaymentResponse.MetaData["key1"]);
+            Assert.Equal(vippsPaymentRequest.Payment.Metadata["key1"], vippsPayment.PaymentResponse.Metadata["key1"]);
             Assert.True(vippsPaymentRequest.Payment.Language.CultureTypes.Equals(vippsPayment.PaymentResponse.Language.CultureTypes));
             Assert.True(vippsPaymentRequest.Payment.Operation.Equals(Operation.Purchase));
             Assert.True(vippsPaymentRequest.Payment.Currency.ToString().Equals(vippsPayment.PaymentResponse.Currency.ToString()));

@@ -42,7 +42,7 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
                                ReversalsListResponse reversals,
                                Urls urls,
                                PayeeInfo payeeInfo,
-                               MetaDataResponse metaData)
+                               MetadataResponse metadata)
         {
             Id = id;
             Number = number;
@@ -66,7 +66,7 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
             Reversals = reversals;
             Urls = urls;
             PayeeInfo = payeeInfo;
-            MetaData = metaData;
+            Metadata = metadata;
         }
 
 
@@ -92,6 +92,6 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
         public Urls Urls { get; }
         public PayeeInfo PayeeInfo { get; }
         public Uri Id { get; }
-        public MetaDataResponse MetaData { get; }
+        public MetadataResponse Metadata { get; }
     }
 }

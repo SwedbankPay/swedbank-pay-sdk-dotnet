@@ -11,7 +11,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         Settings = 4,
         Payers = 8,
         OrderItems = 16,
-        MetaData = 32,
+        Metadata = 32,
         Payments = 64,
         CurrentPayment = 128,
         All = 255

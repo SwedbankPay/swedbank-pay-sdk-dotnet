@@ -4,10 +4,10 @@ using Newtonsoft.Json;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class MetaDataResponse : Dictionary<string, object>
+    public class MetadataResponse : Dictionary<string, object>
     {
         [JsonConstructor]
-        public MetaDataResponse(Dictionary<string, object> dictionary)
+        public MetadataResponse(Dictionary<string, object> dictionary)
             : base(dictionary)
         {
             Id = dictionary["id"]?.ToString();

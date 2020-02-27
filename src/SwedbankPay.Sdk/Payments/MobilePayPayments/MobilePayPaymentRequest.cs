@@ -17,11 +17,11 @@ namespace SwedbankPay.Sdk.Payments.MobilePayPayments
                               PayeeInfo payeeInfo,
                               Uri shopslogoUrl,
                               string payerReference = null,
-                              Dictionary<string, object> metaData = null,
+                              Dictionary<string, object> metadata = null,
                               PrefillInfo prefillInfo = null)
 
         {
-            Payment = new PaymentRequestObject(operation, intent, currency, prices, description, payerReference, userAgent, language, urls, payeeInfo, metaData, prefillInfo);
+            Payment = new PaymentRequestObject(operation, intent, currency, prices, description, payerReference, userAgent, language, urls, payeeInfo, metadata, prefillInfo);
             MobilePay = new MobilePayPaymentRequestObject(shopslogoUrl);
         }
 
@@ -41,7 +41,7 @@ namespace SwedbankPay.Sdk.Payments.MobilePayPayments
                                                     CultureInfo language,
                                                     Urls urls,
                                                     PayeeInfo payeeInfo,
-                                                    Dictionary<string, object> metaData = null,
+                                                    Dictionary<string, object> metadata = null,
                                                     PrefillInfo prefillInfo = null)
             {
                 Operation = operation ?? throw new ArgumentNullException(nameof(operation));
@@ -54,7 +54,7 @@ namespace SwedbankPay.Sdk.Payments.MobilePayPayments
                 Language = language;
                 Urls = urls;
                 PayeeInfo = payeeInfo;
-                MetaData = metaData;
+                Metadata = metadata;
                 PrefillInfo = prefillInfo;
             }
 
@@ -63,7 +63,7 @@ namespace SwedbankPay.Sdk.Payments.MobilePayPayments
             public string Description { get; set; }
             public Intent Intent { get; set; }
             public CultureInfo Language { get; set; }
-            public Dictionary<string, object> MetaData { get; }
+            public Dictionary<string, object> Metadata { get; }
             public Operation Operation { get; set; }
             public PayeeInfo PayeeInfo { get; internal set; }
             public string PayerReference { get; set; }

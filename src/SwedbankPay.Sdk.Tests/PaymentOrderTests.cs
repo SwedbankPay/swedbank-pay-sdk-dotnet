@@ -38,7 +38,7 @@ namespace SwedbankPay.Sdk.Tests
 
 
         [Fact]
-        public async Task CreateAndGetPaymentOrder_ShouldReturnPaymentOrderWithSameAmountAndMetaData()
+        public async Task CreateAndGetPaymentOrder_ShouldReturnPaymentOrderWithSameAmountAndMetadata()
         {
             var paymentOrderRequest = this.paymentOrderRequestBuilder.WithTestValues(this.payeeId).Build();
             var paymentOrder = await this.Sut.PaymentOrders.Create(paymentOrderRequest, PaymentOrderExpand.All);
@@ -51,7 +51,7 @@ namespace SwedbankPay.Sdk.Tests
             Assert.NotNull(paymentOrder2.PaymentOrderResponse);
             Assert.Equal(amount.Value, paymentOrder2.PaymentOrderResponse.Amount.Value);
             
-            Assert.Equal(paymentOrderRequest.PaymentOrder.MetaData["key1"], paymentOrder2.PaymentOrderResponse.MetaData["key1"]);
+            Assert.Equal(paymentOrderRequest.PaymentOrder.Metadata["key1"], paymentOrder2.PaymentOrderResponse.Metadata["key1"]);
         }
 
 

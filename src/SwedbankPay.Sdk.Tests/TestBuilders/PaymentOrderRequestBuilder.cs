@@ -14,7 +14,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private string description;
         private bool generateRecurrenceToken;
         private CultureInfo language;
-        private Dictionary<string, object> metaData;
+        private Dictionary<string, object> metadata;
         private Operation operation;
         private List<OrderItem> orderItems;
         private PayeeInfo payeeInfo;
@@ -27,7 +27,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         {
             return new PaymentOrderRequest(this.operation, this.currency, this.amount, this.vatAmount, this.description, this.userAgent,
                                            this.language, this.generateRecurrenceToken, this.urls, this.payeeInfo,
-                                           orderItems: this.orderItems, metaData: this.metaData);
+                                           orderItems: this.orderItems, metadata: this.metadata);
         }
 
 
@@ -50,9 +50,9 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         }
 
 
-        public PaymentOrderRequestBuilder WithMetaData()
+        public PaymentOrderRequestBuilder WithMetadata()
         {
-            this.metaData = new Dictionary<string, object>
+            this.metadata = new Dictionary<string, object>
             {
                 ["testvalue"] = 3,
                 ["testvalue2"] = "test"
@@ -90,7 +90,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.userAgent = "useragent";
             this.language = new CultureInfo("sv-SE");
             this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
-            this.metaData = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
+            this.metadata = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
             return this;
         }
     }
