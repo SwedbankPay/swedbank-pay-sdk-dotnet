@@ -77,7 +77,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public DateTime Created { get; }
         public DateTime Updated { get; }
         public Amount Amount { get; }
-        public IdLink Authorizations { get; }
+        public CardPaymentAuthorizationListResponse Authorizations { get; }
         public CancellationsListResponse Cancellations { get; }
         public CapturesListResponse Captures { get; }
         public CurrencyCode Currency { get; }
