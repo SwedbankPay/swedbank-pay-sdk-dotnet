@@ -88,27 +88,34 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
         [Fact]
         public async Task WhenSendingACapture_TheConverter_HasZeroErrors()
         {
-            var captureRespone = new CaptureResponse
-                (new Uri("/psp/invoice/payments/7482db67-d2d8-4881-79d9-08d7dad1a06b", UriKind.Relative),
-                new TransactionResponse(new Uri("/psp/invoice/payments/7482db67-d2d8-4881-79d9-08d7dad1a06b/captures/d07e17bf-8664-4664-fade-08d7dace174a", UriKind.Relative),
-                new Transaction(new Uri("/psp/invoice/payments/7482db67-d2d8-4881-79d9-08d7dad1a06b/captures/d07e17bf-8664-4664-fade-08d7dace174a", UriKind.Relative),
-                                DateTime.Now,
-                                DateTime.Now,
-                                TransactionType.Capture,
-                                State.Completed,
-                                71100590865,
-                                new Amount(25767),
-                                new Amount(0),
-                                "Description",
-                                "637218522761159010",
-                                false,
-                                new OperationList(),
-                                string.Empty)));
             var handler = new FakeDelegatingHandler();
             handler.FakeResponseList.Add(new HttpResponseMessage
             {
                 StatusCode = System.Net.HttpStatusCode.OK,
-                Content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(captureRespone, JsonSerialization.JsonSerialization.Settings))
+                Content = new StringContent(@"{
+    ""payment"": ""/psp/invoice/payments/7482db67-d2d8-4881-79d9-08d7dad1a06b"",
+    ""capture"": {
+        ""itemDescriptions"": {
+            ""id"": ""/psp/invoice/payments/7482db67-d2d8-4881-79d9-08d7dad1a06b/transactions/d07e17bf-8664-4664-fade-08d7dace174a/itemdescriptions""
+        },
+        ""id"": ""/psp/invoice/payments/7482db67-d2d8-4881-79d9-08d7dad1a06b/captures/d07e17bf-8664-4664-fade-08d7dace174a"",
+        ""transaction"": {
+            ""id"": ""/psp/invoice/payments/7482db67-d2d8-4881-79d9-08d7dad1a06b/transactions/d07e17bf-8664-4664-fade-08d7dace174a"",
+            ""created"": ""2020-04-07T08:57:05.7367464Z"",
+            ""updated"": ""2020-04-07T08:57:07.1111552Z"",
+            ""type"": ""Capture"",
+            ""state"": ""Completed"",
+            ""number"": 71100590865,
+            ""amount"": 2,
+            ""vatAmount"": 0,
+            ""description"": ""description for transaction"",
+            ""payeeReference"": ""cyrusLibrary1586249822"",
+            ""isOperational"": false,
+            ""reconciliationNumber"": 737521,
+            ""operations"": []
+        }
+    }
+}")
             });
             var uri = new Uri("http://api.externalintegration.payex.com");
             
