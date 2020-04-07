@@ -140,5 +140,35 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
 
             Assert.Equal(3, error.Data.Count);
         }
+
+        [Fact]
+        public async Task SendAndPrcoess_DoesNotFail_WhenNotExpectingError()
+        {
+            var handler = new FakeDelegatingHandler();
+            handler.FakeResponseList.Add(new HttpResponseMessage
+            {
+                StatusCode = System.Net.HttpStatusCode.BadRequest,
+                Content = new StringContent(@"{
+                    ""sessionId"": ""09ccd29a-7c4f-4752-9396-12100cbfecce"",
+                    ""type"": ""https://api.payex.com/psp/errordetail/inputerror"",
+                    ""title"": ""Error in input data"",
+                    ""status"": 400,
+                    ""instance"": ""http://api.externalintegration.payex.com/psp/09ccd29a-7c4f-4752-9396-12100cbfecce/captures"",
+                    ""detail"": ""Input validation failed, error description in problems node!"",
+                    ""problems"": [
+                        {
+                            ""name"": ""Transaction.Amount"",
+                            ""description"": ""  ""
+                        }
+                    ]
+                }")
+            });
+            var uri = new Uri("http://api.externalintegration.payex.com");
+            var sut = new HttpClient(handler);
+
+            var result = await Assert.ThrowsAsync<HttpResponseException>(() => sut.SendAndProcessAsync<CaptureResponse>(HttpMethod.Get, uri, new object()));
+
+            Assert.Equal(3, result.Data.Count);
+        }
     }
 }
