@@ -130,7 +130,9 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             new PayeeInfo(Guid.Empty, "test")
             ), client, string.Empty);
 
-            await Assert.ThrowsAsync<HttpResponseException>(() => sut.Operations.Capture(captureRequest));
+            var result = await Assert.ThrowsAsync<HttpResponseException>(() => sut.Operations.Capture(captureRequest));
+
+            Assert.Equal(3, result.Data.Count);
         }
     }
 }
