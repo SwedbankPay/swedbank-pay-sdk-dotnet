@@ -1,4 +1,5 @@
-﻿using SwedbankPay.Sdk.PaymentOrders;
+﻿using SwedbankPay.Sdk.Exceptions;
+using SwedbankPay.Sdk.PaymentOrders;
 using SwedbankPay.Sdk.Tests.TestHelpers;
 using System;
 using System.Collections.Generic;
@@ -127,11 +128,9 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             false,
             new Urls(uri, new List<Uri> { uri }, uri, uri),
             new PayeeInfo(Guid.Empty, "test")
-            ), client, string.Empty); //(paymentOrderResponse, client);
+            ), client, string.Empty);
 
-            var result = await sut.Operations.Capture(captureRequest);
-
-            Assert.NotNull(result);
+            await Assert.ThrowsAsync<HttpResponseException>(() => sut.Operations.Capture(captureRequest));
         }
     }
 }
