@@ -63,11 +63,71 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
     },
     ""operations"": [
         {
-            ""method"": ""POST"",
-            ""href"": ""https://api.externalintegration.payex.com/psp/creditcard/payments/cb2cc4a8-fd1b-4311-54df-08d7da081586/captures"",
-            ""rel"": ""create-paymentorder-capture"",
-            ""contentType"": ""application/json""
-        }
+    ""method"": ""POST"",
+    ""href"": ""https://api.externalintegration.payex.com/psp/paymentorders/09ccd29a-7c4f-4752-9396-12100cbfecce/cancellations"",
+    ""rel"": ""create-paymentorder-cancel"",
+    ""contentType"": ""application/json""
+  },
+  {
+    ""method"": ""POST"",
+    ""href"": ""https://api.externalintegration.payex.com/psp/paymentorders/09ccd29a-7c4f-4752-9396-12100cbfecce/captures"",
+    ""rel"": ""create-paymentorder-capture"",
+    ""contentType"": ""application/json""
+  },
+  {
+    ""method"": ""PATCH"",
+    ""href"": ""https://api.externalintegration.payex.com/psp/paymentorders/09ccd29a-7c4f-4752-9396-12100cbfecce"",
+    ""rel"": ""update-paymentorder-overchargedamount"",
+    ""contentType"": ""application/json""
+  },
+  {
+    ""method"": ""POST"",
+    ""href"": ""https://api.externalintegration.payex.com/psp/paymentorders/09ccd29a-7c4f-4752-9396-12100cbfecce/cancellations"",
+    ""rel"": ""create-cancellation"",
+    ""contentType"": ""application/json""
+  },
+  {
+    ""method"": ""POST"",
+    ""href"": ""https://api.externalintegration.payex.com/psp/paymentorders/09ccd29a-7c4f-4752-9396-12100cbfecce/captures"",
+    ""rel"": ""create-capture"",
+    ""contentType"": ""application/json""
+  },
+  {
+    ""method"": ""PATCH"",
+    ""href"": ""https://api.externalintegration.payex.com/psp/paymentorders/09ccd29a-7c4f-4752-9396-12100cbfecce/authorizations/ea979760-ec45-4f23-14e3-08d7dade87af"",
+    ""rel"": ""update-authorization-overchargedamount"",
+    ""contentType"": ""application/json""
+  },
+  {
+      ""method"": ""PATCH"",
+      ""href"": ""https://api.externalintegration.payex.com/psp/paymentorders/09ccd29a-7c4f-4752-9396-12100cbfecce"",
+      ""rel"": ""update-paymentorder-abort"",
+      ""contentType"": ""application/json""
+  },
+  {
+      ""method"": ""PATCH"",
+      ""href"": ""https://api.externalintegration.payex.com/psp/paymentorders/09ccd29a-7c4f-4752-9396-12100cbfecce"",
+      ""rel"": ""create-paymentorder-reversal"",
+      ""contentType"": ""application/json""
+  },
+  {
+    ""method"": ""GET"",
+    ""href"": ""https://api.externalintegration.payex.com/psp/paymentorders/09ccd29a-7c4f-4752-9396-12100cbfecce/paid"",
+    ""rel"": ""paid-paymentorder"",
+    ""contentType"": ""application/json""
+  },
+  {
+    ""method"": ""PATCH"",
+    ""href"": ""https://api.externalintegration.payex.com/psp/paymentorders/09ccd29a-7c4f-4752-9396-12100cbfecce"",
+    ""rel"": ""update-paymentorder-updateorder"",
+    ""contentType"": ""application/json""
+  },
+  {
+    ""method"": ""GET"",
+    ""href"": ""https://api.externalintegration.payex.com/psp/paymentorders/09ccd29a-7c4f-4752-9396-12100cbfecce/javaScriptReference"",
+    ""rel"": ""view-paymentorder"",
+    ""contentType"": ""application/json""
+  }
     ]
 }";
 
@@ -146,10 +206,29 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
 
             Assert.Equal(3, result.Data.Count);
         }
+
         [Fact]
         public async Task CreatingACaptureRequest_Serailizes_AsExepceted()
         {
+            var handler = new FakeDelegatingHandler();
+            var client = new HttpClient(handler);
+            client.BaseAddress = GetUri();
+            handler.FakeResponseList.Add(new HttpResponseMessage
+            {
+                StatusCode = System.Net.HttpStatusCode.OK,
+                Content = new StringContent(PaymentOrderResponse)
+            });
 
+            var sut = await PaymentOrder.Create(GetPaymentOrderRequest(), client, string.Empty);
+
+            Assert.NotNull(sut.PaymentOrderResponse);
+            Assert.NotNull(sut.Operations);
+            Assert.NotNull(sut.Operations.Abort);
+            Assert.NotNull(sut.Operations.Cancel);
+            Assert.NotNull(sut.Operations.Capture);
+            Assert.NotNull(sut.Operations.Reverse);
+            Assert.NotNull(sut.Operations.Update);
+            Assert.NotNull(sut.Operations.View);
         }
     }
 }
