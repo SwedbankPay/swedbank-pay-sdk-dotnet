@@ -12,17 +12,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
 {
     public class PaymentOrderTests
     {
-        [Fact]
-        public async Task WhenSendingACaptureRequest_WeDoNotCrash_AndGiveAReasonableError()
-        {
-            var handler = new FakeDelegatingHandler();
-            var client = new HttpClient(handler);
-            var uri = new Uri("http://api.externalintegration.payex.com/psp/paymentorders/2d35afaa-4e5a-4930-0de5-08d7da0988bc", UriKind.Absolute);
-            client.BaseAddress = uri;
-            handler.FakeResponseList.Add(new HttpResponseMessage
-            {
-                StatusCode = System.Net.HttpStatusCode.OK,
-                Content = new StringContent(@"{
+        private const string PaymentOrderResponse = @"{
     ""paymentOrder"": {
         ""id"": ""/psp/paymentorders/3fec8ccd-d0aa-4bb6-babe-08d7da09db3c"",
         ""created"": ""2020-04-07T12:10:36.212828Z"",
@@ -79,7 +69,54 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             ""contentType"": ""application/json""
         }
     ]
-}")
+}";
+
+        private static Uri GetUri() => new Uri("http://api.externalintegration.payex.com/psp/paymentorders/2d35afaa-4e5a-4930-0de5-08d7da0988bc", UriKind.Absolute);
+
+        private static PaymentOrderCaptureRequest GetTestPaymentOrderCaptureRequest()
+        {
+            return new PaymentOrderCaptureRequest(new Amount(25767), new Amount(0), new List<OrderItem>
+            {
+                new OrderItem(
+                    "Test",
+                    "Test",
+                    OrderItemType.Other,
+                    "Capture",
+                    1,
+                    "pcs",
+                    new Amount(25767),
+                    0,
+                    new Amount(25767),
+                    new Amount(0))
+            }, "Capturing payment.", "637218522761159010");
+        }
+
+        private static PaymentOrderRequest GetPaymentOrderRequest()
+        {
+            return new PaymentOrderRequest(
+            Operation.Initiate,
+            new CurrencyCode("NOK"),
+            new Amount(25767),
+            new Amount(0),
+            "test",
+            "test",
+            new System.Globalization.CultureInfo("no-nb"),
+            false,
+            new Urls(GetUri(), new List<Uri> { GetUri() }, GetUri(), GetUri()),
+            new PayeeInfo(Guid.Empty, "test")
+            );
+        }
+
+        [Fact]
+        public async Task WhenSendingACaptureRequest_WeDoNotCrash_AndGiveAReasonableError()
+        {
+            var handler = new FakeDelegatingHandler();
+            var client = new HttpClient(handler);
+            client.BaseAddress = GetUri();
+            handler.FakeResponseList.Add(new HttpResponseMessage
+            {
+                StatusCode = System.Net.HttpStatusCode.OK,
+                Content = new StringContent(PaymentOrderResponse)
             });
             handler.FakeResponseList.Add(new HttpResponseMessage
             {
@@ -101,38 +138,18 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
 }
 ")
             });
-
-            var captureRequest = new PaymentOrderCaptureRequest(new Amount(25767), new Amount(0), new List<OrderItem>
-            {
-                new OrderItem(
-                    "Test",
-                    "Test",
-                    OrderItemType.Other,
-                    "Capture",
-                    1,
-                    "pcs",
-                    new Amount(25767),
-                    0,
-                    new Amount(25767),
-                    new Amount(0))
-            }, "Capturing payment.", "637218522761159010");
-
-            var sut = await PaymentOrder.Create(new PaymentOrderRequest(
-            Operation.Initiate,
-            new CurrencyCode("NOK"),
-            new Amount(25767),
-            new Amount(0),
-            "test",
-            "test",
-            new System.Globalization.CultureInfo("no-nb"),
-            false,
-            new Urls(uri, new List<Uri> { uri }, uri, uri),
-            new PayeeInfo(Guid.Empty, "test")
-            ), client, string.Empty);
+            PaymentOrderCaptureRequest captureRequest = GetTestPaymentOrderCaptureRequest();
+            PaymentOrderRequest paymentOrderRequest = GetPaymentOrderRequest();
+            var sut = await PaymentOrder.Create(paymentOrderRequest, client, string.Empty);
 
             var result = await Assert.ThrowsAsync<HttpResponseException>(() => sut.Operations.Capture(captureRequest));
 
             Assert.Equal(3, result.Data.Count);
+        }
+        [Fact]
+        public async Task CreatingACaptureRequest_Serailizes_AsExepceted()
+        {
+
         }
     }
 }
