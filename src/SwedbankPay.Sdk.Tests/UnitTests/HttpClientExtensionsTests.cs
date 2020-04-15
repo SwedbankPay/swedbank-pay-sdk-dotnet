@@ -1,10 +1,14 @@
-﻿using SwedbankPay.Sdk.Exceptions;
+﻿using Newtonsoft.Json;
+using SwedbankPay.Sdk.Exceptions;
 using SwedbankPay.Sdk.Extensions;
 using SwedbankPay.Sdk.PaymentOrders;
 using SwedbankPay.Sdk.Payments;
+using SwedbankPay.Sdk.Payments.CardPayments;
 using SwedbankPay.Sdk.Tests.TestBuilders;
 using SwedbankPay.Sdk.Tests.TestHelpers;
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
@@ -98,6 +102,23 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
             var error = await Assert.ThrowsAsync<HttpResponseException>(() => sut.SendAndProcessAsync<ProblemResponse>(HttpMethod.Get, uri, null));
 
             Assert.Equal(3, error.Data.Count);
+        }
+
+        [Fact]
+        public async Task ProblemResponseException_CanBeSerialized_AsJson()
+        {
+            var handler = new FakeDelegatingHandler();
+            handler.FakeResponseList.Add(new HttpResponseMessage
+            {
+                StatusCode = System.Net.HttpStatusCode.BadRequest,
+                Content = new StringContent(PaymentOrderInputValidationFailedReponse)
+            });
+            var uri = new Uri("http://api.externalintegration.payex.com");
+            var sut = new HttpClient(handler);
+
+            var error = await Assert.ThrowsAsync<HttpResponseException>(() => sut.SendAndProcessAsync<ProblemResponse>(HttpMethod.Get, uri, null));
+
+            JsonConvert.SerializeObject(error);
         }
 
         [Fact]
