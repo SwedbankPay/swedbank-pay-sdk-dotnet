@@ -11,7 +11,7 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Payment
     public class PayexSwishFramePage : Page<_>
     {
         [WaitFor(Until.VisibleThenMissingOrHidden, TriggerEvents.AfterClick, AbsenceTimeout = 30)]
-        [Wait(0.5, TriggerEvents.BeforeClick)]
+        [Wait(1, TriggerEvents.BeforeClick)]
         [FindById("px-submit")]
         public Button<ThankYouPage, _> Pay { get; set; }
 
