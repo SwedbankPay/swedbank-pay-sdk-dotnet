@@ -10,7 +10,7 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Payment
     [WaitForLoadingIndicator]
     public class PayexInvoiceFramePage : Page<_>
     {
-        [FindById("emailInput")] public TextInput<_> Email { get; set; }
+        [FindById("emailInput")] public EmailInput<_> Email { get; set; }
 
         [FindById("px-submit")] public Button<_> Next { get; set; }
 
