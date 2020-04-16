@@ -2,6 +2,16 @@
 using NUnit.Framework;
 using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
+using SwedbankPay.Sdk;
+using SwedbankPay.Sdk.Exceptions;
+using SwedbankPay.Sdk.Payments;
+using SwedbankPay.Sdk.Payments.SwishPayments;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
 {
@@ -62,6 +72,32 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
         public void FieldValidationSwish(Product[] products)
         {
             GoToPayexSwishPaymentFrame(products);
+        }
+
+        [Test]
+        public void ValidateExceptionFromApi()
+        {
+            var httpClient = new HttpClient { BaseAddress = new Uri("https://api.externalintegration.payex.com") };
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "xxxxx");
+            var swedbankPayClient = new SwedbankPayClient(httpClient);
+            var payeeRef = DateTime.Now.Ticks.ToString();
+            var amount = Amount.FromDecimal(1600);
+            var vatAmount = Amount.FromDecimal(0);
+            var phoneNumber = "+46739000001";
+            var swishRequest = new SwishPaymentRequest(new CurrencyCode("SEK"),
+                new List<Price>
+                {
+                    new Price(amount, PriceType.Swish, vatAmount)
+                }, "Test Purchase", payeeRef, "GetUserAgent()",
+                CultureInfo.GetCultureInfo("sv-SE"),
+                new Urls(new List<Uri> { new Uri("http://api.externalintegration.payex.com") },
+                    new Uri("http://api.externalintegration.payex.com"),
+                    new Uri("http://api.externalintegration.payex.com")),
+                new PayeeInfo(Guid.NewGuid(), payeeRef), new PrefillInfo(new Msisdn(phoneNumber)));
+
+            var error = Assert.ThrowsAsync<HttpResponseException>(() => swedbankPayClient.Payments.SwishPayments.Create(swishRequest));
+
+            Assert.Equals(1, error.Data.Keys.Count);
         }
     }
 }

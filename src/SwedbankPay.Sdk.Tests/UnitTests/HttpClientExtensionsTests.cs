@@ -84,7 +84,7 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
 
             var error = await Assert.ThrowsAsync<HttpResponseException>(() => client.SendAndProcessAsync<object>(HttpMethod.Post, uri, paymentRequest));
 
-            Assert.Equal(3, error.Data.Count);
+            Assert.Equal(1, error.Data.Count);
         }
 
         [Fact]
@@ -101,7 +101,7 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
 
             var error = await Assert.ThrowsAsync<HttpResponseException>(() => sut.SendAndProcessAsync<ProblemResponse>(HttpMethod.Get, uri, null));
 
-            Assert.Equal(3, error.Data.Count);
+            Assert.Equal(1, error.Data.Count);
         }
 
         [Fact]
@@ -167,7 +167,7 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
 
             var result = await Assert.ThrowsAsync<HttpResponseException>(() => sut.SendAndProcessAsync<CaptureResponse>(HttpMethod.Get, uri, new object()));
 
-            Assert.Equal(3, result.Data.Count);
+            Assert.Equal(1, result.Data.Count);
         }
     }
 }
