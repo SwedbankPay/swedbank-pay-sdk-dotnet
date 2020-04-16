@@ -3,6 +3,7 @@ using System.Net.Http;
 
 namespace SwedbankPay.Sdk.Exceptions
 {
+    [Serializable]
     public class HttpResponseException : Exception
     {
         public HttpResponseException(HttpResponseMessage httpResponse,
