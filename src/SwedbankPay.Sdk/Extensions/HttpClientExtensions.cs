@@ -59,9 +59,12 @@ namespace SwedbankPay.Sdk.Extensions
             }
             catch (HttpResponseException ex)
             {
-                ex.Data.Add(nameof(httpResponseMessage), httpResponseMessage);
-                ex.Data.Add(nameof(httpRequestMessage), httpRequestMessage);
-                ex.Data.Add(nameof(httpResponseContent), httpResponseContent);
+                if(typeof(HttpResponseMessage).IsSerializable)
+                    ex.Data.Add(nameof(httpResponseMessage), httpResponseMessage);
+                if (typeof(HttpRequestMessage).IsSerializable)
+                    ex.Data.Add(nameof(httpRequestMessage), httpRequestMessage);
+                if (typeof(string).IsSerializable)
+                    ex.Data.Add(nameof(httpResponseContent), httpResponseContent);
                 throw ex;
             }
         }
