@@ -203,7 +203,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
 
             var result = await Assert.ThrowsAsync<HttpResponseException>(() => sut.Operations.Capture(captureRequest));
 
-            Assert.Equal(3, result.Data.Count);
+            Assert.Equal(1, result.Data.Count);
         }
 
         [Fact]
