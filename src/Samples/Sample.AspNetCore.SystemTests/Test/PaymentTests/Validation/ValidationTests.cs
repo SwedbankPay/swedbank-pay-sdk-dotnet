@@ -97,7 +97,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
 
             var error = Assert.ThrowsAsync<HttpResponseException>(() => swedbankPayClient.Payments.SwishPayments.Create(swishRequest));
 
-            Assert.Equals(1, error.Data.Keys.Count);
+            Assert.AreEqual(1, error.Data.Keys.Count);
         }
     }
 }
