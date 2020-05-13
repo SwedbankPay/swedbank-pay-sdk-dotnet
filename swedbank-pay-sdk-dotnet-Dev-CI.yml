@@ -5,7 +5,8 @@ pr:
 - develop
 
 pool:
-  name: 'Hosted VS2017'
+  name: 'Hosted VS2019'
+  vmImage: 'windows-latest'
   demands:
   - msbuild
   - visualstudio
