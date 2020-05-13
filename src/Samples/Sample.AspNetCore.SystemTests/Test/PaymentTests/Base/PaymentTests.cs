@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using Atata;
+using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using Sample.AspNetCore.SystemTests.PageObjectModels;
 using Sample.AspNetCore.SystemTests.PageObjectModels.Orders;
@@ -22,6 +23,9 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
 {
     public abstract class PaymentTests : TestBase
     {
+        // requires using Microsoft.Extensions.Configuration;
+        private readonly IConfiguration Configuration;
+
         public PaymentTests(string driverAlias)
             : base(driverAlias)
         {
@@ -40,7 +44,12 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             {
                 BaseAddress = new Uri("https://api.externalintegration.payex.com")
             };
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", ConfigurationManager.AppSettings["payexTestToken"]);
+
+            var config = new ConfigurationBuilder()
+             .AddJsonFile("appsettings.json")
+             .Build();
+
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", config["payexTestToken"]);
             #elif RELEASE
             var httpClient = new HttpClient()
             {
