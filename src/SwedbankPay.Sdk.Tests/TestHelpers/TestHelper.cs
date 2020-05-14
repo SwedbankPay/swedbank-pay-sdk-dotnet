@@ -17,16 +17,11 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
                 .AddUserSecrets("55739ea0-5447-45e4-b35e-e0412f172f5f")
                 .Build();
 
-            #elif RELEASE
-
-            var json = $@"{{ ""SwedbankPayConnectionSettings"": {{ ""Token"": ""{Environment.GetEnvironmentVariable("MerchantToken", EnvironmentVariableTarget.User)}""}}}}";
-            var memoryJsonFile = new MemoryFileInfo("config.json", System.Text.Encoding.UTF8.GetBytes(json), DateTimeOffset.Now);
-            var memoryFileProvider = new MockFileProvider(memoryJsonFile);
-
+            #elif RELEASE            
             return new ConfigurationBuilder()
                 .SetBasePath(outputPath)
                 .AddJsonFile("appsettings.json", true)
-                .AddJsonFile(memoryFileProvider, "config.json", false, false)
+                .AddEnvironmentVariables()
                 .Build();
 
             #endif
