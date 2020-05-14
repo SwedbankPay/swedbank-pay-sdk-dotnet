@@ -16,10 +16,23 @@ jobs:
         dotnet-version: 3.1.101
 
     - name: Install dependencies
-      run: dotnet restore
+      run: dotnet restore ./src/SwedbankPay.Sdk.sln
 
-    - name: Build
-      run: dotnet build --configuration Release --no-restore
+    - name: Build SDK
+      run: dotnet build --configuration Release --no-restore src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj
 
-    - name: Test
-      run: dotnet test --no-restore --verbosity normal
+    - name: Build SDK Tests
+      run: dotnet build --configuration Release --no-restore src/SwedbankPay.Sdk.Tests/SwedbankPay.Sdk.Tests.csproj
+
+    - name: Run SDK Tests
+      run: dotnet test src/SwedbankPay.Sdk.Tests/SwedbankPay.Sdk.Tests.csproj
+    
+    - name: Build SDK Sample project
+      run: dotnet build --configuration Release --no-restore src/Samples/Sample.AspNetCore/Sample.AspNetCore.csproj
+
+    - name: Build SDK Sample test project
+      run: dotnet build --configuration Release --no-restore src/Samples/Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.csproj
+
+    - name: Run SDK Sample prject tests
+      run: dotnet test src/Samples/Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.csproj
+      
