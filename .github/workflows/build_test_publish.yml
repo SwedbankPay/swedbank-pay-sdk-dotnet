@@ -26,7 +26,7 @@ jobs:
 
     - name: Run SDK Tests
       run: dotnet test --configuration Release src/SwedbankPay.Sdk.Tests/SwedbankPay.Sdk.Tests.csproj
-      env:
+      with:
         SwedbankPayConnectionSettings:
           Token: ${{ secrets.MERCHANT_TOKEN }}
     
@@ -38,7 +38,7 @@ jobs:
 
     - name: Run SDK Sample prject tests
       run: dotnet test --configuration Release src/Samples/Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.csproj
-      env:
+      with:
         SwedbankPayConnectionSettings:
           Token: ${{ secrets.MERCHANT_TOKEN }}
       
