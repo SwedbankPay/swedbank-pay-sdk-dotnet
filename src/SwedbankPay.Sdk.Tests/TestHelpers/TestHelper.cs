@@ -19,7 +19,7 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
 
             #elif RELEASE
 
-            var json = $@"{{ ""SwedbankPayConnectionSettings"": {{ ""Token"": ""{Environment.GetEnvironmentVariable("SwedbankPayConnectionSettings.Token", EnvironmentVariableTarget.User)}""}}}}";
+            var json = $@"{{ ""SwedbankPayConnectionSettings"": {{ ""Token"": ""{Environment.GetEnvironmentVariable("MerchantToken", EnvironmentVariableTarget.User)}""}}}}";
             var memoryJsonFile = new MemoryFileInfo("config.json", System.Text.Encoding.UTF8.GetBytes(json), DateTimeOffset.Now);
             var memoryFileProvider = new MockFileProvider(memoryJsonFile);
 
