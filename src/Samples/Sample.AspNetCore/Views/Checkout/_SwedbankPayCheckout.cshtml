@@ -51,28 +51,23 @@
     };
     var scriptLoaded = loadScriptAsync('@(Model.JavascriptSource)');
 
-    var style = {
-        body: {
-            //backgroundColor: "#555",
-            //color: "#bbb"
-        
-        },
-        button: {
-            backgroundColor: "#337ab7",
-            color: "#fff"
-        },
-        secondaryButton: {
-            backgroundColor: "#555",
-            border: "solid 1px #bbb"
-        },
-        formGroup: {
-            color: "#bbb",
-            backgroundColor: "#555"
-        },
-        label: {
-            color: "#bbb"
+    var style = loadCss('https://design.swedbankpay.com/v/4.6.1/styles/dg-style.css');
+
+    function loadCss(theURL) {
+        if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari, SeaMonkey
+            csshttp = new XMLHttpRequest();
         }
-    };
+        else {// code for IE6, IE5
+            csshttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        csshttp.onreadystatechange = function () {
+            if (csshttp.readyState == 4 && csshttp.status == 200) {
+                return csshttp.responseText;
+            }
+        }
+        csshttp.open("GET", theURL, false);
+        csshttp.send();
+    }
 
     var config1 = {
         container: 'swedbankpay-paymentmenu-@containerId',
