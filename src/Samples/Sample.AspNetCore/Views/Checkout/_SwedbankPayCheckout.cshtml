@@ -50,29 +50,10 @@
         });
     };
     var scriptLoaded = loadScriptAsync('@(Model.JavascriptSource)');
-
-    var style = loadCss('https://design.swedbankpay.com/v/4.6.1/styles/dg-style.css');
-
-    function loadCss(theURL) {
-        if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari, SeaMonkey
-            csshttp = new XMLHttpRequest();
-        }
-        else {// code for IE6, IE5
-            csshttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        csshttp.onreadystatechange = function () {
-            if (csshttp.readyState == 4 && csshttp.status == 200) {
-                return csshttp.responseText;
-            }
-        }
-        csshttp.open("GET", theURL, false);
-        csshttp.send();
-    }
-
-    var config1 = {
+    
+    var config = {
         container: 'swedbankpay-paymentmenu-@containerId',
         culture: '@Model.Culture.Name',
-        style: style,
         onPaymentCreated: onCreatedPaymentHandler
     };
 
@@ -111,7 +92,7 @@
 {
     <script type="text/javascript">
         scriptLoaded.then(function() {
-            payex.hostedView.paymentMenu(config1).open();
+            payex.hostedView.paymentMenu(config).open();
         });
 
     </script>
@@ -123,7 +104,6 @@ else
         var paymentMenuConfig = {
             container: "swedbankpay-consumer-@containerId",
             culture: '@Model.Culture.Name',
-            style: style,
             onConsumerIdentified: onIdentifiedConsumerHandler,
             //onShippingDetailsAvailable: onShippingDetailsAvailableHandler //TODO Add support for onShipping
         };
@@ -170,7 +150,7 @@ else
                 script.onload = function() {
                     // When the 'view-paymentcart' script is loaded, we can initialize the payment
                     // menu inside our 'checkin' container.
-                    payex.hostedView.paymentMenu(config1).open();
+                    payex.hostedView.paymentMenu(config).open();
                 };
                 var head = document.getElementsByTagName('head')[0];
                 head.appendChild(script);
@@ -202,7 +182,7 @@ else
                     script.onload = function() {
                         // When the 'view-paymentcart' script is loaded, we can initialize the payment
                         // menu inside our 'checkin' container.
-                        payex.hostedView.paymentMenu(config1).open();
+                        payex.hostedView.paymentMenu(config).open();
                     };
                     var head = document.getElementsByTagName('head')[0];
                     head.appendChild(script);
