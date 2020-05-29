@@ -33,24 +33,24 @@ support, please wait for a future, stable release.
 
 ## Supported APIs
 
-* **Payment Order**
-  * create payment order
-  * get payment order
-  * capture
-  * cancel
-  * reversal
-  * abort
-* **Swish Payments**
-  * create swish payment
-  * get swish payment
-  * abort
-  * reversal
-* **Card Payments**
-  * create card payment
-  * get card payment
-  * capture
-  * cancel
-  * reversal
+-   **Payment Order**
+    -   create payment order
+    -   get payment order
+    -   capture
+    -   cancel
+    -   reversal
+    -   abort
+-   **Swish Payments**
+    -   create swish payment
+    -   get swish payment
+    -   abort
+    -   reversal
+-   **Card Payments**
+    -   create card payment
+    -   get card payment
+    -   capture
+    -   cancel
+    -   reversal
 
 ## Sample App
 
