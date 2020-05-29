@@ -7,10 +7,11 @@
 [![Dependabot Status][dependabot-badge]][dependabot]
 [![Contributor Covenant][coc-badge]][coc]
 
-`SwedbankPay.Sdk` is a `netstandard2` library that allows you to interact with
-Swedbank Pay's API Platform in a statically typed client. For information about
-which runtimes (.NET Framework, .NET Core, Mono, Xamarin, etc.) support .NET
-Standard 2.0, [see Microsoft's documentation][netstandard].
+`SwedbankPay.Sdk` is a library that allows you to interact with
+[Swedbank Pay's API Platform][dev-portal] in a statically typed client targeting
+[.NET Standard 2.0][netstandard]. For information about which runtimes (.NET
+Framework, .NET Core, Mono, Xamarin, etc.) support .NET Standard 2.0, [see
+Microsoft's documentation][netstandard-impl].
 
 ## About
 
@@ -108,9 +109,12 @@ agreement][cla].
   [coc]:                ./CODE_OF_CONDUCT.md
   [dependabot-badge]:   https://api.dependabot.com/badges/status?host=github&repo=SwedbankPay/swedbank-pay-sdk-dotnet
   [dependabot]:         https://dependabot.com
+  [dev-portal]:         https://developer.swedbankpay.com/
   [github]:             https://github.com/SwedbankPay/swedbank-pay-sdk-dotnet
   [license-badge]:      https://img.shields.io/github/license/SwedbankPay/swedbank-pay-sdk-dotnet
   [license]:            https://opensource.org/licenses/Apache-2.0
+  [netstandard]:        https://docs.microsoft.com/en-us/dotnet/standard/net-standard
+  [netstandard-impl]:   https://docs.microsoft.com/en-us/dotnet/standard/net-standard#net-implementation-support
   [opengraph-image]:    https://repository-images.githubusercontent.com/211096861/84938580-53e8-11ea-8062-53a4f9ad981c
   [samples]:            https://github.com/SwedbankPay/swedbank-pay-sdk-dotnet/tree/master/src/Samples
   [netstandard]:        https://docs.microsoft.com/en-us/dotnet/standard/net-standard#net-implementation-support
