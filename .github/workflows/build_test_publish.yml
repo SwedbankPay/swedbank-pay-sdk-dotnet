@@ -27,8 +27,8 @@ jobs:
     - name: Run SDK Tests
       run: dotnet test --configuration Release src/SwedbankPay.Sdk.Tests/SwedbankPay.Sdk.Tests.csproj
       env:
-        SwedbankPayConnectionSettings.Token: ${{ secrets.MERCHANT_TOKEN }}
-        SwedbankPayConnectionSettings.PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
+        SwedbankPayConnectionSettings:Token: ${{ secrets.MERCHANT_TOKEN }}
+        SwedbankPayConnectionSettings:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
     
     - name: Build SDK Sample project
       run: dotnet build --configuration Release --no-restore src/Samples/Sample.AspNetCore/Sample.AspNetCore.csproj
@@ -39,10 +39,10 @@ jobs:
     - name: Run SDK Sample prject tests
       run: dotnet test --configuration Release src/Samples/Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.csproj
       env:
-        SwedbankPayConnectionSettings.Token: ${{ secrets.MERCHANT_TOKEN }}
-        Swedbank.Pay.Sdk.SampleWebsite.BaseUrl: https://localhost:44344
-        SwedbankPayConnectionSettings.ApiBaseUrl: https://api.externalintegration.payex.com
-        Payex.Api.Url: https://api.externalintegration.payex.com
+        SwedbankPayConnectionSettings:Token: ${{ secrets.MERCHANT_TOKEN }}
+        Swedbank:Pay:Sdk:SampleWebsite:BaseUrl: https://localhost:44344
+        SwedbankPayConnectionSettings:ApiBaseUrl: https://api.externalintegration.payex.com
+        Payex:Api:Url: https://api.externalintegration.payex.com
 
     - name: Install GitVersion
       uses: gittools/actions/gitversion/setup@v0.9.3
