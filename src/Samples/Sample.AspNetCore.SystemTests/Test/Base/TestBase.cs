@@ -67,7 +67,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
             AtataContext.Configure()
                 .UseChrome()
                 .WithOptions(DriverOptionsFactory.GetDriverOptions(Driver.Chrome) as ChromeOptions)
-                .UseBaseUrl(Environment.GetEnvironmentVariable("Swedbank.Pay.Sdk.SampleWebsite.BaseUrl", EnvironmentVariableTarget.User))
+                .UseBaseUrl("https://localhost:44344/")
                 .Build();
             AtataContext.Current.Driver.Maximize();
 #endif
