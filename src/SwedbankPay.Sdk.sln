@@ -10,7 +10,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwedbankPay.Sdk.Tests", "Sw
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.AspNetCore", "Samples\Sample.AspNetCore\Sample.AspNetCore.csproj", "{3DB54A5C-6FC0-4E1F-97DE-078343B15302}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.AspNetCore.SystemTests", "Samples\Sample.AspNetCore.SystemTests\Sample.AspNetCore.SystemTests.csproj", "{5E48B0B0-B995-48E6-9FD8-9E0F749917B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.AspNetCore.SystemTests", "Samples\Sample.AspNetCore.SystemTests\Sample.AspNetCore.SystemTests.csproj", "{5E48B0B0-B995-48E6-9FD8-9E0F749917B6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3DB54A5C-6FC0-4E1F-97DE-078343B15302} = {3DB54A5C-6FC0-4E1F-97DE-078343B15302}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
