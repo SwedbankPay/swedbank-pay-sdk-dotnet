@@ -41,6 +41,7 @@ jobs:
         SwedbankPayConnectionSettings__Token: ${{ secrets.MERCHANT_TOKEN }}
         Swedbank__Pay__Sdk__SampleWebsite__BaseUrl: https://localhost:44344
         SwedbankPayConnectionSettings.ApiBaseUrl: https://api.externalintegration.payex.com
+        Payex.Api.Url: https://api.externalintegration.payex.com
 
     - name: Install GitVersion
       uses: gittools/actions/gitversion/setup@v0.9.3
