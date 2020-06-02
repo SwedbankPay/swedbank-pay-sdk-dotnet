@@ -31,8 +31,6 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
         {
         }
 
-
-        protected HttpClientService HttpClientService { get; private set; }
         protected SwedbankPayClient SwedbankPayClient { get; private set; }
 
 
