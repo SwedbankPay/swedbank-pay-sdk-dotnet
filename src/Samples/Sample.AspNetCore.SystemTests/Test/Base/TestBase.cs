@@ -64,7 +64,6 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
             AtataContext.Current.Driver.Maximize();
 #elif RELEASE
             var chromeOptions = DriverOptionsFactory.GetDriverOptions(Driver.Chrome) as ChromeOptions;
-            chromeOptions.AddArgument("--headless");
             AtataContext.Configure()
                 .UseChrome()
                 .WithOptions(chromeOptions)
