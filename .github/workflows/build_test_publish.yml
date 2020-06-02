@@ -27,7 +27,7 @@ jobs:
     - name: Run SDK Tests
       run: dotnet test --configuration Release src/SwedbankPay.Sdk.Tests/SwedbankPay.Sdk.Tests.csproj
       env:
-        SwedbankPayConnectionSettings__Token: ${{ secrets.MERCHANT_TOKEN }}
+        SwedbankPayConnectionSettings.Token: ${{ secrets.MERCHANT_TOKEN }}
     
     - name: Build SDK Sample project
       run: dotnet build --configuration Release --no-restore src/Samples/Sample.AspNetCore/Sample.AspNetCore.csproj
@@ -38,8 +38,8 @@ jobs:
     - name: Run SDK Sample prject tests
       run: dotnet test --configuration Release src/Samples/Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.csproj
       env:
-        SwedbankPayConnectionSettings__Token: ${{ secrets.MERCHANT_TOKEN }}
-        Swedbank__Pay__Sdk__SampleWebsite__BaseUrl: https://localhost:44344
+        SwedbankPayConnectionSettings.Token: ${{ secrets.MERCHANT_TOKEN }}
+        Swedbank.Pay.Sdk.SampleWebsite.BaseUrl: https://localhost:44344
         SwedbankPayConnectionSettings.ApiBaseUrl: https://api.externalintegration.payex.com
         Payex.Api.Url: https://api.externalintegration.payex.com
 
