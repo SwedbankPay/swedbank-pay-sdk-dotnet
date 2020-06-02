@@ -63,10 +63,11 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
             .Build();
             AtataContext.Current.Driver.Maximize();
 #elif RELEASE
-
+            var chromeOptions = DriverOptionsFactory.GetDriverOptions(Driver.Chrome) as ChromeOptions;
+            chromeOptions.AddArgument("--headless");
             AtataContext.Configure()
                 .UseChrome()
-                .WithOptions(DriverOptionsFactory.GetDriverOptions(Driver.Chrome) as ChromeOptions)
+                .WithOptions(chromeOptions)
                 .UseBaseUrl("https://localhost:44344/")
                 .Build();
             AtataContext.Current.Driver.Maximize();
