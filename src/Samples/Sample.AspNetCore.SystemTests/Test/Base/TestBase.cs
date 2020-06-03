@@ -67,8 +67,6 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
             // https://stackoverflow.com/a/50791503/10192288
             chromeOptions.AddArgument("--disable-dev-shm-usage");
             chromeOptions.AddArgument("--no-sandbox");
-            // https://stackoverflow.com/a/53073789/10192288
-            chromeOptions.AddArgument("--headless");
             AtataContext.Configure()
                 .UseChrome()
                 .WithOptions(chromeOptions)
