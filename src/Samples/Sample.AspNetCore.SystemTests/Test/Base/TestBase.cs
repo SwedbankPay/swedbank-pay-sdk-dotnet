@@ -64,6 +64,8 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
             AtataContext.Current.Driver.Maximize();
 #elif RELEASE
             var chromeOptions = DriverOptionsFactory.GetDriverOptions(Driver.Chrome) as ChromeOptions;
+            // https://stackoverflow.com/a/50791503/10192288
+            chromeOptions.AddArgument("--disable-dev-shm-usage");
             AtataContext.Configure()
                 .UseChrome()
                 .WithOptions(chromeOptions)
