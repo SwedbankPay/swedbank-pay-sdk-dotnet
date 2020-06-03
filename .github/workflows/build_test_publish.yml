@@ -39,12 +39,6 @@ jobs:
     - name: Build SDK Sample test project
       run: dotnet build --configuration Release --no-restore src/Samples/Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.csproj
 
-    - uses: nanasess/setup-chromedriver@v1.0.1
-    - run: |
-        export DISPLAY=:99
-        chromedriver --url-base=/wd/hub &
-        sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional
-
     - name: Run SDK Sample project tests
       run: dotnet test --configuration Release src/Samples/Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.csproj
       env:
