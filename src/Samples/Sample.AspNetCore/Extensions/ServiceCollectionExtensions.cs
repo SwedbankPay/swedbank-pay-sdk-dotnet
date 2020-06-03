@@ -26,9 +26,7 @@ namespace Sample.AspNetCore.Extensions
             services.Configure<SwedbankPayConnectionSettings>(swedbankPayConSettings);
 
             var swedBankPayOptions = swedbankPayConSettings.Get<SwedbankPayConnectionSettings>();
-            swedBankPayOptions.Token = configuration["Token"];
-
-            services.AddTransient(s => swedBankPayOptions);
+            services.AddSingleton(s => swedBankPayOptions);
 
             void configureClient(HttpClient a)
             {
