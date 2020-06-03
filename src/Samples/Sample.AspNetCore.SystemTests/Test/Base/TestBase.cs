@@ -66,6 +66,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
             var chromeOptions = DriverOptionsFactory.GetDriverOptions(Driver.Chrome) as ChromeOptions;
             // https://stackoverflow.com/a/50791503/10192288
             chromeOptions.AddArgument("--disable-dev-shm-usage");
+            chromeOptions.AddArgument("--no-sandbox");
             AtataContext.Configure()
                 .UseChrome()
                 .WithOptions(chromeOptions)
