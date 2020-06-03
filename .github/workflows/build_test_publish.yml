@@ -39,8 +39,6 @@ jobs:
     - name: Build SDK Sample test project
       run: dotnet build --configuration Release --no-restore src/Samples/Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.csproj
 
-    - uses: nanasess/setup-chromedriver@v1.0.1
-
     - name: Run SDK Sample project tests
       run: dotnet test --configuration Release src/Samples/Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.csproj
       env:
