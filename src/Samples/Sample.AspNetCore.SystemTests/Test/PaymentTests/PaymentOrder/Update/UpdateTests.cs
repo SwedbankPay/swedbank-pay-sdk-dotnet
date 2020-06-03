@@ -19,7 +19,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Update
 
 
         [Test]
-        [Retry(3)]
+        [Retry(5)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Card })]
         public async Task Update_PaymentOrder(Product[] products, PayexInfo payexInfo)
         {
