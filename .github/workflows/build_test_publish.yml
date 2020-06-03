@@ -34,7 +34,7 @@ jobs:
       run: dotnet build --configuration Release --no-restore src/Samples/Sample.AspNetCore/Sample.AspNetCore.csproj
 
     - name: Start SDK Sample project
-      run: dotnet run --configuration Release -p src/Samples/Sample.AspNetCore/Sample.AspNetCore.csproj
+      run: dotnet run --configuration Release -p src/Samples/Sample.AspNetCore/Sample.AspNetCore.csproj &
       env:
         SwedbankPayConnectionSettings:Token: ${{ secrets.MERCHANT_TOKEN }}
         SwedbankPayConnectionSettings:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
