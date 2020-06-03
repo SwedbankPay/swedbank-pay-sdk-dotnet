@@ -53,7 +53,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
 #if DEBUG
             AtataContext.Configure()
                 .UseDriver(_driverAlias)
-                    .UseBaseUrl("https://localhost:44344/")
+                    .UseBaseUrl("https://localhost:5001/")
             .Build();
             AtataContext.Current.Driver.Maximize();
 #elif DEV

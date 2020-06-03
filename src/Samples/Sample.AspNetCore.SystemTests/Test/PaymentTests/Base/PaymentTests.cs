@@ -37,24 +37,18 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            #if DEBUG
+            IConfigurationRoot configRoot = new ConfigurationBuilder()
+                .SetBasePath(Environment.CurrentDirectory)
+                .AddJsonFile("appsettings.json", true)
+                .AddEnvironmentVariables()
+                .Build();
+            var baseAddress = configRoot.GetSection("SwedbankPayConnectionSettings:ApiBaseUrl").Value;
+            var authHeader = configRoot.GetSection("SwedbankPayConnectionSettings:Token").Value;
             var httpClient = new HttpClient()
             {
-                BaseAddress = new Uri("https://api.externalintegration.payex.com")
+                BaseAddress = new Uri(baseAddress)
             };
-
-            var config = new ConfigurationBuilder()
-             .AddJsonFile("appsettings.json")
-             .Build();
-
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", config["payexTestToken"]);
-            #elif RELEASE
-            var httpClient = new HttpClient()
-            {
-                BaseAddress = new Uri(Environment.GetEnvironmentVariable("Payex:Api:Url"))
-            };
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Environment.GetEnvironmentVariable("SwedbankPayConnectionSettings:Token"));
-            #endif
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authHeader);
 
             SwedbankPayClient = new SwedbankPayClient(httpClient);
         }
