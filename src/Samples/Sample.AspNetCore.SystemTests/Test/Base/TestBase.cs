@@ -70,7 +70,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
             AtataContext.Configure()
                 .UseChrome()
                 .WithOptions(chromeOptions)
-                .UseBaseUrl("https://localhost:44344/")
+                .UseBaseUrl("https://localhost:5001/")
                 .Build();
             AtataContext.Current.Driver.Maximize();
 #endif
