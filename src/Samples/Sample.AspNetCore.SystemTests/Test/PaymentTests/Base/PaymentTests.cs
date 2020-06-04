@@ -139,14 +139,15 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                     .IdentificationFrame.SwitchTo()
                     .Email.Set(TestDataService.Email)
                     .PhoneNumber.Set(TestDataService.SwedishPhoneNumber)
-                    .Next.Click().SwitchToRoot<PaymentPage>()
+                    .Next.Click().SwitchToRoot<PaymentPage>().Wait(TimeSpan.FromSeconds(2))
                     .PaymentMethodsFrame.SwitchTo();
 
                 case Checkout.Option.Anonymous:
                 default:
 
                     return GoToPayexPaymentPage(products, checkout)
-                    .PaymentMethodsFrame.SwitchTo();
+                        .Wait(TimeSpan.FromSeconds(2))
+                        .PaymentMethodsFrame.SwitchTo();
 
             }
         }
