@@ -81,7 +81,6 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             {
                 case Checkout.Option.LocalPaymentMenu:
                     return GoToLocalPaymentPage(products, checkout)
-                        .Wait(TimeSpan.FromSeconds(3))
                         .CreditCard.Click()
                         .PaymentFrame.SwitchTo<PayexCardFramePage>();
 
@@ -113,7 +112,6 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             {
                 case Checkout.Option.LocalPaymentMenu:
                     return GoToLocalPaymentPage(products, checkout)
-                        .Wait(TimeSpan.FromSeconds(3))
                         .Swish.Click()
                         .PaymentFrame.SwitchTo<PayexSwishFramePage>();
 
@@ -122,7 +120,6 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 default:
 
                     return GoToPaymentFramePage(products, checkout)
-                        .Wait(TimeSpan.FromSeconds(3))
                         .PaymentMethods[x => x.Name == PaymentMethods.Swish].Click()
                         .PaymentMethods[x => x.Name == PaymentMethods.Swish].PaymentFrame.SwitchTo<PayexSwishFramePage>();
 
@@ -139,19 +136,17 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 case Checkout.Option.Standard:
 
                     return GoToPayexPaymentPage(products, checkout)
-                        .Wait(TimeSpan.FromSeconds(3))
-                        .IdentificationFrame.SwitchTo()
-                        .Email.Set(TestDataService.Email)
-                        .PhoneNumber.Set(TestDataService.SwedishPhoneNumber)
-                        .Next.Click().SwitchToRoot<PaymentPage>()
-                        .PaymentMethodsFrame.SwitchTo();
+                    .IdentificationFrame.SwitchTo()
+                    .Email.Set(TestDataService.Email)
+                    .PhoneNumber.Set(TestDataService.SwedishPhoneNumber)
+                    .Next.Click().SwitchToRoot<PaymentPage>()
+                    .PaymentMethodsFrame.SwitchTo();
 
                 case Checkout.Option.Anonymous:
                 default:
 
                     return GoToPayexPaymentPage(products, checkout)
-                        .Wait(TimeSpan.FromSeconds(3))
-                        .PaymentMethodsFrame.SwitchTo();
+                    .PaymentMethodsFrame.SwitchTo();
 
             }
         }
