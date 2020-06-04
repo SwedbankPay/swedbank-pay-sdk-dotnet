@@ -220,7 +220,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                             {
                                 x.AddNewCard.Click()
                                     .CreditCardNumber.Set(TestDataService.CreditCardNumber)
-                                    .ExpiryDate.Set(TestDataService.CreditCardExpiratioDate)
+                                    .ExpiryDate.Set(TestDataService.CreditCardExpirationDate)
                                     .Cvc.Set(TestDataService.CreditCardCvc);
                             }
 
@@ -310,7 +310,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             switch (paymentMethod)
             {
                 case PaymentMethods.Card:
-                    data.Add(new PayexCardInfo(TestDataService.CreditCardNumber, TestDataService.CreditCardExpiratioDate,
+                    data.Add(new PayexCardInfo(TestDataService.CreditCardNumber, TestDataService.CreditCardExpirationDate,
                                                TestDataService.CreditCardCvc));
                     break;
 
