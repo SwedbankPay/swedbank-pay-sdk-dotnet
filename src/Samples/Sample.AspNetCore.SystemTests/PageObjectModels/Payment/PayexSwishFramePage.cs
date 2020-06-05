@@ -9,7 +9,7 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Payment
 
     public class PayexSwishFramePage : Page<_>
     {
-        [Wait(1, TriggerEvents.BeforeClick)]
+        [Wait(2, TriggerEvents.BeforeClick)]
         [FindById("px-submit")]
         public Button<ThankYouPage, _> Pay { get; set; }
 

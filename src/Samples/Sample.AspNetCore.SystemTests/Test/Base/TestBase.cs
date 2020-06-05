@@ -40,7 +40,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
                     WithMinLevel(LogLevel.Error).
                 UseElementFindTimeout(TimeSpan.FromSeconds(10)).
                 UseVerificationTimeout(TimeSpan.FromSeconds(10)).
-                UseWaitingTimeout(TimeSpan.FromSeconds(30));
+                UseWaitingTimeout(TimeSpan.FromSeconds(60));
         }
 
 
