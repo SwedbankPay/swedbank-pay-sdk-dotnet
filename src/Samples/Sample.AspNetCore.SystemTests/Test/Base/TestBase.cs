@@ -37,13 +37,10 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
                 UseInternetExplorer().
                     WithOptions(DriverOptionsFactory.GetDriverOptions(Driver.InternetExplorer) as InternetExplorerOptions).
                 AddNUnitTestContextLogging().
-                    WithMinLevel(LogLevel.Trace).
-                UseWaitingTimeout(TimeSpan.FromSeconds(20)).
-                TakeScreenshotOnNUnitError().
-                    AddScreenshotFileSaving().
-                        WithFolderPath(() => $@"Logs\{AtataContext.BuildStart:yyyy-MM-dd HH_mm_ss}").
-                        WithFileName(screenshotInfo => $"{AtataContext.Current.TestName} - {screenshotInfo.PageObjectFullName}").
-                UseTestName(() => $"[{_driverAlias}]{TestContext.CurrentContext.Test.Name}");
+                    WithMinLevel(LogLevel.Error).
+                UseElementFindTimeout(TimeSpan.FromSeconds(10)).
+                UseVerificationTimeout(TimeSpan.FromSeconds(10)).
+                UseWaitingTimeout(TimeSpan.FromSeconds(30));
         }
 
 
