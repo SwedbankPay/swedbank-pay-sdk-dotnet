@@ -20,6 +20,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
     [TestFixture(DriverAliases.Chrome)]
     //[TestFixtureSource(typeof(Profiles.ProfileRelease))]
 #endif
+
     public abstract class TestBase
     {
         private readonly string _driverAlias;
@@ -82,6 +83,12 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
         public void TearDown()
         {
             AtataContext.Current?.CleanUp();
+
+            if(TestContext.CurrentContext.Result.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
+            {
+                // Throw Exception so that nunit retry takes effect
+                Assert.True(false);
+            }
         }
 
 
