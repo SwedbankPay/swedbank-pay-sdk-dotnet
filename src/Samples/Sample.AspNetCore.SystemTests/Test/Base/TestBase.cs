@@ -80,6 +80,11 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
         [TearDown]
         public void TearDown()
         {
+            if (TestContext.CurrentContext.Result.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
+            {
+                TestContext.Out.WriteLine(PageSource());
+            }
+
             AtataContext.Current?.CleanUp();
         }
 
@@ -89,6 +94,17 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
         {
             foreach (Driver driverType in Enum.GetValues(typeof(Driver)))
                 WebDriverCleanerService.KillWebDriverProcess(WebDriverCleanerService.DriverNames[driverType]);
+        }
+
+        public static string PageSource()
+        {
+            return $"------ Start Page content ------"
+                + Environment.NewLine
+                + Environment.NewLine
+                + AtataContext.Current.Driver.PageSource
+                + Environment.NewLine
+                + Environment.NewLine
+                + "------ End Page content ------";
         }
     }
 }
