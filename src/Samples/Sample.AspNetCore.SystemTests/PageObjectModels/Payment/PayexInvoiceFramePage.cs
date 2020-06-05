@@ -18,6 +18,7 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Payment
         [FindById("px-submit")]
         public Button<ThankYouPage, _> Pay { get; set; }
 
+        [Wait(2, TriggerEvents.BeforeFocus)]
         [FindById("ssnInput")] public TelInput<_> PersonalNumber { get; set; }
 
         [FindById("msisdnInput")] public TelInput<_> PhoneNumber { get; set; }
