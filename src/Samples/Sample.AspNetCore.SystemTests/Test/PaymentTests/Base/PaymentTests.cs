@@ -76,7 +76,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                     break;
             }
 
-            return page
+            return page?
                 .ThankYou.IsVisible.WaitTo.Within(15).BeTrue()
                 .Header.Orders.ClickAndGo();
             ;
