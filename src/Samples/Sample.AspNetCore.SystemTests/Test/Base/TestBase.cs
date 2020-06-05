@@ -28,7 +28,6 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
         [OneTimeSetUp]
         public void GlobalSetup()
         {
-#if DEBUG
             AtataContext.GlobalConfiguration.
                 UseChrome().
                     WithOptions(DriverOptionsFactory.GetDriverOptions(Driver.Chrome) as ChromeOptions).
@@ -43,7 +42,6 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
                         WithFolderPath(() => $@"Logs\{AtataContext.BuildStart:yyyy-MM-dd HH_mm_ss}").
                         WithFileName(screenshotInfo => $"{AtataContext.Current.TestName} - {screenshotInfo.PageObjectFullName}").
                 UseTestName(() => $"[{_driverAlias}]{TestContext.CurrentContext.Test.Name}");
-#endif
         }
 
 

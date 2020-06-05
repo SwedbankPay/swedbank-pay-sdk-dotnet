@@ -22,9 +22,6 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
 {
     public abstract class PaymentTests : TestBase
     {
-        // requires using Microsoft.Extensions.Configuration;
-        private readonly IConfiguration Configuration;
-
         public PaymentTests(string driverAlias)
             : base(driverAlias)
         {
@@ -41,6 +38,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 .AddJsonFile("appsettings.json", true)
                 .AddEnvironmentVariables()
                 .Build();
+
             var baseAddress = configRoot.GetSection("SwedbankPayConnectionSettings:ApiBaseUrl").Value;
             var authHeader = configRoot.GetSection("SwedbankPayConnectionSettings:Token").Value;
             var httpClient = new HttpClient()
@@ -55,22 +53,33 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
 
         protected OrdersPage GoToOrdersPage(Product[] products, PayexInfo payexInfo, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
+            ThankYouPage page = null;
+
             switch (payexInfo)
             {
                 case PayexCardInfo cardInfo:
 
-                    return PayWithPayexCard(products, cardInfo, checkout).Header.Orders.ClickAndGo();
+                    page = PayWithPayexCard(products, cardInfo, checkout);
 
+                    break;
+                        
                 case PayexSwishInfo swishInfo:
 
-                    return PayWithPayexSwish(products, swishInfo, checkout).Header.Orders.ClickAndGo();
+                    page = PayWithPayexSwish(products, swishInfo, checkout);
+
+                    break;
 
                 case PayexInvoiceInfo invoiceInfo:
 
-                    return PayWithPayexInvoice(products, invoiceInfo, checkout).Header.Orders.ClickAndGo();
+                    page = PayWithPayexInvoice(products, invoiceInfo, checkout);
+
+                    break;
             }
 
-            return null;
+            return page
+                .ThankYou.IsVisible.WaitTo.Within(15).BeTrue()
+                .Header.Orders.ClickAndGo();
+            ;
         }
 
 
@@ -136,8 +145,8 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
 
                     return GoToPayexPaymentPage(products, checkout)
                     .IdentificationFrame.SwitchTo()
-                    .Email.Set(TestDataService.Email)
-                    .PhoneNumber.Set(TestDataService.SwedishPhoneNumber)
+                    .Email.SetWithSpeed(TestDataService.Email, interval: 0.1)
+                    .PhoneNumber.SetWithSpeed(TestDataService.SwedishPhoneNumber, interval: 0.1)
                     .Next.Click().SwitchToRoot<PaymentPage>().Wait(TimeSpan.FromSeconds(2))
                     .PaymentMethodsFrame.SwitchTo();
 
