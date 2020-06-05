@@ -17,7 +17,6 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Standard
 
 
         [Test]
-        [Retry(5)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Card })]
         public async Task Standard_PaymentOrder_Card_Capture(Product[] products, PayexInfo payexInfo)
         {
@@ -46,7 +45,6 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Standard
 
 
         [Test]
-        [Retry(5)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Invoice })]
         public async Task Standard_PaymentOrder_Invoice_Capture(Product[] products, PayexInfo payexInfo)
         {

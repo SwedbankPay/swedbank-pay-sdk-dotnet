@@ -17,7 +17,6 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Abort
 
 
         [Test]
-        [Retry(5)]
         [TestCaseSource(nameof(TestData), new object[] { true, null })]
         public async Task Abort_PaymentOrder(Product[] products)
         {

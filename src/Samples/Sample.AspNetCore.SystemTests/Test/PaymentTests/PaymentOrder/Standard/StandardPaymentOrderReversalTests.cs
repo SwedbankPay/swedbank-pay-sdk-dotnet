@@ -19,7 +19,6 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Standard
 
 
         [Test]
-        [Retry(5)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Card })]
         public async Task Standard_PaymentOrder_Card_Reversal(Product[] products, PayexInfo payexInfo)
         {
@@ -50,7 +49,6 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Standard
 
 
         [Test]
-        [Retry(5)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Swish })]
         public async Task Standard_PaymentOrder_Swish_Reversal(Product[] products, PayexInfo payexInfo)
         {
@@ -86,7 +84,6 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Standard
 
 
         [Test]
-        [Retry(5)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Invoice })]
         public async Task Standard_PaymentOrder_Invoice_Reversal(Product[] products, PayexInfo payexInfo)
         {

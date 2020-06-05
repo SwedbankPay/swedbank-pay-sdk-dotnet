@@ -18,7 +18,6 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Standard
 
 
         [Test]
-        [Retry(5)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Swish })]
         public async Task Standard_PaymentOrder_Swish_Sale(Product[] products, PayexInfo payexInfo)
         {

@@ -18,7 +18,6 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
 
 
         [Test]
-        [Retry(5)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Card })]
         public async Task Payment_Card_Cancellation(Product[] products, PayexInfo payexInfo)
         {

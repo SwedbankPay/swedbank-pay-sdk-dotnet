@@ -24,7 +24,6 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
 
 
         [Test]
-        [Retry(5)]
         [TestCaseSource(nameof(TestData), new object[] { true, null })]
         public void FieldValidationCard(Product[] products)
         {
@@ -44,7 +43,6 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
 
 
         [Test]
-        [Retry(5)]
         [TestCaseSource(nameof(TestData), new object[] { true, null })]
         public void FieldValidationInvoice(Product[] products)
         {
@@ -70,7 +68,6 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
 
 
         [Test]
-        [Retry(5)]
         [TestCaseSource(nameof(TestData), new object[] { true, null })]
         public void FieldValidationSwish(Product[] products)
         {
@@ -78,7 +75,6 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
         }
 
         [Test]
-        [Retry(5)]
         public void ValidateExceptionFromApi()
         {
             var httpClient = new HttpClient { BaseAddress = new Uri("https://api.externalintegration.payex.com") };
