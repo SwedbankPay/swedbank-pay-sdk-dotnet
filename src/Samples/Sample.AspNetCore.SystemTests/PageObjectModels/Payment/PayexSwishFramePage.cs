@@ -7,10 +7,8 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Payment
 {
     using _ = PayexSwishFramePage;
 
-    [WaitForLoadingIndicator]
     public class PayexSwishFramePage : Page<_>
     {
-        [WaitFor(Until.VisibleThenMissingOrHidden, TriggerEvents.AfterClick, AbsenceTimeout = 30)]
         [Wait(1, TriggerEvents.BeforeClick)]
         [FindById("px-submit")]
         public Button<ThankYouPage, _> Pay { get; set; }

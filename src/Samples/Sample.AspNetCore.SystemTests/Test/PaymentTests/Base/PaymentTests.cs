@@ -77,7 +77,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             }
 
             return page?
-                .ThankYou.IsVisible.WaitTo.Within(15).BeTrue()
+                .ThankYou.IsVisible.WaitTo.BeTrue()
                 .Header.Orders.ClickAndGo();
         }
 
@@ -88,6 +88,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             {
                 case Checkout.Option.LocalPaymentMenu:
                     return GoToLocalPaymentPage(products, checkout)
+                        .CreditCard.IsVisible.WaitTo.BeTrue()
                         .CreditCard.Click()
                         .PaymentFrame.SwitchTo<PayexCardFramePage>();
 
@@ -96,6 +97,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 default:
 
                     return GoToPaymentFramePage(products, checkout)
+                        .PaymentMethods[x => x.Name == PaymentMethods.Card].IsVisible.WaitTo.BeTrue()
                         .PaymentMethods[x => x.Name == PaymentMethods.Card].Click()
                         .PaymentMethods[x => x.Name == PaymentMethods.Card].PaymentFrame.SwitchTo<PayexCardFramePage>();
 
@@ -108,6 +110,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
         protected PayexInvoiceFramePage GoToPayexInvoicePaymentFrame(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
             return GoToPaymentFramePage(products, checkout)
+                .PaymentMethods[x => x.Name == PaymentMethods.Invoice].IsVisible.WaitTo.BeTrue()
                 .PaymentMethods[x => x.Name == PaymentMethods.Invoice].Click()
                 .PaymentMethods[x => x.Name == PaymentMethods.Invoice].PaymentFrame.SwitchTo<PayexInvoiceFramePage>();
         }
@@ -119,6 +122,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             {
                 case Checkout.Option.LocalPaymentMenu:
                     return GoToLocalPaymentPage(products, checkout)
+                        .Swish.IsVisible.WaitTo.BeTrue()
                         .Swish.Click()
                         .PaymentFrame.SwitchTo<PayexSwishFramePage>();
 
@@ -127,6 +131,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 default:
 
                     return GoToPaymentFramePage(products, checkout)
+                        .PaymentMethods[x => x.Name == PaymentMethods.Swish].IsVisible.WaitTo.BeTrue()
                         .PaymentMethods[x => x.Name == PaymentMethods.Swish].Click()
                         .PaymentMethods[x => x.Name == PaymentMethods.Swish].PaymentFrame.SwitchTo<PayexSwishFramePage>();
 
@@ -143,17 +148,18 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 case Checkout.Option.Standard:
 
                     return GoToPayexPaymentPage(products, checkout)
-                    .IdentificationFrame.SwitchTo()
-                    .Email.SetWithSpeed(TestDataService.Email, interval: 0.1)
-                    .PhoneNumber.SetWithSpeed(TestDataService.SwedishPhoneNumber, interval: 0.1)
-                    .Next.Click().SwitchToRoot<PaymentPage>().Wait(TimeSpan.FromSeconds(2))
-                    .PaymentMethodsFrame.SwitchTo();
+                        .IdentificationFrame.SwitchTo()
+                        .Email.IsVisible.WaitTo.BeTrue()
+                        .Email.SetWithSpeed(TestDataService.Email, interval: 0.1)
+                        .PhoneNumber.SetWithSpeed(TestDataService.SwedishPhoneNumber, interval: 0.1)
+                        .Next.Click().SwitchToRoot<PaymentPage>().Wait(TimeSpan.FromSeconds(2))
+                        .PaymentMethodsFrame.SwitchTo();
 
                 case Checkout.Option.Anonymous:
                 default:
 
                     return GoToPayexPaymentPage(products, checkout)
-                        .Wait(TimeSpan.FromSeconds(2))
+                        .PaymentMethodsFrame.IsVisible.WaitTo.BeTrue()
                         .PaymentMethodsFrame.SwitchTo();
 
             }
@@ -213,6 +219,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             {
                 case Checkout.Option.Standard:
                     return GoToPayexCardPaymentFrame(products, checkout)
+                        .PreFilledCards.IsVisible.WaitTo.BeTrue()
                         .Do(x =>
                         {
                             if(x.PreFilledCards.Items[y => y.CreditCardNumber.Value.Contains(info.CreditCardNumber.Substring(info.CreditCardNumber.Length - 4))].Exists())
@@ -242,11 +249,12 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 default:
 
                     return GoToPayexCardPaymentFrame(products, checkout)
-                    .CreditCardNumber.SetWithSpeed(info.CreditCardNumber, interval: 0.1)
-                    .ExpiryDate.SetWithSpeed(info.ExpiryDate, interval: 0.1)
-                    .Cvc.SetWithSpeed(info.Cvc, interval: 0.1)
-                    .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
-                    .Pay.ClickAndGo();
+                        .CreditCardNumber.IsVisible.WaitTo.BeTrue()
+                        .CreditCardNumber.SetWithSpeed(info.CreditCardNumber, interval: 0.1)
+                        .ExpiryDate.SetWithSpeed(info.ExpiryDate, interval: 0.1)
+                        .Cvc.SetWithSpeed(info.Cvc, interval: 0.1)
+                        .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
+                        .Pay.ClickAndGo();
             }
         }
 
@@ -257,6 +265,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             {
                 case Checkout.Option.Standard:
                     return GoToPayexInvoicePaymentFrame(products, checkout)
+                        .PersonalNumber.IsVisible.WaitTo.BeTrue()
                         .PersonalNumber.SetWithSpeed(info.PersonalNumber.Substring(info.PersonalNumber.Length - 4), interval: 0.1)
                         .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
                         .Pay.ClickAndGo();
@@ -265,6 +274,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 default:
 
                     return GoToPayexInvoicePaymentFrame(products, checkout)
+                        .PersonalNumber.IsVisible.WaitTo.BeTrue()
                         .PersonalNumber.SetWithSpeed(info.PersonalNumber, interval: 0.1)
                         .Email.SetWithSpeed(info.Email, interval: 0.1)
                         .PhoneNumber.SetWithSpeed(info.PhoneNumber, interval: 0.1)
@@ -291,9 +301,10 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 default:
 
                     return GoToPayexSwishPaymentFrame(products, checkout)
-                    .SwishNumber.SetWithSpeed(info.SwishNumber, interval: 0.1)
-                    .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
-                    .Pay.ClickAndGo();
+                        .SwishNumber.IsVisible.WaitTo.BeTrue()
+                        .SwishNumber.SetWithSpeed(info.SwishNumber, interval: 0.1)
+                        .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
+                        .Pay.ClickAndGo();
             }
         }
 

@@ -37,7 +37,8 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
                 UseInternetExplorer().
                     WithOptions(DriverOptionsFactory.GetDriverOptions(Driver.InternetExplorer) as InternetExplorerOptions).
                 AddNUnitTestContextLogging().
-                WithMinLevel(LogLevel.Trace).
+                    WithMinLevel(LogLevel.Trace).
+                UseWaitingTimeout(TimeSpan.FromSeconds(20)).
                 TakeScreenshotOnNUnitError().
                     AddScreenshotFileSaving().
                         WithFolderPath(() => $@"Logs\{AtataContext.BuildStart:yyyy-MM-dd HH_mm_ss}").
@@ -83,12 +84,6 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
         public void TearDown()
         {
             AtataContext.Current?.CleanUp();
-
-            if(TestContext.CurrentContext.Result.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
-            {
-                // Throw Exception so that nunit retry takes effect
-                Assert.True(false);
-            }
         }
 
 

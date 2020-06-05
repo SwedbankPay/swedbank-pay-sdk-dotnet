@@ -6,7 +6,6 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels
 {
     using _ = PaymentFramePage;
 
-    [WaitForLoadingIndicator]
     public class PaymentFramePage : Page<_>
     {
         [Wait(1, TriggerEvents.BeforeClick)]

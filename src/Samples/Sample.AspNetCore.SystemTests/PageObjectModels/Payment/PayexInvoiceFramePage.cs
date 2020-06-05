@@ -7,7 +7,6 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Payment
 {
     using _ = PayexInvoiceFramePage;
 
-    [WaitForLoadingIndicator]
     public class PayexInvoiceFramePage : Page<_>
     {
         [FindById("emailInput")] public EmailInput<_> Email { get; set; }
