@@ -63,15 +63,10 @@ jobs:
       id: gitversion # step id used as reference for output values
       uses: gittools/actions/gitversion/execute@v0.9.3
 
-      
     - name: Publish to NuGet
-      if: contains(github.ref, 'master')
-      uses: rohith/publish-nuget@v2.5.2
-      with:
-        # Filepath of the project to be packaged, relative to root of repository
-        PROJECT_FILE_PATH: src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj
-        # NuGet package id, used for version detection & defaults to project name
-        PACKAGE_NAME: SwedbankPay.Sdk:${{ steps.gitversion.outputs.nuGetVersionV2 }}
-        TAG_COMMIT: false
+      env:
+        PROJECT_FILE: src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj
+        VERSION_NUMBER: ${{ steps.gitversion.outputs.nuGetVersionV2 }}
         NUGET_KEY: ${{ secrets.NUGET_KEY}}
-        VERSION_STATIC: ${{ steps.gitversion.outputs.nuGetVersionV2 }}
+      run: .github/workflows/nuget_push.sh
+
