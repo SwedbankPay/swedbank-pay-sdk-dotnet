@@ -1,11 +1,9 @@
 name: Build
 
-
 on: [push, pull_request]
 
 jobs:
   build:
-
     runs-on: ubuntu-20.04
 
     steps:
@@ -47,6 +45,7 @@ jobs:
     runs-on: ubuntu-20.04
     needs: build
 
+    steps:
     - name: Download All artifacts
         uses: actions/download-artifact@v2
     
@@ -74,6 +73,7 @@ jobs:
     runs-on: ubuntu-20.04
     needs: build, test
 
+    steps:
     - name: Install GitVersion
       uses: gittools/actions/gitversion/setup@v0.9.3
       with:
