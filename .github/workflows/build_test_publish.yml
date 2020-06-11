@@ -19,29 +19,20 @@ jobs:
     - name: Install dependencies
       run: dotnet restore ./src/SwedbankPay.Sdk.sln
 
-    - name: Build SDK
-      run: dotnet build --configuration Release --no-restore src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj
-
-    - name: Build SDK Tests
-      run: dotnet build --configuration Release --no-restore src/SwedbankPay.Sdk.Tests/SwedbankPay.Sdk.Tests.csproj
+    - name: Build solution
+      run: dotnet build --configuration Release --no-restore  ./src/SwedbankPay.Sdk.sln
 
     - name: Run SDK Tests
       run: dotnet test --configuration Release src/SwedbankPay.Sdk.Tests/SwedbankPay.Sdk.Tests.csproj
       env:
         SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
-        SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
-    
-    - name: Build SDK Sample project
-      run: dotnet build --configuration Release --no-restore src/Samples/Sample.AspNetCore/Sample.AspNetCore.csproj
+        SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}    
 
     - name: Start SDK Sample project
       run: dotnet run --configuration Release -p src/Samples/Sample.AspNetCore/Sample.AspNetCore.csproj &
       env:
         SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
         SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
-
-    - name: Build SDK Sample test project
-      run: dotnet build --configuration Release --no-restore src/Samples/Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.csproj
 
     - name: Run SDK Sample project tests
       run: dotnet test --configuration Release src/Samples/Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.csproj
