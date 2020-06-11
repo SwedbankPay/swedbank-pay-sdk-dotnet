@@ -96,6 +96,6 @@ jobs:
     - name: Publish to NuGet
       env:
         PROJECT_FILE: src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj
-        VERSION_NUMBER: ${{ steps.gitversion.outputs.nuGetVersionV2 }}
+        VERSION_NUMBER: ${{ steps.gitversion.outputs.fullSemVer }}
         NUGET_KEY: ${{ secrets.NUGET_KEY}}
       run: .github/workflows/nuget_push.sh
