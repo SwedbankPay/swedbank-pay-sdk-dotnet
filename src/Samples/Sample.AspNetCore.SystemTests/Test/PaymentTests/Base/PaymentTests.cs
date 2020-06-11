@@ -39,8 +39,8 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 .AddEnvironmentVariables()
                 .Build();
 
-            var baseAddress = configRoot.GetSection("SwedbankPayConnectionSettings:ApiBaseUrl").Value;
-            var authHeader = configRoot.GetSection("SwedbankPayConnectionSettings:Token").Value;
+            var baseAddress = configRoot.GetSection("SwedbankPay:ApiBaseUrl").Value;
+            var authHeader = configRoot.GetSection("SwedbankPay:Token").Value;
             var httpClient = new HttpClient()
             {
                 BaseAddress = new Uri(baseAddress)
