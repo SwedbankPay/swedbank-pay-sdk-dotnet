@@ -80,9 +80,9 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
         [TearDown]
         public void TearDown()
         {
-            if (TestContext.CurrentContext.Result.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
+            if (TestContext.CurrentContext?.Result?.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
             {
-                TestContext.Out.WriteLine(PageSource());
+                TestContext.Out?.WriteLine(PageSource());
             }
 
             AtataContext.Current?.CleanUp();
