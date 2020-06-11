@@ -56,7 +56,7 @@ jobs:
       uses: actions/download-artifact@v2
     
     - name: Run SDK Tests
-      run: dotnet test ./SwedbankPay.Sdk.Tests/
+      run: dotnet test src/Samples/Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.csproj
       env:
         SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
         SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}    
