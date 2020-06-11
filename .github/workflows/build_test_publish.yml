@@ -1,4 +1,5 @@
-name: "Build site, test, and publish"
+name: Build
+
 
 on: [push, pull_request]
 
@@ -27,8 +28,8 @@ jobs:
     - name: Run SDK Tests
       run: dotnet test --configuration Release src/SwedbankPay.Sdk.Tests/SwedbankPay.Sdk.Tests.csproj
       env:
-        SwedbankPayConnectionSettings:Token: ${{ secrets.MERCHANT_TOKEN }}
-        SwedbankPayConnectionSettings:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
+        SwedbankPay:AccessToken: ${{ secrets.MERCHANT_TOKEN }}
+        SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
     
     - name: Build SDK Sample project
       run: dotnet build --configuration Release --no-restore src/Samples/Sample.AspNetCore/Sample.AspNetCore.csproj
@@ -52,14 +53,14 @@ jobs:
 
     - name: Install GitVersion
       uses: gittools/actions/gitversion/setup@v0.9.3
-
       with:
           versionSpec: '5.3.x'
 
     - name: Fetch all history for all tags and branches
       run: git fetch --prune --unshallow
 
-    - name: Use GitVersion
+    - name: GitVersion
+
       id: gitversion # step id used as reference for output values
       uses: gittools/actions/gitversion/execute@v0.9.3
 
@@ -69,4 +70,3 @@ jobs:
         VERSION_NUMBER: ${{ steps.gitversion.outputs.nuGetVersionV2 }}
         NUGET_KEY: ${{ secrets.NUGET_KEY}}
       run: .github/workflows/nuget_push.sh
-
