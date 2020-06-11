@@ -20,8 +20,8 @@ jobs:
     - name: Build solution
       run: dotnet build --configuration Release ./src/SwedbankPay.Sdk.sln
     
-    - name: Build SDK Project
-      run: dotnet build --configuration Release ./src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj
+    #- name: Build SDK Project
+    #  run: dotnet build --configuration Release ./src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj
 
     - name: Archive Sample.AspNetCore
       uses: actions/upload-artifact@v2
@@ -39,13 +39,13 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: SwedbankPay.Sdk
-        path: src/SwedbankPay.Sdk/bin/Release/netcoreapp3.1/
+        path: src/SwedbankPay.Sdk/bin/Release/netstandard2.0*
 
     - name: Archive SwedbankPay.Sdk.Tests
       uses: actions/upload-artifact@v2
       with:
         name: SwedbankPay.Sdk.Tests
-        path: src/SwedbankPay.Sdk.Tests/bin/Release/netcoreapp3.1/
+        path: src/SwedbankPay.Sdk.Tests/bin/Release/netcoreapp3.1/*
   
   test:
     runs-on: ubuntu-20.04
