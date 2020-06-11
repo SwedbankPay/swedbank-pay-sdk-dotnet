@@ -36,7 +36,7 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
             var iConfig = GetIConfigurationRoot(outputPath);
 
             iConfig
-                .GetSection("SwedbankPayConnectionSettings")
+                .GetSection("SwedbankPay")
                 .Bind(configuration);
 
             return configuration;
