@@ -52,11 +52,13 @@ jobs:
     needs: build
 
     steps:
+    - uses: actions/checkout@v2
+    
     - name: Download All artifacts
       uses: actions/download-artifact@v2
     
     - name: Run SDK Tests
-      run: dotnet test src/Samples/Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.csproj
+      run: dotnet test src/SwedbankPay.Sdk.Tests/SwedbankPay.Sdk.Tests.csproj
       env:
         SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
         SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}    
