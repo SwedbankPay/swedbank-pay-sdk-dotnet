@@ -47,19 +47,6 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
         [SetUp]
         public void SetUp()
         {
-#if DEBUG
-            AtataContext.Configure()
-                .UseDriver(_driverAlias)
-                    .UseBaseUrl("https://localhost:5001/")
-            .Build();
-            AtataContext.Current.Driver.Maximize();
-#elif DEV
-            AtataContext.Configure()
-                .UseDriver(_driverAlias)
-                    .UseBaseUrl("https://YourBaseUrl.com/")
-            .Build();
-            AtataContext.Current.Driver.Maximize();
-#elif RELEASE
             var chromeOptions = DriverOptionsFactory.GetDriverOptions(Driver.Chrome) as ChromeOptions;
             // https://stackoverflow.com/a/50791503/10192288
             chromeOptions.AddArgument("--disable-dev-shm-usage");
@@ -67,12 +54,11 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
             // https://stackoverflow.com/a/53073789/10192288
             chromeOptions.AddArgument("--headless");
             AtataContext.Configure()
-                .UseChrome()
-                .WithOptions(chromeOptions)
-                .UseBaseUrl("https://localhost:5001/")
-                .Build();
+                        .UseChrome()
+                        .WithOptions(chromeOptions)
+                        .UseBaseUrl("https://localhost:5001/")
+                        .Build();
             AtataContext.Current.Driver.Maximize();
-#endif
         }
 
         protected TestBase(string driverAlias) => this._driverAlias = driverAlias;

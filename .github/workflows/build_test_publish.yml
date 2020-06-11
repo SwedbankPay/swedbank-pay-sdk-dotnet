@@ -19,9 +19,6 @@ jobs:
 
     - name: Build solution
       run: dotnet build --configuration RELEASE ./src/SwedbankPay.Sdk.sln
-    
-    #- name: Build SDK Project
-    #  run: dotnet build --configuration Release ./src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj
 
     - name: Archive Sample.AspNetCore
       uses: actions/upload-artifact@v2
