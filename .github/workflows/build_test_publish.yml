@@ -73,3 +73,4 @@ jobs:
         PACKAGE_NAME: SwedbankPay.Sdk:${{ steps.gitversion.outputs.nuGetVersionV2 }}
         TAG_COMMIT: false
         NUGET_KEY: ${{ secrets.NUGET_KEY}}
+        VERSION_STATIC: ${{ steps.gitversion.outputs.nuGetVersionV2 }}
