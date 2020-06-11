@@ -19,28 +19,60 @@ jobs:
     - name: Install dependencies
       run: dotnet restore ./src/SwedbankPay.Sdk.sln
 
-    - name: Build solution
-      run: dotnet build --configuration Release --no-restore  ./src/SwedbankPay.Sdk.sln
+    - name: Archive Sample.AspNetCore
+      uses: actions/upload-artifact@v2
+      with:
+        name: Sample.AspNetCore
+        path: src/Samples/Sample.AspNetCore/bin/Release/netcoreapp3.1/*
 
+    - name: Archive Sample.AspNetCore.SystemTests
+      uses: actions/upload-artifact@v2
+      with:
+        name: Sample.AspNetCore.SystemTests
+        path: src/Samples/Sample.AspNetCore.SystemTests/bin/Release/netcoreapp3.1/*
+
+    - name: Archive SwedbankPay.Sdk
+      uses: actions/upload-artifact@v2
+      with:
+        name: SwedbankPay.Sdk
+        path: src/SwedbankPay.Sdk/bin/Release/netcoreapp3.1/
+
+    - name: Archive SwedbankPay.Sdk.Tests
+      uses: actions/upload-artifact@v2
+      with:
+        name: SwedbankPay.Sdk.Tests
+        path: src/SSwedbankPay.Sdk.Tests/bin/Release/netcoreapp3.1/
+  
+  test:
+    runs-on: ubuntu-20.04
+    needs: build
+
+    - name: Download All artifacts
+        uses: actions/download-artifact@v2
+    
     - name: Run SDK Tests
-      run: dotnet test --configuration Release src/SwedbankPay.Sdk.Tests/SwedbankPay.Sdk.Tests.csproj
+      run: dotnet test ./SwedbankPay.Sdk.Tests/
       env:
         SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
         SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}    
 
     - name: Start SDK Sample project
-      run: dotnet run --configuration Release -p src/Samples/Sample.AspNetCore/Sample.AspNetCore.csproj &
+      run: dotnet ./Sample.AspNetCore/Sample.AspNetCore.dll &
       env:
         SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
         SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
 
     - name: Run SDK Sample project tests
-      run: dotnet test --configuration Release src/Samples/Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.csproj
+      run: dotnet test --configuration Release ./Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.dll
       env:
         SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
         SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
         SwedbankPay:ApiBaseUrl: https://api.externalintegration.payex.com
         Swedbank:Pay:Sdk:SampleWebsite:BaseUrl: https://localhost:44344
+
+  publish:
+    runs-on: ubuntu-20.04
+    needs: build, test
 
     - name: Install GitVersion
       uses: gittools/actions/gitversion/setup@v0.9.3
