@@ -18,7 +18,15 @@ namespace Sample.AspNetCore.SystemTests.Services
                 case Driver.Chrome:
 
                     var chromeOptions = new ChromeOptions { AcceptInsecureCertificates = true };
-                    chromeOptions.AddArguments("--incognito", "--disable-infobars", "--disable-notifications", "disable-extensions");
+                    chromeOptions.AddArguments(
+                        "--incognito",
+                        "--disable-infobars",
+                        "--disable-notifications",
+                        "disable-extensions",
+                        "--disable-dev-shm-usage",
+                        "--no-sandbox"/*,
+                        "--headless"*/
+                        );
 
                     return chromeOptions;
 
