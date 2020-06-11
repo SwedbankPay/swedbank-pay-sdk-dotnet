@@ -18,7 +18,7 @@ jobs:
       run: dotnet restore ./src/SwedbankPay.Sdk.sln
 
     - name: Build solution
-      run: dotnet build --configuration Release ./src/SwedbankPay.Sdk.sln
+      run: dotnet build --configuration RELEASE ./src/SwedbankPay.Sdk.sln
     
     #- name: Build SDK Project
     #  run: dotnet build --configuration Release ./src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj
@@ -53,7 +53,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    
+
     - name: Download All artifacts
       uses: actions/download-artifact@v2
     
@@ -70,7 +70,7 @@ jobs:
         SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
 
     - name: Run SDK Sample project tests
-      run: dotnet test --configuration Release ./Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.dll
+      run: dotnet test --configuration RELEASE ./Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.dll
       env:
         SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
         SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
