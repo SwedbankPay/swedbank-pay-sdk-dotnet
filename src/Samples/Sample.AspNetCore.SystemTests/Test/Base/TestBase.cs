@@ -33,7 +33,6 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
                 UseElementFindTimeout(TimeSpan.FromSeconds(10)).
                 UseVerificationTimeout(TimeSpan.FromSeconds(10)).
                 UseWaitingTimeout(TimeSpan.FromSeconds(60));
-            AtataContext.Current.Driver.Maximize();
         }
 
 
@@ -46,6 +45,10 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
                         .WithOptions(chromeOptions)
                         .UseBaseUrl("https://localhost:5001/")
                         .Build();
+
+            #if DEBUG
+            AtataContext.Current.Driver.Maximize();
+            #endif
         }
 
         protected TestBase(string driverAlias) => this._driverAlias = driverAlias;
@@ -55,7 +58,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
         {
             if (TestContext.CurrentContext?.Result?.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
             {
-                TestContext.Out?.WriteLine(PageSource());
+                //TestContext.Out?.WriteLine(PageSource());
             }
 
             AtataContext.Current?.CleanUp();

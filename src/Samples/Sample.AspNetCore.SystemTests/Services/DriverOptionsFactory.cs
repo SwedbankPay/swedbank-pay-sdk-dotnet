@@ -4,6 +4,7 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 
 using Sample.AspNetCore.SystemTests.Test.Base;
+using System.Runtime.InteropServices;
 
 namespace Sample.AspNetCore.SystemTests.Services
 {
@@ -22,12 +23,18 @@ namespace Sample.AspNetCore.SystemTests.Services
                         "--incognito",
                         "--disable-infobars",
                         "--disable-notifications",
-                        "disable-extensions",
-                        "--whitelisted-ips=\"\"",
-                        "--disable-dev-shm-usage",
-                        "--no-sandbox",
-                        "--headless"
+                        "disable-extensions"
                         );
+
+                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                    {
+                        chromeOptions.AddArguments(
+                            "--whitelisted-ips=\"\"",
+                            "--disable-dev-shm-usage",
+                            "--no-sandbox",
+                            "--headless"
+                            );
+                    }
 
                     return chromeOptions;
 
