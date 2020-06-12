@@ -23,6 +23,7 @@ namespace Sample.AspNetCore.SystemTests.Services
                         "--disable-infobars",
                         "--disable-notifications",
                         "disable-extensions",
+                        "--whitelisted-ips=\"\"",
                         "--disable-dev-shm-usage",
                         "--no-sandbox",
                         "--headless"
