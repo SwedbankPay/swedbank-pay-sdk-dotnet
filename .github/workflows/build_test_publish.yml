@@ -45,7 +45,7 @@ jobs:
         path: src/SwedbankPay.Sdk.Tests/bin/Release/netcoreapp3.1/*
   
   test:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-18.04
     needs: build
 
     steps:
