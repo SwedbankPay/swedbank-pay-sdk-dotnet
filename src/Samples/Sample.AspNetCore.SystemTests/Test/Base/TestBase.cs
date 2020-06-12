@@ -33,6 +33,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
                 UseElementFindTimeout(TimeSpan.FromSeconds(10)).
                 UseVerificationTimeout(TimeSpan.FromSeconds(10)).
                 UseWaitingTimeout(TimeSpan.FromSeconds(60));
+            AtataContext.Current.Driver.Maximize();
         }
 
 
