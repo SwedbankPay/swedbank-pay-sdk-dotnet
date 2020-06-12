@@ -55,7 +55,7 @@ jobs:
       uses: actions/download-artifact@v2
 
     - name: CHMOD CHROMEWEBDRIVER
-      run: chmod a+x $CHROMEWEBDRIVER
+      run: sudo chmod a+x $CHROMEWEBDRIVER
     
     - name: Run SDK Tests
       run: dotnet test src/SwedbankPay.Sdk.Tests/SwedbankPay.Sdk.Tests.csproj
