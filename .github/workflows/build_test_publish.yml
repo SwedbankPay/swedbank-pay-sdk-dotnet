@@ -72,7 +72,7 @@ jobs:
         SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
         SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
         SwedbankPay:ApiBaseUrl: https://api.externalintegration.payex.com
-        Swedbank:Pay:Sdk:SampleWebsite:BaseUrl: https://localhost:44344
+        Swedbank:Pay:Sdk:SampleWebsite:BaseUrl: https://localhost:5001
 
   publish:
     runs-on: ubuntu-20.04
