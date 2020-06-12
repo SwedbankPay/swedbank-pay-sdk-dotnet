@@ -53,6 +53,9 @@ jobs:
 
     - name: Download All artifacts
       uses: actions/download-artifact@v2
+
+    - name: CHMOD chromedriver
+      run: chmod a+x $CHROMEDRIVER
     
     - name: Run SDK Tests
       run: dotnet test src/SwedbankPay.Sdk.Tests/SwedbankPay.Sdk.Tests.csproj
