@@ -11,16 +11,8 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
 {
     using static Drivers;
 
-#if DEBUG
     [TestFixture(DriverAliases.Chrome)]
-#elif DEV
-    [TestFixture(DriverAliases.Chrome)]
-    //[TestFixtureSource(typeof(Profiles.ProfileDEV))]
-#elif RELEASE
-    [TestFixture(DriverAliases.Chrome)]
-    //[TestFixtureSource(typeof(Profiles.ProfileRelease))]
-#endif
-
+    [Parallelizable()]
     public abstract class TestBase
     {
         private readonly string _driverAlias;
