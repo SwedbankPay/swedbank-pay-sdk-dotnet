@@ -24,8 +24,8 @@ namespace Sample.AspNetCore.SystemTests.Services
                         "--disable-notifications",
                         "disable-extensions",
                         "--disable-dev-shm-usage",
-                        "--no-sandbox"/*,
-                        "--headless"*/
+                        "--no-sandbox",
+                        "--headless"
                         );
 
                     return chromeOptions;

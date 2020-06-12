@@ -53,7 +53,6 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
                         .WithOptions(chromeOptions)
                         .UseBaseUrl("https://localhost:5001/")
                         .Build();
-            AtataContext.Current.Driver.Maximize();
         }
 
         protected TestBase(string driverAlias) => this._driverAlias = driverAlias;
