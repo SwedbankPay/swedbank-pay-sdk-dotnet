@@ -14,6 +14,10 @@ namespace SwedbankPay.Sdk.Payments
                            Amount vatAmount,
                            string description,
                            string payeeReference,
+                           string failedReason,
+                           string failedActivityName,
+                           string failedErrorCode,
+                           string failedErrorDescription,
                            bool isOperational,
                            OperationList operations,
                            string activity)
@@ -28,6 +32,10 @@ namespace SwedbankPay.Sdk.Payments
             VatAmount = vatAmount;
             Description = description;
             PayeeReference = payeeReference;
+            FailedReason = failedReason;
+            FailedActivityName = failedActivityName;
+            FailedErrorCode = failedErrorCode;
+            FailedErrorDescription = failedErrorDescription;
             IsOperational = isOperational;
             Operations = operations;
             Activity = activity;
@@ -37,6 +45,10 @@ namespace SwedbankPay.Sdk.Payments
         public Amount Amount { get; }
         public DateTime Created { get; }
         public string Description { get; }
+        public string FailedActivityName { get; }
+        public string FailedErrorCode { get; }
+        public string FailedErrorDescription { get; }
+        public string FailedReason { get; }
         public Uri Id { get; }
         public bool IsOperational { get; }
         public string Number { get; }
