@@ -57,13 +57,6 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
         [TearDown]
         public void TearDown()
         {
-            Console.WriteLine("Test : Environment variables!");
-            TestContext.Out.WriteLine("One time setup");
-            foreach (DictionaryEntry variable in Environment.GetEnvironmentVariables())
-            {
-                TestContext.Out.WriteLine($"{variable.Key}: {variable.Value}");
-            }
-
             if (TestContext.CurrentContext?.Result?.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
             {
                 TestContext.Out?.WriteLine(PageSource());

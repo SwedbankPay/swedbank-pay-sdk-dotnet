@@ -14,6 +14,7 @@ using SwedbankPay.Sdk.PaymentOrders;
 using SwedbankPay.Sdk.Consumers;
 using SwedbankPay.Sdk.Payments;
 using System.Net.Http.Headers;
+using System;
 
 namespace Sample.AspNetCore.Extensions
 {
@@ -42,7 +43,11 @@ namespace Sample.AspNetCore.Extensions
       });
       services.AddHttpClient<SwedbankPayClient>(configureClient);
 
-      return services;
+        Console.WriteLine("Test variables!");
+        Console.WriteLine(swedBankPayOptions.Token);
+        Console.WriteLine(swedBankPayOptions.ApiBaseUrl);
+
+        return services;
     }
   }
 }
