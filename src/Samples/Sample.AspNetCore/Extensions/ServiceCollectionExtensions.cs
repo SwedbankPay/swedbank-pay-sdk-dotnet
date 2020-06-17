@@ -44,9 +44,14 @@ namespace Sample.AspNetCore.Extensions
             });
 
             services.AddHttpClient<SwedbankPayClient>(configureClient);
-            var a = new AuthenticationHeaderValue("Bearer", swedBankPayOptions.Token);
+
+            var httpClient = new HttpClient();
+            httpClient.BaseAddress = swedBankPayOptions.ApiBaseUrl;
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", swedBankPayOptions.Token);
+            Console.WriteLine(httpClient.DefaultRequestHeaders.ToString());
+            var str = httpClient.DefaultRequestHeaders.ToString();
+
             Console.WriteLine($"appconfig.json -> Token: {swedBankPayOptions.Token}");
-            Console.WriteLine($"appconfig.json -> Token: {a.Parameter}");
             Console.WriteLine($"appconfig.json -> ApiBaseUrl: {swedBankPayOptions.ApiBaseUrl}");
 
             if(swedBankPayOptions.Token == "rememberToSetThisWhenTesting")
