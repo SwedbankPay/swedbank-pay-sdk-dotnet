@@ -33,6 +33,7 @@ namespace Sample.AspNetCore.Extensions
             {
                 a.BaseAddress = swedBankPayOptions.ApiBaseUrl;
                 a.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", swedBankPayOptions.Token);
+                Console.WriteLine(a.DefaultRequestHeaders.Authorization.Parameter);
             }
 
             services.AddScoped<ISwedbankPayClient, SwedbankPayClient>((a) =>
@@ -41,29 +42,12 @@ namespace Sample.AspNetCore.Extensions
                 var client = fac.CreateClient(nameof(SwedbankPayClient));
                 return new SwedbankPayClient(client);
             });
+
             services.AddHttpClient<SwedbankPayClient>(configureClient);
-
-            Console.WriteLine("Test variables!");
-            Console.WriteLine(swedBankPayOptions.Token);
-            Console.WriteLine(swedBankPayOptions.ApiBaseUrl);
-
-            if (swedBankPayOptions.Token == "588431aa485611f8fce876731a1734182ca0c44fcad6b8d989e22f444104aadf")
-            {
-                Console.WriteLine("token is set properly");
-            }
-            else
-            {
-                Console.WriteLine("token is not set properly");
-            }
-
-            if (swedBankPayOptions.ApiBaseUrl.OriginalString == "https://api.externalintegration.payex.com")
-            {
-                Console.WriteLine("token is set properly");
-            }
-            else
-            {
-                Console.WriteLine("token is not set properly");
-            }
+            var a = new AuthenticationHeaderValue("Bearer", swedBankPayOptions.Token);
+            Console.WriteLine($"appconfig.json -> Token: {swedBankPayOptions.Token}");
+            Console.WriteLine($"appconfig.json -> Token: {a.Parameter}");
+            Console.WriteLine($"appconfig.json -> ApiBaseUrl: {swedBankPayOptions.ApiBaseUrl}");
 
             return services;
         }

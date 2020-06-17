@@ -94,20 +94,11 @@ namespace Sample.AspNetCore
                 options.HttpsPort = 5001;
             });
 
-            Console.WriteLine("Test : app config!");
-            Console.WriteLine(payeeId);
+            Console.WriteLine($"appconfig.json -> payeedId: {payeeId}");
+            Console.WriteLine("appconfig.json -> Urls");
             foreach(var url in Configuration.GetSection("Urls").GetChildren())
             {
                 Console.WriteLine($"{url.Key}: {url.Value}");
-            }
-
-            if (payeeId.ToString() == "91a4c8e0-72ac-425c-a687-856706f9e9a1")
-            {
-                Console.WriteLine("payeeId is set properly");
-            }
-            else
-            {
-                Console.WriteLine("payeeId is not set properly");
             }
         }
     }
