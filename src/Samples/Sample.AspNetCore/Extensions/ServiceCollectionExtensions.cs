@@ -49,6 +49,15 @@ namespace Sample.AspNetCore.Extensions
             Console.WriteLine($"appconfig.json -> Token: {a.Parameter}");
             Console.WriteLine($"appconfig.json -> ApiBaseUrl: {swedBankPayOptions.ApiBaseUrl}");
 
+            if(swedBankPayOptions.Token == "rememberToSetThisWhenTesting")
+            {
+                Console.WriteLine("Token not set properly");
+            }
+            else
+            {
+                Console.WriteLine("Token replaced by environment variable");
+            }
+
             return services;
         }
     }
