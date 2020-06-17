@@ -98,7 +98,7 @@ namespace Sample.AspNetCore
             Console.WriteLine(payeeId);
             foreach(var url in Configuration.GetSection("Urls").GetChildren())
             {
-                Console.WriteLine(url);
+                Console.WriteLine($"{url.Key}: {url.Value}");
             }
         }
     }
