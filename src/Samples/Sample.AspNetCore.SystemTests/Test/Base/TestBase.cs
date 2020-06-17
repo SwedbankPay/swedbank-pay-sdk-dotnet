@@ -44,7 +44,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
             AtataContext.Configure()
                         .UseChrome()
                         .WithOptions(chromeOptions)
-                        .UseBaseUrl("https://localhost:5001/")
+                        .UseBaseUrl("https://localhost:44344/")
                         .Build();
 
             #if DEBUG

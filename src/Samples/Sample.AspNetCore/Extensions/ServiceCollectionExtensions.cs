@@ -18,36 +18,54 @@ using System;
 
 namespace Sample.AspNetCore.Extensions
 {
-  public static class ServiceCollectionExtensions
-  {
-    public static IServiceCollection AddSwedbankPayClient(this IServiceCollection services,
-                                                          IConfiguration configuration)
+    public static class ServiceCollectionExtensions
     {
-      var swedbankPayConSettings = configuration.GetSection("SwedbankPay");
-      services.Configure<SwedbankPayConnectionSettings>(swedbankPayConSettings);
+        public static IServiceCollection AddSwedbankPayClient(this IServiceCollection services,
+                                                              IConfiguration configuration)
+        {
+            var swedbankPayConSettings = configuration.GetSection("SwedbankPay");
+            services.Configure<SwedbankPayConnectionSettings>(swedbankPayConSettings);
 
-      var swedBankPayOptions = swedbankPayConSettings.Get<SwedbankPayConnectionSettings>();
-      services.AddSingleton(s => swedBankPayOptions);
+            var swedBankPayOptions = swedbankPayConSettings.Get<SwedbankPayConnectionSettings>();
+            services.AddSingleton(s => swedBankPayOptions);
 
-      void configureClient(HttpClient a)
-      {
-        a.BaseAddress = swedBankPayOptions.ApiBaseUrl;
-        a.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", swedBankPayOptions.Token);
-      }
+            void configureClient(HttpClient a)
+            {
+                a.BaseAddress = swedBankPayOptions.ApiBaseUrl;
+                a.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", swedBankPayOptions.Token);
+            }
 
-      services.AddScoped<ISwedbankPayClient, SwedbankPayClient>((a) =>
-      {
-        var fac = a.GetRequiredService<IHttpClientFactory>();
-        var client = fac.CreateClient(nameof(SwedbankPayClient));
-        return new SwedbankPayClient(client);
-      });
-      services.AddHttpClient<SwedbankPayClient>(configureClient);
+            services.AddScoped<ISwedbankPayClient, SwedbankPayClient>((a) =>
+            {
+                var fac = a.GetRequiredService<IHttpClientFactory>();
+                var client = fac.CreateClient(nameof(SwedbankPayClient));
+                return new SwedbankPayClient(client);
+            });
+            services.AddHttpClient<SwedbankPayClient>(configureClient);
 
-        Console.WriteLine("Test variables!");
-        Console.WriteLine(swedBankPayOptions.Token);
-        Console.WriteLine(swedBankPayOptions.ApiBaseUrl);
+            Console.WriteLine("Test variables!");
+            Console.WriteLine(swedBankPayOptions.Token);
+            Console.WriteLine(swedBankPayOptions.ApiBaseUrl);
 
-        return services;
+            if (swedBankPayOptions.Token == "588431aa485611f8fce876731a1734182ca0c44fcad6b8d989e22f444104aadf")
+            {
+                Console.WriteLine("token is set properly");
+            }
+            else
+            {
+                Console.WriteLine("token is not set properly");
+            }
+
+            if (swedBankPayOptions.ApiBaseUrl.OriginalString == "https://api.externalintegration.payex.com")
+            {
+                Console.WriteLine("token is set properly");
+            }
+            else
+            {
+                Console.WriteLine("token is not set properly");
+            }
+
+            return services;
+        }
     }
-  }
 }
