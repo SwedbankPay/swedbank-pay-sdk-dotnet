@@ -50,6 +50,24 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             SwedbankPayClient = new SwedbankPayClient(httpClient);
         }
 
+        [SetUp]
+        public void Setup()
+        {
+            IConfigurationRoot configRoot = new ConfigurationBuilder()
+                .SetBasePath(Environment.CurrentDirectory)
+                .AddJsonFile("appsettings.json", true)
+                .AddEnvironmentVariables()
+                .Build();
+
+            var baseAddress = configRoot.GetSection("SwedbankPay:ApiBaseUrl").Value;
+            var authHeader = configRoot.GetSection("SwedbankPay:Token").Value;
+
+
+            TestContext.Out.WriteLine("This is a tests !!");
+            TestContext.Out.WriteLine(baseAddress);
+            TestContext.Out.WriteLine(authHeader);
+        }
+
 
         protected OrdersPage GoToOrdersPage(Product[] products, PayexInfo payexInfo, Checkout.Option checkout = Checkout.Option.Anonymous)
         {

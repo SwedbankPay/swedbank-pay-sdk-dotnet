@@ -62,7 +62,6 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
             foreach (DictionaryEntry variable in Environment.GetEnvironmentVariables())
             {
                 TestContext.Out.WriteLine($"{variable.Key}: {variable.Value}");
-                Console.WriteLine($"{variable.Key}: {variable.Value}");
             }
 
             if (TestContext.CurrentContext?.Result?.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
