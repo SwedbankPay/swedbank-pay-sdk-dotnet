@@ -43,7 +43,7 @@ jobs:
       with:
         name: SwedbankPay.Sdk.Tests
         path: src/SwedbankPay.Sdk.Tests/bin/Release/netcoreapp3.1/*
-  
+
   test:
     runs-on: ubuntu-20.04
     needs: build
@@ -53,25 +53,25 @@ jobs:
 
     - name: Download All artifacts
       uses: actions/download-artifact@v2
-    
+
     - name: Run SDK Tests
       run: dotnet test src/SwedbankPay.Sdk.Tests/SwedbankPay.Sdk.Tests.csproj
       env:
         SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
-        SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}    
+        SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
 
     - name: Start SDK Sample project
       run: cd ./Sample.AspNetCore && dotnet ./Sample.AspNetCore.dll &
       env:
-        SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
-        SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
+        SwedbankPay.Token: ${{ secrets.MERCHANT_TOKEN }}
+        SwedbankPay.PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
 
     - name: Run SDK Sample project tests
       run: dotnet test  src/Samples/Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.csproj
       env:
-        SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
-        SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
-        SwedbankPay:ApiBaseUrl: https://api.externalintegration.payex.com
+        SwedbankPay.Token: ${{ secrets.MERCHANT_TOKEN }}
+        SwedbankPay.PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
+        SwedbankPay.ApiBaseUrl: https://api.externalintegration.payex.com
         Swedbank:Pay:Sdk:SampleWebsite:BaseUrl: https://localhost:5001
 
   publish:
