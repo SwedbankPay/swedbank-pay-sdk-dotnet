@@ -62,7 +62,7 @@ jobs:
 
     - name: Start SDK Sample project & Run SDK Sample test project
       run: |
-        dotnet ./Sample.AspNetCore/Sample.AspNetCore.dll & \
+        dotnet ./Sample.AspNetCore/Sample.AspNetCore.dll --verbosity q & \
         dotnet test  src/Samples/Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.csproj
       env:
         SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
