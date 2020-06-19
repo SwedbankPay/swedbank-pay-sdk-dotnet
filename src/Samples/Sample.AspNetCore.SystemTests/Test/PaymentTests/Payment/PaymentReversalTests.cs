@@ -68,13 +68,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
             while (swishPayment.PaymentResponse.Transactions.TransactionList.First(x => x.Type == TransactionType.Reversal).State != State.Completed && counter <= 15)
             {
                 Thread.Sleep(1000);
-                try
-                {
-                    swishPayment = await SwedbankPayClient.Payments.SwishPayments.Get(paymentLink, PaymentExpand.All);
-                }
-                catch (HttpResponseException)
-                {
-                }
+                swishPayment = await SwedbankPayClient.Payments.SwishPayments.Get(paymentLink, PaymentExpand.All);
                 counter++;
             }
 

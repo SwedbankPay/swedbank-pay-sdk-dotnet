@@ -13,7 +13,6 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
     using static Drivers;
 
     [TestFixture(DriverAliases.Chrome)]
-    [Parallelizable(ParallelScope.Children)]
     public abstract class TestBase
     {
         private readonly string _driverAlias;
@@ -61,14 +60,6 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
             }
 
             AtataContext.Current?.CleanUp();
-        }
-
-
-        [OneTimeTearDown]
-        public void GlobalDown()
-        {
-            foreach (Driver driverType in Enum.GetValues(typeof(Driver)))
-                WebDriverCleanerService.KillWebDriverProcess(WebDriverCleanerService.DriverNames[driverType]);
         }
 
         public static string PageSource()
