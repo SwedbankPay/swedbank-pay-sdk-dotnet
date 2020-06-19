@@ -1,7 +1,5 @@
 ﻿using Atata;
 
-using Sample.AspNetCore.SystemTests.PageObjectModels.Base;
-
 namespace Sample.AspNetCore.SystemTests.PageObjectModels
 {
     using _ = PaymentFramePage;

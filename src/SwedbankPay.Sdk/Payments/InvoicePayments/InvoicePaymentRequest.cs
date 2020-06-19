@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 
-using SwedbankPay.Sdk.Payments;
-
 namespace SwedbankPay.Sdk.Payments.InvoicePayments
 {
     public class InvoicePaymentRequest

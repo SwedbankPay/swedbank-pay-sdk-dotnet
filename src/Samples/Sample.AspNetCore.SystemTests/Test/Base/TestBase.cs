@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using Atata;
 using NUnit.Framework;
 using OpenQA.Selenium.Chrome;

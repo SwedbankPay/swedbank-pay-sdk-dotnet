@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SwedbankPay.Sdk.Payments.InvoicePayments
+﻿namespace SwedbankPay.Sdk.Payments.InvoicePayments
 {
     public class InvoiceApprovedLegalAddressRequest
     {

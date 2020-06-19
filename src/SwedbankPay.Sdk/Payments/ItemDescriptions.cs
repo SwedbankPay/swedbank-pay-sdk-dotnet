@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SwedbankPay.Sdk.Payments
+﻿namespace SwedbankPay.Sdk.Payments
 {
     public class ItemDescriptions
     {

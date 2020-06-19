@@ -1,8 +1,6 @@
-﻿using Newtonsoft.Json;
-using SwedbankPay.Sdk.Extensions;
+﻿using SwedbankPay.Sdk.Extensions;
 using System;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Consumers

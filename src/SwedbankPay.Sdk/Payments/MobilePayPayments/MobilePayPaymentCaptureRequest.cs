@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-
-using SwedbankPay.Sdk.PaymentOrders;
-
-namespace SwedbankPay.Sdk.Payments.MobilePayPayments
+﻿namespace SwedbankPay.Sdk.Payments.MobilePayPayments
 {
     public class MobilePayPaymentCaptureRequest
     {

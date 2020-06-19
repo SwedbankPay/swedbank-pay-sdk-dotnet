@@ -1,18 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-
-using SwedbankPay.Sdk.Extensions;
-
 using Sample.AspNetCore.Models;
 
 using SwedbankPay.Sdk;
 using System.Net.Http;
-using SwedbankPay.Sdk.Payments.CardPayments;
-using SwedbankPay.Sdk.Payments.SwishPayments;
-using SwedbankPay.Sdk.PaymentOrders;
-using SwedbankPay.Sdk.Consumers;
-using SwedbankPay.Sdk.Payments;
 using System.Net.Http.Headers;
 using System;
 

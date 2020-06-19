@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
-using System.Threading;
 using Atata;
 
 namespace Sample.AspNetCore.SystemTests.Services
