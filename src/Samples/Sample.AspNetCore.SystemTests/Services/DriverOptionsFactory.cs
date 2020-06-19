@@ -23,18 +23,12 @@ namespace Sample.AspNetCore.SystemTests.Services
                         "--incognito",
                         "--disable-infobars",
                         "--disable-notifications",
-                        "disable-extensions"
+                        "disable-extensions",
+                        "--whitelisted-ips=\"\"",
+                        "--disable-dev-shm-usage",
+                        "--no-sandbox",
+                        "--headless"
                         );
-
-                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-                    {
-                        chromeOptions.AddArguments(
-                            "--whitelisted-ips=\"\"",
-                            "--disable-dev-shm-usage",
-                            "--no-sandbox",
-                            "--headless"
-                            );
-                    }
 
                     return chromeOptions;
 
