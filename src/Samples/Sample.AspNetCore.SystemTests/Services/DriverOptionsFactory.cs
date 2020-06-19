@@ -31,8 +31,7 @@ namespace Sample.AspNetCore.SystemTests.Services
                         chromeOptions.AddArguments(
                             "--whitelisted-ips=\"\"",
                             "--disable-dev-shm-usage",
-                            "--no-sandbox",
-                            "--headless"
+                            "--no-sandbox"
                             );
                     }
 

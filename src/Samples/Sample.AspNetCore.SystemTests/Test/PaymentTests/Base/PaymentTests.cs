@@ -270,6 +270,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                         .PhoneNumber.SetWithSpeed(info.PhoneNumber, interval: 0.1)
                         .ZipCode.SetWithSpeed(info.ZipCode, interval: 0.1)
                         .Next.Click()
+                        .Wait(TimeSpan.FromSeconds(10))
                         .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
                         .Pay.ClickAndGo();
             }
