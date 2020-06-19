@@ -6,6 +6,7 @@ using NUnit.Framework;
 using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
+using SwedbankPay.Sdk.Exceptions;
 using SwedbankPay.Sdk.Payments;
 
 namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
@@ -67,7 +68,13 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
             while (swishPayment.PaymentResponse.Transactions.TransactionList.First(x => x.Type == TransactionType.Reversal).State != State.Completed && counter <= 15)
             {
                 Thread.Sleep(1000);
-                swishPayment = await SwedbankPayClient.Payments.SwishPayments.Get(paymentLink, PaymentExpand.All);
+                try
+                {
+                    swishPayment = await SwedbankPayClient.Payments.SwishPayments.Get(paymentLink, PaymentExpand.All);
+                }
+                catch (HttpResponseException)
+                {
+                }
                 counter++;
             }
 
