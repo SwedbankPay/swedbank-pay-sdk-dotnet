@@ -13,12 +13,9 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
     using static Drivers;
 
     [TestFixture(DriverAliases.Chrome)]
-    [Parallelizable(ParallelScope.Children)]
     public abstract class TestBase
     {
-#pragma warning disable IDE0052 // Remove unread private members
         private readonly string _driverAlias;
-#pragma warning restore IDE0052 // Remove unread private members
 
 
         [OneTimeSetUp]
@@ -63,6 +60,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
             {
                 TestContext.Out?.WriteLine(PageSource());
             }
+
             AtataContext.Current?.CleanUp();
         }
 
