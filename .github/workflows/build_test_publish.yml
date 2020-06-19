@@ -18,7 +18,7 @@ jobs:
       run: dotnet restore ./src/SwedbankPay.Sdk.sln
 
     - name: Build solution
-      run: dotnet build --configuration RELEASE ./src/SwedbankPay.Sdk.sln
+      run: dotnet build ./src/SwedbankPay.Sdk.sln
 
     - name: Archive Sample.AspNetCore
       uses: actions/upload-artifact@v2
