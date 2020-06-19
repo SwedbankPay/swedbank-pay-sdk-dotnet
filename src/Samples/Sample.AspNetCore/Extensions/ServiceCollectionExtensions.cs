@@ -25,7 +25,6 @@ namespace Sample.AspNetCore.Extensions
             {
                 a.BaseAddress = swedBankPayOptions.ApiBaseUrl;
                 a.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", swedBankPayOptions.Token);
-                Console.WriteLine(a.DefaultRequestHeaders.Authorization.Parameter);
             }
 
             services.AddScoped<ISwedbankPayClient, SwedbankPayClient>((a) =>
