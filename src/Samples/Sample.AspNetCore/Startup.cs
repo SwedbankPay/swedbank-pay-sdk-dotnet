@@ -51,13 +51,6 @@ namespace Sample.AspNetCore
                     "default",
                     "{controller=Products}/{action=Index}/{id?}");
             });
-
-            Console.WriteLine("Test : Environment variables!");
-            Console.WriteLine("One time setup");
-            foreach (DictionaryEntry variable in Environment.GetEnvironmentVariables())
-            {
-                Console.WriteLine($"{variable.Key}: {variable.Value}");
-            }
         }
 
 
@@ -93,13 +86,6 @@ namespace Sample.AspNetCore
                 options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
                 options.HttpsPort = 5001;
             });
-
-            Console.WriteLine($"appconfig.json -> payeedId: {payeeId}");
-            Console.WriteLine("appconfig.json -> Urls");
-            foreach(var url in Configuration.GetSection("Urls").GetChildren())
-            {
-                Console.WriteLine($"{url.Key}: {url.Value}");
-            }
         }
     }
 }

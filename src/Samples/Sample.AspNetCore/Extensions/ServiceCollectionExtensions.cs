@@ -45,9 +45,6 @@ namespace Sample.AspNetCore.Extensions
 
             services.AddHttpClient<SwedbankPayClient>(configureClient);
 
-            Console.WriteLine($"appconfig.json -> Token: {swedBankPayOptions.Token}");
-            Console.WriteLine($"appconfig.json -> ApiBaseUrl: {swedBankPayOptions.ApiBaseUrl}");
-
             return services;
         }
     }
