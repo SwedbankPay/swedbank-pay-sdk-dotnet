@@ -18,7 +18,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Anonymous
 
 
         [Test]
-        [Retry(2)]
+        [Retry(3)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Card })]
         public async Task Anonymous_PaymentOrder_Card_Reversal(Product[] products, PayexInfo payexInfo)
         {
@@ -49,7 +49,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Anonymous
 
 
         [Test]
-        [Retry(2)]
+        [Retry(3)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Swish })]
         public async Task Anonymous_PaymentOrder_Swish_Reversal(Product[] products, PayexInfo payexInfo)
         {
@@ -85,7 +85,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Anonymous
 
 
         [Test]
-        [Retry(2)]
+        [Retry(3)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Invoice })]
         public async Task Anonymous_PaymentOrder_Invoice_Reversal(Product[] products, PayexInfo payexInfo)
         {
