@@ -13,6 +13,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
     using static Drivers;
 
     [TestFixture(DriverAliases.Chrome)]
+    [Parallelizable(ParallelScope.Self)]
     public abstract class TestBase
     {
         private readonly string _driverAlias;
@@ -47,7 +48,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
                         .Build();
 
             #if DEBUG
-            AtataContext.Current.Driver.Maximize();
+            //AtataContext.Current.Driver.Maximize();
             #endif
         }
 
@@ -68,8 +69,8 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
         [OneTimeTearDown]
         public void GlobalDown()
         {
-            foreach (Driver driverType in Enum.GetValues(typeof(Driver)))
-                WebDriverCleanerService.KillWebDriverProcess(WebDriverCleanerService.DriverNames[driverType]);
+            //foreach (Driver driverType in Enum.GetValues(typeof(Driver)))
+                //WebDriverCleanerService.KillWebDriverProcess(WebDriverCleanerService.DriverNames[driverType]);
         }
 
         public static string PageSource()
