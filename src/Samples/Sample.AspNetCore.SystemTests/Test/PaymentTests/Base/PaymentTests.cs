@@ -58,21 +58,13 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             switch (payexInfo)
             {
                 case PayexCardInfo cardInfo:
-
                     page = PayWithPayexCard(products, cardInfo, checkout);
-
                     break;
-                        
                 case PayexSwishInfo swishInfo:
-
                     page = PayWithPayexSwish(products, swishInfo, checkout);
-
                     break;
-
                 case PayexInvoiceInfo invoiceInfo:
-
                     page = PayWithPayexInvoice(products, invoiceInfo, checkout);
-
                     break;
             }
 
@@ -100,10 +92,8 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                         .PaymentMethods[x => x.Name == PaymentMethods.Card].IsVisible.WaitTo.BeTrue()
                         .PaymentMethods[x => x.Name == PaymentMethods.Card].Click()
                         .PaymentMethods[x => x.Name == PaymentMethods.Card].PaymentFrame.SwitchTo<PayexCardFramePage>();
-
-
             }
-            
+
         }
 
 
@@ -137,7 +127,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
 
 
             }
-            
+
         }
 
 
@@ -190,7 +180,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
         protected ProductsPage SelectProducts(Product[] products)
         {
             return Go.To<ProductsPage>()
-                .Do((x) => 
+                .Do((x) =>
                 {
                     if (x.Header.ClearOrders.Exists(new SearchOptions { Timeout = new TimeSpan(0, 0, 0, 0, 500), IsSafely = true }))
                         x
@@ -222,7 +212,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                         .PreFilledCards.IsVisible.WaitTo.BeTrue()
                         .Do(x =>
                         {
-                            if(x.PreFilledCards.Items[y => y.CreditCardNumber.Value.Contains(info.CreditCardNumber.Substring(info.CreditCardNumber.Length - 4))].Exists())
+                            if (x.PreFilledCards.Items[y => y.CreditCardNumber.Value.Contains(info.CreditCardNumber.Substring(info.CreditCardNumber.Length - 4))].Exists())
                             {
                                 x.PreFilledCards
                                     .Items[
@@ -238,7 +228,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                                     .Cvc.SetWithSpeed(TestDataService.CreditCardCvc, interval: 0.1);
                             }
 
-                                
+
 
                         })
                     .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")

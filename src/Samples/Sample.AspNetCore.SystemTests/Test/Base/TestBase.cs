@@ -13,7 +13,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
     using static Drivers;
 
     [TestFixture(DriverAliases.Chrome)]
-    [Parallelizable(ParallelScope.All)]
+    [Parallelizable(ParallelScope.Self)]
     public abstract class TestBase
     {
         private readonly string _driverAlias;
@@ -44,7 +44,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
             AtataContext.Configure()
                         .UseChrome()
                         .WithOptions(chromeOptions)
-                        .UseBaseUrl("https://localhost:5001/")
+                        .UseBaseUrl("https://127.0.0.1:5001")
                         .Build();
 
             #if DEBUG
