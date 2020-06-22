@@ -11,7 +11,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
 {
     using static Drivers;
 
-    [TestFixture(DriverAliases.Chrome)]
+    [TestFixture(DriverAliases.Firefox)]
     [Parallelizable(ParallelScope.All)]
     public abstract class TestBase
     {
@@ -29,20 +29,18 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
                 UseInternetExplorer().
                     WithOptions(DriverOptionsFactory.GetDriverOptions(Driver.InternetExplorer) as InternetExplorerOptions).
                 AddNUnitTestContextLogging().
-                    WithMinLevel(LogLevel.Info).
-                UseVerificationTimeout(TimeSpan.FromSeconds(10)).
-                UseElementFindTimeout(TimeSpan.FromSeconds(15)).
-                UseWaitingTimeout(TimeSpan.FromSeconds(15));
+                    WithMinLevel(LogLevel.Info);
         }
 
 
         [SetUp]
         public void SetUp()
         {
-            var chromeOptions = DriverOptionsFactory.GetDriverOptions(Driver.Chrome) as ChromeOptions;
+            //var chromeOptions = DriverOptionsFactory.GetDriverOptions(Driver.Chrome) as ChromeOptions;
+            var firefoxOptions = DriverOptionsFactory.GetDriverOptions(Driver.Firefox) as FirefoxOptions;
             AtataContext.Configure()
-                        .UseChrome()
-                        .WithOptions(chromeOptions)
+                        .UseFirefox()
+                        .WithOptions(firefoxOptions)
                         .UseBaseUrl("https://127.0.0.1:5001")
                         .Build();
         }
