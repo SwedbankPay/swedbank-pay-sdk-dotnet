@@ -59,7 +59,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Standard
 
 
         [Test]
-        [Retry(3)]
+        [Retry(5)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Invoice })]
         public async Task Standard_PaymentOrder_Invoice_Authorization(Product[] products, PayexInfo payexInfo)
         {

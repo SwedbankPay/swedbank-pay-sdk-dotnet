@@ -49,7 +49,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Anonymous
 
 
         [Test]
-        [Retry(3)]
+        [Retry(5)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Swish })]
         public async Task Anonymous_PaymentOrder_Swish_Reversal(Product[] products, PayexInfo payexInfo)
         {
