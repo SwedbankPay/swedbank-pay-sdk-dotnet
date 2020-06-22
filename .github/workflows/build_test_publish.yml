@@ -73,13 +73,6 @@ jobs:
         SwedbankPay:ApiBaseUrl: https://api.externalintegration.payex.com
         SwedbankPay:Sdk:SampleWebsite:BaseUrl: https://localhost:5001
 
-    - name: Archive Logs
-      if: ${{ always() }}
-      uses: actions/upload-artifact@v2
-      with:
-        name: SwedbankPay.Sdk.Sample.Logs
-        path: ./Sample.AspNetCore/Logs/*
-
   publish:
     runs-on: ubuntu-20.04
     needs: [build, test]
