@@ -29,7 +29,6 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
                 UseInternetExplorer().
                     WithOptions(DriverOptionsFactory.GetDriverOptions(Driver.InternetExplorer) as InternetExplorerOptions).
                 UseAllNUnitFeatures().
-                    WithMinLevel(LogLevel.Info).
                 UseVerificationTimeout(TimeSpan.FromSeconds(10)).
                 UseElementFindTimeout(TimeSpan.FromSeconds(15)).
                 UseWaitingTimeout(TimeSpan.FromSeconds(15));
