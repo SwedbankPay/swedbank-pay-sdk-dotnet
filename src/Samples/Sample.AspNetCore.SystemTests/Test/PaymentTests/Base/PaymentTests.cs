@@ -31,7 +31,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
 
 
         [OneTimeSetUp]
-        public void OneTimeSetUp()
+        public void Setup()
         {
             IConfigurationRoot configRoot = new ConfigurationBuilder()
                 .SetBasePath(Environment.CurrentDirectory)
