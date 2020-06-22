@@ -28,7 +28,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
                     WithOptions(DriverOptionsFactory.GetDriverOptions(Driver.Firefox) as FirefoxOptions).
                 UseInternetExplorer().
                     WithOptions(DriverOptionsFactory.GetDriverOptions(Driver.InternetExplorer) as InternetExplorerOptions).
-                AddNUnitTestContextLogging().
+                UseAllNUnitFeatures().
                     WithMinLevel(LogLevel.Info).
                 UseVerificationTimeout(TimeSpan.FromSeconds(10)).
                 UseElementFindTimeout(TimeSpan.FromSeconds(15)).
