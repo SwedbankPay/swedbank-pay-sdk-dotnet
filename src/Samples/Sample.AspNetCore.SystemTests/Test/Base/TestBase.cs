@@ -12,13 +12,14 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
     using static Drivers;
 
     [TestFixture(DriverAliases.Chrome)]
+    [Parallelizable(ParallelScope.All)]
     public abstract class TestBase
     {
         private readonly string _driverAlias;
 
 
         [OneTimeSetUp]
-        public void GlobalSetup()
+        public void OneTimeSetUp()
         {
             AtataContext.GlobalConfiguration.
                 UseChrome().
@@ -28,10 +29,10 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
                 UseInternetExplorer().
                     WithOptions(DriverOptionsFactory.GetDriverOptions(Driver.InternetExplorer) as InternetExplorerOptions).
                 AddNUnitTestContextLogging().
-                    WithMinLevel(LogLevel.Error).
+                    WithMinLevel(LogLevel.Info).
                 UseVerificationTimeout(TimeSpan.FromSeconds(10)).
-                UseElementFindTimeout(TimeSpan.FromSeconds(20)).
-                UseWaitingTimeout(TimeSpan.FromSeconds(60));
+                UseElementFindTimeout(TimeSpan.FromSeconds(15)).
+                UseWaitingTimeout(TimeSpan.FromSeconds(15));
         }
 
 
@@ -44,8 +45,6 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
                         .WithOptions(chromeOptions)
                         .UseBaseUrl("https://127.0.0.1:5001")
                         .Build();
-
-            AtataContext.Current.Driver.Maximize();
         }
 
         protected TestBase(string driverAlias) => this._driverAlias = driverAlias;
@@ -53,10 +52,10 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
         [TearDown]
         public void TearDown()
         {
-            if (TestContext.CurrentContext?.Result?.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
-            {
-                TestContext.Out?.WriteLine(PageSource());
-            }
+            //if (TestContext.CurrentContext?.Result?.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
+            //{
+            //    TestContext.Out?.WriteLine(PageSource());
+            //}
 
             AtataContext.Current?.CleanUp();
         }
