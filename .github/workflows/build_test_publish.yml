@@ -78,7 +78,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: SwedbankPay.Sdk.Sample.Logs
-        path: Sample.AspNetCore/Logs/*
+        path: ./Sample.AspNetCore/Logs/*
 
   publish:
     runs-on: ubuntu-20.04
