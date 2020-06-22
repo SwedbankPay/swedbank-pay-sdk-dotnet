@@ -51,8 +51,6 @@ namespace Sample.AspNetCore
                     "default",
                     "{controller=Products}/{action=Index}/{id?}");
             });
-
-            loggerFactory.AddFile("Logs/Sample.log");
         }
 
 
