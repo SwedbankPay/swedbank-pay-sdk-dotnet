@@ -30,9 +30,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
                     WithOptions(DriverOptionsFactory.GetDriverOptions(Driver.InternetExplorer) as InternetExplorerOptions).
                 AddNUnitTestContextLogging().
                 WithMinLevel(LogLevel.Error).
-                UseVerificationTimeout(TimeSpan.FromSeconds(20)).
-                UseElementFindTimeout(TimeSpan.FromSeconds(30)).
-                UseWaitingTimeout(TimeSpan.FromSeconds(30));
+                UseBaseRetryTimeout(TimeSpan.FromSeconds(15));
         }
 
 
