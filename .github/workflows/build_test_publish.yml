@@ -61,7 +61,7 @@ jobs:
         SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
 
     - name: Start SDK Sample project
-      run: cd src\Samples\Sample.AspNetCore && dotnet run Sample.AspNetCore.csproj &
+      run: cd src/Samples/Sample.AspNetCore && dotnet run Sample.AspNetCore.csproj &
       env:
         SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
         SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
