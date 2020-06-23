@@ -52,10 +52,10 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
         [TearDown]
         public void TearDown()
         {
-            //if (TestContext.CurrentContext?.Result?.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
-            //{
-            //    TestContext.Out?.WriteLine(PageSource());
-            //}
+            if (TestContext.CurrentContext?.Result?.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
+            {
+                TestContext.Out?.WriteLine(PageSource());
+            }
 
             AtataContext.Current?.CleanUp();
         }
