@@ -11,6 +11,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
 {
     using static Drivers;
 
+    [TestFixture(DriverAliases.Chrome)]
     public abstract class TestBase
     {
         private TestWebApplicationFactory _testWebApplicationFactory;

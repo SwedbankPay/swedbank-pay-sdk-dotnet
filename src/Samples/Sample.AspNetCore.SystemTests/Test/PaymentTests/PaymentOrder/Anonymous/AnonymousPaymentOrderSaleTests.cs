@@ -10,6 +10,11 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Anonymous
 {
     public class AnonymousPaymentOrderSaleTests : Base.PaymentTests
     {
+        public AnonymousPaymentOrderSaleTests(string driverAlias)
+        {
+        }
+
+
         [Test]
         [Retry(3)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Swish })]

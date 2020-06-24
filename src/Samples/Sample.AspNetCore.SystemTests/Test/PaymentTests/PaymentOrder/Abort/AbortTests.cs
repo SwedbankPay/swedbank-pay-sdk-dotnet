@@ -10,6 +10,11 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Abort
 {
     public class AbortTests : Base.PaymentTests
     {
+        public AbortTests(string driverAlias)            
+        {
+        }
+
+
         [Test]
         [Retry(3)]
         [TestCaseSource(nameof(TestData), new object[] { true, null })]

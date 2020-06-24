@@ -10,6 +10,11 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
 {
     public class PaymentAuthorizationTests : Base.PaymentTests
     {
+        public PaymentAuthorizationTests(string driverAlias)
+        {
+        }
+        
+
         [Test]
         [Retry(3)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Card })]
