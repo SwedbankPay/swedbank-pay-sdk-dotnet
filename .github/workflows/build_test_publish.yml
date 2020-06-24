@@ -82,7 +82,6 @@ jobs:
       run: git fetch --prune --unshallow
 
     - name: GitVersion
-
       id: gitversion # step id used as reference for output values
       uses: gittools/actions/gitversion/execute@v0.9.3
 
