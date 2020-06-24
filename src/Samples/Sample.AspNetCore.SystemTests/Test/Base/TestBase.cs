@@ -1,5 +1,7 @@
 ﻿using System;
 using Atata;
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
 using NUnit.Framework;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
@@ -16,6 +18,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
     public abstract class TestBase
     {
         private readonly string _driverAlias;
+        private readonly TestWebApplicationFactory _testWebApplicationFactory;
 
 
         [OneTimeSetUp]
@@ -41,11 +44,15 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
             AtataContext.Configure()
                         .UseChrome()
                         .WithOptions(chromeOptions)
-                        .UseBaseUrl("https://127.0.0.1:5001")
+                        .UseBaseUrl(_testWebApplicationFactory.RootUri)
                         .Build();
         }
 
-        protected TestBase(string driverAlias) => this._driverAlias = driverAlias;
+        protected TestBase(string driverAlias)
+        {
+            this._driverAlias = driverAlias;
+            this._testWebApplicationFactory = new TestWebApplicationFactory();
+        }
 
         [TearDown]
         public void TearDown()
