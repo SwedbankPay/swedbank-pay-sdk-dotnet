@@ -11,6 +11,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Anonymous
     public class AnonymousPaymentOrderAuthorizationTests : Base.PaymentTests
     {
         public AnonymousPaymentOrderAuthorizationTests(string driverAlias)
+            : base()
         {
         }
 

@@ -23,6 +23,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
     public abstract class PaymentTests : TestBase
     {
         public PaymentTests()
+            : base()
         {
         }
 
