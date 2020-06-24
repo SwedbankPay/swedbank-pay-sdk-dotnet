@@ -22,11 +22,6 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
 {
     public abstract class PaymentTests : TestBase
     {
-        public PaymentTests()
-            : base()
-        {
-        }
-
         protected SwedbankPayClient SwedbankPayClient { get; private set; }
 
 
