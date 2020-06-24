@@ -1,7 +1,5 @@
 ﻿using System;
 using Atata;
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
 using NUnit.Framework;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
@@ -65,9 +63,9 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
             _testWebApplicationFactory.Dispose();
         }
 
-        public static string PageSource()
+        public string PageSource()
         {
-            return $"------ Start Page content ------"
+            return $"------ Start Page ${_driverAlias} ------"
                 + Environment.NewLine
                 + Environment.NewLine
                 + AtataContext.Current.Driver.PageSource
