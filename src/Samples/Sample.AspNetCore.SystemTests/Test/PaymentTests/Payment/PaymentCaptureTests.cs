@@ -11,7 +11,6 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
     public class PaymentCaptureTests : Base.PaymentTests
     {
         public PaymentCaptureTests(string driverAlias)
-            : base()
         {
         }
 

@@ -11,7 +11,6 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Standard
     public class StandardPaymentOrderCancellationTests : Base.PaymentTests
     {
         public StandardPaymentOrderCancellationTests(string driverAlias)
-            : base()
         {
         }
 
