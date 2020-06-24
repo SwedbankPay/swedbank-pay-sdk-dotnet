@@ -33,13 +33,13 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
                 AddNUnitTestContextLogging().
                 WithMinLevel(LogLevel.Error).
                 UseBaseRetryTimeout(TimeSpan.FromSeconds(20));
-            this._testWebApplicationFactory = new TestWebApplicationFactory();
         }
 
 
         [SetUp]
         public void SetUp()
         {
+            this._testWebApplicationFactory = new TestWebApplicationFactory();
             var chromeOptions = DriverOptionsFactory.GetDriverOptions(Driver.Chrome) as ChromeOptions;
             AtataContext.Configure()
                         .UseChrome()
