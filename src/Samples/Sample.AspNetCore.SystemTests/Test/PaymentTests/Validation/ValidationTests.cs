@@ -17,7 +17,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
     public class ValidationTests : Base.PaymentTests
     {
         public ValidationTests(string driverAlias)
-            : base(driverAlias)
+            : base()
         {
         }
 
