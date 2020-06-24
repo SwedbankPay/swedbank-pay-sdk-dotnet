@@ -60,16 +60,11 @@ jobs:
         SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
         SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
 
-    - name: Start SDK Sample project
-      run: cd src/Samples/Sample.AspNetCore && dotnet run Sample.AspNetCore.csproj &
-      env:
-        SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
-        SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
-
     - name: Run SDK Sample project tests
       run: dotnet test  src/Samples/Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.csproj
       env:
         SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
+        SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
         SwedbankPay:ApiBaseUrl: https://api.externalintegration.payex.com
         SwedbankPay:Sdk:SampleWebsite:BaseUrl: https://localhost:5001
 
