@@ -11,7 +11,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Abort
     public class AbortTests : Base.PaymentTests
     {
         public AbortTests(string driverAlias)
-            : base()
+            : base(driverAlias)
         {
         }
 

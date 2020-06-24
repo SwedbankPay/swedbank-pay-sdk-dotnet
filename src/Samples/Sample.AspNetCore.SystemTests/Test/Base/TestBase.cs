@@ -1,5 +1,7 @@
 ﻿using System;
 using Atata;
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
 using NUnit.Framework;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
@@ -14,6 +16,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
     [TestFixture(DriverAliases.Chrome)]
     public abstract class TestBase
     {
+        private readonly string _driverAlias;
         private TestWebApplicationFactory _testWebApplicationFactory;
 
 
@@ -45,11 +48,32 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
                         .Build();
         }
 
+        protected TestBase(string driverAlias)
+        {
+            this._driverAlias = driverAlias;
+        }
+
         [TearDown]
         public void TearDown()
         {
+            if (TestContext.CurrentContext?.Result?.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
+            {
+                TestContext.Out?.WriteLine(PageSource());
+            }
+
             AtataContext.Current?.CleanUp();
             _testWebApplicationFactory.Dispose();
+        }
+
+        public static string PageSource()
+        {
+            return $"------ Start Page content ------"
+                + Environment.NewLine
+                + Environment.NewLine
+                + AtataContext.Current.Driver.PageSource
+                + Environment.NewLine
+                + Environment.NewLine
+                + "------ End Page content ------";
         }
     }
 }

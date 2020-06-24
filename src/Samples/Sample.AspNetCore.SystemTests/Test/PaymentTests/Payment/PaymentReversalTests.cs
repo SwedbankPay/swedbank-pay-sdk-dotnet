@@ -13,7 +13,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
     public class PaymentReversalTests : Base.PaymentTests
     {
         public PaymentReversalTests(string driverAlias)
-            : base()
+            : base(driverAlias)
         {
         }
 
