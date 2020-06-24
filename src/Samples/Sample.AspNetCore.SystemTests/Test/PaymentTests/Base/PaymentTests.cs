@@ -41,7 +41,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
 
             var baseAddress = configRoot.GetSection("SwedbankPay:ApiBaseUrl").Value;
             var authHeader = configRoot.GetSection("SwedbankPay:Token").Value;
-            var httpClient = new HttpClient()
+            var httpClient = new HttpClient
             {
                 BaseAddress = new Uri(baseAddress)
             };
