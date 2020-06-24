@@ -16,6 +16,12 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
 {
     public class ValidationTests : Base.PaymentTests
     {
+        public ValidationTests(string driverAlias)
+            : base()
+        {
+        }
+
+
         [Test]
         [Retry(3)]
         [TestCaseSource(nameof(TestData), new object[] { true, null })]
