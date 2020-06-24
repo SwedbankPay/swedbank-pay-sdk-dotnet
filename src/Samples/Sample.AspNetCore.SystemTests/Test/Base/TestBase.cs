@@ -17,7 +17,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
     public abstract class TestBase
     {
         private readonly string _driverAlias;
-        private readonly TestWebApplicationFactory _testWebApplicationFactory;
+        private TestWebApplicationFactory _testWebApplicationFactory;
 
 
         [OneTimeSetUp]
@@ -33,6 +33,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
                 AddNUnitTestContextLogging().
                 WithMinLevel(LogLevel.Error).
                 UseBaseRetryTimeout(TimeSpan.FromSeconds(20));
+            this._testWebApplicationFactory = new TestWebApplicationFactory();
         }
 
 
@@ -50,7 +51,6 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
         protected TestBase(string driverAlias)
         {
             this._driverAlias = driverAlias;
-            this._testWebApplicationFactory = new TestWebApplicationFactory();
         }
 
         [TearDown]
@@ -62,6 +62,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
             }
 
             AtataContext.Current?.CleanUp();
+            _testWebApplicationFactory.Dispose();
         }
 
         public static string PageSource()
