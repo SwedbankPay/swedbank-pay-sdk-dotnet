@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.DependencyInjection;
+using Sample.AspNetCore.Models;
 using System;
 using System.IO;
 using System.Linq;
@@ -33,6 +35,11 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
             _host = builder.Build();
             _host.Start();
             RootUri = _host.ServerFeatures.Get<IServerAddressesFeature>().Addresses.LastOrDefault();
+            using (var scope = _host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                ProductGenerator.Initialize(services);
+            }
 
             //Fake Server we won't use...this is lame. Should be cleaner, or a utility class
             return new TestServer(new WebHostBuilder().UseStartup<Startup>());
