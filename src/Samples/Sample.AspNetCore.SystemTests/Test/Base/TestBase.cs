@@ -14,7 +14,6 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
     using static Drivers;
 
     [TestFixture(DriverAliases.Chrome)]
-    [Parallelizable(ParallelScope.All)]
     public abstract class TestBase
     {
         private readonly string _driverAlias;
