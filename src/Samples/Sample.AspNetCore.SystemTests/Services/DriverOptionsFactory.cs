@@ -26,8 +26,7 @@ namespace Sample.AspNetCore.SystemTests.Services
                         "disable-extensions",
                         "--whitelisted-ips=\"\"",
                         "--disable-dev-shm-usage",
-                        "--no-sandbox",
-                        "--headless"
+                        "--no-sandbox"
                         );
 
                     return chromeOptions;

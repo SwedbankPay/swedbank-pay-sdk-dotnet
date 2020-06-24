@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using System;
+using System.IO;
 using System.Linq;
 
 namespace Sample.AspNetCore.SystemTests.Test.Base
@@ -16,6 +17,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
     {
         public string RootUri { get; set; } //Save this use by tests
 
+        private const string SampleProjectLocation = "./../../../../Sample.AspNetCore";
         IWebHost _host;
 
         public TestWebApplicationFactory()
@@ -40,6 +42,12 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
         {
             var builder = WebHost.CreateDefaultBuilder(Array.Empty<string>());
             builder.UseStartup<Startup>();
+            var contentRoot = SampleProjectLocation;
+            if (Directory.Exists(contentRoot))
+            {
+                builder.UseContentRoot(contentRoot);
+            }
+            
             return builder;
         }
 
