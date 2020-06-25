@@ -70,7 +70,7 @@ jobs:
 
   publish:
     runs-on: ubuntu-18.04
-    needs: [build]
+    needs: [build, test]
 
     steps:
     - name: Checkout
