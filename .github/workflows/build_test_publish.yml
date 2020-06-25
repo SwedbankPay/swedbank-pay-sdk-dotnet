@@ -69,8 +69,8 @@ jobs:
         SwedbankPay:Sdk:SampleWebsite:BaseUrl: https://localhost:5001
 
   publish:
-    runs-on: ubuntu-20.04
-    needs: [build, test]
+    runs-on: ubuntu-18.04
+    needs: [build]
 
     steps:
     - name: Checkout
