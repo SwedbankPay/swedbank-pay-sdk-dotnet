@@ -29,7 +29,6 @@ namespace Sample.AspNetCore.SystemTests.Services
             return component.Owner;
         }
 
-
         public static TOwner StorePrice<TOwner>(this UIComponent<TOwner> component, out double value)
             where TOwner : PageObject<TOwner>
         {
@@ -39,13 +38,27 @@ namespace Sample.AspNetCore.SystemTests.Services
             return component.Owner;
         }
 
-
         public static TOwner StoreValue<TOwner>(this UIComponent<TOwner> component, out Uri value)
             where TOwner : PageObject<TOwner>
         {
             var val = component.Content.Value;
             value = new Uri(val, UriKind.RelativeOrAbsolute);
             return component.Owner;
+        }
+
+        public static TOwner SetWithSpeed<T, TOwner>(this EditableField<T, TOwner> editableField, T value, double interval) 
+            where TOwner : PageObject<TOwner>
+        {
+            editableField.Focus();
+            
+            foreach (var character in value.ToString())
+            {
+                editableField.Owner
+                    .Press(character.ToString())
+                    .Wait(interval);
+            }
+
+            return editableField.Owner;
         }
     }
 }

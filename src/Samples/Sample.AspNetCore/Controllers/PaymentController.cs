@@ -10,11 +10,7 @@ using SwedbankPay.Sdk;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-
-using SwedbankPay.Sdk.Exceptions;
-using SwedbankPay.Sdk.PaymentOrders;
 using SwedbankPay.Sdk.Payments;
-using SwedbankPay.Sdk.Payments.CardPayments;
 
 namespace Sample.AspNetCore.Controllers
 {

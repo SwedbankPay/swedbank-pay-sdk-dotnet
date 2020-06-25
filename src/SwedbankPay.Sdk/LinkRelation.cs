@@ -76,6 +76,9 @@ namespace SwedbankPay.Sdk
         public static readonly LinkRelation AbortedPayment =
             new LinkRelation(nameof(AbortedPayment), PaymentResourceOperations.AbortedPayment);
 
+        public static readonly LinkRelation AbortedPaymentOrder =
+            new LinkRelation(nameof(AbortedPaymentOrder), PaymentOrderResourceOperations.AbortedPaymentOrder);
+
         public static readonly LinkRelation RedirectAppSwish =
             new LinkRelation(nameof(RedirectAppSwish), PaymentResourceOperations.RedirectAppSwish);
 

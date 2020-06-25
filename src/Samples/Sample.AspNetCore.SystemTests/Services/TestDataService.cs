@@ -14,7 +14,7 @@ namespace Sample.AspNetCore.SystemTests.Services
 
         public static string CreditCardCvc => "210";
 
-        public static string CreditCardExpiratioDate => DateTime.Now.AddMonths(3).ToString("MMyy");
+        public static string CreditCardExpirationDate => DateTime.Now.AddYears(1).ToString("MMyy");
 
         public static string CreditCardNumber => "4925000000000004";
 

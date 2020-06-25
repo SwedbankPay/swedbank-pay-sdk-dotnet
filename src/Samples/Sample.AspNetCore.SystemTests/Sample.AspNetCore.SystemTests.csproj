@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -9,11 +9,13 @@
   <ItemGroup>
     <PackageReference Include="Atata" Version="1.5.0" />
     <PackageReference Include="Atata.WebDriverExtras" Version="1.3.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.4" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.4" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="3.1.5" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.5" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.5" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="3.1.5" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.5" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
-    <PackageReference Include="coverlet.collector" Version="1.2.1">
+    <PackageReference Include="coverlet.collector" Version="1.3.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -25,7 +27,7 @@
     </PackageReference>
     <PackageReference Include="Selenium.Firefox.WebDriver" Version="0.26.0" />
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
-    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="81.0.4044.13800" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="83.0.4103.3900" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
   </ItemGroup>
   
@@ -38,11 +40,12 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DefineConstants>TRACE;RELEASE</DefineConstants>
+    <DefineConstants>TRACE;RELEASE; </DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\SwedbankPay.Sdk\SwedbankPay.Sdk.csproj" />
+    <ProjectReference Include="..\Sample.AspNetCore\Sample.AspNetCore.csproj" />
   </ItemGroup>
 
   <ItemGroup>

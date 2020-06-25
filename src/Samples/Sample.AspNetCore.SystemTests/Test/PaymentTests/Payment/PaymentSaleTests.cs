@@ -4,10 +4,8 @@ using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
 using SwedbankPay.Sdk.Payments;
-using SwedbankPay.Sdk.PaymentOrders;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Threading;
 
 namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
 {
@@ -20,6 +18,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
 
 
         [Test]
+        [Retry(3)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Swish })]
         public async Task Payment_Swish_Sale(Product[] products, PayexInfo payexInfo)
         {

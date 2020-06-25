@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -23,40 +22,30 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
 {
     public abstract class PaymentTests : TestBase
     {
-        // requires using Microsoft.Extensions.Configuration;
-        private readonly IConfiguration Configuration;
-
         public PaymentTests(string driverAlias)
             : base(driverAlias)
         {
         }
 
-
-        protected HttpClientService HttpClientService { get; private set; }
         protected SwedbankPayClient SwedbankPayClient { get; private set; }
 
 
         [OneTimeSetUp]
-        public void OneTimeSetUp()
+        public void Setup()
         {
-            #if DEBUG
-            var httpClient = new HttpClient()
-            {
-                BaseAddress = new Uri("https://api.externalintegration.payex.com")
-            };
+            IConfigurationRoot configRoot = new ConfigurationBuilder()
+                .SetBasePath(Environment.CurrentDirectory)
+                .AddJsonFile("appsettings.json", true)
+                .AddEnvironmentVariables()
+                .Build();
 
-            var config = new ConfigurationBuilder()
-             .AddJsonFile("appsettings.json")
-             .Build();
-
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", config["payexTestToken"]);
-            #elif RELEASE
-            var httpClient = new HttpClient()
+            var baseAddress = configRoot.GetSection("SwedbankPay:ApiBaseUrl").Value;
+            var authHeader = configRoot.GetSection("SwedbankPay:Token").Value;
+            var httpClient = new HttpClient
             {
-                BaseAddress = new Uri(Environment.GetEnvironmentVariable("Payex.Api.Url", EnvironmentVariableTarget.User))
+                BaseAddress = new Uri(baseAddress)
             };
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Environment.GetEnvironmentVariable("Payex.Api.Token", EnvironmentVariableTarget.User));
-            #endif
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authHeader);
 
             SwedbankPayClient = new SwedbankPayClient(httpClient);
         }
@@ -64,22 +53,24 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
 
         protected OrdersPage GoToOrdersPage(Product[] products, PayexInfo payexInfo, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
+            ThankYouPage page = null;
+
             switch (payexInfo)
             {
                 case PayexCardInfo cardInfo:
-
-                    return PayWithPayexCard(products, cardInfo, checkout).Header.Orders.ClickAndGo();
-
+                    page = PayWithPayexCard(products, cardInfo, checkout);
+                    break;
                 case PayexSwishInfo swishInfo:
-
-                    return PayWithPayexSwish(products, swishInfo, checkout).Header.Orders.ClickAndGo();
-
+                    page = PayWithPayexSwish(products, swishInfo, checkout);
+                    break;
                 case PayexInvoiceInfo invoiceInfo:
-
-                    return PayWithPayexInvoice(products, invoiceInfo, checkout).Header.Orders.ClickAndGo();
+                    page = PayWithPayexInvoice(products, invoiceInfo, checkout);
+                    break;
             }
 
-            return null;
+            return page?
+                .ThankYou.IsVisible.WaitTo.BeTrue()
+                .Header.Orders.ClickAndGo();
         }
 
 
@@ -89,6 +80,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             {
                 case Checkout.Option.LocalPaymentMenu:
                     return GoToLocalPaymentPage(products, checkout)
+                        .CreditCard.IsVisible.WaitTo.BeTrue()
                         .CreditCard.Click()
                         .PaymentFrame.SwitchTo<PayexCardFramePage>();
 
@@ -97,18 +89,18 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 default:
 
                     return GoToPaymentFramePage(products, checkout)
+                        .PaymentMethods[x => x.Name == PaymentMethods.Card].IsVisible.WaitTo.BeTrue()
                         .PaymentMethods[x => x.Name == PaymentMethods.Card].Click()
                         .PaymentMethods[x => x.Name == PaymentMethods.Card].PaymentFrame.SwitchTo<PayexCardFramePage>();
-
-
             }
-            
+
         }
 
 
         protected PayexInvoiceFramePage GoToPayexInvoicePaymentFrame(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
             return GoToPaymentFramePage(products, checkout)
+                .PaymentMethods[x => x.Name == PaymentMethods.Invoice].IsVisible.WaitTo.BeTrue()
                 .PaymentMethods[x => x.Name == PaymentMethods.Invoice].Click()
                 .PaymentMethods[x => x.Name == PaymentMethods.Invoice].PaymentFrame.SwitchTo<PayexInvoiceFramePage>();
         }
@@ -120,6 +112,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             {
                 case Checkout.Option.LocalPaymentMenu:
                     return GoToLocalPaymentPage(products, checkout)
+                        .Swish.IsVisible.WaitTo.BeTrue()
                         .Swish.Click()
                         .PaymentFrame.SwitchTo<PayexSwishFramePage>();
 
@@ -128,12 +121,13 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 default:
 
                     return GoToPaymentFramePage(products, checkout)
+                        .PaymentMethods[x => x.Name == PaymentMethods.Swish].IsVisible.WaitTo.BeTrue()
                         .PaymentMethods[x => x.Name == PaymentMethods.Swish].Click()
                         .PaymentMethods[x => x.Name == PaymentMethods.Swish].PaymentFrame.SwitchTo<PayexSwishFramePage>();
 
 
             }
-            
+
         }
 
 
@@ -144,17 +138,19 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 case Checkout.Option.Standard:
 
                     return GoToPayexPaymentPage(products, checkout)
-                    .IdentificationFrame.SwitchTo()
-                    .Email.Set(TestDataService.Email)
-                    .PhoneNumber.Set(TestDataService.SwedishPhoneNumber)
-                    .Next.Click().SwitchToRoot<PaymentPage>()
-                    .PaymentMethodsFrame.SwitchTo();
+                        .IdentificationFrame.SwitchTo()
+                        .Email.IsVisible.WaitTo.BeTrue()
+                        .Email.SetWithSpeed(TestDataService.Email, interval: 0.1)
+                        .PhoneNumber.SetWithSpeed(TestDataService.SwedishPhoneNumber, interval: 0.1)
+                        .Next.Click().SwitchToRoot<PaymentPage>().Wait(TimeSpan.FromSeconds(2))
+                        .PaymentMethodsFrame.SwitchTo();
 
                 case Checkout.Option.Anonymous:
                 default:
 
                     return GoToPayexPaymentPage(products, checkout)
-                    .PaymentMethodsFrame.SwitchTo();
+                        .PaymentMethodsFrame.IsVisible.WaitTo.BeTrue()
+                        .PaymentMethodsFrame.SwitchTo();
 
             }
         }
@@ -184,7 +180,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
         protected ProductsPage SelectProducts(Product[] products)
         {
             return Go.To<ProductsPage>()
-                .Do((x) => 
+                .Do((x) =>
                 {
                     if (x.Header.ClearOrders.Exists(new SearchOptions { Timeout = new TimeSpan(0, 0, 0, 0, 500), IsSafely = true }))
                         x
@@ -213,25 +209,26 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             {
                 case Checkout.Option.Standard:
                     return GoToPayexCardPaymentFrame(products, checkout)
+                        .PreFilledCards.IsVisible.WaitTo.BeTrue()
                         .Do(x =>
                         {
-                            if(x.PreFilledCards.Items[y => y.CreditCardNumber.Value.Contains(info.CreditCardNumber.Substring(info.CreditCardNumber.Length - 4))].Exists())
+                            if (x.PreFilledCards.Items[y => y.CreditCardNumber.Value.Contains(info.CreditCardNumber.Substring(info.CreditCardNumber.Length - 4))].Exists())
                             {
                                 x.PreFilledCards
                                     .Items[
                                         y => y.CreditCardNumber.Value.Contains(
                                             info.CreditCardNumber.Substring(info.CreditCardNumber.Length - 4))].Click()
-                                    .Cvc.Set(info.Cvc);
+                                    .Cvc.SetWithSpeed(info.Cvc, interval: 0.1);
                             }
                             else
                             {
                                 x.AddNewCard.Click()
-                                    .CreditCardNumber.Set(TestDataService.CreditCardNumber)
-                                    .ExpiryDate.Set(TestDataService.CreditCardExpiratioDate)
-                                    .Cvc.Set(TestDataService.CreditCardCvc);
+                                    .CreditCardNumber.SetWithSpeed(TestDataService.CreditCardNumber, interval: 0.1)
+                                    .ExpiryDate.SetWithSpeed(TestDataService.CreditCardExpirationDate, interval: 0.1)
+                                    .Cvc.SetWithSpeed(TestDataService.CreditCardCvc, interval: 0.1);
                             }
 
-                                
+
 
                         })
                     .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
@@ -242,11 +239,12 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 default:
 
                     return GoToPayexCardPaymentFrame(products, checkout)
-                    .CreditCardNumber.Set(info.CreditCardNumber)
-                    .ExpiryDate.Set(info.ExpiryDate)
-                    .Cvc.Set(info.Cvc)
-                    .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
-                    .Pay.ClickAndGo();
+                        .CreditCardNumber.IsVisible.WaitTo.BeTrue()
+                        .CreditCardNumber.SetWithSpeed(info.CreditCardNumber, interval: 0.1)
+                        .ExpiryDate.SetWithSpeed(info.ExpiryDate, interval: 0.1)
+                        .Cvc.SetWithSpeed(info.Cvc, interval: 0.1)
+                        .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
+                        .Pay.ClickAndGo();
             }
         }
 
@@ -257,7 +255,8 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             {
                 case Checkout.Option.Standard:
                     return GoToPayexInvoicePaymentFrame(products, checkout)
-                        .PersonalNumber.Set(info.PersonalNumber.Substring(info.PersonalNumber.Length - 4))
+                        .PersonalNumber.IsVisible.WaitTo.BeTrue()
+                        .PersonalNumber.SetWithSpeed(info.PersonalNumber.Substring(info.PersonalNumber.Length - 4), interval: 0.1)
                         .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
                         .Pay.ClickAndGo();
 
@@ -265,11 +264,13 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 default:
 
                     return GoToPayexInvoicePaymentFrame(products, checkout)
-                        .PersonalNumber.Set(info.PersonalNumber)
-                        .Email.Set(info.Email)
-                        .PhoneNumber.Set(info.PhoneNumber)
-                        .ZipCode.Set(info.ZipCode)
+                        .PersonalNumber.IsVisible.WaitTo.BeTrue()
+                        .PersonalNumber.SetWithSpeed(info.PersonalNumber, interval: 0.1)
+                        .Email.SetWithSpeed(info.Email, interval: 0.1)
+                        .PhoneNumber.SetWithSpeed(info.PhoneNumber, interval: 0.1)
+                        .ZipCode.SetWithSpeed(info.ZipCode, interval: 0.1)
                         .Next.Click()
+                        .Wait(TimeSpan.FromSeconds(10))
                         .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
                         .Pay.ClickAndGo();
             }
@@ -291,9 +292,10 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 default:
 
                     return GoToPayexSwishPaymentFrame(products, checkout)
-                    .SwishNumber.Set(info.SwishNumber)
-                    .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
-                    .Pay.ClickAndGo();
+                        .SwishNumber.IsVisible.WaitTo.BeTrue()
+                        .SwishNumber.SetWithSpeed(info.SwishNumber, interval: 0.1)
+                        .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
+                        .Pay.ClickAndGo();
             }
         }
 
@@ -317,7 +319,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             switch (paymentMethod)
             {
                 case PaymentMethods.Card:
-                    data.Add(new PayexCardInfo(TestDataService.CreditCardNumber, TestDataService.CreditCardExpiratioDate,
+                    data.Add(new PayexCardInfo(TestDataService.CreditCardNumber, TestDataService.CreditCardExpirationDate,
                                                TestDataService.CreditCardCvc));
                     break;
 

@@ -11,24 +11,16 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
 {
     using static Drivers;
 
-#if DEBUG
     [TestFixture(DriverAliases.Chrome)]
-#elif DEV
-    [TestFixture(DriverAliases.Chrome)]
-    //[TestFixtureSource(typeof(Profiles.ProfileDEV))]
-#elif RELEASE
-    [TestFixture(DriverAliases.Chrome)]
-    //[TestFixtureSource(typeof(Profiles.ProfileRelease))]
-#endif
     public abstract class TestBase
     {
         private readonly string _driverAlias;
+        private TestWebApplicationFactory _testWebApplicationFactory;
 
 
         [OneTimeSetUp]
-        public void GlobalSetup()
+        public void OneTimeSetUp()
         {
-#if DEBUG
             AtataContext.GlobalConfiguration.
                 UseChrome().
                     WithOptions(DriverOptionsFactory.GetDriverOptions(Driver.Chrome) as ChromeOptions).
@@ -37,56 +29,49 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
                 UseInternetExplorer().
                     WithOptions(DriverOptionsFactory.GetDriverOptions(Driver.InternetExplorer) as InternetExplorerOptions).
                 AddNUnitTestContextLogging().
-                WithMinLevel(LogLevel.Trace).
-                TakeScreenshotOnNUnitError().
-                    AddScreenshotFileSaving().
-                        WithFolderPath(() => $@"Logs\{AtataContext.BuildStart:yyyy-MM-dd HH_mm_ss}").
-                        WithFileName(screenshotInfo => $"{AtataContext.Current.TestName} - {screenshotInfo.PageObjectFullName}").
-                UseTestName(() => $"[{_driverAlias}]{TestContext.CurrentContext.Test.Name}");
-#endif
+                WithMinLevel(LogLevel.Error).
+                UseBaseRetryTimeout(TimeSpan.FromSeconds(20));
         }
 
 
         [SetUp]
         public void SetUp()
         {
-#if DEBUG
+            this._testWebApplicationFactory = new TestWebApplicationFactory();
+            var chromeOptions = DriverOptionsFactory.GetDriverOptions(Driver.Chrome) as ChromeOptions;
             AtataContext.Configure()
-                .UseDriver(_driverAlias)
-                    .UseBaseUrl("https://localhost:44344/")
-            .Build();
-            AtataContext.Current.Driver.Maximize();
-#elif DEV
-            AtataContext.Configure()
-                .UseDriver(_driverAlias)
-                    .UseBaseUrl("https://YourBaseUrl.com/")
-            .Build();
-            AtataContext.Current.Driver.Maximize();
-#elif RELEASE
-
-            AtataContext.Configure()
-                .UseChrome()
-                .WithOptions(DriverOptionsFactory.GetDriverOptions(Driver.Chrome) as ChromeOptions)
-                .UseBaseUrl(Environment.GetEnvironmentVariable("Swedbank.Pay.Sdk.SampleWebsite.BaseUrl", EnvironmentVariableTarget.User))
-                .Build();
-            AtataContext.Current.Driver.Maximize();
-#endif
+                        .UseChrome()
+                        .WithOptions(chromeOptions)
+                        .UseBaseUrl(_testWebApplicationFactory.RootUri)
+                        .Build();
         }
 
-        protected TestBase(string driverAlias) => this._driverAlias = driverAlias;
+        protected TestBase(string driverAlias)
+        {
+            this._driverAlias = driverAlias;
+        }
 
         [TearDown]
         public void TearDown()
         {
+            if (TestContext.CurrentContext?.Result?.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
+            {
+                TestContext.Out?.WriteLine(PageSource());
+            }
+
             AtataContext.Current?.CleanUp();
+            _testWebApplicationFactory.Dispose();
         }
 
-
-        [OneTimeTearDown]
-        public void GlobalDown()
+        public string PageSource()
         {
-            foreach (Driver driverType in Enum.GetValues(typeof(Driver)))
-                WebDriverCleanerService.KillWebDriverProcess(WebDriverCleanerService.DriverNames[driverType]);
+            return $"------ Start Page ${_driverAlias} ------"
+                + Environment.NewLine
+                + Environment.NewLine
+                + AtataContext.Current.Driver.PageSource
+                + Environment.NewLine
+                + Environment.NewLine
+                + "------ End Page content ------";
         }
     }
 }

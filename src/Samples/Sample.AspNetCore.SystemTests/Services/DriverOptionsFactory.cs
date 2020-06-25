@@ -4,6 +4,7 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 
 using Sample.AspNetCore.SystemTests.Test.Base;
+using System.Runtime.InteropServices;
 
 namespace Sample.AspNetCore.SystemTests.Services
 {
@@ -18,7 +19,16 @@ namespace Sample.AspNetCore.SystemTests.Services
                 case Driver.Chrome:
 
                     var chromeOptions = new ChromeOptions { AcceptInsecureCertificates = true };
-                    chromeOptions.AddArguments("--incognito", "--disable-infobars", "--disable-notifications", "disable-extensions");
+                    chromeOptions.AddArguments(
+                        "--incognito",
+                        "--disable-infobars",
+                        "--disable-notifications",
+                        "disable-extensions",
+                        "--whitelisted-ips=\"\"",
+                        "--disable-dev-shm-usage",
+                        "--no-sandbox",
+                        "--headless"
+                        );
 
                     return chromeOptions;
 

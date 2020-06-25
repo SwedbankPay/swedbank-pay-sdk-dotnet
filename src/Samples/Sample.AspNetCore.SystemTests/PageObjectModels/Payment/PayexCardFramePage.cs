@@ -1,5 +1,4 @@
 ﻿using Atata;
-
 using Sample.AspNetCore.SystemTests.PageObjectModels.Base;
 using Sample.AspNetCore.SystemTests.PageObjectModels.ThankYou;
 
@@ -7,7 +6,6 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Payment
 {
     using _ = PayexCardFramePage;
 
-    [WaitForLoadingIndicator]
     public class PayexCardFramePage : Page<_>
     {
         public class PreFilledCreditCard : ListItem<_>
@@ -29,8 +27,7 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Payment
 
         [FindById("expiryInput")] public TelInput<_> ExpiryDate { get; set; }
 
-        [Wait(1, TriggerEvents.BeforeClick)]
-        [WaitForPaymentProcessing(TriggerEvents.AfterClick)]
+        [Wait(2, TriggerEvents.BeforeClick)]
         [FindById("px-submit")] public Button<ThankYouPage, _> Pay { get; set; }
 
         public ValidationIconList<_> ValidationIcons { get; set; }

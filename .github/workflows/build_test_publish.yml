@@ -1,0 +1,94 @@
+name: Build
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.101
+
+    - name: Install dependencies
+      run: dotnet restore ./src/SwedbankPay.Sdk.sln
+
+    - name: Build solution
+      run: dotnet build ./src/SwedbankPay.Sdk.sln
+
+    - name: Archive Sample.AspNetCore
+      uses: actions/upload-artifact@v2
+      with:
+        name: Sample.AspNetCore
+        path: src/Samples/Sample.AspNetCore/bin/*
+
+    - name: Archive Sample.AspNetCore.SystemTests
+      uses: actions/upload-artifact@v2
+      with:
+        name: Sample.AspNetCore.SystemTests
+        path: src/Samples/Sample.AspNetCore.SystemTests/bin/*
+
+    - name: Archive SwedbankPay.Sdk
+      uses: actions/upload-artifact@v2
+      with:
+        name: SwedbankPay.Sdk
+        path: src/SwedbankPay.Sdk/bin/*
+
+    - name: Archive SwedbankPay.Sdk.Tests
+      uses: actions/upload-artifact@v2
+      with:
+        name: SwedbankPay.Sdk.Tests
+        path: src/SwedbankPay.Sdk.Tests/bin/*
+
+  test:
+    runs-on: ubuntu-20.04
+    needs: build
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Download All artifacts
+      uses: actions/download-artifact@v2
+
+    - name: Run SDK Tests
+      run: dotnet test src/SwedbankPay.Sdk.Tests/SwedbankPay.Sdk.Tests.csproj
+      env:
+        SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
+        SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
+
+    - name: Run SDK Sample project tests
+      run: dotnet test  src/Samples/Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.csproj
+      env:
+        SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
+        SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
+        SwedbankPay:ApiBaseUrl: https://api.externalintegration.payex.com
+        SwedbankPay:Sdk:SampleWebsite:BaseUrl: https://localhost:5001
+
+  publish:
+    runs-on: ubuntu-18.04
+    needs: [build, test]
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Fetch all history for all tags and branches
+      run: git fetch --prune --unshallow
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v0.9.2
+      with:
+          versionSpec: '5.2.x'
+    - name: Use GitVersion
+      id: gitversion # step id used as reference for output values
+      uses: gittools/actions/gitversion/execute@v0.9.2
+
+    - name: Publish to NuGet
+      env:
+        PROJECT_FILE: src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj
+        VERSION_NUMBER: ${{ steps.gitversion.outputs.fullSemVer }}
+        NUGET_KEY: ${{ secrets.NUGET_KEY}}
+        DEBUG: true
+      run: .github/workflows/nuget_push.sh

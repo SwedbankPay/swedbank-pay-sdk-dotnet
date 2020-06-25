@@ -1,17 +1,13 @@
 ﻿using Atata;
-
-using Sample.AspNetCore.SystemTests.PageObjectModels.Base;
 using Sample.AspNetCore.SystemTests.PageObjectModels.ThankYou;
 
 namespace Sample.AspNetCore.SystemTests.PageObjectModels.Payment
 {
     using _ = PayexSwishFramePage;
 
-    [WaitForLoadingIndicator]
     public class PayexSwishFramePage : Page<_>
     {
-        [WaitFor(Until.VisibleThenMissingOrHidden, TriggerEvents.AfterClick, AbsenceTimeout = 30)]
-        [Wait(1, TriggerEvents.BeforeClick)]
+        [Wait(2, TriggerEvents.BeforeClick)]
         [FindById("px-submit")]
         public Button<ThankYouPage, _> Pay { get; set; }
 

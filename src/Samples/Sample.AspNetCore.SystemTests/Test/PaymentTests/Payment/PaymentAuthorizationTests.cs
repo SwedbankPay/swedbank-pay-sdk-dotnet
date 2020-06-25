@@ -17,6 +17,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
         
 
         [Test]
+        [Retry(3)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Card })]
         public async Task Payment_Card_Authorization(Product[] products, PayexInfo payexInfo)
         {

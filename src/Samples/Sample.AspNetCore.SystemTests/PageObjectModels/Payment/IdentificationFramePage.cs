@@ -1,12 +1,9 @@
 ﻿using Atata;
 
-using Sample.AspNetCore.SystemTests.PageObjectModels.Base;
-
 namespace Sample.AspNetCore.SystemTests.PageObjectModels.Payment
 {
     using _ = IdentificationFramePage;
 
-    [WaitForLoadingIndicator]
     public class IdentificationFramePage : Page<_>
     {
         [FindById("email")] public EmailInput<_> Email { get; private set; }

@@ -2,7 +2,6 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using SwedbankPay.Sdk.Extensions;
-using SwedbankPay.Sdk.Payments;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {

@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using SwedbankPay.Sdk.Consumers;
 using SwedbankPay.Sdk.Payments;
 using SwedbankPay.Sdk.PaymentOrders;
-using SwedbankPay.Sdk.Payments.SwishPayments;
-using SwedbankPay.Sdk.Payments.CardPayments;
 
 namespace SwedbankPay.Sdk
 {

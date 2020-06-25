@@ -11,19 +11,14 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
     {
         public Capabilities(string execution = Executions.Single, string environment = Environments.WindowsChrome1)
         {
-            CapabilitiesDictionary = new Dictionary<string, object>();
+            CapabilitiesDictionary = new Dictionary<string, object>
+            {
+                { CapabilityType.BrowserName, "" },
+                { CapabilityType.Version, "" },
+                { CapabilityType.Platform, "" }
+            };
 
-            CapabilitiesDictionary.Add(CapabilityType.BrowserName, "");
-            CapabilitiesDictionary.Add(CapabilityType.Version, "");
-            CapabilitiesDictionary.Add(CapabilityType.Platform, "");
-
-            var executionCollection = ConfigurationManager.GetSection("executions/" + execution) as NameValueCollection;
             var environmentCollection = ConfigurationManager.GetSection("environments/" + environment) as NameValueCollection;
-
-            //foreach (string key in executionCollection.AllKeys)
-            //{
-            //    CapabilitiesDictionary.Add(key, executionCollection[key]);
-            //}
 
             foreach (var key in environmentCollection.AllKeys)
                 CapabilitiesDictionary.Add(key, environmentCollection[key]);

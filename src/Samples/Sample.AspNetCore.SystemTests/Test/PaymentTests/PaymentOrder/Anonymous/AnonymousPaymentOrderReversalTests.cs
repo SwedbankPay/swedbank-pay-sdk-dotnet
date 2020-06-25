@@ -6,7 +6,6 @@ using NUnit.Framework;
 using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
-using SwedbankPay.Sdk.Payments;
 
 namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Anonymous
 {
@@ -19,6 +18,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Anonymous
 
 
         [Test]
+        [Retry(3)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Card })]
         public async Task Anonymous_PaymentOrder_Card_Reversal(Product[] products, PayexInfo payexInfo)
         {
@@ -49,6 +49,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Anonymous
 
 
         [Test]
+        [Retry(5)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Swish })]
         public async Task Anonymous_PaymentOrder_Swish_Reversal(Product[] products, PayexInfo payexInfo)
         {
@@ -84,6 +85,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Anonymous
 
 
         [Test]
+        [Retry(3)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Invoice })]
         public async Task Anonymous_PaymentOrder_Invoice_Reversal(Product[] products, PayexInfo payexInfo)
         {

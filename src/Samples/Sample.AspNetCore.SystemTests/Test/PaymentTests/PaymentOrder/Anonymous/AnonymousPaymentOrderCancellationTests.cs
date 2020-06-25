@@ -17,6 +17,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Anonymous
 
 
         [Test]
+        [Retry(3)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Card })]
         public async Task Anonymous_PaymentOrder_Card_Cancellation(Product[] products, PayexInfo payexInfo)
         {
@@ -44,6 +45,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Anonymous
 
 
         [Test]
+        [Retry(3)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Invoice })]
         public async Task Anonymous_PaymentOrder_Invoice_Cancellation(Product[] products, PayexInfo payexInfo)
         {

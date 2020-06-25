@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
 
 namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
 {
@@ -24,6 +23,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
 
 
         [Test]
+        [Retry(3)]
         [TestCaseSource(nameof(TestData), new object[] { true, null })]
         public void FieldValidationCard(Product[] products)
         {
@@ -35,7 +35,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
                 .ValidationIcons[x => x.CreditCardNumber].Should.BeVisible()
                 .ValidationIcons[x => x.ExpiryDate].Should.BeVisible()
                 .CreditCardNumber.Set(TestDataService.CreditCardNumber)
-                .ExpiryDate.Set(TestDataService.CreditCardExpiratioDate)
+                .ExpiryDate.Set(TestDataService.CreditCardExpirationDate)
                 .Cvc.Set(TestDataService.CreditCardCvc)
                 .ValidationIcons[x => x.CreditCardNumber].Should.Not.BeVisible()
                 .ValidationIcons[x => x.ExpiryDate].Should.Not.BeVisible();
@@ -43,6 +43,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
 
 
         [Test]
+        [Retry(3)]
         [TestCaseSource(nameof(TestData), new object[] { true, null })]
         public void FieldValidationInvoice(Product[] products)
         {
@@ -68,6 +69,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
 
 
         [Test]
+        [Retry(3)]
         [TestCaseSource(nameof(TestData), new object[] { true, null })]
         public void FieldValidationSwish(Product[] products)
         {
@@ -75,6 +77,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
         }
 
         [Test]
+        [Retry(3)]
         public void ValidateExceptionFromApi()
         {
             var httpClient = new HttpClient { BaseAddress = new Uri("https://api.externalintegration.payex.com") };

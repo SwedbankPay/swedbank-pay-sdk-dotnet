@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using SwedbankPay.Sdk.Consumers;
 using SwedbankPay.Sdk.Exceptions;
 using SwedbankPay.Sdk.Tests.TestBuilders;
 

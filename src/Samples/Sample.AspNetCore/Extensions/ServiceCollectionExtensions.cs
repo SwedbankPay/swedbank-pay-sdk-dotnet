@@ -1,19 +1,12 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-
-using SwedbankPay.Sdk.Extensions;
-
 using Sample.AspNetCore.Models;
 
 using SwedbankPay.Sdk;
 using System.Net.Http;
-using SwedbankPay.Sdk.Payments.CardPayments;
-using SwedbankPay.Sdk.Payments.SwishPayments;
-using SwedbankPay.Sdk.PaymentOrders;
-using SwedbankPay.Sdk.Consumers;
-using SwedbankPay.Sdk.Payments;
 using System.Net.Http.Headers;
+using System;
 
 namespace Sample.AspNetCore.Extensions
 {
@@ -22,13 +15,11 @@ namespace Sample.AspNetCore.Extensions
         public static IServiceCollection AddSwedbankPayClient(this IServiceCollection services,
                                                               IConfiguration configuration)
         {
-            var swedbankPayConSettings = configuration.GetSection("SwedbankPayConnectionSettings");
+            var swedbankPayConSettings = configuration.GetSection("SwedbankPay");
             services.Configure<SwedbankPayConnectionSettings>(swedbankPayConSettings);
 
             var swedBankPayOptions = swedbankPayConSettings.Get<SwedbankPayConnectionSettings>();
-            swedBankPayOptions.Token = configuration["Token"];
-
-            services.AddTransient(s => swedBankPayOptions);
+            services.AddSingleton(s => swedBankPayOptions);
 
             void configureClient(HttpClient a)
             {
@@ -42,6 +33,7 @@ namespace Sample.AspNetCore.Extensions
                 var client = fac.CreateClient(nameof(SwedbankPayClient));
                 return new SwedbankPayClient(client);
             });
+
             services.AddHttpClient<SwedbankPayClient>(configureClient);
 
             return services;
