@@ -30,5 +30,7 @@ if [[ -z "$NUGET_KEY" ]]; then
     exit 1
 fi
 
-dotnet pack -p:PackageVersion="$VERSION_NUMBER"  -c Release "$PROJECT_FILE" -o nugets/
+sanitized_version_number=${VERSION_NUMBER//\+/.}
+
+dotnet pack -p:PackageVersion="$sanitized_version_number"  -c Release "$PROJECT_FILE" -o nugets/
 dotnet nuget push nugets/*.nupkg -s https://api.nuget.org/v3/index.json -k "$NUGET_KEY" --skip-duplicate
