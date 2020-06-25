@@ -24,25 +24,25 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: Sample.AspNetCore
-        path: src/Samples/Sample.AspNetCore/bin/Release/netcoreapp3.1/*
+        path: src/Samples/Sample.AspNetCore/bin/*
 
     - name: Archive Sample.AspNetCore.SystemTests
       uses: actions/upload-artifact@v2
       with:
         name: Sample.AspNetCore.SystemTests
-        path: src/Samples/Sample.AspNetCore.SystemTests/bin/Release/netcoreapp3.1/*
+        path: src/Samples/Sample.AspNetCore.SystemTests/bin/*
 
     - name: Archive SwedbankPay.Sdk
       uses: actions/upload-artifact@v2
       with:
         name: SwedbankPay.Sdk
-        path: src/SwedbankPay.Sdk/bin/Release/netstandard2.0*
+        path: src/SwedbankPay.Sdk/bin/*
 
     - name: Archive SwedbankPay.Sdk.Tests
       uses: actions/upload-artifact@v2
       with:
         name: SwedbankPay.Sdk.Tests
-        path: src/SwedbankPay.Sdk.Tests/bin/Release/netcoreapp3.1/*
+        path: src/SwedbankPay.Sdk.Tests/bin/*
 
   test:
     runs-on: ubuntu-20.04
