@@ -1,5 +1,9 @@
 #!/bin/sh
 
+set -e
+
+[ "${DEBUG:-false}" = "true" ] && set -x
+
 help_message="\
 Usage:
 

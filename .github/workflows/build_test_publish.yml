@@ -90,4 +90,5 @@ jobs:
         PROJECT_FILE: src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj
         VERSION_NUMBER: ${{ steps.gitversion.outputs.fullSemVer }}
         NUGET_KEY: ${{ secrets.NUGET_KEY}}
+        DEBUG: true
       run: .github/workflows/nuget_push.sh
