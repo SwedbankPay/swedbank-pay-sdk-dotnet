@@ -22,6 +22,7 @@
         Swish,
         Vipps,
         Lindex,
-        Ica
+        Ica,
+        Trustly
     }
 }

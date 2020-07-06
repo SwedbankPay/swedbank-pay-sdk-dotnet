@@ -15,7 +15,7 @@ namespace Sample.AspNetCore.Models
 
         public Uri PaymentLink { get; set; }
 
-        public string PaymentOrderLink { get; set; }
+        public Uri PaymentOrderLink { get; set; }
 
         public PaymentInstrument Instrument { get; set; }
     }

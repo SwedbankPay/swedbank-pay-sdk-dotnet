@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
 using Sample.AspNetCore.Extensions;
@@ -17,12 +10,25 @@ using SwedbankPay.Sdk.PaymentOrders;
 using SwedbankPay.Sdk.Payments;
 using SwedbankPay.Sdk.Payments.CardPayments;
 using SwedbankPay.Sdk.Payments.SwishPayments;
+using SwedbankPay.Sdk.Payments.TrustlyPayments;
+
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
+using System.Linq;
+using System.Threading.Tasks;
+
+using Sample.AspNetCore.Data;
+
+using PrefillInfo = SwedbankPay.Sdk.Payments.PrefillInfo;
 
 namespace Sample.AspNetCore.Controllers
 {
     public class CheckOutController : Controller
     {
         private readonly Cart cartService;
+        private readonly StoreDbContext context;
         private readonly PayeeInfoConfig payeeInfoOptions;
         private readonly ISwedbankPayClient swedbankPayClient;
         private readonly UrlsOptions urls;
@@ -31,11 +37,13 @@ namespace Sample.AspNetCore.Controllers
         public CheckOutController(IOptionsSnapshot<PayeeInfoConfig> payeeInfoOptionsAccessor,
                                   IOptionsSnapshot<UrlsOptions> urlsAccessor,
                                   Cart cartService,
+                                  StoreDbContext context,
                                   ISwedbankPayClient swedbankPayClient)
         {
             this.payeeInfoOptions = payeeInfoOptionsAccessor.Value;
             this.urls = urlsAccessor.Value;
             this.cartService = cartService;
+            this.context = context;
             this.swedbankPayClient = swedbankPayClient;
         }
 
@@ -107,6 +115,41 @@ namespace Sample.AspNetCore.Controllers
                 this.cartService.PaymentOrderLink = null;
                 this.cartService.Update();
                 return cardPayment;
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.Message);
+                return null;
+            }
+        }
+        
+
+
+        public async Task<TrustlyPayment> CreateTrustlyPayment()
+        {
+            var totalAmount = this.cartService.CalculateTotal();
+            var vatAmount = Amount.FromDecimal(0);
+            try
+            {
+                var trustlyPaymentRequest = new TrustlyPaymentRequest(new CurrencyCode("SEK"),
+                                                                                     new List<Price>
+                                                                                     {
+                                                                                         new Price(Amount.FromDecimal(totalAmount),
+                                                                                                   PriceType.Trustly, vatAmount)
+                                                                                     },
+                                                                                     "Test Purchase", this.payeeInfoOptions.PayeeReference, "useragent", CultureInfo.GetCultureInfo("sv-SE"),
+                                                                                     new Urls(this.urls.HostUrls, this.urls.CompleteUrl,
+                                                                                              this.urls.TermsOfServiceUrl, this.urls.CancelUrl,
+                                                                                              this.urls.PaymentUrl, this.urls.CallbackUrl, this.urls.LogoUrl),
+                                                                                     new PayeeInfo(this.payeeInfoOptions.PayeeId,
+                                                                                                   this.payeeInfoOptions.PayeeReference), new SwedbankPay.Sdk.Payments.TrustlyPayments.PrefillInfo("Ola", "Nordmann"));
+                var trustlyPayment = await this.swedbankPayClient.Payments.TrustlyPayments.Create(trustlyPaymentRequest);
+                this.cartService.PaymentLink = trustlyPayment.PaymentResponse.Id.OriginalString;
+                this.cartService.Instrument = PaymentInstrument.Trustly;
+                this.cartService.PaymentOrderLink = null;
+                this.cartService.Update();
+
+                return trustlyPayment;
             }
             catch (Exception ex)
             {
@@ -244,6 +287,10 @@ namespace Sample.AspNetCore.Controllers
                 case PaymentInstrument.Swish:
                     var swishPayment = await CreateSwishPayment();
                     return new JsonResult(swishPayment.Operations.ViewSales.Href);
+
+                case PaymentInstrument.Trustly:
+                    var trustlyPayment = await CreateTrustlyPayment();
+                    return new JsonResult(trustlyPayment.Operations.ViewSale.Href);
                 default :
                     return null;
             }
@@ -252,7 +299,21 @@ namespace Sample.AspNetCore.Controllers
 
         public ViewResult Thankyou()
         {
-            this.cartService.Clear();
+            if (this.cartService.CartLines != null && this.cartService.CartLines.Any())
+            {
+                var products = this.cartService.CartLines.Select(p => p.Product);
+                this.context.Products.AttachRange(products);
+
+                this.context.Orders.Add(new Order
+                {
+                    PaymentOrderLink = this.cartService.PaymentOrderLink != null ? new Uri(this.cartService.PaymentOrderLink, UriKind.RelativeOrAbsolute) : null,
+                    PaymentLink = this.cartService.PaymentLink != null ? new Uri(this.cartService.PaymentLink, UriKind.RelativeOrAbsolute) : null,
+                    Instrument = this.cartService.Instrument,
+                    Lines = this.cartService.CartLines.ToList()
+                });
+                this.context.SaveChanges(true);
+                this.cartService.Clear();
+            }
             return View();
         }
     }

@@ -18,6 +18,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private Urls urls;
         private PayeeInfo payeeInfo;
         private PrefillInfo prefillInfo;
+        private SwedbankPay.Sdk.Payments.TrustlyPayments.PrefillInfo trustlyPrefillInfo;
         private bool generatePaymentToken;
         private bool generateReccurrenceToken;
         private Amount amount;
@@ -75,7 +76,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
                 this.invoiceType);
         }
 
-         public Payments.VippsPayments.VippsPaymentRequest BuildVippsRequest()
+        public Payments.VippsPayments.VippsPaymentRequest BuildVippsRequest()
         {
             return new Payments.VippsPayments.VippsPaymentRequest(
                 this.operation,
@@ -106,6 +107,20 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
                 this.urls,
                 this.payeeInfo,
                 this.shopslogoUrl);
+        }
+
+        public Payments.TrustlyPayments.TrustlyPaymentRequest BuildTrustlyRequest()
+        {
+            return new Payments.TrustlyPayments.TrustlyPaymentRequest(
+                this.currency,
+                this.price,
+                this.description,
+                this.payerReference,
+                this.userAgent,
+                this.language,
+                this.urls,
+                this.payeeInfo,
+                this.trustlyPrefillInfo);
         }
 
         public PaymentRequestBuilder WithCreditcardTestValues(Guid payeeId, Operation operation = null, Intent intent = Intent.Authorization)
@@ -222,6 +237,28 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             {
                 new Price(this.amount, PriceType.Visa, this.vatAmount)
             };
+            return this;
+        }
+
+        public PaymentRequestBuilder WithTruslyTestValues(Guid payeeId, Operation operation = null)
+        {
+            this.operation = operation ?? Operation.Purchase;
+            this.intent = Intent.Sale;
+            this.currency = new CurrencyCode("SEK");
+            this.description = "Test Purchase";
+            this.payerReference = "SomeReference";
+            this.userAgent = "Mozilla/5.0...";
+            this.language = new CultureInfo("sv-SE");
+            this.urls = new Urls(new List<Uri> { new Uri("https://example.com") }, new Uri("https://example.com/payment-completed"), new Uri("https://example.com/termsandconditoons.pdf"), new Uri("https://example.com/payment-canceled"), null, new Uri("https://example.com/payment-callback"));
+            this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
+            this.amount = Amount.FromDecimal(1600);
+            this.vatAmount = Amount.FromDecimal(0);
+            this.metadata = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
+            this.price = new List<Price>
+            {
+                new Price(this.amount, PriceType.Trustly, this.vatAmount)
+            };
+            this.trustlyPrefillInfo = new Payments.TrustlyPayments.PrefillInfo("Ola", "Nordmann");
             return this;
         }
     }
