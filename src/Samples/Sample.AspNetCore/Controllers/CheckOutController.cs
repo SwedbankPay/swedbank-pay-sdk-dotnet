@@ -297,6 +297,13 @@ namespace Sample.AspNetCore.Controllers
         }
  
 
+
+        public ViewResult Aborted()
+        {
+            return View();
+        }
+
+
         public ViewResult Thankyou()
         {
             if (this.cartService.CartLines != null && this.cartService.CartLines.Any())
