@@ -11,7 +11,6 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-using SwedbankPay.Sdk.Callback;
 using SwedbankPay.Sdk.Payments;
 
 namespace Sample.AspNetCore.Controllers
