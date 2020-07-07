@@ -25,5 +25,21 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             Assert.True(trustlyPaymentRequest.Payment.Operation.Equals(Operation.Purchase));
             Assert.NotEmpty(trustlyPaymentRequest.Payment.UserAgent);
         }
+
+
+        [Fact]
+        public async Task AbortPayment()
+        {
+            var paymentRequest = this.paymentRequestBuilder.WithTruslyTestValues(this.payeeId).BuildTrustlyRequest();
+
+            var payment = await this.Sut.Payments.TrustlyPayments.Create(paymentRequest);
+
+            Assert.NotNull(payment);
+            Assert.NotNull(payment.Operations.Abort);
+
+            var paymentResponseContainer = await payment.Operations.Abort(new PaymentAbortRequest());
+
+            Assert.NotNull(paymentResponseContainer);
+        }
     }
 }
