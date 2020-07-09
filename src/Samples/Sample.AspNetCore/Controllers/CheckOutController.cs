@@ -142,7 +142,7 @@ namespace Sample.AspNetCore.Controllers
                                                                                               this.urls.TermsOfServiceUrl, this.urls.CancelUrl,
                                                                                               this.urls.PaymentUrl, this.urls.CallbackUrl, this.urls.LogoUrl),
                                                                                      new PayeeInfo(this.payeeInfoOptions.PayeeId,
-                                                                                                   this.payeeInfoOptions.PayeeReference), new SwedbankPay.Sdk.Payments.TrustlyPayments.PrefillInfo("Ola", "Nordmann"));
+                                                                                                   this.payeeInfoOptions.PayeeReference));
                 var trustlyPayment = await this.swedbankPayClient.Payments.TrustlyPayments.Create(trustlyPaymentRequest);
                 this.cartService.PaymentLink = trustlyPayment.PaymentResponse.Id.OriginalString;
                 this.cartService.Instrument = PaymentInstrument.Trustly;

@@ -2,10 +2,6 @@
 {
     public class PrefillInfo
     {
-        public PrefillInfo() : this(null, null)
-        {
-        }
-
         public PrefillInfo(string firstName) : this(firstName, null)
         {
         }
