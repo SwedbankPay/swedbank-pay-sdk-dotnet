@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 
 namespace SwedbankPay.Sdk.Payments.TrustlyPayments
@@ -14,12 +13,26 @@ namespace SwedbankPay.Sdk.Payments.TrustlyPayments
             string userAgent,
             CultureInfo language,
             Urls urls,
+            PayeeInfo payeeInfo) : this(currency, prices, description, payerReference, userAgent, language, urls, payeeInfo, null)
+        {
+        }
+
+
+        public TrustlyPaymentRequest(
+            CurrencyCode currency,
+            List<Price> prices,
+            string description,
+            string payerReference,
+            string userAgent,
+            CultureInfo language,
+            Urls urls,
             PayeeInfo payeeInfo,
             PrefillInfo prefillInfo)
         {
             Payment = new PaymentRequestObject(currency, prices, description, payerReference, userAgent, language,
-                urls, payeeInfo, prefillInfo);
+                                               urls, payeeInfo, prefillInfo);
         }
+
 
         public PaymentRequestObject Payment { get; }
     }
