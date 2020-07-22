@@ -75,5 +75,13 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             Assert.NotNull(creditCardPayment);
             Assert.Equal(paymentRequest.Payment.Metadata["key1"], creditCardPayment.PaymentResponse.Metadata["key1"]);
         }
+
+        [Fact]
+        public async Task CreateVerifyPaymentAndGetVerifications_ShouldReturnVerificationsWithVerificationList()
+        {
+            var paymentRequest = this.paymentRequestBuilder.WithCreditcardTestValues(this.payeeId, Operation.Verify).BuildCreditardPaymentRequest();
+            var creditCardPayment = await this.Sut.Payments.CardPayments.Create(paymentRequest, PaymentExpand.All);
+            var getCreditcardPayment = await this.Sut.Payments.CardPayments.Get(creditCardPayment.PaymentResponse.Id);
+        }
     }
 }
