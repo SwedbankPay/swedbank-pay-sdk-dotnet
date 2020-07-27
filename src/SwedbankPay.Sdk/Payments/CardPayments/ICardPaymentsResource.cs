@@ -13,6 +13,13 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
         /// <returns></returns>
         Task<CardPayment> Create(CardPaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None);
 
+        /// <summary>
+        ///     Initiates a new credit card verify
+        /// </summary>
+        /// <param name="paymentVerifyRequest"></param>
+        /// <param name="paymentExpand"></param>
+        /// <returns></returns>
+        Task<CardVerify> Verify(CardPaymentVerifyRequest paymentVerifyRequest, PaymentExpand paymentExpand = PaymentExpand.None);
 
         ///// <summary>
         /////     Gets an existing card payment.

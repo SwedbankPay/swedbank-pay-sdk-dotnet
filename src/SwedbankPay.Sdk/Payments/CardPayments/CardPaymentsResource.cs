@@ -23,5 +23,11 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
         {
             return CardPayment.Create(paymentRequest, this.httpClient, GetExpandQueryString(paymentExpand));
         }
+
+        public Task<CardVerify> Verify(CardPaymentVerifyRequest paymentVerifyRequest, PaymentExpand paymentExpand = PaymentExpand.None)
+        {
+            return CardVerify.Verify(paymentVerifyRequest, this.httpClient, GetExpandQueryString(paymentExpand));
+        }
+
     }
 }

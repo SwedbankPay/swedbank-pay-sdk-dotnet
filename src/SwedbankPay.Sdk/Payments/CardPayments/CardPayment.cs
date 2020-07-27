@@ -14,10 +14,11 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
             Operations = operations;
         }
 
-
         public CardPaymentOperations Operations { get; }
 
         public PaymentResponseObject PaymentResponse { get; }
+
+        public PaymentVerifyResponseObject VerifyResponse { get; }
 
 
         internal static async Task<CardPayment> Create(CardPaymentRequest paymentRequest,
@@ -40,5 +41,6 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
             var paymentResponseContainer = await client.GetAsJsonAsync<CardPaymentResponse>(url);
             return new CardPayment(paymentResponseContainer, client);
         }
+
     }
 }
