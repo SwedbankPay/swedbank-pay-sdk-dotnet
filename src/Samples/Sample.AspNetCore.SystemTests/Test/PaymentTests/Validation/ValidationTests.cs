@@ -57,6 +57,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
                 .ValidationIcons[x => x.Email].Should.BeVisible()
                 .ValidationIcons[x => x.PhoneNumber].Should.BeVisible()
                 .ValidationIcons[x => x.ZipCode].Should.BeVisible()
+                .PersonalNumber.Clear()
                 .PersonalNumber.SetWithSpeed(TestDataService.PersonalNumberShort, 0.15)
                 .Email.Set(TestDataService.Email)
                 .PhoneNumber.Set(TestDataService.PhoneNumber)
