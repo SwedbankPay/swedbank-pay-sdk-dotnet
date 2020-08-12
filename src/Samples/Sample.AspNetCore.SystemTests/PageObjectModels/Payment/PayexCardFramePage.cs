@@ -35,7 +35,7 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Payment
         public Button<ThankYouPage, _> Pay { get; set; }
 
         [FindByCss("label.radiogroup-select:nth-child(3)")]
-        public Clickable<_> Clickable { get; set; }
+        public Clickable<_> CardTypeSelector { get; set; }
         
 
         public ValidationIconList<_> ValidationIcons { get; set; }

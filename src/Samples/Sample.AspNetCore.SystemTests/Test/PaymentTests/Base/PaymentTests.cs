@@ -88,11 +88,15 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 case Checkout.Option.Standard:
                 default:
 
-                    return GoToPaymentFramePage(products, checkout)
+                    var paymentframePage = GoToPaymentFramePage(products, checkout)
                         .PaymentMethods[x => x.Name == PaymentMethods.Card].IsVisible.WaitTo.BeTrue()
                         .PaymentMethods[x => x.Name == PaymentMethods.Card].Click()
-                        .PaymentMethods[x => x.Name == PaymentMethods.Card].PaymentFrame.SwitchTo<PayexCardFramePage>()
-                        .Clickable.Click();
+                        .PaymentMethods[x => x.Name == PaymentMethods.Card].PaymentFrame.SwitchTo<PayexCardFramePage>();
+                    if (paymentframePage.CardTypeSelector.IsPresent)
+                    {
+                        paymentframePage.CardTypeSelector.Click();
+                    }
+                    return paymentframePage;
             }
 
         }
