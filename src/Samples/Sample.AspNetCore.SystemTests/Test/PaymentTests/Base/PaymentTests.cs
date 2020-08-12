@@ -142,7 +142,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                         .Email.IsVisible.WaitTo.BeTrue()
                         .Email.SetWithSpeed(TestDataService.Email, interval: 0.1)
                         .PhoneNumber.SetWithSpeed(TestDataService.SwedishPhoneNumber, interval: 0.1)
-                        .Next.Click().SwitchToRoot<PaymentPage>().Wait(TimeSpan.FromSeconds(2))
+                        .Next.Click().SwitchToRoot<PaymentPage>().Wait(TimeSpan.FromSeconds(20))
                         .PaymentMethodsFrame.SwitchTo();
 
                 case Checkout.Option.Anonymous:
