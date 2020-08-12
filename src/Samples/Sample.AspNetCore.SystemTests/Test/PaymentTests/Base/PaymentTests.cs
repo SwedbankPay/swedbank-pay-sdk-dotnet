@@ -91,7 +91,8 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                     return GoToPaymentFramePage(products, checkout)
                         .PaymentMethods[x => x.Name == PaymentMethods.Card].IsVisible.WaitTo.BeTrue()
                         .PaymentMethods[x => x.Name == PaymentMethods.Card].Click()
-                        .PaymentMethods[x => x.Name == PaymentMethods.Card].PaymentFrame.SwitchTo<PayexCardFramePage>();
+                        .PaymentMethods[x => x.Name == PaymentMethods.Card].PaymentFrame.SwitchTo<PayexCardFramePage>()
+                        .Clickable.Click();
             }
 
         }
