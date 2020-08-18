@@ -3,6 +3,7 @@ using SwedbankPay.Sdk.Payments.SwishPayments;
 using SwedbankPay.Sdk.Payments.InvoicePayments;
 using SwedbankPay.Sdk.Payments.VippsPayments;
 using SwedbankPay.Sdk.Payments.MobilePayPayments;
+using SwedbankPay.Sdk.Payments.TrustlyPayments;
 
 namespace SwedbankPay.Sdk.Payments
 {
@@ -13,6 +14,8 @@ namespace SwedbankPay.Sdk.Payments
         IInvoicePaymentsResource InvoicePayments { get; }
         IVippsPaymentsResource VippsPayments { get; }
         IMobilePayPaymentsResource MobilePayPayments { get; }
+        ITrustlyPaymentsResource TrustlyPayments { get; }
+
 
     }
 }

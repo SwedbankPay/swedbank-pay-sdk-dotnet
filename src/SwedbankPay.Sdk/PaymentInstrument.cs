@@ -12,6 +12,7 @@
         CreditCard,
         Swish,
         Vipps,
-        DirectDebit
+        DirectDebit,
+        Trustly
     }
 }

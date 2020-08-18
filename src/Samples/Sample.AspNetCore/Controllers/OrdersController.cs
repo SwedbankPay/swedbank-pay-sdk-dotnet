@@ -75,9 +75,9 @@ namespace Sample.AspNetCore.Controllers
 
             OperationList operations = null;
 
-            if (!string.IsNullOrWhiteSpace(order.PaymentOrderLink))
+            if (order.PaymentOrderLink != null)
             {
-                var paymentOrder = await this.swedbankPayClient.PaymentOrders.Get(new Uri(order.PaymentOrderLink, UriKind.RelativeOrAbsolute));
+                var paymentOrder = await this.swedbankPayClient.PaymentOrders.Get(order.PaymentOrderLink);
                 var paymentOrderOperations = paymentOrder.Operations.Where(r => r.Key.Value.Contains("paymentorder")).Select(x => x.Value);
                 operations = new OperationList(paymentOrderOperations);
             }
@@ -94,6 +94,11 @@ namespace Sample.AspNetCore.Controllers
                         var cardPayment = await this.swedbankPayClient.Payments.SwishPayments.Get(order.PaymentLink, PaymentExpand.All);
                         var cardOperations = cardPayment.Operations;
                         operations = new OperationList(cardOperations.Values);
+                        break;
+                    case PaymentInstrument.Trustly:
+                        var trustlyPayment = await this.swedbankPayClient.Payments.TrustlyPayments.Get(order.PaymentLink, PaymentExpand.All);
+                        var trustlyOperations = trustlyPayment.Operations;
+                        operations = new OperationList(trustlyOperations.Values);
                         break;
                 }
             }
