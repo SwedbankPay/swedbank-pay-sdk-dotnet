@@ -36,6 +36,8 @@ namespace SwedbankPay.Sdk.Payments.TrustlyPayments
                         Cancel = async payload =>
                             await client.SendAsJsonAsync<CancellationResponse>(httpOperation.Method, httpOperation.Href, payload);
                         break;
+                    default:
+                        break;
                 }
                 this.Add(httpOperation.Rel, httpOperation);
             }
