@@ -46,8 +46,19 @@ namespace SwedbankPay.Sdk.Payments.TrustlyPayments
                                                 string userAgent,
                                                 CultureInfo language,
                                                 Urls urls,
+                                                PayeeInfo payeeInfo) : this(currency, prices, description, payerReference, userAgent, language, urls, payeeInfo, null)
+        {
+        }
+
+        protected internal PaymentRequestObject(CurrencyCode currency,
+                                                List<Price> prices,
+                                                string description,
+                                                string payerReference,
+                                                string userAgent,
+                                                CultureInfo language,
+                                                Urls urls,
                                                 PayeeInfo payeeInfo,
-                                                PrefillInfo prefillInfo = null)
+                                                PrefillInfo prefillInfo)
         {
             Operation = Operation.Purchase;
             Intent = Intent.Sale;

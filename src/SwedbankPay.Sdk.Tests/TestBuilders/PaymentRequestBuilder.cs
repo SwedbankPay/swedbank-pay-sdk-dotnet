@@ -240,7 +240,14 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             return this;
         }
 
-        public PaymentRequestBuilder WithTruslyTestValues(Guid payeeId, Operation operation = null)
+
+        public PaymentRequestBuilder WithTruslyTestValues(Guid payeeId)
+        {
+            return WithTruslyTestValues(payeeId, Operation.Purchase);
+        }
+
+
+        public PaymentRequestBuilder WithTruslyTestValues(Guid payeeId, Operation operation)
         {
             this.operation = operation ?? Operation.Purchase;
             this.intent = Intent.Sale;
