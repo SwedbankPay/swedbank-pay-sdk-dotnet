@@ -281,15 +281,15 @@ namespace Sample.AspNetCore.Controllers
             switch (instrument)
             {
                 case PaymentInstrument.CreditCard:
-                    var cardPayment = await CreateCardPayment();
+                    var cardPayment = await CreateCardPayment().ConfigureAwait(false);
                     return new JsonResult(cardPayment.Operations.ViewAuthorization.Href);
                     
                 case PaymentInstrument.Swish:
-                    var swishPayment = await CreateSwishPayment();
+                    var swishPayment = await CreateSwishPayment().ConfigureAwait(false);
                     return new JsonResult(swishPayment.Operations.ViewSales.Href);
 
                 case PaymentInstrument.Trustly:
-                    var trustlyPayment = await CreateTrustlyPayment();
+                    var trustlyPayment = await CreateTrustlyPayment().ConfigureAwait(false);
                     return new JsonResult(trustlyPayment.Operations.ViewSale.Href);
                 default :
                     return null;
