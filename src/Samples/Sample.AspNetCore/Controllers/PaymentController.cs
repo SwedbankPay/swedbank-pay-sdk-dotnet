@@ -88,40 +88,14 @@ namespace Sample.AspNetCore.Controllers
         {
             try
             {
-
                 switch (instrument)
                 {
                     case PaymentInstrument.CreditCard:
-                        var payment =  await this.swedbankPayClient.Payments.CardPayments.Get(new Uri(paymentId, UriKind.RelativeOrAbsolute));
-
-                        if (payment.Operations.Cancel != null)
-                        {
-                            var cancelRequest = new SwedbankPay.Sdk.Payments.CardPayments.CardPaymentCancelRequest(DateTime.Now.Ticks.ToString(), "Cancelling parts of the total amount");
-                            var response = await payment.Operations.Cancel(cancelRequest);
-                            TempData["CancelMessage"] = $"Payment has been cancelled: {response.Cancellation.Transaction.Id}";
-                            this.cartService.PaymentOrderLink = null;
-                        }
-                        else
-                        {
-                            TempData["ErrorMessage"] = "Operation not available";
-                        }
+                        await PaymentHelper.CancelCreditCardPayment(paymentId, this.swedbankPayClient, TempData, this.cartService);
                         break;
                     case PaymentInstrument.Trustly:
-                        var trustlyPayment = await this.swedbankPayClient.Payments.TrustlyPayments.Get(new Uri(paymentId, UriKind.RelativeOrAbsolute));
-
-                        if (trustlyPayment.Operations.Cancel != null)
-                        {
-                            var cancelRequest = new SwedbankPay.Sdk.Payments.TrustlyPayments.TrustlyPaymentCancelRequest(DateTime.Now.Ticks.ToString(), "Cancelling parts of the total amount");
-                            var response = await trustlyPayment.Operations.Cancel(cancelRequest);
-                            TempData["CancelMessage"] = $"Payment has been cancelled: {response.Cancellation.Transaction.Id}";
-                            this.cartService.PaymentOrderLink = null;
-                        }
-                        else
-                        {
-                            TempData["ErrorMessage"] = "Operation not available";
-                        }
+                        await PaymentHelper.CancelTrustlyPayment(paymentId, this.swedbankPayClient, TempData, this.cartService);
                         break;
-
                 }
 
                 return RedirectToAction("Details", "Orders");
@@ -248,25 +222,13 @@ namespace Sample.AspNetCore.Controllers
                 switch (instrument)
                 {
                     case PaymentInstrument.Swish:
-                        var swishPayment = await this.swedbankPayClient.Payments.SwishPayments.Get(new Uri(paymentId, UriKind.RelativeOrAbsolute));
-                        var swishReversal = new SwedbankPay.Sdk.Payments.SwishPayments.SwishPaymentReversalRequest(
-                            Amount.FromDecimal(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
-                            Amount.FromDecimal(0), description, DateTime.Now.Ticks.ToString());
-                        response = await swishPayment.Operations.Reverse.Invoke(swishReversal);
+                        response = await PaymentHelper.ReverseSwishPayment(paymentId, order, description, this.swedbankPayClient);
                         break;
                     case PaymentInstrument.CreditCard:
-                        var cardPayment = await this.swedbankPayClient.Payments.CardPayments.Get(new Uri(paymentId, UriKind.RelativeOrAbsolute));
-                        var cardReversal = new SwedbankPay.Sdk.Payments.CardPayments.CardPaymentReversalRequest(
-                            Amount.FromDecimal(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
-                            Amount.FromDecimal(0), description, DateTime.Now.Ticks.ToString());
-                        response = await cardPayment.Operations.Reverse.Invoke(cardReversal);
+                        response = await PaymentHelper.ReverseCreditCardPayment(paymentId, order, description, this.swedbankPayClient);
                         break;
                     case PaymentInstrument.Trustly:
-                        var trustlyPayment = await this.swedbankPayClient.Payments.TrustlyPayments.Get(new Uri(paymentId, UriKind.RelativeOrAbsolute));
-                        var trustlyReversal = new SwedbankPay.Sdk.Payments.TrustlyPayments.TrustlyPaymentReversalRequest(
-                            Operation.Sale, Amount.FromDecimal(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
-                            Amount.FromDecimal(0), DateTime.Now.Ticks.ToString(), "receipt reference", description);
-                        response = await trustlyPayment.Operations.Reverse.Invoke(trustlyReversal);
+                        response = await PaymentHelper.ReverseTrustlyPayment(paymentId, order, description, this.swedbankPayClient);
                         break;
                 }
 
