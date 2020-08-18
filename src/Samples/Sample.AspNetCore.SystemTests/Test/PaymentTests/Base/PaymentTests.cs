@@ -88,10 +88,15 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 case Checkout.Option.Standard:
                 default:
 
-                    return GoToPaymentFramePage(products, checkout)
+                    var paymentframePage = GoToPaymentFramePage(products, checkout)
                         .PaymentMethods[x => x.Name == PaymentMethods.Card].IsVisible.WaitTo.BeTrue()
                         .PaymentMethods[x => x.Name == PaymentMethods.Card].Click()
                         .PaymentMethods[x => x.Name == PaymentMethods.Card].PaymentFrame.SwitchTo<PayexCardFramePage>();
+                    if (paymentframePage.CardTypeSelector.IsPresent)
+                    {
+                        paymentframePage.CardTypeSelector.Click();
+                    }
+                    return paymentframePage;
             }
 
         }
@@ -142,7 +147,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                         .Email.IsVisible.WaitTo.BeTrue()
                         .Email.SetWithSpeed(TestDataService.Email, interval: 0.1)
                         .PhoneNumber.SetWithSpeed(TestDataService.SwedishPhoneNumber, interval: 0.1)
-                        .Next.Click().SwitchToRoot<PaymentPage>().Wait(TimeSpan.FromSeconds(2))
+                        .Next.Click().SwitchToRoot<PaymentPage>().Wait(TimeSpan.FromSeconds(20))
                         .PaymentMethodsFrame.SwitchTo();
 
                 case Checkout.Option.Anonymous:
@@ -256,7 +261,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 case Checkout.Option.Standard:
                     return GoToPayexInvoicePaymentFrame(products, checkout)
                         .PersonalNumber.IsVisible.WaitTo.BeTrue()
-                        .PersonalNumber.SetWithSpeed(info.PersonalNumber.Substring(info.PersonalNumber.Length - 4), interval: 0.1)
+                        .PersonalNumber.SetWithSpeed(info.PersonalNumber.Substring(info.PersonalNumber.Length - 4), interval: 0.15)
                         .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
                         .Pay.ClickAndGo();
 
