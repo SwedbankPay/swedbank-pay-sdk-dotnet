@@ -32,5 +32,5 @@ fi
 
 sanitized_version_number=${VERSION_NUMBER//\+/.}
 
-dotnet pack -p:PackageVersion="$sanitized_version_number"  -c Release "$PROJECT_FILE" -o nugets/
+dotnet pack -p:PackageVersion="$sanitized_version_number" -p:Version="$sanitized_version_number"  -c Release "$PROJECT_FILE" -o nugets/
 dotnet nuget push nugets/*.nupkg -s https://api.nuget.org/v3/index.json -k "$NUGET_KEY" --skip-duplicate
