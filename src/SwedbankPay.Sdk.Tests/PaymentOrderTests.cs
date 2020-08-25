@@ -101,7 +101,8 @@ namespace SwedbankPay.Sdk.Tests
         }
 
 
-        [Fact]
+        //TODO : Fix whenever possible
+        [Fact(Skip = "MobilePay does not support merchants having Checkout and Payment Pages")]
         public async Task CreatePaymentOrder_WithOrderItems_ShouldReturnOrderItemsIfExpanded()
         {
             //ARRANGE
