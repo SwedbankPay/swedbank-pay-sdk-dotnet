@@ -376,8 +376,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                     break;
 
                 case PaymentMethods.Trustly:
-                    data.Add(new PayexTrustlyInfo(TestDataService.PersonalNumberShort, TestDataService.Email, TestDataService.PhoneNumber,
-                                                  TestDataService.ZipCode));
+                    data.Add(new PayexTrustlyInfo());
                     break;
             }
 
