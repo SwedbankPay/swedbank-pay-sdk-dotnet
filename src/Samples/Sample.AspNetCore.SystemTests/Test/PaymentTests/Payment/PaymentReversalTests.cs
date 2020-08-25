@@ -26,7 +26,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
         public async Task Payment_Card_Reversal(Product[] products, PayexInfo payexInfo)
         {
             GoToOrdersPage(products, payexInfo, Checkout.Option.LocalPaymentMenu)
-                .PaymentLink.StoreValue(out var paymentLink)
+                .PaymentLink.StoreUri(out var paymentLink)
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCapture)].ExecuteAction.ClickAndGo()
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateReversal)].ExecuteAction.ClickAndGo()
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.PaidPayment)].Should.BeVisible()
@@ -58,7 +58,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
         public async Task Payment_Swish_Reversal(Product[] products, PayexInfo payexInfo)
         {
             GoToOrdersPage(products, payexInfo, Checkout.Option.LocalPaymentMenu)
-                .PaymentLink.StoreValue(out var paymentLink)
+                .PaymentLink.StoreUri(out var paymentLink)
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateReversal)].ExecuteAction.ClickAndGo()
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.ViewPayment)].Should.BeVisible()
                 .Actions.Rows.Count.Should.Equal(1);
@@ -92,5 +92,34 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
                         Is.EqualTo(State.Completed));
         }
 
+        [Test]
+        [Retry(3)]
+        [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Trustly })]
+        public async Task Payment_Trustly_Sale(Product[] products, PayexInfo payexInfo)
+        {
+            GoToOrdersPage(products, payexInfo, Checkout.Option.LocalPaymentMenu)
+                .PaymentLink.StoreUri(out var paymentLink)
+                .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateReversal)].ExecuteAction.ClickAndGo()
+                .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.PaidPayment)].Should.BeVisible()
+                .Actions.Rows.Count.Should.Equal(1);
+
+            var trustlyPayment = await SwedbankPayClient.Payments.TrustlyPayments.Get(paymentLink, SwedbankPay.Sdk.Payments.PaymentExpand.All);
+
+            // Global Order
+            Assert.That(trustlyPayment.PaymentResponse.Amount.Value, Is.EqualTo(products.Select(x => x.UnitPrice * x.Quantity).Sum()));
+            Assert.That(trustlyPayment.PaymentResponse.Currency.ToString(), Is.EqualTo("SEK"));
+            Assert.That(trustlyPayment.PaymentResponse.State, Is.EqualTo(State.Ready));
+
+            // Operations
+            Assert.That(trustlyPayment.Operations.Count, Is.EqualTo(1));
+            Assert.That(trustlyPayment.Operations[LinkRelation.PaidPayment], Is.Not.Null);
+
+            // Transactions
+            Assert.That(trustlyPayment.PaymentResponse.Transactions.TransactionList.Count, Is.EqualTo(2));
+            Assert.That(trustlyPayment.PaymentResponse.Transactions.TransactionList.First(x => x.Type == TransactionType.Sale).State,
+                        Is.EqualTo(State.Completed));
+            Assert.That(trustlyPayment.PaymentResponse.Transactions.TransactionList.First(x => x.Type == TransactionType.Reversal).State,
+                        Is.EqualTo(State.Completed));
+        }
     }
 }

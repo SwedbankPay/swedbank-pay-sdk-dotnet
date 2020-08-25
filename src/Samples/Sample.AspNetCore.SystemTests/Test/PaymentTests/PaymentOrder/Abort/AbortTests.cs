@@ -23,7 +23,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Abort
         {
             GoToPayexPaymentPage(products)
                 .Abort.ClickAndGo()
-                .Message.StoreValue(out var message)
+                .Message.StoreUri(out var message)
                 .Header.Products.ClickAndGo();
 
             var orderLink = message.OriginalString.Substring(message.OriginalString.IndexOf("/")).Replace(" has been Aborted", "");
