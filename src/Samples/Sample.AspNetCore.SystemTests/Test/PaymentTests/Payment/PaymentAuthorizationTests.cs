@@ -1,6 +1,7 @@
 ﻿using Atata;
 using NUnit.Framework;
 using Sample.AspNetCore.SystemTests.Services;
+using Sample.AspNetCore.SystemTests.Test.Base;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
         
 
         [Test]
-        [Retry(3)]
+        [RetryWithException(3)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Card })]
         public async Task Payment_Card_Authorization(Product[] products, PayexInfo payexInfo)
         {

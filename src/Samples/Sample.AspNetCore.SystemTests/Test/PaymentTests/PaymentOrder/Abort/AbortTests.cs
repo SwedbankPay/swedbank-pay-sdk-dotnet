@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Atata;
 using NUnit.Framework;
 using Sample.AspNetCore.SystemTests.Services;
+using Sample.AspNetCore.SystemTests.Test.Base;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
 
@@ -17,7 +18,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Abort
 
 
         [Test]
-        [Retry(3)]
+        [RetryWithException(3)]
         [TestCaseSource(nameof(TestData), new object[] { true, null })]
         public async Task Abort_PaymentOrder(Product[] products)
         {

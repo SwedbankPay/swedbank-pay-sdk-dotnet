@@ -1,6 +1,7 @@
 ﻿using Atata;
 using NUnit.Framework;
 using Sample.AspNetCore.SystemTests.Services;
+using Sample.AspNetCore.SystemTests.Test.Base;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
 using SwedbankPay.Sdk.Exceptions;
@@ -23,7 +24,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
 
 
         [Test]
-        [Retry(3)]
+        [RetryWithException(3)]
         [TestCaseSource(nameof(TestData), new object[] { true, null })]
         public void FieldValidationCard(Product[] products)
         {
@@ -46,7 +47,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
 
 
         [Test]
-        [Retry(3)]
+        [RetryWithException(3)]
         [TestCaseSource(nameof(TestData), new object[] { true, null })]
         public void FieldValidationInvoice(Product[] products)
         {
@@ -73,7 +74,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
 
 
         [Test]
-        [Retry(3)]
+        [RetryWithException(3)]
         [TestCaseSource(nameof(TestData), new object[] { true, null })]
         public void FieldValidationSwish(Product[] products)
         {
@@ -81,7 +82,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
         }
 
         [Test]
-        [Retry(3)]
+        [RetryWithException(3)]
         public void ValidateExceptionFromApi()
         {
             var httpClient = new HttpClient { BaseAddress = new Uri("https://api.externalintegration.payex.com") };

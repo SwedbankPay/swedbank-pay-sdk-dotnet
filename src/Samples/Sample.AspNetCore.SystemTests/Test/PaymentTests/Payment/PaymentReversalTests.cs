@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Atata;
 using NUnit.Framework;
 using Sample.AspNetCore.SystemTests.Services;
+using Sample.AspNetCore.SystemTests.Test.Base;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
 using SwedbankPay.Sdk.Exceptions;
@@ -21,7 +22,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
 
 
         [Test]
-        [Retry(3)]
+        [RetryWithException(3)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Card })]
         public async Task Payment_Card_Reversal(Product[] products, PayexInfo payexInfo)
         {
@@ -53,7 +54,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
 
 
         [Test]
-        [Retry(5)]
+        [RetryWithException(3)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Swish })]
         public async Task Payment_Swish_Reversal(Product[] products, PayexInfo payexInfo)
         {
@@ -93,7 +94,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
         }
 
         [Test]
-        [Retry(3)]
+        [RetryWithException(3)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Trustly })]
         public async Task Payment_Trustly_Reversal(Product[] products, PayexInfo payexInfo)
         {

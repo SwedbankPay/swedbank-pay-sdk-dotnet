@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Atata;
 using NUnit.Framework;
 using Sample.AspNetCore.SystemTests.Services;
+using Sample.AspNetCore.SystemTests.Test.Base;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
 
@@ -18,7 +19,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Standard
 
 
         [Test]
-        [Retry(3)]
+        [RetryWithException(3)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Card })]
         public async Task Standard_PaymentOrder_Card_Reversal(Product[] products, PayexInfo payexInfo)
         {
@@ -49,7 +50,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Standard
 
 
         [Test]
-        [Retry(3)]
+        [RetryWithException(3)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Swish })]
         public async Task Standard_PaymentOrder_Swish_Reversal(Product[] products, PayexInfo payexInfo)
         {
@@ -85,7 +86,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Standard
 
 
         [Test]
-        [Retry(3)]
+        [RetryWithException(3)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Invoice })]
         public async Task Standard_PaymentOrder_Invoice_Reversal(Product[] products, PayexInfo payexInfo)
         {

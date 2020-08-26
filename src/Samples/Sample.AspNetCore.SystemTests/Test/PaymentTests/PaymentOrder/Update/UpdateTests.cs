@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using Sample.AspNetCore.SystemTests.PageObjectModels.Base;
 using Sample.AspNetCore.SystemTests.Services;
+using Sample.AspNetCore.SystemTests.Test.Base;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
 using System;
@@ -19,7 +20,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Update
 
 
         [Test]
-        [Retry(3)]
+        [RetryWithException(3)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Card })]
         public async Task Update_PaymentOrder(Product[] products, PayexInfo payexInfo)
         {
