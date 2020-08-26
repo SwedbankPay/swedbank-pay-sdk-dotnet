@@ -228,7 +228,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 .Banks[0].Click()
                 .Next.Click()
                 .Do(x => {
-                    if (checkout == Checkout.Option.Anonymous)
+                    if (checkout == Checkout.Option.LocalPaymentMenu)
                     {
                         x.PersonalNumber.Set(TestDataService.PersonalNumber);
                     }

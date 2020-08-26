@@ -95,7 +95,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
         [Test]
         [Retry(3)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Trustly })]
-        public async Task Payment_Trustly_Sale(Product[] products, PayexInfo payexInfo)
+        public async Task Payment_Trustly_Reversal(Product[] products, PayexInfo payexInfo)
         {
             GoToOrdersPage(products, payexInfo, Checkout.Option.LocalPaymentMenu)
                 .PaymentLink.StoreUri(out var paymentLink)
