@@ -34,7 +34,7 @@ jobs:
       
       - name: Set dev environment variables
         uses: allenevans/set-env@v1.1.0
-        #if: ${{ startsWith(github.ref, 'refs/heads/develop') }} || ${{ github.event_name == 'pull_request' }}
+        if: ${{ startsWith(github.ref, 'refs/heads/develop') }} || ${{ github.event_name == 'pull_request' }}
         with: 
           ENVIRONMENT: dev
           AZURE_WEBAPP_NAME: swedbankpay-sdk-001-dev
@@ -129,13 +129,13 @@ jobs:
         SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
         SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
 
-#    - name: Run SDK Sample project tests
-#      run: dotnet test  src/Samples/Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.csproj
-#      env:
-#        SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
-#        SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
-#        SwedbankPay:ApiBaseUrl: https://api.externalintegration.payex.com
-#        SwedbankPay:Sdk:SampleWebsite:BaseUrl: https://localhost:5001
+    - name: Run SDK Sample project tests
+      run: dotnet test  src/Samples/Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.csproj
+      env:
+        SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
+        SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
+        SwedbankPay:ApiBaseUrl: https://api.externalintegration.payex.com
+        SwedbankPay:Sdk:SampleWebsite:BaseUrl: https://localhost:5001
 
   publish:
     runs-on: ubuntu-18.04
@@ -159,7 +159,7 @@ jobs:
 
     # Deploy to Pro Azure Web apps
     - name: 'Run Azure webapp deploy to dev using publish profile credentials'
-      #if: ${{ needs.variables.outputs.ENVIRONMENT == 'dev' && github.event_name != 'pull_request' }}
+      if: ${{ needs.variables.outputs.ENVIRONMENT == 'dev' && github.event_name != 'pull_request' }}
       uses: azure/webapps-deploy@v2
       with: 
         app-name: ${{ needs.variables.outputs.AZURE_WEBAPP_NAME }} # Replace with your app name
