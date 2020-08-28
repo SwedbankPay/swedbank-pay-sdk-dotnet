@@ -182,4 +182,4 @@ jobs:
         VERSION_NUMBER: ${{ needs.variables.outputs.FULLSEMVER }}
         NUGET_KEY: ${{ secrets.NUGET_KEY}}
         DEBUG: true
-      run: .github/workflows/nuget_push.sh:  
+      run: .github/workflows/nuget_push.sh
