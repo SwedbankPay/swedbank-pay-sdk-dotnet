@@ -39,7 +39,7 @@ jobs:
       
       - name: Set dev environment variables
         uses: allenevans/set-env@v1.1.0
-        if: ${{ startsWith(github.ref, 'refs/heads/develop') }} || ${{ github.event_name == 'pull_request' }}
+        if: ${{ startsWith(github.ref, 'refs/heads/develop') || github.event_name == 'pull_request' }}
         with: 
           ENVIRONMENT: dev
           AZURE_WEBAPP_NAME: swedbankpay-sdk-001-dev
