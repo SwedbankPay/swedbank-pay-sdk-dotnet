@@ -159,7 +159,7 @@ jobs:
 
     # Deploy to Pro Azure Web apps
     - name: 'Run Azure webapp deploy to dev using publish profile credentials'
-      #if: ${{ needs.variables.outputs.ENVIRONMENT == 'dev'}} && ${{ github.event_name != 'pull_request' }}
+      #if: ${{ needs.variables.outputs.ENVIRONMENT == 'dev' && github.event_name != 'pull_request' }}
       uses: azure/webapps-deploy@v2
       with: 
         app-name: ${{ needs.variables.outputs.AZURE_WEBAPP_NAME }} # Replace with your app name
@@ -168,7 +168,7 @@ jobs:
 
     # Deploy to Uat Azure Web apps
     - name: 'Run Azure webapp deploy to uat using publish profile credentials'
-      if: ${{ needs.variables.outputs.ENVIRONMENT == 'uat'}} && ${{ github.event_name != 'pull_request' }}
+      if: ${{ needs.variables.outputs.ENVIRONMENT == 'uat' && github.event_name != 'pull_request' }}
       uses: azure/webapps-deploy@v2
       with: 
         app-name: ${{ needs.variables.outputs.AZURE_WEBAPP_NAME }} # Replace with your app name
@@ -177,7 +177,7 @@ jobs:
 
     # Deploy to Pro Azure Web apps
     - name: 'Run Azure webapp deploy to pro using publish profile credentials'
-      if: ${{ needs.variables.outputs.ENVIRONMENT == 'pro'}} && ${{ github.event_name != 'pull_request' }}
+      if: ${{ needs.variables.outputs.ENVIRONMENT == 'pro' && github.event_name != 'pull_request' }}
       uses: azure/webapps-deploy@v2
       with: 
         app-name: ${{ needs.variables.outputs.AZURE_WEBAPP_NAME }} # Replace with your app name
