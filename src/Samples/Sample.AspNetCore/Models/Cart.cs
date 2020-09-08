@@ -12,6 +12,7 @@ namespace Sample.AspNetCore.Models
         public virtual IEnumerable<CartLine> CartLines => CartLineCollection;
         public string PaymentOrderLink { get; set; }
         public string PaymentLink { get; set; }
+        public string VerificationLink { get; set; }
         public bool Vat { get; set; }
         public PaymentInstrument Instrument { get; set; }
 
