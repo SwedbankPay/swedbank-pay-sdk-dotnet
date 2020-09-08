@@ -44,6 +44,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
                                CapturesListResponse captures,
                                ReversalsListResponse reversals,
                                CancellationsListResponse cancellations,
+                               CardPaymentVerificationListResponse verifications,
                                Urls urls,
                                PayeeInfo payeeInfo,
                                MetadataResponse metadata)
@@ -74,6 +75,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
             Captures = captures;
             Reversals = reversals;
             Cancellations = cancellations;
+            Verifications = verifications;
             Metadata = metadata;
         }
 
@@ -85,6 +87,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
         public CardPaymentAuthorizationListResponse Authorizations { get; }
         public CancellationsListResponse Cancellations { get; }
         public CapturesListResponse Captures { get; }
+        public CardPaymentVerificationListResponse Verifications {get; }
         public DateTime Created { get; }
         public DateTime Updated { get; }
         public CurrencyCode Currency { get; }

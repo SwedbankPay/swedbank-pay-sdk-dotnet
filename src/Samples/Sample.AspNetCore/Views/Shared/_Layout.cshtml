@@ -21,7 +21,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                <ul class="navbar-nav flex-grow-1">
+                <ul class="navbar-nav flex-grow-1" style="justify-content: space-between">
 
 
                     <li class="nav-item">
@@ -29,7 +29,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Verify" asp-action="Index">Verify</a>
+                        <a class="nav-link text-dark" asp-controller="Verify" asp-action="Index">Verify</a>
                     </li>
                     @if (StoreContext.Orders.Any())
                     {

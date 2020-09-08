@@ -21,8 +21,15 @@ namespace Sample.AspNetCore.Models
         public Uri CompleteUrl { get; set; }
 
         /// <summary>
+        ///  The URI to get the VerificationList
+        /// </summary>
+        public Uri VerificationListUrl { get; set; }
+
+        /// <summary>
         ///     The list of URIs valid for embedding of PayEx Hosted Views.
         /// </summary>
+        
+        
         public ICollection<Uri> HostUrls { get; set; }
 
         /// <summary>

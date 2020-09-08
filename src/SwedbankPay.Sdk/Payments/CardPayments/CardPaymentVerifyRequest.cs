@@ -19,13 +19,13 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
                               bool generateReccurenceToken = false,
                               CreditCard creditCard = null)
         {
-            this.Verify = new CardPaymentVerifyRequestObject(operation, currency, description, payerReference, generatePaymentToken,
+            this.Payment = new CardPaymentVerifyRequestObject(operation, currency, description, payerReference, generatePaymentToken,
                                                generateReccurenceToken, userAgent, language, urls, payeeInfo,
                                                creditCard);
         }
 
 
-        public CardPaymentVerifyRequestObject Verify;
+        public CardPaymentVerifyRequestObject Payment;
 
         public class CardPaymentVerifyRequestObject
         {

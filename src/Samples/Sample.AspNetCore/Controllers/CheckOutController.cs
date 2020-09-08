@@ -170,7 +170,7 @@ namespace Sample.AspNetCore.Controllers
                 UseAnonymousCheckout = false
             };
             return View("Checkout", swedBankPaySource);
-        }
+        } 
 
 
         public async Task<IActionResult> LoadPaymentMenu()

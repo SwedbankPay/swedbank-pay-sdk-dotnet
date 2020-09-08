@@ -16,6 +16,7 @@ namespace SwedbankPay.Sdk.Payments
         Cancellations = 128,
         Sales = 256,
         Metadata = 512,
+        Verification = 1024,
         All = 1023
     }
 }

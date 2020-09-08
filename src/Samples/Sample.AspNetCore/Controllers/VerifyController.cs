@@ -11,6 +11,7 @@ using System.Diagnostics;
 using Sample.AspNetCore.Models;
 using System.Globalization;
 using Microsoft.Extensions.Options;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace Sample.AspNetCore.Controllers
 {
@@ -47,7 +48,7 @@ namespace Sample.AspNetCore.Controllers
         {
             return View();
         }
-
+         
         public async Task<CardVerify> InitiateVerify()
         {
             try
@@ -55,7 +56,7 @@ namespace Sample.AspNetCore.Controllers
                 var verifyRequest = new CardPaymentVerifyRequest(Operation.Verify, new CurrencyCode("SEK"),                                                                                 
                                                                                    description = "Test Verification", userAgent = "useragent",
                                                                                    CultureInfo.GetCultureInfo("sv-SE"),
-                                                                                   new Urls(this.urls.HostUrls, this.urls.CompleteUrl,
+                                                                                   new Urls(this.urls.HostUrls, this.urls.VerificationListUrl,
                                                                                             this.urls.TermsOfServiceUrl, this.urls.CancelUrl,
                                                                                             this.urls.PaymentUrl, this.urls.CallbackUrl, this.urls.LogoUrl),
                                                                                    new PayeeInfo(this.payeeInfoOptions.PayeeId,
@@ -66,16 +67,37 @@ namespace Sample.AspNetCore.Controllers
                                                                                    ;
 
 
-                var cardPayment = await this.swedbankPayClient.Payments.CardPayments.Verify(verifyRequest);
-                this.cartService.Instrument = PaymentInstrument.CreditCard;
-                this.cartService.Update();
-                return cardPayment;
+                var cardVerify = await this.swedbankPayClient.Payments.CardPayments.Verify(verifyRequest);
+
+                return cardVerify;
+                //var completeUrl = verifyResponse.VerifyResponse.Urls.CompleteUrl;
+                //var getCardVerify = await this.swedbankPayClient.Payments.CardPayments.Get(cardVerify.VerifyResponse.Id);
+
+             
             }
             catch (Exception ex)
             {
                 Debug.Write(ex.Message);
                 return null;
             }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetRedirectVerificationHref(string consumerProfileRef = null)
+        {
+            var verify = await InitiateVerify();
+
+            return new RedirectResult(verify.Operations.RedirectVerification.Href.ToString());
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ViewList()
+        {
+            var response = await InitiateVerify();
+            var paymentId = response.VerifyResponse.Id;
+            var verificationList = await this.swedbankPayClient.Payments.CardPayments.Get(paymentId, PaymentExpand.Verification);
+ 
+            return View(verificationList);
         }
     }
 }
