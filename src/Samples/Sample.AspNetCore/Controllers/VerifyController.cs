@@ -12,6 +12,8 @@ using Sample.AspNetCore.Models;
 using System.Globalization;
 using Microsoft.Extensions.Options;
 using System.Runtime.InteropServices.ComTypes;
+using Sample.AspNetCore.Data;
+using Microsoft.Extensions.Configuration;
 
 namespace Sample.AspNetCore.Controllers
 {
@@ -26,16 +28,21 @@ namespace Sample.AspNetCore.Controllers
         private bool generateReccurenceToken;
         private string description;
         private string userAgent;
+        private readonly StoreDbContext context;
+        private readonly SwedbankPayConnectionSettings swedbankPayConnectionSettings;
+
 
         public VerifyController(IOptionsSnapshot<PayeeInfoConfig> payeeInfoOptionsAccessor,
                               IOptionsSnapshot<UrlsOptions> urlsAccessor,
                               Cart cartService,
-                              ISwedbankPayClient swedbankPayClient)
+                              ISwedbankPayClient swedbankPayClient, StoreDbContext context, SwedbankPayConnectionSettings swedbankPayConnectionSettings)
         {
             this.payeeInfoOptions = payeeInfoOptionsAccessor.Value;
             this.urls = urlsAccessor.Value;
             this.cartService = cartService;
             this.swedbankPayClient = swedbankPayClient;
+            this.context = context;
+            this.swedbankPayConnectionSettings = swedbankPayConnectionSettings;
         }
 
         public IActionResult Index()
@@ -68,6 +75,9 @@ namespace Sample.AspNetCore.Controllers
 
 
                 var cardVerify = await this.swedbankPayClient.Payments.CardPayments.Verify(verifyRequest);
+                this.cartService.VerificationLink = cardVerify.VerifyResponse.Id.OriginalString;
+                this.cartService.Update();
+                //this.context.SaveChanges(true);
 
                 return cardVerify;
                 //var completeUrl = verifyResponse.VerifyResponse.Urls.CompleteUrl;
@@ -93,11 +103,13 @@ namespace Sample.AspNetCore.Controllers
         [HttpGet]
         public async Task<IActionResult> ViewList()
         {
-            var response = await InitiateVerify();
-            var paymentId = response.VerifyResponse.Id;
-            var verificationList = await this.swedbankPayClient.Payments.CardPayments.Get(paymentId, PaymentExpand.Verification);
+            Uri baseUrl = swedbankPayConnectionSettings.ApiBaseUrl;
+            var verificationLink = new Uri(baseUrl, this.cartService.VerificationLink);
+            var response = await this.swedbankPayClient.Payments.CardPayments.Get(verificationLink);
+
+            return View(response);
  
-            return View(verificationList);
+            ///return View(response.Operations.ViewVerification.Href);
         }
     }
 }
