@@ -1,7 +1,7 @@
-﻿using SwedbankPay.Sdk.Extensions;
-using System;
+﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using SwedbankPay.Sdk.Extensions;
 
 namespace SwedbankPay.Sdk.Payments.CardPayments
 {
@@ -18,9 +18,6 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
 
         public PaymentResponseObject PaymentResponse { get; }
 
-        public PaymentVerifyResponseObject VerifyResponse { get; }
-
-
         internal static async Task<CardPayment> Create(CardPaymentRequest paymentRequest,
                                                    HttpClient client,
                                                    string paymentExpand)
@@ -31,7 +28,6 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
             return new CardPayment(paymentResponse, client);
         }
 
-
         internal static async Task<CardPayment> Get(Uri id, HttpClient client, string paymentExpand)
         {
             var url = !string.IsNullOrWhiteSpace(paymentExpand)
@@ -41,6 +37,5 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
             var paymentResponseContainer = await client.GetAsJsonAsync<CardPaymentResponse>(url);
             return new CardPayment(paymentResponseContainer, client);
         }
-
     }
 }

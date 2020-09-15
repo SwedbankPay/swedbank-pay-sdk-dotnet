@@ -2,11 +2,9 @@
 @{
     ViewData["Title"] = "ViewList";
 }
-    
 
 <h1>ViewList</h1>
 
 <pre id="swedbank-pay-seamless-verificationList">
     Here is the verificationList: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.PaymentResponse.Verifications.VerificationList, Newtonsoft.Json.Formatting.Indented))
-
 </pre>

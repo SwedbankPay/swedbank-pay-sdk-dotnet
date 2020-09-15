@@ -1,25 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics;
+using System.Globalization;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Sample.AspNetCore.Data;
+using Sample.AspNetCore.Models;
 using SwedbankPay.Sdk;
 using SwedbankPay.Sdk.Payments;
-
 using SwedbankPay.Sdk.Payments.CardPayments;
-using System.Diagnostics;
-using Sample.AspNetCore.Models;
-using System.Globalization;
-using Microsoft.Extensions.Options;
-using System.Runtime.InteropServices.ComTypes;
-using Sample.AspNetCore.Data;
-using Microsoft.Extensions.Configuration;
 
 namespace Sample.AspNetCore.Controllers
 {
     public class VerifyController : Controller
     {
-
         private readonly ISwedbankPayClient swedbankPayClient;
         private readonly Cart cartService;
         private readonly PayeeInfoConfig payeeInfoOptions;
@@ -30,7 +24,6 @@ namespace Sample.AspNetCore.Controllers
         private string userAgent;
         private readonly StoreDbContext context;
         private readonly SwedbankPayConnectionSettings swedbankPayConnectionSettings;
-
 
         public VerifyController(IOptionsSnapshot<PayeeInfoConfig> payeeInfoOptionsAccessor,
                               IOptionsSnapshot<UrlsOptions> urlsAccessor,
@@ -50,17 +43,16 @@ namespace Sample.AspNetCore.Controllers
             return View();
         }
 
-
         public IActionResult Privacy()
         {
             return View();
         }
-         
+
         public async Task<CardVerify> InitiateVerify()
         {
             try
             {
-                var verifyRequest = new CardPaymentVerifyRequest(Operation.Verify, new CurrencyCode("SEK"),                                                                                 
+                var verifyRequest = new CardPaymentVerifyRequest(Operation.Verify, new CurrencyCode("SEK"),
                                                                                    description = "Test Verification", userAgent = "useragent",
                                                                                    CultureInfo.GetCultureInfo("sv-SE"),
                                                                                    new Urls(this.urls.HostUrls, this.urls.VerificationListUrl,
@@ -73,17 +65,11 @@ namespace Sample.AspNetCore.Controllers
                                                                                    generateReccurenceToken = true)
                                                                                    ;
 
-
                 var cardVerify = await this.swedbankPayClient.Payments.CardPayments.Verify(verifyRequest);
                 this.cartService.VerificationLink = cardVerify.VerifyResponse.Id.OriginalString;
                 this.cartService.Update();
-                //this.context.SaveChanges(true);
 
                 return cardVerify;
-                //var completeUrl = verifyResponse.VerifyResponse.Urls.CompleteUrl;
-                //var getCardVerify = await this.swedbankPayClient.Payments.CardPayments.Get(cardVerify.VerifyResponse.Id);
-
-             
             }
             catch (Exception ex)
             {
@@ -106,7 +92,7 @@ namespace Sample.AspNetCore.Controllers
             Uri baseUrl = swedbankPayConnectionSettings.ApiBaseUrl;
             var verificationLink = new Uri(baseUrl, this.cartService.VerificationLink);
             var response = await this.swedbankPayClient.Payments.CardPayments.Get(verificationLink, PaymentExpand.Verifications);
-            
+
             return View(response);
         }
     }
