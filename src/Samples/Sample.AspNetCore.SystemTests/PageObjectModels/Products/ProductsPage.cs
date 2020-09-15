@@ -2,6 +2,7 @@
 
 using Sample.AspNetCore.SystemTests.PageObjectModels.Base;
 using Sample.AspNetCore.SystemTests.PageObjectModels.Payment;
+using Sample.AspNetCore.SystemTests.PageObjectModels.Verify;
 
 namespace Sample.AspNetCore.SystemTests.PageObjectModels
 {
@@ -26,6 +27,8 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels
 
         [FindByXPath("table[2]//tfoot[1]//td[2]")]
         public Text<_> TotalAmount { get; set; }
+
+        [FindById("goToVerify")] public LinkDelegate<VerifyPage, _> Verify {get; set;}
 
         public class ProductBasketItem : TableRow<_>
         {

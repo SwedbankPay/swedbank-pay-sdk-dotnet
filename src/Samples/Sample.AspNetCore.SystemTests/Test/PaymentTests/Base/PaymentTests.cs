@@ -11,6 +11,7 @@ using Sample.AspNetCore.SystemTests.PageObjectModels;
 using Sample.AspNetCore.SystemTests.PageObjectModels.Orders;
 using Sample.AspNetCore.SystemTests.PageObjectModels.Payment;
 using Sample.AspNetCore.SystemTests.PageObjectModels.ThankYou;
+using Sample.AspNetCore.SystemTests.PageObjectModels.Verify;
 using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Base;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
@@ -176,6 +177,11 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             }
         }
 
+        protected VerifyPage GoToVerifyPage()
+        {
+            return Go.To<ProductsPage>().Verify.ClickAndGo();
+        }
+
 
         protected ProductsPage SelectProducts(Product[] products)
         {
@@ -212,24 +218,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                         .PreFilledCards.IsVisible.WaitTo.BeTrue()
                         .Do(x =>
                         {
-                            if (x.PreFilledCards.Items[y => y.CreditCardNumber.Value.Contains(info.CreditCardNumber.Substring(info.CreditCardNumber.Length - 4))].Exists())
-                            {
-                                x.PreFilledCards
-                                    .Items[
-                                        y => y.CreditCardNumber.Value.Contains(
-                                            info.CreditCardNumber.Substring(info.CreditCardNumber.Length - 4))].Click()
-                                    .Cvc.SetWithSpeed(info.Cvc, interval: 0.1);
-                            }
-                            else
-                            {
-                                x.AddNewCard.Click()
-                                    .CreditCardNumber.SetWithSpeed(TestDataService.CreditCardNumber, interval: 0.1)
-                                    .ExpiryDate.SetWithSpeed(TestDataService.CreditCardExpirationDate, interval: 0.1)
-                                    .Cvc.SetWithSpeed(TestDataService.CreditCardCvc, interval: 0.1);
-                            }
-
-
-
+                            FillInCreditCardInfo(info, x);
                         })
                     .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
                     .Pay.ClickAndGo();
@@ -248,6 +237,24 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             }
         }
 
+        private static void FillInCreditCardInfo(PayexCardInfo info, PayexCardFramePage x)
+        {
+            if (x.PreFilledCards.Items[y => y.CreditCardNumber.Value.Contains(info.CreditCardNumber.Substring(info.CreditCardNumber.Length - 4))].Exists())
+            {
+                x.PreFilledCards
+                    .Items[
+                        y => y.CreditCardNumber.Value.Contains(
+                            info.CreditCardNumber.Substring(info.CreditCardNumber.Length - 4))].Click()
+                    .Cvc.SetWithSpeed(info.Cvc, interval: 0.1);
+            }
+            else
+            {
+                x.AddNewCard.Click()
+                    .CreditCardNumber.SetWithSpeed(TestDataService.CreditCardNumber, interval: 0.1)
+                    .ExpiryDate.SetWithSpeed(TestDataService.CreditCardExpirationDate, interval: 0.1)
+                    .Cvc.SetWithSpeed(TestDataService.CreditCardCvc, interval: 0.1);
+            }
+        }
 
         protected ThankYouPage PayWithPayexInvoice(Product[] products, PayexInvoiceInfo info, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
