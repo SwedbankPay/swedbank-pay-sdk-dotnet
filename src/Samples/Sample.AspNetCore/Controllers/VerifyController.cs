@@ -106,10 +106,8 @@ namespace Sample.AspNetCore.Controllers
             Uri baseUrl = swedbankPayConnectionSettings.ApiBaseUrl;
             var verificationLink = new Uri(baseUrl, this.cartService.VerificationLink);
             var response = await this.swedbankPayClient.Payments.CardPayments.Get(verificationLink, PaymentExpand.Verifications);
-
+            
             return View(response);
- 
-            ///return View(response.Operations.ViewVerification.Href);
         }
     }
 }
