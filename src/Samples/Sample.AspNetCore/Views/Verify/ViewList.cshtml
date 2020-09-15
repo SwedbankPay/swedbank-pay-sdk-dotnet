@@ -5,7 +5,8 @@
     
 
 <h1>ViewList</h1>
-<div id="swedbank-pay-seamless-verificationList">
-    Here is the verificationList: @Model.PaymentResponse.Verifications.VerificationList
 
-</div>
+<pre id="swedbank-pay-seamless-verificationList">
+    Here is the verificationList: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.PaymentResponse.Verifications.VerificationList, Newtonsoft.Json.Formatting.Indented))
+
+</pre>
