@@ -237,7 +237,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             }
         }
 
-        private static void FillInCreditCardInfo(PayexCardInfo info, PayexCardFramePage x)
+        public static void FillInCreditCardInfo(PayexCardInfo info, PayexCardFramePage x)
         {
             if (x.PreFilledCards.Items[y => y.CreditCardNumber.Value.Contains(info.CreditCardNumber.Substring(info.CreditCardNumber.Length - 4))].Exists())
             {

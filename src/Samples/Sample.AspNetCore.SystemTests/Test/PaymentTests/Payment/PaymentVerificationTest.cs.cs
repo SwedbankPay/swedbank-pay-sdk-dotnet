@@ -24,6 +24,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
             var verifyPage = GoToVerifyPage();
             verifyPage.VerifyButton.ClickAndGo();
             var paymentPage = verifyPage.VerifyButton.ClickAndGo();
+            paymentPage.FillInCreditCardInfo()
 
         }
 

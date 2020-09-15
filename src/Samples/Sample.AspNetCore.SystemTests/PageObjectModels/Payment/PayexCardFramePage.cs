@@ -1,4 +1,5 @@
-﻿using Atata;
+﻿using System;
+using Atata;
 using Sample.AspNetCore.SystemTests.PageObjectModels.Base;
 using Sample.AspNetCore.SystemTests.PageObjectModels.ThankYou;
 
@@ -24,6 +25,11 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Payment
 
         [FindById(TermMatch.Contains, "cvcInput")]
         public TelInput<_> Cvc { get; set; }
+
+        internal void FillInCreditCardInfo()
+        {
+            throw new NotImplementedException();
+        }
 
         [FindById("expiryInput")] public TelInput<_> ExpiryDate { get; set; }
 
