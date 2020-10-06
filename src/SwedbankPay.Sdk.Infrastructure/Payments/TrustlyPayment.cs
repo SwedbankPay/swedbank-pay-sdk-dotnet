@@ -1,12 +1,12 @@
 ﻿using SwedbankPay.Sdk.Extensions;
-
+using SwedbankPay.Sdk.Payments.TrustlyPayments;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Payments
 {
-    public class TrustlyPayment
+    public class TrustlyPayment : ITrustlyPayment
     {
         private TrustlyPayment(TrustlyPaymentResponse paymentResponse, HttpClient client)
         {
@@ -16,9 +16,9 @@ namespace SwedbankPay.Sdk.Payments
         }
 
 
-        public TrustlyPaymentOperations Operations { get; }
+        public ITrustlyPaymentOperations Operations { get; }
 
-        public PaymentResponseObject PaymentResponse { get; }
+        public TrustlyPaymentResponseObject PaymentResponse { get; }
 
 
         internal static async Task<TrustlyPayment> Create(TrustlyPaymentRequest paymentRequest,

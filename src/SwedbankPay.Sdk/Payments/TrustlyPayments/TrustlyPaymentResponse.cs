@@ -7,20 +7,20 @@ namespace SwedbankPay.Sdk.Payments.TrustlyPayments
 {
     public class TrustlyPaymentResponse
     {
-        public TrustlyPaymentResponse(PaymentResponseObject payment,
+        public TrustlyPaymentResponse(TrustlyPaymentResponseObject payment,
                                       OperationList operations)
         {
             this.Payment = payment;
             this.Operations = operations;
         }
 
-        public PaymentResponseObject Payment { get; }
+        public TrustlyPaymentResponseObject Payment { get; }
         public OperationList Operations { get; }
     }
 
-    public class PaymentResponseObject
+    public class TrustlyPaymentResponseObject
     {
-        public PaymentResponseObject(Uri id,
+        public TrustlyPaymentResponseObject(Uri id,
                                string number,
                                DateTime created,
                                DateTime updated,

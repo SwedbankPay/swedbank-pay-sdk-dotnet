@@ -1,4 +1,6 @@
-﻿namespace SwedbankPay.Sdk.Payments
+﻿using SwedbankPay.Sdk.Payments.SwishPayments;
+
+namespace SwedbankPay.Sdk.Payments
 {
     public interface ISwishPayment
     {

@@ -1,4 +1,5 @@
-﻿using SwedbankPay.Sdk.Payments.SwishPayments;
+﻿using SwedbankPay.Sdk.Extensions;
+using SwedbankPay.Sdk.Payments.SwishPayments;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;

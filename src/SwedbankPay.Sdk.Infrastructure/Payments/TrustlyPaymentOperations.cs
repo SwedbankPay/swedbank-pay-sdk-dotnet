@@ -1,12 +1,12 @@
 ﻿using SwedbankPay.Sdk.Extensions;
-
+using SwedbankPay.Sdk.Payments.TrustlyPayments;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Payments
 {
-    public class TrustlyPaymentOperations : OperationsBase
+    public class TrustlyPaymentOperations : OperationsBase, ITrustlyPaymentOperations
     {
         public TrustlyPaymentOperations(OperationList operations, HttpClient client)
         {
