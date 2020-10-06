@@ -1,11 +1,12 @@
 ﻿using SwedbankPay.Sdk.Extensions;
+using SwedbankPay.Sdk.Payments.CardPayments;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace SwedbankPay.Sdk.Payments.CardPayments
+namespace SwedbankPay.Sdk.Payments
 {
-    public class CardPaymentOperations : OperationsBase
+    public class CardPaymentOperations : OperationsBase, ICardPaymentOperations
     {
         public CardPaymentOperations(OperationList operations, HttpClient client)
         {
@@ -14,7 +15,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
                 switch (httpOperation.Rel.Value)
                 {
                     case PaymentResourceOperations.UpdatePaymentAbort:
-                        Abort = async payload => 
+                        Abort = async payload =>
                             await client.SendAsJsonAsync<CardPaymentResponse>(httpOperation.Method, httpOperation.Href, payload);
                         break;
 

@@ -6,7 +6,7 @@ using SwedbankPay.Sdk.Payments;
 using System.Net.Http;
 using SwedbankPay.Sdk.Extensions;
 
-namespace Swedbankpay.Sdk.Payments.MobilePayPayments
+namespace Swedbankpay.Sdk.Payments
 {
     public class MobilePayPaymentOperations : OperationsBase
     {

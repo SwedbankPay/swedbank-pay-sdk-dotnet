@@ -11,7 +11,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
         /// <param name="paymentRequest"></param>
         /// <param name="paymentExpand"></param>
         /// <returns></returns>
-        Task<CardPayment> Create(CardPaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None);
+        Task<ICardPayment> Create(CardPaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None);
 
 
         ///// <summary>
@@ -20,6 +20,6 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
         ///// <param name="id"></param>
         ///// <param name="paymentExpand"></param>
         ///// <returns></returns>
-        Task<CardPayment> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None);
+        Task<ICardPayment> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None);
     }
 }

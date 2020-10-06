@@ -6,7 +6,7 @@ using SwedbankPay.Sdk.Payments.InvoicePayments;
 using SwedbankPay.Sdk.Payments;
 using System.Net.Http;
 
-namespace Swedbankpay.Sdk.Payments.InvoicePayments
+namespace Swedbankpay.Sdk.Payments
 {
     public class InvoicePaymentOperations : OperationsBase
     {

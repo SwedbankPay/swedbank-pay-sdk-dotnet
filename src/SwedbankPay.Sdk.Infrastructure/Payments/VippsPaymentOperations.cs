@@ -6,7 +6,7 @@ using SwedbankPay.Sdk.Payments;
 using System.Net.Http;
 using SwedbankPay.Sdk.Extensions;
 
-namespace swedbankpay.Sdk.Payments.VippsPayments
+namespace swedbankpay.Sdk.Payments
 {
     public class VippsPaymentOperations : OperationsBase
     {

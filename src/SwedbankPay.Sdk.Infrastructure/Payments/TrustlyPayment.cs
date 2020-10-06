@@ -4,7 +4,7 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace SwedbankPay.Sdk.Payments.TrustlyPayments
+namespace SwedbankPay.Sdk.Payments
 {
     public class TrustlyPayment
     {

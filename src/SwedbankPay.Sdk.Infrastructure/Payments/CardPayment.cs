@@ -1,11 +1,12 @@
 ﻿using SwedbankPay.Sdk.Extensions;
+using SwedbankPay.Sdk.Payments.CardPayments;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace SwedbankPay.Sdk.Payments.CardPayments
+namespace SwedbankPay.Sdk.Payments
 {
-    public class CardPayment
+    public class CardPayment : ICardPayment
     {
         private CardPayment(CardPaymentResponse paymentResponse, HttpClient client)
         {
@@ -15,12 +16,11 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
         }
 
 
-        public CardPaymentOperations Operations { get; }
+        public ICardPaymentOperations Operations { get; }
 
         public PaymentResponseObject PaymentResponse { get; }
 
-
-        internal static async Task<CardPayment> Create(CardPaymentRequest paymentRequest,
+        internal static async Task<ICardPayment> Create(CardPaymentRequest paymentRequest,
                                                    HttpClient client,
                                                    string paymentExpand)
         {
@@ -31,7 +31,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
         }
 
 
-        internal static async Task<CardPayment> Get(Uri id, HttpClient client, string paymentExpand)
+        internal static async Task<ICardPayment> Get(Uri id, HttpClient client, string paymentExpand)
         {
             var url = !string.IsNullOrWhiteSpace(paymentExpand)
                 ? new Uri(id.OriginalString + paymentExpand, UriKind.RelativeOrAbsolute)
