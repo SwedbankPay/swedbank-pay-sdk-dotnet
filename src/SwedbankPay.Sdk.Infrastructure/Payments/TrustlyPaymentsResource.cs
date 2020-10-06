@@ -11,22 +11,22 @@ namespace SwedbankPay.Sdk.Payments
         {
         }
 
-        public Task<TrustlyPayment> Create(TrustlyPaymentRequest paymentRequest)
+        public Task<ITrustlyPayment> Create(TrustlyPaymentRequest paymentRequest)
         {
             return Create(paymentRequest, PaymentExpand.None);
         }
 
-        public Task<TrustlyPayment> Create(TrustlyPaymentRequest paymentRequest, PaymentExpand paymentExpand)
+        public Task<ITrustlyPayment> Create(TrustlyPaymentRequest paymentRequest, PaymentExpand paymentExpand)
         {
             return TrustlyPayment.Create(paymentRequest, this.httpClient, GetExpandQueryString(paymentExpand));
         }
 
-        public Task<TrustlyPayment> Get(Uri id)
+        public Task<ITrustlyPayment> Get(Uri id)
         {
             return Get(id, PaymentExpand.None);
         }
 
-        public Task<TrustlyPayment> Get(Uri id, PaymentExpand paymentExpand)
+        public Task<ITrustlyPayment> Get(Uri id, PaymentExpand paymentExpand)
         {
             if (id == null)
             {

@@ -21,7 +21,7 @@ namespace SwedbankPay.Sdk.Payments
         public TrustlyPaymentResponseObject PaymentResponse { get; }
 
 
-        internal static async Task<TrustlyPayment> Create(TrustlyPaymentRequest paymentRequest,
+        internal static async Task<ITrustlyPayment> Create(TrustlyPaymentRequest paymentRequest,
                                                           HttpClient client,
                                                           string paymentExpand)
         {
@@ -32,7 +32,7 @@ namespace SwedbankPay.Sdk.Payments
         }
 
 
-        internal static async Task<TrustlyPayment> Get(Uri id, HttpClient client, string paymentExpand)
+        internal static async Task<ITrustlyPayment> Get(Uri id, HttpClient client, string paymentExpand)
         {
             var url = !string.IsNullOrWhiteSpace(paymentExpand)
                 ? new Uri(id.OriginalString + paymentExpand, UriKind.RelativeOrAbsolute)

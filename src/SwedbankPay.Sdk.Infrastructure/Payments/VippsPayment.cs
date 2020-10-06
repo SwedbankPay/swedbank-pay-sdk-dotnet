@@ -1,5 +1,4 @@
 ﻿using swedbankpay.Sdk.Payments;
-using swedbankpay.Sdk.Payments.VippsPayments;
 using SwedbankPay.Sdk.Extensions;
 using SwedbankPay.Sdk.Payments.VippsPayments;
 using System;
