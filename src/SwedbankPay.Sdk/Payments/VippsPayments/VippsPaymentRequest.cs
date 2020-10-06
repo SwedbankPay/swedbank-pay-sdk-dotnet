@@ -22,16 +22,16 @@ namespace SwedbankPay.Sdk.Payments.VippsPayments
                               string paymentToken = null)
 
         {
-            Payment = new PaymentRequestObject(operation, intent, currency, prices, description, payerReference, generatePaymentToken,
+            Payment = new VippsPaymentRequestObject(operation, intent, currency, prices, description, payerReference, generatePaymentToken,
                                                generateReccurenceToken, userAgent, language, urls, payeeInfo, metadata, paymentToken);
         }
 
 
-        public PaymentRequestObject Payment { get; }
+        public VippsPaymentRequestObject Payment { get; }
 
-        public class PaymentRequestObject
+        public class VippsPaymentRequestObject
         {
-            protected internal PaymentRequestObject(Operation operation,
+            protected internal VippsPaymentRequestObject(Operation operation,
                                                     Intent intent,
                                                     CurrencyCode currency,
                                                     List<Price> prices,

@@ -11,7 +11,7 @@ namespace SwedbankPay.Sdk.Payments
         {
         }
 
-        public Task<VippsPayment> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
+        public Task<IVippsPayment> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
         {
             if (id == null)
                 throw new ArgumentNullException(nameof(id));
@@ -19,7 +19,7 @@ namespace SwedbankPay.Sdk.Payments
             return VippsPayment.Get(id, this.httpClient, GetExpandQueryString(paymentExpand));
         }
 
-        public Task<VippsPayment> Create(VippsPaymentRequest paymentRequest,
+        public Task<IVippsPayment> Create(VippsPaymentRequest paymentRequest,
                                                             PaymentExpand paymentExpand = PaymentExpand.None)
         {
             return VippsPayment.Create(paymentRequest, this.httpClient, GetExpandQueryString(paymentExpand));

@@ -1,5 +1,7 @@
-﻿using swedbankpay.Sdk.Payments.VippsPayments;
+﻿using swedbankpay.Sdk.Payments;
+using swedbankpay.Sdk.Payments.VippsPayments;
 using SwedbankPay.Sdk.Extensions;
+using SwedbankPay.Sdk.Payments.VippsPayments;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -7,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Payments
 {
-    public class VippsPayment
+    public class VippsPayment : IVippsPayment
     {
         private VippsPayment(VippsPaymentResponse paymentResponse, HttpClient client)
         {
@@ -16,12 +18,12 @@ namespace SwedbankPay.Sdk.Payments
             Operations = operations;
         }
 
-        public VippsPaymentOperations Operations { get; }
+        public IVippsPaymentOperations Operations { get; }
 
         public PaymentResponseObject PaymentResponse { get; }
 
 
-        internal static async Task<VippsPayment> Create(VippsPaymentRequest paymentRequest,
+        internal static async Task<IVippsPayment> Create(VippsPaymentRequest paymentRequest,
                                                    HttpClient client,
                                                    string paymentExpand)
         {
@@ -32,7 +34,7 @@ namespace SwedbankPay.Sdk.Payments
         }
 
 
-        internal static async Task<VippsPayment> Get(Uri id, HttpClient client, string paymentExpand)
+        internal static async Task<IVippsPayment> Get(Uri id, HttpClient client, string paymentExpand)
         {
             var url = !string.IsNullOrWhiteSpace(paymentExpand)
                 ? new Uri(id.OriginalString + paymentExpand, UriKind.RelativeOrAbsolute)

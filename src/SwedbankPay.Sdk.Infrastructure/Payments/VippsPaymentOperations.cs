@@ -8,7 +8,7 @@ using SwedbankPay.Sdk.Extensions;
 
 namespace swedbankpay.Sdk.Payments
 {
-    public class VippsPaymentOperations : OperationsBase
+    public class VippsPaymentOperations : OperationsBase, IVippsPaymentOperations
     {
         public VippsPaymentOperations(OperationList operations, HttpClient client)
         {
