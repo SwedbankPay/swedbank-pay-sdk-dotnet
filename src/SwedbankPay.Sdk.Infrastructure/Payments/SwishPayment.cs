@@ -8,7 +8,7 @@ namespace SwedbankPay.Sdk.Payments
 {
     public class SwishPayment : ISwishPayment
     {
-        private SwishPayment(SwishPaymentPaymentResponse paymentResponse, HttpClient client)
+        private SwishPayment(SwishPaymentResponse paymentResponse, HttpClient client)
         {
             PaymentResponse = paymentResponse.Payment;
             var operations = new SwishPaymentOperations(paymentResponse.Operations, client);
@@ -27,7 +27,7 @@ namespace SwedbankPay.Sdk.Payments
         {
             var url = new Uri($"/psp/swish/payments{paymentExpand}", UriKind.Relative);
 
-            var paymentResponse = await client.PostAsJsonAsync<SwishPaymentPaymentResponse>(url, paymentRequest);
+            var paymentResponse = await client.PostAsJsonAsync<SwishPaymentResponse>(url, paymentRequest);
             return new SwishPayment(paymentResponse, client);
         }
 
@@ -38,7 +38,7 @@ namespace SwedbankPay.Sdk.Payments
                 ? new Uri(id.OriginalString + paymentExpand, UriKind.RelativeOrAbsolute)
                 : id;
 
-            var paymentResponse = await client.GetAsJsonAsync<SwishPaymentPaymentResponse>(url);
+            var paymentResponse = await client.GetAsJsonAsync<SwishPaymentResponse>(url);
             return new SwishPayment(paymentResponse, client);
         }
     }

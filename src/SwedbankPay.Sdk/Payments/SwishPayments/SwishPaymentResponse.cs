@@ -5,9 +5,9 @@ using SwedbankPay.Sdk.PaymentOrders;
 
 namespace SwedbankPay.Sdk.Payments.SwishPayments
 {
-    public class SwishPaymentPaymentResponse
+    public class SwishPaymentResponse
     {
-        public SwishPaymentPaymentResponse(SwishPaymentResponseObject payment,
+        public SwishPaymentResponse(SwishPaymentResponseObject payment,
                                OperationList operations)
         {
             Payment = payment;
