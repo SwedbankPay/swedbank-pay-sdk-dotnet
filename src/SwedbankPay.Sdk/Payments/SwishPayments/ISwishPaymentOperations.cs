@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace SwedbankPay.Sdk.Payments
+namespace SwedbankPay.Sdk.Payments.SwishPayments
 {
     public interface ISwishPaymentOperations
     {

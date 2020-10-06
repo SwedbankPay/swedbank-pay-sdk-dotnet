@@ -17,7 +17,7 @@ using SwedbankPay.Sdk.Payments;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class PaymentOrderOperations : OperationsBase
+    public class PaymentOrderOperations : OperationsBase, IPaymentOrderOperations
     {
         public PaymentOrderOperations(OperationList operations, HttpClient client)
         {

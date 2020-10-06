@@ -5,7 +5,7 @@ using SwedbankPay.Sdk.Extensions;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class PaymentOrder
+    public class PaymentOrder : IPaymentOrder
     {
         private PaymentOrder(PaymentOrderResponse paymentOrderResponse,
                              HttpClient client)
@@ -16,7 +16,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         }
 
 
-        public PaymentOrderOperations Operations { get; }
+        public IPaymentOrderOperations Operations { get; }
         public PaymentOrderResponseObject PaymentOrderResponse { get; }
 
 
@@ -25,7 +25,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                                         string paymentOrderExpand)
         {
             var url = new Uri($"/psp/paymentorders{paymentOrderExpand}", UriKind.Relative);
-            
+
             var paymentOrderResponseContainer = await client.PostAsJsonAsync<PaymentOrderResponse>(url, paymentOrderRequest);
 
             return new PaymentOrder(paymentOrderResponseContainer, client);

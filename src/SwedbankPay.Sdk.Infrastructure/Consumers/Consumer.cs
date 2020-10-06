@@ -20,7 +20,7 @@ namespace SwedbankPay.Sdk.Consumers
         public ConsumerOperations Operations { get; }
 
 
-        internal static async Task<Consumer> Initiate(ConsumersRequest consumersRequest, HttpClient client)
+        internal static async Task<IConsumer> Initiate(ConsumersRequest consumersRequest, HttpClient client)
         {
             var url = new Uri("/psp/consumers", UriKind.Relative);
 

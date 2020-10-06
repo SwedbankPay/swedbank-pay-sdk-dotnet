@@ -21,7 +21,13 @@ namespace SwedbankPay.Sdk.Payments
 
         
         public PaymentsResource(HttpClient httpClient)
-            : this(httpClient, new CardPaymentsResource(httpClient), new SwishPaymentsResource(httpClient), new InvoicePaymentsResource(httpClient), new VippsPaymentsResource(httpClient), new MobilePayPaymentsResource(httpClient), new TrustlyPaymentsResource(httpClient))
+            : this(httpClient,
+                   new CardPaymentsResource(httpClient),
+                   new SwishPaymentsResource(httpClient),
+                   new InvoicePaymentsResource(httpClient),
+                   new VippsPaymentsResource(httpClient),
+                   new MobilePayPaymentsResource(httpClient),
+                   new TrustlyPaymentsResource(httpClient))
         {
         }
 

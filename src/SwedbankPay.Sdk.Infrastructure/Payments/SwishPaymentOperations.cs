@@ -1,4 +1,5 @@
 ﻿using SwedbankPay.Sdk.Extensions;
+using SwedbankPay.Sdk.Payments.SwishPayments;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ namespace SwedbankPay.Sdk.Payments
                 {
                     case PaymentResourceOperations.UpdatePaymentAbort:
                         Abort = async payload =>
-                            await client.SendAsJsonAsync<SwishPaymentPaymentResponse>(httpOperation.Method, httpOperation.Href, payload);
+                            await client.SendAsJsonAsync<SwishPaymentResponse>(httpOperation.Method, httpOperation.Href, payload);
                         break;
 
                     case PaymentResourceOperations.CreateSale:
@@ -41,7 +42,7 @@ namespace SwedbankPay.Sdk.Payments
             }
         }
 
-        public Func<PaymentAbortRequest, Task<SwishPaymentPaymentResponse>> Abort { get; }
+        public Func<PaymentAbortRequest, Task<SwishPaymentResponse>> Abort { get; }
         public Func<SwishPaymentReversalRequest, Task<ReversalResponse>> Reverse { get; }
         public Func<SwishPaymentSaleRequest, Task<SwishPaymentSaleResponse>> Sale { get; }
         public HttpOperation PaidPayment { get; }

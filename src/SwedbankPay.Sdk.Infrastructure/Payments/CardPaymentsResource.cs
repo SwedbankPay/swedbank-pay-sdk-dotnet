@@ -20,7 +20,7 @@ namespace SwedbankPay.Sdk.Payments
         }
 
 
-        public Task<ICardPayment> Create(CardPayments.CardPaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None)
+        public Task<ICardPayment> Create(CardPaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None)
         {
             return CardPayment.Create(paymentRequest, this.httpClient, GetExpandQueryString(paymentExpand));
         }
