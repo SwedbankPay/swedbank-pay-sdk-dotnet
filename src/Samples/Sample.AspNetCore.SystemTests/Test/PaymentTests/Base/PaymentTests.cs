@@ -214,35 +214,41 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             {
                 case Checkout.Option.Standard:
                     return GoToPayexCardPaymentFrame(products, checkout)
-                        .PreFilledCards.IsVisible.WaitTo.BeTrue()
                         .Do(x =>
                         {
-                            if (x.PreFilledCards.Items[y => y.CreditCardNumber.Value.Contains(info.CreditCardNumber.Substring(info.CreditCardNumber.Length - 4))].Exists())
+                            if (x.PreFilledCards.Exists(new SearchOptions { IsSafely = true, Timeout = TimeSpan.FromSeconds(3) }))
                             {
-                                x.PreFilledCards
+                                if (x.PreFilledCards.Items[y => y.CreditCardNumber.Value.Contains(info.CreditCardNumber.Substring(info.CreditCardNumber.Length - 4))].Exists())
+                                {
+                                    x
+                                    .PreFilledCards
                                     .Items[
                                         y => y.CreditCardNumber.Value.Contains(
                                             info.CreditCardNumber.Substring(info.CreditCardNumber.Length - 4))].Click()
                                     .Cvc.SetWithSpeed(info.Cvc, interval: 0.1);
-                            }
-                            else
-                            {
-                                x.AddNewCard.Click()
+                                }
+                                else
+                                {
+                                    x
+                                    .AddNewCard.Click()
                                     .CreditCardNumber.SetWithSpeed(TestDataService.CreditCardNumber, interval: 0.1)
                                     .ExpiryDate.SetWithSpeed(TestDataService.CreditCardExpirationDate, interval: 0.1)
                                     .Cvc.SetWithSpeed(TestDataService.CreditCardCvc, interval: 0.1);
+                                }
                             }
-
-
-
+                            else if (x.CreditCardNumber.Exists(new SearchOptions { IsSafely = true, Timeout = TimeSpan.FromSeconds(3) }))
+                            {
+                                x
+                                .CreditCardNumber.SetWithSpeed(info.CreditCardNumber, interval: 0.1)
+                                .ExpiryDate.SetWithSpeed(info.ExpiryDate, interval: 0.1)
+                                .Cvc.SetWithSpeed(info.Cvc, interval: 0.1);
+                            }
                         })
-                    .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
-                    .Pay.ClickAndGo();
-
+                        .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
+                        .Pay.ClickAndGo();
                 case Checkout.Option.LocalPaymentMenu:
                 case Checkout.Option.Anonymous:
                 default:
-
                     return GoToPayexCardPaymentFrame(products, checkout)
                         .CreditCardNumber.IsVisible.WaitTo.BeTrue()
                         .CreditCardNumber.SetWithSpeed(info.CreditCardNumber, interval: 0.1)
