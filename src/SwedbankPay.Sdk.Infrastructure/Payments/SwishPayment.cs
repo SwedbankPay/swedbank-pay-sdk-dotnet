@@ -1,11 +1,11 @@
-﻿using SwedbankPay.Sdk.Extensions;
+﻿using SwedbankPay.Sdk.Payments.SwishPayments;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Payments
 {
-    public class SwishPayment
+    public class SwishPayment : ISwishPayment
     {
         private SwishPayment(SwishPaymentPaymentResponse paymentResponse, HttpClient client)
         {
@@ -15,12 +15,12 @@ namespace SwedbankPay.Sdk.Payments
         }
 
 
-        public SwishPaymentOperations Operations { get; }
+        public ISwishPaymentOperations Operations { get; }
 
-        public PaymentResponseObject PaymentResponse { get; }
+        public SwishPaymentResponseObject PaymentResponse { get; }
 
 
-        internal static async Task<SwishPayment> Create(SwishPaymentRequest paymentRequest,
+        internal static async Task<ISwishPayment> Create(SwishPaymentRequest paymentRequest,
                                                    HttpClient client,
                                                    string paymentExpand)
         {
@@ -31,7 +31,7 @@ namespace SwedbankPay.Sdk.Payments
         }
 
 
-        internal static async Task<SwishPayment> Get(Uri id, HttpClient client, string paymentExpand)
+        internal static async Task<ISwishPayment> Get(Uri id, HttpClient client, string paymentExpand)
         {
             var url = !string.IsNullOrWhiteSpace(paymentExpand)
                 ? new Uri(id.OriginalString + paymentExpand, UriKind.RelativeOrAbsolute)

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Payments
 {
-    public class SwishPaymentOperations : OperationsBase
+    public class SwishPaymentOperations : OperationsBase, ISwishPaymentOperations
     {
         public SwishPaymentOperations(OperationList operations, HttpClient client)
         {

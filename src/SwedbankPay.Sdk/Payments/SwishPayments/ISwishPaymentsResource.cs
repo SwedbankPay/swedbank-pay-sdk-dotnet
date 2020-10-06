@@ -11,7 +11,7 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
         /// <param name="paymentRequest"></param>
         /// <param name="paymentExpand"></param>
         /// <returns></returns>
-        Task<SwishPayment> Create(SwishPaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None);
+        Task<ISwishPayment> Create(SwishPaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None);
 
 
         ///// <summary>
@@ -20,6 +20,6 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
         ///// <param name="id"></param>
         ///// <param name="paymentExpand"></param>
         ///// <returns></returns>
-        Task<SwishPayment> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None);
+        Task<ISwishPayment> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None);
     }
 }
