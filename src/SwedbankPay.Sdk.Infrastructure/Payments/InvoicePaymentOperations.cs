@@ -8,7 +8,7 @@ using System.Net.Http;
 
 namespace Swedbankpay.Sdk.Payments
 {
-    public class InvoicePaymentOperations : OperationsBase
+    public class InvoicePaymentOperations : OperationsBase, IInvoicePaymentOperations
     {
         public InvoicePaymentOperations(OperationList operations, HttpClient client)
         {
@@ -58,7 +58,7 @@ namespace Swedbankpay.Sdk.Payments
             }
         }
 
-        public Func<InvoiceApprovedLegalAddressRequest, Task<ApprovedLegalAddressResponse>> ApprovedLegalAddress{ get; }
+        public Func<InvoiceApprovedLegalAddressRequest, Task<ApprovedLegalAddressResponse>> ApprovedLegalAddress { get; }
         public Func<PaymentAbortRequest, Task<InvoicePaymentResponse>> Abort { get; }
         public Func<InvoicePaymentCancelRequest, Task<CancellationResponse>> Cancel { get; }
         public Func<InvoicePaymentCaptureRequest, Task<CaptureResponse>> Capture { get; }

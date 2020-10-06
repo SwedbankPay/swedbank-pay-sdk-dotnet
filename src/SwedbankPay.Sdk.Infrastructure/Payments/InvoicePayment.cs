@@ -1,12 +1,13 @@
 ﻿using SwedbankPay.Sdk.Extensions;
-using Swedbankpay.Sdk.Payments.InvoicePayments;
 using System;
 using System.Threading.Tasks;
 using System.Net.Http;
+using SwedbankPay.Sdk.Payments.InvoicePayments;
+using Swedbankpay.Sdk.Payments;
 
 namespace SwedbankPay.Sdk.Payments
 {
-    public class InvoicePayment
+    public class InvoicePayment : IInvoicePayment
     {
         private InvoicePayment(InvoicePaymentResponse paymentResponse, HttpClient client)
         {
@@ -15,12 +16,12 @@ namespace SwedbankPay.Sdk.Payments
             Operations = operations;
         }
 
-        public InvoicePaymentOperations Operations { get; }
+        public IInvoicePaymentOperations Operations { get; }
 
         public PaymentResponseObject PaymentResponse { get; }
 
 
-        internal static async Task<InvoicePayment> Create(InvoicePaymentRequest paymentRequest,
+        internal static async Task<IInvoicePayment> Create(InvoicePaymentRequest paymentRequest,
                                                    HttpClient client,
                                                    string paymentExpand)
         {
@@ -31,7 +32,7 @@ namespace SwedbankPay.Sdk.Payments
         }
 
 
-        internal static async Task<InvoicePayment> Get(Uri id, HttpClient client, string paymentExpand)
+        internal static async Task<IInvoicePayment> Get(Uri id, HttpClient client, string paymentExpand)
         {
             var url = !string.IsNullOrWhiteSpace(paymentExpand)
                 ? new Uri(id.OriginalString + paymentExpand, UriKind.RelativeOrAbsolute)
