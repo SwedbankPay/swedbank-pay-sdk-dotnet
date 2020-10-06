@@ -6,20 +6,20 @@ namespace SwedbankPay.Sdk.Payments.MobilePayPayments
 {
     public class MobilePayPaymentResponse
     {
-        public MobilePayPaymentResponse(PaymentResponseObject payment,
+        public MobilePayPaymentResponse(MobilePayPaymentResponseObject payment,
                                OperationList operations)
         {
             this.Payment = payment;
             this.Operations = operations;
         }
 
-        public PaymentResponseObject Payment { get; }
+        public MobilePayPaymentResponseObject Payment { get; }
         public OperationList Operations { get; }
     }
 
-    public class PaymentResponseObject
+    public class MobilePayPaymentResponseObject
     {
-        public PaymentResponseObject(Uri id,
+        public MobilePayPaymentResponseObject(Uri id,
                                string number,
                                PaymentInstrument instrument,
                                DateTime created,

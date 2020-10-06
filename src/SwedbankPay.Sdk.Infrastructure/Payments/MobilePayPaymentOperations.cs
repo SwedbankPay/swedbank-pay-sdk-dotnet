@@ -8,7 +8,7 @@ using SwedbankPay.Sdk.Extensions;
 
 namespace Swedbankpay.Sdk.Payments
 {
-    public class MobilePayPaymentOperations : OperationsBase
+    public class MobilePayPaymentOperations : OperationsBase, IMobilePayPaymentOperations
     {
         public MobilePayPaymentOperations(OperationList operations, HttpClient client)
         {

@@ -1,12 +1,13 @@
-﻿using Swedbankpay.Sdk.Payments.MobilePayPayments;
+﻿using Swedbankpay.Sdk.Payments;
 using SwedbankPay.Sdk.Extensions;
+using SwedbankPay.Sdk.Payments.MobilePayPayments;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Payments
 {
-    public class MobilePayPayment
+    public class MobilePayPayment : IMobilePayPayment
     {
         private MobilePayPayment(MobilePayPaymentResponse paymentResponse, HttpClient client)
         {
@@ -15,12 +16,12 @@ namespace SwedbankPay.Sdk.Payments
             Operations = operations;
         }
 
-        public MobilePayPaymentOperations Operations { get; }
+        public IMobilePayPaymentOperations Operations { get; }
 
-        public PaymentResponseObject PaymentResponse { get; }
+        public MobilePayPaymentResponseObject PaymentResponse { get; }
 
 
-        internal static async Task<MobilePayPayment> Create(MobilePayPaymentRequest paymentRequest,
+        internal static async Task<IMobilePayPayment> Create(MobilePayPaymentRequest paymentRequest,
                                                    HttpClient client,
                                                    string paymentExpand)
         {
@@ -31,7 +32,7 @@ namespace SwedbankPay.Sdk.Payments
         }
 
 
-        internal static async Task<MobilePayPayment> Get(Uri id, HttpClient client, string paymentExpand)
+        internal static async Task<IMobilePayPayment> Get(Uri id, HttpClient client, string paymentExpand)
         {
             var url = !string.IsNullOrWhiteSpace(paymentExpand)
                 ? new Uri(id.OriginalString + paymentExpand, UriKind.RelativeOrAbsolute)
