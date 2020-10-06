@@ -18,7 +18,7 @@ namespace SwedbankPay.Sdk.Payments
 
         public ICardPaymentOperations Operations { get; }
 
-        public PaymentResponseObject PaymentResponse { get; }
+        public CardPaymentResponseObject PaymentResponse { get; }
 
         internal static async Task<ICardPayment> Create(CardPaymentRequest paymentRequest,
                                                    HttpClient client,

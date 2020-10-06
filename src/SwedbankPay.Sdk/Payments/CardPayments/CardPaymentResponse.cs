@@ -7,20 +7,20 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
 {
     public class CardPaymentResponse
     {
-        public CardPaymentResponse(PaymentResponseObject payment,
+        public CardPaymentResponse(CardPaymentResponseObject payment,
                                OperationList operations)
         {
             Payment = payment;
             Operations = operations;
         }
 
-        public PaymentResponseObject Payment { get; }
+        public CardPaymentResponseObject Payment { get; }
         public OperationList Operations { get; }
     }
 
-    public class PaymentResponseObject
+    public class CardPaymentResponseObject
     {
-        public PaymentResponseObject(Uri id,
+        public CardPaymentResponseObject(Uri id,
                                string number,
                                PaymentInstrument instrument,
                                DateTime created,
