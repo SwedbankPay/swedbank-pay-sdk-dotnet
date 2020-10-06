@@ -2,7 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace SwedbankPay.Sdk.Payments.VippsPayments
+namespace SwedbankPay.Sdk.Payments
 {
     public class VippsPaymentsResource : ResourceBase, IVippsPaymentsResource
     {

@@ -2,7 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace SwedbankPay.Sdk.Payments.SwishPayments
+namespace SwedbankPay.Sdk.Payments
 {
     public class SwishPaymentsResource : ResourceBase, ISwishPaymentsResource
     {
