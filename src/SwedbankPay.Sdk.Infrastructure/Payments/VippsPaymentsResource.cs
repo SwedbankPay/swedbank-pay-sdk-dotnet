@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SwedbankPay.Sdk.Payments.VippsPayments;
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 

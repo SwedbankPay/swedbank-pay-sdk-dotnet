@@ -2,6 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SwedbankPay.Sdk\SwedbankPay.Sdk.csproj" />
+  </ItemGroup>
 
 </Project>
