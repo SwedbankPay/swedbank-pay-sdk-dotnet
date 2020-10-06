@@ -43,6 +43,6 @@ namespace SwedbankPay.Sdk.Consumers
         /// <exception cref="System.Net.Http.HttpRequestException"></exception>
         /// <exception cref="Exceptions.HttpResponseException"></exception>
         /// <returns></returns>
-        Task<Consumer> InitiateSession(ConsumersRequest consumersRequest);
+        Task<IConsumer> InitiateSession(ConsumersRequest consumersRequest);
     }
 }

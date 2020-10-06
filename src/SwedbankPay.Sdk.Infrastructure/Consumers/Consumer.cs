@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Consumers
 {
-    public class Consumer
+    public class Consumer : IConsumer
     {
         private Consumer(ConsumersResponse consumersResponse)
         {

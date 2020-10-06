@@ -49,7 +49,7 @@ namespace SwedbankPay.Sdk.Consumers
         /// </summary>
         /// <param name="consumersRequest"></param>
         /// <returns></returns>
-        public Task<Consumer> InitiateSession(ConsumersRequest consumersRequest)
+        public Task<IConsumer> InitiateSession(ConsumersRequest consumersRequest)
         {
             return Consumer.Initiate(consumersRequest, this.httpClient);
         }
