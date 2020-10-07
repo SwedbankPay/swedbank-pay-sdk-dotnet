@@ -1,6 +1,7 @@
 ﻿using System;
-
-using Newtonsoft.Json;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Xml.Schema;
 
 namespace SwedbankPay.Sdk.JsonSerialization
 {
@@ -8,59 +9,46 @@ namespace SwedbankPay.Sdk.JsonSerialization
         where TEnum : TypeSafeEnum<TEnum, TValue>
     {
         /// <summary>
-        ///     Can read
-        /// </summary>
-        public override bool CanRead => true;
-
-        /// <summary>
-        ///     Can write
-        /// </summary>
-        public override bool CanWrite => true;
-
-
-        /// <summary>
         /// </summary>
         /// <param name="reader"></param>
-        /// <param name="objectType"></param>
-        /// <param name="existingValue"></param>
-        /// <param name="hasExistingValue"></param>
-        /// <param name="serializer"></param>
+        /// <param name="typeToConvert"></param>
+        /// <param name="options"></param>
         /// <returns></returns>
-        public override TEnum ReadJson(JsonReader reader,
-                                       Type objectType,
-                                       TEnum existingValue,
-                                       bool hasExistingValue,
-                                       JsonSerializer serializer)
+        public override TEnum Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             try
             {
                 TValue value;
-                if (reader.TokenType == JsonToken.Integer && typeof(TValue) != typeof(long) && typeof(TValue) != typeof(bool))
-                    value = (TValue)Convert.ChangeType(reader.Value, typeof(TValue));
+                if (reader.TokenType == JsonTokenType.Number && typeof(TValue) != typeof(long) && typeof(TValue) != typeof(bool))
+                    value = (TValue)Convert.ChangeType(reader.GetInt64(), typeof(TValue));
                 else
-                    value = (TValue)reader.Value;
+                    value = (TValue)Enum.Parse(typeToConvert, reader.GetString());
 
                 return TypeSafeEnum<TEnum, TValue>.FromValue(value);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                throw new JsonSerializationException($"Error converting {reader.Value ?? "Null"} to {objectType.Name}.", ex);
+                throw new JsonException($"Error converting {reader.GetString() ?? "Null"} to {typeToConvert.Name}.", e);
             }
         }
-
 
         /// <summary>
         ///     Write json
         /// </summary>
         /// <param name="writer"></param>
         /// <param name="value"></param>
-        /// <param name="serializer"></param>
-        public override void WriteJson(JsonWriter writer, TEnum value, JsonSerializer serializer)
+        /// <param name="options"></param>
+        public override void Write(Utf8JsonWriter writer, TEnum value, JsonSerializerOptions options)
         {
-            if (value is null)
-                writer.WriteNull();
+            if (value is null && !options.IgnoreNullValues)
+                writer.WriteNullValue();
+            else if (value is null && options.IgnoreNullValues)
+                return;
             else
-                writer.WriteValue(value.Value);
+            {
+                string enumValue = Enum.GetName(value.GetType(), value.Value);
+                writer.WriteStringValue(enumValue);
+            }   
         }
     }
 }

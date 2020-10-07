@@ -1,7 +1,5 @@
 ﻿using System;
 
-using Newtonsoft.Json;
-
 namespace SwedbankPay.Sdk
 {
     public class IdLink
@@ -9,7 +7,6 @@ namespace SwedbankPay.Sdk
         /// <summary>
         ///     Relative URL to some resource
         /// </summary>
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
-        public Uri Id { get; protected set; }
+        public Uri Id { get; set; }
     }
 }

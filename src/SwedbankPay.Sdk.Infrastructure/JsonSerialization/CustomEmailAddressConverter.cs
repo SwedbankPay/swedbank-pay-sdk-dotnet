@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Linq;
 
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-
 namespace SwedbankPay.Sdk.JsonSerialization
 {
-    public class CustomEmailAddressConverter : JsonConverter
+    public class CustomEmailAddressConverter
 
     {
         private readonly Type[] types;
@@ -23,36 +20,36 @@ namespace SwedbankPay.Sdk.JsonSerialization
         }
 
 
-        public override bool CanRead => true;
+        public bool CanRead => true;
 
 
-        public override bool CanConvert(Type objectType)
+        public bool CanConvert(Type objectType)
         {
             return this.types.Any(t => t == objectType);
         }
 
 
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.StartObject)
-            {
-                var jo = JObject.Load(reader);
-                var addressString = jo.Values().FirstOrDefault()?.ToString();
-                return new EmailAddress(addressString);
-            }
+        //public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        //{
+        //    if (reader.TokenType == JsonToken.StartObject)
+        //    {
+        //        var jo = JObject.Load(reader);
+        //        var addressString = jo.Values().FirstOrDefault()?.ToString();
+        //        return new EmailAddress(addressString);
+        //    }
 
-            return new EmailAddress(reader.Value.ToString());
-        }
+        //    return new EmailAddress(reader.Value.ToString());
+        //}
 
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-        {
-            var t = JToken.FromObject(value);
+        //public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        //{
+        //    var t = JToken.FromObject(value);
 
-            if (t.Type != JTokenType.Object)
-                t.WriteTo(writer);
-            else
-                writer.WriteValue(value.ToString());
-        }
+        //    if (t.Type != JTokenType.Object)
+        //        t.WriteTo(writer);
+        //    else
+        //        writer.WriteValue(value.ToString());
+        //}
     }
 }
