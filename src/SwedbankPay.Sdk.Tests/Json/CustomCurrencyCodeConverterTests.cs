@@ -1,8 +1,5 @@
 ﻿using System;
-
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-
+using System.Text.Json;
 using SwedbankPay.Sdk.Tests.TestBuilders;
 
 using Xunit;
@@ -18,10 +15,10 @@ namespace SwedbankPay.Sdk.Tests.Json
         {
             //ARRANGE
 
-            var jsonObject = new JObject { { "currency", this.currencyCode } };
+            var jsonObject = $" {{ {{\"currency\": {this.currencyCode} }} }}";
 
             //ACT
-            var result = JsonConvert.DeserializeObject<CurrencyCode>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);
+            var result = JsonSerializer.Deserialize<CurrencyCode>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);
 
             //ASSERT
             Assert.Equal(this.currencyCode, result.ToString());
@@ -36,9 +33,9 @@ namespace SwedbankPay.Sdk.Tests.Json
             var paymentOrderRequest = builder.WithTestValues(Guid.NewGuid()).Build();
 
             //ACT
-            var result = JsonConvert.SerializeObject(paymentOrderRequest.PaymentOrder, JsonSerialization.JsonSerialization.Settings);
-            var obj = JObject.Parse(result);
-            obj.TryGetValue("Currency", StringComparison.InvariantCultureIgnoreCase, out var code);
+            var result = JsonSerializer.Serialize(paymentOrderRequest.PaymentOrder, JsonSerialization.JsonSerialization.Settings);
+            var obj = JsonDocument.Parse(result);
+            var code = obj.RootElement.GetProperty("Currency").ToString();
             //ASSERT
             Assert.Equal(this.currencyCode, code);
         }

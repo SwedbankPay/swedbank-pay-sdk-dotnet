@@ -23,7 +23,7 @@ namespace SwedbankPay.Sdk.Tests.Json
             };
 
             //ACT
-            var result = JsonConvert.DeserializeObject<Uri>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);
+            var result = JsonSerializer.Deserialize<Uri>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);
 
             //ASSERT
             Assert.Equal(this.idstring, result.OriginalString);
@@ -40,7 +40,7 @@ namespace SwedbankPay.Sdk.Tests.Json
             };
 
             //ACT
-            var result = JsonConvert.SerializeObject(dummy, JsonSerialization.JsonSerialization.Settings);
+            var result = JsonSerializer.Serialize(dummy, JsonSerialization.JsonSerialization.Settings);
             var obj = JObject.Parse(result);
 
             obj.TryGetValue("Id", StringComparison.InvariantCultureIgnoreCase, out var id);

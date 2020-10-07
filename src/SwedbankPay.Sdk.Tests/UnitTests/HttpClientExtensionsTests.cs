@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using SwedbankPay.Sdk.Exceptions;
+﻿using SwedbankPay.Sdk.Exceptions;
 using SwedbankPay.Sdk.Extensions;
 using SwedbankPay.Sdk.PaymentOrders;
 using SwedbankPay.Sdk.Payments;
@@ -115,7 +114,7 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
 
             var error = await Assert.ThrowsAsync<HttpResponseException>(() => sut.SendAndProcessAsync<ProblemResponse>(HttpMethod.Get, uri, null));
 
-            JsonConvert.SerializeObject(error);
+            JsonSerializer.Serialize(error);
         }
 
         [Fact]

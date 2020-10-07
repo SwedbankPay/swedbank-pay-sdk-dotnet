@@ -10,7 +10,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         private PaymentOrder(PaymentOrderResponse paymentOrderResponse,
                              HttpClient client)
         {
-            PaymentOrderResponse = paymentOrderResponse.PaymentOrderResponseObject;
+            PaymentOrderResponse = paymentOrderResponse.PaymentOrder;
             var operations = new PaymentOrderOperations(paymentOrderResponse.Operations, client);
             Operations = operations;
         }

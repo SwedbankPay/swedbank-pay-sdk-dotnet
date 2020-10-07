@@ -1,8 +1,5 @@
 ﻿using System.Collections.Generic;
 
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-
 using SwedbankPay.Sdk.PaymentOrders;
 
 namespace SwedbankPay.Sdk.Payments.CardPayments
@@ -11,21 +8,20 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
     {
         public CardPaymentCaptureRequest(Amount amount, Amount vatAmount, List<OrderItem> orderItems, string description, string payeeReference)
         {
-            transaction = new CardPaymentCaptureTransaction(amount, vatAmount, orderItems, description, payeeReference);
+            Transaction = new CardPaymentCaptureTransaction(amount, vatAmount, orderItems, description, payeeReference);
         }
 
-        [JsonProperty]
-        private CardPaymentCaptureTransaction transaction { get; }
+        private CardPaymentCaptureTransaction Transaction { get; }
 
 
-        public Amount Amount => this.transaction.Amount;
-        public string Description => this.transaction.Description;
-        public List<OrderItem> OrderItems => this.transaction.OrderItems;
-        public string PayeeReference => this.transaction.PayeeReference;
-        public Amount VatAmount => this.transaction.VatAmount;
+        public Amount Amount => this.Transaction.Amount;
+        public string Description => this.Transaction.Description;
+        public List<OrderItem> OrderItems => this.Transaction.OrderItems;
+        public string PayeeReference => this.Transaction.PayeeReference;
+        public Amount VatAmount => this.Transaction.VatAmount;
 
 
-        private class CardPaymentCaptureTransaction
+        internal class CardPaymentCaptureTransaction
         {
             protected internal CardPaymentCaptureTransaction(Amount amount,
                                                     Amount vatAmount,

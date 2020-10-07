@@ -10,14 +10,14 @@ namespace SwedbankPay.Sdk.Tests.Json
         [Fact]
         public void CanDeserializeUnknownOperation()
         {
-            var paymentResponse = JsonConvert.DeserializeObject<CardPaymentResponse>(TestResponse, JsonSerialization.JsonSerialization.Settings);
+            var paymentResponse = JsonSerializer.Deserialize<CardPaymentResponse>(TestResponse, JsonSerialization.JsonSerialization.Settings);
             Assert.NotNull(paymentResponse);
         }
 
         [Fact]
         public void CanAccessDeserializedUnknownOperation()
         {
-            var paymentResponse = JsonConvert.DeserializeObject<CardPaymentResponse>(TestResponse, JsonSerialization.JsonSerialization.Settings);
+            var paymentResponse = JsonSerializer.Deserialize<CardPaymentResponse>(TestResponse, JsonSerialization.JsonSerialization.Settings);
             var operations = new CardPaymentOperations(paymentResponse.Operations, new System.Net.Http.HttpClient());
             
             Assert.Contains(operations, a => a.Key.Name.Equals(TestOperationName, System.StringComparison.OrdinalIgnoreCase));
@@ -27,7 +27,7 @@ namespace SwedbankPay.Sdk.Tests.Json
         [Fact]
         public void UnknownOperation_IsDeserializedTo_LinkrelationType()
         {
-            var paymentResponse = JsonConvert.DeserializeObject<CardPaymentResponse>(TestResponse, JsonSerialization.JsonSerialization.Settings);
+            var paymentResponse = JsonSerializer.Deserialize<CardPaymentResponse>(TestResponse, JsonSerialization.JsonSerialization.Settings);
             var operations = new CardPaymentOperations(paymentResponse.Operations, new System.Net.Http.HttpClient());
             var testLinkRelation = new LinkRelation(TestOperationName, TestOperationName);
 

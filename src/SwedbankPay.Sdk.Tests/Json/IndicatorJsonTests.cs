@@ -20,7 +20,7 @@ namespace SwedbankPay.Sdk.Tests.Json
             };
 
             //ACT
-            var result = JsonConvert.DeserializeObject<AccountInfo>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);
+            var result = JsonSerializer.Deserialize<AccountInfo>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);
 
             //ASSERT
             Assert.Equal("01", result.AccountAgeIndicator.Value);
@@ -37,7 +37,7 @@ namespace SwedbankPay.Sdk.Tests.Json
             };
 
             //ACT
-            var result = JsonConvert.SerializeObject(accountInfo, JsonSerialization.JsonSerialization.Settings);
+            var result = JsonSerializer.Serialize(accountInfo, JsonSerialization.JsonSerialization.Settings);
             var obj = JObject.Parse(result);
 
             var accountAgeValue = obj.GetValue("accountAgeIndicator");

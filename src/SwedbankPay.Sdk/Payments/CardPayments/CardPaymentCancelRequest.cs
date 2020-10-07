@@ -1,23 +1,19 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-
-namespace SwedbankPay.Sdk.Payments.CardPayments
+﻿namespace SwedbankPay.Sdk.Payments.CardPayments
 {
     public class CardPaymentCancelRequest
     {
         public CardPaymentCancelRequest(string payeeReference, string description)
         {
-            this.transaction = new CardPaymentCancelTransaction(payeeReference, description);
+            this.Transaction = new CardPaymentCancelTransaction(payeeReference, description);
         }
 
-        [JsonProperty]
-        private CardPaymentCancelTransaction transaction { get; }
+        public CardPaymentCancelTransaction Transaction { get; }
 
-        public string Description => this.transaction.Description;
+        public string Description => this.Transaction.Description;
 
-        public string PayeeReference => this.transaction.PayeeReference;
+        public string PayeeReference => this.Transaction.PayeeReference;
 
-        private class CardPaymentCancelTransaction
+        public class CardPaymentCancelTransaction
         {
             protected internal CardPaymentCancelTransaction(string payeeReference, string description)
             {

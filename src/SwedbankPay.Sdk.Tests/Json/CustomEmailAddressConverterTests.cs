@@ -1,7 +1,5 @@
 ﻿using System;
-
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System.Text.Json;
 
 using SwedbankPay.Sdk.PaymentOrders;
 
@@ -19,13 +17,10 @@ namespace SwedbankPay.Sdk.Tests.Json
         {
             //ARRANGE
 
-            var jsonObject = new JObject
-            {
-                { "xX123xxaddress", this.address }
-            };
+            var jsonObject = $"{{ {{ \"xX123xxaddress\", {this.address} }} }}";
 
             //ACT
-            var result = JsonConvert.DeserializeObject<EmailAddress>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);
+            var result = JsonSerializer.Deserialize<EmailAddress>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);
 
             //ASSERT
             Assert.Equal(this.address, result.ToString());
@@ -39,9 +34,9 @@ namespace SwedbankPay.Sdk.Tests.Json
             var riskIndicator = new RiskIndicator { DeliveryEmailAddress = new EmailAddress(this.address) };
 
             //ACT
-            var result = JsonConvert.SerializeObject(riskIndicator, JsonSerialization.JsonSerialization.Settings);
-            var obj = JObject.Parse(result);
-            obj.TryGetValue("DeliveryEmailAddress", StringComparison.InvariantCultureIgnoreCase, out var address);
+            var result = JsonSerializer.Serialize(riskIndicator, JsonSerialization.JsonSerialization.Settings);
+            var obj = JsonDocument.Parse(result);
+            var address = obj.RootElement.GetProperty("DeliveryEmailAddress");
             //ASSERT
             Assert.Equal(this.address, address.ToString());
         }

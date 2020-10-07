@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using SwedbankPay.Sdk.Exceptions;
 
 namespace SwedbankPay.Sdk.Extensions
@@ -18,11 +18,11 @@ namespace SwedbankPay.Sdk.Extensions
             if (!apiResponse.IsSuccessStatusCode)
                 throw new HttpResponseException(
                     apiResponse,
-                    JsonConvert.DeserializeObject<ProblemResponse>(responseString),
+                    JsonSerializer.Deserialize<ProblemResponse>(responseString),
                     BuildErrorMessage(responseString, uri, apiResponse));
 
             
-            return JsonConvert.DeserializeObject<T>(responseString, JsonSerialization.JsonSerialization.Settings);
+            return JsonSerializer.Deserialize<T>(responseString, JsonSerialization.JsonSerialization.Settings);
         }
 
         internal static async Task<T> SendAndProcessAsync<T>(this HttpClient httpClient, HttpMethod httpMethod, Uri uri, object payload)
@@ -32,7 +32,7 @@ namespace SwedbankPay.Sdk.Extensions
 
             if (payload != null)
             {
-                var content = JsonConvert.SerializeObject(payload, JsonSerialization.JsonSerialization.Settings);
+                var content = JsonSerializer.Serialize(payload, JsonSerialization.JsonSerialization.Settings);
                 httpRequestMessage.Content = new StringContent(content, Encoding.UTF8, "application/json");
             }
 
@@ -51,11 +51,11 @@ namespace SwedbankPay.Sdk.Extensions
                 {
                     throw new HttpResponseException(
                         httpResponseMessage,
-                        JsonConvert.DeserializeObject<ProblemResponse>(httpResponseContent),
+                        JsonSerializer.Deserialize<ProblemResponse>(httpResponseContent),
                         BuildErrorMessage(httpResponseContent));
                 }
 
-                return JsonConvert.DeserializeObject<T>(httpResponseContent, JsonSerialization.JsonSerialization.Settings);
+                return JsonSerializer.Deserialize<T>(httpResponseContent, JsonSerialization.JsonSerialization.Settings);
             }
             catch (HttpResponseException ex)
             {

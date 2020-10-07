@@ -1,22 +1,19 @@
-﻿using Newtonsoft.Json;
-
-namespace SwedbankPay.Sdk.Payments.TrustlyPayments
+﻿namespace SwedbankPay.Sdk.Payments.TrustlyPayments
 {
     public class TrustlyPaymentCancelRequest
     {
         public TrustlyPaymentCancelRequest(string payeeReference, string description)
         {
-            this.transaction = new TrustlyPaymentCancelTransaction(payeeReference, description);
+            this.Transaction = new TrustlyPaymentCancelTransaction(payeeReference, description);
         }
 
-        [JsonProperty]
-        private TrustlyPaymentCancelTransaction transaction { get; }
+        public TrustlyPaymentCancelTransaction Transaction { get; set; }
 
-        public string Description => this.transaction.Description;
+        public string Description => this.Transaction.Description;
 
-        public string PayeeReference => this.transaction.PayeeReference;
+        public string PayeeReference => this.Transaction.PayeeReference;
 
-        private class TrustlyPaymentCancelTransaction
+        public class TrustlyPaymentCancelTransaction
         {
             protected internal TrustlyPaymentCancelTransaction(string payeeReference, string description)
             {

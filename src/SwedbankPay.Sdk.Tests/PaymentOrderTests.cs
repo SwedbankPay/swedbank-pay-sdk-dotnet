@@ -31,8 +31,8 @@ namespace SwedbankPay.Sdk.Tests
             var responseContainer = await paymentOrder.Operations.Abort();
 
             Assert.NotNull(responseContainer);
-            Assert.NotNull(responseContainer.PaymentOrderResponseObject);
-            Assert.Equal(State.Aborted, responseContainer.PaymentOrderResponseObject.State);
+            Assert.NotNull(responseContainer.PaymentOrder);
+            Assert.Equal(State.Aborted, responseContainer.PaymentOrder.State);
         }
 
 
@@ -87,8 +87,8 @@ namespace SwedbankPay.Sdk.Tests
 
             var response = await paymentOrder.Operations.Update(updateRequest);
 
-            Assert.Equal(updateRequest.PaymentOrder.Amount.Value, response.PaymentOrderResponseObject.Amount.Value);
-            Assert.Equal(updateRequest.PaymentOrder.VatAmount.Value, response.PaymentOrderResponseObject.VatAmount.Value);
+            Assert.Equal(updateRequest.PaymentOrder.Amount.Value, response.PaymentOrder.Amount.Value);
+            Assert.Equal(updateRequest.PaymentOrder.VatAmount.Value, response.PaymentOrder.VatAmount.Value);
         }
 
         [Fact]

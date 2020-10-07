@@ -1,7 +1,6 @@
 ﻿using System;
+using System.Text.Json;
 
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using SwedbankPay.Sdk.Payments;
 
 using Xunit;
@@ -14,10 +13,10 @@ namespace SwedbankPay.Sdk.Tests.Json
         public void CanDeSerialize_Msisdn()
         {
             //ARRANGE
-            var jsonObject = new JObject { { "msisdn", "+46701234567" } };
+            var jsonObject = "{ { \"msisdn\", \"+46701234567\" } }";
 
             //ACT
-            var result = JsonConvert.DeserializeObject<Msisdn>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);
+            var result = JsonSerializer.Deserialize<Msisdn>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);
 
             //ASSERT
             Assert.Equal("+46701234567", result.ToString());
@@ -30,9 +29,9 @@ namespace SwedbankPay.Sdk.Tests.Json
             var prefillInfo = new PrefillInfo(new Msisdn("+46701234567"));
 
             //ACT
-            var result = JsonConvert.SerializeObject(prefillInfo, JsonSerialization.JsonSerialization.Settings);
-            var obj = JObject.Parse(result);
-            obj.TryGetValue("Msisdn", StringComparison.InvariantCultureIgnoreCase, out var msisdn);
+            var result = JsonSerializer.Serialize(prefillInfo, JsonSerialization.JsonSerialization.Settings);
+            var obj = JsonDocument.Parse(result);
+            var msisdn = obj.RootElement.GetProperty("Msisdn").ToString();
 
             //ASSERT
             Assert.Equal("+46701234567", msisdn);

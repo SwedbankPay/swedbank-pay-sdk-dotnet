@@ -1,7 +1,4 @@
-﻿using System;
-
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using System.Text.Json;
 
 using SwedbankPay.Sdk.PaymentOrders;
 
@@ -19,10 +16,10 @@ namespace SwedbankPay.Sdk.Tests.Json
         {
             //ARRANGE
 
-            var jsonObject = new JObject { { "xX123xxaddress", this.expectedAmount } };
+            var jsonObject = $" {{ {{ \"xX123xxaddress\": {this.expectedAmount} }} }}";
 
             //ACT
-            var result = JsonConvert.DeserializeObject<Amount>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);
+            var result = JsonSerializer.Deserialize<Amount>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);
 
             //ASSERT
             Assert.Equal(this.expectedAmount, result.Value);
@@ -37,9 +34,9 @@ namespace SwedbankPay.Sdk.Tests.Json
                                           Amount.FromDecimal(1), Amount.FromDecimal(2));
 
             //ACT
-            var result = JsonConvert.SerializeObject(orderItem, JsonSerialization.JsonSerialization.Settings);
-            var obj = JObject.Parse(result);
-            obj.TryGetValue("Amount", StringComparison.InvariantCultureIgnoreCase, out var amount);
+            var result = JsonSerializer.Serialize(orderItem, JsonSerialization.JsonSerialization.Settings);
+            var obj = JsonDocument.Parse(result);
+            var amount = obj.RootElement.GetProperty("Amount").GetInt64();
 
             //ASSERT
             Assert.Equal(this.expectedAmount, amount);

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Globalization;
-
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System.Text.Json;
 
 using Xunit;
 
@@ -17,10 +15,10 @@ namespace SwedbankPay.Sdk.Tests.Json
         public void CanDeSerialize_RegionInfo(string regionInfoString)
         {
             //ARRANGE
-            var jsonObject = new JObject { { "region", regionInfoString } };
+            var jsonObject = $" {{ {{ \"region\": {regionInfoString} }} }}";
 
             //ACT
-            var result = JsonConvert.DeserializeObject<RegionInfo>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);
+            var result = JsonSerializer.Deserialize<RegionInfo>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);
 
             //ASSERT
             Assert.Equal(regionInfoString, result.Name);
@@ -34,16 +32,13 @@ namespace SwedbankPay.Sdk.Tests.Json
         public void CanSerialize_RegionInfo(string regionInfoString)
         {
             //ARRANGE
-            var dummy = new
-            {
-                Region = new RegionInfo(regionInfoString)
-            };
+            var dummy = $"{{ \"Region\": {new RegionInfo(regionInfoString)} }}";
 
             //ACT
-            var result = JsonConvert.SerializeObject(dummy, JsonSerialization.JsonSerialization.Settings);
-            var obj = JObject.Parse(result);
+            var result = JsonSerializer.Serialize(dummy, JsonSerialization.JsonSerialization.Settings);
+            var obj = JsonDocument.Parse(result);
 
-            obj.TryGetValue("Region", StringComparison.InvariantCultureIgnoreCase, out var region);
+            var region = obj.RootElement.GetProperty("Region").ToString();
             //ASSERT
             Assert.Equal(regionInfoString, region);
         }

@@ -1,6 +1,4 @@
 ﻿
-using Newtonsoft.Json;
-
 namespace SwedbankPay.Sdk.PaymentOrders
 {
     public class PaymentOrderResponse
@@ -8,12 +6,11 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public PaymentOrderResponse(OperationList operations, PaymentOrderResponseObject paymentorder)
         {
             Operations = operations;
-            PaymentOrderResponseObject = paymentorder;
+            PaymentOrder = paymentorder;
         }
 
         public OperationList Operations { get; }
 
-        [JsonProperty("paymentorder")]
-        public PaymentOrderResponseObject PaymentOrderResponseObject { get; }
+        public PaymentOrderResponseObject PaymentOrder { get; }
     }
 }
