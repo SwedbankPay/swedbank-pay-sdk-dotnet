@@ -1,7 +1,5 @@
 ﻿using System;
-
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System.Text.Json;
 
 using Xunit;
 
@@ -17,13 +15,10 @@ namespace SwedbankPay.Sdk.Tests.Json
         {
             //ARRANGE
 
-            var jsonObject = new JObject
-            {
-                { "id", this.idstring }
-            };
+            var jsonObject = $"{{ {{ \"id\": {this.idstring} }} }}";
 
             //ACT
-            var result = JsonSerializer.Deserialize<Uri>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);
+            var result = JsonSerializer.Deserialize<Uri>(jsonObject, JsonSerialization.JsonSerialization.Settings);
 
             //ASSERT
             Assert.Equal(this.idstring, result.OriginalString);
@@ -41,9 +36,9 @@ namespace SwedbankPay.Sdk.Tests.Json
 
             //ACT
             var result = JsonSerializer.Serialize(dummy, JsonSerialization.JsonSerialization.Settings);
-            var obj = JObject.Parse(result);
+            var obj = JsonDocument.Parse(result);
 
-            obj.TryGetValue("Id", StringComparison.InvariantCultureIgnoreCase, out var id);
+            var id = obj.RootElement.GetProperty("Id").ToString();
             //ASSERT
             Assert.Equal(this.idstring, id);
         }

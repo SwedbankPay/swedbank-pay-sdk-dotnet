@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using System.Text.Json;
 
 using SwedbankPay.Sdk.PaymentOrders;
 
@@ -14,10 +13,7 @@ namespace SwedbankPay.Sdk.Tests.Json
         {
             //ARRANGE
 
-            var jsonObject = new JObject
-            {
-                { "AccountAgeIndicator", "01" }
-            };
+            var jsonObject = $"{{ {{ \"AccountAgeIndicator\": \"01\" }} }}";
 
             //ACT
             var result = JsonSerializer.Deserialize<AccountInfo>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);
@@ -38,9 +34,9 @@ namespace SwedbankPay.Sdk.Tests.Json
 
             //ACT
             var result = JsonSerializer.Serialize(accountInfo, JsonSerialization.JsonSerialization.Settings);
-            var obj = JObject.Parse(result);
+            var obj = JsonDocument.Parse(result);
 
-            var accountAgeValue = obj.GetValue("accountAgeIndicator");
+            var accountAgeValue = obj.RootElement.GetProperty("accountAgeIndicator").ToString();
 
             //ASSERT
             Assert.Equal("01", accountAgeValue);

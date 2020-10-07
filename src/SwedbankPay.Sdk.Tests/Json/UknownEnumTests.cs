@@ -1,8 +1,10 @@
-﻿using Newtonsoft.Json;
-using SwedbankPay.Sdk.Payments;
+﻿using SwedbankPay.Sdk.Payments;
+
 using System;
 using System.Linq;
 using System.Reflection;
+using System.Text.Json;
+
 using Xunit;
 
 namespace SwedbankPay.Sdk.Tests.Json
