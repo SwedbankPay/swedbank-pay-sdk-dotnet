@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace SwedbankPay.Sdk.Consumers
+﻿namespace SwedbankPay.Sdk.Consumers
 {
     public class BillingDetails
     {
@@ -9,7 +7,6 @@ namespace SwedbankPay.Sdk.Consumers
         }
 
 
-        [JsonConstructor]
         public BillingDetails(EmailAddress email, Msisdn msisdn, Address billingAddress)
         {
             Email = email;

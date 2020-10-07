@@ -1,12 +1,9 @@
 ﻿using System;
 
-using Newtonsoft.Json;
-
 namespace SwedbankPay.Sdk
 {
     public class Amount
     {
-        [JsonConstructor]
         private Amount(decimal value)
         {
             if (value < 0)

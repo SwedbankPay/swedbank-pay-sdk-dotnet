@@ -13,13 +13,10 @@ using System;
 using System.Globalization;
 using System.Linq;
 
-using Newtonsoft.Json;
-
 namespace SwedbankPay.Sdk
 {
     public class CurrencyCode
     {
-        [JsonConstructor]
         public CurrencyCode(string currencyCode)
         {
             if (string.IsNullOrEmpty(currencyCode))

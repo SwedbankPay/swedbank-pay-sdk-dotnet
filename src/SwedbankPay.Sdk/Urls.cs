@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Newtonsoft.Json;
-
 namespace SwedbankPay.Sdk
 {
     public class Urls : IdLink
     {
-        [JsonConstructor]
         internal Urls(Uri id,
                       ICollection<Uri> hostUrls = null,
                       Uri completeUrl = null,

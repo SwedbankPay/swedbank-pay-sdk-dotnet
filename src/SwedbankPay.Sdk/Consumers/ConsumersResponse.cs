@@ -1,10 +1,7 @@
-﻿using Newtonsoft.Json;
-
-namespace SwedbankPay.Sdk.Consumers
+﻿namespace SwedbankPay.Sdk.Consumers
 {
     public class ConsumersResponse
     {
-        [JsonConstructor]
         public ConsumersResponse(string token)
         {
             Token = token;

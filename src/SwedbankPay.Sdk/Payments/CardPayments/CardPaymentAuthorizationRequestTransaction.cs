@@ -1,10 +1,7 @@
-﻿using Newtonsoft.Json;
-
-namespace SwedbankPay.Sdk.Payments.CardPayments
+﻿namespace SwedbankPay.Sdk.Payments.CardPayments
 {
     public class CardPaymentAuthorizationRequestTransaction
     {
-        [JsonConstructor]
         protected internal CardPaymentAuthorizationRequestTransaction(string cardNumber,
                                                     int cardExpiryMonth,
                                                     int cardExpiryYear,
