@@ -13,10 +13,10 @@ namespace SwedbankPay.Sdk.Tests.Json
         public void CanDeSerialize_Msisdn()
         {
             //ARRANGE
-            var jsonObject = "{ { \"msisdn\", \"+46701234567\" } }";
+            var jsonObject = "{ \"msisdn\": \"+46701234567\" } ";
 
             //ACT
-            var result = JsonSerializer.Deserialize<Msisdn>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);
+            var result = JsonSerializer.Deserialize<Msisdn>(jsonObject, JsonSerialization.JsonSerialization.Settings);
 
             //ASSERT
             Assert.Equal("+46701234567", result.ToString());
@@ -31,7 +31,7 @@ namespace SwedbankPay.Sdk.Tests.Json
             //ACT
             var result = JsonSerializer.Serialize(prefillInfo, JsonSerialization.JsonSerialization.Settings);
             var obj = JsonDocument.Parse(result);
-            var msisdn = obj.RootElement.GetProperty("Msisdn").ToString();
+            var msisdn = obj.RootElement.GetProperty("msisdn").ToString();
 
             //ASSERT
             Assert.Equal("+46701234567", msisdn);

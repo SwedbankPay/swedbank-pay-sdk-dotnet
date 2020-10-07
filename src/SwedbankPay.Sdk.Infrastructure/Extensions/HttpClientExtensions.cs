@@ -49,9 +49,11 @@ namespace SwedbankPay.Sdk.Extensions
                 httpResponseContent = await httpResponseMessage.Content.ReadAsStringAsync();
                 if (!httpResponseMessage.IsSuccessStatusCode)
                 {
+                    if (string.IsNullOrEmpty(httpResponseContent))
+                        throw new HttpResponseException(httpResponseMessage, new ProblemResponse(), BuildErrorMessage(httpResponseContent));
                     throw new HttpResponseException(
                         httpResponseMessage,
-                        JsonSerializer.Deserialize<ProblemResponse>(httpResponseContent),
+                        JsonSerializer.Deserialize<ProblemResponse>(httpResponseContent, JsonSerialization.JsonSerialization.Settings),
                         BuildErrorMessage(httpResponseContent));
                 }
 

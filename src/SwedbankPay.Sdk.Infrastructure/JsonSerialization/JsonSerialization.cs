@@ -1,7 +1,4 @@
-﻿using SwedbankPay.Sdk.PaymentOrders;
-
-using System.Collections.Generic;
-using System.Text.Json;
+﻿using System.Text.Json;
 
 namespace SwedbankPay.Sdk.JsonSerialization
 {
@@ -11,7 +8,8 @@ namespace SwedbankPay.Sdk.JsonSerialization
         {
             IgnoreNullValues = true,
             PropertyNameCaseInsensitive = true,
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            WriteIndented = true
         };
     }
 }

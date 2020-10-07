@@ -5,6 +5,12 @@ namespace SwedbankPay.Sdk
 {
     public class ProblemResponse
     {
+        public ProblemResponse()
+        {
+
+        }
+
+
         public ProblemResponse(string type,
                                string title,
                                string detail,
