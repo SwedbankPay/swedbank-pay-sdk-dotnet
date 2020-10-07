@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Payments.MobilePayPayments
 {
-    public interface IMobilePayPaymentOperations
+    public interface IMobilePayPaymentOperations : IDictionary<LinkRelation, HttpOperation>
     {
         Func<PaymentAbortRequest, Task<MobilePayPaymentResponse>> Abort { get; }
         Func<MobilePayPaymentCancelRequest, Task<CancellationResponse>> Cancel { get; }

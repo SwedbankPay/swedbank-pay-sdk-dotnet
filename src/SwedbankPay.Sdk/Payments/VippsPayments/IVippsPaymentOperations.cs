@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Payments.VippsPayments
 {
-    public interface IVippsPaymentOperations
+    public interface IVippsPaymentOperations : IDictionary<LinkRelation, HttpOperation>
     {
         Func<VippsPaymentCancelRequest, Task<CancellationResponse>> Cancel { get; }
         Func<VippsPaymentCaptureRequest, Task<CaptureResponse>> Capture { get; }

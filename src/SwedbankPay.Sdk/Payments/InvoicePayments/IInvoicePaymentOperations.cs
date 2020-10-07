@@ -1,11 +1,10 @@
-﻿using SwedbankPay.Sdk;
-using SwedbankPay.Sdk.Payments;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Payments.InvoicePayments
 {
-    public interface IInvoicePaymentOperations
+    public interface IInvoicePaymentOperations : IDictionary<LinkRelation, HttpOperation>
     {
         Func<PaymentAbortRequest, Task<InvoicePaymentResponse>> Abort { get; }
         Func<InvoiceApprovedLegalAddressRequest, Task<ApprovedLegalAddressResponse>> ApprovedLegalAddress { get; }

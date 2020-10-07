@@ -1,10 +1,11 @@
 ﻿using SwedbankPay.Sdk.Payments.CardPayments;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Payments
 {
-    public interface ICardPaymentOperations
+    public interface ICardPaymentOperations : IDictionary<LinkRelation, HttpOperation>
     {
         Func<CardPaymentAbortRequest, Task<CardPaymentResponse>> Abort { get; }
         Func<CardPaymentCancelRequest, Task<CancellationResponse>> Cancel { get; }

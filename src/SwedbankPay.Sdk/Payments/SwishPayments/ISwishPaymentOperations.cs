@@ -1,8 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Payments.SwishPayments
 {
-    public interface ISwishPaymentOperations
+    public interface ISwishPaymentOperations : IDictionary<LinkRelation, HttpOperation>
     {
         System.Func<PaymentAbortRequest, Task<SwishPaymentResponse>> Abort { get; }
         HttpOperation PaidPayment { get; }

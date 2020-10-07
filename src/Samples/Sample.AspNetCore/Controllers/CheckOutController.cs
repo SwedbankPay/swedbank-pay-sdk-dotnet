@@ -48,7 +48,7 @@ namespace Sample.AspNetCore.Controllers
         }
 
 
-        public async Task<PaymentOrder> CreatePaymentOrder(string consumerProfileRef = null)
+        public async Task<IPaymentOrder> CreatePaymentOrder(string consumerProfileRef = null)
         {
             var totalAmount = this.cartService.CalculateTotal();
             Payer payer = null;
@@ -89,7 +89,7 @@ namespace Sample.AspNetCore.Controllers
             }
         }
 
-        public async Task<CardPayment> CreateCardPayment()
+        public async Task<ICardPayment> CreateCardPayment()
         {
             var totalAmount = this.cartService.CalculateTotal();
             var vatAmount = Amount.FromDecimal(0);
@@ -125,7 +125,7 @@ namespace Sample.AspNetCore.Controllers
         
 
 
-        public async Task<TrustlyPayment> CreateTrustlyPayment()
+        public async Task<ITrustlyPayment> CreateTrustlyPayment()
         {
             var totalAmount = this.cartService.CalculateTotal();
             var vatAmount = Amount.FromDecimal(0);
@@ -158,7 +158,7 @@ namespace Sample.AspNetCore.Controllers
             }
         }
 
-        public async Task<SwishPayment> CreateSwishPayment()
+        public async Task<ISwishPayment> CreateSwishPayment()
         {
             var totalAmount = this.cartService.CalculateTotal();
             var vatAmount = Amount.FromDecimal(0);
