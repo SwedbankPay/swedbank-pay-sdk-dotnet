@@ -8,14 +8,33 @@ namespace SwedbankPay.Sdk.JsonSerialization
     {
         public override EmailAddress Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            var addressString = reader.GetString();
-            return new EmailAddress(addressString);
+            if (reader.TokenType == JsonTokenType.PropertyName)
+            {
+                reader.GetString();
+                reader.Read();
+            }
+
+            if (reader.TokenType == JsonTokenType.StartObject)
+            {
+                if (reader.Read())
+                {
+                    var uri = Read(ref reader, typeToConvert, options);
+                    // Reads the EndObject
+                    reader.Read();
+                    return uri;
+                }
+
+            }
+
+            if (reader.TokenType == JsonTokenType.String)
+                return new EmailAddress(reader.GetString());
+            throw new JsonException();
         }
 
 
         public override void Write(Utf8JsonWriter writer, EmailAddress value, JsonSerializerOptions options)
         {
-            writer.WriteString(typeof(EmailAddress).Name, value.ToString());
+            writer.WriteStringValue(value.ToString());
         }
     }
 }

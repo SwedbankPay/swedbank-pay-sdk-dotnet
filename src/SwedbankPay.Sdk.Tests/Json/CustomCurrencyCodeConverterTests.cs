@@ -15,7 +15,7 @@ namespace SwedbankPay.Sdk.Tests.Json
         {
             //ARRANGE
 
-            var jsonObject = $" {{ {{\"currency\": {this.currencyCode} }} }}";
+            var jsonObject = $"{{\"currency\": \"{this.currencyCode}\" }}";
 
             //ACT
             var result = JsonSerializer.Deserialize<CurrencyCode>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);

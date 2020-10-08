@@ -14,7 +14,7 @@ namespace SwedbankPay.Sdk.Tests.Json
         public void CanDeSerialize_Language()
         {
             //ARRANGE
-            var jsonObject = $"{{ \"language\", #{this.languageString} }}";
+            var jsonObject = $"{{ \"language\": \"{this.languageString}\" }}";
 
             //ACT
             var result = JsonSerializer.Deserialize<Language>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);

@@ -13,7 +13,7 @@ namespace SwedbankPay.Sdk.Tests.Json
         {
             //ARRANGE
 
-            var jsonObject = $"{{ {{ \"AccountAgeIndicator\": \"01\" }} }}";
+            var jsonObject = $"{{\"AccountAgeIndicator\": \"01\" }}";
 
             //ACT
             var result = JsonSerializer.Deserialize<AccountInfo>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);

@@ -17,7 +17,7 @@ namespace SwedbankPay.Sdk.Tests.Json
         {
             //ARRANGE
 
-            var jsonObject = $"{{ {{ \"xX123xxaddress\", {this.address} }} }}";
+            var jsonObject = $"{{\"xX123xxaddress\": \"{this.address}\"}}";
 
             //ACT
             var result = JsonSerializer.Deserialize<EmailAddress>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);

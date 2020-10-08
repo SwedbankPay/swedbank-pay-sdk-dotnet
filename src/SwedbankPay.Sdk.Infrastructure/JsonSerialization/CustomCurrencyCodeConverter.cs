@@ -8,14 +8,33 @@ namespace SwedbankPay.Sdk.JsonSerialization
     {
         public override CurrencyCode Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            var currencyCodeString = reader.GetString();
-            return new CurrencyCode(currencyCodeString);
+            if (reader.TokenType == JsonTokenType.PropertyName)
+            {
+                reader.GetString();
+                reader.Read();
+            }
+
+            if (reader.TokenType == JsonTokenType.StartObject)
+            {
+                if (reader.Read())
+                {
+                    var uri = Read(ref reader, typeToConvert, options);
+                    // Reads the EndObject
+                    reader.Read();
+                    return uri;
+                }
+
+            }
+
+            if (reader.TokenType == JsonTokenType.String)
+                return new CurrencyCode(reader.GetString());
+            throw new JsonException();
         }
 
 
         public override void Write(Utf8JsonWriter writer, CurrencyCode value, JsonSerializerOptions options)
         {
-            writer.WriteString(typeof(CurrencyCode).Name, value.ToString());
+            writer.WriteStringValue(value.ToString());
         }
     }
 }

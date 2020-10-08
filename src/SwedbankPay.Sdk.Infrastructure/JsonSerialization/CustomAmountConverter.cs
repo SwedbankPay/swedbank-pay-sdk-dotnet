@@ -9,16 +9,32 @@ namespace SwedbankPay.Sdk.JsonSerialization
     {
         public override Amount Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            if(!reader.TryGetInt64(out var amountValue))
+            if (reader.TokenType == JsonTokenType.PropertyName)
             {
-                return new Amount(amountValue);
+                reader.GetString();
+                reader.Read();
             }
+
+            if (reader.TokenType == JsonTokenType.StartObject)
+            {
+                if (reader.Read())
+                {
+                    var uri = Read(ref reader, typeToConvert, options);
+                    // Reads the EndObject
+                    reader.Read();
+                    return uri;
+                }
+
+            }
+
+            if (reader.TokenType == JsonTokenType.Number)
+                return new Amount(reader.GetInt64());
             throw new JsonException();
         }
 
         public override void Write(Utf8JsonWriter writer, Amount value, JsonSerializerOptions options)
         {
-            writer.WriteNumber(typeof(Amount).Name, value.Value);
+            writer.WriteNumberValue(value.Value);
         }
     }
 }

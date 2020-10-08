@@ -16,7 +16,7 @@ namespace SwedbankPay.Sdk.Tests.Json
         {
             //ARRANGE
 
-            var jsonObject = $" {{ {{ \"xX123xxaddress\": {this.expectedAmount} }} }}";
+            var jsonObject = $"{{ \"xX123xxaddress\": {this.expectedAmount} }}";
 
             //ACT
             var result = JsonSerializer.Deserialize<Amount>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);
@@ -36,7 +36,7 @@ namespace SwedbankPay.Sdk.Tests.Json
             //ACT
             var result = JsonSerializer.Serialize(orderItem, JsonSerialization.JsonSerialization.Settings);
             var obj = JsonDocument.Parse(result);
-            var amount = obj.RootElement.GetProperty("Amount").GetInt64();
+            var amount = obj.RootElement.GetProperty("amount").GetInt64();
 
             //ASSERT
             Assert.Equal(this.expectedAmount, amount);

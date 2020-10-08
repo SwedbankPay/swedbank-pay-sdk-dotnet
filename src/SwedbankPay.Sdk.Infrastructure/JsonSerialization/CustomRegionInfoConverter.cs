@@ -10,6 +10,23 @@ namespace SwedbankPay.Sdk.JsonSerialization
     {
         public override RegionInfo Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
+            if (reader.TokenType == JsonTokenType.PropertyName)
+            {
+                reader.GetString();
+                reader.Read();
+            }
+
+            if (reader.TokenType == JsonTokenType.StartObject)
+            {
+                if (reader.Read())
+                {
+                    var uri = Read(ref reader, typeToConvert, options);
+                    // Reads the EndObject
+                    reader.Read();
+                    return uri;
+                }
+            }
+
             if (reader.TokenType == JsonTokenType.String)
             {
                 var regionInfoString = reader.GetString();
@@ -18,7 +35,8 @@ namespace SwedbankPay.Sdk.JsonSerialization
                     return null;
                 return new RegionInfo(regionInfoString);
             }
-            else if (reader.TokenType == JsonTokenType.Null)
+
+            if (reader.TokenType == JsonTokenType.Null)
                 return null;
             throw new JsonException();
         }
@@ -26,7 +44,6 @@ namespace SwedbankPay.Sdk.JsonSerialization
 
         public override void Write(Utf8JsonWriter writer, RegionInfo value, JsonSerializerOptions options)
         {
-            writer.WritePropertyName(typeof(RegionInfo).Name);
             if(value == null)
             {
                 writer.WriteNullValue();

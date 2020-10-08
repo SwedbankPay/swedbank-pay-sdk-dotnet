@@ -15,7 +15,7 @@ namespace SwedbankPay.Sdk.Tests.Json
         public void CanDeSerialize_RegionInfo(string regionInfoString)
         {
             //ARRANGE
-            var jsonObject = $" {{ {{ \"region\": {regionInfoString} }} }}";
+            var jsonObject = $"{{ \"region\": \"{regionInfoString}\"}}";
 
             //ACT
             var result = JsonSerializer.Deserialize<RegionInfo>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);
@@ -32,7 +32,7 @@ namespace SwedbankPay.Sdk.Tests.Json
         public void CanSerialize_RegionInfo(string regionInfoString)
         {
             //ARRANGE
-            var dummy = $"{{ \"Region\": {new RegionInfo(regionInfoString)} }}";
+            var dummy = $"{{ \"Region\": \"{new RegionInfo(regionInfoString)}\" }}";
 
             //ACT
             var result = JsonSerializer.Serialize(dummy, JsonSerialization.JsonSerialization.Settings);

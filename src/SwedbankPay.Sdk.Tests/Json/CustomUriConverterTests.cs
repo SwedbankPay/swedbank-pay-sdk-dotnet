@@ -15,7 +15,7 @@ namespace SwedbankPay.Sdk.Tests.Json
         {
             //ARRANGE
 
-            var jsonObject = $"{{ {{ \"id\": {this.idstring} }} }}";
+            var jsonObject = $"{{ \"id\": \"{this.idstring}\" }}";
 
             //ACT
             var result = JsonSerializer.Deserialize<Uri>(jsonObject, JsonSerialization.JsonSerialization.Settings);
