@@ -9,7 +9,9 @@ namespace SwedbankPay.Sdk.JsonSerialization
             IgnoreNullValues = true,
             PropertyNameCaseInsensitive = true,
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            WriteIndented = true
+            WriteIndented = true,
+            MaxDepth = 64,
+            IgnoreReadOnlyProperties = true
         };
     }
 }
