@@ -38,14 +38,17 @@ namespace SwedbankPay.Sdk.Tests.Json
             var result = JsonSerializer.Serialize(dummy, JsonSerialization.JsonSerialization.Settings);
             var obj = JsonDocument.Parse(result);
 
-            var id = obj.RootElement.GetProperty("Id").ToString();
+            var id = obj.RootElement.GetProperty("id").ToString();
             //ASSERT
             Assert.Equal(this.idstring, id);
         }
-    }
 
-    internal class DummyClass
-    {
-        public Uri Id { get; set; }
+
+        private class DummyClass
+        {
+            public Uri Id { get; set; }
+        }
     }
 }
+
+   

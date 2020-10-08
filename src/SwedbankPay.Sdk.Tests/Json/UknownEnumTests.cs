@@ -26,7 +26,7 @@ namespace SwedbankPay.Sdk.Tests.Json
         [InlineData(typeof(Intent), "Eraser")]
         public void DeserializingUnknownEnum_GivesDefaultValue(Type enumType, string value)
         {
-            JsonSerializer.Deserialize($"\"{value}\"", enumType, JsonSerialization.JsonSerialization.Settings);
+            JsonSerializer.Deserialize($"{{ \"propertyName\":\"{value}\" }}", enumType, JsonSerialization.JsonSerialization.Settings);
         }
 
         [Fact]
@@ -40,6 +40,6 @@ namespace SwedbankPay.Sdk.Tests.Json
             }
         }
 
-        public static string InvalidStringEnum = "\"ThisIsAVeryInvalidEnumValueForThisObject\"";
+        public static string InvalidStringEnum = $"{{ \"propertyName\":\"ThisIsAVeryInvalidEnumValueForThisObject\"}}";
     }
 }

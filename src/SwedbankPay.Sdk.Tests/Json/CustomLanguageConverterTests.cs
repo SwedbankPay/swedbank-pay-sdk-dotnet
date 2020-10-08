@@ -28,16 +28,23 @@ namespace SwedbankPay.Sdk.Tests.Json
         public void CanSerialize_Language()
         {
             //ARRANGE
-            var lang = new Language(this.languageString);
-            var dummy = $"{{ \"Language\" : ${lang} }}";
+            var lang = new DummyLanguageClass
+            {
+                Language = new Language(this.languageString)
+            };
 
             //ACT
-            var result = JsonSerializer.Serialize(dummy, JsonSerialization.JsonSerialization.Settings);
+            var result = JsonSerializer.Serialize(lang, JsonSerialization.JsonSerialization.Settings);
             var obj = JsonDocument.Parse(result);
 
-            var language = obj.RootElement.GetProperty("Language").ToString();
+            var language = obj.RootElement.GetProperty("language").ToString();
             //ASSERT
             Assert.Equal(this.languageString, language);
+        }
+
+        private class DummyLanguageClass
+        {
+            public Language Language { get; set; }
         }
     }
 }

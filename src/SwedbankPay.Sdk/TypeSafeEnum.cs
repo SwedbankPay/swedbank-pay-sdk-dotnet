@@ -20,13 +20,10 @@ namespace SwedbankPay.Sdk
                 // multiple enums with same value are allowed but store only one per value
                 var dictionary = new Dictionary<TValue, TEnum>();
                 foreach (var item in GetAllOptions())
-                    if (!dictionary.ContainsKey(item.value))
-                        dictionary.Add(item.value, item);
+                    if (!dictionary.ContainsKey(item.Value))
+                        dictionary.Add(item.Value, item);
                 return dictionary;
             });
-
-        private readonly TValue value;
-
 
         protected TypeSafeEnum(string name, TValue value)
         {
@@ -37,7 +34,7 @@ namespace SwedbankPay.Sdk
                 throw new ArgumentNullException(nameof(value));
 
             Name = name;
-            this.value = value;
+            this.Value = value;
         }
 
 
@@ -48,8 +45,7 @@ namespace SwedbankPay.Sdk
 
         public string Name { get; }
 
-        public TValue Value =>
-            this.value;
+        public TValue Value { get; }
 
 
         public virtual bool Equals(TypeSafeEnum<TEnum, TValue> other)
@@ -63,7 +59,7 @@ namespace SwedbankPay.Sdk
             if (other is null)
                 return false;
 
-            return this.value.Equals(other.value);
+            return this.Value.Equals(other.Value);
         }
 
 
@@ -125,7 +121,7 @@ namespace SwedbankPay.Sdk
 
         public override int GetHashCode()
         {
-            return this.value.GetHashCode();
+            return this.Value.GetHashCode();
         }
 
 

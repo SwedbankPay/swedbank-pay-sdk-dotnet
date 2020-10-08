@@ -32,15 +32,23 @@ namespace SwedbankPay.Sdk.Tests.Json
         public void CanSerialize_RegionInfo(string regionInfoString)
         {
             //ARRANGE
-            var dummy = $"{{ \"Region\": \"{new RegionInfo(regionInfoString)}\" }}";
+            var dummy = new DummyRegionInfo
+            {
+                Region = new RegionInfo(regionInfoString)
+            };
 
             //ACT
             var result = JsonSerializer.Serialize(dummy, JsonSerialization.JsonSerialization.Settings);
             var obj = JsonDocument.Parse(result);
 
-            var region = obj.RootElement.GetProperty("Region").ToString();
+            var region = obj.RootElement.GetProperty("region").ToString();
             //ASSERT
             Assert.Equal(regionInfoString, region);
+        }
+
+        private class DummyRegionInfo
+        {
+            public RegionInfo Region { get; set; }
         }
     }
 }

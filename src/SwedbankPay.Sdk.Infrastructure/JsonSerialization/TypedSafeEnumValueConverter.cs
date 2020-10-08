@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Xml.Schema;
 
 namespace SwedbankPay.Sdk.JsonSerialization
 {
@@ -16,6 +15,20 @@ namespace SwedbankPay.Sdk.JsonSerialization
         /// <returns></returns>
         public override TEnum Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
+            if(reader.TokenType == JsonTokenType.PropertyName)
+            {
+                reader.GetString();
+                reader.Read();
+            }
+
+            if(reader.TokenType == JsonTokenType.StartObject)
+            {
+                reader.Read();
+                var valueToReturn = Read(ref reader, typeToConvert, options);
+                reader.Read();
+                return valueToReturn;
+            }
+
             try
             {
                 TValue value;

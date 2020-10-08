@@ -36,7 +36,7 @@ namespace SwedbankPay.Sdk.Tests.Json
             //ACT
             var result = JsonSerializer.Serialize(riskIndicator, JsonSerialization.JsonSerialization.Settings);
             var obj = JsonDocument.Parse(result);
-            var address = obj.RootElement.GetProperty("DeliveryEmailAddress");
+            var address = obj.RootElement.GetProperty("deliveryEmailAddress");
             //ASSERT
             Assert.Equal(this.address, address.ToString());
         }
