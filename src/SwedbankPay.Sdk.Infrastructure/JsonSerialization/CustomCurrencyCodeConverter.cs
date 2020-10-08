@@ -1,55 +1,21 @@
 ﻿using System;
-using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace SwedbankPay.Sdk.JsonSerialization
 {
-    public class CustomCurrencyCodeConverter
-
+    public class CustomCurrencyCodeConverter : JsonConverter<CurrencyCode>
     {
-        private readonly Type[] types;
-
-
-        public CustomCurrencyCodeConverter(params Type[] types)
+        public override CurrencyCode Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            this.types = types;
+            var currencyCodeString = reader.GetString();
+            return new CurrencyCode(currencyCodeString);
         }
 
 
-        public CustomCurrencyCodeConverter()
+        public override void Write(Utf8JsonWriter writer, CurrencyCode value, JsonSerializerOptions options)
         {
+            writer.WriteString(typeof(CurrencyCode).Name, value.ToString());
         }
-
-
-        public bool CanRead => true;
-
-
-        public bool CanConvert(Type objectType)
-        {
-            return this.types.Any(t => t == objectType);
-        }
-
-
-        //public object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-        //{
-        //    if (reader.TokenType == JsonToken.StartObject)
-        //    {
-        //        var jo = JObject.Load(reader);
-        //        var currencyCodeString = jo.Values().FirstOrDefault()?.ToString();
-        //        return new CurrencyCode(currencyCodeString);
-        //    }
-
-        //    return new CurrencyCode(reader.Value.ToString());
-        //}
-
-
-        //public void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-        //{
-        //    var t = JToken.FromObject(value);
-
-        //    if (t.Type != JTokenType.Object)
-        //        t.WriteTo(writer);
-        //    else
-        //        writer.WriteValue(value.ToString());
-        //}
     }
 }

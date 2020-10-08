@@ -1,49 +1,20 @@
 ﻿using System;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace SwedbankPay.Sdk.JsonSerialization
 {
-    public class CustomMsisdnConverter
+    public class CustomMsisdnConverter : JsonConverter<Msisdn>
     {
-        private readonly Type[] types;
-
-
-        public CustomMsisdnConverter(params Type[] types)
+        public override Msisdn Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            this.types = types;
+            var msisdnString = reader.GetString();
+            return new Msisdn(msisdnString);
         }
-
-
-        public bool CanRead => true;
-
-
-        public bool CanConvert(Type objectType)
+        public override void Write(Utf8JsonWriter writer, Msisdn value, JsonSerializerOptions options)
         {
-            return this.types.Any(t => t == objectType);
+            writer.WriteString(typeof(Msisdn).Name, value.ToString());
         }
-
-
-        //public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-        //{
-        //    if (reader.TokenType == JsonToken.StartObject)
-        //    {
-        //        var jo = JObject.Load(reader);
-        //        var msisdn = jo.Values().FirstOrDefault()?.ToString();
-        //        return new Msisdn(msisdn);
-        //    }
-
-        //    return new Msisdn(reader.Value.ToString());
-        //}
-
-
-        //public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-        //{
-        //    var t = JToken.FromObject(value);
-
-        //    if (t.Type != JTokenType.Object)
-        //        t.WriteTo(writer);
-        //    else
-        //        writer.WriteValue(value.ToString());
-        //}
     }
 }

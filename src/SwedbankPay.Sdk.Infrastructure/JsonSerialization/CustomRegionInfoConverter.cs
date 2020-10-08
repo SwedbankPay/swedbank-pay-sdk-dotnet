@@ -1,52 +1,38 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace SwedbankPay.Sdk.JsonSerialization
 {
-    public class CustomRegionInfoConverter
+    public class CustomRegionInfoConverter : JsonConverter<RegionInfo>
     {
-        public bool CanConvert(Type objectType)
+        public override RegionInfo Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            return objectType == typeof(RegionInfo);
+            if (reader.TokenType == JsonTokenType.String)
+            {
+                var regionInfoString = reader.GetString();
+
+                if (string.IsNullOrEmpty(regionInfoString))
+                    return null;
+                return new RegionInfo(regionInfoString);
+            }
+            else if (reader.TokenType == JsonTokenType.Null)
+                return null;
+            throw new JsonException();
         }
 
 
-        //public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-        //{
-        //    if (reader.TokenType == JsonToken.String)
-        //        return new RegionInfo((string)reader.Value);
-        //    if (reader.TokenType == JsonToken.StartObject)
-        //    {
-        //        var jo = JObject.Load(reader);
-        //        var region = jo.Values().FirstOrDefault()?.ToString();
-        //        return region != null ? new RegionInfo(region) : null;
-        //    }
-
-        //    if (reader.TokenType == JsonToken.Null)
-        //        return null;
-
-        //    throw new InvalidOperationException(
-        //        "Unhandled case for CustomRegionInfoConverter. Check to see if this converter has been applied to the wrong serialization type.");
-        //}
-
-
-        //public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-        //{
-        //    if (null == value)
-        //    {
-        //        writer.WriteNull();
-        //        return;
-        //    }
-
-        //    if (value is RegionInfo regionInfo)
-        //    {
-        //        writer.WriteValue(regionInfo.Name);
-        //        return;
-        //    }
-
-        //    throw new InvalidOperationException(
-        //        "Unhandled case for CustomRegionInfoConverter. Check to see if this converter has been applied to the wrong serialization type.");
-        //}
+        public override void Write(Utf8JsonWriter writer, RegionInfo value, JsonSerializerOptions options)
+        {
+            writer.WritePropertyName(typeof(RegionInfo).Name);
+            if(value == null)
+            {
+                writer.WriteNullValue();
+                return;
+            }
+            writer.WriteStringValue(value.Name);
+        }
     }
 }

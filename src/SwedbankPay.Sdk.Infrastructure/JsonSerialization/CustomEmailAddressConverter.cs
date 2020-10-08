@@ -1,55 +1,21 @@
 ﻿using System;
-using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace SwedbankPay.Sdk.JsonSerialization
 {
-    public class CustomEmailAddressConverter
-
+    public class CustomEmailAddressConverter: JsonConverter<EmailAddress>
     {
-        private readonly Type[] types;
-
-
-        public CustomEmailAddressConverter(params Type[] types)
+        public override EmailAddress Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            this.types = types;
+            var addressString = reader.GetString();
+            return new EmailAddress(addressString);
         }
 
 
-        public CustomEmailAddressConverter()
+        public override void Write(Utf8JsonWriter writer, EmailAddress value, JsonSerializerOptions options)
         {
+            writer.WriteString(typeof(EmailAddress).Name, value.ToString());
         }
-
-
-        public bool CanRead => true;
-
-
-        public bool CanConvert(Type objectType)
-        {
-            return this.types.Any(t => t == objectType);
-        }
-
-
-        //public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-        //{
-        //    if (reader.TokenType == JsonToken.StartObject)
-        //    {
-        //        var jo = JObject.Load(reader);
-        //        var addressString = jo.Values().FirstOrDefault()?.ToString();
-        //        return new EmailAddress(addressString);
-        //    }
-
-        //    return new EmailAddress(reader.Value.ToString());
-        //}
-
-
-        //public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-        //{
-        //    var t = JToken.FromObject(value);
-
-        //    if (t.Type != JTokenType.Object)
-        //        t.WriteTo(writer);
-        //    else
-        //        writer.WriteValue(value.ToString());
-        //}
     }
 }
