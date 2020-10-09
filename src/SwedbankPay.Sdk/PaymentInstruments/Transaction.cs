@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.Payments
 {
-    public class Transaction
+    public class Transaction : ITransaction
     {
         public Transaction(Uri id,
                            DateTime created,
@@ -15,7 +15,7 @@ namespace SwedbankPay.Sdk.Payments
                            string description,
                            string payeeReference,
                            bool isOperational,
-                           OperationList operations,
+                           IOperationList operations,
                            string activity)
         {
             Id = id;
@@ -40,7 +40,7 @@ namespace SwedbankPay.Sdk.Payments
         public Uri Id { get; }
         public bool IsOperational { get; }
         public string Number { get; }
-        public OperationList Operations { get; }
+        public IOperationList Operations { get; }
         public string PayeeReference { get; }
         public State State { get; }
         public TransactionType Type { get; }

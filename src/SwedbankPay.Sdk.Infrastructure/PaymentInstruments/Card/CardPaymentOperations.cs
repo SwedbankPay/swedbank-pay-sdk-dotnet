@@ -10,7 +10,7 @@ namespace SwedbankPay.Sdk.Payments
     {
         internal CardPaymentOperations(CardPaymentOperationsDto operations, HttpClient client)
         {
-            foreach (var httpOperation in operations)
+            foreach (var httpOperation in operations.Operations)
             {
                 switch (httpOperation.Rel.Value)
                 {

@@ -1,6 +1,8 @@
-﻿namespace SwedbankPay.Sdk
+﻿using System.Collections.Generic;
+
+namespace SwedbankPay.Sdk
 {
-    public interface IOperationList
+    public interface IOperationList: IList<HttpOperation>
     {
         string ToString();
     }
