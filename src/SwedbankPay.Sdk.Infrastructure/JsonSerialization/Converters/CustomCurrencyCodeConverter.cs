@@ -2,7 +2,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace SwedbankPay.Sdk.JsonSerialization
+namespace SwedbankPay.Sdk.JsonSerialization.Converters
 {
     public class CustomCurrencyCodeConverter : JsonConverter<CurrencyCode>
     {

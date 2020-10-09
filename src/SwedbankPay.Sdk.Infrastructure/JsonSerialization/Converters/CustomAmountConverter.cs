@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace SwedbankPay.Sdk.JsonSerialization
+namespace SwedbankPay.Sdk.JsonSerialization.Converters
 {
-    public class CustomAmountConverter: JsonConverter<Amount>
+    public class CustomAmountConverter : JsonConverter<Amount>
     {
         public override Amount Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {

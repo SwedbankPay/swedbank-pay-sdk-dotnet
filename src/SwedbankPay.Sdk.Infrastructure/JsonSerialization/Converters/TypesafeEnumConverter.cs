@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-
-namespace SwedbankPay.Sdk.JsonSerialization
+﻿namespace SwedbankPay.Sdk.JsonSerialization.Converters
 {
     ////Original code found here: https://gist.github.com/gubenkoved/999eb73e227b7063a67a50401578c3a7
     //public class TypesafeEnumConverter : JsonConverter
