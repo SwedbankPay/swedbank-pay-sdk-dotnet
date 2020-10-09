@@ -6,12 +6,12 @@ namespace SwedbankPay.Sdk
 {
     public abstract class ResourceBase
     {
-        protected HttpClient httpClient;
+        protected HttpClient HttpClient { get; }
 
 
         protected ResourceBase(HttpClient httpClient)
         {
-            this.httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+            this.HttpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
         }
 
 

@@ -19,7 +19,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public async Task<IPaymentOrder> Create(PaymentOrderRequest paymentOrderRequest,
                                                PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
         {
-            return await PaymentOrder.Create(paymentOrderRequest, this.httpClient, GetExpandQueryString(paymentOrderExpand));
+            return await PaymentOrder.Create(paymentOrderRequest, this.HttpClient, GetExpandQueryString(paymentOrderExpand));
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <returns></returns>
         private async Task<IPaymentOrder> GetInternalAsync(Uri id, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
         {
-            return await PaymentOrder.Get(id, this.httpClient, GetExpandQueryString(paymentOrderExpand));
+            return await PaymentOrder.Get(id, this.HttpClient, GetExpandQueryString(paymentOrderExpand));
         }
     }
 }

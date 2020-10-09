@@ -51,7 +51,7 @@ namespace SwedbankPay.Sdk.Consumers
         /// <returns></returns>
         public Task<IConsumer> InitiateSession(ConsumersRequest consumersRequest)
         {
-            return Consumer.Initiate(consumersRequest, this.httpClient);
+            return Consumer.Initiate(consumersRequest, this.HttpClient);
         }
 
 
@@ -64,7 +64,7 @@ namespace SwedbankPay.Sdk.Consumers
         /// <returns></returns>
         public Task<BillingDetails> GetBillingDetailsInternalAsync(Uri url)
         {
-            return this.httpClient.GetAsJsonAsync<BillingDetails>(url);
+            return this.HttpClient.GetAsJsonAsync<BillingDetails>(url);
         }
 
 
@@ -77,7 +77,7 @@ namespace SwedbankPay.Sdk.Consumers
         /// <returns></returns>
         public Task<ShippingDetails> GetShippingDetailsInternalAsync(Uri url)
         {
-            return this.httpClient.GetAsJsonAsync<ShippingDetails>(url);
+            return this.HttpClient.GetAsJsonAsync<ShippingDetails>(url);
         }
     }
 }
