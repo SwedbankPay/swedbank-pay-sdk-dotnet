@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace SwedbankPay.Sdk.Payments
 {
@@ -10,10 +9,16 @@ namespace SwedbankPay.Sdk.Payments
 
         internal IPricesListResponse Map()
         {
-            var priceList = PriceList.Select(a => new Price(a.Amount, Enum.Parse<PriceType>(a.Type), a.VatAmount)).ToList();
-            var list = new PricesListResponse(priceList);
-            list.Id = Id;
-            return list;
+            var listPrice = new List<IPrice>();
+            foreach (var item in PriceList)
+            {
+                listPrice.Add(new Price(item.Amount, Enum.Parse<PriceType>(item.Type), item.VatAmount));
+            }
+            var response = new PricesListResponse(listPrice)
+            {
+                Id = Id
+            };
+            return response;
         }
     }
 }
