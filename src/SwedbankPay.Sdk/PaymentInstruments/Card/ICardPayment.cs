@@ -27,11 +27,11 @@ namespace SwedbankPay.Sdk.Payments
         PayeeInfo PayeeInfo { get; }
         string PayerReference { get; }
         string InitiatingSystemUserAgent { get; }
-        PricesListResponse Prices { get; }
-        ReversalsListResponse Reversals { get; }
+        IPricesListResponse Prices { get; }
+        IReversalsListResponse Reversals { get; }
         State State { get; }
-        TransactionListResponse Transactions { get; }
-        Urls Urls { get; }
+        ITransactionListResponse Transactions { get; }
+        IUrls Urls { get; }
         string UserAgent { get; }
         MetadataResponse Metadata { get; }
     }

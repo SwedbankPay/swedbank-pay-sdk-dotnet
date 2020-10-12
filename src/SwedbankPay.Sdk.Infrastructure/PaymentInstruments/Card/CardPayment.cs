@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Globalization;
-
+using System.Linq;
 using SwedbankPay.Sdk.PaymentOrders;
 
 namespace SwedbankPay.Sdk.Payments.CardPayments
@@ -18,9 +18,9 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
             RemainingCaptureAmount = payment.RemainingCaptureAmount;
             RemainingCancellationAmount = payment.RemainingCancellationAmount;
             RemainingReversalAmount = payment.RemainingReversalAmount;
-            Authorizations = new CardPaymentAuthorizationListResponse(payment.Authorizations);
-            Cancellations = new CancellationsListResponse(payment.Cancellations);
-            Captures = new CapturesListResponse(payment.Captures);
+            Authorizations = payment.Authorizations.Map();
+            Cancellations = payment.Cancellations.Map();
+            Captures = payment.Captures.Map();
             Created = payment.Created;
             Updated = payment.Updated;
             Currency = new CurrencyCode( payment.Currency);
@@ -31,13 +31,13 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
             Language = new CultureInfo(payment.Language);
             Number = payment.Number;
             Operation = payment.Operation;
-            PayeeInfo = new PayeeInfo(payment.PayeeInfo);
+            PayeeInfo = payment.PayeeInfo.Map();
             PayerReference = payment.PayerReference;
             InitiatingSystemUserAgent = payment.InitiatingSystemUserAgent;
             Prices = payment.Prices;
-            Reversals = payment.Reversals;
+            Reversals = payment.Reversals.Map();
             State = payment.State;
-            Transactions = payment.Transactions;
+            Transactions = payment.Transactions.Map();
             Urls = new Urls(payment.Urls);
             UserAgent = payment.UserAgent;
             Metadata = new MetadataResponse(payment.Metadata);
@@ -83,15 +83,15 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
 
         public string InitiatingSystemUserAgent { get; }
 
-        public PricesListResponse Prices { get; }
+        public IPricesListResponse Prices { get; }
 
-        public ReversalsListResponse Reversals { get; }
+        public IReversalsListResponse Reversals { get; }
 
         public State State { get; }
 
-        public TransactionListResponse Transactions { get; }
+        public ITransactionListResponse Transactions { get; }
 
-        public Urls Urls { get; }
+        public IUrls Urls { get; }
 
         public string UserAgent { get; }
 

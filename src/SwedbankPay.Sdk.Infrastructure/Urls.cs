@@ -1,9 +1,10 @@
-﻿using System;
+﻿using SwedbankPay.Sdk.Payments.CardPayments;
+using System;
 using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk
 {
-    public class Urls : IdLink
+    public class Urls : IdLink, IUrls
     {
         internal Urls(Uri id,
                       ICollection<Uri> hostUrls = null,
@@ -41,6 +42,10 @@ namespace SwedbankPay.Sdk
             PaymentUrl = paymentUrl;
             CallbackUrl = callbackUrl;
             LogoUrl = logoUrl;
+        }
+
+        public Urls(UrlsDto urls)
+        {
         }
 
 
