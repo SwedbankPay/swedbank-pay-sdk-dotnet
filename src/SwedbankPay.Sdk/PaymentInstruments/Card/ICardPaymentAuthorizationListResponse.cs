@@ -4,6 +4,6 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
 {
     public interface ICardPaymentAuthorizationListResponse
     {
-        List<CardPaymentAuthorization> AuthorizationList { get; }
+        List<ICardPaymentAuthorization> AuthorizationList { get; }
     }
 }

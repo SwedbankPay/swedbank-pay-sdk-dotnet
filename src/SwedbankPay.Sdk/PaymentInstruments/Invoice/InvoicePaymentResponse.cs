@@ -1,23 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
-
-using SwedbankPay.Sdk.PaymentOrders;
 
 namespace SwedbankPay.Sdk.Payments.InvoicePayments
 {
     public class InvoicePaymentResponse : IInvoicePayment
     {
-        public InvoicePaymentResponse(PaymentResponseObject payment,
-                               IOperationList operations)
+        public InvoicePaymentResponse(PaymentResponseObject payment)
         {
-            this.Payment = payment;
-            this.Operations = operations;
         }
         public Amount Amount { get; }
         public Amount RemainingCaptureAmount { get; }
         public Amount RemainingCancellationAmount { get; }
         public Amount RemainingReversalAmount { get; }
-        public InvoicePaymentAuthorizationListResponse Authorizations { get; }
+        public IInvoicePaymentAuthorizationListResponse Authorizations { get; }
         public ICancellationsListResponse Cancellations { get; }
         public ICapturesListResponse Captures { get; }
         public DateTime Created { get; }
@@ -39,10 +35,6 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
         public ITransactionListResponse Transactions { get; }
         public IUrls Urls { get; }
         public string UserAgent { get; }
-        public MetadataResponse Metadata { get; }
-
-        public PaymentResponseObject PaymentResponse => throw new NotImplementedException();
-
-        IInvoicePaymentOperations Operations => throw new NotImplementedException();
+        public Dictionary<string, object> Metadata { get; }
     }
 }
