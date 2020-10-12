@@ -38,9 +38,9 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
             Reversals = payment.Reversals;
             State = payment.State;
             Transactions = payment.Transactions;
-            Urls = payment.Urls;
+            Urls = new Urls(payment.Urls);
             UserAgent = payment.UserAgent;
-            Metadata = payment.Metadata;
+            Metadata = new MetadataResponse(payment.Metadata);
         }
 
         public Amount Amount { get; }
@@ -51,11 +51,11 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
 
         public Amount RemainingReversalAmount { get; }
 
-        public CardPaymentAuthorizationListResponse Authorizations { get; }
+        public ICardPaymentAuthorizationListResponse Authorizations { get; }
 
-        public CancellationsListResponse Cancellations { get; }
+        public ICancellationsListResponse Cancellations { get; }
 
-        public CapturesListResponse Captures { get; }
+        public ICapturesListResponse Captures { get; }
 
         public DateTime Created { get; }
 

@@ -11,9 +11,9 @@ namespace SwedbankPay.Sdk.Payments
         Amount RemainingCaptureAmount { get; }
         Amount RemainingCancellationAmount { get; }
         Amount RemainingReversalAmount { get; }
-        CardPaymentAuthorizationListResponse Authorizations { get; }
-        CancellationsListResponse Cancellations { get; }
-        CapturesListResponse Captures { get; }
+        ICardPaymentAuthorizationListResponse Authorizations { get; }
+        ICancellationsListResponse Cancellations { get; }
+        ICapturesListResponse Captures { get; }
         DateTime Created { get; }
         DateTime Updated { get; }
         CurrencyCode Currency { get; }
