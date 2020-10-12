@@ -40,7 +40,7 @@ namespace SwedbankPay.Sdk.Payments
 
         public Operation Operation { get; }
 
-        public PayeeInfo PayeeInfo { get; }
+        public PayeeInfoDto PayeeInfo { get; }
 
         public string PayerReference { get; }
 
@@ -48,16 +48,16 @@ namespace SwedbankPay.Sdk.Payments
 
         public List<Price> Prices { get; }
 
-        public ReversalsListResponse Reversals { get; }
+        public ReversalsListResponseDto Reversals { get; }
 
         public string State { get; }
 
-        public TransactionListResponse Transactions { get; }
+        public TransactionListResponseDto Transactions { get; }
 
         public ICollection<Uri> Urls { get; }
 
         public string UserAgent { get; }
 
-        public MetadataResponse Metadata { get; }
+        public Dictionary<string, object> Metadata { get; }
     }
 }

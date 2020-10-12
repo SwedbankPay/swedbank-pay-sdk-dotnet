@@ -9,7 +9,38 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
     {
         public CardPayment(CardPaymentDto payment)
         {
+            if (payment is null)
+            {
+                throw new ArgumentNullException(nameof(payment));
+            }
             // ToDo: Fill all properties
+            Amount = payment.Amount;
+            RemainingCaptureAmount = payment.RemainingCaptureAmount;
+            RemainingCancellationAmount = payment.RemainingCancellationAmount;
+            RemainingReversalAmount = payment.RemainingReversalAmount;
+            Authorizations = new CardPaymentAuthorizationListResponse(payment.Authorizations);
+            Cancellations = new CancellationsListResponse(payment.Cancellations);
+            Captures = new CapturesListResponse(payment.Captures);
+            Created = payment.Created;
+            Updated = payment.Updated;
+            Currency = new CurrencyCode( payment.Currency);
+            Description = payment.Description;
+            Id = new Uri(payment.Id, UriKind.RelativeOrAbsolute);
+            Instrument =  Enum.Parse<PaymentInstrument>(payment.Instrument);
+            Intent = Enum.Parse<Intent>(payment.Intent);
+            Language = new CultureInfo(payment.Language);
+            Number = payment.Number;
+            Operation = payment.Operation;
+            PayeeInfo = new PayeeInfo(payment.PayeeInfo);
+            PayerReference = payment.PayerReference;
+            InitiatingSystemUserAgent = payment.InitiatingSystemUserAgent;
+            Prices = payment.Prices;
+            Reversals = payment.Reversals;
+            State = payment.State;
+            Transactions = payment.Transactions;
+            Urls = payment.Urls;
+            UserAgent = payment.UserAgent;
+            Metadata = payment.Metadata;
         }
 
         public Amount Amount { get; }
