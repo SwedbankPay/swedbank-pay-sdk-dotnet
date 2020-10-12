@@ -9,11 +9,11 @@ namespace SwedbankPay.Sdk.Payments.VippsPayments
         public VippsPaymentRequest(Operation operation,
                               Intent intent,
                               CurrencyCode currency,
-                              List<Price> prices,
+                              List<IPrice> prices,
                               string description,
                               string userAgent,
                               CultureInfo language,
-                              Urls urls,
+                              IUrls urls,
                               PayeeInfo payeeInfo,
                               string payerReference,
                               bool generatePaymentToken = false,
@@ -34,14 +34,14 @@ namespace SwedbankPay.Sdk.Payments.VippsPayments
             protected internal VippsPaymentRequestObject(Operation operation,
                                                     Intent intent,
                                                     CurrencyCode currency,
-                                                    List<Price> prices,
+                                                    List<IPrice> prices,
                                                     string description,
                                                     string payerReference,
                                                     bool generatePaymentToken,
                                                     bool generateReccurenceToken,
                                                     string userAgent,
                                                     CultureInfo language,
-                                                    Urls urls,
+                                                    IUrls urls,
                                                     PayeeInfo payeeInfo,
                                                     Dictionary<string, object> metadata = null,
                                                     string paymentToken = null)
@@ -74,8 +74,8 @@ namespace SwedbankPay.Sdk.Payments.VippsPayments
             public PayeeInfo PayeeInfo { get; internal set; }
             public string PayerReference { get; set; }
             public string PaymentToken { get; set; }
-            public List<Price> Prices { get; set; }
-            public Urls Urls { get; }
+            public List<IPrice> Prices { get; set; }
+            public IUrls Urls { get; }
             public string UserAgent { get; set; }
         }
     }

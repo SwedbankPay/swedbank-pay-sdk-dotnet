@@ -6,12 +6,12 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
     public class SwishPaymentRequest
     {
         public SwishPaymentRequest(CurrencyCode currency,
-                              List<Price> prices,
+                              List<IPrice> prices,
                               string description,
                               string payerReference,
                               string userAgent,
                               CultureInfo language,
-                              Urls urls,
+                              IUrls urls,
                               PayeeInfo payeeInfo,
                               PrefillInfo prefillInfo,
                               bool isEnabledForEcommerceOnly = false,

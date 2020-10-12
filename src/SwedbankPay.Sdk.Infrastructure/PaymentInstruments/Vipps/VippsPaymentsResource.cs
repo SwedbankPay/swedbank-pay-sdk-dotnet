@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Payments
 {
-    public class VippsPaymentsResource : ResourceBase, IVippsPaymentsResource
+    public class VippsPaymentsResource : ResourceBase, IVippsResource
     {
         public VippsPaymentsResource(HttpClient httpClient) : base(httpClient)
         {

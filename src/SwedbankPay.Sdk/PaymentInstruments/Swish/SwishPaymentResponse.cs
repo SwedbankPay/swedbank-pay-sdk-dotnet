@@ -8,14 +8,14 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
     public class SwishPaymentResponse
     {
         public SwishPaymentResponse(SwishPaymentResponseObject payment,
-                               OperationList operations)
+                               IOperationList operations)
         {
             Payment = payment;
             Operations = operations;
         }
 
         public SwishPaymentResponseObject Payment { get; }
-        public OperationList Operations { get; }
+        public IOperationList Operations { get; }
     }
 
     public class SwishPaymentResponseObject
@@ -29,7 +29,7 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
                                Intent intent,
                                State state,
                                CurrencyCode currency,
-                               PricesListResponse prices,
+                               IPricesListResponse prices,
                                Amount amount,
                                Amount remainingReversalAmount,
                                string description,
@@ -37,10 +37,10 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
                                string initiatingSystemUserAgent,
                                string userAgent,
                                CultureInfo language,
-                               TransactionListResponse transactions,
+                               ITransactionListResponse transactions,
                                SaleListResponse sales,
-                               ReversalsListResponse reversals,
-                               Urls urls,
+                               IReversalsListResponse reversals,
+                               IUrls urls,
                                PayeeInfo payeeInfo,
                                MetadataResponse metadata)
         {
@@ -78,7 +78,7 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
         public Intent Intent { get; }
         public State State { get; }
         public CurrencyCode Currency { get; }
-        public PricesListResponse Prices { get; }
+        public IPricesListResponse Prices { get; }
         public Amount Amount { get; }
         public Amount RemainingReversalAmount { get; set; }
         public string Description { get; }
@@ -86,10 +86,10 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
         public string InitiatingSystemUserAgent { get; }
         public string UserAgent { get; }
         public CultureInfo Language { get; }
-        public TransactionListResponse Transactions { get; }
+        public ITransactionListResponse Transactions { get; }
         public SaleListResponse Sales { get; }
-        public ReversalsListResponse Reversals { get; }
-        public Urls Urls { get; }
+        public IReversalsListResponse Reversals { get; }
+        public IUrls Urls { get; }
         public PayeeInfo PayeeInfo { get; }
         public Uri Id { get; }
         public MetadataResponse Metadata { get; }

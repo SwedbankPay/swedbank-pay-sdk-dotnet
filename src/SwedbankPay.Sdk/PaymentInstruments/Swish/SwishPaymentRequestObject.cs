@@ -7,12 +7,12 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
     public class SwishPaymentRequestObject
     {
         protected internal SwishPaymentRequestObject(CurrencyCode currency,
-                                                List<Price> prices,
+                                                List<IPrice> prices,
                                                 string description,
                                                 string payerReference,
                                                 string userAgent,
                                                 CultureInfo language,
-                                                Urls urls,
+                                                IUrls urls,
                                                 PayeeInfo payeeInfo,
                                                 PrefillInfo prefillInfo,
                                                 SwishPaymentOptionsObject swishRequest,
@@ -44,11 +44,11 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
         public PayeeInfo PayeeInfo { get; }
         public string PayerReference { get; }
         public PrefillInfo PrefillInfo { get; }
-        public List<Price> Prices { get; }
+        public List<IPrice> Prices { get; }
 
         public SwishPaymentOptionsObject Swish { get; }
 
-        public Urls Urls { get; }
+        public IUrls Urls { get; }
         public string UserAgent { get; }
         public Dictionary<string, object> Metadata { get; }
     }

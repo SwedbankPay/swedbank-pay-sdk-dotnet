@@ -16,7 +16,7 @@
         /// <summary>
         ///     The array of operation objects to choose from
         /// </summary>
-        public OperationList Operations { get; protected set; } = new OperationList();
+        public IOperationList Operations;
 
         /// <summary>
         ///     A session token used to initiate Checkout UI

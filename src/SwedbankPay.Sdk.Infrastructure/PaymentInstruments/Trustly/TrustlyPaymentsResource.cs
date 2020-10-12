@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Payments
 {
-    public class TrustlyPaymentsResource : ResourceBase, ITrustlyPaymentsResource
+    public class TrustlyPaymentsResource : ResourceBase, ITrustlyResource
     {
         public TrustlyPaymentsResource(HttpClient httpClient) : base(httpClient)
         {

@@ -4,7 +4,7 @@ namespace SwedbankPay.Sdk.Consumers
 {
     public class ConsumerOperations : OperationsBase
     {
-        public ConsumerOperations(OperationList operations)
+        public ConsumerOperations(IOperationList operations)
         {
             foreach (var httpOperation in operations)
             {

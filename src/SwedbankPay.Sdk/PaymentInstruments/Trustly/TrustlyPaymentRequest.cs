@@ -7,12 +7,12 @@ namespace SwedbankPay.Sdk.Payments.TrustlyPayments
     {
         public TrustlyPaymentRequest(
             CurrencyCode currency,
-            List<Price> prices,
+            List<IPrice> prices,
             string description,
             string payerReference,
             string userAgent,
             CultureInfo language,
-            Urls urls,
+            IUrls urls,
             PayeeInfo payeeInfo) : this(currency, prices, description, payerReference, userAgent, language, urls, payeeInfo, null)
         {
         }
@@ -20,12 +20,12 @@ namespace SwedbankPay.Sdk.Payments.TrustlyPayments
 
         public TrustlyPaymentRequest(
             CurrencyCode currency,
-            List<Price> prices,
+            List<IPrice> prices,
             string description,
             string payerReference,
             string userAgent,
             CultureInfo language,
-            Urls urls,
+            IUrls urls,
             PayeeInfo payeeInfo,
             PrefillInfo prefillInfo)
         {
@@ -40,23 +40,23 @@ namespace SwedbankPay.Sdk.Payments.TrustlyPayments
     public class PaymentRequestObject
     {
         protected internal PaymentRequestObject(CurrencyCode currency,
-                                                List<Price> prices,
+                                                List<IPrice> prices,
                                                 string description,
                                                 string payerReference,
                                                 string userAgent,
                                                 CultureInfo language,
-                                                Urls urls,
+                                                IUrls urls,
                                                 PayeeInfo payeeInfo) : this(currency, prices, description, payerReference, userAgent, language, urls, payeeInfo, null)
         {
         }
 
         protected internal PaymentRequestObject(CurrencyCode currency,
-                                                List<Price> prices,
+                                                List<IPrice> prices,
                                                 string description,
                                                 string payerReference,
                                                 string userAgent,
                                                 CultureInfo language,
-                                                Urls urls,
+                                                IUrls urls,
                                                 PayeeInfo payeeInfo,
                                                 PrefillInfo prefillInfo)
         {
@@ -81,8 +81,8 @@ namespace SwedbankPay.Sdk.Payments.TrustlyPayments
         public Operation Operation { get; set; }
         public PayeeInfo PayeeInfo { get; internal set; }
         public string PayerReference { get; set; }
-        public List<Price> Prices { get; set; }
-        public Urls Urls { get; }
+        public List<IPrice> Prices { get; set; }
+        public IUrls Urls { get; }
         public string UserAgent { get; set; }
         public PrefillInfo PrefillInfo { get; set; }
     }

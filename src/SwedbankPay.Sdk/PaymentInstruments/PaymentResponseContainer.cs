@@ -3,7 +3,7 @@
     public class PaymentResponseContainer<T>
     {
         public PaymentResponseContainer(
-            OperationList operations,
+            IOperationList operations,
             T paymentResponse)
         {
             Operations = operations;
@@ -11,7 +11,7 @@
         }
 
 
-        public OperationList Operations { get; }
+        public IOperationList Operations { get; }
 
         public T Payment { get; set; }
     }

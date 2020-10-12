@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Payments.SwishPayments
 {
-    public interface ISwishPaymentsResource
+    public interface ISwishResource
     {
         /// <summary>
         ///     Creates a new swish payment

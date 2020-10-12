@@ -12,12 +12,12 @@ namespace SwedbankPay.Sdk.Payments
 {
     public class PaymentsResource: ResourceBase, IPaymentsResource
     {
-        public ICardPaymentsResource CardPayments { get; }
-        public ISwishPaymentsResource SwishPayments { get; }
-        public IInvoicePaymentsResource InvoicePayments { get; }
-        public IVippsPaymentsResource VippsPayments { get; }
-        public IMobilePayPaymentsResource MobilePayPayments { get; }
-        public ITrustlyPaymentsResource TrustlyPayments { get; }
+        public ICardResource CardPayments { get; }
+        public ISwishResource SwishPayments { get; }
+        public IInvoiceResource InvoicePayments { get; }
+        public IVippsResource VippsPayments { get; }
+        public IMobileResource MobilePayPayments { get; }
+        public ITrustlyResource TrustlyPayments { get; }
 
         
         public PaymentsResource(HttpClient httpClient)
@@ -32,12 +32,12 @@ namespace SwedbankPay.Sdk.Payments
         }
 
         public PaymentsResource(HttpClient httpClient,
-                                ICardPaymentsResource cardPaymentsResource,
-                                ISwishPaymentsResource swishPaymentsResource,
-                                IInvoicePaymentsResource invoicePaymentsResource,
-                                IVippsPaymentsResource vippsPaymentsResource,
-                                IMobilePayPaymentsResource mobilePayPaymentsResource,
-                                ITrustlyPaymentsResource trustlyPaymentsResource) 
+                                ICardResource cardPaymentsResource,
+                                ISwishResource swishPaymentsResource,
+                                IInvoiceResource invoicePaymentsResource,
+                                IVippsResource vippsPaymentsResource,
+                                IMobileResource mobilePayPaymentsResource,
+                                ITrustlyResource trustlyPaymentsResource) 
                                 : base(httpClient)
         {
             this.CardPayments = cardPaymentsResource ?? throw new ArgumentNullException(nameof(cardPaymentsResource));

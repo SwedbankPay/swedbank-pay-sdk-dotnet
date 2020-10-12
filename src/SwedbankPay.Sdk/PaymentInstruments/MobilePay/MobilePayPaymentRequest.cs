@@ -9,11 +9,11 @@ namespace SwedbankPay.Sdk.Payments.MobilePayPayments
         public MobilePayPaymentRequest(Operation operation,
                               Intent intent,
                               CurrencyCode currency,
-                              List<Price> prices,
+                              List<IPrice> prices,
                               string description,
                               string userAgent,
                               CultureInfo language,
-                              Urls urls,
+                              IUrls urls,
                               PayeeInfo payeeInfo,
                               Uri shopslogoUrl,
                               string payerReference = null,
@@ -34,12 +34,12 @@ namespace SwedbankPay.Sdk.Payments.MobilePayPayments
             protected internal PaymentRequestObject(Operation operation,
                                                     Intent intent,
                                                     CurrencyCode currency,
-                                                    List<Price> prices,
+                                                    List<IPrice> prices,
                                                     string description,
                                                     string payerReference,
                                                     string userAgent,
                                                     CultureInfo language,
-                                                    Urls urls,
+                                                    IUrls urls,
                                                     PayeeInfo payeeInfo,
                                                     Dictionary<string, object> metadata = null,
                                                     PrefillInfo prefillInfo = null)
@@ -67,8 +67,8 @@ namespace SwedbankPay.Sdk.Payments.MobilePayPayments
             public Operation Operation { get; set; }
             public PayeeInfo PayeeInfo { get; internal set; }
             public string PayerReference { get; set; }
-            public List<Price> Prices { get; set; }
-            public Urls Urls { get; }
+            public List<IPrice> Prices { get; set; }
+            public IUrls Urls { get; }
             public string UserAgent { get; set; }
             public PrefillInfo PrefillInfo { get; set; }
         }

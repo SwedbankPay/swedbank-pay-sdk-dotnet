@@ -27,9 +27,9 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                             DateTime created,
                                             DateTime updated,
                                             Amount amount,
-                                            CardPaymentAuthorizationListResponse authorizations,
-                                            CancellationsListResponse cancellations,
-                                            CapturesListResponse captures,
+                                            ICardPaymentAuthorizationListResponse authorizations,
+                                            ICancellationsListResponse cancellations,
+                                            ICapturesListResponse captures,
                                             CurrencyCode currency,
                                             string description,
                                             Intent intent,
@@ -38,10 +38,10 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                             PayeeInfo payeeInfo,
                                             string payerReference,
                                             string paymentToken,
-                                            PricesListResponse prices,
-                                            ReversalsListResponse reversals,
+                                            IPricesListResponse prices,
+                                            IReversalsListResponse reversals,
                                             State state,
-                                            TransactionListResponse transactions,
+                                            ITransactionListResponse transactions,
                                             IdLink urls,
                                             string userAgent,
                                             SaleListResponse sales)
@@ -77,9 +77,9 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public DateTime Created { get; }
         public DateTime Updated { get; }
         public Amount Amount { get; }
-        public CardPaymentAuthorizationListResponse Authorizations { get; }
-        public CancellationsListResponse Cancellations { get; }
-        public CapturesListResponse Captures { get; }
+        public ICardPaymentAuthorizationListResponse Authorizations { get; }
+        public ICancellationsListResponse Cancellations { get; }
+        public ICapturesListResponse Captures { get; }
         public CurrencyCode Currency { get; }
         public string Description { get; }
         public Intent Intent { get; }
@@ -88,10 +88,10 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public PayeeInfo PayeeInfo { get; }
         public string PayerReference { get; }
         public string PaymentToken { get; }
-        public PricesListResponse Prices { get; }
-        public ReversalsListResponse Reversals { get; }
+        public IPricesListResponse Prices { get; }
+        public IReversalsListResponse Reversals { get; }
         public State State { get; }
-        public TransactionListResponse Transactions { get; }
+        public ITransactionListResponse Transactions { get; }
         public IdLink Urls { get; }
         public string UserAgent { get; }
         public SaleListResponse Sales { get; }

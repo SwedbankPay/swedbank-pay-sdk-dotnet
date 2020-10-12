@@ -25,7 +25,7 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
                                         string description,
                                         string payeeReference,
                                         bool isOperational,
-                                        OperationList operations,
+                                        IOperationList operations,
                                         string failedReason = null,
                                         string failedActivityName = null,
                                         string failedErrorCode = null,
@@ -60,7 +60,7 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
         public string FailedReason { get; }
         public bool IsOperational { get; }
         public string Number { get; }
-        public OperationList Operations { get; }
+        public IOperationList Operations { get; }
         public string PayeeReference { get; }
         public ProblemResponse Problem { get; }
         public State State { get; }

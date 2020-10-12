@@ -1,4 +1,6 @@
-﻿namespace SwedbankPay.Sdk
+﻿using System.Net.Http.Headers;
+
+namespace SwedbankPay.Sdk
 {
     /// <summary>
     ///     Initialized, Completed, Failed Ready, Pending or Aborted. Indicates the state.
@@ -17,6 +19,22 @@
         public State(string name, string value)
             : base(name, value)
         {
+        }
+
+        public static implicit operator State(string originalState)
+        {
+            switch (originalState)
+            {
+                case "Initialized": return State.Initialized;
+                case "Completed": return State.Completed;
+                case "Failed": return State.Failed;
+                case "Ready": return State.Ready;
+                case "Pending": return State.Pending;
+                case "Aborted": return State.Aborted;
+                case "AwaitingActivity": return State.AwaitingActivity;
+                default:
+                    return new State(originalState, originalState);
+            }
         }
     }
 }

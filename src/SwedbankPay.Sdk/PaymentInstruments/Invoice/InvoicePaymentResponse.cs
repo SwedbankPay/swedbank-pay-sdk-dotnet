@@ -8,14 +8,14 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
     public class InvoicePaymentResponse
     {
         public InvoicePaymentResponse(PaymentResponseObject payment,
-                               OperationList operations)
+                               IOperationList operations)
         {
             this.Payment = payment;
             this.Operations = operations;
         }
 
         public PaymentResponseObject Payment { get; }
-        public OperationList Operations { get; }
+        public IOperationList Operations { get; }
     }
 
     public class PaymentResponseObject
@@ -38,13 +38,13 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
                                string initiatingSystemUserAgent,
                                string userAgent,
                                CultureInfo language,
-                               PricesListResponse prices,
-                               TransactionListResponse transactions,
+                               IPricesListResponse prices,
+                               ITransactionListResponse transactions,
                                InvoicePaymentAuthorizationListResponse authorizations,
-                               CapturesListResponse captures,
-                               ReversalsListResponse reversals,
-                               CancellationsListResponse cancellations,
-                               Urls urls,
+                               ICapturesListResponse captures,
+                               IReversalsListResponse reversals,
+                               ICancellationsListResponse cancellations,
+                               IUrls urls,
                                PayeeInfo payeeInfo,
                                MetadataResponse metadata)
         {
@@ -83,8 +83,8 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
         public Amount RemainingCancellationAmount { get; }
         public Amount RemainingReversalAmount { get; }
         public InvoicePaymentAuthorizationListResponse Authorizations { get; }
-        public CancellationsListResponse Cancellations { get; }
-        public CapturesListResponse Captures { get; }
+        public ICancellationsListResponse Cancellations { get; }
+        public ICapturesListResponse Captures { get; }
         public DateTime Created { get; }
         public DateTime Updated { get; }
         public CurrencyCode Currency { get; }
@@ -98,11 +98,11 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
         public PayeeInfo PayeeInfo { get; }
         public string PayerReference { get; }
         public string InitiatingSystemUserAgent { get; }
-        public PricesListResponse Prices { get; }
-        public ReversalsListResponse Reversals { get; }
+        public IPricesListResponse Prices { get; }
+        public IReversalsListResponse Reversals { get; }
         public State State { get; }
-        public TransactionListResponse Transactions { get; }
-        public Urls Urls { get; }
+        public ITransactionListResponse Transactions { get; }
+        public IUrls Urls { get; }
         public string UserAgent { get; }
         public MetadataResponse Metadata { get; }
     }

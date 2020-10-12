@@ -34,7 +34,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
             PayeeInfo = payment.PayeeInfo.Map();
             PayerReference = payment.PayerReference;
             InitiatingSystemUserAgent = payment.InitiatingSystemUserAgent;
-            Prices = payment.Prices;
+            Prices = payment.Prices.Map();
             Reversals = payment.Reversals.Map();
             State = payment.State;
             Transactions = payment.Transactions.Map();

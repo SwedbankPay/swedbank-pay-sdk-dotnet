@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Payments.TrustlyPayments
 {
-    public interface ITrustlyPaymentsResource
+    public interface ITrustlyResource
     {
         /// <summary>
         ///     Creates a new Trustly payment

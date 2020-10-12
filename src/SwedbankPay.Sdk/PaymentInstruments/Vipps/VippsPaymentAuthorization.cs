@@ -36,7 +36,7 @@ namespace SwedbankPay.Sdk.Payments.VippsPayments
                                         string failedErrorCode,
                                         string failedErrorDescription,
                                         bool isOperational,
-                                        OperationList operations)
+                                        IOperationList operations)
         {
             Created = created;
             Updated = updated;
@@ -65,7 +65,7 @@ namespace SwedbankPay.Sdk.Payments.VippsPayments
         public string FailedReason { get; }
         public bool IsOperational { get; }
         public string Number { get; }
-        public OperationList Operations { get; }
+        public IOperationList Operations { get; }
         public string PayeeReference { get; }
         public State State { get; }
         public string Type { get; }

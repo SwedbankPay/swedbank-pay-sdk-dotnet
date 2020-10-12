@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Payments.VippsPayments
 {
-    public interface IVippsPaymentsResource
+    public interface IVippsResource
     {
         /// <summary>
         ///     Creates a new Vipps payment

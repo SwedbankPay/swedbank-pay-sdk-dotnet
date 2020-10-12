@@ -8,14 +8,14 @@ namespace SwedbankPay.Sdk.Payments.TrustlyPayments
     public class TrustlyPaymentResponse
     {
         public TrustlyPaymentResponse(TrustlyPaymentResponseObject payment,
-                                      OperationList operations)
+                                      IOperationList operations)
         {
             this.Payment = payment;
             this.Operations = operations;
         }
 
         public TrustlyPaymentResponseObject Payment { get; }
-        public OperationList Operations { get; }
+        public IOperationList Operations { get; }
     }
 
     public class TrustlyPaymentResponseObject
@@ -29,17 +29,16 @@ namespace SwedbankPay.Sdk.Payments.TrustlyPayments
                                Intent intent,
                                State state,
                                CurrencyCode currency,
-                               PricesListResponse prices,
+                               IPricesListResponse prices,
                                Amount amount,
                                string description,
                                string payerReference,
                                string initiatingSystemUserAgent,
                                string userAgent,
                                CultureInfo language,
-                               Urls urls,
+                               IUrls urls,
                                PayeeInfo payeeInfo,
-
-                               TransactionListResponse transactions,
+                               ITransactionListResponse transactions,
 
                                MetadataResponse metadata)
                                
@@ -79,12 +78,12 @@ namespace SwedbankPay.Sdk.Payments.TrustlyPayments
         public string Number { get; }
         public Operation Operation { get; }
         public PayeeInfo PayeeInfo { get; }
-        public TransactionListResponse Transactions { get; }
+        public ITransactionListResponse Transactions { get; }
         public string PayerReference { get; }
         public string InitiatingSystemUserAgent { get; }
-        public PricesListResponse Prices { get; }
+        public IPricesListResponse Prices { get; }
         public State State { get; }
-        public Urls Urls { get; }
+        public IUrls Urls { get; }
         public string UserAgent { get; }
         public MetadataResponse Metadata { get; }
     }

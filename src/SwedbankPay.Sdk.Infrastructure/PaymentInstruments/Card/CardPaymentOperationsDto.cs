@@ -1,8 +1,10 @@
-﻿namespace SwedbankPay.Sdk.Payments
+﻿using System.Collections.Generic;
+
+namespace SwedbankPay.Sdk.Payments
 {
     public class CardPaymentOperationsDto
     {
-        public OperationList Operations { get; set; }
+        public List<HttpOperation> Operations { get; set; }
 
         public IOperationList Map()
         {

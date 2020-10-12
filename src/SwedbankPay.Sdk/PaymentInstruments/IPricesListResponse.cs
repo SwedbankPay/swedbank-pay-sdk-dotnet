@@ -1,7 +1,9 @@
-﻿namespace SwedbankPay.Sdk.Payments
+﻿using System.Collections.Generic;
+
+namespace SwedbankPay.Sdk.Payments
 {
     public interface IPricesListResponse
     {
-        System.Collections.Generic.List<Price> PriceList { get; }
+        List<IPrice> PriceList { get; }
     }
 }

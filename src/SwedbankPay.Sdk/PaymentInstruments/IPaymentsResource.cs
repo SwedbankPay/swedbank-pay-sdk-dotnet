@@ -10,11 +10,11 @@ namespace SwedbankPay.Sdk.Payments
     public interface IPaymentsResource
     {
         ICardResource CardPayments { get; }
-        ISwishPaymentsResource SwishPayments { get; }
-        IInvoicePaymentsResource InvoicePayments { get; }
-        IVippsPaymentsResource VippsPayments { get; }
-        IMobilePayPaymentsResource MobilePayPayments { get; }
-        ITrustlyPaymentsResource TrustlyPayments { get; }
+        ISwishResource SwishPayments { get; }
+        IInvoiceResource InvoicePayments { get; }
+        IVippsResource VippsPayments { get; }
+        IMobileResource MobilePayPayments { get; }
+        ITrustlyResource TrustlyPayments { get; }
 
 
     }

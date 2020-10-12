@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Payments
 {
-    public class MobilePayPaymentsResource : ResourceBase, IMobilePayPaymentsResource
+    public class MobilePayPaymentsResource : ResourceBase, IMobileResource
     {
         public MobilePayPaymentsResource(HttpClient httpClient) : base(httpClient)
         {

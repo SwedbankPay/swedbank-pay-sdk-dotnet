@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Payments.InvoicePayments
 {
-    public interface IInvoicePaymentsResource
+    public interface IInvoiceResource
     {
         /// <summary>
         ///     Creates a new invoice payment

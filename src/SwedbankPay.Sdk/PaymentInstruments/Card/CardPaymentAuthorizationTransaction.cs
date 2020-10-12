@@ -19,7 +19,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
                                         string failedErrorDescription,
                                         bool isOperational,
                                         ProblemResponse problem,
-                                        OperationList operations)
+                                        IOperationList operations)
         {
             Created = created;
             Updated = updated;
@@ -50,7 +50,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
         public string FailedReason { get; }
         public bool IsOperational { get; }
         public string Number { get; }
-        public OperationList Operations { get; }
+        public IOperationList Operations { get; }
         public string PayeeReference { get; }
         public ProblemResponse Problem { get; }
         public State State { get; }

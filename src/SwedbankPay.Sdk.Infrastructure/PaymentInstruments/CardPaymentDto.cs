@@ -15,11 +15,11 @@ namespace SwedbankPay.Sdk.Payments
 
         public int RemainingReversalAmount { get; }
 
-        public List<TransactionDto> Authorizations { get; }
+        public AuthorizationTransactionDto Authorizations { get; }
 
-        public List<TransactionDto> Cancellations { get; }
+        public CancellationTransactionDto Cancellations { get; }
 
-        public List<TransactionDto> Captures { get; }
+        public CaptureTransactionDto Captures { get; }
 
         public DateTime Created { get; }
 
@@ -47,7 +47,7 @@ namespace SwedbankPay.Sdk.Payments
 
         public string InitiatingSystemUserAgent { get; }
 
-        public List<Price> Prices { get; }
+        public PricesDto Prices { get; }
 
         public ReversalsListResponseDto Reversals { get; }
 

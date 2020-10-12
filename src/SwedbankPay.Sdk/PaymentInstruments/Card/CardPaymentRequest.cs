@@ -11,11 +11,11 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
         public CardPaymentRequest(Operation operation,
                               Intent intent,
                               CurrencyCode currency,
-                              List<Price> prices,
+                              List<IPrice> prices,
                               string description,
                               string userAgent,
                               CultureInfo language,
-                              Urls urls,
+                              IUrls urls,
                               PayeeInfo payeeInfo,
                               bool generatePaymentToken = false,
                               bool generateReccurenceToken = false,
@@ -39,14 +39,14 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
             protected internal CardPaymentRequestObject(Operation operation,
                                                     Intent intent,
                                                     CurrencyCode currency,
-                                                    List<Price> prices,
+                                                    List<IPrice> prices,
                                                     string description,
                                                     string payerReference,
                                                     bool generatePaymentToken,
                                                     bool generateReccurenceToken,
                                                     string userAgent,
                                                     CultureInfo language,
-                                                    Urls urls,
+                                                    IUrls urls,
                                                     PayeeInfo payeeInfo,
                                                     RiskIndicator riskIndicator = null,
                                                     Cardholder cardholder = null,
@@ -87,9 +87,9 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
             public PayeeInfo PayeeInfo;
             public string PayerReference;
             public string PaymentToken;
-            public List<Price> Prices;
+            public List<IPrice> Prices;
             public RiskIndicator RiskIndicator;
-            public Urls Urls;
+            public IUrls Urls;
             public string UserAgent;
         }
     }

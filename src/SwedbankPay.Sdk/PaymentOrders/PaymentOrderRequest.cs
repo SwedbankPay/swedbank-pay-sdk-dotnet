@@ -13,7 +13,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                    string userAgent,
                                    CultureInfo language,
                                    bool generateRecurrenceToken,
-                                   Urls urls,
+                                   IUrls urls,
                                    PayeeInfo payeeInfo,
                                    Payer payer = null,
                                    List<OrderItem> orderItems = null,

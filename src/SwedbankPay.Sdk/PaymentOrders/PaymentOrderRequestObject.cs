@@ -14,7 +14,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                                      string userAgent,
                                                      CultureInfo language,
                                                      bool generateRecurrenceToken,
-                                                     Urls urls,
+                                                     IUrls urls,
                                                      PayeeInfo payeeInfo,
                                                      Payer payer = null,
                                                      List<OrderItem> orderItems = null,
@@ -111,7 +111,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         ///     with or cancelling a payment session, as well as the callback URI that is used to inform the payee (merchant) of
         ///     changes or updates made to underlying payments or transaction.
         /// </summary>
-        public Urls Urls { get; }
+        public IUrls Urls { get; }
 
         /// <summary>
         ///     The user agent of the payer.
