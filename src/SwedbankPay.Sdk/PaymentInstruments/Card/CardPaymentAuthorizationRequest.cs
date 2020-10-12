@@ -1,6 +1,6 @@
 ﻿namespace SwedbankPay.Sdk.Payments.CardPayments
 {
-    public class CardPaymentAuthorizationRequest
+    public class CardPaymentAuthorizationRequest : ICardPaymentAuthorizationRequest
     {
         public CardPaymentAuthorizationRequest(string cardNumber,
                                     int cardExpiryMonth,

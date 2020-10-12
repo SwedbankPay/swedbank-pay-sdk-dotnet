@@ -1,6 +1,6 @@
 ﻿namespace SwedbankPay.Sdk.Payments.CardPayments
 {
-    public class Cardholder
+    public class Cardholder : ICardholder
     {
         public AccountInfo AccountInfo { get; set; }
         public Address BillingAddress { get; set; }

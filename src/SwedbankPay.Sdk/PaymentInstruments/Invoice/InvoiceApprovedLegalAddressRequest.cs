@@ -8,17 +8,5 @@
         }
 
         public ApprovedLegalAddress Addressee { get; }
-
-        public class ApprovedLegalAddress
-        {
-            protected internal ApprovedLegalAddress(string socialSecurityNumber, string zipCode)
-            {
-                SocialSecurityNumber = socialSecurityNumber;
-                ZipCode = zipCode;
-            }
-
-            public string SocialSecurityNumber { get; }
-            public string ZipCode { get; }
-        }
     }
 }

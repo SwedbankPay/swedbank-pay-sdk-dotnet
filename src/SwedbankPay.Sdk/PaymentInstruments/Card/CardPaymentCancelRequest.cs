@@ -1,6 +1,6 @@
 ﻿namespace SwedbankPay.Sdk.Payments.CardPayments
 {
-    public class CardPaymentCancelRequest
+    public class CardPaymentCancelRequest : ICardPaymentCancelRequest
     {
         public CardPaymentCancelRequest(string payeeReference, string description)
         {

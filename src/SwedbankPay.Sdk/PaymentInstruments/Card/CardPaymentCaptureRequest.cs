@@ -4,7 +4,7 @@ using SwedbankPay.Sdk.PaymentOrders;
 
 namespace SwedbankPay.Sdk.Payments.CardPayments
 {
-    public class CardPaymentCaptureRequest
+    public class CardPaymentCaptureRequest : ICardPaymentCaptureRequest
     {
         public CardPaymentCaptureRequest(Amount amount, Amount vatAmount, List<OrderItem> orderItems, string description, string payeeReference)
         {

@@ -3,15 +3,15 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.Payments.InvoicePayments
 {
-    public class InvoicePaymentAuthorizationListResponse : IdLink
+    public class InvoicePaymentAuthorizationListResponse : IdLink, IInvoicePaymentAuthorizationListResponse1
     {
-        public InvoicePaymentAuthorizationListResponse(Uri id, List<InvoicePaymentAuthorization> authorizationList)
+        public InvoicePaymentAuthorizationListResponse(Uri id, List<IInvoicePaymentAuthorization> authorizationList)
         {
             Id = id;
             AuthorizationList = authorizationList;
         }
 
 
-        public List<InvoicePaymentAuthorization> AuthorizationList { get; }
+        public List<IInvoicePaymentAuthorization> AuthorizationList { get; }
     }
 }

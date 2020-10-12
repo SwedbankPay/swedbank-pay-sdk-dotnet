@@ -2,16 +2,16 @@
 
 namespace SwedbankPay.Sdk.Payments.InvoicePayments
 {
-    public class InvoicePaymentAuthorizationResponse
+    public class InvoicePaymentAuthorizationResponse : IInvoicePaymentAuthorizationResponse
     {
-        public InvoicePaymentAuthorizationResponse(Uri payment, InvoicePaymentAuthorization authorization)
+        public InvoicePaymentAuthorizationResponse(Uri payment, IInvoicePaymentAuthorization authorization)
         {
             Payment = payment;
             Authorization = authorization;
         }
 
 
-        public InvoicePaymentAuthorization Authorization { get; }
+        public IInvoicePaymentAuthorization Authorization { get; }
         public Uri Payment { get; }
     }
 }

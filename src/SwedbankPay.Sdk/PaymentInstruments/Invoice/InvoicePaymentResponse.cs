@@ -6,7 +6,7 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
 {
     public class InvoicePaymentResponse : IInvoicePayment
     {
-        public InvoicePaymentResponse(PaymentResponseObject payment)
+        public InvoicePaymentResponse(IInvoicePaymentResponse payment)
         {
         }
         public Amount Amount { get; }

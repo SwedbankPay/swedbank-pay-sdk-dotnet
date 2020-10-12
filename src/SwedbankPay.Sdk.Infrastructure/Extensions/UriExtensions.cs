@@ -22,7 +22,7 @@ namespace SwedbankPay.Sdk.Extensions
                 return string.Empty;
 
             var s = new List<string>();
-            foreach (var enumValue in Enum.GetValues(typeof(T)))
+            foreach (var enumValue in Enum.GetValues(typeof(PaymentExpand)))
             {
                 var name = Enum.GetName(typeof(PaymentExpand), enumValue);
                 if (paymentExpand.HasFlag((PaymentExpand)enumValue) && name != "None" && name != "All")

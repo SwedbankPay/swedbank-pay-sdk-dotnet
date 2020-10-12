@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.Payments.CardPayments
 {
-    public class CardPaymentAuthorizationTransaction : IdLink
+    public class CardPaymentAuthorizationTransaction : IdLink, ICardPaymentAuthorizationTransaction
     {
         public CardPaymentAuthorizationTransaction(DateTime created,
                                         DateTime updated,
