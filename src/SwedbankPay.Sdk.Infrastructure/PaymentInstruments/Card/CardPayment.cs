@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using System.Linq;
 using SwedbankPay.Sdk.PaymentOrders;
 
 namespace SwedbankPay.Sdk.Payments.CardPayments

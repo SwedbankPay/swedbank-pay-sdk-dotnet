@@ -10,15 +10,15 @@ namespace Swedbankpay.Sdk.Payments
 {
     public class InvoicePaymentOperations : OperationsBase, IInvoicePaymentOperations
     {
-        public InvoicePaymentOperations(OperationList operations, HttpClient client)
+        public InvoicePaymentOperations(InvoicePaymentOperationsDto operations, HttpClient client)
         {
-            foreach (var httpOperation in operations)
+            foreach (var httpOperation in operations.Operations)
             {
                 switch (httpOperation.Rel.Value)
                 {
                     case PaymentResourceOperations.UpdatePaymentAbort:
                         Abort = async payload =>
-                            await client.SendAsJsonAsync<InvoicePaymentResponse>(httpOperation.Method, httpOperation.Href, payload);
+                            await client.SendAsJsonAsync<SwedbankPay.Sdk.Payments.InvoicePayments.InvoicePaymentResponse>(httpOperation.Method, httpOperation.Href, payload);
                         break;
 
                     case PaymentResourceOperations.RedirectAuthorization:
@@ -59,7 +59,7 @@ namespace Swedbankpay.Sdk.Payments
         }
 
         public Func<InvoiceApprovedLegalAddressRequest, Task<ApprovedLegalAddressResponse>> ApprovedLegalAddress { get; }
-        public Func<PaymentAbortRequest, Task<InvoicePaymentResponse>> Abort { get; }
+        public Func<PaymentAbortRequest, Task<SwedbankPay.Sdk.Payments.InvoicePayments.InvoicePaymentResponse>> Abort { get; }
         public Func<InvoicePaymentCancelRequest, Task<CancellationResponse>> Cancel { get; }
         public Func<InvoicePaymentCaptureRequest, Task<CaptureResponse>> Capture { get; }
         public Func<InvoicePaymentAuthorizationRequest, Task<InvoicePaymentAuthorizationResponse>> DirectAuthorization { get; }

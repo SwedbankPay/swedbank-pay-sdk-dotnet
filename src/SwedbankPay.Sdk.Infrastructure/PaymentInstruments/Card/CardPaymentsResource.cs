@@ -16,7 +16,7 @@ namespace SwedbankPay.Sdk.Payments
         {
             if (id == null)
                 throw new ArgumentNullException(nameof(id));
-            Uri url = GetUrlWithQueryString(id, paymentExpand);
+            Uri url = id.GetUrlWithQueryString(paymentExpand);
 
             var cardPaymentResponseDto = await HttpClient.GetAsJsonAsync<CardPaymentResponseDto>(url);
             return new CardPaymentResponse(cardPaymentResponseDto, HttpClient);
@@ -27,17 +27,8 @@ namespace SwedbankPay.Sdk.Payments
         {
             var url = new Uri($"/psp/creditcard/payments{paymentExpand}", UriKind.Relative);
 
-            var cardPaymentResponseDto = await HttpClient.PostAsJsonAsync<CardPaymentResponseDto>(GetUrlWithQueryString(url, paymentExpand), paymentRequest);
+            var cardPaymentResponseDto = await HttpClient.PostAsJsonAsync<CardPaymentResponseDto>(url.GetUrlWithQueryString(paymentExpand), paymentRequest);
             return new CardPaymentResponse(cardPaymentResponseDto, HttpClient);
-        }
-
-        private Uri GetUrlWithQueryString(Uri id, PaymentExpand paymentExpand)
-        {
-            var paymentExpandQueryString = GetExpandQueryString(paymentExpand);
-            var url = !string.IsNullOrWhiteSpace(paymentExpandQueryString)
-                ? new Uri(id.OriginalString + paymentExpandQueryString, UriKind.RelativeOrAbsolute)
-                : id;
-            return url;
         }
     }
 }

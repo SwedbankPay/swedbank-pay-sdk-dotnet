@@ -1,4 +1,5 @@
-﻿using SwedbankPay.Sdk.Payments.InvoicePayments;
+﻿using SwedbankPay.Sdk.Extensions;
+using SwedbankPay.Sdk.Payments.InvoicePayments;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -11,18 +12,24 @@ namespace SwedbankPay.Sdk.Payments
         {
         }
 
-        public Task<IInvoicePayment> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
+        public async Task<IInvoicePaymentResponse> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
         {
             if (id == null)
                 throw new ArgumentNullException(nameof(id));
 
-            return InvoicePayment.Get(id, this.HttpClient, GetExpandQueryString(paymentExpand));
+            var url = id.GetUrlWithQueryString(paymentExpand);
+
+            var paymentResponseContainer = await HttpClient.GetAsJsonAsync<InvoicePaymentResponseDto>(url);
+            return new InvoicePaymentResponse(paymentResponseContainer, HttpClient);
         }
 
-        public Task<IInvoicePayment> Create(InvoicePaymentRequest paymentRequest,
+        public async Task<IInvoicePaymentResponse> Create(InvoicePaymentRequest paymentRequest,
                                            PaymentExpand paymentExpand = PaymentExpand.None)
         {
-            return InvoicePayment.Create(paymentRequest, this.HttpClient, GetExpandQueryString(paymentExpand));
+            var url = new Uri($"/psp/invoice/payments{paymentExpand}", UriKind.Relative);
+
+            var paymentResponse = await HttpClient.PostAsJsonAsync<InvoicePaymentResponseDto>(url, paymentRequest);
+            return new InvoicePaymentResponse(paymentResponse, HttpClient);
         }
     }
 }

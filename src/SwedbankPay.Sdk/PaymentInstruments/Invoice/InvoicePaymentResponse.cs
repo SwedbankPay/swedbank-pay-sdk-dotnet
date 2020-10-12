@@ -5,7 +5,7 @@ using SwedbankPay.Sdk.PaymentOrders;
 
 namespace SwedbankPay.Sdk.Payments.InvoicePayments
 {
-    public class InvoicePaymentResponse
+    public class InvoicePaymentResponse : IInvoicePayment
     {
         public InvoicePaymentResponse(PaymentResponseObject payment,
                                IOperationList operations)
@@ -13,71 +13,6 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
             this.Payment = payment;
             this.Operations = operations;
         }
-
-        public PaymentResponseObject Payment { get; }
-        public IOperationList Operations { get; }
-    }
-
-    public class PaymentResponseObject
-    {
-        public PaymentResponseObject(Uri id,
-                               string number,
-                               PaymentInstrument instrument,
-                               DateTime created,
-                               DateTime updated,
-                               State state,
-                               Operation operation,
-                               Intent intent,
-                               CurrencyCode currency,
-                               Amount amount,
-                               Amount remainingCaptureAmount,
-                               Amount remainingCancellationAmount,
-                               Amount remainingReversalAmount,
-                               string description,
-                               string payerReference,
-                               string initiatingSystemUserAgent,
-                               string userAgent,
-                               CultureInfo language,
-                               IPricesListResponse prices,
-                               ITransactionListResponse transactions,
-                               InvoicePaymentAuthorizationListResponse authorizations,
-                               ICapturesListResponse captures,
-                               IReversalsListResponse reversals,
-                               ICancellationsListResponse cancellations,
-                               IUrls urls,
-                               PayeeInfo payeeInfo,
-                               MetadataResponse metadata)
-        {
-            Id = id;
-            Number = number;
-            Created = created;
-            Updated = updated;
-            Instrument = instrument;
-            Operation = operation;
-            Intent = intent;
-            State = state;
-            Currency = currency;
-            Prices = prices;
-            Amount = amount;
-            RemainingCaptureAmount = remainingCaptureAmount;
-            RemainingCancellationAmount = remainingCancellationAmount;
-            RemainingReversalAmount = remainingReversalAmount;
-            Description = description;
-            PayerReference = payerReference;
-            InitiatingSystemUserAgent = initiatingSystemUserAgent;
-            UserAgent = userAgent;
-            Language = language;
-            Urls = urls;
-            PayeeInfo = payeeInfo;
-            Transactions = transactions;
-            Authorizations = authorizations;
-            Captures = captures;
-            Reversals = reversals;
-            Cancellations = cancellations;
-            Metadata = metadata;
-        }
-
-
         public Amount Amount { get; }
         public Amount RemainingCaptureAmount { get; }
         public Amount RemainingCancellationAmount { get; }
@@ -105,5 +40,9 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
         public IUrls Urls { get; }
         public string UserAgent { get; }
         public MetadataResponse Metadata { get; }
+
+        public PaymentResponseObject PaymentResponse => throw new NotImplementedException();
+
+        IInvoicePaymentOperations Operations => throw new NotImplementedException();
     }
 }

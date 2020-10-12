@@ -14,11 +14,10 @@ namespace SwedbankPay.Sdk.Payments
             {
                 listPrice.Add(new Price(item.Amount, Enum.Parse<PriceType>(item.Type), item.VatAmount));
             }
-            var response = new PricesListResponse(listPrice)
+            return new PricesListResponse(listPrice)
             {
                 Id = Id
             };
-            return response;
         }
     }
 }
