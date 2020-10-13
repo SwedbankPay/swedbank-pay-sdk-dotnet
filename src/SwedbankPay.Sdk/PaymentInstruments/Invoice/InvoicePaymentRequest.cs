@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace SwedbankPay.Sdk.Payments.InvoicePayments
 {
-    public class InvoicePaymentRequest : IInvoicePaymentRequest
+    public class InvoicePaymentRequest
     {
         public InvoicePaymentRequest(Operation operation,
                               Intent intent,
