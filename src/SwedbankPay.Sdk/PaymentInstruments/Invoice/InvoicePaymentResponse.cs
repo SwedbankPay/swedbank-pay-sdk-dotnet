@@ -22,7 +22,7 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
         public string Description { get; }
         public Uri Id { get; }
         public PaymentInstrument Instrument { get; }
-        public Intent Intent { get; }
+        public PaymentIntent Intent { get; }
         public CultureInfo Language { get; }
         public string Number { get; }
         public Operation Operation { get; }

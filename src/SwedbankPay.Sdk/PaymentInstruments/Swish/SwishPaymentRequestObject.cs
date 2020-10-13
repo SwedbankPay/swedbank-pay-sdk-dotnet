@@ -19,7 +19,7 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
                                                 Dictionary<string, object> metadata = null)
         {
             Operation = Operation.Purchase;
-            Intent = Intent.Sale;
+            Intent = PaymentIntent.Sale;
             Currency = currency;
             Prices = prices;
             Description = description;
@@ -37,7 +37,7 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
 
         public CurrencyCode Currency { get; }
         public string Description { get; }
-        public Intent Intent { get; }
+        public PaymentIntent Intent { get; }
         public CultureInfo Language { get; }
 
         public Operation Operation { get; }

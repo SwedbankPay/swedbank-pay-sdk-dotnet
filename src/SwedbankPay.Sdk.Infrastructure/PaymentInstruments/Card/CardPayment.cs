@@ -26,7 +26,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
             Description = payment.Description;
             Id = new Uri(payment.Id, UriKind.RelativeOrAbsolute);
             Instrument =  Enum.Parse<PaymentInstrument>(payment.Instrument);
-            Intent = Enum.Parse<Intent>(payment.Intent);
+            Intent = Enum.Parse<PaymentIntent>(payment.Intent);
             Language = new CultureInfo(payment.Language);
             Number = payment.Number;
             Operation = payment.Operation;
@@ -68,7 +68,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
 
         public PaymentInstrument Instrument { get; }
 
-        public Intent Intent { get; }
+        public PaymentIntent Intent { get; }
 
         public CultureInfo Language { get; }
 

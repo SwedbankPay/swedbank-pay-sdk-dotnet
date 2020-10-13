@@ -61,7 +61,7 @@ namespace SwedbankPay.Sdk.Payments.TrustlyPayments
                                                 PrefillInfo prefillInfo)
         {
             Operation = Operation.Purchase;
-            Intent = Intent.Sale;
+            Intent = PaymentIntent.Sale;
             Currency = currency;
             Prices = prices;
             Description = description;
@@ -76,7 +76,7 @@ namespace SwedbankPay.Sdk.Payments.TrustlyPayments
 
         public CurrencyCode Currency { get; set; }
         public string Description { get; set; }
-        public Intent Intent { get; set; }
+        public PaymentIntent Intent { get; set; }
         public CultureInfo Language { get; set; }
         public Operation Operation { get; set; }
         public PayeeInfo PayeeInfo { get; internal set; }

@@ -7,7 +7,7 @@ namespace SwedbankPay.Sdk.Payments.VippsPayments
     public class VippsPaymentRequest
     {
         public VippsPaymentRequest(Operation operation,
-                              Intent intent,
+                              PaymentIntent intent,
                               CurrencyCode currency,
                               List<IPrice> prices,
                               string description,
@@ -32,7 +32,7 @@ namespace SwedbankPay.Sdk.Payments.VippsPayments
         public class VippsPaymentRequestObject
         {
             protected internal VippsPaymentRequestObject(Operation operation,
-                                                    Intent intent,
+                                                    PaymentIntent intent,
                                                     CurrencyCode currency,
                                                     List<IPrice> prices,
                                                     string description,
@@ -67,7 +67,7 @@ namespace SwedbankPay.Sdk.Payments.VippsPayments
             public string Description { get; set; }
             public bool GeneratePaymentToken { get; set; }
             public bool GenerateReccurenceToken { get; set; }
-            public Intent Intent { get; set; }
+            public PaymentIntent Intent { get; set; }
             public CultureInfo Language { get; set; }
             public Dictionary<string, object> Metadata { get; }
             public Operation Operation { get; set; }

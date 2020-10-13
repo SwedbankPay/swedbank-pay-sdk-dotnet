@@ -19,7 +19,7 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
         string Description { get; }
         Uri Id { get; }
         PaymentInstrument Instrument { get; }
-        Intent Intent { get; }
+        PaymentIntent Intent { get; }
         CultureInfo Language { get; }
         string Number { get; }
         Operation Operation { get; }

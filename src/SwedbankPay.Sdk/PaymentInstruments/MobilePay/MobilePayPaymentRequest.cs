@@ -7,7 +7,7 @@ namespace SwedbankPay.Sdk.Payments.MobilePayPayments
     public class MobilePayPaymentRequest
     {
         public MobilePayPaymentRequest(Operation operation,
-                              Intent intent,
+                              PaymentIntent intent,
                               CurrencyCode currency,
                               List<IPrice> prices,
                               string description,
@@ -32,7 +32,7 @@ namespace SwedbankPay.Sdk.Payments.MobilePayPayments
         public class PaymentRequestObject
         {
             protected internal PaymentRequestObject(Operation operation,
-                                                    Intent intent,
+                                                    PaymentIntent intent,
                                                     CurrencyCode currency,
                                                     List<IPrice> prices,
                                                     string description,
@@ -61,7 +61,7 @@ namespace SwedbankPay.Sdk.Payments.MobilePayPayments
 
             public CurrencyCode Currency { get; set; }
             public string Description { get; set; }
-            public Intent Intent { get; set; }
+            public PaymentIntent Intent { get; set; }
             public CultureInfo Language { get; set; }
             public Dictionary<string, object> Metadata { get; }
             public Operation Operation { get; set; }

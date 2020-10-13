@@ -22,7 +22,7 @@ namespace SwedbankPay.Sdk.Payments
             Description = payment.Description;
             Id = payment.Id;
             Instrument = Enum.Parse<PaymentInstrument>(payment.Instrument);
-            Intent = Enum.Parse<Intent>(payment.Intent);
+            Intent = Enum.Parse<PaymentIntent>(payment.Intent);
             Language = payment.Language;
             Number = payment.Number;
             Operation = payment.Operation;
@@ -64,7 +64,7 @@ namespace SwedbankPay.Sdk.Payments
 
         public PaymentInstrument Instrument { get; }
 
-        public Intent Intent { get; }
+        public PaymentIntent Intent { get; }
 
         public CultureInfo Language { get; }
 

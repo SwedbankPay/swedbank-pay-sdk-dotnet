@@ -9,7 +9,7 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
         string Description { get; set; }
         bool GeneratePaymentToken { get; set; }
         bool GenerateReccurenceToken { get; set; }
-        Intent Intent { get; set; }
+        PaymentIntent Intent { get; set; }
         CultureInfo Language { get; set; }
         Dictionary<string, object> Metadata { get; }
         Operation Operation { get; set; }

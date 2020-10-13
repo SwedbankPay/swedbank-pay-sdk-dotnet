@@ -26,7 +26,7 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
                                DateTime updated,
                                PaymentInstrument instrument,
                                Operation operation,
-                               Intent intent,
+                               PaymentIntent intent,
                                State state,
                                CurrencyCode currency,
                                IPricesListResponse prices,
@@ -75,7 +75,7 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
         public DateTime Updated { get; }
         public PaymentInstrument Instrument { get; }
         public Operation Operation { get; }
-        public Intent Intent { get; }
+        public PaymentIntent Intent { get; }
         public State State { get; }
         public CurrencyCode Currency { get; }
         public IPricesListResponse Prices { get; }

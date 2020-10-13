@@ -32,7 +32,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                             ICapturesListResponse captures,
                                             CurrencyCode currency,
                                             string description,
-                                            Intent intent,
+                                            PaymentIntent intent,
                                             Language language,
                                             Operation operation,
                                             PayeeInfo payeeInfo,
@@ -82,7 +82,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public ICapturesListResponse Captures { get; }
         public CurrencyCode Currency { get; }
         public string Description { get; }
-        public Intent Intent { get; }
+        public PaymentIntent Intent { get; }
         public Language Language { get; }
         public Operation Operation { get; }
         public PayeeInfo PayeeInfo { get; }

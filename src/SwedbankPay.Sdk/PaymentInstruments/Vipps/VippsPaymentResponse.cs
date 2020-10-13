@@ -27,7 +27,7 @@ namespace SwedbankPay.Sdk.Payments.VippsPayments
                                DateTime updated,
                                State state,
                                Operation operation,
-                               Intent intent,
+                               PaymentIntent intent,
                                CurrencyCode currency,
                                Amount amount,
                                string description,
@@ -82,7 +82,7 @@ namespace SwedbankPay.Sdk.Payments.VippsPayments
         public string Description { get; }
         public Uri Id { get; }
         public PaymentInstrument Instrument { get; }
-        public Intent Intent { get; }
+        public PaymentIntent Intent { get; }
         public CultureInfo Language { get; }
         public string Number { get; }
         public Operation Operation { get; }

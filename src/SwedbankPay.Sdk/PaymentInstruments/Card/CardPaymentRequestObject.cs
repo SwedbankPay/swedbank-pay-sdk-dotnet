@@ -9,7 +9,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
     public class CardPaymentRequestObject
     {
         public CardPaymentRequestObject(Operation operation,
-                                                Intent intent,
+                                                PaymentIntent intent,
                                                 CurrencyCode currency,
                                                 List<IPrice> prices,
                                                 string description,
@@ -51,7 +51,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
         public string Description;
         public bool GeneratePaymentToken;
         public bool GenerateReccurenceToken;
-        public Intent Intent;
+        public PaymentIntent Intent;
         public CultureInfo Language;
         public Dictionary<string, object> Metadata;
         public Operation Operation;
