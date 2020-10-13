@@ -3,7 +3,7 @@
 
 namespace SwedbankPay.Sdk.Payments.InvoicePayments
 {
-    public class InvoicePaymentCaptureRequest : IInvoicePaymentCaptureRequest
+    public class InvoicePaymentCaptureRequest
     {
         public InvoicePaymentCaptureRequest(ICaptureTransaction transaction)
         {
