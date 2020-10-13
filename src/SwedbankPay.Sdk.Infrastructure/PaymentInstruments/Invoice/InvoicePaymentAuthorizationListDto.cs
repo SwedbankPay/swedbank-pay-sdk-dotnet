@@ -8,6 +8,6 @@ namespace SwedbankPay.Sdk.Payments
     {
         public List<InvoicePaymentAuthorization> AuthorizationList => throw new NotImplementedException();
 
-        public InvoicePaymentAuthorizationListResponse Map() => throw new NotImplementedException();
+        public IInvoicePaymentAuthorizationListResponse Map() => throw new NotImplementedException();
     }
 }

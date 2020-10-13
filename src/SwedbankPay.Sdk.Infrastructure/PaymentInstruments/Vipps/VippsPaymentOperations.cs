@@ -10,7 +10,7 @@ namespace swedbankpay.Sdk.Payments
 {
     public class VippsPaymentOperations : OperationsBase, IVippsPaymentOperations
     {
-        public VippsPaymentOperations(OperationList operations, HttpClient client)
+        public VippsPaymentOperations(IOperationList operations, HttpClient client)
         {
             foreach (var httpOperation in operations)
             {

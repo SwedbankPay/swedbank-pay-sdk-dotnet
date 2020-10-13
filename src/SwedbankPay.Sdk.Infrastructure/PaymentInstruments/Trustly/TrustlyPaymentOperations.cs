@@ -8,7 +8,7 @@ namespace SwedbankPay.Sdk.Payments
 {
     public class TrustlyPaymentOperations : OperationsBase, ITrustlyPaymentOperations
     {
-        public TrustlyPaymentOperations(OperationList operations, HttpClient client)
+        public TrustlyPaymentOperations(IOperationList operations, HttpClient client)
         {
             foreach (var httpOperation in operations)
             {

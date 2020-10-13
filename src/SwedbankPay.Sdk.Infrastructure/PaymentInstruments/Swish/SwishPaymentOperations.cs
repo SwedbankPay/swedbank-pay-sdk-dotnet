@@ -8,7 +8,7 @@ namespace SwedbankPay.Sdk.Payments
 {
     public class SwishPaymentOperations : OperationsBase, ISwishPaymentOperations
     {
-        public SwishPaymentOperations(OperationList operations, HttpClient client)
+        public SwishPaymentOperations(IOperationList operations, HttpClient client)
         {
             foreach (var httpOperation in operations)
             {

@@ -10,7 +10,7 @@ namespace Swedbankpay.Sdk.Payments
 {
     public class MobilePayPaymentOperations : OperationsBase, IMobilePayPaymentOperations
     {
-        public MobilePayPaymentOperations(OperationList operations, HttpClient client)
+        public MobilePayPaymentOperations(IOperationList operations, HttpClient client)
         {
             foreach (var httpOperation in operations)
             {

@@ -19,7 +19,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
 {
     public class PaymentOrderOperations : OperationsBase, IPaymentOrderOperations
     {
-        public PaymentOrderOperations(OperationList operations, HttpClient client)
+        public PaymentOrderOperations(IOperationList operations, HttpClient client)
         {
             foreach (var httpOperation in operations)
             {
