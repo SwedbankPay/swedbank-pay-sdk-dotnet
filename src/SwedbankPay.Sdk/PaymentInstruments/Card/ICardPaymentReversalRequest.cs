@@ -5,7 +5,6 @@
         Amount Amount { get; }
         string Description { get; }
         string PayeeReference { get; }
-        ICardPaymentReversalTransaction Transaction { get; set; }
         Amount VatAmount { get; }
     }
 }

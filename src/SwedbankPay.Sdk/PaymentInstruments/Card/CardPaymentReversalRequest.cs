@@ -8,11 +8,9 @@
         }
 
 
-        public CardPaymentReversalTransaction Transaction { get; set; }
-
-        public Amount Amount => this.Transaction.Amount;
-        public string Description => this.Transaction.Description;
-        public string PayeeReference => this.Transaction.PayeeReference;
-        public Amount VatAmount => this.Transaction.VatAmount;
+        public Amount Amount { get; }
+        public string Description { get; }
+        public string PayeeReference { get; }
+        public Amount VatAmount { get; }
     }
 }
