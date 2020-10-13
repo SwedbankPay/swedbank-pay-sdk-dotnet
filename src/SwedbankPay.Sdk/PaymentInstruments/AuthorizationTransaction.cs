@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.Payments
 {
-    public class AuthorizationTransaction : IdLink, IAuthorizationTransaction
+    public class AuthorizationTransaction : IdLink
     {
         public AuthorizationTransaction(DateTime created,
                                         DateTime updated,

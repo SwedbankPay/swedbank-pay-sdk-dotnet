@@ -15,7 +15,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
         string Number { get; }
         IOperationList Operations { get; }
         string PayeeReference { get; }
-        IProblemResponse Problem { get; }
+        ProblemResponse Problem { get; }
         State State { get; }
         string Type { get; }
         DateTime Updated { get; }

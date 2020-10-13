@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.Payments.CardPayments
 {
-    public class CardPaymentAuthorizationResponse : ICardPaymentAuthorizationResponse
+    public class CardPaymentAuthorizationResponse
     {
         public CardPaymentAuthorizationResponse(Uri payment, CardPaymentAuthorization authorization)
         {
