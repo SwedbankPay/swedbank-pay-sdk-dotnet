@@ -19,7 +19,7 @@ namespace SwedbankPay.Sdk.Payments
             Uri url = id.GetUrlWithQueryString(paymentExpand);
 
             var mobilepaymentResponseDto = await HttpClient.GetAsJsonAsync<MobilePayPaymentResponseDto>(url);
-            return new MobilePayPayment(mobilepaymentResponseDto, HttpClient);
+            return new MobilePayPayment(mobilepaymentResponseDto);
         }
 
         public async Task<IMobilePayPayment> Create(MobilePayPaymentRequest paymentRequest,
@@ -28,7 +28,7 @@ namespace SwedbankPay.Sdk.Payments
             var url = new Uri($"/psp/mobilepay/payments{paymentExpand}", UriKind.Relative);
 
             var mobilepaymentResponseDto = await HttpClient.PostAsJsonAsync<MobilePayPaymentResponseDto>(url, paymentRequest);
-            return new MobilePayPayment(mobilepaymentResponseDto, HttpClient);
+            return new MobilePayPayment(mobilepaymentResponseDto);
         }
     }
 }
