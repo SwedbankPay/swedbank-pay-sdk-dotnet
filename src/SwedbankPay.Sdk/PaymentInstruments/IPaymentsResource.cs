@@ -13,7 +13,7 @@ namespace SwedbankPay.Sdk.Payments
         ISwishResource SwishPayments { get; }
         IInvoiceResource InvoicePayments { get; }
         IVippsResource VippsPayments { get; }
-        IMobileResource MobilePayPayments { get; }
+        IMobilePayResource MobilePayPayments { get; }
         ITrustlyResource TrustlyPayments { get; }
 
 

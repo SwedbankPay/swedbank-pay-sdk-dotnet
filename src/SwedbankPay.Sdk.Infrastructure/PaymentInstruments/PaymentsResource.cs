@@ -16,7 +16,7 @@ namespace SwedbankPay.Sdk.Payments
         public ISwishResource SwishPayments { get; }
         public IInvoiceResource InvoicePayments { get; }
         public IVippsResource VippsPayments { get; }
-        public IMobileResource MobilePayPayments { get; }
+        public IMobilePayResource MobilePayPayments { get; }
         public ITrustlyResource TrustlyPayments { get; }
 
         
@@ -36,7 +36,7 @@ namespace SwedbankPay.Sdk.Payments
                                 ISwishResource swishPaymentsResource,
                                 IInvoiceResource invoicePaymentsResource,
                                 IVippsResource vippsPaymentsResource,
-                                IMobileResource mobilePayPaymentsResource,
+                                IMobilePayResource mobilePayPaymentsResource,
                                 ITrustlyResource trustlyPaymentsResource) 
                                 : base(httpClient)
         {

@@ -5,6 +5,6 @@ namespace SwedbankPay.Sdk.Payments
     public interface IMobilePayPayment
     {
         IMobilePayPaymentOperations Operations { get; }
-        MobilePayPaymentResponseObject PaymentResponse { get; }
+        IMobilePayPaymentResponse PaymentResponse { get; }
     }
 }

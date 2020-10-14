@@ -8,7 +8,7 @@ namespace SwedbankPay.Sdk.Payments
 {
     public class CardPaymentOperations : OperationsBase, ICardPaymentOperations
     {
-        internal CardPaymentOperations(CardPaymentOperationsDto operations, HttpClient client)
+        internal CardPaymentOperations(PaymentOperationsDto operations, HttpClient client)
         {
             foreach (var httpOperation in operations.Operations)
             {

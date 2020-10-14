@@ -10,7 +10,7 @@ namespace Swedbankpay.Sdk.Payments
 {
     public class InvoicePaymentOperations : OperationsBase, IInvoicePaymentOperations
     {
-        public InvoicePaymentOperations(InvoicePaymentOperationsDto operations, HttpClient client)
+        public InvoicePaymentOperations(PaymentOperationsDto operations, HttpClient client)
         {
             foreach (var httpOperation in operations.Operations)
             {
