@@ -4,7 +4,7 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
 {
     public class SaleResponseContainer
     {
-        public SaleResponseContainer(Uri payment, SaleListResponse sales)
+        public SaleResponseContainer(Uri payment, ISaleListResponse sales)
         {
             Payment = payment;
             Sales = sales;
@@ -12,6 +12,6 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
 
 
         public Uri Payment { get; }
-        public SaleListResponse Sales { get; }
+        public ISaleListResponse Sales { get; }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Globalization;
 
-using SwedbankPay.Sdk.PaymentOrders;
-
 namespace SwedbankPay.Sdk.Payments.VippsPayments
 {
     public class VippsPaymentResponse

@@ -1,5 +1,4 @@
-﻿using SwedbankPay.Sdk.PaymentOrders;
-using SwedbankPay.Sdk.Payments.MobilePayPayments;
+﻿using SwedbankPay.Sdk.Payments.MobilePayPayments;
 using System;
 using System.Globalization;
 

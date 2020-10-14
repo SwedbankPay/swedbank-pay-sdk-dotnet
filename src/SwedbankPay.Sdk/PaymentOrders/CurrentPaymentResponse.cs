@@ -44,7 +44,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                             ITransactionListResponse transactions,
                                             IdLink urls,
                                             string userAgent,
-                                            SaleListResponse sales)
+                                            ISaleListResponse sales)
         {
             Number = number;
             Instrument = instrument;
@@ -94,6 +94,6 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public ITransactionListResponse Transactions { get; }
         public IdLink Urls { get; }
         public string UserAgent { get; }
-        public SaleListResponse Sales { get; }
+        public ISaleListResponse Sales { get; }
     }
 }

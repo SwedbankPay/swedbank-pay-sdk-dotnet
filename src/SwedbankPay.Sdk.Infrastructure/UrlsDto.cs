@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk
 {
-    public class UrlsDto : IUrls
+    public class UrlsDto
     {
         public Uri CallbackUrl { get; set; }
 
@@ -18,5 +18,10 @@ namespace SwedbankPay.Sdk
         public Uri PaymentUrl { get; set; }
 
         public Uri TermsOfServiceUrl { get; set; }
+
+        internal IUrls Map()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

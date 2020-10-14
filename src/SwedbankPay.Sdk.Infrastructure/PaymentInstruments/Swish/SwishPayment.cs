@@ -1,6 +1,7 @@
 ﻿using SwedbankPay.Sdk.Extensions;
 using SwedbankPay.Sdk.Payments.SwishPayments;
 using System;
+using System.Globalization;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -8,38 +9,55 @@ namespace SwedbankPay.Sdk.Payments
 {
     public class SwishPayment : ISwishPayment
     {
-        private SwishPayment(SwishPaymentResponse paymentResponse, HttpClient client)
+        public SwishPayment(SwishPaymentResponseDto payment)
         {
-            PaymentResponse = paymentResponse.Payment;
-            var operations = new SwishPaymentOperations(paymentResponse.Operations, client);
-            Operations = operations;
+            Number = payment.Number;
+            Created = payment.Created;
+            Updated = payment.Updated;
+            Instrument = Enum.Parse<PaymentInstrument>(payment.Instrument);
+            Operation = payment.Operation;
+            Intent = Enum.Parse<PaymentIntent>(payment.Intent);
+            State = payment.State;
+            Currency = payment.Currency;
+            Prices = payment.Prices.Map();
+            Amount = payment.Amount;
+            RemainingReversalAmount = payment.RemainingReversalAmount;
+            Description = payment.Description;
+            PayerReference = payment.PayerReference;
+            InitiatingSystemUserAgent = payment.InitiatingSystemUserAgent;
+            UserAgent = payment.UserAgent;
+            Language = payment.Language;
+            Transactions = payment.Transactions.Map();
+            Sales = payment.Sales.Map();
+            Reversals = payment.Reversals.Map();
+            Urls = payment.Urls.Map();
+            PayeeInfo = payment.PayeeInfo.Map();
+            Id = payment.Id;
+            Metadata = payment.Metadata;
         }
 
-
-        public ISwishPaymentOperations Operations { get; }
-
-        public SwishPaymentResponseObject PaymentResponse { get; }
-
-
-        internal static async Task<ISwishPayment> Create(SwishPaymentRequest paymentRequest,
-                                                   HttpClient client,
-                                                   string paymentExpand)
-        {
-            var url = new Uri($"/psp/swish/payments{paymentExpand}", UriKind.Relative);
-
-            var paymentResponse = await client.PostAsJsonAsync<SwishPaymentResponse>(url, paymentRequest);
-            return new SwishPayment(paymentResponse, client);
-        }
-
-
-        internal static async Task<ISwishPayment> Get(Uri id, HttpClient client, string paymentExpand)
-        {
-            var url = !string.IsNullOrWhiteSpace(paymentExpand)
-                ? new Uri(id.OriginalString + paymentExpand, UriKind.RelativeOrAbsolute)
-                : id;
-
-            var paymentResponse = await client.GetAsJsonAsync<SwishPaymentResponse>(url);
-            return new SwishPayment(paymentResponse, client);
-        }
+        public string Number { get; }
+        public DateTime Created { get; }
+        public DateTime Updated { get; }
+        public PaymentInstrument Instrument { get; }
+        public Operation Operation { get; }
+        public PaymentIntent Intent { get; }
+        public State State { get; }
+        public CurrencyCode Currency { get; }
+        public IPricesListResponse Prices { get; }
+        public Amount Amount { get; }
+        public Amount RemainingReversalAmount { get; set; }
+        public string Description { get; }
+        public string PayerReference { get; }
+        public string InitiatingSystemUserAgent { get; }
+        public string UserAgent { get; }
+        public CultureInfo Language { get; }
+        public ITransactionListResponse Transactions { get; }
+        public ISaleListResponse Sales { get; }
+        public IReversalsListResponse Reversals { get; }
+        public IUrls Urls { get; }
+        public PayeeInfo PayeeInfo { get; }
+        public Uri Id { get; }
+        public MetadataResponse Metadata { get; }
     }
 }

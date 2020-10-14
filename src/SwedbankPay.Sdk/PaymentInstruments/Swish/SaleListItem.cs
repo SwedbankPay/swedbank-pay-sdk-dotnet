@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.Payments.SwishPayments
 {
-    public class SaleListItem
+    public class SaleListItem : ISaleListItem
     {
         public SaleListItem(DateTime date,
                             string paymentRequestToken,
@@ -10,7 +10,7 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
                             string swishPaymentReference,
                             string swishStatus,
                             Uri id,
-                            Transaction transaction)
+                            ITransaction transaction)
         {
             Date = date;
             PaymentRequestToken = paymentRequestToken;
@@ -28,6 +28,6 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
         public string PaymentRequestToken { get; }
         public string SwishPaymentReference { get; }
         public string SwishStatus { get; }
-        public Transaction Transaction { get; }
+        public ITransaction Transaction { get; }
     }
 }

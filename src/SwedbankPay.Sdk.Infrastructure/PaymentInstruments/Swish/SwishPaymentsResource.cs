@@ -1,4 +1,5 @@
-﻿using SwedbankPay.Sdk.Payments.SwishPayments;
+﻿using SwedbankPay.Sdk.Extensions;
+using SwedbankPay.Sdk.Payments.SwishPayments;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -11,18 +12,24 @@ namespace SwedbankPay.Sdk.Payments
         {
         }
 
-        public Task<ISwishPayment> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
+        public async Task<ISwishPayment> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
         {
             if (id == null)
                 throw new ArgumentNullException(nameof(id));
 
-            return SwishPayment.Get(id, this.HttpClient, GetExpandQueryString(paymentExpand));
+            Uri url = id.GetUrlWithQueryString(paymentExpand);
+
+            var paymentResponse = await HttpClient.GetAsJsonAsync<SwishPaymentResponseDto>(url);
+            return new SwishPayment(paymentResponse);
         }
 
-        public Task<ISwishPayment> Create(SwishPaymentRequest paymentRequest,
+        public async Task<ISwishPayment> Create(SwishPaymentRequest paymentRequest,
                                                             PaymentExpand paymentExpand = PaymentExpand.None)
         {
-            return SwishPayment.Create(paymentRequest, this.HttpClient, GetExpandQueryString(paymentExpand));
+            var url = new Uri($"/psp/swish/payments{paymentExpand}", UriKind.Relative);
+
+            var paymentResponse = await HttpClient.PostAsJsonAsync<SwishPaymentResponseDto>(url, paymentRequest);
+            return new SwishPayment(paymentResponse);
         }
     }
 }

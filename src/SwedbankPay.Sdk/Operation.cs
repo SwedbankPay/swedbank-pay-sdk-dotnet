@@ -10,6 +10,9 @@
         public static readonly Operation FinancingConsumer = new Operation(nameof(FinancingConsumer), "FinancingConsumer");
         public static readonly Operation Sale = new Operation(nameof(Sale), "Sale");
 
+        public Operation(string operation): base(operation, operation)
+        {
+        }
 
         public Operation(string name, string value)
             : base(name, value)

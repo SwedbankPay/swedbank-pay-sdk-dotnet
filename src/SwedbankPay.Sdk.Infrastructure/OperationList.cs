@@ -3,13 +3,8 @@ using System.Linq;
 
 namespace SwedbankPay.Sdk
 {
-    public class OperationList : List<HttpOperation>, IOperationList
+    public class OperationList : IOperationList
     {
-        public OperationList()
-        {
-        }
-
-
         public OperationList(IEnumerable<HttpOperation> operations)
             : base(operations)
         {

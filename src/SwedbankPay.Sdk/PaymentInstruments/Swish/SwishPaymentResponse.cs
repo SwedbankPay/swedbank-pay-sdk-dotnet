@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Globalization;
 
-using SwedbankPay.Sdk.PaymentOrders;
-
 namespace SwedbankPay.Sdk.Payments.SwishPayments
 {
     public class SwishPaymentResponse
@@ -38,7 +36,7 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
                                string userAgent,
                                CultureInfo language,
                                ITransactionListResponse transactions,
-                               SaleListResponse sales,
+                               ISaleListResponse sales,
                                IReversalsListResponse reversals,
                                IUrls urls,
                                PayeeInfo payeeInfo,
@@ -87,7 +85,7 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
         public string UserAgent { get; }
         public CultureInfo Language { get; }
         public ITransactionListResponse Transactions { get; }
-        public SaleListResponse Sales { get; }
+        public ISaleListResponse Sales { get; }
         public IReversalsListResponse Reversals { get; }
         public IUrls Urls { get; }
         public PayeeInfo PayeeInfo { get; }

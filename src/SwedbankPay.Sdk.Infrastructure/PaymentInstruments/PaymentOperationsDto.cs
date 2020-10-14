@@ -4,11 +4,16 @@ namespace SwedbankPay.Sdk.Payments
 {
     public class PaymentOperationsDto
     {
-        public List<HttpOperation> Operations { get; set; }
+        public List<HttpOperationDto> Operations { get; set; }
 
         public IOperationList Map()
         {
-            return new OperationList(Operations);
+            var list = new List<HttpOperation>();
+            foreach (var item in Operations)
+            {
+                list.Add(new HttpOperation(item.Href, item.Rel, item.Method, item.ContentType));
+            }
+            return new OperationList(list);
         }
     }
 }
