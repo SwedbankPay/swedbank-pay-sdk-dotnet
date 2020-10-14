@@ -30,9 +30,7 @@
     </AssemblyAttribute>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.Text.Json">
-      <HintPath>..\..\..\..\Microsoft VS Code\NUGET_PACKAGES\system.text.json\4.7.2\lib\netstandard2.0\System.Text.Json.dll</HintPath>
-    </Reference>
+    <PackageReference Include="System.Text.Json" Version="4.7.2" />
   </ItemGroup>
 
 </Project>
