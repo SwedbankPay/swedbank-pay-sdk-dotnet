@@ -1,4 +1,4 @@
-﻿namespace SwedbankPay.Sdk.Models.Shared.Consumers
+﻿namespace SwedbankPay.Sdk.Consumers
 {
     public class AddressWithAddressee
     {

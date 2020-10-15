@@ -10,8 +10,7 @@ namespace SwedbankPay.Sdk.Consumers
         private Consumer(ConsumersResponse consumersResponse)
         {
             ConsumersResponse = consumersResponse;
-            var operations = new ConsumerOperations(consumersResponse.Operations);
-            Operations = operations;
+            Operations = new ConsumerOperations(consumersResponse.Operations);
         }
 
 
