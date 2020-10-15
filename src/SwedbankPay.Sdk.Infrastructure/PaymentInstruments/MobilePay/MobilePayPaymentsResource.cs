@@ -26,7 +26,7 @@ namespace SwedbankPay.Sdk.Payments
         public async Task<IMobilePayPaymentResponse> Create(MobilePayPaymentRequest paymentRequest,
                                                             PaymentExpand paymentExpand = PaymentExpand.None)
         {
-            var url = new Uri($"/psp/mobilepay/payments{paymentExpand}", UriKind.Relative);
+            var url = new Uri("/psp/mobilepay/payments", UriKind.Relative).GetUrlWithQueryString(paymentExpand);
 
             var mobilepaymentResponseDto = await HttpClient.PostAsJsonAsync<MobilePayPaymentResponseDto>(url, paymentRequest);
             return new MobilePayPaymentResponse(mobilepaymentResponseDto, HttpClient);

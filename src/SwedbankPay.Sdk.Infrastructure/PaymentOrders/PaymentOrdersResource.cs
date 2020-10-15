@@ -12,22 +12,6 @@ namespace SwedbankPay.Sdk.PaymentOrders
         }
 
         /// <summary>
-        ///     Create a payment order
-        /// </summary>
-        /// <param name="paymentOrderRequest"></param>
-        /// <param name="paymentOrderExpand"></param>
-        /// <returns></returns>
-        public async Task<IPaymentOrderResponse> Create(PaymentOrderRequest paymentOrderRequest,
-                                               PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
-        {
-            var url = new Uri($"/psp/paymentorders{paymentOrderExpand}", UriKind.Relative);
-
-            var paymentOrderResponseContainer = await HttpClient.PostAsJsonAsync<PaymentOrderResponseDto>(url, paymentOrderRequest);
-
-            return new PaymentOrderResponse(paymentOrderResponseContainer, HttpClient);
-        }
-
-        /// <summary>
         ///     Get payment order by id
         /// </summary>
         /// <param name="id"></param>
@@ -45,6 +29,22 @@ namespace SwedbankPay.Sdk.PaymentOrders
             Uri url = id.GetUrlWithQueryString(paymentOrderExpand);
 
             var paymentOrderResponseContainer = await HttpClient.GetAsJsonAsync<PaymentOrderResponseDto>(url);
+
+            return new PaymentOrderResponse(paymentOrderResponseContainer, HttpClient);
+        }
+
+        /// <summary>
+        ///     Create a payment order
+        /// </summary>
+        /// <param name="paymentOrderRequest"></param>
+        /// <param name="paymentOrderExpand"></param>
+        /// <returns></returns>
+        public async Task<IPaymentOrderResponse> Create(PaymentOrderRequest paymentOrderRequest,
+                                               PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
+        {
+            var url = new Uri("/psp/paymentorders", UriKind.Relative).GetUrlWithQueryString(paymentOrderExpand);
+
+            var paymentOrderResponseContainer = await HttpClient.PostAsJsonAsync<PaymentOrderResponseDto>(url, paymentOrderRequest);
 
             return new PaymentOrderResponse(paymentOrderResponseContainer, HttpClient);
         }

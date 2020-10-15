@@ -26,7 +26,7 @@ namespace SwedbankPay.Sdk.Payments
         public async Task<ISwishPaymentResponse> Create(SwishPaymentRequest paymentRequest,
                                                             PaymentExpand paymentExpand = PaymentExpand.None)
         {
-            var url = new Uri($"/psp/swish/payments{paymentExpand}", UriKind.Relative);
+            var url = new Uri("/psp/swish/payments", UriKind.Relative).GetUrlWithQueryString(paymentExpand);
 
             var paymentResponse = await HttpClient.PostAsJsonAsync<SwishPaymentResponseDto>(url, paymentRequest);
             return new SwishPaymentResponse(paymentResponse, HttpClient);

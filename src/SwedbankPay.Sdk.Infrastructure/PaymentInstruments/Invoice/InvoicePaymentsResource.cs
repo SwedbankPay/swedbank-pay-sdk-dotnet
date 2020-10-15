@@ -26,7 +26,7 @@ namespace SwedbankPay.Sdk.Payments
         public async Task<IInvoicePaymentResponse> Create(InvoicePaymentRequest paymentRequest,
                                            PaymentExpand paymentExpand = PaymentExpand.None)
         {
-            var url = new Uri($"/psp/invoice/payments{paymentExpand}", UriKind.Relative);
+            var url = new Uri("/psp/invoice/payments", UriKind.Relative).GetUrlWithQueryString(paymentExpand);
 
             var paymentResponse = await HttpClient.PostAsJsonAsync<InvoicePaymentResponseDto>(url, paymentRequest);
             return new InvoicePaymentResponse(paymentResponse, HttpClient);
