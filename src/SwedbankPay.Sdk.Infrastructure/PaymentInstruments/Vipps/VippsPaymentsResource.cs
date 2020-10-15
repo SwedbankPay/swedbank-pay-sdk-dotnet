@@ -1,4 +1,5 @@
 ﻿using SwedbankPay.Sdk.Extensions;
+using SwedbankPay.Sdk.PaymentInstruments.Vipps;
 using SwedbankPay.Sdk.Payments.VippsPayments;
 using System;
 using System.Net.Http;
@@ -12,7 +13,7 @@ namespace SwedbankPay.Sdk.Payments
         {
         }
 
-        public async Task<IVippsPayment> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
+        public async Task<IVippsPaymentReponse> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
         {
             if (id == null)
                 throw new ArgumentNullException(nameof(id));
@@ -20,16 +21,16 @@ namespace SwedbankPay.Sdk.Payments
             Uri url = id.GetUrlWithQueryString(paymentExpand);
 
             var paymentResponseContainer = await HttpClient.GetAsJsonAsync<VippsPaymentResponseDto>(url);
-            return new VippsPayment(paymentResponseContainer);
+            return new VippsPaymentResponse(paymentResponseContainer, HttpClient);
         }
 
-        public async Task<IVippsPayment> Create(VippsPaymentRequest paymentRequest,
+        public async Task<IVippsPaymentReponse> Create(VippsPaymentRequest paymentRequest,
                                                             PaymentExpand paymentExpand = PaymentExpand.None)
         {
             var url = new Uri($"/psp/vipps/payments{paymentExpand}", UriKind.Relative);
 
             var paymentResponse = await HttpClient.PostAsJsonAsync<VippsPaymentResponseDto>(url, paymentRequest);
-            return new VippsPayment(paymentResponse);
+            return new VippsPaymentResponse(paymentResponse, HttpClient);
         }
     }
 }

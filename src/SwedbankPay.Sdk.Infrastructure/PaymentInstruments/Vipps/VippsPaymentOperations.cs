@@ -5,6 +5,7 @@ using SwedbankPay.Sdk.Payments.VippsPayments;
 using SwedbankPay.Sdk.Payments;
 using System.Net.Http;
 using SwedbankPay.Sdk.Extensions;
+using SwedbankPay.Sdk.PaymentInstruments.Vipps;
 
 namespace swedbankpay.Sdk.Payments
 {

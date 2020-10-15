@@ -17,14 +17,14 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <param name="paymentOrderRequest"></param>
         /// <param name="paymentOrderExpand"></param>
         /// <returns></returns>
-        public async Task<IPaymentOrder> Create(PaymentOrderRequest paymentOrderRequest,
+        public async Task<IPaymentOrderResponse> Create(PaymentOrderRequest paymentOrderRequest,
                                                PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
         {
             var url = new Uri($"/psp/paymentorders{paymentOrderExpand}", UriKind.Relative);
 
             var paymentOrderResponseContainer = await HttpClient.PostAsJsonAsync<PaymentOrderResponseDto>(url, paymentOrderRequest);
 
-            return new PaymentOrder(paymentOrderResponseContainer);
+            return new PaymentOrderResponse(paymentOrderResponseContainer, HttpClient);
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <exception cref="InvalidOperationException"></exception>
         /// <exception cref="HttpRequestException"></exception>
         /// <exception cref="HttpResponseException"></exception>
-        public async Task<IPaymentOrder> Get(Uri id, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
+        public async Task<IPaymentOrderResponse> Get(Uri id, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
         {
             if (id == null)
                 throw new ArgumentNullException(nameof(id), $"{id} cannot be null");
@@ -46,7 +46,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
             var paymentOrderResponseContainer = await HttpClient.GetAsJsonAsync<PaymentOrderResponseDto>(url);
 
-            return new PaymentOrder(paymentOrderResponseContainer);
+            return new PaymentOrderResponse(paymentOrderResponseContainer, HttpClient);
         }
     }
 }

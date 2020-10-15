@@ -1,5 +1,6 @@
 ﻿using swedbankpay.Sdk.Payments;
 using SwedbankPay.Sdk.Extensions;
+using SwedbankPay.Sdk.PaymentInstruments.Vipps;
 using SwedbankPay.Sdk.Payments.VippsPayments;
 using System;
 using System.Globalization;
@@ -11,7 +12,7 @@ namespace SwedbankPay.Sdk.Payments
 {
     public class VippsPayment : IVippsPayment
     {
-        public VippsPayment(VippsPaymentResponseDto payment)
+        public VippsPayment(VippsPaymentDto payment)
         {
             Amount = payment.Amount;
             Authorizations = payment.Authorizations.Map();
@@ -19,12 +20,12 @@ namespace SwedbankPay.Sdk.Payments
             Captures = payment.Captures.Map();
             Created = payment.Created;
             Updated = payment.Updated;
-            Currency = payment.Currency;
+            Currency = new CurrencyCode(payment.Currency);
             Description = payment.Description;
             Id = payment.Id;
             Instrument = Enum.Parse<PaymentInstrument>(payment.Instrument);
             Intent = Enum.Parse<PaymentIntent>(payment.Intent);
-            Language = payment.Language;
+            Language = new CultureInfo(payment.Language);
             Number = payment.Number;
             Operation = payment.Operation;
             PayeeInfo = payment.PayeeInfo.Map();

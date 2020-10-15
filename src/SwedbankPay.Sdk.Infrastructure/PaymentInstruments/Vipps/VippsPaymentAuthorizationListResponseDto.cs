@@ -1,7 +1,7 @@
 ﻿using SwedbankPay.Sdk.Payments.VippsPayments;
 using System;
 
-namespace SwedbankPay.Sdk.Payments
+namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {
     public class VippsPaymentAuthorizationListResponseDto
     {

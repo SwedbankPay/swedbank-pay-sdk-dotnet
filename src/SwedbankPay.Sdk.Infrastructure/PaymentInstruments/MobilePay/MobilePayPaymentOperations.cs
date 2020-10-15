@@ -5,6 +5,7 @@ using SwedbankPay.Sdk.Payments.MobilePayPayments;
 using SwedbankPay.Sdk.Payments;
 using System.Net.Http;
 using SwedbankPay.Sdk.Extensions;
+using SwedbankPay.Sdk.PaymentInstruments.MobilePay;
 
 namespace Swedbankpay.Sdk.Payments
 {

@@ -1,4 +1,5 @@
 ﻿using SwedbankPay.Sdk.Extensions;
+using SwedbankPay.Sdk.PaymentInstruments.MobilePay;
 using SwedbankPay.Sdk.Payments.MobilePayPayments;
 using System;
 using System.Net.Http;
@@ -12,23 +13,23 @@ namespace SwedbankPay.Sdk.Payments
         {
         }
 
-        public async Task<IMobilePayPayment> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
+        public async Task<IMobilePayPaymentResponse> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
         {
             if (id == null)
                 throw new ArgumentNullException(nameof(id));
             Uri url = id.GetUrlWithQueryString(paymentExpand);
 
             var mobilepaymentResponseDto = await HttpClient.GetAsJsonAsync<MobilePayPaymentResponseDto>(url);
-            return new MobilePayPayment(mobilepaymentResponseDto);
+            return new MobilePayPaymentResponse(mobilepaymentResponseDto, HttpClient);
         }
 
-        public async Task<IMobilePayPayment> Create(MobilePayPaymentRequest paymentRequest,
+        public async Task<IMobilePayPaymentResponse> Create(MobilePayPaymentRequest paymentRequest,
                                                             PaymentExpand paymentExpand = PaymentExpand.None)
         {
             var url = new Uri($"/psp/mobilepay/payments{paymentExpand}", UriKind.Relative);
 
             var mobilepaymentResponseDto = await HttpClient.PostAsJsonAsync<MobilePayPaymentResponseDto>(url, paymentRequest);
-            return new MobilePayPayment(mobilepaymentResponseDto);
+            return new MobilePayPaymentResponse(mobilepaymentResponseDto, HttpClient);
         }
     }
 }

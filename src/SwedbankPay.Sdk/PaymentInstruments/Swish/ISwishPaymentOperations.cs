@@ -5,7 +5,7 @@ namespace SwedbankPay.Sdk.Payments.SwishPayments
 {
     public interface ISwishPaymentOperations : IDictionary<LinkRelation, HttpOperation>
     {
-        System.Func<PaymentAbortRequest, Task<SwishPaymentResponse>> Abort { get; }
+        System.Func<PaymentAbortRequest, Task<ISwishPaymentResponse>> Abort { get; }
         HttpOperation PaidPayment { get; }
         HttpOperation RedirectSale { get; }
         System.Func<SwishPaymentReversalRequest, Task<ReversalResponse>> Reverse { get; }

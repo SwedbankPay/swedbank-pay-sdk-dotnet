@@ -12,24 +12,24 @@ namespace SwedbankPay.Sdk.Payments
         {
         }
 
-        public async Task<IInvoicePayment> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
+        public async Task<IInvoicePaymentResponse> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
         {
             if (id == null)
                 throw new ArgumentNullException(nameof(id));
 
             var url = id.GetUrlWithQueryString(paymentExpand);
 
-            var paymentResponseContainer = await HttpClient.GetAsJsonAsync<InvoicePaymentResponseDto>(url);
-            return new InvoicePayment(paymentResponseContainer.Payment);
+            var paymentResponse = await HttpClient.GetAsJsonAsync<InvoicePaymentResponseDto>(url);
+            return new InvoicePaymentResponse(paymentResponse, HttpClient);
         }
 
-        public async Task<IInvoicePayment> Create(InvoicePaymentRequest paymentRequest,
+        public async Task<IInvoicePaymentResponse> Create(InvoicePaymentRequest paymentRequest,
                                            PaymentExpand paymentExpand = PaymentExpand.None)
         {
             var url = new Uri($"/psp/invoice/payments{paymentExpand}", UriKind.Relative);
 
             var paymentResponse = await HttpClient.PostAsJsonAsync<InvoicePaymentResponseDto>(url, paymentRequest);
-            return new InvoicePayment(paymentResponse.Payment);
+            return new InvoicePaymentResponse(paymentResponse, HttpClient);
         }
     }
 }

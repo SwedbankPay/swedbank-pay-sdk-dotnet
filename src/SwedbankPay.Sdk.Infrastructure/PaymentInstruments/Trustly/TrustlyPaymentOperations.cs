@@ -1,4 +1,5 @@
 ﻿using SwedbankPay.Sdk.Extensions;
+using SwedbankPay.Sdk.PaymentInstruments.Trustly;
 using SwedbankPay.Sdk.Payments.TrustlyPayments;
 using System;
 using System.Net.Http;
@@ -24,7 +25,7 @@ namespace SwedbankPay.Sdk.Payments
 
                     case PaymentResourceOperations.UpdatePaymentAbort:
                         Abort = async payload =>
-                            await client.SendAsJsonAsync<TrustlyPaymentResponse>(httpOperation.Method, httpOperation.Href, payload);
+                            await client.SendAsJsonAsync<ITrustlyPayment>(httpOperation.Method, httpOperation.Href, payload);
                         break;
 
                     case PaymentResourceOperations.CreateReversal:
@@ -45,7 +46,7 @@ namespace SwedbankPay.Sdk.Payments
 
         public HttpOperation RedirectSale { get; }
         public HttpOperation ViewSale { get; }
-        public Func<PaymentAbortRequest, Task<TrustlyPaymentResponse>> Abort { get; }
+        public Func<PaymentAbortRequest, Task<ITrustlyPayment>> Abort { get; }
         public Func<TrustlyPaymentReversalRequest, Task<ReversalResponse>> Reverse { get; }
         public Func<TrustlyPaymentCancelRequest, Task<CancellationResponse>> Cancel { get; }
     }

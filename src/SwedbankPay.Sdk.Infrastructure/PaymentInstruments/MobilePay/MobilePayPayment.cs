@@ -1,5 +1,6 @@
 ﻿using Swedbankpay.Sdk.Payments;
 using SwedbankPay.Sdk.Extensions;
+using SwedbankPay.Sdk.PaymentInstruments.MobilePay;
 using SwedbankPay.Sdk.Payments.MobilePayPayments;
 using System;
 using System.Globalization;
@@ -10,7 +11,7 @@ namespace SwedbankPay.Sdk.Payments
 {
     public class MobilePayPayment : IMobilePayPayment
     {
-        public MobilePayPayment(MobilePayPaymentResponseDto payment)
+        public MobilePayPayment(MobilePayPaymentDto payment)
         {
             Amount = payment.Amount;
             Authorizations = payment.Authorizations.Map();

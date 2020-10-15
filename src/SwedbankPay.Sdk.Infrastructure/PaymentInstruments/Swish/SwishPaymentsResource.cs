@@ -12,7 +12,7 @@ namespace SwedbankPay.Sdk.Payments
         {
         }
 
-        public async Task<ISwishPayment> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
+        public async Task<ISwishPaymentResponse> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
         {
             if (id == null)
                 throw new ArgumentNullException(nameof(id));
@@ -20,16 +20,16 @@ namespace SwedbankPay.Sdk.Payments
             Uri url = id.GetUrlWithQueryString(paymentExpand);
 
             var paymentResponse = await HttpClient.GetAsJsonAsync<SwishPaymentResponseDto>(url);
-            return new SwishPayment(paymentResponse);
+            return new SwishPaymentResponse(paymentResponse, HttpClient);
         }
 
-        public async Task<ISwishPayment> Create(SwishPaymentRequest paymentRequest,
+        public async Task<ISwishPaymentResponse> Create(SwishPaymentRequest paymentRequest,
                                                             PaymentExpand paymentExpand = PaymentExpand.None)
         {
             var url = new Uri($"/psp/swish/payments{paymentExpand}", UriKind.Relative);
 
             var paymentResponse = await HttpClient.PostAsJsonAsync<SwishPaymentResponseDto>(url, paymentRequest);
-            return new SwishPayment(paymentResponse);
+            return new SwishPaymentResponse(paymentResponse, HttpClient);
         }
     }
 }

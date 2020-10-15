@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SwedbankPay.Sdk.PaymentInstruments.Trustly;
+using System;
 using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Payments.TrustlyPayments
@@ -11,7 +12,7 @@ namespace SwedbankPay.Sdk.Payments.TrustlyPayments
         /// <param name="paymentRequest"></param>
         /// <param name="paymentExpand"></param>
         /// <returns></returns>
-        Task<ITrustlyPayment> Create(TrustlyPaymentRequest paymentRequest, PaymentExpand paymentExpand);
+        Task<ITrustlyPaymentResponse> Create(TrustlyPaymentRequest paymentRequest, PaymentExpand paymentExpand);
 
         ///// <summary>
         /////     Gets an existing swish payment.
@@ -19,6 +20,6 @@ namespace SwedbankPay.Sdk.Payments.TrustlyPayments
         ///// <param name="id"></param>
         ///// <param name="paymentExpand"></param>
         ///// <returns></returns>
-        Task<ITrustlyPayment> Get(Uri id, PaymentExpand paymentExpand);
+        Task<ITrustlyPaymentResponse> Get(Uri id, PaymentExpand paymentExpand);
     }
 }

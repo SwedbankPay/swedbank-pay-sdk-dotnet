@@ -11,7 +11,7 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
         /// <param name="paymentRequest"></param>
         /// <param name="paymentExpand"></param>
         /// <returns></returns>
-        Task<IInvoicePayment> Create(InvoicePaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None);
+        Task<IInvoicePaymentResponse> Create(InvoicePaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None);
 
 
         ///// <summary>
@@ -20,6 +20,6 @@ namespace SwedbankPay.Sdk.Payments.InvoicePayments
         ///// <param name="id"></param>
         ///// <param name="paymentExpand"></param>
         ///// <returns></returns>
-        Task<IInvoicePayment> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None);
+        Task<IInvoicePaymentResponse> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None);
     }
 }

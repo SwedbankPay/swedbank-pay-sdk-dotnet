@@ -8,11 +8,11 @@ namespace SwedbankPay.Sdk.PaymentOrders
 {
     public class PaymentOrder : IPaymentOrder
     {
-        public PaymentOrder(PaymentOrderResponseDto paymentOrder)
+        public PaymentOrder(PaymentOrderDto paymentOrder)
         {
             Amount = paymentOrder.Amount;
             Created = paymentOrder.Created;
-            Currency = paymentOrder.Currency;
+            Currency = new CurrencyCode(paymentOrder.Currency);
             CurrentPayment = paymentOrder.CurrentPayment.Map();
             Description = paymentOrder.Description;
             Language = new CultureInfo(paymentOrder.Language);

@@ -1,8 +1,10 @@
-﻿using System;
+﻿using SwedbankPay.Sdk.Payments;
+using SwedbankPay.Sdk.Payments.MobilePayPayments;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SwedbankPay.Sdk.Payments.MobilePayPayments
+namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
     public interface IMobilePayPaymentOperations : IDictionary<LinkRelation, HttpOperation>
     {

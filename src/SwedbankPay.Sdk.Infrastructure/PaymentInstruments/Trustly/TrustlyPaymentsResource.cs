@@ -1,4 +1,5 @@
 ﻿using SwedbankPay.Sdk.Extensions;
+using SwedbankPay.Sdk.PaymentInstruments.Trustly;
 using SwedbankPay.Sdk.Payments.TrustlyPayments;
 using System;
 using System.Net.Http;
@@ -12,15 +13,15 @@ namespace SwedbankPay.Sdk.Payments
         {
         }
 
-        public async Task<ITrustlyPayment> Create(TrustlyPaymentRequest paymentRequest, PaymentExpand paymentExpand)
+        public async Task<ITrustlyPaymentResponse> Create(TrustlyPaymentRequest paymentRequest, PaymentExpand paymentExpand)
         {
             var url = new Uri($"/psp/trustly/payments{paymentExpand}", UriKind.Relative);
 
             var paymentResponse = await HttpClient.PostAsJsonAsync<TrustlyPaymentResponseDto>(url, paymentRequest);
-            return new TrustlyPayment(paymentResponse);
+            return new TrustlyPaymentResponse(paymentResponse, HttpClient);
         }
 
-        public async Task<ITrustlyPayment> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
+        public async Task<ITrustlyPaymentResponse> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
         {
             if (id == null)
                 throw new ArgumentNullException(nameof(id));
@@ -28,7 +29,7 @@ namespace SwedbankPay.Sdk.Payments
             Uri url = id.GetUrlWithQueryString(paymentExpand);
 
             var paymentResponse = await HttpClient.GetAsJsonAsync<TrustlyPaymentResponseDto>(url);
-            return new TrustlyPayment(paymentResponse);
+            return new TrustlyPaymentResponse(paymentResponse, HttpClient);
         }
     }
 }

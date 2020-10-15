@@ -42,7 +42,7 @@ namespace SwedbankPay.Sdk.Payments
             }
         }
 
-        public Func<PaymentAbortRequest, Task<SwishPaymentResponse>> Abort { get; }
+        public Func<PaymentAbortRequest, Task<ISwishPaymentResponse>> Abort { get; }
         public Func<SwishPaymentReversalRequest, Task<ReversalResponse>> Reverse { get; }
         public Func<SwishPaymentSaleRequest, Task<SwishPaymentSaleResponse>> Sale { get; }
         public HttpOperation PaidPayment { get; }

@@ -1,8 +1,10 @@
-﻿using System;
+﻿using SwedbankPay.Sdk.Payments;
+using SwedbankPay.Sdk.Payments.VippsPayments;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SwedbankPay.Sdk.Payments.VippsPayments
+namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {
     public interface IVippsPaymentOperations : IDictionary<LinkRelation, HttpOperation>
     {

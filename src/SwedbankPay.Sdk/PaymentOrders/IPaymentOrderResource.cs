@@ -15,7 +15,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <exception cref="System.Net.Http.HttpRequestException"></exception>
         /// <exception cref="HttpResponseException"></exception>
         /// <returns></returns>
-        Task<IPaymentOrder> Create(PaymentOrderRequest paymentOrderRequest, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None);
+        Task<IPaymentOrderResponse> Create(PaymentOrderRequest paymentOrderRequest, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None);
 
 
         /// <summary>
@@ -28,6 +28,6 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <exception cref="System.Net.Http.HttpRequestException"></exception>
         /// <exception cref="HttpResponseException"></exception>
         /// <returns></returns>
-        Task<IPaymentOrder> Get(Uri id, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None);
+        Task<IPaymentOrderResponse> Get(Uri id, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None);
     }
 }

@@ -9,7 +9,7 @@ namespace SwedbankPay.Sdk.Payments
 {
     public class SwishPayment : ISwishPayment
     {
-        public SwishPayment(SwishPaymentResponseDto payment)
+        public SwishPayment(SwishPaymentDto payment)
         {
             Number = payment.Number;
             Created = payment.Created;
@@ -18,7 +18,7 @@ namespace SwedbankPay.Sdk.Payments
             Operation = payment.Operation;
             Intent = Enum.Parse<PaymentIntent>(payment.Intent);
             State = payment.State;
-            Currency = payment.Currency;
+            Currency = new CurrencyCode(payment.Currency);
             Prices = payment.Prices.Map();
             Amount = payment.Amount;
             RemainingReversalAmount = payment.RemainingReversalAmount;
@@ -26,7 +26,7 @@ namespace SwedbankPay.Sdk.Payments
             PayerReference = payment.PayerReference;
             InitiatingSystemUserAgent = payment.InitiatingSystemUserAgent;
             UserAgent = payment.UserAgent;
-            Language = payment.Language;
+            Language = new CultureInfo(payment.Language);
             Transactions = payment.Transactions.Map();
             Sales = payment.Sales.Map();
             Reversals = payment.Reversals.Map();

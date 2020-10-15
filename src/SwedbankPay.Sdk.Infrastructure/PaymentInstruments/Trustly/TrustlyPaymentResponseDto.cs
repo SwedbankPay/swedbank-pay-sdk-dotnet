@@ -1,29 +1,19 @@
-﻿using System;
+﻿using SwedbankPay.Sdk.PaymentInstruments.Trustly;
+using SwedbankPay.Sdk.Payments.TrustlyPayments;
+using System;
 using System.Globalization;
+using System.Net.Http;
 
 namespace SwedbankPay.Sdk.Payments
 {
     public class TrustlyPaymentResponseDto
     {
-        public int Amount { get; }
-        public DateTime Created { get; }
-        public DateTime Updated { get; }
-        public CurrencyCode Currency { get; }
-        public string Description { get; }
-        public Uri Id { get; }
-        public string Instrument { get; }
-        public string Intent { get; }
-        public CultureInfo Language { get; }
-        public string Number { get; }
-        public string Operation { get; }
-        public PayeeInfoDto PayeeInfo { get; }
-        public ITransactionListResponse Transactions { get; }
-        public string PayerReference { get; }
-        public string InitiatingSystemUserAgent { get; }
-        public PricesListResponseDto Prices { get; }
-        public string State { get; }
-        public UrlsDto Urls { get; }
-        public string UserAgent { get; }
-        public MetadataResponse Metadata { get; }
+        public TrustlyPaymentDto Payment { get; set; }
+        public PaymentOperationsDto Operations { get; set; }
+
+        public ITrustlyPaymentResponse Map(HttpClient httpClient)
+        {
+            return new TrustlyPaymentResponse(this, httpClient);
+        }
     }
 }

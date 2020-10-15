@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using SwedbankPay.Sdk.Payments;
+using SwedbankPay.Sdk.Payments.TrustlyPayments;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SwedbankPay.Sdk.Payments.TrustlyPayments
+namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
 {
     public interface ITrustlyPaymentOperations : IDictionary<LinkRelation, HttpOperation>
     {
-        System.Func<PaymentAbortRequest, Task<TrustlyPaymentResponse>> Abort { get; }
+        System.Func<PaymentAbortRequest, Task<ITrustlyPayment>> Abort { get; }
         System.Func<TrustlyPaymentCancelRequest, Task<CancellationResponse>> Cancel { get; }
         HttpOperation RedirectSale { get; }
         System.Func<TrustlyPaymentReversalRequest, Task<ReversalResponse>> Reverse { get; }

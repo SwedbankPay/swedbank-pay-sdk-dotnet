@@ -1,4 +1,4 @@
-﻿using SwedbankPay.Sdk.Payments.TrustlyPayments;
+﻿using SwedbankPay.Sdk.PaymentInstruments.Trustly;
 using System;
 using System.Globalization;
 
@@ -6,21 +6,21 @@ namespace SwedbankPay.Sdk.Payments
 {
     public class TrustlyPayment : ITrustlyPayment
     {
-        public TrustlyPayment(TrustlyPaymentResponseDto payment)
+        public TrustlyPayment(TrustlyPaymentDto payment)
         {
             Amount = payment.Amount;
             Created = payment.Created;
             Updated = payment.Updated;
-            Currency = payment.Currency;
+            Currency = new CurrencyCode(payment.Currency);
             Description = payment.Description;
             Id = payment.Id;
             Instrument = Enum.Parse<PaymentInstrument>(payment.Instrument);
             Intent = Enum.Parse<PaymentIntent>(payment.Intent);
-            Language = payment.Language;
+            Language = new CultureInfo(payment.Language);
             Number = payment.Number;
             Operation = payment.Operation;
             PayeeInfo = payment.PayeeInfo.Map();
-            Transactions = payment.Transactions;
+            Transactions = payment.Transactions.Map();
             PayerReference = payment.PayerReference;
             InitiatingSystemUserAgent = payment.InitiatingSystemUserAgent;
             Prices = payment.Prices.Map();
