@@ -1,45 +1,54 @@
-﻿using SwedbankPay.Sdk.Extensions;
-using SwedbankPay.Sdk.Payments.TrustlyPayments;
+﻿using SwedbankPay.Sdk.Payments.TrustlyPayments;
 using System;
-using System.Net.Http;
-using System.Threading.Tasks;
+using System.Globalization;
 
 namespace SwedbankPay.Sdk.Payments
 {
     public class TrustlyPayment : ITrustlyPayment
     {
-        private TrustlyPayment(TrustlyPaymentResponse paymentResponse, HttpClient client)
+        public TrustlyPayment(TrustlyPaymentResponseDto payment)
         {
-            PaymentResponse = paymentResponse.Payment;
-            var operations = new TrustlyPaymentOperations(paymentResponse.Operations, client);
-            Operations = operations;
+            Amount = payment.Amount;
+            Created = payment.Created;
+            Updated = payment.Updated;
+            Currency = payment.Currency;
+            Description = payment.Description;
+            Id = payment.Id;
+            Instrument = payment.Instrument;
+            Intent = payment.Intent;
+            Language = payment.Language;
+            Number = payment.Number;
+            Operation = payment.Operation;
+            PayeeInfo = payment.PayeeInfo.Map();
+            Transactions = payment.Transactions;
+            PayerReference = payment.PayerReference;
+            InitiatingSystemUserAgent = payment.InitiatingSystemUserAgent;
+            Prices = payment.Prices.Map();
+            State = payment.State;
+            Urls = payment.Urls.Map();
+            UserAgent = payment.UserAgent;
+            Metadata = payment.Metadata;
         }
 
-
-        public ITrustlyPaymentOperations Operations { get; }
-
-        public TrustlyPaymentResponseObject PaymentResponse { get; }
-
-
-        internal static async Task<ITrustlyPayment> Create(TrustlyPaymentRequest paymentRequest,
-                                                          HttpClient client,
-                                                          string paymentExpand)
-        {
-            var url = new Uri($"/psp/trustly/payments{paymentExpand}", UriKind.Relative);
-
-            var paymentResponse = await client.PostAsJsonAsync<TrustlyPaymentResponse>(url, paymentRequest);
-            return new TrustlyPayment(paymentResponse, client);
-        }
-
-
-        internal static async Task<ITrustlyPayment> Get(Uri id, HttpClient client, string paymentExpand)
-        {
-            var url = !string.IsNullOrWhiteSpace(paymentExpand)
-                ? new Uri(id.OriginalString + paymentExpand, UriKind.RelativeOrAbsolute)
-                : id;
-
-            var paymentResponse = await client.GetAsJsonAsync<TrustlyPaymentResponse>(url);
-            return new TrustlyPayment(paymentResponse, client);
-        }
+        public Amount Amount { get; }
+        public DateTime Created { get; }
+        public DateTime Updated { get; }
+        public CurrencyCode Currency { get; }
+        public string Description { get; }
+        public Uri Id { get; }
+        public PaymentInstrument Instrument { get; }
+        public PaymentIntent Intent { get; }
+        public CultureInfo Language { get; }
+        public string Number { get; }
+        public Operation Operation { get; }
+        public PayeeInfo PayeeInfo { get; }
+        public ITransactionListResponse Transactions { get; }
+        public string PayerReference { get; }
+        public string InitiatingSystemUserAgent { get; }
+        public IPricesListResponse Prices { get; }
+        public State State { get; }
+        public IUrls Urls { get; }
+        public string UserAgent { get; }
+        public MetadataResponse Metadata { get; }
     }
 }

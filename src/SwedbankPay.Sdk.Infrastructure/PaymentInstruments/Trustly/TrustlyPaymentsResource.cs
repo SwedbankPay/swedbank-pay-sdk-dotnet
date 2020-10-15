@@ -1,4 +1,5 @@
-﻿using SwedbankPay.Sdk.Payments.TrustlyPayments;
+﻿using SwedbankPay.Sdk.Extensions;
+using SwedbankPay.Sdk.Payments.TrustlyPayments;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -11,29 +12,23 @@ namespace SwedbankPay.Sdk.Payments
         {
         }
 
-        public Task<ITrustlyPayment> Create(TrustlyPaymentRequest paymentRequest)
+        public async Task<ITrustlyPayment> Create(TrustlyPaymentRequest paymentRequest, PaymentExpand paymentExpand)
         {
-            return Create(paymentRequest, PaymentExpand.None);
+            var url = new Uri($"/psp/trustly/payments{paymentExpand}", UriKind.Relative);
+
+            var paymentResponse = await HttpClient.PostAsJsonAsync<TrustlyPaymentResponseDto>(url, paymentRequest);
+            return new TrustlyPayment(paymentResponse);
         }
 
-        public Task<ITrustlyPayment> Create(TrustlyPaymentRequest paymentRequest, PaymentExpand paymentExpand)
-        {
-            return TrustlyPayment.Create(paymentRequest, this.HttpClient, GetExpandQueryString(paymentExpand));
-        }
-
-        public Task<ITrustlyPayment> Get(Uri id)
-        {
-            return Get(id, PaymentExpand.None);
-        }
-
-        public Task<ITrustlyPayment> Get(Uri id, PaymentExpand paymentExpand)
+        public async Task<ITrustlyPayment> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
         {
             if (id == null)
-            {
                 throw new ArgumentNullException(nameof(id));
-            }
 
-            return TrustlyPayment.Get(id, this.HttpClient, GetExpandQueryString(paymentExpand));
+            Uri url = id.GetUrlWithQueryString(paymentExpand);
+
+            var paymentResponse = await HttpClient.GetAsJsonAsync<TrustlyPaymentResponseDto>(url);
+            return new TrustlyPayment(paymentResponse);
         }
     }
 }
