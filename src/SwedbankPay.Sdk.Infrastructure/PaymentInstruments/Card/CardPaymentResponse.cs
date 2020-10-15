@@ -7,7 +7,7 @@ namespace SwedbankPay.Sdk.Payments
     {
         internal CardPaymentResponse(CardPaymentResponseDto cardPaymentResponseDto, HttpClient httpClient)
         {
-            this.Operations = new CardPaymentOperations(cardPaymentResponseDto.Operations, httpClient);
+            this.Operations = new CardPaymentOperations(cardPaymentResponseDto.Operations.Map(), httpClient);
             this.Payment = new CardPayment(cardPaymentResponseDto.Payment);
         }
 

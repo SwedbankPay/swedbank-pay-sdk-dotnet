@@ -33,7 +33,7 @@ namespace SwedbankPay.Sdk.Payments
             Reversals = payment.Reversals.Map();
             State = payment.State;
             Transactions = payment.Transactions.Map();
-            Urls = payment.Urls;
+            Urls = payment.Urls.Map();
             UserAgent = payment.UserAgent;
             Metadata = payment.Metadata;
         }
