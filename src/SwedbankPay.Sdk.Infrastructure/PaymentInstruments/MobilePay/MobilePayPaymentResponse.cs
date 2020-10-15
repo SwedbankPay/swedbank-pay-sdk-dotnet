@@ -1,8 +1,6 @@
-﻿using Swedbankpay.Sdk.Payments;
-using SwedbankPay.Sdk.PaymentInstruments.MobilePay;
-using System.Net.Http;
+﻿using System.Net.Http;
 
-namespace SwedbankPay.Sdk.Payments.MobilePayPayments
+namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
     public class MobilePayPaymentResponse : IMobilePayPaymentResponse
     {

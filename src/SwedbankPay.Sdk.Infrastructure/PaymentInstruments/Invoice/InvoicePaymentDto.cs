@@ -1,9 +1,8 @@
-﻿using SwedbankPay.Sdk.PaymentInstruments;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace SwedbankPay.Sdk.Payments
+namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
     public class InvoicePaymentDto
     {

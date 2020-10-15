@@ -1,9 +1,7 @@
-﻿using SwedbankPay.Sdk.PaymentInstruments;
-using SwedbankPay.Sdk.PaymentInstruments.Card;
-using System;
+﻿using System;
 using System.Globalization;
 
-namespace SwedbankPay.Sdk.Payments.CardPayments
+namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
     public class CardPayment : ICardPayment
     {
@@ -23,10 +21,10 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
             Captures = payment.Captures.Map();
             Created = payment.Created;
             Updated = payment.Updated;
-            Currency = new CurrencyCode( payment.Currency);
+            Currency = new CurrencyCode(payment.Currency);
             Description = payment.Description;
             Id = new Uri(payment.Id, UriKind.RelativeOrAbsolute);
-            Instrument =  Enum.Parse<PaymentInstrument>(payment.Instrument);
+            Instrument = Enum.Parse<PaymentInstrument>(payment.Instrument);
             Intent = Enum.Parse<PaymentIntent>(payment.Intent);
             Language = new CultureInfo(payment.Language);
             Number = payment.Number;

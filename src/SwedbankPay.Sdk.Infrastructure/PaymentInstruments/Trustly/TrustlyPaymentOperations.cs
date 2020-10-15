@@ -1,11 +1,10 @@
 ﻿using SwedbankPay.Sdk.Extensions;
 using SwedbankPay.Sdk.PaymentInstruments;
-using SwedbankPay.Sdk.PaymentInstruments.Trustly;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace SwedbankPay.Sdk.Payments
+namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
 {
     public class TrustlyPaymentOperations : OperationsBase, ITrustlyPaymentOperations
     {
@@ -40,7 +39,7 @@ namespace SwedbankPay.Sdk.Payments
                     default:
                         break;
                 }
-                this.Add(httpOperation.Rel, httpOperation);
+                Add(httpOperation.Rel, httpOperation);
             }
         }
 

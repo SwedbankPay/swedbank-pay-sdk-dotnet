@@ -4,7 +4,7 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace SwedbankPay.Sdk.Payments
+namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
     public class InvoicePaymentsResource : ResourceBase, IInvoiceResource
     {

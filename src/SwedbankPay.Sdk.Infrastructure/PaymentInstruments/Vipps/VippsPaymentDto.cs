@@ -1,7 +1,7 @@
-﻿using SwedbankPay.Sdk.PaymentInstruments.Vipps;
+﻿using SwedbankPay.Sdk.PaymentInstruments.MobilePay;
 using System;
 
-namespace SwedbankPay.Sdk.Payments
+namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {
     public class VippsPaymentDto
     {

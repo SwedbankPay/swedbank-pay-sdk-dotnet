@@ -1,8 +1,6 @@
-﻿using swedbankpay.Sdk.Payments;
-using SwedbankPay.Sdk.PaymentInstruments.Vipps;
-using System.Net.Http;
+﻿using System.Net.Http;
 
-namespace SwedbankPay.Sdk.Payments
+namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {
     internal class VippsPaymentResponse : IVippsPaymentReponse
     {

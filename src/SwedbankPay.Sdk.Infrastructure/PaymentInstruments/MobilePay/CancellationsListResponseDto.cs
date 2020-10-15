@@ -1,7 +1,7 @@
 ﻿using SwedbankPay.Sdk.PaymentInstruments;
 using System;
 
-namespace SwedbankPay.Sdk.Payments
+namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
     public class CancellationsListResponseDto
     {

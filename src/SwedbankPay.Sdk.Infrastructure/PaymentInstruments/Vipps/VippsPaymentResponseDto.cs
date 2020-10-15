@@ -1,7 +1,6 @@
-﻿using SwedbankPay.Sdk.PaymentInstruments.Vipps;
-using System.Net.Http;
+﻿using System.Net.Http;
 
-namespace SwedbankPay.Sdk.Payments
+namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {
     public class VippsPaymentResponseDto
     {

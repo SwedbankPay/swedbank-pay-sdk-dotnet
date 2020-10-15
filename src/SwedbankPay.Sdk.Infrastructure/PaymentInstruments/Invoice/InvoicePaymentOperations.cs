@@ -5,7 +5,7 @@ using SwedbankPay.Sdk;
 using System.Net.Http;
 using SwedbankPay.Sdk.PaymentInstruments;
 
-namespace Swedbankpay.Sdk.Payments
+namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
     public class InvoicePaymentOperations : OperationsBase, IInvoicePaymentOperations
     {
@@ -17,7 +17,7 @@ namespace Swedbankpay.Sdk.Payments
                 {
                     case PaymentResourceOperations.UpdatePaymentAbort:
                         Abort = async payload =>
-                            await client.SendAsJsonAsync<SwedbankPay.Sdk.Payments.InvoicePayments.InvoicePaymentResponse>(httpOperation.Method, httpOperation.Href, payload);
+                            await client.SendAsJsonAsync<Payments.InvoicePayments.InvoicePaymentResponse>(httpOperation.Method, httpOperation.Href, payload);
                         break;
 
                     case PaymentResourceOperations.RedirectAuthorization:
@@ -53,12 +53,12 @@ namespace Swedbankpay.Sdk.Payments
                             await client.SendAsJsonAsync<InvoicePaymentAuthorizationResponse>(httpOperation.Method, httpOperation.Href, payload);
                         break;
                 }
-                this.Add(httpOperation.Rel, httpOperation);
+                Add(httpOperation.Rel, httpOperation);
             }
         }
 
         public Func<InvoiceApprovedLegalAddressRequest, Task<ApprovedLegalAddressResponse>> ApprovedLegalAddress { get; }
-        public Func<PaymentAbortRequest, Task<SwedbankPay.Sdk.Payments.InvoicePayments.InvoicePaymentResponse>> Abort { get; }
+        public Func<PaymentAbortRequest, Task<Payments.InvoicePayments.InvoicePaymentResponse>> Abort { get; }
         public Func<InvoicePaymentCancelRequest, Task<CancellationResponse>> Cancel { get; }
         public Func<InvoicePaymentCaptureRequest, Task<CaptureResponse>> Capture { get; }
         public Func<InvoicePaymentAuthorizationRequest, Task<InvoicePaymentAuthorizationResponse>> DirectAuthorization { get; }

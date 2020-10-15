@@ -1,15 +1,13 @@
-﻿using SwedbankPay.Sdk.PaymentInstruments.Card;
-using SwedbankPay.Sdk.Payments.CardPayments;
-using System.Net.Http;
+﻿using System.Net.Http;
 
-namespace SwedbankPay.Sdk.Payments
+namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
     public class CardPaymentResponse : ICardPaymentResponse
     {
         internal CardPaymentResponse(CardPaymentResponseDto cardPaymentResponseDto, HttpClient httpClient)
         {
-            this.Operations = new CardPaymentOperations(cardPaymentResponseDto.Operations.Map(), httpClient);
-            this.Payment = new CardPayment(cardPaymentResponseDto.Payment);
+            Operations = new CardPaymentOperations(cardPaymentResponseDto.Operations.Map(), httpClient);
+            Payment = new CardPayment(cardPaymentResponseDto.Payment);
         }
 
         public ICardPaymentOperations Operations { get; set; }

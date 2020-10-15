@@ -1,6 +1,7 @@
-﻿using System;
+﻿using SwedbankPay.Sdk.PaymentInstruments.MobilePay;
+using System;
 
-namespace SwedbankPay.Sdk.Payments
+namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
 {
     public class TrustlyPaymentDto
     {

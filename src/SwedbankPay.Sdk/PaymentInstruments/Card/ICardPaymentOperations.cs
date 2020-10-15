@@ -7,7 +7,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
     public interface ICardPaymentOperations : IDictionary<LinkRelation, HttpOperation>
     {
-        Func<CardPaymentAbortRequest, Task<CardPaymentResponse>> Abort { get; }
+        Func<CardPaymentAbortRequest, Task<ICardPaymentResponse>> Abort { get; }
         Func<CardPaymentCancelRequest, Task<CancellationResponse>> Cancel { get; }
         Func<CardPaymentCaptureRequest, Task<CaptureResponse>> Capture { get; }
         Func<CardPaymentAuthorizationRequest, Task<CardPaymentAuthorizationResponse>> DirectAuthorization { get; }

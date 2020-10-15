@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SwedbankPay.Sdk.Payments
+namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
     public class InvoicePaymentAuthorizationListDto : IInvoicePaymentAuthorizationListResponse
     {

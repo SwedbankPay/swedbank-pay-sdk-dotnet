@@ -1,10 +1,15 @@
-﻿using SwedbankPay.Sdk.PaymentInstruments;
+﻿using SwedbankPay.Sdk.PaymentInstruments.Card;
+using SwedbankPay.Sdk.PaymentInstruments.Invoice;
+using SwedbankPay.Sdk.PaymentInstruments.MobilePay;
+using SwedbankPay.Sdk.PaymentInstruments.Swish;
+using SwedbankPay.Sdk.PaymentInstruments.Trustly;
+using SwedbankPay.Sdk.PaymentInstruments.Vipps;
 using System;
 using System.Net.Http;
 
-namespace SwedbankPay.Sdk.Payments
+namespace SwedbankPay.Sdk.PaymentInstruments
 {
-    public class PaymentsResource: ResourceBase, IPaymentsResource
+    public class PaymentsResource : ResourceBase, IPaymentsResource
     {
         public ICardResource CardPayments { get; }
         public ISwishResource SwishPayments { get; }
@@ -13,7 +18,7 @@ namespace SwedbankPay.Sdk.Payments
         public IMobilePayResource MobilePayPayments { get; }
         public ITrustlyResource TrustlyPayments { get; }
 
-        
+
         public PaymentsResource(HttpClient httpClient)
             : this(httpClient,
                    new CardPaymentsResource(httpClient),
@@ -31,15 +36,15 @@ namespace SwedbankPay.Sdk.Payments
                                 IInvoiceResource invoicePaymentsResource,
                                 IVippsResource vippsPaymentsResource,
                                 IMobilePayResource mobilePayPaymentsResource,
-                                ITrustlyResource trustlyPaymentsResource) 
+                                ITrustlyResource trustlyPaymentsResource)
                                 : base(httpClient)
         {
-            this.CardPayments = cardPaymentsResource ?? throw new ArgumentNullException(nameof(cardPaymentsResource));
-            this.SwishPayments = swishPaymentsResource ?? throw new ArgumentNullException(nameof(swishPaymentsResource));
-            this.InvoicePayments = invoicePaymentsResource ?? throw new ArgumentNullException(nameof(invoicePaymentsResource));
-            this.VippsPayments = vippsPaymentsResource ?? throw new ArgumentNullException(nameof(vippsPaymentsResource));
-            this.MobilePayPayments = mobilePayPaymentsResource ?? throw new ArgumentNullException(nameof(mobilePayPaymentsResource));
-            this.TrustlyPayments = trustlyPaymentsResource ?? throw new ArgumentNullException(nameof(trustlyPaymentsResource));
+            CardPayments = cardPaymentsResource ?? throw new ArgumentNullException(nameof(cardPaymentsResource));
+            SwishPayments = swishPaymentsResource ?? throw new ArgumentNullException(nameof(swishPaymentsResource));
+            InvoicePayments = invoicePaymentsResource ?? throw new ArgumentNullException(nameof(invoicePaymentsResource));
+            VippsPayments = vippsPaymentsResource ?? throw new ArgumentNullException(nameof(vippsPaymentsResource));
+            MobilePayPayments = mobilePayPaymentsResource ?? throw new ArgumentNullException(nameof(mobilePayPaymentsResource));
+            TrustlyPayments = trustlyPaymentsResource ?? throw new ArgumentNullException(nameof(trustlyPaymentsResource));
 
         }
     }

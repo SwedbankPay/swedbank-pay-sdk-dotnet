@@ -1,4 +1,4 @@
-﻿namespace SwedbankPay.Sdk.Payments
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
     public class InvoicePaymentResponseDto
     {

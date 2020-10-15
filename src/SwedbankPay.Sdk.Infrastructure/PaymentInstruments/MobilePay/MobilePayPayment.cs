@@ -1,9 +1,8 @@
 ﻿using SwedbankPay.Sdk.PaymentInstruments;
-using SwedbankPay.Sdk.PaymentInstruments.MobilePay;
 using System;
 using System.Globalization;
 
-namespace SwedbankPay.Sdk.Payments
+namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
     public class MobilePayPayment : IMobilePayPayment
     {

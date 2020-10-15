@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace SwedbankPay.Sdk.Payments
+namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
     public class MobilePayPaymentDto
     {

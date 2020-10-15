@@ -1,7 +1,7 @@
 ﻿using SwedbankPay.Sdk.PaymentInstruments;
 using System.Collections.Generic;
 
-namespace SwedbankPay.Sdk.Payments
+namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
     public class PricesListResponse : IdLink, IPricesListResponse
     {

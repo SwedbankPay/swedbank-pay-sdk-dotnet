@@ -1,13 +1,12 @@
-﻿using SwedbankPay.Sdk.Payments.SwishPayments;
-using System.Net.Http;
+﻿using System.Net.Http;
 
-namespace SwedbankPay.Sdk.Payments
+namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
     public class SwishPaymentResponseDto
     {
-        public PaymentOperationsDto Operations{ get; set; }
+        public PaymentOperationsDto Operations { get; set; }
         public SwishPaymentDto Payment { get; set; }
-        
+
         public ISwishPaymentResponse Map(HttpClient httpClient)
         {
             return new SwishPaymentResponse(this, httpClient);

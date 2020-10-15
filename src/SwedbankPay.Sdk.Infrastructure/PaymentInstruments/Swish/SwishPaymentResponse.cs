@@ -1,10 +1,9 @@
 ﻿using SwedbankPay.Sdk.PaymentInstruments;
-using SwedbankPay.Sdk.PaymentInstruments.Swish;
 using System;
 using System.Globalization;
 using System.Net.Http;
 
-namespace SwedbankPay.Sdk.Payments.SwishPayments
+namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
     public class SwishPaymentResponse : ISwishPaymentResponse
     {

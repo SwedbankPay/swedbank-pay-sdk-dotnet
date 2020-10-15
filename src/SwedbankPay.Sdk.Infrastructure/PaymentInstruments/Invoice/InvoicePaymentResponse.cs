@@ -1,7 +1,6 @@
 ﻿using System.Net.Http;
-using Swedbankpay.Sdk.Payments;
 
-namespace SwedbankPay.Sdk.Payments
+namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
     public class InvoicePaymentResponse : IInvoicePaymentResponse
     {

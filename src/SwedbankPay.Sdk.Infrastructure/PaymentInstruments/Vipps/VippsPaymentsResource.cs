@@ -1,11 +1,10 @@
 ﻿using SwedbankPay.Sdk.Extensions;
 using SwedbankPay.Sdk.PaymentInstruments;
-using SwedbankPay.Sdk.PaymentInstruments.Vipps;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace SwedbankPay.Sdk.Payments
+namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {
     public class VippsPaymentsResource : ResourceBase, IVippsResource
     {

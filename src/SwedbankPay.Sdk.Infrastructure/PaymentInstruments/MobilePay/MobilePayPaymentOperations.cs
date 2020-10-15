@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 using SwedbankPay.Sdk;
-using SwedbankPay.Sdk.Payments.MobilePayPayments;
 using System.Net.Http;
 using SwedbankPay.Sdk.Extensions;
-using SwedbankPay.Sdk.PaymentInstruments.MobilePay;
 using SwedbankPay.Sdk.PaymentInstruments;
 
-namespace Swedbankpay.Sdk.Payments
+namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
     public class MobilePayPaymentOperations : OperationsBase, IMobilePayPaymentOperations
     {
@@ -45,7 +43,7 @@ namespace Swedbankpay.Sdk.Payments
                             await client.SendAsJsonAsync<ReversalResponse>(httpOperation.Method, httpOperation.Href, payload);
                         break;
                 }
-                this.Add(httpOperation.Rel, httpOperation);
+                Add(httpOperation.Rel, httpOperation);
 
             }
         }

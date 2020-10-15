@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SwedbankPay.Sdk.Payments.CardPayments
+namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
     public class CardPaymentAuthorizationListResponse : IdLink, IPaymentAuthorizationListResponse
     {

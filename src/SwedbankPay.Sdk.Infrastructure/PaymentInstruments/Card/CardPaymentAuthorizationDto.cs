@@ -1,6 +1,7 @@
-﻿namespace SwedbankPay.Sdk.Payments.CardPayments
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
     public class CardPaymentAuthorizationDto
     {
+        //ToDo: Fill out
     }
 }

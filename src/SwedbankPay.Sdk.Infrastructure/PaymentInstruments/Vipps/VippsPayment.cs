@@ -1,10 +1,9 @@
 ﻿using SwedbankPay.Sdk.PaymentInstruments;
-using SwedbankPay.Sdk.PaymentInstruments.Vipps;
 using System;
 using System.Globalization;
 
 
-namespace SwedbankPay.Sdk.Payments
+namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {
     public class VippsPayment : IVippsPayment
     {

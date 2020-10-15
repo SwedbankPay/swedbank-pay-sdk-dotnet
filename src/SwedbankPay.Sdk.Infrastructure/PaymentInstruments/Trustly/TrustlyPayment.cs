@@ -1,9 +1,8 @@
 ﻿using SwedbankPay.Sdk.PaymentInstruments;
-using SwedbankPay.Sdk.PaymentInstruments.Trustly;
 using System;
 using System.Globalization;
 
-namespace SwedbankPay.Sdk.Payments
+namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
 {
     public class TrustlyPayment : ITrustlyPayment
     {

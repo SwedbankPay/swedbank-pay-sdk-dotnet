@@ -1,7 +1,6 @@
-﻿using SwedbankPay.Sdk.PaymentInstruments;
-using System;
+﻿using System;
 
-namespace SwedbankPay.Sdk.Payments
+namespace SwedbankPay.Sdk.PaymentInstruments
 {
     public class ReversalsListResponseDto
     {

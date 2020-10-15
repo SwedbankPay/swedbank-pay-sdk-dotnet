@@ -1,10 +1,11 @@
-﻿using SwedbankPay.Sdk.PaymentInstruments;
+﻿using SwedbankPay.Sdk.PaymentInstruments.Card;
+using SwedbankPay.Sdk.Payments;
 using System;
 using System.Collections.Generic;
 
-namespace SwedbankPay.Sdk.Payments
+namespace SwedbankPay.Sdk.PaymentInstruments
 {
-    public class PricesDto: IdLink
+    public class PricesDto : IdLink
     {
         public List<PriceListDto> PriceList { get; set; }
 

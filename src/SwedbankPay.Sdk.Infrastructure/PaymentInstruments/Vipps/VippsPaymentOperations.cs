@@ -3,10 +3,9 @@ using System.Threading.Tasks;
 using SwedbankPay.Sdk;
 using System.Net.Http;
 using SwedbankPay.Sdk.Extensions;
-using SwedbankPay.Sdk.PaymentInstruments.Vipps;
 using SwedbankPay.Sdk.PaymentInstruments;
 
-namespace swedbankpay.Sdk.Payments
+namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {
     public class VippsPaymentOperations : OperationsBase, IVippsPaymentOperations
     {
@@ -40,7 +39,7 @@ namespace swedbankpay.Sdk.Payments
                             await client.SendAsJsonAsync<ReversalResponse>(httpOperation.Method, httpOperation.Href, payload);
                         break;
                 }
-                this.Add(httpOperation.Rel, httpOperation);
+                Add(httpOperation.Rel, httpOperation);
             }
         }
 
