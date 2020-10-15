@@ -1,4 +1,5 @@
-﻿using SwedbankPay.Sdk.Payments;
+﻿using SwedbankPay.Sdk.PaymentOrders;
+using SwedbankPay.Sdk.Payments;
 using System;
 using System.Collections.Generic;
 
@@ -8,24 +9,34 @@ namespace SwedbankPay.Sdk.Extensions
     {
         public static Uri GetUrlWithQueryString(this Uri uri, PaymentExpand paymentExpand)
         {
-            var paymentExpandQueryString = GetExpandQueryString(paymentExpand);
+            var paymentExpandQueryString = GetExpandQueryString<PaymentExpand>(paymentExpand);
             var url = !string.IsNullOrWhiteSpace(paymentExpandQueryString)
                 ? new Uri(uri.OriginalString + paymentExpandQueryString, UriKind.RelativeOrAbsolute)
                 : uri;
             return url;
         }
 
-        private static string GetExpandQueryString(PaymentExpand paymentExpand)
+        public static Uri GetUrlWithQueryString(this Uri uri, PaymentOrderExpand paymentExpand)
+        {
+            string paymentExpandQueryString = GetExpandQueryString<PaymentOrderExpand>(paymentExpand);
+            var url = !string.IsNullOrWhiteSpace(paymentExpandQueryString)
+                ? new Uri(uri.OriginalString + paymentExpandQueryString, UriKind.RelativeOrAbsolute)
+                : uri;
+            return url;
+        }
+
+        private static string GetExpandQueryString<T>(Enum paymentExpand)
+             where T : Enum
         {
             var intValue = Convert.ToInt64(paymentExpand);
             if (intValue == 0)
                 return string.Empty;
 
             var s = new List<string>();
-            foreach (var enumValue in Enum.GetValues(typeof(PaymentExpand)))
+            foreach (var enumValue in Enum.GetValues(typeof(T)))
             {
-                var name = Enum.GetName(typeof(PaymentExpand), enumValue);
-                if (paymentExpand.HasFlag((PaymentExpand)enumValue) && name != "None" && name != "All")
+                var name = Enum.GetName(typeof(T), enumValue);
+                if (paymentExpand.HasFlag((T)enumValue) && name != "None" && name != "All")
                     s.Add(name.ToLower());
             }
 

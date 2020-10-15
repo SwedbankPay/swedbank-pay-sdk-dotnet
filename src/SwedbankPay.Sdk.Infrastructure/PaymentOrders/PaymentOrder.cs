@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Net.Http;
 using System.Threading.Tasks;
 using SwedbankPay.Sdk.Extensions;
@@ -7,51 +8,51 @@ namespace SwedbankPay.Sdk.PaymentOrders
 {
     public class PaymentOrder : IPaymentOrder
     {
-        private PaymentOrder(PaymentOrderResponse paymentOrderResponse,
-                             HttpClient client)
+        public PaymentOrder(PaymentOrderResponseDto paymentOrder)
         {
-            PaymentOrderResponse = paymentOrderResponse.PaymentOrder;
-            var operations = new PaymentOrderOperations(paymentOrderResponse.Operations, client);
-            Operations = operations;
+            Amount = paymentOrder.Amount;
+            Created = paymentOrder.Created;
+            Currency = paymentOrder.Currency;
+            CurrentPayment = paymentOrder.CurrentPayment.Map();
+            Description = paymentOrder.Description;
+            Language = new CultureInfo(paymentOrder.Language);
+            Metadata = paymentOrder.Metadata;
+            Operation = paymentOrder.Operation;
+            OrderItems = paymentOrder.OrderItems.Map();
+            PayeeInfo = paymentOrder.PayeeInfo.Map();
+            Payers = paymentOrder.Payers.Map();
+            Payments = paymentOrder.Payments;
+            RemainingCancellationAmount = paymentOrder.RemainingCancellationAmount;
+            RemainingCaptureAmount = paymentOrder.RemainingCaptureAmount;
+            RemainingReversalAmount = paymentOrder.RemainingReversalAmount;
+            Settings = paymentOrder.Settings;
+            State = paymentOrder.State;
+            Updated = paymentOrder.Updated;
+            Urls = paymentOrder.Urls.Map();
+            UserAgent = paymentOrder.UserAgent;
+            VatAmount = paymentOrder.VatAmount;
         }
 
-
-        public IPaymentOrderOperations Operations { get; }
-        public PaymentOrderResponseObject PaymentOrderResponse { get; }
-
-
-        internal static async Task<PaymentOrder> Create(PaymentOrderRequest paymentOrderRequest,
-                                                        HttpClient client,
-                                                        string paymentOrderExpand)
-        {
-            var url = new Uri($"/psp/paymentorders{paymentOrderExpand}", UriKind.Relative);
-
-            var paymentOrderResponseContainer = await client.PostAsJsonAsync<PaymentOrderResponse>(url, paymentOrderRequest);
-
-            return new PaymentOrder(paymentOrderResponseContainer, client);
-        }
-
-
-        /// <summary>
-        ///     Gets the payment
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="client"></param>
-        /// <param name="paymentOrderExpand"></param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="InvalidOperationException"></exception>
-        /// <exception cref="System.Net.Http.HttpRequestException"></exception>
-        /// <exception cref="Exceptions.HttpResponseException"></exception>
-        /// <returns></returns>
-        internal static async Task<PaymentOrder> Get(Uri id, HttpClient client, string paymentOrderExpand)
-        {
-            var url = !string.IsNullOrWhiteSpace(paymentOrderExpand)
-                ? new Uri(id.OriginalString + paymentOrderExpand, UriKind.RelativeOrAbsolute)
-                : id;
-
-            var paymentOrderResponseContainer = await client.GetAsJsonAsync<PaymentOrderResponse>(url);
-
-            return new PaymentOrder(paymentOrderResponseContainer, client);
-        }
+        public Amount Amount { get; }
+        public DateTime Created { get; }
+        public CurrencyCode Currency { get; }
+        public ICurrentPaymentResponse CurrentPayment { get; }
+        public string Description { get; }
+        public CultureInfo Language { get; }
+        public MetadataResponse Metadata { get; }
+        public string Operation { get; }
+        public OrderItems OrderItems { get; }
+        public PayeeInfo PayeeInfo { get; }
+        public Payer Payers { get; }
+        public IdLink Payments { get; }
+        public Amount RemainingCancellationAmount { get; }
+        public Amount RemainingCaptureAmount { get; }
+        public Amount RemainingReversalAmount { get; }
+        public IdLink Settings { get; }
+        public State State { get; }
+        public DateTime Updated { get; }
+        public IUrls Urls { get; }
+        public string UserAgent { get; }
+        public Amount VatAmount { get; }
     }
 }
