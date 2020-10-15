@@ -14,8 +14,8 @@ namespace SwedbankPay.Sdk.Payments
             Currency = payment.Currency;
             Description = payment.Description;
             Id = payment.Id;
-            Instrument = payment.Instrument;
-            Intent = payment.Intent;
+            Instrument = Enum.Parse<PaymentInstrument>(payment.Instrument);
+            Intent = Enum.Parse<PaymentIntent>(payment.Intent);
             Language = payment.Language;
             Number = payment.Number;
             Operation = payment.Operation;

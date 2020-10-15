@@ -11,8 +11,8 @@ namespace SwedbankPay.Sdk.Payments
         public CurrencyCode Currency { get; }
         public string Description { get; }
         public Uri Id { get; }
-        public PaymentInstrument Instrument { get; }
-        public PaymentIntent Intent { get; }
+        public string Instrument { get; }
+        public string Intent { get; }
         public CultureInfo Language { get; }
         public string Number { get; }
         public string Operation { get; }
