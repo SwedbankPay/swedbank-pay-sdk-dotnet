@@ -17,7 +17,17 @@
 
         public static implicit operator Operation(string operation)
         {
-            return new Operation(operation, operation);
+            return operation switch
+            {
+                "Purchase" => Purchase,
+                "UpdateOrder" => UpdateOrder,
+                "Verify" => Verify,
+                "initiate-consumer-session" => Initiate,
+                "Recur" => Recur,
+                "FinancingConsumer" => FinancingConsumer,
+                "Sale" => Sale,
+                _ => new Operation(operation, operation),
+            };
         }
     }
 }
