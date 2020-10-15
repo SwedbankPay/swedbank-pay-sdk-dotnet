@@ -1,4 +1,5 @@
-﻿using SwedbankPay.Sdk.PaymentInstruments.Trustly;
+﻿using SwedbankPay.Sdk.PaymentInstruments;
+using SwedbankPay.Sdk.PaymentInstruments.Trustly;
 using System;
 using System.Globalization;
 

@@ -1,5 +1,4 @@
-﻿using SwedbankPay.Sdk.Payments.InvoicePayments;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.Payments

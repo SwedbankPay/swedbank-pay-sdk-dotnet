@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 using SwedbankPay.Sdk;
-using SwedbankPay.Sdk.Payments.VippsPayments;
-using SwedbankPay.Sdk.Payments;
 using System.Net.Http;
 using SwedbankPay.Sdk.Extensions;
 using SwedbankPay.Sdk.PaymentInstruments.Vipps;
+using SwedbankPay.Sdk.PaymentInstruments;
 
 namespace swedbankpay.Sdk.Payments
 {

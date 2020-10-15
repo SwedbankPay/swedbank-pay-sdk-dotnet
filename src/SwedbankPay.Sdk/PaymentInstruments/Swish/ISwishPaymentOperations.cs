@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SwedbankPay.Sdk.Payments.SwishPayments
+namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
     public interface ISwishPaymentOperations : IDictionary<LinkRelation, HttpOperation>
     {

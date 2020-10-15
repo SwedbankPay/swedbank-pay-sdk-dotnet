@@ -1,6 +1,4 @@
 ﻿using SwedbankPay.Sdk.Payments.SwishPayments;
-using System;
-using System.Globalization;
 using System.Net.Http;
 
 namespace SwedbankPay.Sdk.Payments

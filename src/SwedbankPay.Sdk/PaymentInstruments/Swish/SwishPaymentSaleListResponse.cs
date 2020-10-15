@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SwedbankPay.Sdk.Payments.SwishPayments
+namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
     public interface ISaleListResponse
     {

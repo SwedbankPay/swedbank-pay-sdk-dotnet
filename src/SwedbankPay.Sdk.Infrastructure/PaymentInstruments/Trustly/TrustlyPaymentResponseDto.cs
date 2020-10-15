@@ -1,7 +1,4 @@
 ﻿using SwedbankPay.Sdk.PaymentInstruments.Trustly;
-using SwedbankPay.Sdk.Payments.TrustlyPayments;
-using System;
-using System.Globalization;
 using System.Net.Http;
 
 namespace SwedbankPay.Sdk.Payments

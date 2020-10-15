@@ -1,8 +1,8 @@
-﻿using SwedbankPay.Sdk.Payments.CardPayments;
+﻿using SwedbankPay.Sdk.PaymentInstruments;
 using System;
 using System.Globalization;
 
-namespace SwedbankPay.Sdk.Payments
+namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
     public interface ICardPayment
     {
@@ -10,7 +10,7 @@ namespace SwedbankPay.Sdk.Payments
         Amount RemainingCaptureAmount { get; }
         Amount RemainingCancellationAmount { get; }
         Amount RemainingReversalAmount { get; }
-        ICardPaymentAuthorizationListResponse Authorizations { get; }
+        IPaymentAuthorizationListResponse Authorizations { get; }
         ICancellationsListResponse Cancellations { get; }
         ICapturesListResponse Captures { get; }
         DateTime Created { get; }

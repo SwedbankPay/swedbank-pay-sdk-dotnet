@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.Payments.CardPayments
 {
-    public class CardPaymentAuthorizationListResponse : IdLink, ICardPaymentAuthorizationListResponse
+    public class CardPaymentAuthorizationListResponse : IdLink, IPaymentAuthorizationListResponse
     {
-        public List<ICardPaymentAuthorization> AuthorizationList { get; }
+        public List<IPaymentAuthorization> AuthorizationList { get; }
     }
 }

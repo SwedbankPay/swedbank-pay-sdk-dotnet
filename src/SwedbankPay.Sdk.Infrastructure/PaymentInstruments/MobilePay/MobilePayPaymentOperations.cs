@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using SwedbankPay.Sdk;
 using SwedbankPay.Sdk.Payments.MobilePayPayments;
-using SwedbankPay.Sdk.Payments;
 using System.Net.Http;
 using SwedbankPay.Sdk.Extensions;
 using SwedbankPay.Sdk.PaymentInstruments.MobilePay;
+using SwedbankPay.Sdk.PaymentInstruments;
 
 namespace Swedbankpay.Sdk.Payments
 {

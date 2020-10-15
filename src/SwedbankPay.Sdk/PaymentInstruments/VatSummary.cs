@@ -1,9 +1,9 @@
-﻿namespace SwedbankPay.Sdk.Payments
+﻿namespace SwedbankPay.Sdk.PaymentInstruments
 {
     public class VatSummary
     {
-        public VatSummary(Amount amount, 
-                          string vatPercent, 
+        public VatSummary(Amount amount,
+                          string vatPercent,
                           Amount vatAmount)
         {
             Amount = amount;

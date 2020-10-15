@@ -1,7 +1,5 @@
 ﻿using Swedbankpay.Sdk.Payments;
 using SwedbankPay.Sdk.PaymentInstruments.MobilePay;
-using System;
-using System.Globalization;
 using System.Net.Http;
 
 namespace SwedbankPay.Sdk.Payments.MobilePayPayments

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SwedbankPay.Sdk.Payments.SwishPayments
+namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
     public class SwishPaymentSaleResponse
     {

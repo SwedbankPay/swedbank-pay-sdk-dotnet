@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SwedbankPay.Sdk.Payments
+namespace SwedbankPay.Sdk.PaymentInstruments
 {
     public interface IPricesListResponse
     {

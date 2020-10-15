@@ -1,11 +1,11 @@
-﻿using SwedbankPay.Sdk.Payments.CardPayments;
+﻿using SwedbankPay.Sdk.Payments;
 using System;
 using System.Collections.Generic;
 
-namespace SwedbankPay.Sdk.Payments
+namespace SwedbankPay.Sdk.PaymentInstruments
 {
     public class AuthorizationTransactionDto : List<TransactionDto>
     {
-        internal ICardPaymentAuthorizationListResponse Map() => throw new NotImplementedException();
+        internal IPaymentAuthorizationListResponse Map() => throw new NotImplementedException();
     }
 }

@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace SwedbankPay.Sdk.Payments.CardPayments
+namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
     public interface ICardPaymentAuthorizationsResponse
     {
-        ICardPaymentAuthorizationListResponse AuthorizationList { get; }
+        IPaymentAuthorizationListResponse AuthorizationList { get; }
         Uri Payment { get; }
     }
 }

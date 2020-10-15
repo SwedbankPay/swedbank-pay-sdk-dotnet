@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SwedbankPay.Sdk.PaymentInstruments;
+using SwedbankPay.Sdk.PaymentInstruments.Card;
+using System;
 using System.Globalization;
 
 namespace SwedbankPay.Sdk.Payments.CardPayments
@@ -49,7 +51,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
 
         public Amount RemainingReversalAmount { get; }
 
-        public ICardPaymentAuthorizationListResponse Authorizations { get; }
+        public IPaymentAuthorizationListResponse Authorizations { get; }
 
         public ICancellationsListResponse Cancellations { get; }
 

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using System.Net.Http;
-using System.Threading.Tasks;
-using SwedbankPay.Sdk.Extensions;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {

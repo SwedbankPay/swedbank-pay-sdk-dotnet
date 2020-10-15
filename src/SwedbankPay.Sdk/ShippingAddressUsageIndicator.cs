@@ -1,4 +1,4 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrders
+﻿namespace SwedbankPay.Sdk
 {
     /// <summary>
     ///     Indicates when the shipping address used for this transaction was first used with the merchant.

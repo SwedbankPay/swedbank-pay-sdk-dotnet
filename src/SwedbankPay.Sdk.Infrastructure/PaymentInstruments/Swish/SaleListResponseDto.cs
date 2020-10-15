@@ -1,5 +1,4 @@
-﻿using SwedbankPay.Sdk.Payments.SwishPayments;
-using System;
+﻿using System;
 
 namespace SwedbankPay.Sdk.Payments
 {

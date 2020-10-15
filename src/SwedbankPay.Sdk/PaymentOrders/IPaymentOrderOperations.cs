@@ -1,4 +1,4 @@
-﻿using SwedbankPay.Sdk.Payments;
+﻿using SwedbankPay.Sdk.PaymentInstruments;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

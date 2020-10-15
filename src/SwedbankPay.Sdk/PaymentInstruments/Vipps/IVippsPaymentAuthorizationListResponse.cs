@@ -1,6 +1,7 @@
-﻿namespace SwedbankPay.Sdk.Payments.VippsPayments
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {
     public interface IVippsPaymentAuthorizationListResponse
     {
+        // ToDo: Fill out
     }
 }

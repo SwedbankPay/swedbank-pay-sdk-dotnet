@@ -1,17 +1,17 @@
-﻿namespace SwedbankPay.Sdk.Payments.TrustlyPayments
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
 {
     public class TrustlyPaymentCancelRequest
     {
         public TrustlyPaymentCancelRequest(string payeeReference, string description)
         {
-            this.Transaction = new TrustlyPaymentCancelTransaction(payeeReference, description);
+            Transaction = new TrustlyPaymentCancelTransaction(payeeReference, description);
         }
 
         public TrustlyPaymentCancelTransaction Transaction { get; set; }
 
-        public string Description => this.Transaction.Description;
+        public string Description => Transaction.Description;
 
-        public string PayeeReference => this.Transaction.PayeeReference;
+        public string PayeeReference => Transaction.PayeeReference;
 
         public class TrustlyPaymentCancelTransaction
         {

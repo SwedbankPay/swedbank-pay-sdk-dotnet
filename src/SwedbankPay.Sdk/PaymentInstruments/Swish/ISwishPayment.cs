@@ -1,8 +1,7 @@
-﻿using SwedbankPay.Sdk.Payments.SwishPayments;
-using System;
+﻿using System;
 using System.Globalization;
 
-namespace SwedbankPay.Sdk.Payments
+namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
     public interface ISwishPayment
     {

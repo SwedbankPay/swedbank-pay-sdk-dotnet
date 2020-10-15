@@ -13,7 +13,7 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using SwedbankPay.Sdk.Extensions;
-using SwedbankPay.Sdk.Payments;
+using SwedbankPay.Sdk.PaymentInstruments;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {

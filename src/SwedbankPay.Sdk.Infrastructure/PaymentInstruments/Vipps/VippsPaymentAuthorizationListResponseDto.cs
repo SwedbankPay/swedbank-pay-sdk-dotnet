@@ -1,5 +1,4 @@
-﻿using SwedbankPay.Sdk.Payments.VippsPayments;
-using System;
+﻿using System;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {

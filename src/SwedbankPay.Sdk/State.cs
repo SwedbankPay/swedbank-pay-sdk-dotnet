@@ -1,6 +1,4 @@
-﻿using System.Net.Http.Headers;
-
-namespace SwedbankPay.Sdk
+﻿namespace SwedbankPay.Sdk
 {
     /// <summary>
     ///     Initialized, Completed, Failed Ready, Pending or Aborted. Indicates the state.

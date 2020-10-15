@@ -1,8 +1,7 @@
-﻿using SwedbankPay.Sdk.PaymentInstruments.Trustly;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 
-namespace SwedbankPay.Sdk.Payments.TrustlyPayments
+namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
 {
     public interface ITrustlyResource
     {

@@ -1,4 +1,4 @@
-﻿namespace SwedbankPay.Sdk.Payments.TrustlyPayments
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
 {
     public class PrefillInfo
     {

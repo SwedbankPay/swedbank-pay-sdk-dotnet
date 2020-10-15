@@ -1,11 +1,11 @@
-﻿using SwedbankPay.Sdk.Payments.CardPayments;
-using SwedbankPay.Sdk.Payments.SwishPayments;
-using SwedbankPay.Sdk.Payments.InvoicePayments;
-using SwedbankPay.Sdk.Payments.VippsPayments;
-using SwedbankPay.Sdk.Payments.MobilePayPayments;
-using SwedbankPay.Sdk.Payments.TrustlyPayments;
+﻿using SwedbankPay.Sdk.PaymentInstruments.Card;
+using SwedbankPay.Sdk.PaymentInstruments.Swish;
+using SwedbankPay.Sdk.PaymentInstruments.Invoice;
+using SwedbankPay.Sdk.PaymentInstruments.MobilePay;
+using SwedbankPay.Sdk.PaymentInstruments.Trustly;
+using SwedbankPay.Sdk.PaymentInstruments.Vipps;
 
-namespace SwedbankPay.Sdk.Payments
+namespace SwedbankPay.Sdk.PaymentInstruments
 {
     public interface IPaymentsResource
     {

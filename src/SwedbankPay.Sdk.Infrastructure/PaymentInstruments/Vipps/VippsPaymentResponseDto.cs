@@ -1,6 +1,4 @@
 ﻿using SwedbankPay.Sdk.PaymentInstruments.Vipps;
-using System;
-using System.Globalization;
 using System.Net.Http;
 
 namespace SwedbankPay.Sdk.Payments

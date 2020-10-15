@@ -1,4 +1,4 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrders
+﻿namespace SwedbankPay.Sdk
 {
     /// <summary>
     ///     Indicates the length of time since the cardholder's account with the merchant had a password change or account

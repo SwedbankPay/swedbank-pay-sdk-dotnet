@@ -1,6 +1,4 @@
-﻿using SwedbankPay.Sdk.Payments.CardPayments;
-
-namespace SwedbankPay.Sdk.Payments
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
     public interface ICardPaymentResponse
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace SwedbankPay.Sdk.Payments.InvoicePayments
+namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
     public interface IInvoiceResource
     {

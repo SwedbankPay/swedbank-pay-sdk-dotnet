@@ -1,11 +1,7 @@
-﻿using swedbankpay.Sdk.Payments;
-using SwedbankPay.Sdk.Extensions;
+﻿using SwedbankPay.Sdk.PaymentInstruments;
 using SwedbankPay.Sdk.PaymentInstruments.Vipps;
-using SwedbankPay.Sdk.Payments.VippsPayments;
 using System;
 using System.Globalization;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 
 namespace SwedbankPay.Sdk.Payments

@@ -1,9 +1,9 @@
-﻿using SwedbankPay.Sdk.Payments.CardPayments;
+﻿using SwedbankPay.Sdk.PaymentInstruments;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SwedbankPay.Sdk.Payments
+namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
     public interface ICardPaymentOperations : IDictionary<LinkRelation, HttpOperation>
     {

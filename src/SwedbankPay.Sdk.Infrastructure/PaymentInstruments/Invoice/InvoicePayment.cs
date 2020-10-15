@@ -1,4 +1,4 @@
-﻿using SwedbankPay.Sdk.Payments.InvoicePayments;
+﻿using SwedbankPay.Sdk.PaymentInstruments;
 using System;
 using System.Collections.Generic;
 using System.Globalization;

@@ -1,4 +1,5 @@
-﻿using SwedbankPay.Sdk.Payments.CardPayments;
+﻿using SwedbankPay.Sdk.PaymentInstruments.Card;
+using SwedbankPay.Sdk.Payments.CardPayments;
 using System.Net.Http;
 
 namespace SwedbankPay.Sdk.Payments

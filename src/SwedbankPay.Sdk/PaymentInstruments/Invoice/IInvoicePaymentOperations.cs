@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SwedbankPay.Sdk.Payments.InvoicePayments
+namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
     public interface IInvoicePaymentOperations : IDictionary<LinkRelation, HttpOperation>
     {

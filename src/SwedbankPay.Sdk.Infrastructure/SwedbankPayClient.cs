@@ -4,6 +4,7 @@ using System.Net.Http;
 using SwedbankPay.Sdk.Consumers;
 using SwedbankPay.Sdk.Payments;
 using SwedbankPay.Sdk.PaymentOrders;
+using SwedbankPay.Sdk.PaymentInstruments;
 
 namespace SwedbankPay.Sdk
 {

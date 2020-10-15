@@ -1,8 +1,7 @@
-﻿using SwedbankPay.Sdk.PaymentInstruments.Vipps;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 
-namespace SwedbankPay.Sdk.Payments.VippsPayments
+namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {
     public interface IVippsResource
     {

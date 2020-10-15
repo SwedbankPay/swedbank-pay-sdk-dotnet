@@ -1,8 +1,7 @@
-﻿using SwedbankPay.Sdk.PaymentInstruments.MobilePay;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 
-namespace SwedbankPay.Sdk.Payments.MobilePayPayments
+namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
     public interface IMobilePayResource
     {

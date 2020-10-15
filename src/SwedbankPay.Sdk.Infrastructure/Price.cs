@@ -1,4 +1,6 @@
-﻿namespace SwedbankPay.Sdk.Payments
+﻿using SwedbankPay.Sdk.PaymentInstruments;
+
+namespace SwedbankPay.Sdk.Payments
 {
     public class Price : IPrice
     {

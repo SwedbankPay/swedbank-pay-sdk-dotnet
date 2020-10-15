@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using SwedbankPay.Sdk.PaymentInstruments.Card;
+using System.Net.Http;
 
 namespace SwedbankPay.Sdk.Payments
 {

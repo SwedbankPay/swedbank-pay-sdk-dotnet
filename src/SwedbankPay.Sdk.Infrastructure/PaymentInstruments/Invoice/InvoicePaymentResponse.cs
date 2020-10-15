@@ -1,8 +1,4 @@
-﻿using SwedbankPay.Sdk.Extensions;
-using System;
-using System.Threading.Tasks;
-using System.Net.Http;
-using SwedbankPay.Sdk.Payments.InvoicePayments;
+﻿using System.Net.Http;
 using Swedbankpay.Sdk.Payments;
 
 namespace SwedbankPay.Sdk.Payments

@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-
-
-namespace SwedbankPay.Sdk.Payments.InvoicePayments
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
     public class InvoicePaymentCaptureRequest
     {

@@ -1,6 +1,6 @@
 ﻿using SwedbankPay.Sdk.Extensions;
+using SwedbankPay.Sdk.PaymentInstruments;
 using SwedbankPay.Sdk.PaymentInstruments.Trustly;
-using SwedbankPay.Sdk.Payments.TrustlyPayments;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;

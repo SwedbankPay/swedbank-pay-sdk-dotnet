@@ -1,9 +1,7 @@
-﻿using SwedbankPay.Sdk.Extensions;
-using SwedbankPay.Sdk.Payments.SwishPayments;
+﻿using SwedbankPay.Sdk.PaymentInstruments;
+using SwedbankPay.Sdk.PaymentInstruments.Swish;
 using System;
 using System.Globalization;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Payments
 {
