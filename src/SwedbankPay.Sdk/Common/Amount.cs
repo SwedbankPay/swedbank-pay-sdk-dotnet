@@ -47,7 +47,7 @@ namespace SwedbankPay.Sdk.Common
 
         public int CompareTo(object obj)
         {
-            if (ReferenceEquals(null, obj))
+            if (obj is null)
                 return 1;
 
             if (ReferenceEquals(this, obj))
@@ -64,7 +64,7 @@ namespace SwedbankPay.Sdk.Common
             if (ReferenceEquals(this, other))
                 return 0;
 
-            if (ReferenceEquals(null, other))
+            if (other is null)
                 return 1;
 
             return amount.CompareTo(other.amount);
@@ -72,7 +72,7 @@ namespace SwedbankPay.Sdk.Common
 
         public bool Equals(Amount other)
         {
-            if (ReferenceEquals(null, other))
+            if (other is null)
                 return false;
 
             if (ReferenceEquals(this, other))
@@ -83,7 +83,7 @@ namespace SwedbankPay.Sdk.Common
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj))
+            if (obj is null)
                 return false;
 
             if (ReferenceEquals(this, obj))

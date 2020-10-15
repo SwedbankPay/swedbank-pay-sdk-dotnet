@@ -21,18 +21,17 @@
 
         public static implicit operator State(string originalState)
         {
-            switch (originalState)
+            return originalState switch
             {
-                case "Initialized": return Initialized;
-                case "Completed": return Completed;
-                case "Failed": return Failed;
-                case "Ready": return Ready;
-                case "Pending": return Pending;
-                case "Aborted": return Aborted;
-                case "AwaitingActivity": return AwaitingActivity;
-                default:
-                    return new State(originalState, originalState);
-            }
+                "Initialized" => Initialized,
+                "Completed" => Completed,
+                "Failed" => Failed,
+                "Ready" => Ready,
+                "Pending" => Pending,
+                "Aborted" => Aborted,
+                "AwaitingActivity" => AwaitingActivity,
+                _ => new State(originalState, originalState),
+            };
         }
     }
 }

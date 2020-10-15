@@ -6,46 +6,16 @@ namespace SwedbankPay.Sdk
 {
     public class Urls : IdLink, IUrls
     {
-        internal Urls(Uri id,
-                      ICollection<Uri> hostUrls = null,
-                      Uri completeUrl = null,
-                      Uri termsOfServiceUrl = null,
-                      Uri cancelUrl = null,
-                      Uri paymentUrl = null,
-                      Uri callbackUrl = null,
-                      Uri logoUrl = null)
-        {
-            Id = id;
-            HostUrls = hostUrls;
-            CompleteUrl = completeUrl;
-            TermsOfServiceUrl = termsOfServiceUrl;
-            CancelUrl = cancelUrl;
-            PaymentUrl = paymentUrl;
-            CallbackUrl = callbackUrl;
-            LogoUrl = logoUrl;
-        }
-
-
-        public Urls(ICollection<Uri> hostUrls,
-                    Uri completeUrl,
-                    Uri termsOfServiceUrl,
-                    Uri cancelUrl = null,
-                    Uri paymentUrl = null,
-                    Uri callbackUrl = null,
-                    Uri logoUrl = null)
-        {
-            HostUrls = hostUrls ?? throw new ArgumentNullException(nameof(hostUrls), $"{nameof(hostUrls)} is required.");
-            CompleteUrl = completeUrl ?? throw new ArgumentNullException(nameof(completeUrl), $"{nameof(completeUrl)} is required.");
-            TermsOfServiceUrl = termsOfServiceUrl
-                                ?? throw new ArgumentNullException(nameof(termsOfServiceUrl), $"{nameof(termsOfServiceUrl)} is required.");
-            CancelUrl = cancelUrl;
-            PaymentUrl = paymentUrl;
-            CallbackUrl = callbackUrl;
-            LogoUrl = logoUrl;
-        }
-
         public Urls(UrlsDto urls)
         {
+            HostUrls = urls.HostUrls ?? throw new ArgumentNullException(nameof(urls.HostUrls), $"{nameof(urls.HostUrls)} is required.");
+            CompleteUrl = urls.CompleteUrl ?? throw new ArgumentNullException(nameof(urls.CompleteUrl), $"{nameof(urls.CompleteUrl)} is required.");
+            TermsOfServiceUrl = urls.TermsOfServiceUrl
+                                ?? throw new ArgumentNullException(nameof(urls.TermsOfServiceUrl), $"{nameof(urls.TermsOfServiceUrl)} is required.");
+            CancelUrl = urls.CancelUrl;
+            PaymentUrl = urls.PaymentUrl;
+            CallbackUrl = urls.CallbackUrl;
+            LogoUrl = urls.LogoUrl;
         }
 
 
