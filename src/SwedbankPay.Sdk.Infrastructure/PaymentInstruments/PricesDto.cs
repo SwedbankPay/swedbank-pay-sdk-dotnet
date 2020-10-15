@@ -1,4 +1,5 @@
-﻿using SwedbankPay.Sdk.PaymentInstruments.Card;
+﻿using SwedbankPay.Sdk.Common;
+using SwedbankPay.Sdk.PaymentInstruments.Card;
 using SwedbankPay.Sdk.Payments;
 using System;
 using System.Collections.Generic;

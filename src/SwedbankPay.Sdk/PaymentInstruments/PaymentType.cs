@@ -1,4 +1,6 @@
-﻿namespace SwedbankPay.Sdk.PaymentInstruments
+﻿using SwedbankPay.Sdk.Common;
+
+namespace SwedbankPay.Sdk.PaymentInstruments
 {
     public sealed class PaymentType : TypeSafeEnum<PaymentType, string>
     {

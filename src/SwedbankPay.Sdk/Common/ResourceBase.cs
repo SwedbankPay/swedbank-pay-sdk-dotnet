@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 
-namespace SwedbankPay.Sdk
+namespace SwedbankPay.Sdk.Common
 {
     public abstract class ResourceBase
     {
@@ -11,7 +11,7 @@ namespace SwedbankPay.Sdk
 
         protected ResourceBase(HttpClient httpClient)
         {
-            this.HttpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+            HttpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
         }
 
 

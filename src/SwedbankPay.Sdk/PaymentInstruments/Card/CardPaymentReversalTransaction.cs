@@ -1,4 +1,6 @@
-﻿namespace SwedbankPay.Sdk.PaymentInstruments.Card
+﻿using SwedbankPay.Sdk.Common;
+
+namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
     public class CardPaymentReversalTransaction : ICardPaymentReversalTransaction
     {

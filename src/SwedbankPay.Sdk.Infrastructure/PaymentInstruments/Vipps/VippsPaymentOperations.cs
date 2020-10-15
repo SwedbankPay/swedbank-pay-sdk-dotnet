@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Net.Http;
 using SwedbankPay.Sdk.Extensions;
+using SwedbankPay.Sdk.Common;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {

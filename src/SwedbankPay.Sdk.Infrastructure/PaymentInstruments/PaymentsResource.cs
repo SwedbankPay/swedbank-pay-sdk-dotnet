@@ -1,4 +1,5 @@
-﻿using SwedbankPay.Sdk.PaymentInstruments.Card;
+﻿using SwedbankPay.Sdk.Common;
+using SwedbankPay.Sdk.PaymentInstruments.Card;
 using SwedbankPay.Sdk.PaymentInstruments.Invoice;
 using SwedbankPay.Sdk.PaymentInstruments.MobilePay;
 using SwedbankPay.Sdk.PaymentInstruments.Swish;

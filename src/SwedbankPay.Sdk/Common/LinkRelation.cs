@@ -13,7 +13,7 @@ using SwedbankPay.Sdk.Consumers;
 using SwedbankPay.Sdk.PaymentInstruments;
 using SwedbankPay.Sdk.PaymentOrders;
 
-namespace SwedbankPay.Sdk
+namespace SwedbankPay.Sdk.Common
 {
     public sealed class LinkRelation : TypeSafeEnum<LinkRelation, string>
     {
@@ -96,7 +96,7 @@ namespace SwedbankPay.Sdk
 
         public static readonly LinkRelation CreateAuthorization =
             new LinkRelation(nameof(CreateAuthorization), PaymentResourceOperations.CreateAuthorization);
-            
+
         public static readonly LinkRelation DirectAuthorization = new LinkRelation(nameof(DirectAuthorization), PaymentResourceOperations.DirectAuthorization);
 
 

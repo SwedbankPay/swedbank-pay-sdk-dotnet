@@ -1,4 +1,6 @@
-﻿namespace SwedbankPay.Sdk.PaymentInstruments.Swish
+﻿using SwedbankPay.Sdk.Common;
+
+namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
     public class SwishPaymentReversalTransaction
     {

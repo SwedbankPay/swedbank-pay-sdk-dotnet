@@ -1,4 +1,4 @@
-﻿namespace SwedbankPay.Sdk
+﻿namespace SwedbankPay.Sdk.Common
 {
     public sealed class Operation : TypeSafeEnum<Operation, string>
     {

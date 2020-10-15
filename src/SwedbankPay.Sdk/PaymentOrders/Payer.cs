@@ -1,4 +1,6 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrders
+﻿using SwedbankPay.Sdk.Common;
+
+namespace SwedbankPay.Sdk.PaymentOrders
 {
     public class Payer : IdLink
     {

@@ -1,4 +1,6 @@
-﻿namespace SwedbankPay.Sdk.PaymentInstruments
+﻿using SwedbankPay.Sdk.Common;
+
+namespace SwedbankPay.Sdk.PaymentInstruments
 {
     public class PaymentResponseContainer<T>
     {

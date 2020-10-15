@@ -1,7 +1,6 @@
-﻿using SwedbankPay.Sdk.PaymentInstruments.Card;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace SwedbankPay.Sdk
+namespace SwedbankPay.Sdk.Common
 {
     public interface IPaymentAuthorizationListResponse
     {

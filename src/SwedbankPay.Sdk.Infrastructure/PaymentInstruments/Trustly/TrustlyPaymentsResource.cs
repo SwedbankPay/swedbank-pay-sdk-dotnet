@@ -1,4 +1,5 @@
-﻿using SwedbankPay.Sdk.Extensions;
+﻿using SwedbankPay.Sdk.Common;
+using SwedbankPay.Sdk.Extensions;
 using SwedbankPay.Sdk.PaymentInstruments;
 using System;
 using System.Net.Http;

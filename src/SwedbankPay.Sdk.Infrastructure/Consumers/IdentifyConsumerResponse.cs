@@ -1,4 +1,5 @@
-﻿using SwedbankPay.Sdk.Models.Shared.Consumers;
+﻿using SwedbankPay.Sdk.Common;
+using SwedbankPay.Sdk.Models.Shared.Consumers;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 

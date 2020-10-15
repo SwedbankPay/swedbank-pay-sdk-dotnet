@@ -1,4 +1,6 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrders
+﻿using SwedbankPay.Sdk.Common;
+
+namespace SwedbankPay.Sdk.PaymentOrders
 {
     /// <summary>
     ///     PRODUCT, SERVICE, SHIPPING_FEE, PAYMENT_FEE, DISCOUNT, VALUE_CODE or OTHER. The type of the order item.

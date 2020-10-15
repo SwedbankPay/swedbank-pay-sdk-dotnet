@@ -1,4 +1,6 @@
-﻿namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
+﻿using SwedbankPay.Sdk.Common;
+
+namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
 {
     public class TrustlyPaymentReversalRequest
     {

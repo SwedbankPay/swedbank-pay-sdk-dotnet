@@ -1,4 +1,5 @@
-﻿using SwedbankPay.Sdk.PaymentOrders;
+﻿using SwedbankPay.Sdk.Common;
+using SwedbankPay.Sdk.PaymentOrders;
 using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Invoice

@@ -1,4 +1,5 @@
-﻿using SwedbankPay.Sdk.Models.Shared.Consumers;
+﻿using SwedbankPay.Sdk.Common;
+using SwedbankPay.Sdk.Models.Shared.Consumers;
 
 namespace SwedbankPay.Sdk.Models.Requests.Consumers
 {

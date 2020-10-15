@@ -1,4 +1,4 @@
-﻿namespace SwedbankPay.Sdk
+﻿namespace SwedbankPay.Sdk.Common
 {
     /// <summary>
     ///     Indicates if the Cardholder Name on the account is identical to the shipping Name used for this transaction.

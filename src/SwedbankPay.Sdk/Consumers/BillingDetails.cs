@@ -1,4 +1,6 @@
-﻿namespace SwedbankPay.Sdk.Consumers
+﻿using SwedbankPay.Sdk.Common;
+
+namespace SwedbankPay.Sdk.Consumers
 {
     public class BillingDetails
     {

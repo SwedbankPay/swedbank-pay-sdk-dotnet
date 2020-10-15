@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace SwedbankPay.Sdk
+namespace SwedbankPay.Sdk.Common
 {
     public class Address
     {

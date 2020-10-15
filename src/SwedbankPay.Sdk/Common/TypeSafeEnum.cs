@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace SwedbankPay.Sdk
+namespace SwedbankPay.Sdk.Common
 {
     public abstract class TypeSafeEnum<TEnum, TValue> : IEquatable<TypeSafeEnum<TEnum, TValue>>
         where TEnum : TypeSafeEnum<TEnum, TValue>
@@ -34,7 +34,7 @@ namespace SwedbankPay.Sdk
                 throw new ArgumentNullException(nameof(value));
 
             Name = name;
-            this.Value = value;
+            Value = value;
         }
 
 
@@ -59,7 +59,7 @@ namespace SwedbankPay.Sdk
             if (other is null)
                 return false;
 
-            return this.Value.Equals(other.Value);
+            return Value.Equals(other.Value);
         }
 
 
@@ -95,14 +95,14 @@ namespace SwedbankPay.Sdk
             if (!fromValue.Value.TryGetValue(value, out var result))
             {
                 var constructor = typeof(TEnum).GetConstructor(new Type[] { typeof(string), value.GetType() });
-                if(constructor != null)
+                if (constructor != null)
                 {
                     var instance = constructor.Invoke(new object[] { value.ToString(), value });
                     return (TEnum)instance;
                 }
                 throw new KeyNotFoundException($"Key: {value} not found.");
             }
-                
+
             return result;
         }
 
@@ -121,7 +121,7 @@ namespace SwedbankPay.Sdk
 
         public override int GetHashCode()
         {
-            return this.Value.GetHashCode();
+            return Value.GetHashCode();
         }
 
 

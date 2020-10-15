@@ -1,4 +1,4 @@
-﻿namespace SwedbankPay.Sdk
+﻿namespace SwedbankPay.Sdk.Common
 {
     /// <summary>
     ///     Indicates when the shipping address used for this transaction was first used with the merchant.

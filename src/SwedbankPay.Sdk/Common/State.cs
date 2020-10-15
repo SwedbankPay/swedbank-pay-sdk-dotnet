@@ -1,4 +1,4 @@
-﻿namespace SwedbankPay.Sdk
+﻿namespace SwedbankPay.Sdk.Common
 {
     /// <summary>
     ///     Initialized, Completed, Failed Ready, Pending or Aborted. Indicates the state.
@@ -23,13 +23,13 @@
         {
             switch (originalState)
             {
-                case "Initialized": return State.Initialized;
-                case "Completed": return State.Completed;
-                case "Failed": return State.Failed;
-                case "Ready": return State.Ready;
-                case "Pending": return State.Pending;
-                case "Aborted": return State.Aborted;
-                case "AwaitingActivity": return State.AwaitingActivity;
+                case "Initialized": return Initialized;
+                case "Completed": return Completed;
+                case "Failed": return Failed;
+                case "Ready": return Ready;
+                case "Pending": return Pending;
+                case "Aborted": return Aborted;
+                case "AwaitingActivity": return AwaitingActivity;
                 default:
                     return new State(originalState, originalState);
             }

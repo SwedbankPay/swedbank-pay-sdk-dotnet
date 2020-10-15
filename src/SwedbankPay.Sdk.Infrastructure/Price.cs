@@ -1,4 +1,5 @@
-﻿using SwedbankPay.Sdk.PaymentInstruments;
+﻿using SwedbankPay.Sdk.Common;
+using SwedbankPay.Sdk.PaymentInstruments;
 
 namespace SwedbankPay.Sdk.Payments
 {

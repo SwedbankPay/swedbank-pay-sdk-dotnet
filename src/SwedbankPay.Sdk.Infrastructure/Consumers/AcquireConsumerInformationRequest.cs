@@ -1,4 +1,6 @@
-﻿namespace SwedbankPay.Sdk.Models.Requests.Consumers
+﻿using SwedbankPay.Sdk.Common;
+
+namespace SwedbankPay.Sdk.Models.Requests.Consumers
 {
     public class AcquireConsumerInformationRequest
     {

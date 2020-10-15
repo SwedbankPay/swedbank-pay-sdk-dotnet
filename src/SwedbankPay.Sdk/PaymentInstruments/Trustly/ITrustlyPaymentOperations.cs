@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using SwedbankPay.Sdk.Common;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Trustly

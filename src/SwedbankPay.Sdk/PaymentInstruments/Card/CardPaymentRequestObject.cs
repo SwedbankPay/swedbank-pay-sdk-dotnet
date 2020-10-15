@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using SwedbankPay.Sdk.Common;
 using SwedbankPay.Sdk.PaymentOrders;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Card

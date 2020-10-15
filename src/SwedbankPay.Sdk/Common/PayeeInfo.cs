@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SwedbankPay.Sdk
+namespace SwedbankPay.Sdk.Common
 {
     public class PayeeInfo : IdLink
     {
