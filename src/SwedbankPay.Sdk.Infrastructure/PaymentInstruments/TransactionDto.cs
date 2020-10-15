@@ -12,7 +12,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         public string Number { get; }
         public OperationList Operations { get; }
         public string PayeeReference { get; }
-        public State State { get; }
+        public string State { get; }
         public string Type { get; }
         public DateTime Updated { get; }
         public int VatAmount { get; }

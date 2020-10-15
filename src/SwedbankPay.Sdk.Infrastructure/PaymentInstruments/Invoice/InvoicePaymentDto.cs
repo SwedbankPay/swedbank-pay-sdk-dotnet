@@ -15,14 +15,14 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         public ICapturesListResponse Captures;
         public DateTime Created;
         public DateTime Updated;
-        public CurrencyCode Currency;
+        public string Currency;
         public string Description;
         public Uri Id;
         public string Instrument;
         public string Intent;
         public CultureInfo Language;
         public string Number;
-        public Operation Operation;
+        public string Operation;
         public PayeeInfoDto PayeeInfo;
         public string PayerReference;
         public string InitiatingSystemUserAgent;

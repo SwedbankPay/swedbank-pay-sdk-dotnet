@@ -10,6 +10,8 @@
 #endregion
 
 using SwedbankPay.Sdk.Consumers;
+using SwedbankPay.Sdk.PaymentInstruments;
+using SwedbankPay.Sdk.PaymentOrders;
 
 namespace SwedbankPay.Sdk
 {

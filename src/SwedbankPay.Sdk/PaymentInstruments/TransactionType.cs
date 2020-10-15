@@ -1,4 +1,4 @@
-﻿namespace SwedbankPay.Sdk
+﻿namespace SwedbankPay.Sdk.PaymentInstruments
 {
     public enum TransactionType
     {

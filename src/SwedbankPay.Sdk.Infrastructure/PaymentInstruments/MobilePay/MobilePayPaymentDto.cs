@@ -13,7 +13,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         public CapturesListResponseDto Captures { get; set; }
         public DateTime Created { get; set; }
         public DateTime Updated { get; set; }
-        public CurrencyCode Currency { get; set; }
+        public string Currency { get; set; }
         public string Description { get; set; }
         public Uri Id { get; set; }
         public string Instrument { get; set; }

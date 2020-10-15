@@ -1,7 +1,6 @@
-﻿using SwedbankPay.Sdk.PaymentInstruments.Card;
-using System;
+﻿using System;
 
-namespace SwedbankPay.Sdk
+namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
     public interface IPaymentAuthorization
     {

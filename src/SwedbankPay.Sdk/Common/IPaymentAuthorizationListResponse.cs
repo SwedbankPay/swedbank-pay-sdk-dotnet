@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using SwedbankPay.Sdk.PaymentInstruments.Card;
+using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk
 {

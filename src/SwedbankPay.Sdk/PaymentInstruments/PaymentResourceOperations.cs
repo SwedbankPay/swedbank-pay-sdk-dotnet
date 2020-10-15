@@ -9,7 +9,8 @@
 
 #endregion
 
-namespace SwedbankPay.Sdk
+
+namespace SwedbankPay.Sdk.PaymentInstruments
 {
     public static class PaymentResourceOperations
     {

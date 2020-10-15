@@ -1,9 +1,7 @@
 ﻿using System;
 using SwedbankPay.Sdk.Extensions;
 using System.Threading.Tasks;
-using SwedbankPay.Sdk;
 using System.Net.Http;
-using SwedbankPay.Sdk.PaymentInstruments;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {

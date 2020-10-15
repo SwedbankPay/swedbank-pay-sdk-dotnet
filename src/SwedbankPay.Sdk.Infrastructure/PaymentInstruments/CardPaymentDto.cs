@@ -37,7 +37,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
 
         public string Number { get; }
 
-        public Operation Operation { get; }
+        public string Operation { get; }
 
         public PayeeInfoDto PayeeInfo { get; }
 
