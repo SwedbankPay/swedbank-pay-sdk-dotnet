@@ -2,6 +2,7 @@
 using SwedbankPay.Sdk.JsonSerialization.Converters;
 using SwedbankPay.Sdk.PaymentOrders;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace SwedbankPay.Sdk.JsonSerialization
 {
@@ -30,6 +31,9 @@ namespace SwedbankPay.Sdk.JsonSerialization
                 MaxDepth = 64,
                 IgnoreReadOnlyProperties = false,
             };
+
+            // Converts enums to/from strings
+            settings.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
 
             settings.Converters.Add(new CustomAmountConverter());
             settings.Converters.Add(new CustomCurrencyCodeConverter());

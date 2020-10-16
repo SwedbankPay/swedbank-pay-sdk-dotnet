@@ -14,7 +14,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
             {
                 list.Add(new HttpOperation(item.Href, item.Rel, item.Method, item.ContentType));
             }
-            return new OperationList(list);
+            return new OperationListDto(list);
         }
     }
 }
