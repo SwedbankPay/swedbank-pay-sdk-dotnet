@@ -20,7 +20,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
                                                item.Id,
                                                item.Transaction.Map()));
             }
-            return new SwishPaymentSaleListResponse(saleList)
+            return new SwishPaymentSaleListResponse(saleList);
         }
     }
 }

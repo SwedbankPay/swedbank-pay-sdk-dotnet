@@ -19,7 +19,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
             Captures = payment.Captures;
             Created = payment.Created;
             Updated = payment.Updated;
-            Currency = payment.Currency;
+            Currency = new CurrencyCode(payment.Currency);
             Description = payment.Description;
             Id = payment.Id;
             Instrument = Enum.Parse<PaymentInstrument>(payment.Instrument);
