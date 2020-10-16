@@ -4,15 +4,15 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {
-    public class VippsPaymentAuthorizationListResponse : IdLink
+    public class VippsPaymentAuthorizationListResponse : IdLink, IVippsPaymentAuthorizationListResponse
     {
-        public VippsPaymentAuthorizationListResponse(Uri id, List<VippsPaymentAuthorization> authorizationList)
+        public VippsPaymentAuthorizationListResponse(Uri id, List<IVippsPaymentAuthorization> authorizationList)
         {
             Id = id;
             AuthorizationList = authorizationList;
         }
 
 
-        public List<VippsPaymentAuthorization> AuthorizationList { get; }
+        public List<IVippsPaymentAuthorization> AuthorizationList { get; }
     }
 }

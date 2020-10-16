@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
     public interface ITransactionListResponse
     {
-        List<Transaction> TransactionList { get; }
+        Uri Id { get; }
+        List<ITransaction> TransactionList { get; }
     }
 }
