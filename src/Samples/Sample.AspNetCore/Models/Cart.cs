@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using SwedbankPay.Sdk.Common;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-
-using SwedbankPay.Sdk;
 
 namespace Sample.AspNetCore.Models
 {

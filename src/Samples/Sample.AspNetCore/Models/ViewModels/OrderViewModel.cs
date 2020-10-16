@@ -1,10 +1,10 @@
-﻿using SwedbankPay.Sdk;
+﻿using SwedbankPay.Sdk.Common;
 
 namespace Sample.AspNetCore.Models.ViewModels
 {
     public class OrderViewModel
     {
-        public OperationList OperationList { get; set; }
+        public IOperationList OperationList { get; set; }
 
         public Order Order { get; set; }
     }

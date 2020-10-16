@@ -4,9 +4,9 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
     public class CardPaymentReversalRequest
     {
-        public Amount Amount { get; }
-        public string Description { get; }
-        public string PayeeReference { get; }
-        public Amount VatAmount { get; }
+        public Amount Amount { get; set; }
+        public string Description { get; set; }
+        public string PayeeReference { get; set; }
+        public Amount VatAmount { get; set; }
     }
 }

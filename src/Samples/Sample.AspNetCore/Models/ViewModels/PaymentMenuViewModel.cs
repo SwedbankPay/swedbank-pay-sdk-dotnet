@@ -1,5 +1,5 @@
-﻿using SwedbankPay.Sdk.Payments;
-using SwedbankPay.Sdk.Payments.SwishPayments;
+﻿using SwedbankPay.Sdk.PaymentInstruments.Card;
+using SwedbankPay.Sdk.PaymentInstruments.Swish;
 
 namespace Sample.AspNetCore.Models.ViewModels
 {

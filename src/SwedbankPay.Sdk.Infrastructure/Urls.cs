@@ -18,6 +18,17 @@ namespace SwedbankPay.Sdk
             LogoUrl = urls.LogoUrl;
         }
 
+        public Urls(ICollection<Uri> hostUrls, Uri completeUrl, Uri termsOfServiceUrl, Uri cancelUrl, Uri paymentUrl, Uri callbackUrl, Uri logoUrl)
+        {
+            HostUrls = hostUrls;
+            CompleteUrl = completeUrl;
+            TermsOfServiceUrl = termsOfServiceUrl;
+            CancelUrl = cancelUrl;
+            PaymentUrl = paymentUrl;
+            CallbackUrl = callbackUrl;
+            LogoUrl = logoUrl;
+        }
+
 
         /// <summary>
         ///     The URI to the API endpoint receiving  POST requests on transaction activity related to the payment order.
