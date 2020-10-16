@@ -1,5 +1,4 @@
-﻿using SwedbankPay.Sdk.PaymentInstruments;
-using System;
+﻿using System;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
