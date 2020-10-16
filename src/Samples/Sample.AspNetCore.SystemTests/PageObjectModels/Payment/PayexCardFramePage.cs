@@ -1,5 +1,4 @@
 ﻿using Atata;
-using NUnit.Framework;
 using Sample.AspNetCore.SystemTests.PageObjectModels.Base;
 using Sample.AspNetCore.SystemTests.PageObjectModels.ThankYou;
 

@@ -3,6 +3,8 @@ using NUnit.Framework;
 using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
+using SwedbankPay.Sdk.Common;
+using SwedbankPay.Sdk.PaymentInstruments;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -29,12 +31,12 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.ViewPayment)].Should.BeVisible()
                 .Actions.Rows.Count.Should.Equal(4);
 
-            var cardPayment = await SwedbankPayClient.Payments.CardPayments.Get(paymentLink, SwedbankPay.Sdk.Payments.PaymentExpand.All);
+            var cardPayment = await SwedbankPayClient.Payments.CardPayments.Get(paymentLink, PaymentExpand.All);
 
             // Global Order
-            Assert.That(cardPayment.PaymentResponse.Amount.Value, Is.EqualTo(products.Select(x => x.UnitPrice * x.Quantity).Sum()));
-            Assert.That(cardPayment.PaymentResponse.Currency.ToString(), Is.EqualTo("SEK"));
-            Assert.That(cardPayment.PaymentResponse.State, Is.EqualTo(State.Ready));
+            Assert.That(cardPayment.Payment.Amount.InLowestMonetaryUnit, Is.EqualTo(products.Select(x => x.UnitPrice * x.Quantity).Sum()));
+            Assert.That(cardPayment.Payment.Currency.ToString(), Is.EqualTo("SEK"));
+            Assert.That(cardPayment.Payment.State, Is.EqualTo(State.Ready));
 
             // Operations
             Assert.That(cardPayment.Operations[LinkRelation.CreateReversal], Is.Null);
@@ -43,8 +45,8 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
             Assert.That(cardPayment.Operations[LinkRelation.PaidPayment], Is.Not.Null);
 
             // Transactions
-            Assert.That(cardPayment.PaymentResponse.Transactions.TransactionList.Count, Is.EqualTo(1));
-            Assert.That(cardPayment.PaymentResponse.Transactions.TransactionList.First(x => x.Type == TransactionType.Authorization).State,
+            Assert.That(cardPayment.Payment.Transactions.TransactionList.Count, Is.EqualTo(1));
+            Assert.That(cardPayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionType.Authorization).State,
                         Is.EqualTo(State.Completed));
 
         }

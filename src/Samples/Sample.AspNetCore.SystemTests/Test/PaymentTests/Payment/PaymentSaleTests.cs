@@ -3,7 +3,8 @@ using NUnit.Framework;
 using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
-using SwedbankPay.Sdk.Payments;
+using SwedbankPay.Sdk.Common;
+using SwedbankPay.Sdk.PaymentInstruments;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -32,9 +33,9 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
             var swishPayment = await SwedbankPayClient.Payments.SwishPayments.Get(paymentLink, PaymentExpand.All);
 
             // Global Order
-            Assert.That(swishPayment.PaymentResponse.Amount.Value, Is.EqualTo(products.Select(x => x.UnitPrice * x.Quantity).Sum()));
-            Assert.That(swishPayment.PaymentResponse.Currency.ToString(), Is.EqualTo("SEK"));
-            Assert.That(swishPayment.PaymentResponse.State, Is.EqualTo(State.Ready));
+            Assert.That(swishPayment.Payment.Amount.InLowestMonetaryUnit, Is.EqualTo(products.Select(x => x.UnitPrice * x.Quantity).Sum()));
+            Assert.That(swishPayment.Payment.Currency.ToString(), Is.EqualTo("SEK"));
+            Assert.That(swishPayment.Payment.State, Is.EqualTo(State.Ready));
 
             // Operations
             Assert.That(swishPayment.Operations[LinkRelation.CreateCancellation], Is.Null);
@@ -43,8 +44,8 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
             Assert.That(swishPayment.Operations[LinkRelation.ViewPayment], Is.Not.Null);
 
             // Transactions
-            Assert.That(swishPayment.PaymentResponse.Transactions.TransactionList.Count, Is.EqualTo(1));
-            Assert.That(swishPayment.PaymentResponse.Transactions.TransactionList.First(x => x.Type == TransactionType.Sale).State,
+            Assert.That(swishPayment.Payment.Transactions.TransactionList.Count, Is.EqualTo(1));
+            Assert.That(swishPayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionType.Sale).State,
                         Is.EqualTo(State.Completed));
         }
 

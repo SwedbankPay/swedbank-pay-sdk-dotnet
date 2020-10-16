@@ -5,6 +5,7 @@ using NUnit.Framework;
 using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
+using SwedbankPay.Sdk.Common;
 
 namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Abort
 {
@@ -34,7 +35,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Abort
             Assert.That(order.Operations[LinkRelation.AbortedPaymentOrder], Is.Not.Null);
 
             // Transactions
-            Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment, Is.Null);
+            Assert.That(order.PaymentOrder.CurrentPayment.Payment, Is.Null);
         }
     }
 }

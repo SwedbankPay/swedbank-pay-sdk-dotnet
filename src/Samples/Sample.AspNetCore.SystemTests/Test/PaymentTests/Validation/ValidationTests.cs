@@ -3,9 +3,10 @@ using NUnit.Framework;
 using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
+using SwedbankPay.Sdk.Common;
 using SwedbankPay.Sdk.Exceptions;
-using SwedbankPay.Sdk.Payments;
-using SwedbankPay.Sdk.Payments.SwishPayments;
+using SwedbankPay.Sdk.PaymentInstruments;
+using SwedbankPay.Sdk.PaymentInstruments.Swish;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -88,11 +89,11 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "xxxxx");
             var swedbankPayClient = new SwedbankPayClient(httpClient);
             var payeeRef = DateTime.Now.Ticks.ToString();
-            var amount = Amount.FromDecimal(1600);
-            var vatAmount = Amount.FromDecimal(0);
+            var amount = new Amount(1600);
+            var vatAmount = new Amount(0);
             var phoneNumber = "+46739000001";
             var swishRequest = new SwishPaymentRequest(new CurrencyCode("SEK"),
-                new List<Price>
+                new List<IPrice>
                 {
                     new Price(amount, PriceType.Swish, vatAmount)
                 }, "Test Purchase", payeeRef, "GetUserAgent()",

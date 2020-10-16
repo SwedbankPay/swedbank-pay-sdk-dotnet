@@ -18,11 +18,17 @@ namespace SwedbankPay.Sdk
             LogoUrl = urls.LogoUrl;
         }
 
-        public Urls(ICollection<Uri> hostUrls, Uri completeUrl, Uri termsOfServiceUrl, Uri cancelUrl, Uri paymentUrl, Uri callbackUrl, Uri logoUrl)
+        public Urls(ICollection<Uri> hostUrls,
+                    Uri completeUrl,
+                    Uri termsOfServiceUrl,
+                    Uri cancelUrl = null,
+                    Uri paymentUrl = null,
+                    Uri callbackUrl = null,
+                    Uri logoUrl = null)
         {
-            HostUrls = hostUrls;
-            CompleteUrl = completeUrl;
-            TermsOfServiceUrl = termsOfServiceUrl;
+            HostUrls = hostUrls ?? throw new ArgumentNullException(nameof(hostUrls), $"{nameof(hostUrls)} is required."); ;
+            CompleteUrl = completeUrl ?? throw new ArgumentNullException(nameof(completeUrl), $"{nameof(completeUrl)} is required."); ;
+            TermsOfServiceUrl = termsOfServiceUrl ?? throw new ArgumentNullException(nameof(termsOfServiceUrl), $"{nameof(termsOfServiceUrl)} is required."); ;
             CancelUrl = cancelUrl;
             PaymentUrl = paymentUrl;
             CallbackUrl = callbackUrl;
