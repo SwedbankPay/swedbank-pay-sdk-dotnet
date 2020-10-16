@@ -15,14 +15,14 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
             Captures = payment.Captures.Map();
             Created = payment.Created;
             Updated = payment.Updated;
-            Currency = payment.Currency;
+            Currency = new CurrencyCode(payment.Currency);
             Description = payment.Description;
             Id = payment.Id;
             Instrument = Enum.Parse<PaymentInstrument>(payment.Instrument);
             Intent = Enum.Parse<PaymentIntent>(payment.Intent);
             Language = payment.Language;
             Number = payment.Number;
-            Operation = new Operation(payment.Operation, payment.Operation);
+            Operation = payment.Operation;
             PayeeInfo = payment.PayeeInfo.Map();
             PayerReference = payment.PayerReference;
             InitiatingSystemUserAgent = payment.InitiatingSystemUserAgent;

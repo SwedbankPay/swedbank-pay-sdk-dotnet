@@ -6,8 +6,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
     public class MobilePayPaymentDto
     {
-        public MobilePayPaymentOperationsDto Operations { get; set; }
-        public MobilePayPaymentDto Payment { get; set; }
         public int Amount { get; set; }
         public MobilePayPaymentAuthorizationListResponseDto Authorizations { get; set; }
         public CancellationsListResponseDto Cancellations { get; set; }

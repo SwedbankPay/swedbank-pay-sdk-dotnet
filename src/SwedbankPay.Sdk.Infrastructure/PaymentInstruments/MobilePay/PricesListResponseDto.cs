@@ -1,14 +1,24 @@
-﻿using SwedbankPay.Sdk.PaymentInstruments;
+﻿using SwedbankPay.Sdk.Common;
+using SwedbankPay.Sdk.PaymentInstruments.Card;
+using SwedbankPay.Sdk.Payments;
 using System;
+using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
     public class PricesListResponseDto
     {
-        //Todo: Fill out
+        public List<PriceDto> PriceList { get; }
+
         internal IPricesListResponse Map()
         {
-            throw new NotImplementedException();
+            var priceList = new List<IPrice>();
+            foreach (var item in PriceList)
+            {
+                var priceType = Enum.Parse<PriceType>(item.Type);
+                priceList.Add(new Price(item.Amount, priceType, item.Amount));
+            }
+            return new PricesListResponse(priceList);
         }
     }
 }

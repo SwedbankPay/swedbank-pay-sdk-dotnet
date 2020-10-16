@@ -12,7 +12,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             {
                 throw new ArgumentNullException(nameof(payment));
             }
-            // ToDo: Fill all properties
+
             Amount = payment.Amount;
             RemainingCaptureAmount = payment.RemainingCaptureAmount;
             RemainingCancellationAmount = payment.RemainingCancellationAmount;

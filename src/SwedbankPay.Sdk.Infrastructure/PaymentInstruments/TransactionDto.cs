@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SwedbankPay.Sdk.Common;
+using System;
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
@@ -17,5 +18,25 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         public DateTime Updated { get; }
         public int VatAmount { get; }
         public string Activity { get; }
+
+        internal ITransaction Map()
+        {
+            var type = Enum.Parse<TransactionType>(Type);
+            return new Transaction(
+                Id,
+                Created,
+                Updated,
+                type,
+                State,
+                Number,
+                Amount,
+                VatAmount,
+                Description,
+                PayeeReference,
+                IsOperational,
+                Operations,
+                Activity
+                );
+        }
     }
 }
