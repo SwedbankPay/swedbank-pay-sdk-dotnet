@@ -22,7 +22,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
                               RiskIndicator riskIndicator = null,
                               Cardholder cardholder = null,
                               CreditCard creditCard = null,
-                              Dictionary<string, object> metadata = null,
+                              MetadataResponse metadata = null,
                               string paymentToken = null)
         {
             this.Payment = new CardPaymentRequestObject(operation, intent, currency, prices, description, payerReference, generatePaymentToken,

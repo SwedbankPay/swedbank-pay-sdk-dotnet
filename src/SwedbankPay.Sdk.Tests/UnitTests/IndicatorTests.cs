@@ -1,5 +1,5 @@
-﻿using SwedbankPay.Sdk.PaymentOrders;
-
+﻿
+using SwedbankPay.Sdk.Common;
 using Xunit;
 
 namespace SwedbankPay.Sdk.Tests.UnitTests

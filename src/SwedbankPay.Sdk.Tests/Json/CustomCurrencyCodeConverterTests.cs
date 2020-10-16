@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.Json;
+using SwedbankPay.Sdk.Common;
 using SwedbankPay.Sdk.Tests.TestBuilders;
 
 using Xunit;

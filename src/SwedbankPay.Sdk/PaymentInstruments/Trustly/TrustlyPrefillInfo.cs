@@ -1,12 +1,12 @@
 ﻿namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
 {
-    public class PrefillInfo
+    public class TrustlyPrefillInfo
     {
-        public PrefillInfo(string firstName) : this(firstName, null)
+        public TrustlyPrefillInfo(string firstName) : this(firstName, null)
         {
         }
 
-        public PrefillInfo(string firstName, string lastName)
+        public TrustlyPrefillInfo(string firstName, string lastName)
         {
             FirstName = firstName;
             LastName = lastName;

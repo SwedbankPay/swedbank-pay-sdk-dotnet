@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using SwedbankPay.Sdk.Payments;
+using SwedbankPay.Sdk.PaymentInstruments;
 using SwedbankPay.Sdk.Tests.TestBuilders;
 using Xunit;
 

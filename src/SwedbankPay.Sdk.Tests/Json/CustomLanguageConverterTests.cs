@@ -1,4 +1,4 @@
-﻿using System;
+﻿using SwedbankPay.Sdk.Common;
 using System.Text.Json;
 
 using Xunit;

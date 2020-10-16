@@ -27,7 +27,7 @@ namespace SwedbankPay.Sdk.Extensions
         }
 
         internal static async Task<T> SendAndProcessAsync<T>(this HttpClient httpClient, HttpMethod httpMethod, Uri uri, object payload)
-            where T : class, new()
+            where T : class
         {
             using var httpRequestMessage = new HttpRequestMessage(httpMethod, uri);
 
@@ -74,13 +74,13 @@ namespace SwedbankPay.Sdk.Extensions
         }
 
         public static Task<T> PostAsJsonAsync<T>(this HttpClient httpClient, Uri uri, object payload)
-            where T : class, new()
+            where T : class
         {
             return httpClient.SendAndProcessAsync<T>(HttpMethod.Post, uri, payload);
         }
 
         public static Task<T> SendAsJsonAsync<T>(this HttpClient httpClient, HttpMethod httpMethod, Uri uri, object payload = null)
-            where T: class, new()
+            where T: class
         {
             return httpClient.SendAndProcessAsync<T>(httpMethod, uri, payload);
         }

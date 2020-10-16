@@ -36,10 +36,10 @@ namespace SwedbankPay.Sdk.PaymentOrders
                         Reverse = async payload => await client.SendAsJsonAsync<ReversalResponse>(httpOperation.Method, httpOperation.Href, payload);
                         break;
                     case PaymentOrderResourceOperations.UpdatePaymentOrderUpdateOrder:
-                        Update = async payload => await client.SendAsJsonAsync<PaymentOrder>(httpOperation.Method, httpOperation.Href, payload);
+                        Update = async payload => await client.SendAsJsonAsync<PaymentOrderResponse>(httpOperation.Method, httpOperation.Href, payload);
                         break;
                     case PaymentOrderResourceOperations.UpdatePaymentOrderAbort:
-                        Abort = async () => await client.SendAsJsonAsync<PaymentOrder>(httpOperation.Method, httpOperation.Href, new PaymentOrderAbortRequest());
+                        Abort = async () => await client.SendAsJsonAsync<PaymentOrderResponse>(httpOperation.Method, httpOperation.Href, new PaymentOrderAbortRequest());
                         break;
                     case PaymentOrderResourceOperations.ViewPaymentOrder:
                         View = httpOperation;
@@ -49,11 +49,11 @@ namespace SwedbankPay.Sdk.PaymentOrders
             }
         }
 
-        public Func<Task<IPaymentOrder>> Abort { get; }
+        public Func<Task<IPaymentOrderResponse>> Abort { get; }
         public Func<PaymentOrderCancelRequest, Task<CancellationResponse>> Cancel { get; }
         public Func<PaymentOrderCaptureRequest, Task<CaptureResponse>> Capture { get; }
         public Func<PaymentOrderReversalRequest, Task<ReversalResponse>> Reverse { get; }
-        public Func<PaymentOrderUpdateRequest, Task<IPaymentOrder>> Update { get; }
+        public Func<PaymentOrderUpdateRequest, Task<IPaymentOrderResponse>> Update { get; }
         public HttpOperation View { get; internal set; }
     }
 }

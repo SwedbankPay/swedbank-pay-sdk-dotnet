@@ -43,9 +43,17 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
             iConfig
                 .GetSection("Urls")
                 .Bind(configuration);
-
-            return new Urls(configuration.HostUrls, configuration.CompleteUrl, configuration.TermsOfServiceUrl, configuration.CancelUrl,
-                            configuration.PaymentUrl, configuration.CallbackUrl, configuration.LogoUrl);
+            var urlsDto = new UrlsDto
+            {
+                CallbackUrl = configuration.CallbackUrl,
+                CompleteUrl = configuration.CompleteUrl,
+                HostUrls = configuration.HostUrls,
+                CancelUrl = configuration.CancelUrl,
+                LogoUrl = configuration.LogoUrl,
+                PaymentUrl = configuration.PaymentUrl,
+                TermsOfServiceUrl = configuration.TermsOfServiceUrl
+            };
+            return new Urls(urlsDto);
         }
     }
 }

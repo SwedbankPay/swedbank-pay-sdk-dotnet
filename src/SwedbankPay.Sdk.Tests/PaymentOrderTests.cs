@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Threading.Tasks;
-
+using SwedbankPay.Sdk.Common;
 using SwedbankPay.Sdk.Exceptions;
 using SwedbankPay.Sdk.PaymentOrders;
 using SwedbankPay.Sdk.Tests.TestBuilders;
@@ -43,15 +43,15 @@ namespace SwedbankPay.Sdk.Tests
             var paymentOrderRequest = this.paymentOrderRequestBuilder.WithTestValues(this.payeeId).Build();
             var paymentOrder = await this.Sut.PaymentOrders.Create(paymentOrderRequest, PaymentOrderExpand.All);
             Assert.NotNull(paymentOrder);
-            Assert.NotNull(paymentOrder.PaymentOrderResponse);
-            var amount = paymentOrder.PaymentOrderResponse.Amount;
+            Assert.NotNull(paymentOrder.PaymentOrder);
+            var amount = paymentOrder.PaymentOrder.Amount;
 
-            var paymentOrder2 = await this.Sut.PaymentOrders.Get(paymentOrder.PaymentOrderResponse.Id, PaymentOrderExpand.All);
+            var paymentOrder2 = await this.Sut.PaymentOrders.Get(paymentOrder.PaymentOrder.Id, PaymentOrderExpand.All);
             Assert.NotNull(paymentOrder2);
-            Assert.NotNull(paymentOrder2.PaymentOrderResponse);
-            Assert.Equal(amount.Value, paymentOrder2.PaymentOrderResponse.Amount.Value);
+            Assert.NotNull(paymentOrder2.PaymentOrder);
+            Assert.Equal(amount.InLowestMonetaryUnit, paymentOrder2.PaymentOrder.Amount.InLowestMonetaryUnit);
             
-            Assert.Equal(paymentOrderRequest.PaymentOrder.Metadata["key1"], paymentOrder2.PaymentOrderResponse.Metadata["key1"]);
+            Assert.Equal(paymentOrderRequest.PaymentOrder.Metadata["key1"], paymentOrder2.PaymentOrder.Metadata["key1"]);
         }
 
 
@@ -61,11 +61,11 @@ namespace SwedbankPay.Sdk.Tests
             var paymentOrderRequest = this.paymentOrderRequestBuilder.WithTestValues(this.payeeId).WithAmounts().Build();
             var paymentOrder = await this.Sut.PaymentOrders.Create(paymentOrderRequest, PaymentOrderExpand.All);
             Assert.NotNull(paymentOrder);
-            Assert.NotNull(paymentOrder.PaymentOrderResponse);
-            var amount = paymentOrder.PaymentOrderResponse.Amount;
+            Assert.NotNull(paymentOrder.PaymentOrder);
+            var amount = paymentOrder.PaymentOrder.Amount;
 
             var newAmount = 50000;
-            var updateRequest = new PaymentOrderUpdateRequest(Amount.FromDecimal(newAmount), null);
+            var updateRequest = new PaymentOrderUpdateRequest(new Amount(newAmount), null);
             
             await Assert.ThrowsAsync<HttpResponseException>(() => paymentOrder.Operations.Update?.Invoke(updateRequest));
         }
@@ -78,17 +78,17 @@ namespace SwedbankPay.Sdk.Tests
 
             var paymentOrder = await this.Sut.PaymentOrders.Create(paymentOrderRequest, PaymentOrderExpand.All);
             Assert.NotNull(paymentOrder);
-            Assert.NotNull(paymentOrder.PaymentOrderResponse);
+            Assert.NotNull(paymentOrder.PaymentOrder);
 
             var newAmount = 50000;
             var newVatAmount = 10000;
-            var updateRequest = new PaymentOrderUpdateRequest(Amount.FromDecimal(newAmount), Amount.FromDecimal(newVatAmount));
+            var updateRequest = new PaymentOrderUpdateRequest(new Amount(newAmount), new Amount(newVatAmount));
             Assert.NotNull(paymentOrder.Operations.Update);
 
             var response = await paymentOrder.Operations.Update(updateRequest);
 
-            Assert.Equal(updateRequest.PaymentOrder.Amount.Value, response.PaymentOrder.Amount.Value);
-            Assert.Equal(updateRequest.PaymentOrder.VatAmount.Value, response.PaymentOrder.VatAmount.Value);
+            Assert.Equal(updateRequest.PaymentOrder.Amount.InLowestMonetaryUnit, response.PaymentOrder.Amount.InLowestMonetaryUnit);
+            Assert.Equal(updateRequest.PaymentOrder.VatAmount.InLowestMonetaryUnit, response.PaymentOrder.VatAmount.InLowestMonetaryUnit);
         }
 
         [Fact]
@@ -96,8 +96,8 @@ namespace SwedbankPay.Sdk.Tests
         {
             var paymentOrderRequest = this.paymentOrderRequestBuilder.WithTestValues(this.payeeId).Build();
             var paymentOrder = await this.Sut.PaymentOrders.Create(paymentOrderRequest);
-            Assert.NotNull(paymentOrder.PaymentOrderResponse);
-            Assert.Equal(paymentOrderRequest.PaymentOrder.Amount.Value, paymentOrder.PaymentOrderResponse.Amount.Value);
+            Assert.NotNull(paymentOrder.PaymentOrder);
+            Assert.Equal(paymentOrderRequest.PaymentOrder.Amount.InLowestMonetaryUnit, paymentOrder.PaymentOrder.Amount.InLowestMonetaryUnit);
         }
 
 
@@ -114,9 +114,9 @@ namespace SwedbankPay.Sdk.Tests
             var paymentOrder = await this.Sut.PaymentOrders.Create(paymentOrderRequestContainer, PaymentOrderExpand.OrderItems);
 
             //ASSERT
-            Assert.NotNull(paymentOrder.PaymentOrderResponse);
-            Assert.NotNull(paymentOrder.PaymentOrderResponse.OrderItems);
-            Assert.NotEmpty(paymentOrder.PaymentOrderResponse.OrderItems.OrderItemList);
+            Assert.NotNull(paymentOrder.PaymentOrder);
+            Assert.NotNull(paymentOrder.PaymentOrder.OrderItems);
+            Assert.NotEmpty(paymentOrder.PaymentOrder.OrderItems.OrderItemList);
         }
 
         
@@ -135,8 +135,8 @@ namespace SwedbankPay.Sdk.Tests
 
             //ASSERT
             Assert.NotNull(paymentOrder);
-            Assert.NotNull(paymentOrder.PaymentOrderResponse.CurrentPayment);
-            Assert.NotNull(paymentOrder.PaymentOrderResponse.CurrentPayment.Payment);
+            Assert.NotNull(paymentOrder.PaymentOrder.CurrentPayment);
+            Assert.NotNull(paymentOrder.PaymentOrder.CurrentPayment.Payment);
         }
 
         [Fact]

@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
-using SwedbankPay.Sdk.Payments;
+using SwedbankPay.Sdk.Common;
+using SwedbankPay.Sdk.PaymentInstruments;
 using SwedbankPay.Sdk.Tests.TestBuilders;
 using Xunit;
 
@@ -16,8 +17,8 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             var invoicePayment = await this.Sut.Payments.InvoicePayments.Create(invoicePaymentRequest, PaymentExpand.All);
 
             Assert.NotNull(invoicePayment);
-            Assert.Equal(invoicePaymentRequest.Payment.Intent, invoicePayment.PaymentResponse.Intent);
-            Assert.True(invoicePayment.PaymentResponse.Language.Name.Equals("nb-NO"));
+            Assert.Equal(invoicePaymentRequest.Payment.Intent, invoicePayment.Payment.Intent);
+            Assert.True(invoicePayment.Payment.Language.Name.Equals("nb-NO"));
             Assert.True(invoicePaymentRequest.Payment.Operation.Equals(Operation.FinancingConsumer));
             Assert.NotEmpty(invoicePaymentRequest.Payment.UserAgent);
         }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Text.Json;
-
+using SwedbankPay.Sdk.Common;
 using SwedbankPay.Sdk.PaymentOrders;
 
 using Xunit;
@@ -30,25 +30,23 @@ namespace SwedbankPay.Sdk.Tests.Json
 
             //ACT
             var result = JsonSerializer.Serialize(riskIndicator, JsonSerialization.JsonSerialization.Settings);
-            using(JsonDocument doc = JsonDocument.Parse(result))
-            {
-                var dateTimeAsString = doc.RootElement.GetProperty("preOrderDate").ToString();
-                var shipInd = doc.RootElement.GetProperty("shipIndicator").ToString();
-                var delTimeFrameInd = doc.RootElement.GetProperty("deliveryTimeFrameIndicator").ToString();
-                var preOrdPurchaseInd = doc.RootElement.GetProperty("preOrderPurchaseIndicator").ToString();
-                var reOrdPurchaseInd = doc.RootElement.GetProperty("reOrderPurchaseIndicator").ToString();
-                var email = doc.RootElement.GetProperty("deliveryEmailAddress").ToString();
-                var countryCode = doc.RootElement.GetProperty("pickUpAddress").GetProperty("countryCode").ToString();
+            using JsonDocument doc = JsonDocument.Parse(result);
+            var dateTimeAsString = doc.RootElement.GetProperty("preOrderDate").ToString();
+            var shipInd = doc.RootElement.GetProperty("shipIndicator").ToString();
+            var delTimeFrameInd = doc.RootElement.GetProperty("deliveryTimeFrameIndicator").ToString();
+            var preOrdPurchaseInd = doc.RootElement.GetProperty("preOrderPurchaseIndicator").ToString();
+            var reOrdPurchaseInd = doc.RootElement.GetProperty("reOrderPurchaseIndicator").ToString();
+            var email = doc.RootElement.GetProperty("deliveryEmailAddress").ToString();
+            var countryCode = doc.RootElement.GetProperty("pickUpAddress").GetProperty("countryCode").ToString();
 
-                //ASSERT
-                Assert.Equal("20200101", dateTimeAsString);
-                Assert.Equal("test@test.com", email);
-                Assert.Equal("02", shipInd);
-                Assert.Equal("02", preOrdPurchaseInd);
-                Assert.Equal("01", reOrdPurchaseInd);
-                Assert.Equal("04", delTimeFrameInd);
-                Assert.Equal("NO", countryCode);
-            }
+            //ASSERT
+            Assert.Equal("20200101", dateTimeAsString);
+            Assert.Equal("test@test.com", email);
+            Assert.Equal("02", shipInd);
+            Assert.Equal("02", preOrdPurchaseInd);
+            Assert.Equal("01", reOrdPurchaseInd);
+            Assert.Equal("04", delTimeFrameInd);
+            Assert.Equal("NO", countryCode);
         }
     }
 }

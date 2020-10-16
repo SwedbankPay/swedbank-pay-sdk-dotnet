@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-
-using SwedbankPay.Sdk.Payments;
+using SwedbankPay.Sdk.Common;
+using SwedbankPay.Sdk.PaymentInstruments;
 using SwedbankPay.Sdk.Tests.TestBuilders;
 
 using Xunit;
@@ -20,8 +20,8 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             var trustlyPayment = await this.Sut.Payments.TrustlyPayments.Create(trustlyPaymentRequest, PaymentExpand.All);
 
             Assert.NotNull(trustlyPayment);
-            Assert.Equal(trustlyPaymentRequest.Payment.Intent, trustlyPayment.PaymentResponse.Intent);
-            Assert.True(trustlyPayment.PaymentResponse.Language.Name.Equals("sv-SE"));
+            Assert.Equal(trustlyPaymentRequest.Payment.Intent, trustlyPayment.Payment.Intent);
+            Assert.True(trustlyPayment.Payment.Language.Name.Equals("sv-SE"));
             Assert.True(trustlyPaymentRequest.Payment.Operation.Equals(Operation.Purchase));
             Assert.NotEmpty(trustlyPaymentRequest.Payment.UserAgent);
         }
@@ -32,7 +32,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         {
             var paymentRequest = this.paymentRequestBuilder.WithTruslyTestValues(this.payeeId).BuildTrustlyRequest();
 
-            var payment = await this.Sut.Payments.TrustlyPayments.Create(paymentRequest);
+            var payment = await this.Sut.Payments.TrustlyPayments.Create(paymentRequest, PaymentExpand.All);
 
             Assert.NotNull(payment);
             Assert.NotNull(payment.Operations.Abort);

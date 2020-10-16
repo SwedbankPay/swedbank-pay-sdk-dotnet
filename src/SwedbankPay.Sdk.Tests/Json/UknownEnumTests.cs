@@ -1,4 +1,5 @@
-﻿using SwedbankPay.Sdk.Payments;
+﻿using SwedbankPay.Sdk.Common;
+using SwedbankPay.Sdk.PaymentInstruments;
 
 using System;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace SwedbankPay.Sdk.Tests.Json
         [InlineData(typeof(PaymentInstrument), "Bottle")]
         [InlineData(typeof(PriceType), "Bottle")]
         [InlineData(typeof(TransactionType), "Notebook")]
-        [InlineData(typeof(Intent), "Eraser")]
+        [InlineData(typeof(PaymentIntent), "Eraser")]
         public void DeserializingUnknownEnum_GivesDefaultValue(Type enumType, string value)
         {
             JsonSerializer.Deserialize($"{{ \"propertyName\":\"{value}\" }}", enumType, JsonSerialization.JsonSerialization.Settings);

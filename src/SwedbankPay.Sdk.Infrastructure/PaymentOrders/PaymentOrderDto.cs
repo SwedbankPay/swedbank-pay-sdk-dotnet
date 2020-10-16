@@ -5,6 +5,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
 {
     public class PaymentOrderDto
     {
+        public Uri Id { get; set; }
         public int Amount { get; }
         public DateTime Created { get; }
         public string Currency { get; }

@@ -28,7 +28,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
             CultureInfo language,
             IUrls urls,
             PayeeInfo payeeInfo,
-            PrefillInfo prefillInfo)
+            TrustlyPrefillInfo prefillInfo)
         {
             Payment = new PaymentRequestObject(currency, prices, description, payerReference, userAgent, language,
                                                urls, payeeInfo, prefillInfo);
@@ -59,7 +59,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
                                                 CultureInfo language,
                                                 IUrls urls,
                                                 PayeeInfo payeeInfo,
-                                                PrefillInfo prefillInfo)
+                                                TrustlyPrefillInfo prefillInfo)
         {
             Operation = Operation.Purchase;
             Intent = PaymentIntent.Sale;
@@ -85,6 +85,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
         public List<IPrice> Prices { get; set; }
         public IUrls Urls { get; }
         public string UserAgent { get; set; }
-        public PrefillInfo PrefillInfo { get; set; }
+        public TrustlyPrefillInfo PrefillInfo { get; set; }
     }
 }

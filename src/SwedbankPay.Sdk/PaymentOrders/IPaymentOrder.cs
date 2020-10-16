@@ -28,5 +28,6 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public IUrls Urls { get; }
         public string UserAgent { get; }
         public Amount VatAmount { get; }
+        public Uri Id { get; }
     }
 }

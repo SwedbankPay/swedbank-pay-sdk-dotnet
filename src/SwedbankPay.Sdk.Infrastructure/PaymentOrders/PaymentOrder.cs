@@ -8,6 +8,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
     {
         public PaymentOrder(PaymentOrderDto paymentOrder)
         {
+            Id = paymentOrder.Id;
             Amount = paymentOrder.Amount;
             Created = paymentOrder.Created;
             Currency = new CurrencyCode(paymentOrder.Currency);
@@ -31,6 +32,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
             VatAmount = paymentOrder.VatAmount;
         }
 
+        public Uri Id { get; }
         public Amount Amount { get; }
         public DateTime Created { get; }
         public CurrencyCode Currency { get; }

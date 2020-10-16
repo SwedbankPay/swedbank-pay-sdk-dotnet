@@ -1,6 +1,11 @@
-﻿using SwedbankPay.Sdk.Payments;
-using SwedbankPay.Sdk.Payments.MobilePayPayments;
-using SwedbankPay.Sdk.Payments.SwishPayments;
+﻿using SwedbankPay.Sdk.Common;
+using SwedbankPay.Sdk.PaymentInstruments;
+using SwedbankPay.Sdk.PaymentInstruments.Card;
+using SwedbankPay.Sdk.PaymentInstruments.Invoice;
+using SwedbankPay.Sdk.PaymentInstruments.MobilePay;
+using SwedbankPay.Sdk.PaymentInstruments.Swish;
+using SwedbankPay.Sdk.PaymentInstruments.Trustly;
+using SwedbankPay.Sdk.PaymentInstruments.Vipps;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -10,7 +15,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
     public class PaymentRequestBuilder
     {
         private Operation operation;
-        private Intent intent;
+        private PaymentIntent intent;
         private CurrencyCode currency;
         private string description;
         private string userAgent;
@@ -18,22 +23,22 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private Urls urls;
         private PayeeInfo payeeInfo;
         private PrefillInfo prefillInfo;
-        private SwedbankPay.Sdk.Payments.TrustlyPayments.PrefillInfo trustlyPrefillInfo;
+        private TrustlyPrefillInfo trustlyPrefillInfo;
         private bool generatePaymentToken;
         private bool generateReccurrenceToken;
         private Amount amount;
         private Amount vatAmount;
         private string payerReference;
         private SwishPaymentOptionsObject swish;
-        private List<Price> price;
-        private Dictionary<string, object> metadata;
+        private List<IPrice> price;
+        private MetadataResponse metadata;
         private InvoiceType invoiceType;
         private Uri shopslogoUrl;
 
 
-        public Payments.CardPayments.CardPaymentRequest BuildCreditardPaymentRequest()
+        public CardPaymentRequest BuildCreditardPaymentRequest()
         {
-            return new Payments.CardPayments.CardPaymentRequest(
+            return new CardPaymentRequest(
                 this.operation,
                 this.intent,
                 this.currency,
@@ -46,9 +51,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
                 generatePaymentToken: this.generatePaymentToken, generateReccurenceToken: false, payerReference: this.payerReference, riskIndicator: null, metadata: this.metadata);
         }
 
-        public SwishPaymentRequest BuildSwishPaymentRequest()
-        {
-            return new SwishPaymentRequest(this.currency,
+        public SwishPaymentRequest BuildSwishPaymentRequest() => new SwishPaymentRequest(this.currency,
                                       this.price,
                                       this.description,
                                       this.payerReference,
@@ -59,11 +62,8 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
                                       this.prefillInfo,
                                       metadata: this.metadata
             );
-        }
 
-        public Payments.InvoicePayments.InvoicePaymentRequest BuildInvoiceRequest()
-        {
-            return new Payments.InvoicePayments.InvoicePaymentRequest(
+        public InvoicePaymentRequest BuildInvoiceRequest() => new InvoicePaymentRequest(
                 this.operation,
                 this.intent,
                 this.currency,
@@ -74,11 +74,8 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
                 this.urls,
                 this.payeeInfo,
                 this.invoiceType);
-        }
 
-        public Payments.VippsPayments.VippsPaymentRequest BuildVippsRequest()
-        {
-            return new Payments.VippsPayments.VippsPaymentRequest(
+        public VippsPaymentRequest BuildVippsRequest() => new VippsPaymentRequest(
                 this.operation,
                 this.intent,
                 this.currency,
@@ -92,11 +89,8 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
                 this.generatePaymentToken,
                 this.generateReccurrenceToken,
                 this.metadata);
-        }
 
-        public Payments.MobilePayPayments.MobilePayPaymentRequest BuildMobilePayRequest()
-        {
-            return new MobilePayPaymentRequest(
+        public MobilePayPaymentRequest BuildMobilePayRequest() => new MobilePayPaymentRequest(
                 this.operation,
                 this.intent,
                 this.currency,
@@ -107,11 +101,10 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
                 this.urls,
                 this.payeeInfo,
                 this.shopslogoUrl);
-        }
 
-        public Payments.TrustlyPayments.TrustlyPaymentRequest BuildTrustlyRequest()
+        public TrustlyPaymentRequest BuildTrustlyRequest()
         {
-            return new Payments.TrustlyPayments.TrustlyPaymentRequest(
+            return new TrustlyPaymentRequest(
                 this.currency,
                 this.price,
                 this.description,
@@ -123,7 +116,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
                 this.trustlyPrefillInfo);
         }
 
-        public PaymentRequestBuilder WithCreditcardTestValues(Guid payeeId, Operation operation = null, Intent intent = Intent.Authorization)
+        public PaymentRequestBuilder WithCreditcardTestValues(Guid payeeId, Operation operation = null, PaymentIntent intent = PaymentIntent.Authorization)
         {
             this.operation = operation ?? Operation.Purchase;
             this.intent = intent;
@@ -132,17 +125,23 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.payerReference = "AB1234";
             this.userAgent = "useragent";
             this.language = new CultureInfo("sv-SE");
-            this.urls = new Urls(new List<Uri> { new Uri("https://example.com") }, new Uri("https://example.com/payment-completed"), new Uri("https://example.com/termsandconditoons.pdf"), new Uri("https://example.com/payment-canceled"));
+            this.urls = new Urls(new UrlsDto
+            {
+                HostUrls = new List<Uri> { new Uri("https://example.com") },
+                CallbackUrl = new Uri("https://example.com/payment-completed"),
+                TermsOfServiceUrl = new Uri("https://example.com/termsandconditoons.pdf"),
+                CancelUrl = new Uri("https://example.com/payment-canceled")
+            });
             this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
             this.generatePaymentToken = false;
-            this.amount = Amount.FromDecimal(1600);
-            this.vatAmount = Amount.FromDecimal(0);
-            this.metadata = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
-
-            this.price = new List<Price>
+            this.amount = new Amount(1600);
+            this.vatAmount = new Amount(0);
+            this.metadata = new MetadataResponse { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
+            this.price = new List<IPrice>
             {
                 new Price(this.amount, PriceType.CreditCard, this.vatAmount)
             };
+
             return this;
         }
 
@@ -150,21 +149,27 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         public PaymentRequestBuilder WithSwishTestValues(Guid payeeId)
         {
             this.operation = Operation.Purchase;
-            this.intent = Intent.Sale;
+            this.intent = PaymentIntent.Sale;
             this.currency = new CurrencyCode("SEK");
             this.description = "Test Description";
             this.payerReference = "AB1234";
             this.userAgent = "useragent";
             this.language = new CultureInfo("sv-SE");
-            this.urls = new Urls(new List<Uri> { new Uri("https://example.com") }, new Uri("https://example.com/payment-completed"), new Uri("https://example.com/termsandconditoons.pdf"), new Uri("https://example.com/payment-canceled"));
+            this.urls = new Urls(new UrlsDto
+            {
+                HostUrls = new List<Uri> { new Uri("https://example.com") },
+                CallbackUrl = new Uri("https://example.com/payment-completed"),
+                TermsOfServiceUrl = new Uri("https://example.com/termsandconditoons.pdf"),
+                CancelUrl = new Uri("https://example.com/payment-canceled")
+            });
             this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
             this.prefillInfo = new PrefillInfo(new Msisdn("+46701234567"));
             this.generatePaymentToken = false;
-            this.amount = Amount.FromDecimal(1600);
-            this.vatAmount = Amount.FromDecimal(0);
+            this.amount = new Amount(1600);
+            this.vatAmount = new Amount(0);
             this.swish = new SwishPaymentOptionsObject();
-            this.metadata = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
-            this.price = new List<Price>
+            this.metadata = new MetadataResponse { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
+            this.price = new List<IPrice>
             {
                 new Price(this.amount, PriceType.Swish, this.vatAmount)
             };
@@ -174,43 +179,54 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         public PaymentRequestBuilder WithInvoiceTestValues(Guid payeeId, Operation operation = null)
         {
             this.operation = operation ?? Operation.FinancingConsumer;
-            this.intent = Intent.Authorization;
+            this.intent = PaymentIntent.Authorization;
             this.currency = new CurrencyCode("NOK");
             this.description = "Test Description";
             this.payerReference = "AB1234";
             this.userAgent = "useragent";
             this.language = new CultureInfo("nb-NO");
-            this.urls = new Urls(new List<Uri> { new Uri("https://example.com") }, new Uri("https://example.com/payment-completed"), new Uri("https://example.com/termsandconditoons.pdf"), new Uri("https://example.com/payment-canceled"));
+            this.urls = new Urls(new UrlsDto
+            {
+                HostUrls = new List<Uri> { new Uri("https://example.com") },
+                CallbackUrl = new Uri("https://example.com/payment-completed"),
+                TermsOfServiceUrl = new Uri("https://example.com/termsandconditoons.pdf"),
+                CancelUrl = new Uri("https://example.com/payment-canceled")
+            });
             this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
             this.generatePaymentToken = false;
-            this.amount = Amount.FromDecimal(1600);
-            this.vatAmount = Amount.FromDecimal(0);
-            this.metadata = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
+            this.amount = new Amount(1600);
+            this.vatAmount = new Amount(0);
+            this.metadata = new MetadataResponse { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
             this.invoiceType = InvoiceType.PayExFinancingNO;
-            this.price = new List<Price>
+            this.price = new List<IPrice>
             {
                 new Price(this.amount, PriceType.Invoice, this.vatAmount)
             };
             return this;
         }
 
-        public PaymentRequestBuilder WithVippsTestValues(Guid payeeId, Operation operation = null, Intent intent = Intent.Authorization)
+        public PaymentRequestBuilder WithVippsTestValues(Guid payeeId, Operation operation = null, PaymentIntent PaymentIntent = PaymentIntent.Authorization)
         {
             this.operation = operation ?? Operation.Purchase;
-            this.intent = intent;
             this.currency = new CurrencyCode("NOK");
             this.description = "Test Description";
             this.payerReference = "AB1234";
             this.userAgent = "useragent";
             this.language = new CultureInfo("nb-NO");
-            this.urls = new Urls(new List<Uri> { new Uri("https://example.com") }, new Uri("https://example.com/payment-completed"), new Uri("https://example.com/termsandconditoons.pdf"), new Uri("https://example.com/payment-canceled"));
+            this.urls = new Urls(new UrlsDto
+            {
+                HostUrls = new List<Uri> { new Uri("https://example.com") },
+                CallbackUrl = new Uri("https://example.com/payment-completed"),
+                TermsOfServiceUrl = new Uri("https://example.com/termsandconditoons.pdf"),
+                CancelUrl = new Uri("https://example.com/payment-canceled")
+            });
             this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
             this.generatePaymentToken = false;
-            this.amount = Amount.FromDecimal(1600);
-            this.vatAmount = Amount.FromDecimal(0);
-            this.metadata = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
+            this.amount = new Amount(1600);
+            this.vatAmount = new Amount(0);
+            this.metadata = new MetadataResponse { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
 
-            this.price = new List<Price>
+            this.price = new List<IPrice>
             {
                 new Price(this.amount, PriceType.Vipps, this.vatAmount)
             };
@@ -220,20 +236,26 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         public PaymentRequestBuilder WithMobilePayTestValues(Guid payeeId)
         {
             this.operation = Operation.Purchase;
-            this.intent = Intent.Authorization;
+            this.intent = PaymentIntent.Authorization;
             this.currency = new CurrencyCode("SEK");
             this.description = "Test Description";
             this.payerReference = "AB1234";
             this.userAgent = "useragent";
             this.language = new CultureInfo("sv-SE");
-            this.urls = new Urls(new List<Uri> { new Uri("https://example.com") }, new Uri("https://example.com/payment-completed"), new Uri("https://example.com/termsandconditoons.pdf"), new Uri("https://example.com/payment-canceled"));
+            this.urls = new Urls(new UrlsDto
+            {
+                HostUrls = new List<Uri> { new Uri("https://example.com") },
+                CallbackUrl = new Uri("https://example.com/payment-completed"),
+                TermsOfServiceUrl = new Uri("https://example.com/termsandconditoons.pdf"),
+                CancelUrl = new Uri("https://example.com/payment-canceled")
+            });
             this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString(), "payeeName", "productCategory");
             this.prefillInfo = new PrefillInfo(new Msisdn("+46701234567"));
-            this.amount = Amount.FromDecimal(1600);
-            this.vatAmount = Amount.FromDecimal(0);
-            this.metadata = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
+            this.amount = new Amount(1600);
+            this.vatAmount = new Amount(0);
+            this.metadata = new MetadataResponse { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
             this.shopslogoUrl = new Uri("https://example.com");
-            this.price = new List<Price>
+            this.price = new List<IPrice>
             {
                 new Price(this.amount, PriceType.Visa, this.vatAmount)
             };
@@ -250,22 +272,28 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         public PaymentRequestBuilder WithTruslyTestValues(Guid payeeId, Operation operation)
         {
             this.operation = operation ?? Operation.Purchase;
-            this.intent = Intent.Sale;
+            this.intent = PaymentIntent.Sale;
             this.currency = new CurrencyCode("SEK");
             this.description = "Test Purchase";
             this.payerReference = "SomeReference";
             this.userAgent = "Mozilla/5.0...";
             this.language = new CultureInfo("sv-SE");
-            this.urls = new Urls(new List<Uri> { new Uri("https://example.com") }, new Uri("https://example.com/payment-completed"), new Uri("https://example.com/termsandconditoons.pdf"), new Uri("https://example.com/payment-canceled"), null, new Uri("https://example.com/payment-callback"));
+            this.urls = new Urls(new UrlsDto
+            {
+                HostUrls = new List<Uri> { new Uri("https://example.com") },
+                CallbackUrl = new Uri("https://example.com/payment-completed"),
+                TermsOfServiceUrl = new Uri("https://example.com/termsandconditoons.pdf"),
+                CancelUrl = new Uri("https://example.com/payment-canceled")
+            });
             this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
-            this.amount = Amount.FromDecimal(1600);
-            this.vatAmount = Amount.FromDecimal(0);
-            this.metadata = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
-            this.price = new List<Price>
+            this.amount = new Amount(1600);
+            this.vatAmount = new Amount(0);
+            this.metadata = new MetadataResponse { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
+            this.price = new List<IPrice>
             {
                 new Price(this.amount, PriceType.Trustly, this.vatAmount)
             };
-            this.trustlyPrefillInfo = new Payments.TrustlyPayments.PrefillInfo("Ola", "Nordmann");
+            this.trustlyPrefillInfo = new TrustlyPrefillInfo("Ola", "Nordmann");
             return this;
         }
     }

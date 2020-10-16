@@ -6,6 +6,7 @@ namespace SwedbankPay.Sdk
 {
     public class UrlsDto
     {
+        public Uri Id { get; set; }
         public Uri CallbackUrl { get; set; }
 
         public Uri CancelUrl { get; set; }

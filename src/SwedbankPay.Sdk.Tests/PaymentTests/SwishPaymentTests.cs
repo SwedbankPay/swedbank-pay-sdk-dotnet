@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-
-using SwedbankPay.Sdk.Payments;
-using SwedbankPay.Sdk.Payments.SwishPayments;
+using SwedbankPay.Sdk.Common;
+using SwedbankPay.Sdk.PaymentInstruments;
+using SwedbankPay.Sdk.PaymentInstruments.Swish;
 using SwedbankPay.Sdk.Tests.TestBuilders;
 
 using Xunit;
@@ -89,8 +89,8 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             var paymentRequest = this.paymentRequestBuilder.WithSwishTestValues(this.payeeId).BuildSwishPaymentRequest();
             var swishPayment = await this.Sut.Payments.SwishPayments.Create(paymentRequest, PaymentExpand.All);
             Assert.NotNull(swishPayment);
-            Assert.NotNull(swishPayment.PaymentResponse);
-            Assert.Equal(paymentRequest.Payment.Metadata["key1"], swishPayment.PaymentResponse.Metadata["key1"]);
+            Assert.NotNull(swishPayment.Payment);
+            Assert.Equal(paymentRequest.Payment.Metadata["key1"], swishPayment.Payment.Metadata["key1"]);
         }
 
 

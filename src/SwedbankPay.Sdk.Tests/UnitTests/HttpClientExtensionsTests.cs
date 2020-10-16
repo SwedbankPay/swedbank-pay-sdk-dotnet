@@ -1,7 +1,8 @@
-﻿using SwedbankPay.Sdk.Exceptions;
+﻿using SwedbankPay.Sdk.Common;
+using SwedbankPay.Sdk.Exceptions;
 using SwedbankPay.Sdk.Extensions;
+using SwedbankPay.Sdk.PaymentInstruments;
 using SwedbankPay.Sdk.PaymentOrders;
-using SwedbankPay.Sdk.Payments;
 using SwedbankPay.Sdk.Tests.TestBuilders;
 using SwedbankPay.Sdk.Tests.TestHelpers;
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-
-using SwedbankPay.Sdk.Payments;
+using SwedbankPay.Sdk.Common;
+using SwedbankPay.Sdk.PaymentInstruments;
 using SwedbankPay.Sdk.Tests.TestBuilders;
 
 using Xunit;
@@ -73,7 +73,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             var creditCardPayment = await this.Sut.Payments.CardPayments.Create(paymentRequest, PaymentExpand.All);
 
             Assert.NotNull(creditCardPayment);
-            Assert.Equal(paymentRequest.Payment.Metadata["key1"], creditCardPayment.PaymentResponse.Metadata["key1"]);
+            Assert.Equal(paymentRequest.Payment.Metadata["key1"], creditCardPayment.Payment.Metadata["key1"]);
         }
     }
 }
