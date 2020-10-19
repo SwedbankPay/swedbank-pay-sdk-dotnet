@@ -158,7 +158,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             new Amount(0),
             "test",
             "test",
-            new System.Globalization.CultureInfo("no-nb"),
+            new Language("no-nb"),
             false,
             new Urls(new UrlsDto() { 
                 Id = GetUri(),

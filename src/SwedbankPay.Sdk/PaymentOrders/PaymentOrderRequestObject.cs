@@ -13,7 +13,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                                      Amount vatAmount,
                                                      string description,
                                                      string userAgent,
-                                                     CultureInfo language,
+                                                     Language language,
                                                      bool generateRecurrenceToken,
                                                      IUrls urls,
                                                      PayeeInfo payeeInfo,
@@ -73,7 +73,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <summary>
         ///     The language of the payer.
         /// </summary>
-        public CultureInfo Language { get; }
+        public Language Language { get; }
 
         /// <summary>
         ///     The keys and values that should be associated with the payment order. Can be additional identifiers and data you

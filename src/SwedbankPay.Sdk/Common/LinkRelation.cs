@@ -99,6 +99,7 @@ namespace SwedbankPay.Sdk.Common
 
         public static readonly LinkRelation DirectAuthorization = new LinkRelation(nameof(DirectAuthorization), PaymentResourceOperations.DirectAuthorization);
 
+        public LinkRelation(string name): base(name, name) { }
 
         public LinkRelation(string name, string value)
             : base(name, value)

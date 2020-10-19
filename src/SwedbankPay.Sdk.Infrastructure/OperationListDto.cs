@@ -18,7 +18,7 @@ namespace SwedbankPay.Sdk
 
         public override string ToString()
         {
-            return string.Join(", ", this.Select(o => o.Rel.Value));
+            return string.Join(", ", this.Select(o => o.Rel));
         }
 
         public IOperationList Map()
@@ -26,7 +26,8 @@ namespace SwedbankPay.Sdk
             var list = new OperationList();
             foreach (var item in this)
             {
-                list.Add(new HttpOperation(item.Href, item.Rel, item.Method, item.ContentType));
+                var rel = new LinkRelation(item.Rel);
+                list.Add(new HttpOperation(item.Href, rel, item.Method, item.ContentType));
             }
             return list;
         }

@@ -13,7 +13,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private CurrencyCode currency;
         private string description;
         private bool generateRecurrenceToken;
-        private CultureInfo language;
+        private Language language;
         private Dictionary<string, object> metadata;
         private Operation operation;
         private List<OrderItem> orderItems;
@@ -45,7 +45,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
 
         public PaymentOrderRequestBuilder WithLanguageCode(string code)
         {
-            this.language = new CultureInfo(code);
+            this.language = new Language(code);
             return this;
         }
 
@@ -94,7 +94,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
                 CancelUrl = new Uri("https://example.com/payment-canceled")
             });
             this.userAgent = "useragent";
-            this.language = new CultureInfo("sv-SE");
+            this.language = new Language("sv-SE");
             this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
             this.metadata = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
             return this;

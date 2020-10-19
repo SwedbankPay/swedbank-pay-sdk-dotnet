@@ -12,7 +12,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                    Amount vatAmount,
                                    string description,
                                    string userAgent,
-                                   CultureInfo language,
+                                   Language language,
                                    bool generateRecurrenceToken,
                                    IUrls urls,
                                    PayeeInfo payeeInfo,
