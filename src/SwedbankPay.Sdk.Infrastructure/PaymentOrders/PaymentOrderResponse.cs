@@ -7,7 +7,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
     {
         public PaymentOrderResponse(PaymentOrderResponseDto paymentOrder, HttpClient httpClient)
         {
-            Operations = new PaymentOrderOperations(paymentOrder.Operations, httpClient);
+            Operations = new PaymentOrderOperations(paymentOrder.Operations.Map(), httpClient);
             PaymentOrder = new PaymentOrder(paymentOrder.PaymentOrder);
         }
 

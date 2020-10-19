@@ -33,7 +33,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
                 Description,
                 PayeeReference,
                 IsOperational,
-                Operations,
+                Operations.Map(),
                 Activity
                 );
         }
