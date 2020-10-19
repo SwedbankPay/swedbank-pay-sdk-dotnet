@@ -7,7 +7,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 
         public MobilePayPaymentResponse(MobilePayPaymentResponseDto mobilePayPaymentResponseDto, HttpClient httpClient)
         {
-            Operations = new MobilePayPaymentOperations(mobilePayPaymentResponseDto.Operations.Map(), httpClient);
+            Operations = new MobilePayPaymentOperations(mobilePayPaymentResponseDto.Operations, httpClient);
             Payment = new MobilePayPayment(mobilePayPaymentResponseDto.Payment);
         }
 

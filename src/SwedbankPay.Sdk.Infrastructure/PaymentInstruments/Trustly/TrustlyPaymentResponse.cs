@@ -7,7 +7,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
         public TrustlyPaymentResponse(TrustlyPaymentResponseDto trustlyPaymentResponseDto, HttpClient httpClient)
         {
             Payment = new TrustlyPayment(trustlyPaymentResponseDto.Payment);
-            Operations = new TrustlyPaymentOperations(trustlyPaymentResponseDto.Operations.Map(), httpClient);
+            Operations = new TrustlyPaymentOperations(trustlyPaymentResponseDto.Operations, httpClient);
         }
 
         public ITrustlyPayment Payment { get; set; }

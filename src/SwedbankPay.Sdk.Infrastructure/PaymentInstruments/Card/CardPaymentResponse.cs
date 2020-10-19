@@ -6,7 +6,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
     {
         internal CardPaymentResponse(CardPaymentResponseDto cardPaymentResponseDto, HttpClient httpClient)
         {
-            Operations = new CardPaymentOperations(cardPaymentResponseDto.Operations.Map(), httpClient);
+            Operations = new CardPaymentOperations(cardPaymentResponseDto.Operations, httpClient);
             Payment = new CardPayment(cardPaymentResponseDto.Payment);
         }
 

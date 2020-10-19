@@ -33,7 +33,7 @@ namespace SwedbankPay.Sdk.Extensions
 
             if (payload != null)
             {
-                var content = JsonSerializer.Serialize(payload, payload.GetType(), JsonSerialization.JsonSerialization.Settings); ;
+                var content = JsonSerializer.Serialize(payload, payload.GetType(), JsonSerialization.JsonSerialization.Settings);
                 httpRequestMessage.Content = new StringContent(content, Encoding.UTF8, "application/json");
             }
 

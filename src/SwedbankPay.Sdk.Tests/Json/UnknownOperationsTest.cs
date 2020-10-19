@@ -20,7 +20,7 @@ namespace SwedbankPay.Sdk.Tests.Json
         {
             var paymentResponse = JsonSerializer.Deserialize<CardPaymentResponseDto>(TestResponse, JsonSerialization.JsonSerialization.Settings);
             var client = new HttpClient();
-            var operations = new CardPaymentOperations(paymentResponse.Operations.Map(), client);
+            var operations = new CardPaymentOperations(paymentResponse.Operations, client);
             
             Assert.Contains(operations, a => a.Key.Name.Equals(TestOperationName, System.StringComparison.OrdinalIgnoreCase));
             Assert.Contains(operations, a => a.Key.Value.Equals(TestOperationName, System.StringComparison.OrdinalIgnoreCase));
@@ -31,7 +31,7 @@ namespace SwedbankPay.Sdk.Tests.Json
         {
             var paymentResponse = JsonSerializer.Deserialize<CardPaymentResponseDto>(TestResponse, JsonSerialization.JsonSerialization.Settings);
             var client = new HttpClient();
-            var operations = new CardPaymentOperations(paymentResponse.Operations.Map(), client);
+            var operations = new CardPaymentOperations(paymentResponse.Operations, client);
             var testLinkRelation = new LinkRelation(TestOperationName, TestOperationName);
 
             Assert.True(operations.ContainsKey(testLinkRelation), "Missing link relation in Operation list");

@@ -11,7 +11,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
                                HttpClient httpClient)
         {
             Payment = new SwishPayment(payment.Payment);
-            Operations = new SwishPaymentOperations(payment.Operations.Map(), httpClient);
+            Operations = new SwishPaymentOperations(payment.Operations, httpClient);
         }
 
         public ISwishPayment Payment { get; set; }

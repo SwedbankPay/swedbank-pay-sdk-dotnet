@@ -50,9 +50,13 @@ namespace SwedbankPay.Sdk.Consumers
         /// </summary>
         /// <param name="consumersRequest"></param>
         /// <returns></returns>
-        public Task<IConsumer> InitiateSession(ConsumersRequest consumersRequest)
+        public async Task<IConsumersResponse> InitiateSession(ConsumersRequest consumersRequest)
         {
-            return Consumer.Initiate(consumersRequest, this.HttpClient);
+            var url = new Uri("/psp/consumers", UriKind.Relative);
+
+            var consumerResponse = await HttpClient.PostAsJsonAsync<ConsumersResponseDto>(url, consumersRequest);
+
+            return new ConsumersResponse(consumerResponse);
         }
 
 

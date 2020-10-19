@@ -60,8 +60,8 @@ namespace SwedbankPay.Sdk.JsonSerialization.Converters
                 return;
             else
             {
-                string enumValue = Enum.GetName(value.GetType(), value.Value);
-                writer.WriteStringValue(enumValue);
+                //string enumValue = Enum.GetName(value.GetType(), value.Value);
+                writer.WriteStringValue(value.Value.ToString());
             }   
         }
     }

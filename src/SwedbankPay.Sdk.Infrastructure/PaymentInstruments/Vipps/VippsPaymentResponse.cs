@@ -6,7 +6,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
     {
         public VippsPaymentResponse(VippsPaymentResponseDto paymentResponse, HttpClient httpClient)
         {
-            Operations = new VippsPaymentOperations(paymentResponse.Operations.Map(), httpClient);
+            Operations = new VippsPaymentOperations(paymentResponse.Operations, httpClient);
             Payment = new VippsPayment(paymentResponse.Payment);
         }
 
