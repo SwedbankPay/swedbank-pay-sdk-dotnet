@@ -2,13 +2,14 @@
 using System;
 using SwedbankPay.Sdk.PaymentInstruments;
 using SwedbankPay.Sdk.Common;
+using SwedbankPay.Sdk.PaymentInstruments.Card;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
     public interface ICurrentPaymentResponseObject
     {
         Amount Amount { get; }
-        IPaymentAuthorizationListResponse Authorizations { get; }
+        ICardPaymentAuthorizationListResponse Authorizations { get; }
         ICancellationsListResponse Cancellations { get; }
         ICapturesListResponse Captures { get; }
         DateTime Created { get; }

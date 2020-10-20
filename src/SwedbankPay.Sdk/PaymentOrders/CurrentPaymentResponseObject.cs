@@ -2,6 +2,7 @@
 using System;
 using SwedbankPay.Sdk.PaymentInstruments;
 using SwedbankPay.Sdk.Common;
+using SwedbankPay.Sdk.PaymentInstruments.Card;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
@@ -12,7 +13,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                             DateTime created,
                                             DateTime updated,
                                             Amount amount,
-                                            IPaymentAuthorizationListResponse authorizations,
+                                            ICardPaymentAuthorizationListResponse authorizations,
                                             ICancellationsListResponse cancellations,
                                             ICapturesListResponse captures,
                                             CurrencyCode currency,
@@ -62,7 +63,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public DateTime Created { get; }
         public DateTime Updated { get; }
         public Amount Amount { get; }
-        public IPaymentAuthorizationListResponse Authorizations { get; }
+        public ICardPaymentAuthorizationListResponse Authorizations { get; }
         public ICancellationsListResponse Cancellations { get; }
         public ICapturesListResponse Captures { get; }
         public CurrencyCode Currency { get; }

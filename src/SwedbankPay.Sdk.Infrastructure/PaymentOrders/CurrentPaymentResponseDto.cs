@@ -1,6 +1,8 @@
 ﻿using SwedbankPay.Sdk.Common;
 using SwedbankPay.Sdk.PaymentInstruments;
+using SwedbankPay.Sdk.PaymentInstruments.Card;
 using System;
+using System.Diagnostics;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
@@ -12,35 +14,98 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
         internal ICurrentPaymentResponse Map()
         {
-            var payment = new CurrentPaymentResponseObject(Payment)
-            return new CurrentPaymentResponse(PaymentOrder, MenuElementName, Payment);
+            var payment = new CurrentPaymentResponseObject(Payment.Number,
+                                                            Enum.Parse<PaymentInstrument>(Payment.Instrument),
+                                                            Payment.Created,
+                                                            Payment.Updated,
+                                                            Payment.Amount,
+                                                            Payment.Authorizations,
+                                                            Payment.Cancellations,
+                                                            Payment.Captures,
+                                                            Payment.Currency,
+                                                            Payment.Description,
+                                                            Payment.Intent,
+                                                            Payment.Language,
+                                                            Payment.Operation,
+                                                            Payment.PayeeInfo,
+                                                            Payment.PayerReference,
+                                                            Payment.PaymentToken,
+                                                            Payment.Prices,
+                                                            Payment.Reversals,
+                                                            Payment.State,
+                                                            Payment.Transactions,
+                                                            Payment.Urls,
+                                                            Payment.UserAgent,
+                                                            Payment.Sales);
+            return new CurrentPaymentResponse(PaymentOrder, MenuElementName, payment);
         }
     }
 
     public class PaymentResponseDto
     {
-        public string Number { get; }
-        public string Instrument { get; }
-        public DateTime Created { get; }
-        public DateTime Updated { get; }
-        public int Amount { get; }
-        public TransactionListResponseDto Authorizations { get; }
-        public TransactionListResponseDto Cancellations { get; }
-        public TransactionListResponseDto Captures { get; }
-        public string Currency { get; }
-        public string Description { get; }
-        public string Intent { get; }
-        public string Language { get; }
-        public string Operation { get; }
-        public PayeeInfoDto PayeeInfo { get; }
-        public string PayerReference { get; }
-        public string PaymentToken { get; }
-        public PricesListResponseDto Prices { get; }
-        public TransactionListResponseDto Reversals { get; }
-        public string State { get; }
-        public TransactionListResponseDto Transactions { get; }
-        public IdLink Urls { get; }
-        public string UserAgent { get; }
-        public TransactionListResponseDto Sales { get; }
+        public string Number { get; set; }
+        public string Instrument { get; set; }
+        public DateTime Created { get; set; }
+        public DateTime Updated { get; set; }
+        public int Amount { get; set; }
+        public AuthorizationTransactionResponseDto Authorizations { get; set; }
+        public CancellationTransactionResponseDto Cancellations { get; set; }
+        public CaptureTransactionResponseDto Captures { get; set; }
+        public string Currency { get; set; }
+        public string Description { get; set; }
+        public string Intent { get; set; }
+        public string Language { get; set; }
+        public string Operation { get; set; }
+        public PayeeInfoDto PayeeInfo { get; set; }
+        public string PayerReference { get; set; }
+        public string PaymentToken { get; set; }
+        public PricesListResponseDto Prices { get; set; }
+        public TransactionListResponseDto Reversals { get; set; }
+        public string State { get; set; }
+        public TransactionListResponseDto Transactions { get; set; }
+        public IdLink Urls { get; set; }
+        public string UserAgent { get; set; }
+        public TransactionListResponseDto Sales { get; set; }
     }
+
+    public class CaptureTransactionResponseDto
+    {
+        public IdLink Id { get; set; }
+        public string Payment { get; set; }
+        public PaymentOrderTransactionDto Capture { get; set; }
+    }
+
+    public class PaymentOrderTransactionDto
+    {
+        public string Id { get; set; }
+        public PaymentOrderTransactionsTransactionDto Transaction { get; set; }
+    }
+
+    public class PaymentOrderTransactionsTransactionDto
+    {
+        public string Id { get; set; }
+        public string Created { get; set; }
+        public string Updated { get; set; }
+        public string Type { get; set; }
+        public string State { get; set; }
+        public string Number { get; set; }
+        public int Amount { get; set; }
+        public int VatAmount { get; set; }
+        public string Description { get; set; }
+        public string PayeeReference { get; set; }
+    }
+
+    public class CancellationTransactionResponseDto
+    {
+        public string Payment { get; set; }
+        public PaymentOrderTransactionDto Transaction { get; set; }
+    }
+
+
+    public class AuthorizationTransactionResponseDto
+    {
+        public string Payment { get; set; }
+        public PaymentOrderTransactionDto Authorizaiton { get; set; }
+    }
+
 }

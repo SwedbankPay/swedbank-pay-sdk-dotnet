@@ -50,7 +50,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 
         public Amount RemainingReversalAmount { get; }
 
-        public IPaymentAuthorizationListResponse Authorizations { get; }
+        public ICardPaymentAuthorizationListResponse Authorizations { get; }
 
         public ICancellationsListResponse Cancellations { get; }
 

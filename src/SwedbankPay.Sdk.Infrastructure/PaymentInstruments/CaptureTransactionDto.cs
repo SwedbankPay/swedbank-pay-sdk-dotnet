@@ -3,8 +3,9 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
-    public class CaptureTransactionDto : List<TransactionDto>
+    public class CaptureTransactionDto
     {
+
         internal ICapturesListResponse Map() => throw new NotImplementedException();
     }
 }

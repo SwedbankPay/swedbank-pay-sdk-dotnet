@@ -3,8 +3,13 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
-    public class CardPaymentAuthorizationListResponse : IdLink, IPaymentAuthorizationListResponse
+    public class CardPaymentAuthorizationListResponse : IdLink, ICardPaymentAuthorizationListResponse
     {
+        public CardPaymentAuthorizationListResponse(List<IPaymentAuthorization> authorizationList)
+        {
+            AuthorizationList = authorizationList;
+        }
+
         public List<IPaymentAuthorization> AuthorizationList { get; }
     }
 }
