@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
-    public interface ISaleListItem
+    public interface ISwishSaleListItem
     {
         public DateTime Date { get; }
         public Uri Id { get; }

@@ -25,7 +25,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         string PaymentToken { get; }
         IPricesListResponse Prices { get; }
         IReversalsListResponse Reversals { get; }
-        ISaleListResponse Sales { get; }
+        ISwishSaleListResponse Sales { get; }
         State State { get; }
         ITransactionListResponse Transactions { get; }
         DateTime Updated { get; }

@@ -1,6 +1,4 @@
-﻿using SwedbankPay.Sdk.PaymentInstruments;
-using System.Net.Http;
-using System.Text.Json.Serialization;
+﻿using System.Net.Http;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {

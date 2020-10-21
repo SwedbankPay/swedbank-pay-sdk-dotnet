@@ -6,12 +6,12 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
     {
         public List<SaleListItemDto> Sales { get; set; }
         
-        internal ISaleListResponse Map()
+        internal ISwishSaleListResponse Map()
         {
-            var saleList = new List<ISaleListItem>();
+            var saleList = new List<ISwishSaleListItem>();
             foreach (var item in Sales)
             {
-                saleList.Add(new SaleListItem(item.Date,
+                saleList.Add(new SwishSaleListItem(item.Date,
                                                item.PaymentRequestToken,
                                                item.PayerAlias,
                                                item.SwishPaymentReference,

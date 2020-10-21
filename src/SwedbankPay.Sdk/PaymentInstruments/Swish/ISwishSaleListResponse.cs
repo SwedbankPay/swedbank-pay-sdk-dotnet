@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
-    public interface ISaleListResponse
+    public interface ISwishSaleListResponse
     {
         public Uri Id { get; }
-        public List<ISaleListItem> SaleList { get; }
+        public List<ISwishSaleListItem> SaleList { get; }
     }
 }

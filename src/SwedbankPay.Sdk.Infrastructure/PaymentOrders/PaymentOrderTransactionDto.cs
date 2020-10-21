@@ -1,10 +1,12 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrders
+﻿using System;
+
+namespace SwedbankPay.Sdk.PaymentOrders
 {
     public class PaymentOrderTransactionDto
     {
         public string Id { get; set; }
-        public string Created { get; set; }
-        public string Updated { get; set; }
+        public DateTime Created { get; set; }
+        public DateTime Updated { get; set; }
         public string Type { get; set; }
         public string State { get; set; }
         public string Number { get; set; }

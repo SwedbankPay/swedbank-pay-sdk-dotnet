@@ -23,7 +23,7 @@ namespace SwedbankPay.Sdk
 
         internal IUrls Map()
         {
-            throw new NotImplementedException();
+            return new Urls(this);
         }
     }
 }

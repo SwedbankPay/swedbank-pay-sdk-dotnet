@@ -1,9 +1,7 @@
 ﻿using SwedbankPay.Sdk.Common;
 using SwedbankPay.Sdk.PaymentInstruments;
-using SwedbankPay.Sdk.PaymentInstruments.Card;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
