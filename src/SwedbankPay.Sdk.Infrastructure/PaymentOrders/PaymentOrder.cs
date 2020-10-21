@@ -8,7 +8,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
     {
         public PaymentOrder(PaymentOrderDto paymentOrder)
         {
-            Id = paymentOrder.Id;
+            Id = new Uri(paymentOrder.Id, UriKind.RelativeOrAbsolute);
             Amount = paymentOrder.Amount;
             Created = paymentOrder.Created;
             Currency = new CurrencyCode(paymentOrder.Currency);
@@ -19,8 +19,8 @@ namespace SwedbankPay.Sdk.PaymentOrders
             Operation = paymentOrder.Operation;
             OrderItems = paymentOrder.OrderItems.Map();
             PayeeInfo = paymentOrder.PayeeInfo.Map();
-            Payers = paymentOrder.Payers.Map();
-            Payments = paymentOrder.Payments;
+            Payers = paymentOrder.Payer.Map();
+            Payments = paymentOrder.Payments.Map();
             RemainingCancellationAmount = paymentOrder.RemainingCancellationAmount;
             RemainingCaptureAmount = paymentOrder.RemainingCaptureAmount;
             RemainingReversalAmount = paymentOrder.RemainingReversalAmount;

@@ -9,7 +9,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
     public interface ICurrentPaymentResponseObject
     {
         Amount Amount { get; }
-        ICardPaymentAuthorizationListResponse Authorizations { get; }
+        IPaymentAuthorizationListResponse Authorizations { get; }
         ICancellationsListResponse Cancellations { get; }
         ICapturesListResponse Captures { get; }
         DateTime Created { get; }

@@ -6,8 +6,6 @@ namespace SwedbankPay.Sdk
     public class PayeeInfoDto
     {
         public string Id { get; set; }
-        public string CorporationId { get; set; }
-        public string CorporationName { get; set; }
         public string OrderReference { get; set; }
 
         public Guid PayeeId { get; set; }

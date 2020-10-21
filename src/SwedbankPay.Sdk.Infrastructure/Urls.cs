@@ -9,32 +9,14 @@ namespace SwedbankPay.Sdk
         public Urls(UrlsDto urls)
         {
             HostUrls = urls.HostUrls ?? throw new ArgumentNullException(nameof(urls.HostUrls), $"{nameof(urls.HostUrls)} is required.");
-            CompleteUrl = urls.CompleteUrl ?? throw new ArgumentNullException(nameof(urls.CompleteUrl), $"{nameof(urls.CompleteUrl)} is required.");
-            TermsOfServiceUrl = urls.TermsOfServiceUrl
+            CompleteUrl = new Uri(urls.CompleteUrl, UriKind.RelativeOrAbsolute) ?? throw new ArgumentNullException(nameof(urls.CompleteUrl), $"{nameof(urls.CompleteUrl)} is required.");
+            TermsOfServiceUrl = new Uri(urls.TermsOfServiceUrl, UriKind.RelativeOrAbsolute)
                                 ?? throw new ArgumentNullException(nameof(urls.TermsOfServiceUrl), $"{nameof(urls.TermsOfServiceUrl)} is required.");
-            CancelUrl = urls.CancelUrl;
-            PaymentUrl = urls.PaymentUrl;
-            CallbackUrl = urls.CallbackUrl;
-            LogoUrl = urls.LogoUrl;
+            CancelUrl = new Uri(urls.CancelUrl, UriKind.RelativeOrAbsolute) ?? null;
+            PaymentUrl = new Uri(urls.PaymentUrl, UriKind.RelativeOrAbsolute) ?? null;
+            CallbackUrl = new Uri(urls.CallbackUrl, UriKind.RelativeOrAbsolute) ?? null;
+            LogoUrl = new Uri(urls.LogoUrl, UriKind.RelativeOrAbsolute) ?? null;
         }
-
-        public Urls(ICollection<Uri> hostUrls,
-                    Uri completeUrl,
-                    Uri termsOfServiceUrl,
-                    Uri cancelUrl = null,
-                    Uri paymentUrl = null,
-                    Uri callbackUrl = null,
-                    Uri logoUrl = null)
-        {
-            HostUrls = hostUrls ?? throw new ArgumentNullException(nameof(hostUrls), $"{nameof(hostUrls)} is required."); ;
-            CompleteUrl = completeUrl ?? throw new ArgumentNullException(nameof(completeUrl), $"{nameof(completeUrl)} is required."); ;
-            TermsOfServiceUrl = termsOfServiceUrl ?? throw new ArgumentNullException(nameof(termsOfServiceUrl), $"{nameof(termsOfServiceUrl)} is required."); ;
-            CancelUrl = cancelUrl;
-            PaymentUrl = paymentUrl;
-            CallbackUrl = callbackUrl;
-            LogoUrl = logoUrl;
-        }
-
 
         /// <summary>
         ///     The URI to the API endpoint receiving  POST requests on transaction activity related to the payment order.

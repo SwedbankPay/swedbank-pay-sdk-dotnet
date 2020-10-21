@@ -128,9 +128,9 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.urls = new Urls(new UrlsDto
             {
                 HostUrls = new List<Uri> { new Uri("https://example.com") },
-                CallbackUrl = new Uri("https://example.com/payment-completed"),
-                TermsOfServiceUrl = new Uri("https://example.com/termsandconditoons.pdf"),
-                CancelUrl = new Uri("https://example.com/payment-canceled")
+                CallbackUrl = "https://example.com/payment-completed",
+                TermsOfServiceUrl = "https://example.com/termsandconditoons.pdf",
+                CancelUrl = "https://example.com/payment-canceled"
             });
             this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
             this.generatePaymentToken = false;
@@ -158,9 +158,9 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.urls = new Urls(new UrlsDto
             {
                 HostUrls = new List<Uri> { new Uri("https://example.com") },
-                CallbackUrl = new Uri("https://example.com/payment-completed"),
-                TermsOfServiceUrl = new Uri("https://example.com/termsandconditoons.pdf"),
-                CancelUrl = new Uri("https://example.com/payment-canceled")
+                CallbackUrl = "https://example.com/payment-completed",
+                TermsOfServiceUrl = "https://example.com/termsandconditoons.pdf",
+                CancelUrl = "https://example.com/payment-canceled"
             });
             this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
             this.prefillInfo = new PrefillInfo(new Msisdn("+46701234567"));
@@ -188,9 +188,9 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.urls = new Urls(new UrlsDto
             {
                 HostUrls = new List<Uri> { new Uri("https://example.com") },
-                CallbackUrl = new Uri("https://example.com/payment-completed"),
-                TermsOfServiceUrl = new Uri("https://example.com/termsandconditoons.pdf"),
-                CancelUrl = new Uri("https://example.com/payment-canceled")
+                CallbackUrl = "https://example.com/payment-completed",
+                TermsOfServiceUrl = "https://example.com/termsandconditoons.pdf",
+                CancelUrl = "https://example.com/payment-canceled"
             });
             this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
             this.generatePaymentToken = false;
@@ -216,9 +216,9 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.urls = new Urls(new UrlsDto
             {
                 HostUrls = new List<Uri> { new Uri("https://example.com") },
-                CallbackUrl = new Uri("https://example.com/payment-completed"),
-                TermsOfServiceUrl = new Uri("https://example.com/termsandconditoons.pdf"),
-                CancelUrl = new Uri("https://example.com/payment-canceled")
+                CallbackUrl = "https://example.com/payment-completed",
+                TermsOfServiceUrl = "https://example.com/termsandconditoons.pdf",
+                CancelUrl = "https://example.com/payment-canceled"
             });
             this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
             this.generatePaymentToken = false;
@@ -245,9 +245,9 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.urls = new Urls(new UrlsDto
             {
                 HostUrls = new List<Uri> { new Uri("https://example.com") },
-                CallbackUrl = new Uri("https://example.com/payment-completed"),
-                TermsOfServiceUrl = new Uri("https://example.com/termsandconditoons.pdf"),
-                CancelUrl = new Uri("https://example.com/payment-canceled")
+                CallbackUrl = "https://example.com/payment-completed",
+                TermsOfServiceUrl = "https://example.com/termsandconditoons.pdf",
+                CancelUrl = "https://example.com/payment-canceled"
             });
             this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString(), "payeeName", "productCategory");
             this.prefillInfo = new PrefillInfo(new Msisdn("+46701234567"));
@@ -281,9 +281,9 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.urls = new Urls(new UrlsDto
             {
                 HostUrls = new List<Uri> { new Uri("https://example.com") },
-                CallbackUrl = new Uri("https://example.com/payment-completed"),
-                TermsOfServiceUrl = new Uri("https://example.com/termsandconditoons.pdf"),
-                CancelUrl = new Uri("https://example.com/payment-canceled")
+                CallbackUrl = "https://example.com/payment-completed",
+                TermsOfServiceUrl = "https://example.com/termsandconditoons.pdf",
+                CancelUrl = "https://example.com/payment-canceled"
             });
             this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
             this.amount = new Amount(1600);

@@ -13,7 +13,7 @@ namespace SwedbankPay.Sdk
 
         public string CompleteUrl { get; set; }
 
-        public ICollection<string> HostUrls { get; set; }
+        public ICollection<Uri> HostUrls { get; set; }
 
         public string LogoUrl { get; set; }
 

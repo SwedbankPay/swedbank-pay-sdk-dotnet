@@ -161,10 +161,10 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             new Language("no-nb"),
             false,
             new Urls(new UrlsDto() { 
-                Id = GetUri(),
+                Id = GetUri().AbsoluteUri,
                 HostUrls = new List<Uri> { GetUri() },
-                CallbackUrl = GetUri(),
-                CompleteUrl = GetUri()
+                CallbackUrl = GetUri().AbsoluteUri,
+                CompleteUrl = GetUri().AbsoluteUri
             }),
             new PayeeInfo(Guid.Empty, "test")
             );
