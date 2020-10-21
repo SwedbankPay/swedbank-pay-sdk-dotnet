@@ -72,16 +72,16 @@ namespace SwedbankPay.Sdk.PaymentOrders
     {
         public IdLink Id { get; set; }
         public string Payment { get; set; }
-        public PaymentOrderTransactionDto Capture { get; set; }
+        public PaymentOrderTransactionListDto Capture { get; set; }
+    }
+
+    public class PaymentOrderTransactionListDto
+    {
+        public string Id { get; set; }
+        public PaymentOrderTransactionDto Transaction { get; set; }
     }
 
     public class PaymentOrderTransactionDto
-    {
-        public string Id { get; set; }
-        public PaymentOrderTransactionsTransactionDto Transaction { get; set; }
-    }
-
-    public class PaymentOrderTransactionsTransactionDto
     {
         public string Id { get; set; }
         public string Created { get; set; }
@@ -98,14 +98,14 @@ namespace SwedbankPay.Sdk.PaymentOrders
     public class CancellationTransactionResponseDto
     {
         public string Payment { get; set; }
-        public PaymentOrderTransactionDto Transaction { get; set; }
+        public PaymentOrderTransactionListDto Transaction { get; set; }
     }
 
 
     public class AuthorizationTransactionResponseDto
     {
         public string Payment { get; set; }
-        public PaymentOrderTransactionDto Authorizaiton { get; set; }
+        public PaymentOrderTransactionListDto Authorizaiton { get; set; }
     }
 
 }
