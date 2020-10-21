@@ -6,20 +6,20 @@ namespace SwedbankPay.Sdk
 {
     public class UrlsDto
     {
-        public Uri Id { get; set; }
-        public Uri CallbackUrl { get; set; }
+        public string Id { get; set; }
+        public string CallbackUrl { get; set; }
 
-        public Uri CancelUrl { get; set; }
+        public string CancelUrl { get; set; }
 
-        public Uri CompleteUrl { get; set; }
+        public string CompleteUrl { get; set; }
 
-        public ICollection<Uri> HostUrls { get; set; }
+        public ICollection<string> HostUrls { get; set; }
 
-        public Uri LogoUrl { get; set; }
+        public string LogoUrl { get; set; }
 
-        public Uri PaymentUrl { get; set; }
+        public string PaymentUrl { get; set; }
 
-        public Uri TermsOfServiceUrl { get; set; }
+        public string TermsOfServiceUrl { get; set; }
 
         internal IUrls Map()
         {

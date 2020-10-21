@@ -5,17 +5,20 @@ namespace SwedbankPay.Sdk
 {
     public class PayeeInfoDto
     {
-        public string OrderReference { get; }
+        public string Id { get; set; }
+        public string CorporationId { get; set; }
+        public string CorporationName { get; set; }
+        public string OrderReference { get; set; }
 
-        public Guid PayeeId { get; }
+        public Guid PayeeId { get; set; }
 
-        public string PayeeName { get; }
+        public string PayeeName { get; set; }
 
-        public string PayeeReference { get; }
+        public string PayeeReference { get; set; }
 
-        public string ProductCategory { get; }
+        public string ProductCategory { get; set; }
 
-        public string Subsite { get; }
+        public string Subsite { get; set; }
 
         internal PayeeInfo Map()
         {
