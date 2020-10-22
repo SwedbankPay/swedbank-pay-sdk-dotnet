@@ -24,7 +24,7 @@ namespace SwedbankPay.Sdk.Common
         public string PanToken { get; }
         public string PaymentToken { get; }
         public string RecurrenceToken { get; }
-        public CardPaymentAuthorizationRequestTransaction Transaction { get; }
+        public ICardPaymentAuthorizationRequestTransaction Transaction { get; }
         public string TransactionInitiator { get; }
     }
 }
