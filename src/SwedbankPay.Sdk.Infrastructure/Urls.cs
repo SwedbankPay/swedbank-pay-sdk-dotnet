@@ -12,10 +12,25 @@ namespace SwedbankPay.Sdk
             CompleteUrl = new Uri(urls.CompleteUrl, UriKind.RelativeOrAbsolute) ?? throw new ArgumentNullException(nameof(urls.CompleteUrl), $"{nameof(urls.CompleteUrl)} is required.");
             TermsOfServiceUrl = new Uri(urls.TermsOfServiceUrl, UriKind.RelativeOrAbsolute)
                                 ?? throw new ArgumentNullException(nameof(urls.TermsOfServiceUrl), $"{nameof(urls.TermsOfServiceUrl)} is required.");
-            CancelUrl = new Uri(urls.CancelUrl, UriKind.RelativeOrAbsolute) ?? null;
-            PaymentUrl = new Uri(urls.PaymentUrl, UriKind.RelativeOrAbsolute) ?? null;
-            CallbackUrl = new Uri(urls.CallbackUrl, UriKind.RelativeOrAbsolute) ?? null;
-            LogoUrl = new Uri(urls.LogoUrl, UriKind.RelativeOrAbsolute) ?? null;
+            if (urls.CancelUrl != null)
+            {
+                CancelUrl = new Uri(urls.CancelUrl, UriKind.RelativeOrAbsolute);
+            }
+
+            if (urls.PaymentUrl != null)
+            {
+                PaymentUrl = new Uri(urls.PaymentUrl, UriKind.RelativeOrAbsolute);
+            }
+
+            if (urls.CallbackUrl != null)
+            {
+                CallbackUrl = new Uri(urls.CallbackUrl, UriKind.RelativeOrAbsolute);
+            }
+
+            if (urls.LogoUrl != null)
+            {
+                LogoUrl = new Uri(urls.LogoUrl, UriKind.RelativeOrAbsolute);
+            }
         }
 
         /// <summary>

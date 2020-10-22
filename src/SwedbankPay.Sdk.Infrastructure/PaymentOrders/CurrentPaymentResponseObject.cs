@@ -8,6 +8,33 @@ namespace SwedbankPay.Sdk.PaymentOrders
 {
     public class CurrentPaymentResponseObject : IdLink, ICurrentPaymentResponseObject
     {
+        public CurrentPaymentResponseObject(PaymentOrderPaymentDto payment)
+        {
+            Number = payment.Number;
+            Instrument = payment.Instrument;
+            Created = payment.Created;
+            Updated = payment.Updated;
+            Amount = payment.Amount;
+            Authorizations = payment.Authorizations;
+            Cancellations = payment.Cancellations;
+            Captures = payment.Captures;
+            Currency = payment.Currency;
+            Description = payment.Description;
+            Intent = payment.Intent;
+            Language = payment.Language;
+            Operation = payment.Operation;
+            PayeeInfo = payment.PayeeInfo;
+            PayerReference = payment.PayerReference;
+            PaymentToken = payment.PaymentToken;
+            Prices = payment.Prices;
+            Reversals = payment.Reversals;
+            State = payment.State;
+            Transactions = payment.Transactions;
+            Urls = payment.Urls;
+            UserAgent = payment.UserAgent;
+            Sales = payment.Sales;
+        }
+
         public CurrentPaymentResponseObject(string number,
                                             PaymentInstrument instrument,
                                             DateTime created,
