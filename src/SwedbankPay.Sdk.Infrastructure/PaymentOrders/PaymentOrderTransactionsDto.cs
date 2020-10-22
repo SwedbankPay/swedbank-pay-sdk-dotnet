@@ -7,7 +7,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
     public class PaymentOrderTransactionsDto
     {
         public string Id { get; set; }
-        public List<PaymentOrderTransactionListDto> TransactionList { get; set; }
+        public List<PaymentOrderTransactionDto> TransactionList { get; set; }
 
         internal ITransactionListResponse Map()
         {

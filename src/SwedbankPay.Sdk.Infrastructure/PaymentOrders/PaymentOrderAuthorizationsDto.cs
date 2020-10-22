@@ -6,7 +6,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
     public class PaymentOrderAuthorizationsDto
     {
         public string Id { get; set; }
-        public List<PaymentOrderTransactionListDto> AuthorizationList { get; set; }
+        public List<PaymentOrderTransactionDto> AuthorizationList { get; set; }
 
         internal IPaymentAuthorizationListResponse Map()
         {

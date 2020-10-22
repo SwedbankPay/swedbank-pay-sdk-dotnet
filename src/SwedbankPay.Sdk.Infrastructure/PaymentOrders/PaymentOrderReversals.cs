@@ -1,4 +1,5 @@
 ﻿using SwedbankPay.Sdk.PaymentInstruments;
+using SwedbankPay.Sdk.PaymentInstruments.Card;
 using System;
 using System.Collections.Generic;
 
@@ -11,7 +12,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
         internal IReversalsListResponse Map()
         {
-            throw new NotImplementedException();
+            return new ReversalsListResponse(new Uri(Id, UriKind.RelativeOrAbsolute), ReversalList);
         }
     }
 }

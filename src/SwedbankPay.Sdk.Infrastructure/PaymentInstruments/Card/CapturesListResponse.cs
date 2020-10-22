@@ -6,13 +6,13 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
     public class CapturesListResponse : IdLink, ICapturesListResponse
     {
-        public CapturesListResponse(Uri id, List<TransactionResponse> captureList)
+        public CapturesListResponse(Uri id, List<ITransactionResponse> captureList)
         {
             Id = id;
             CaptureList = captureList;
         }
 
 
-        public List<TransactionResponse> CaptureList { get; }
+        public List<ITransactionResponse> CaptureList { get; }
     }
 }

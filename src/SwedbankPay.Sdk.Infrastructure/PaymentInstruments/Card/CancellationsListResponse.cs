@@ -6,13 +6,13 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
     public class CancellationsListResponse : IdLink, ICancellationsListResponse
     {
-        public CancellationsListResponse(Uri id, List<TransactionResponse> cancellationList)
+        public CancellationsListResponse(Uri id, List<ITransactionResponse> cancellationList)
         {
             Id = id;
             CancellationList = cancellationList;
         }
 
 
-        public List<TransactionResponse> CancellationList { get; }
+        public List<ITransactionResponse> CancellationList { get; }
     }
 }
