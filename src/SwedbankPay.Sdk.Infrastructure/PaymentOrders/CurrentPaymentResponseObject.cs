@@ -11,28 +11,28 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public CurrentPaymentResponseObject(PaymentOrderPaymentDto payment)
         {
             Number = payment.Number;
-            Instrument = payment.Instrument;
+            Instrument = Enum.Parse<PaymentInstrument>(payment.Instrument);
             Created = payment.Created;
             Updated = payment.Updated;
             Amount = payment.Amount;
-            Authorizations = payment.Authorizations;
-            Cancellations = payment.Cancellations;
-            Captures = payment.Captures;
-            Currency = payment.Currency;
+            Authorizations = payment.Authorizations.Map();
+            Cancellations = payment.Cancellations.Map();
+            Captures = payment.Captures.Map();
+            Currency = new CurrencyCode(payment.Currency);
             Description = payment.Description;
-            Intent = payment.Intent;
-            Language = payment.Language;
+            Intent = Enum.Parse<PaymentIntent>(payment.Intent);
+            Language = new Language(payment.Language);
             Operation = payment.Operation;
-            PayeeInfo = payment.PayeeInfo;
+            PayeeInfo = payment.PayeeInfo.Map();
             PayerReference = payment.PayerReference;
             PaymentToken = payment.PaymentToken;
-            Prices = payment.Prices;
-            Reversals = payment.Reversals;
+            Prices = payment.Prices.Map();
+            Reversals = payment.Reversals.Map();
             State = payment.State;
-            Transactions = payment.Transactions;
-            Urls = payment.Urls;
+            Transactions = payment.Transactions.Map();
+            Urls = new IdLink { Id = new Uri(payment.Urls.Id, UriKind.RelativeOrAbsolute)};
             UserAgent = payment.UserAgent;
-            Sales = payment.Sales;
+            Sales = payment.Sales.Map();
         }
 
         public CurrentPaymentResponseObject(string number,
