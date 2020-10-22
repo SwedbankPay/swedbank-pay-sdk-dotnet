@@ -7,15 +7,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
     public class ReversalsListResponse : IdLink, IReversalsListResponse
     {
-        public ReversalsListResponse(Uri id, List<PaymentOrderReversalListDto> reversalList)
+        public ReversalsListResponse(Uri id, List<ITransactionResponse> reversalList)
         {
             Id = id;
-            ReversalList = new List<TransactionResponse>();
-            foreach (var rev in reversalList)
-            {
-                var item = new TransactionResponse(rev.Id, rev.Transaction);
-                ReversalList.Add(item);
-            }
+            ReversalList = reversalList;
         }
 
         public List<ITransactionResponse> ReversalList { get; }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
-    public class InvoicePaymentAuthorizationListResponse : IdLink
+    public class InvoicePaymentAuthorizationListResponse : IdLink, IInvoicePaymentAuthorizationListResponse
     {
         public InvoicePaymentAuthorizationListResponse(Uri id, List<IInvoicePaymentAuthorization> authorizationList)
         {
