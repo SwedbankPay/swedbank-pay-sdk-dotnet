@@ -4,6 +4,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments
 {
     public interface IReversalsListResponse
     {
-        List<TransactionResponse> ReversalList { get; }
+        List<ITransactionResponse> ReversalList { get; }
     }
 }

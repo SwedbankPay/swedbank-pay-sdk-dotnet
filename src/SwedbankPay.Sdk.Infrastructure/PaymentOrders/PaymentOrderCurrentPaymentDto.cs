@@ -13,8 +13,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         internal ICurrentPaymentResponse Map()
         {
             var payment = new CurrentPaymentResponseObject(Payment);
-            new CurrentPaymentResponse(new Uri(Id, UriKind.RelativeOrAbsolute), MenuElementName, payment);
-            throw new NotImplementedException();
+            return new CurrentPaymentResponse(new Uri(Id, UriKind.RelativeOrAbsolute), MenuElementName, payment);
         }
     }
 }
