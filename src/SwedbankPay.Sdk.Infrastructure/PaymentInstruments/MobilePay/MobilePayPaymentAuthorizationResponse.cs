@@ -10,9 +10,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
             Authorization = authorization;
         }
 
-
-        public MobilePayPaymentAuthorization Authorization { get; }
-
         public Uri Payment { get; }
+
+        public IMobilePayPaymentAuthorization Authorization { get; }
     }
 }

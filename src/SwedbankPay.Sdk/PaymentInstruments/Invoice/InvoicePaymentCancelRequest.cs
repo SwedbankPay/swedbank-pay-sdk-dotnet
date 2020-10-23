@@ -4,7 +4,7 @@
     {
         public InvoicePaymentCancelRequest(ICancelTransaction transaction)
         {
-            Transaction = Transaction;
+            Transaction = transaction;
         }
 
 

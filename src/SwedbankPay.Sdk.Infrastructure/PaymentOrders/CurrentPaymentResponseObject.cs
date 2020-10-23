@@ -1,8 +1,6 @@
-﻿using SwedbankPay.Sdk.PaymentInstruments.Swish;
-using System;
+﻿using System;
 using SwedbankPay.Sdk.PaymentInstruments;
 using SwedbankPay.Sdk.Common;
-using SwedbankPay.Sdk.PaymentInstruments.Card;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {

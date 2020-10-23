@@ -1,6 +1,4 @@
-﻿using SwedbankPay.Sdk.Common;
-using System;
-using System.Net.Http;
+﻿using System;
 
 namespace SwedbankPay.Sdk
 {

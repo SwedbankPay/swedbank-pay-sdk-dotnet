@@ -1,25 +1,24 @@
 ﻿using SwedbankPay.Sdk.Common;
 using SwedbankPay.Sdk.PaymentInstruments;
 using System;
-using System.Collections.Generic;
 
-namespace SwedbankPay.Sdk.PaymentOrders
+namespace SwedbankPay.Sdk
 {
-    public class PaymentOrderTransactionDto
+    public class TransactionDto
     {
-        public string Id { get; set; }
-        public DateTime Created { get; set; }
-        public DateTime Updated { get; set; }
-        public string Type { get; set; }
-        public string State { get; set; }
-        public string Number { get; set; }
-        public int Amount { get; set; }
-        public int VatAmount { get; set; }
-        public string Description { get; set; }
-        public string PayeeReference { get; set; }
-        public bool IsOperational { get; set; }
-        public List<HttpOperationDto> Operations { get; set; }
-        public string Activity { get; set; }
+        public int Amount { get; }
+        public DateTime Created { get; }
+        public string Description { get; }
+        public string Id { get; }
+        public bool IsOperational { get; }
+        public string Number { get; }
+        public OperationListDto Operations { get; }
+        public string PayeeReference { get; }
+        public string State { get; }
+        public string Type { get; }
+        public DateTime Updated { get; }
+        public int VatAmount { get; }
+        public string Activity { get; }
 
         internal ITransaction Map()
         {

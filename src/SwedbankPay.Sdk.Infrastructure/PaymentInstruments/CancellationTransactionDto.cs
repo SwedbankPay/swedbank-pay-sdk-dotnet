@@ -1,18 +1,19 @@
 ﻿using SwedbankPay.Sdk.PaymentInstruments.Card;
-using SwedbankPay.Sdk.PaymentOrders;
 using System;
 using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
-    public class CancellationTransactionDto : List<PaymentOrderTransactionDto>
+    public class CancellationTransactionDto
     {
         public string Id { get; set; }
+
+        public List<TransactionDto> Cancellations { get; set; }
 
         internal ICancellationsListResponse Map()
         {
             var list = new List<ITransactionResponse>();
-            foreach (var item in this)
+            foreach (var item in Cancellations)
             {
                 list.Add(new TransactionResponse(item.Id, item));
             }

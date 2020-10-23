@@ -97,7 +97,7 @@ namespace SwedbankPay.Sdk.Common
                 return true;
             }
 
-            return obj.GetType() != GetType() ? false : Equals((Amount)obj);
+            return obj.GetType() == GetType() && Equals((Amount)obj);
         }
 
         public override int GetHashCode()

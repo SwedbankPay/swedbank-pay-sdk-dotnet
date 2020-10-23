@@ -14,5 +14,17 @@ namespace SwedbankPay.Sdk.PaymentInstruments
             : base(name, value)
         {
         }
+
+        public static implicit operator PaymentType(string type)
+        {
+            return type switch
+            {
+                "creditcard" => CreditCard,
+                "swish" => Swish,
+                "sipps" => Vipps,
+                "directdebit" => DirectDebit,
+                _ => new PaymentType(type, type),
+            };
+        }
     }
 }

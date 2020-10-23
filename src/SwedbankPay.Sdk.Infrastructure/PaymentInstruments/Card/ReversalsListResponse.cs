@@ -1,5 +1,4 @@
 ﻿using SwedbankPay.Sdk.Common;
-using SwedbankPay.Sdk.PaymentOrders;
 using System;
 using System.Collections.Generic;
 

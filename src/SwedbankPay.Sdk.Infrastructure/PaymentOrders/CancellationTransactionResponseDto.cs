@@ -7,7 +7,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
     public class CancellationTransactionResponseDto
     {
         public string Payment { get; set; }
-        public List<PaymentOrderTransactionDto> Cancellations { get; set; }
+        public List<TransactionDto> Cancellations { get; set; }
 
         internal ICancellationsListResponse Map()
         {

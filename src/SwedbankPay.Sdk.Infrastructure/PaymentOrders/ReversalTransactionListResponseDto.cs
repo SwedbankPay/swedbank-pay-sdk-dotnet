@@ -9,7 +9,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
     {
         public IdLink Id { get; set; }
         public string Payment { get; set; }
-        public List<PaymentOrderTransactionDto> Reversal { get; set; }
+        public List<TransactionDto> Reversal { get; set; }
 
         internal IReversalsListResponse Map()
         {

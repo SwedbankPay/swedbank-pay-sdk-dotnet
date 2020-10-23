@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SwedbankPay.Sdk.PaymentOrders
+﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
     public class PaymentOrderPayerDto
     {

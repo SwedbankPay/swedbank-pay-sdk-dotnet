@@ -4,7 +4,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
     public interface IMobilePayPaymentAuthorizationResponse
     {
-        MobilePayPaymentAuthorization Authorization { get; }
+        IMobilePayPaymentAuthorization Authorization { get; }
         Uri Payment { get; }
     }
 }

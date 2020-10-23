@@ -14,6 +14,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         string ExpiryDate { get; }
         string MaskedPan { get; }
         string PanToken { get; }
-        MobilePayPaymentAuthorizationTransaction Transaction { get; }
+        IMobilePayPaymentAuthorization Transaction { get; }
     }
 }

@@ -3,6 +3,6 @@
     public class PaymentOrderCaptureListDto
     {
         public string Id { get; set; }
-        public PaymentOrderTransactionDto Transaction { get; set; }
+        public TransactionDto Transaction { get; set; }
     }
 }
