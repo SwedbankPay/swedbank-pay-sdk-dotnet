@@ -109,5 +109,40 @@ namespace SwedbankPay.Sdk.Common
         {
             return amount.ToString(format, CultureInfo.InvariantCulture);
         }
+
+        public static bool operator ==(Amount left, Amount right)
+        {
+            if (left is null)
+            {
+                return right is null;
+            }
+
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(Amount left, Amount right)
+        {
+            return !(left.InLowestMonetaryUnit == right.InLowestMonetaryUnit);
+        }
+
+        public static bool operator <(Amount left, Amount right)
+        {
+            return left is null ? right is object : left.CompareTo(right) < 0;
+        }
+
+        public static bool operator <=(Amount left, Amount right)
+        {
+            return left is null || left.CompareTo(right) <= 0;
+        }
+
+        public static bool operator >(Amount left, Amount right)
+        {
+            return left is object && left.CompareTo(right) > 0;
+        }
+
+        public static bool operator >=(Amount left, Amount right)
+        {
+            return left is null ? right is null : left.CompareTo(right) >= 0;
+        }
     }
 }
