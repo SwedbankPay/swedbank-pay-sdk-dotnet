@@ -45,22 +45,22 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             PaymentToken = paymentToken;
         }
 
-        public Cardholder Cardholder;
-        public CreditCard CreditCard;
-        public CurrencyCode Currency;
-        public string Description;
-        public bool GeneratePaymentToken;
-        public bool GenerateReccurenceToken;
-        public PaymentIntent Intent;
-        public CultureInfo Language;
-        public Dictionary<string, object> Metadata;
-        public Operation Operation;
-        public PayeeInfo PayeeInfo;
-        public string PayerReference;
-        public string PaymentToken;
-        public List<IPrice> Prices;
-        public RiskIndicator RiskIndicator;
-        public IUrls Urls;
-        public string UserAgent;
+        public Cardholder Cardholder { get; }
+        public CreditCard CreditCard { get; }
+        public CurrencyCode Currency { get; }
+        public string Description { get; }
+        public bool GeneratePaymentToken { get; }
+        public bool GenerateReccurenceToken { get; }
+        public PaymentIntent Intent { get; }
+        public CultureInfo Language { get; }
+        public Dictionary<string, object> Metadata { get; }
+        public Operation Operation { get; }
+        public PayeeInfo PayeeInfo { get; }
+        public string PayerReference { get; }
+        public string PaymentToken { get; }
+        public List<IPrice> Prices { get; }
+        public RiskIndicator RiskIndicator { get; }
+        public IUrls Urls { get; }
+        public string UserAgent { get; }
     }
 }

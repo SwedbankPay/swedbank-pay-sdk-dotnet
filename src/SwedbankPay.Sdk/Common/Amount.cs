@@ -73,10 +73,14 @@ namespace SwedbankPay.Sdk.Common
         public bool Equals(Amount other)
         {
             if (other is null)
+            {
                 return false;
+            }
 
             if (ReferenceEquals(this, other))
+            {
                 return true;
+            }
 
             return amount == other.amount;
         }
@@ -84,15 +88,16 @@ namespace SwedbankPay.Sdk.Common
         public override bool Equals(object obj)
         {
             if (obj is null)
+            {
                 return false;
+            }
 
             if (ReferenceEquals(this, obj))
+            {
                 return true;
+            }
 
-            if (obj.GetType() != GetType())
-                return false;
-
-            return Equals((Amount)obj);
+            return obj.GetType() != GetType() ? false : Equals((Amount)obj);
         }
 
         public override int GetHashCode()

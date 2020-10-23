@@ -3,7 +3,7 @@ using System;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
-    public class MobilePayPaymentAuthorization : IdLink
+    public class MobilePayPaymentAuthorization : IdLink, IMobilePayPaymentAuthorization
     {
         public MobilePayPaymentAuthorization(
                              string maskedPan,

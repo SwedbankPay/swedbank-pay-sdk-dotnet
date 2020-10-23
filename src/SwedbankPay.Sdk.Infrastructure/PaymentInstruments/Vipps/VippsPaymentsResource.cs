@@ -15,7 +15,9 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         public async Task<IVippsPaymentReponse> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
         {
             if (id == null)
+            {
                 throw new ArgumentNullException(nameof(id));
+            }
 
             Uri url = id.GetUrlWithQueryString(paymentExpand);
 

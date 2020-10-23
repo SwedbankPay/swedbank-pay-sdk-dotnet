@@ -4,15 +4,15 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
-    public class MobilePayPaymentAuthorizationListResponse : IdLink
+    public class MobilePayPaymentAuthorizationListResponse : IdLink, IMobilePayPaymentAuthorizationListResponse
     {
-        public MobilePayPaymentAuthorizationListResponse(Uri id, List<MobilePayPaymentAuthorization> authorizationList)
+        public MobilePayPaymentAuthorizationListResponse(Uri id, List<IMobilePayPaymentAuthorization> authorizationList)
         {
             Id = id;
             AuthorizationList = authorizationList;
         }
 
 
-        public List<MobilePayPaymentAuthorization> AuthorizationList { get; }
+        public List<IMobilePayPaymentAuthorization> AuthorizationList { get; }
     }
 }

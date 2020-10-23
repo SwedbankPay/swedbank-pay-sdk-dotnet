@@ -17,7 +17,7 @@ namespace SwedbankPay.Sdk.Tests.Json
             var jsonObject = $"{{ \"region\": \"{regionInfoString}\"}}";
 
             //ACT
-            var result = JsonSerializer.Deserialize<RegionInfo>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);
+            var result = JsonSerializer.Deserialize<RegionInfo>(jsonObject, JsonSerialization.JsonSerialization.Settings);
 
             //ASSERT
             Assert.Equal(regionInfoString, result.Name);
