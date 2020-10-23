@@ -2,9 +2,9 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
-    public class ReversalResponse
+    public class ReversalResponse : IReversalResponse
     {
-        public ReversalResponse(Uri payment, TransactionResponse reversal)
+        public ReversalResponse(Uri payment, ITransactionResponse reversal)
         {
             Payment = payment;
             Reversal = reversal;
@@ -12,6 +12,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments
 
 
         public Uri Payment { get; }
-        public TransactionResponse Reversal { get; }
+        public ITransactionResponse Reversal { get; }
     }
 }

@@ -2,16 +2,16 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
-    public class CaptureResponse
+    public class CaptureResponse : ICaptureResponse
     {
-        public CaptureResponse(Uri payment, TransactionResponse capture)
+        public CaptureResponse(Uri payment, ITransactionResponse capture)
         {
             Payment = payment;
             Capture = capture;
         }
 
 
-        public TransactionResponse Capture { get; }
+        public ITransactionResponse Capture { get; }
 
         public Uri Payment { get; }
     }

@@ -2,16 +2,16 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
-    public class CancellationResponse
+    public class CancellationResponse : ICancellationResponse
     {
-        public CancellationResponse(Uri payment, TransactionResponse cancellation)
+        public CancellationResponse(Uri payment, ITransactionResponse cancellation)
         {
             Payment = payment;
             Cancellation = cancellation;
         }
 
 
-        public TransactionResponse Cancellation { get; }
+        public ITransactionResponse Cancellation { get; }
 
         public Uri Payment { get; }
     }
