@@ -6,10 +6,5 @@ namespace SwedbankPay.Sdk.PaymentOrders
     {
         public string Id { get; set; }
         public DeviceDto Device { get; set; }
-
-        internal Payer Map()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

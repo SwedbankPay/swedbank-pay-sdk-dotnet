@@ -26,7 +26,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public int VatAmount { get; set; }
         public string InitiatingSystemUserAgent { get; set; }
         public PaymentOrderPayeeInfoDto PayeeInfo { get; set; }
-        public PaymentOrderPayerDto Payer { get; set; }
+        public PayerDto Payer { get; set; }
         public PaymentOrderPaymentsDto Payments { get; set; }
         public PaymentOrderCurrentPaymentDto CurrentPayment { get; set; }
         public List<ItemDto> Items { get; set; }

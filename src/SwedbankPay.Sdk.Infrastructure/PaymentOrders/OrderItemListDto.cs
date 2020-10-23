@@ -10,7 +10,7 @@
         public string ImageUrl { get; set; }
         public string Description { get; set; }
         public string DiscountDescription { get; set; }
-        public double Quantity { get; set; }
+        public decimal Quantity { get; set; }
         public string QuantityUnit { get; set; }
         public int UnitPrice { get; set; }
         public int DiscountPrice { get; set; }

@@ -20,7 +20,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
             OrderItems = paymentOrder.OrderItems.Map();
             PayeeInfo = paymentOrder.PayeeInfo.Map();
             Payers = paymentOrder.Payer.Map();
-            Payments = paymentOrder.Payments.Map();
+            Payments = new IdLink() { Id = new Uri(paymentOrder.Payments.Id, UriKind.RelativeOrAbsolute) };
             RemainingCancellationAmount = paymentOrder.RemainingCancellationAmount;
             RemainingCaptureAmount = paymentOrder.RemainingCaptureAmount;
             RemainingReversalAmount = paymentOrder.RemainingReversalAmount;

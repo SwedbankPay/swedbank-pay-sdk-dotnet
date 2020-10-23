@@ -3,7 +3,7 @@ using System;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class OrderItem
+    public class OrderItem : IOrderItem
     {
         public OrderItem(string reference,
                          string name,

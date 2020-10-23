@@ -8,10 +8,5 @@ namespace SwedbankPay.Sdk.PaymentOrders
     {
         public string Id { get; set; }
         public List<PaymentOrderPaymentListDto> PaymentList { get; set; }
-
-        internal IdLink Map()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

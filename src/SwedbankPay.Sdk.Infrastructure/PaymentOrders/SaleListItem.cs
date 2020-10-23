@@ -6,8 +6,9 @@ namespace SwedbankPay.Sdk.PaymentOrders
 {
     internal class SaleListItem : ISaleListItem
     {
-        public SaleListItem(PaymentOrderTransactionDto dto)
+        public SaleListItem(Uri id, PaymentOrderTransactionDto dto)
         {
+            Id = id;
             Amount = dto.Amount;
             Created = dto.Created;
             Updated = dto.Updated;

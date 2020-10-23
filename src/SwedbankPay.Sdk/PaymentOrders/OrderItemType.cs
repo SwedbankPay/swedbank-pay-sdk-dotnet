@@ -20,5 +20,20 @@ namespace SwedbankPay.Sdk.PaymentOrders
             : base(name, value)
         {
         }
+
+        public static implicit operator OrderItemType(string type)
+        {
+            return type switch
+            {
+                "PRODUCT" => Product,
+                "SERVICE" => Service,
+                "SHIPPING_FEE" => ShippingFee,
+                "PAYMENT_FEE" => PaymentFee,
+                "DISCOUNT" => Discount,
+                "VALUE_CODE" => ValueCode,
+                "OTHER" => Other,
+                _ => new OrderItemType(type, type),
+            };
+        }
     }
 }
