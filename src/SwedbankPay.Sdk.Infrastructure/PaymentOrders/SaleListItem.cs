@@ -14,7 +14,6 @@ namespace SwedbankPay.Sdk.PaymentOrders
             Type = PaymentType.FromValue(dto.Type);
             Number = dto.Number;
             State = State.FromValue(dto.State);
-            Number = dto.Number;
             VatAmount = dto.VatAmount;
             Description = dto.Description;
             PayeeReference = dto.PayeeReference;
