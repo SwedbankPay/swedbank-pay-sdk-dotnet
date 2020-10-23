@@ -29,8 +29,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                        item.DiscountDescription,
                                        item.DiscountPrice));
             }
-            new OrderItems(list);
-            throw new NotImplementedException();
+            return new OrderItems(list);
         }
     }
 }

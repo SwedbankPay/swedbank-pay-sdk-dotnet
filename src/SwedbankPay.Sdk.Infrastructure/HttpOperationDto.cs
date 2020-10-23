@@ -10,6 +10,5 @@ namespace SwedbankPay.Sdk
         public Uri Href { get; set; }
         public string Method { get; set; }
         public string Rel { get; set; }
-        public HttpRequestMessage Request { get; set; }
     }
 }

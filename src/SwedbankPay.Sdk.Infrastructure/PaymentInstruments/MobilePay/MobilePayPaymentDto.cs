@@ -9,7 +9,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         public int Amount { get; set; }
         public MobilePayPaymentAuthorizationListResponseDto Authorizations { get; set; }
         public CancellationsListResponseDto Cancellations { get; set; }
-        public CapturesListResponseDto Captures { get; set; }
+        public CaptureTransactionResponseDto Captures { get; set; }
         public DateTime Created { get; set; }
         public DateTime Updated { get; set; }
         public string Currency { get; set; }

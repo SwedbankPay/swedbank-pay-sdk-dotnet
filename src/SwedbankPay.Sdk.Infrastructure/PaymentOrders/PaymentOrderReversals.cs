@@ -17,7 +17,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
             {
                 list.Add(new TransactionResponse(Id, item));
             }
-            return new ReversalsListResponse(new Uri(Id, UriKind.RelativeOrAbsolute), list)
+            return new ReversalsListResponse(new Uri(Id, UriKind.RelativeOrAbsolute), list);
         }
     }
 }
