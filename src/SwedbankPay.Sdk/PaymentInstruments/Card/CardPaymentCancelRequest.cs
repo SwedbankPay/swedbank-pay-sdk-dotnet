@@ -12,19 +12,5 @@
         public string Description => this.Transaction.Description;
 
         public string PayeeReference => this.Transaction.PayeeReference;
-
-        public class CardPaymentCancelTransaction
-        {
-            protected internal CardPaymentCancelTransaction(string payeeReference, string description)
-            {
-                PayeeReference = payeeReference;
-                Description = description;
-            }
-
-
-            public string Description { get; }
-
-            public string PayeeReference { get; }
-        }
     }
 }
