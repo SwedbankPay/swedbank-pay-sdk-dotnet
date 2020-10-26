@@ -14,7 +14,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         public string CardBrand { get; set; }
         public string CardType { get; set; }
         public string CountryCode { get; set; }
-
         public bool Direct { get; set; }
         public string ExpiryDate { get; set; }
         public string ExternalNonPaymentToken { get; set; }
