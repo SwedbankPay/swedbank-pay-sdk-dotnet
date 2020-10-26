@@ -1,4 +1,5 @@
 ﻿using SwedbankPay.Sdk.PaymentInstruments;
+using SwedbankPay.Sdk.PaymentInstruments.Card;
 using System;
 using System.Collections.Generic;
 
@@ -11,7 +12,14 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
         internal ITransactionListResponse Map()
         {
-            throw new NotImplementedException();
+            var list = new List<ITransaction>();
+
+            foreach (var c in TransactionList)
+            {
+                list.Add(c.Map());
+            }
+
+            return new TransactionListResponse(new Uri(Id, UriKind.RelativeOrAbsolute), list);
         }
     }
 }

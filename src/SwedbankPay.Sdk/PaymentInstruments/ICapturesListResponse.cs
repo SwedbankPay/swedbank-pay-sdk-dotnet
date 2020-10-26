@@ -4,6 +4,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments
 {
     public interface ICapturesListResponse
     {
-        List<ITransactionResponse> CaptureList { get; }
+        List<ITransaction> CaptureList { get; }
     }
 }
