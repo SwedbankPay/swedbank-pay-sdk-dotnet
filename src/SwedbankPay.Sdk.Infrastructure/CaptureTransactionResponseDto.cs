@@ -13,10 +13,10 @@ namespace SwedbankPay.Sdk
 
         internal ICapturesListResponse Map()
         {
-            var transactionList = new List<ITransactionResponse>();
+            var transactionList = new List<ITransaction>();
             foreach (var t in Capture)
             {
-                transactionList.Add(new TransactionResponse(t.Id, t));
+                transactionList.Add(t.Map());
             }
             return new CapturesListResponse(Id, transactionList);
         }

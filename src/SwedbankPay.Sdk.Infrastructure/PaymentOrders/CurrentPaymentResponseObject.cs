@@ -33,56 +33,6 @@ namespace SwedbankPay.Sdk.PaymentOrders
             Sales = payment.Sales.Map();
         }
 
-        public CurrentPaymentResponseObject(string number,
-                                            PaymentInstrument instrument,
-                                            DateTime created,
-                                            DateTime updated,
-                                            Amount amount,
-                                            IPaymentAuthorizationResponse authorizations,
-                                            ICancellationsListResponse cancellations,
-                                            ICapturesListResponse captures,
-                                            CurrencyCode currency,
-                                            string description,
-                                            PaymentIntent intent,
-                                            Language language,
-                                            Operation operation,
-                                            PayeeInfo payeeInfo,
-                                            string payerReference,
-                                            string paymentToken,
-                                            IPricesListResponse prices,
-                                            IReversalsListResponse reversals,
-                                            State state,
-                                            ITransactionListResponse transactions,
-                                            IdLink urls,
-                                            string userAgent,
-                                            ISaleListResponse sales)
-        {
-            Number = number;
-            Instrument = instrument;
-            Created = created;
-            Updated = updated;
-            Amount = amount;
-            Authorizations = authorizations;
-            Cancellations = cancellations;
-            Captures = captures;
-            Currency = currency;
-            Description = description;
-            Intent = intent;
-            Language = language;
-            Operation = operation;
-            PayeeInfo = payeeInfo;
-            PayerReference = payerReference;
-            PaymentToken = paymentToken;
-            Prices = prices;
-            Reversals = reversals;
-            State = state;
-            Transactions = transactions;
-            Urls = urls;
-            UserAgent = userAgent;
-            Sales = sales;
-        }
-
-
         public string Number { get; }
         public PaymentInstrument Instrument { get; }
         public DateTime Created { get; }

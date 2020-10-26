@@ -22,7 +22,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 
         internal IMobilePayPaymentAuthorization Map()
         {
-            return new MobilePayPaymentAuthorizationTransaction(this);
+            throw new NotImplementedException();
         }
     }
 }

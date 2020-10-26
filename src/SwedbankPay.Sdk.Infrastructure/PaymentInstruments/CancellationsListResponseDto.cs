@@ -11,10 +11,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments
 
         internal ICancellationsListResponse Map()
         {
-            var transactionList = new List<ITransactionResponse>();
+            var transactionList = new List<ITransaction>();
             foreach (var t in CancellationList)
             {
-                transactionList.Add(new TransactionResponse(t.Id, t));
+                transactionList.Add(t.Map());
             }
             return new CancellationsListResponse(Id, transactionList);
         }
