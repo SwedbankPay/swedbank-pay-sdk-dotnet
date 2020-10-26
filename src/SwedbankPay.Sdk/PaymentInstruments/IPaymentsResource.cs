@@ -1,7 +1,7 @@
 ﻿using SwedbankPay.Sdk.PaymentInstruments.Card;
-using SwedbankPay.Sdk.PaymentInstruments.Swish;
 using SwedbankPay.Sdk.PaymentInstruments.Invoice;
 using SwedbankPay.Sdk.PaymentInstruments.MobilePay;
+using SwedbankPay.Sdk.PaymentInstruments.Swish;
 using SwedbankPay.Sdk.PaymentInstruments.Trustly;
 using SwedbankPay.Sdk.PaymentInstruments.Vipps;
 

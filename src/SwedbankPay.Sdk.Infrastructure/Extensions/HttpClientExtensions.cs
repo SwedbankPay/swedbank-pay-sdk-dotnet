@@ -1,10 +1,10 @@
-﻿using System;
+﻿using SwedbankPay.Sdk.Common;
+using SwedbankPay.Sdk.Exceptions;
+using System;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using SwedbankPay.Sdk.Common;
-using SwedbankPay.Sdk.Exceptions;
 
 namespace SwedbankPay.Sdk.Extensions
 {
@@ -22,7 +22,7 @@ namespace SwedbankPay.Sdk.Extensions
                     JsonSerializer.Deserialize<ProblemResponse>(responseString),
                     BuildErrorMessage(responseString, uri, apiResponse));
 
-            
+
             return JsonSerializer.Deserialize<T>(responseString, JsonSerialization.JsonSerialization.Settings);
         }
 
@@ -80,7 +80,7 @@ namespace SwedbankPay.Sdk.Extensions
         }
 
         public static Task<T> SendAsJsonAsync<T>(this HttpClient httpClient, HttpMethod httpMethod, Uri uri, object payload = null)
-            where T: class
+            where T : class
         {
             return httpClient.SendAndProcessAsync<T>(httpMethod, uri, payload);
         }

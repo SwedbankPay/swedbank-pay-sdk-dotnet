@@ -1,5 +1,4 @@
-﻿using SwedbankPay.Sdk.PaymentInstruments;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentOrders
@@ -15,7 +14,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
             {
                 this.SaleList.Add(new SaleListItem(Id, item));
             }
-            
+
         }
 
         public Uri Id { get; }

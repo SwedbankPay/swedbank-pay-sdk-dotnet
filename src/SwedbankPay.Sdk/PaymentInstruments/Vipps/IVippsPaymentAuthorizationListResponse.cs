@@ -5,7 +5,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {
     public interface IVippsPaymentAuthorizationListResponse
     {
-        public Uri Id { get;  }
+        public Uri Id { get; }
         public List<IVippsPaymentAuthorization> AuthorizationList { get; }
     }
 }

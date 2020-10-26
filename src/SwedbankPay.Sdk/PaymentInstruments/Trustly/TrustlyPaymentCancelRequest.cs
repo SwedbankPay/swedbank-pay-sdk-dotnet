@@ -12,19 +12,5 @@
         public string Description => Transaction.Description;
 
         public string PayeeReference => Transaction.PayeeReference;
-
-        public class TrustlyPaymentCancelTransaction
-        {
-            protected internal TrustlyPaymentCancelTransaction(string payeeReference, string description)
-            {
-                PayeeReference = payeeReference;
-                Description = description;
-            }
-
-
-            public string Description { get; }
-
-            public string PayeeReference { get; }
-        }
     }
 }

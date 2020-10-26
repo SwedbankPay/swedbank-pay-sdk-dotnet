@@ -8,7 +8,11 @@
                                     string cardVerificationCode = null,
                                     string cardHolderName = null)
         {
-            Transaction = new CardPaymentAuthorizationRequestTransaction(cardNumber, cardExpiryMonth, cardExpiryYear, cardVerificationCode, cardHolderName);
+            Transaction = new CardPaymentAuthorizationRequestTransaction(cardNumber,
+                                                                         cardExpiryMonth,
+                                                                         cardExpiryYear,
+                                                                         cardVerificationCode,
+                                                                         cardHolderName);
         }
 
 

@@ -51,4 +51,3 @@ namespace SwedbankPay.Sdk.Tests.Json
     }
 }
 
-   

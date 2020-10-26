@@ -1,8 +1,7 @@
-﻿using System;
-using System.Text.Json;
-using SwedbankPay.Sdk.Common;
+﻿using SwedbankPay.Sdk.Common;
 using SwedbankPay.Sdk.Tests.TestBuilders;
-
+using System;
+using System.Text.Json;
 using Xunit;
 
 namespace SwedbankPay.Sdk.Tests.Json
@@ -10,7 +9,7 @@ namespace SwedbankPay.Sdk.Tests.Json
     public class CustomCurrencyCodeConverterTests
     {
         private readonly string currencyCode = "SEK";
-        
+
         [Fact]
         public void CanDeSerialize_CurrencyCode()
         {

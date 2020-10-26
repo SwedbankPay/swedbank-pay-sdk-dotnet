@@ -23,12 +23,12 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public Uri Id { get; }
         public DateTime Created { get; }
         public DateTime Updated { get; }
-        public PaymentType Type { get;  }
-        public State State { get;  }
+        public PaymentType Type { get; }
+        public State State { get; }
         public string Number { get; }
-        public Amount Amount { get;  }
-        public Amount VatAmount { get;  }
-        public string Description { get;}
-        public string PayeeReference { get;  }
+        public Amount Amount { get; }
+        public Amount VatAmount { get; }
+        public string Description { get; }
+        public string PayeeReference { get; }
     }
 }

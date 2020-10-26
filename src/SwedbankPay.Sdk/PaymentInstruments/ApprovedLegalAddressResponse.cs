@@ -2,7 +2,6 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
-
     public class ApprovedLegalAddressResponse
     {
         public ApprovedLegalAddressResponse(Uri payment, LegalAddress approvedLegalAddress)

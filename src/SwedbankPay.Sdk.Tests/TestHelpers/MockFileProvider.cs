@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Extensions.FileProviders;
+﻿using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Primitives;
 using NSubstitute;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SwedbankPay.Sdk.Tests.TestHelpers
 {

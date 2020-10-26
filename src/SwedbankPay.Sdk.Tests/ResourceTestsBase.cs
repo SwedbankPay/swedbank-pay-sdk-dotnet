@@ -1,7 +1,7 @@
-﻿using System;
+﻿using SwedbankPay.Sdk.Tests.TestHelpers;
+using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using SwedbankPay.Sdk.Tests.TestHelpers;
 
 namespace SwedbankPay.Sdk.Tests
 {
@@ -14,7 +14,7 @@ namespace SwedbankPay.Sdk.Tests
         protected readonly Guid payeeId;
 
         private readonly SwedbankPayConnectionSettings connectionSettings;
-        
+
         protected ResourceTestsBase()
         {
             this.connectionSettings = TestHelper.GetSwedbankPayConnectionSettings(Environment.CurrentDirectory);
@@ -22,7 +22,7 @@ namespace SwedbankPay.Sdk.Tests
             this.payeeId = this.connectionSettings.PayeeId;
             var httpClient = new HttpClient { BaseAddress = this.connectionSettings.ApiBaseUrl };
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this.connectionSettings.Token);
-            
+
             this.Sut = new SwedbankPayClient(httpClient);
         }
     }

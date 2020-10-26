@@ -1,12 +1,10 @@
-﻿using System;
+﻿using SwedbankPay.Sdk.Consumers;
+using SwedbankPay.Sdk.Exceptions;
+using SwedbankPay.Sdk.Tests.TestBuilders;
+using System;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Newtonsoft.Json.Bson;
-using SwedbankPay.Sdk.Consumers;
-using SwedbankPay.Sdk.Exceptions;
-using SwedbankPay.Sdk.Tests.TestBuilders;
-
 using Xunit;
 
 namespace SwedbankPay.Sdk.Tests
@@ -74,17 +72,17 @@ namespace SwedbankPay.Sdk.Tests
             Assert.NotNull(consumer.Operations);
             Assert.NotEmpty(consumer.Operations);
         }
-        
+
         [Fact]
         public async Task EmptyShippingAddressRestrictedToCountryCodes_ShouldThrow_HttpResponseException()
         {
             //ARRANGE
             var orderResoureRequest = this.consumerResourceRequestContainer.WithTestValues().WithEmptyShippingAddressCountryCodes()
                 .Build();
-            
+
             //ASSERT
             await Assert.ThrowsAsync<HttpResponseException>(() => this.Sut.Consumers.InitiateSession(orderResoureRequest));
-            
+
         }
 
         [Fact]

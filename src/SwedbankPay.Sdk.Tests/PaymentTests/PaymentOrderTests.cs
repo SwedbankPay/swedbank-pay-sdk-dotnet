@@ -160,7 +160,8 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             "test",
             new Language("no-nb"),
             false,
-            new Urls(new UrlsDto { 
+            new Urls(new UrlsDto
+            {
                 Id = GetUri().AbsoluteUri,
                 HostUrls = new List<Uri> { GetUri() },
                 CallbackUrl = GetUri().AbsoluteUri,
@@ -204,7 +205,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             });
             PaymentOrderCaptureRequest captureRequest = GetTestPaymentOrderCaptureRequest();
             PaymentOrderRequest paymentOrderRequest = GetPaymentOrderRequest();
-            
+
             var sut = await new PaymentOrdersResource(client).Create(paymentOrderRequest);
 
             var result = await Assert.ThrowsAsync<HttpResponseException>(() => sut.Operations.Capture(captureRequest));

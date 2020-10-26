@@ -2,10 +2,6 @@
 {
     public class TrustlyPrefillInfo
     {
-        public TrustlyPrefillInfo(string firstName) : this(firstName, null)
-        {
-        }
-
         public TrustlyPrefillInfo(string firstName, string lastName)
         {
             FirstName = firstName;

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using SwedbankPay.Sdk.Common;
+﻿using SwedbankPay.Sdk.Common;
 using SwedbankPay.Sdk.PaymentOrders;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SwedbankPay.Sdk.Tests.TestBuilders
 {

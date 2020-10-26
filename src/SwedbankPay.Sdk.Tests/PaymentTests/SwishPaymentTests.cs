@@ -1,10 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using SwedbankPay.Sdk.Common;
+﻿using SwedbankPay.Sdk.Common;
 using SwedbankPay.Sdk.PaymentInstruments;
 using SwedbankPay.Sdk.PaymentInstruments.Swish;
 using SwedbankPay.Sdk.Tests.TestBuilders;
-
+using System;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace SwedbankPay.Sdk.Tests.PaymentTests

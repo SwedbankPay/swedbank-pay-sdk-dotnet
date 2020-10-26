@@ -4,7 +4,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
 {
     public class LegalAddress
     {
-        protected internal LegalAddress(Uri id, string addressee, string coAddress, string streetAddress, string zipCode, string city, string countryCode)
+        public LegalAddress(Uri id, string addressee, string coAddress, string streetAddress, string zipCode, string city, string countryCode)
         {
             Id = id;
             Addressee = addressee;

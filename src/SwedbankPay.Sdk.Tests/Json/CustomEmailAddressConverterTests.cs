@@ -1,7 +1,6 @@
-﻿using System.Text.Json;
-using SwedbankPay.Sdk.Common;
+﻿using SwedbankPay.Sdk.Common;
 using SwedbankPay.Sdk.PaymentOrders;
-
+using System.Text.Json;
 using Xunit;
 
 namespace SwedbankPay.Sdk.Tests.Json

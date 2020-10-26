@@ -1,11 +1,10 @@
-﻿using System;
-using System.Net;
-using System.Threading.Tasks;
-using SwedbankPay.Sdk.Common;
+﻿using SwedbankPay.Sdk.Common;
 using SwedbankPay.Sdk.Exceptions;
 using SwedbankPay.Sdk.PaymentOrders;
 using SwedbankPay.Sdk.Tests.TestBuilders;
-
+using System;
+using System.Net;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace SwedbankPay.Sdk.Tests
@@ -50,7 +49,7 @@ namespace SwedbankPay.Sdk.Tests
             Assert.NotNull(paymentOrder2);
             Assert.NotNull(paymentOrder2.PaymentOrder);
             Assert.Equal(amount.InLowestMonetaryUnit, paymentOrder2.PaymentOrder.Amount.InLowestMonetaryUnit);
-            
+
             Assert.Equal(paymentOrderRequest.PaymentOrder.Metadata["key1"], paymentOrder2.PaymentOrder.Metadata["key1"]);
         }
 
@@ -66,7 +65,7 @@ namespace SwedbankPay.Sdk.Tests
 
             var newAmount = 50000;
             var updateRequest = new PaymentOrderUpdateRequest(new Amount(newAmount), null);
-            
+
             await Assert.ThrowsAsync<HttpResponseException>(() => paymentOrder.Operations.Update?.Invoke(updateRequest));
         }
 
@@ -119,7 +118,7 @@ namespace SwedbankPay.Sdk.Tests
             Assert.NotEmpty(paymentOrder.PaymentOrder.OrderItems.OrderItemList);
         }
 
-        
+
         [Fact]
         public async Task GetPaymentOrder_WithPayment_ShouldReturnCurrentPaymentIfExpanded()
         {
@@ -143,7 +142,7 @@ namespace SwedbankPay.Sdk.Tests
         public async Task GetUnknownPaymentOrder_ShouldThrowHttpResponseException()
         {
             var id = new Uri("/psp/paymentorders/56a45c8a-9605-437a-fb80-08d742822747", UriKind.Relative);
-            
+
             var thrownException = await Assert.ThrowsAsync<HttpResponseException>(() => this.Sut.PaymentOrders.Get(id));
             Assert.Equal(HttpStatusCode.NotFound, thrownException.HttpResponse.StatusCode);
         }

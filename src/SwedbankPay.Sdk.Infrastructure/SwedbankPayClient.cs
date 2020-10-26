@@ -1,9 +1,9 @@
-﻿using System;
+﻿using SwedbankPay.Sdk.Consumers;
+using SwedbankPay.Sdk.PaymentInstruments;
+using SwedbankPay.Sdk.PaymentOrders;
+using System;
 using System.Net;
 using System.Net.Http;
-using SwedbankPay.Sdk.Consumers;
-using SwedbankPay.Sdk.PaymentOrders;
-using SwedbankPay.Sdk.PaymentInstruments;
 
 namespace SwedbankPay.Sdk
 {

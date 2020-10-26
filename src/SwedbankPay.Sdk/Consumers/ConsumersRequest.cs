@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
-using SwedbankPay.Sdk.Common;
+﻿using SwedbankPay.Sdk.Common;
 using SwedbankPay.Sdk.PaymentOrders;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace SwedbankPay.Sdk.Consumers
 {

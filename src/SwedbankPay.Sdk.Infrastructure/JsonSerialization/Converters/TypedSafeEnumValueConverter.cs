@@ -16,13 +16,13 @@ namespace SwedbankPay.Sdk.JsonSerialization.Converters
         /// <returns></returns>
         public override TEnum Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            if(reader.TokenType == JsonTokenType.PropertyName)
+            if (reader.TokenType == JsonTokenType.PropertyName)
             {
                 reader.GetString();
                 reader.Read();
             }
 
-            if(reader.TokenType == JsonTokenType.StartObject)
+            if (reader.TokenType == JsonTokenType.StartObject)
             {
                 reader.Read();
                 var valueToReturn = Read(ref reader, typeToConvert, options);
@@ -62,7 +62,7 @@ namespace SwedbankPay.Sdk.JsonSerialization.Converters
             {
                 //string enumValue = Enum.GetName(value.GetType(), value.Value);
                 writer.WriteStringValue(value.Value.ToString());
-            }   
+            }
         }
     }
 }

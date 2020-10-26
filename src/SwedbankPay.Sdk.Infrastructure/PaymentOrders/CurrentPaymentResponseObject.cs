@@ -1,6 +1,6 @@
-﻿using System;
+﻿using SwedbankPay.Sdk.Common;
 using SwedbankPay.Sdk.PaymentInstruments;
-using SwedbankPay.Sdk.Common;
+using System;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
@@ -28,7 +28,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
             Reversals = payment.Reversals.Map();
             State = payment.State;
             Transactions = payment.Transactions.Map();
-            Urls = new IdLink { Id = new Uri(payment.Urls.Id, UriKind.RelativeOrAbsolute)};
+            Urls = new IdLink { Id = new Uri(payment.Urls.Id, UriKind.RelativeOrAbsolute) };
             UserAgent = payment.UserAgent;
             Sales = payment.Sales.Map();
         }

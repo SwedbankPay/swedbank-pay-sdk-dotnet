@@ -10,7 +10,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
             CountryCode = countryCode ?? throw new ArgumentNullException(nameof(countryCode));
             SocialSecurityNumber = socialSecurityNumber ?? throw new ArgumentNullException(nameof(socialSecurityNumber));
         }
-        
+
         /// <summary>
         ///     The country code, denoting origin for the issued social security number. Required if
         ///     nationalIdentifier.socialSecurityNumber is set.

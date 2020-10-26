@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
-using SwedbankPay.Sdk.Common;
+﻿using SwedbankPay.Sdk.Common;
 using SwedbankPay.Sdk.Consumers;
 using SwedbankPay.Sdk.PaymentOrders;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace SwedbankPay.Sdk.Tests.TestBuilders
 {
@@ -29,7 +29,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
 
         public ConsumersRequestContainerBuilder WithNationalIdentifier()
         {
-            this.nationalIdentifier = new NationalIdentifier(new RegionInfo("sv-SE"), "19891010292" );
+            this.nationalIdentifier = new NationalIdentifier(new RegionInfo("sv-SE"), "19891010292");
             return this;
         }
 

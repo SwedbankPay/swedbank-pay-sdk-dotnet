@@ -21,7 +21,7 @@ namespace SwedbankPay.Sdk.Tests.Json
             var paymentResponse = JsonSerializer.Deserialize<CardPaymentResponseDto>(TestResponse, JsonSerialization.JsonSerialization.Settings);
             var client = new HttpClient();
             var operations = new CardPaymentOperations(paymentResponse.Operations.Map(), client);
-            
+
             Assert.Contains(operations, a => a.Key.Name.Equals(TestOperationName, System.StringComparison.OrdinalIgnoreCase));
             Assert.Contains(operations, a => a.Key.Value.Equals(TestOperationName, System.StringComparison.OrdinalIgnoreCase));
         }

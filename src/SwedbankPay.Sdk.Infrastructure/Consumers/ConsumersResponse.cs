@@ -11,7 +11,7 @@ namespace SwedbankPay.Sdk.Consumers
         }
 
         public IOperationList Operations { get; }
-        
+
         public string Token { get; }
     }
 }

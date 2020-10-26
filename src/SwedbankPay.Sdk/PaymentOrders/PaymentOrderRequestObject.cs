@@ -1,7 +1,6 @@
 ﻿using SwedbankPay.Sdk.Common;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {

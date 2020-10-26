@@ -5,7 +5,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
     public class SaleListResponseDto
     {
         public List<SaleListItemDto> Sales { get; set; }
-        
+
         internal ISwishSaleListResponse Map()
         {
             var saleList = new List<ISwishSaleListItem>();

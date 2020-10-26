@@ -14,7 +14,7 @@ namespace SwedbankPay.Sdk.JsonSerialization.Converters
                 reader.Read();
             }
 
-            if(reader.TokenType == JsonTokenType.StartObject)
+            if (reader.TokenType == JsonTokenType.StartObject)
             {
                 if (reader.Read())
                 {
@@ -23,7 +23,7 @@ namespace SwedbankPay.Sdk.JsonSerialization.Converters
                     reader.Read();
                     return uri;
                 }
-                    
+
             }
 
             if (reader.TokenType == JsonTokenType.String)
@@ -35,7 +35,7 @@ namespace SwedbankPay.Sdk.JsonSerialization.Converters
 
         public override void Write(Utf8JsonWriter writer, Uri value, JsonSerializerOptions options)
         {
-            if(value == null)
+            if (value == null)
             {
                 writer.WriteNullValue();
                 return;

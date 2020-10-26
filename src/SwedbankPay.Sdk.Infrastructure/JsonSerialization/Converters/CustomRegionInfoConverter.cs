@@ -43,7 +43,7 @@ namespace SwedbankPay.Sdk.JsonSerialization.Converters
 
         public override void Write(Utf8JsonWriter writer, RegionInfo value, JsonSerializerOptions options)
         {
-            if(value == null)
+            if (value == null)
             {
                 writer.WriteNullValue();
                 return;

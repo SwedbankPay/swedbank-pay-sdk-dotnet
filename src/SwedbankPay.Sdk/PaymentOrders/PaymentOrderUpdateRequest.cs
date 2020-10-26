@@ -8,7 +8,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         {
             PaymentOrder = new PaymentOrderUpdateRequestObject(amount, vatAmount);
         }
-        
+
         public PaymentOrderUpdateRequestObject PaymentOrder { get; }
     }
 }

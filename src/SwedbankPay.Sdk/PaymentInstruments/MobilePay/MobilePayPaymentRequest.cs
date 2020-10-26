@@ -22,71 +22,12 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
                               PrefillInfo prefillInfo = null)
 
         {
-            Payment = new PaymentRequestObject(operation, intent, currency, prices, description, payerReference, userAgent, language, urls, payeeInfo, metadata, prefillInfo);
+            Payment = new MobilePayPaymentRequestPaymentObject(operation, intent, currency, prices, description, payerReference, userAgent, language, urls, payeeInfo, metadata, prefillInfo);
             MobilePay = new MobilePayPaymentRequestObject(shopslogoUrl);
         }
 
 
-        public PaymentRequestObject Payment { get; }
+        public MobilePayPaymentRequestPaymentObject Payment { get; }
         public MobilePayPaymentRequestObject MobilePay { get; }
-
-        public class PaymentRequestObject
-        {
-            protected internal PaymentRequestObject(Operation operation,
-                                                    PaymentIntent intent,
-                                                    CurrencyCode currency,
-                                                    List<IPrice> prices,
-                                                    string description,
-                                                    string payerReference,
-                                                    string userAgent,
-                                                    CultureInfo language,
-                                                    IUrls urls,
-                                                    PayeeInfo payeeInfo,
-                                                    Dictionary<string, object> metadata = null,
-                                                    PrefillInfo prefillInfo = null)
-            {
-                Operation = operation ?? throw new ArgumentNullException(nameof(operation));
-                Intent = intent;
-                Currency = currency;
-                Prices = prices;
-                Description = description;
-                PayerReference = payerReference;
-                UserAgent = userAgent;
-                Language = language;
-                Urls = urls;
-                PayeeInfo = payeeInfo;
-                Metadata = metadata;
-                PrefillInfo = prefillInfo;
-            }
-
-
-            public CurrencyCode Currency { get; set; }
-            public string Description { get; set; }
-            public PaymentIntent Intent { get; set; }
-            public CultureInfo Language { get; set; }
-            public Dictionary<string, object> Metadata { get; }
-            public Operation Operation { get; set; }
-            public PayeeInfo PayeeInfo { get; internal set; }
-            public string PayerReference { get; set; }
-            public List<IPrice> Prices { get; set; }
-            public IUrls Urls { get; }
-            public string UserAgent { get; set; }
-            public PrefillInfo PrefillInfo { get; set; }
-        }
-
-
-        public class MobilePayPaymentRequestObject
-        {
-            protected internal MobilePayPaymentRequestObject(Uri shoplogoUrl)
-            {
-                ShoplogoUrl = shoplogoUrl;
-            }
-
-            /// <summary>
-            ///    URI to logo that will be visible at MobilePay payment menu
-            /// </summary>
-            public Uri ShoplogoUrl { get; set; }
-
-        }
     }
 }

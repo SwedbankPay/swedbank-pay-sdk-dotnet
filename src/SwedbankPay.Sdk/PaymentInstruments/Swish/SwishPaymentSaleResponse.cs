@@ -4,7 +4,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
     public class SwishPaymentSaleResponse
     {
-        public SwishPaymentSaleResponse(Uri payment, Sale sale)
+        public SwishPaymentSaleResponse(Uri payment, SiwshPaymentSale sale)
         {
             Payment = payment;
             Sale = sale;
@@ -12,23 +12,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 
 
         public Uri Payment { get; }
-        public Sale Sale { get; }
-    }
-
-    public class Sale
-    {
-        public Sale(DateTime date, string paymentRequestToken, Uri id, Transaction transaction)
-        {
-            Date = date;
-            PaymentRequestToken = paymentRequestToken;
-            Id = id;
-            Transaction = transaction;
-        }
-
-
-        public DateTime Date { get; }
-        public Uri Id { get; }
-        public string PaymentRequestToken { get; }
-        public Transaction Transaction { get; }
+        public SiwshPaymentSale Sale { get; }
     }
 }

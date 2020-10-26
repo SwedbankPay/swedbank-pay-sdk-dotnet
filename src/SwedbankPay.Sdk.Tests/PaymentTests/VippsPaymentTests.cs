@@ -1,8 +1,8 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using SwedbankPay.Sdk.Common;
+﻿using SwedbankPay.Sdk.Common;
 using SwedbankPay.Sdk.PaymentInstruments;
 using SwedbankPay.Sdk.Tests.TestBuilders;
+using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace SwedbankPay.Sdk.Tests.PaymentTests
@@ -15,7 +15,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         [Fact]
         public async Task CreateVippsPayment_ShouldReturnWithExpectedValues()
         {
-            var vippsPaymentRequest = this.paymentRequestBuilder.WithVippsTestValues(this.payeeId ,Operation.Purchase).BuildVippsRequest();
+            var vippsPaymentRequest = this.paymentRequestBuilder.WithVippsTestValues(this.payeeId, Operation.Purchase).BuildVippsRequest();
             var vippsPayment = await this.Sut.Payments.VippsPayments.Create(vippsPaymentRequest, PaymentExpand.All);
 
             Assert.NotNull(vippsPayment);
@@ -46,5 +46,5 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
 
             Assert.Equal(vippsPaymentRequest.Payment.Prices.First().Amount.InLowestMonetaryUnit, price.Amount.InLowestMonetaryUnit);
         }
-    } 
+    }
 }

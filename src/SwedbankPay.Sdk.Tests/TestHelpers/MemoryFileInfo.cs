@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Microsoft.Extensions.FileProviders;
+using System;
 using System.IO;
-using Microsoft.Extensions.FileProviders;
 
 namespace SwedbankPay.Sdk.Tests.TestHelpers
 {

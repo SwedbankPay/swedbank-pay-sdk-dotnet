@@ -24,7 +24,7 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
         public static SwedbankPayConnectionSettings GetSwedbankPayConnectionSettings(string outputPath)
         {
             var configuration = new SwedbankPayConnectionSettings();
-           
+
             var iConfig = GetIConfigurationRoot(outputPath);
 
             iConfig
@@ -38,7 +38,7 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
         public static Urls GetUrls(string outputPath)
         {
             var configuration = new UrlsOptions();
-            
+
             var iConfig = GetIConfigurationRoot(outputPath);
 
             iConfig

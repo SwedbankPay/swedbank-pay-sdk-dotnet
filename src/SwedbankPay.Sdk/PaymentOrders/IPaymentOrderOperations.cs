@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public interface IPaymentOrderOperations: IDictionary<LinkRelation, HttpOperation>
+    public interface IPaymentOrderOperations : IDictionary<LinkRelation, HttpOperation>
     {
         Func<Task<IPaymentOrderResponse>> Abort { get; }
         Func<PaymentOrderCancelRequest, Task<CancellationResponse>> Cancel { get; }

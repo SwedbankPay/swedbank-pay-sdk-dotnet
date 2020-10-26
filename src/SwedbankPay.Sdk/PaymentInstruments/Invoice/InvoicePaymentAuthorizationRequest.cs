@@ -9,5 +9,5 @@
 
 
         public IAuthorizationTransaction Transaction { get; }
-}
+    }
 }

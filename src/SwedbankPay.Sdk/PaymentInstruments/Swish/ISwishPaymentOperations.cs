@@ -1,4 +1,5 @@
 ﻿using SwedbankPay.Sdk.Common;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,11 +7,11 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
     public interface ISwishPaymentOperations : IDictionary<LinkRelation, HttpOperation>
     {
-        System.Func<PaymentAbortRequest, Task<ISwishPaymentResponse>> Abort { get; }
+        Func<PaymentAbortRequest, Task<ISwishPaymentResponse>> Abort { get; }
         HttpOperation PaidPayment { get; }
         HttpOperation RedirectSale { get; }
-        System.Func<SwishPaymentReversalRequest, Task<ReversalResponse>> Reverse { get; }
-        System.Func<SwishPaymentSaleRequest, Task<SwishPaymentSaleResponse>> Sale { get; }
+        Func<SwishPaymentReversalRequest, Task<ReversalResponse>> Reverse { get; }
+        Func<SwishPaymentSaleRequest, Task<SwishPaymentSaleResponse>> Sale { get; }
         HttpOperation ViewSales { get; }
     }
 }
