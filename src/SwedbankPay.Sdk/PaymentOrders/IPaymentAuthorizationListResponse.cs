@@ -1,16 +1,12 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrders
+﻿using SwedbankPay.Sdk.Common;
+using System;
+using System.Collections.Generic;
+
+namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public interface IPaymentAuthorizationListResponse
+    internal interface IPaymentAuthorizationListResponse
     {
-        public string Id { get; }
-        public string Created { get; }
-        public string Updated { get; }
-        public string Type { get; }
-        public string State { get; }
-        public string Number { get; }
-        public int Amount { get; }
-        public int VatAmount { get; }
-        public string Description { get; }
-        public string PayeeReference { get; }
+        public Uri Id { get; }
+        public List<IPaymentAuthorization> AuthorizationList { get; }
     }
 }

@@ -38,7 +38,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                             DateTime created,
                                             DateTime updated,
                                             Amount amount,
-                                            IPaymentAuthorizationListResponse authorizations,
+                                            IPaymentAuthorizationResponse authorizations,
                                             ICancellationsListResponse cancellations,
                                             ICapturesListResponse captures,
                                             CurrencyCode currency,
@@ -88,7 +88,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public DateTime Created { get; }
         public DateTime Updated { get; }
         public Amount Amount { get; }
-        public IPaymentAuthorizationListResponse Authorizations { get; }
+        public IPaymentAuthorizationResponse Authorizations { get; }
         public ICancellationsListResponse Cancellations { get; }
         public ICapturesListResponse Captures { get; }
         public CurrencyCode Currency { get; }

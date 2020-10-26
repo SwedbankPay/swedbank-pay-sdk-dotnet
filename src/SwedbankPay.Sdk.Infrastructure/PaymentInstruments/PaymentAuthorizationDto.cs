@@ -1,4 +1,5 @@
-﻿using SwedbankPay.Sdk.PaymentInstruments.Card;
+﻿using SwedbankPay.Sdk.Common;
+using SwedbankPay.Sdk.PaymentInstruments.Card;
 using System;
 
 namespace SwedbankPay.Sdk.PaymentInstruments
@@ -13,6 +14,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         public string CardBrand { get; set; }
         public string CardType { get; set; }
         public string CountryCode { get; set; }
+
         public bool Direct { get; set; }
         public string ExpiryDate { get; set; }
         public string ExternalNonPaymentToken { get; set; }
@@ -26,5 +28,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         public string RecurrenceToken { get; set; }
         public CardPaymentAuthorizationRequestTransactionDto Transaction { get; set; }
         public string TransactionInitiator { get; set; }
+
+        internal IPaymentAuthorization Map()
+        {
+            return new PaymentAuthorization(this);
+        }
     }
 }

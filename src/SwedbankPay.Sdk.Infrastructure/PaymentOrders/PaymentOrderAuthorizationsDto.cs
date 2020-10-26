@@ -8,7 +8,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public string Id { get; set; }
         public List<TransactionDto> AuthorizationList { get; set; }
 
-        internal IPaymentAuthorizationListResponse Map()
+        internal IPaymentAuthorizationResponse Map()
         {
             throw new NotImplementedException();
         }

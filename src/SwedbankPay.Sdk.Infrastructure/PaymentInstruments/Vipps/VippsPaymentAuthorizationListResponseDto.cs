@@ -16,7 +16,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
                 list.Add(item.Map());
             }
             return new VippsPaymentAuthorizationListResponse(Id, list);
-            throw new NotImplementedException();
         }
     }
 }
