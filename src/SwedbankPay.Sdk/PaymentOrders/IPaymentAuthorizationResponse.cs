@@ -1,16 +1,29 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrders
+﻿using SwedbankPay.Sdk.Common;
+using SwedbankPay.Sdk.PaymentInstruments;
+using System;
+
+namespace SwedbankPay.Sdk.PaymentOrders
 {
     public interface IPaymentAuthorizationResponse
     {
-        public string Id { get; }
-        public string Created { get; }
-        public string Updated { get; }
-        public string Type { get; }
-        public string State { get; }
+        public Uri Id { get; }
+
+        public DateTime Created { get; }
+
+        public DateTime Updated { get; }
+
+        public PaymentType Type { get; }
+
+        public State State { get; }
+
         public string Number { get; }
-        public int Amount { get; }
-        public int VatAmount { get; }
+
+        public Amount Amount { get; }
+
+        public Amount VatAmount { get; }
+
         public string Description { get; }
+
         public string PayeeReference { get; }
     }
 }

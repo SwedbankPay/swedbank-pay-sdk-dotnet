@@ -4,6 +4,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments
 {
     public interface ICancellationsListResponse
     {
-        List<ITransactionResponse> CancellationList { get; }
+        List<ITransaction> CancellationList { get; }
     }
 }
