@@ -28,7 +28,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
             Reversals = payment.Reversals.Map();
             State = payment.State;
             Transactions = payment.Transactions.Map();
-            Urls = new IdLink { Id = new Uri(payment.Urls.Id, UriKind.RelativeOrAbsolute) };
+            Urls = new IdLink { Id = payment.Urls.Id };
             UserAgent = payment.UserAgent;
             Sales = payment.Sales.Map();
         }

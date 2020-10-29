@@ -162,7 +162,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             false,
             new Urls(new UrlsDto
             {
-                Id = GetUri().AbsoluteUri,
+                Id = GetUri(),
                 HostUrls = new List<Uri> { GetUri() },
                 CallbackUrl = GetUri().AbsoluteUri,
                 CompleteUrl = GetUri().AbsoluteUri

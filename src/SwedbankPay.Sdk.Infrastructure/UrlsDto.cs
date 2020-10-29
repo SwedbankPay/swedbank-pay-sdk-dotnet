@@ -6,7 +6,7 @@ namespace SwedbankPay.Sdk
 {
     public class UrlsDto
     {
-        public string Id { get; set; }
+        public Uri Id { get; set; }
         public string CallbackUrl { get; set; }
 
         public string CancelUrl { get; set; }
@@ -23,6 +23,8 @@ namespace SwedbankPay.Sdk
 
         internal IUrls Map()
         {
+            if (HostUrls == null)
+                return new IdLink() { Id = Id } as IUrls;
             return new Urls(this);
         }
     }

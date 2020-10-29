@@ -4,6 +4,11 @@ namespace SwedbankPay.Sdk.Common
 {
     public class PayeeInfo : IdLink
     {
+        public PayeeInfo(Uri id)
+        {
+            Id = id;
+        }
+
         public PayeeInfo(Guid payeeId,
                          string payeeReference,
                          string payeeName = null,
