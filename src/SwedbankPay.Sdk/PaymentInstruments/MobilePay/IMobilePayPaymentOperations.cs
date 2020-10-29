@@ -8,10 +8,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
     public interface IMobilePayPaymentOperations : IDictionary<LinkRelation, HttpOperation>
     {
         Func<PaymentAbortRequest, Task<IMobilePayPaymentResponse>> Abort { get; }
-        Func<MobilePayPaymentCancelRequest, Task<CancellationResponse>> Cancel { get; }
-        Func<MobilePayPaymentCaptureRequest, Task<CaptureResponse>> Capture { get; }
+        Func<MobilePayPaymentCancelRequest, Task<ICancellationResponse>> Cancel { get; }
+        Func<MobilePayPaymentCaptureRequest, Task<ICaptureResponse>> Capture { get; }
         HttpOperation RedirectAuthorization { get; }
-        Func<MobilePayPaymentReversalRequest, Task<ReversalResponse>> Reverse { get; }
+        Func<MobilePayPaymentReversalRequest, Task<IReversalResponse>> Reverse { get; }
         HttpOperation ViewAuthorization { get; }
     }
 }

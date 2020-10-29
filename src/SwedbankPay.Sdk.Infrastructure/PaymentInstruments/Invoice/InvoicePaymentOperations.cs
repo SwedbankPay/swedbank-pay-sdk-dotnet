@@ -58,10 +58,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 
         public Func<InvoiceApprovedLegalAddressRequest, Task<ApprovedLegalAddressResponse>> ApprovedLegalAddress { get; }
         public Func<PaymentAbortRequest, Task<IInvoicePaymentResponse>> Abort { get; }
-        public Func<InvoicePaymentCancelRequest, Task<CancellationResponse>> Cancel { get; }
-        public Func<InvoicePaymentCaptureRequest, Task<CaptureResponse>> Capture { get; }
+        public Func<InvoicePaymentCancelRequest, Task<ICancellationResponse>> Cancel { get; }
+        public Func<InvoicePaymentCaptureRequest, Task<ICaptureResponse>> Capture { get; }
         public Func<InvoicePaymentAuthorizationRequest, Task<IInvoicePaymentAuthorizationResponse>> DirectAuthorization { get; }
-        public Func<InvoicePaymentReversalRequest, Task<ReversalResponse>> Reversal { get; }
+        public Func<InvoicePaymentReversalRequest, Task<IReversalResponse>> Reversal { get; }
         public HttpOperation RedirectAuthorization { get; }
         public HttpOperation ViewAuthorization { get; }
 

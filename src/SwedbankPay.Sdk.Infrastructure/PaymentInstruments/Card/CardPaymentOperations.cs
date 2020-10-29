@@ -69,10 +69,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             }
         }
 
-        public Func<CardPaymentCancelRequest, Task<CancellationResponse>> Cancel { get; }
-        public Func<CardPaymentCaptureRequest, Task<CaptureResponse>> Capture { get; }
+        public Func<CardPaymentCancelRequest, Task<ICancellationResponse>> Cancel { get; }
+        public Func<CardPaymentCaptureRequest, Task<ICaptureResponse>> Capture { get; }
         public Func<CardPaymentAuthorizationRequest, Task<CardPaymentAuthorizationResponse>> DirectAuthorization { get; }
-        public Func<CardPaymentReversalRequest, Task<ReversalResponse>> Reverse { get; }
+        public Func<CardPaymentReversalRequest, Task<IReversalResponse>> Reverse { get; }
         public Func<CardPaymentAbortRequest, Task<ICardPaymentResponse>> Abort { get; }
         public HttpOperation DirectVerification { get; internal set; }
         public HttpOperation PaidPayment { get; internal set; }

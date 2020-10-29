@@ -11,7 +11,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         Func<Task<IPaymentOrderResponse>> Abort { get; }
         Func<PaymentOrderCancelRequest, Task<CancellationResponse>> Cancel { get; }
         Func<PaymentOrderCaptureRequest, Task<CaptureResponse>> Capture { get; }
-        Func<PaymentOrderReversalRequest, Task<ReversalResponse>> Reverse { get; }
+        Func<PaymentOrderReversalRequest, Task<IReversalResponse>> Reverse { get; }
         Func<PaymentOrderUpdateRequest, Task<IPaymentOrderResponse>> Update { get; }
         HttpOperation View { get; }
     }

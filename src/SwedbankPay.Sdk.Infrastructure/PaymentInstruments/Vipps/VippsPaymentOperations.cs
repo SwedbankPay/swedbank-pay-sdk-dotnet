@@ -45,7 +45,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         public Func<VippsPaymentCancelRequest, Task<CancellationResponse>> Cancel { get; }
         public Func<VippsPaymentCaptureRequest, Task<CaptureResponse>> Capture { get; }
         public Func<VippsPaymentAuthorizationRequest, Task<VippsPaymentAuthorizationResponse>> DirectAuthorization { get; }
-        public Func<VippsPaymentReversalRequest, Task<ReversalResponse>> Reversal { get; }
+        public Func<VippsPaymentReversalRequest, Task<IReversalResponse>> Reversal { get; }
         public HttpOperation RedirectAuthorization { get; }
         public HttpOperation Update { get; }
         public HttpOperation ViewAuthorization { get; }

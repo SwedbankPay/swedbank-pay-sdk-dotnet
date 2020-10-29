@@ -27,16 +27,32 @@ namespace SwedbankPay.Sdk.PaymentOrders
                 switch (httpOperation.Rel.Value)
                 {
                     case PaymentOrderResourceOperations.CreatePaymentOrderCapture:
-                        Capture = async payload => await client.SendAsJsonAsync<CaptureResponse>(httpOperation.Method, httpOperation.Href, payload);
+                        Capture = async payload =>
+                        {
+                            return await client.SendAsJsonAsync<CaptureResponse>(httpOperation.Method, httpOperation.Href, payload);
+                        };
                         break;
                     case PaymentOrderResourceOperations.CreatePaymentOrderCancel:
-                        Cancel = async payload => await client.SendAsJsonAsync<CancellationResponse>(httpOperation.Method, httpOperation.Href, payload);
+                        Cancel = async payload =>
+                        {
+                            return await client.SendAsJsonAsync<CancellationResponse>(httpOperation.Method, httpOperation.Href, payload);
+                        };
                         break;
                     case PaymentOrderResourceOperations.CreatePaymentOrderReversal:
-                        Reverse = async payload => await client.SendAsJsonAsync<ReversalResponse>(httpOperation.Method, httpOperation.Href, payload);
+                        Reverse = async payload =>
+                        {
+                            var url = httpOperation.Href.GetUrlWithQueryString(PaymentExpand.All);
+                            var paymentOrderResponseContainer = await client.SendAsJsonAsync<ReversalResponseDto>(httpOperation.Method, url, payload);
+                            return new ReversalResponse(paymentOrderResponseContainer.Payment, paymentOrderResponseContainer.Reversal.Map());
+                        };
                         break;
                     case PaymentOrderResourceOperations.UpdatePaymentOrderUpdateOrder:
-                        Update = async payload => await client.SendAsJsonAsync<PaymentOrderResponse>(httpOperation.Method, httpOperation.Href, payload);
+                        Update = async payload =>
+                        {
+                            var url = httpOperation.Href.GetUrlWithQueryString(PaymentExpand.All);
+                            var paymentOrderResponseContainer = await client.SendAsJsonAsync<PaymentOrderResponseDto>(httpOperation.Method, url, payload);
+                            return new PaymentOrderResponse(paymentOrderResponseContainer, client);
+                        };
                         break;
                     case PaymentOrderResourceOperations.UpdatePaymentOrderAbort:
                         Abort = async () =>
@@ -57,7 +73,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public Func<Task<IPaymentOrderResponse>> Abort { get; }
         public Func<PaymentOrderCancelRequest, Task<CancellationResponse>> Cancel { get; }
         public Func<PaymentOrderCaptureRequest, Task<CaptureResponse>> Capture { get; }
-        public Func<PaymentOrderReversalRequest, Task<ReversalResponse>> Reverse { get; }
+        public Func<PaymentOrderReversalRequest, Task<IReversalResponse>> Reverse { get; }
         public Func<PaymentOrderUpdateRequest, Task<IPaymentOrderResponse>> Update { get; }
         public HttpOperation View { get; internal set; }
     }

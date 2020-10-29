@@ -11,7 +11,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         Func<VippsPaymentCaptureRequest, Task<CaptureResponse>> Capture { get; }
         Func<VippsPaymentAuthorizationRequest, Task<VippsPaymentAuthorizationResponse>> DirectAuthorization { get; }
         HttpOperation RedirectAuthorization { get; }
-        Func<VippsPaymentReversalRequest, Task<ReversalResponse>> Reversal { get; }
+        Func<VippsPaymentReversalRequest, Task<IReversalResponse>> Reversal { get; }
         HttpOperation Update { get; }
         HttpOperation ViewAuthorization { get; }
     }
