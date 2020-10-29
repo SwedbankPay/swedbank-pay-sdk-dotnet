@@ -6,7 +6,7 @@ namespace SwedbankPay.Sdk.Consumers
     {
         public ConsumersResponse(ConsumersResponseDto consumerResponse)
         {
-            //Operations = consumerResponse.Operations.Map();
+            Operations = consumerResponse.Operations.Map();
             Token = consumerResponse.Token;
         }
 
