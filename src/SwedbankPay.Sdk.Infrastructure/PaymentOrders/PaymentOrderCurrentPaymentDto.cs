@@ -12,8 +12,15 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
         internal ICurrentPaymentResponse Map()
         {
+            var uri = new Uri(Id, UriKind.RelativeOrAbsolute);
+
+            if (Payment == null)
+            {
+                return new CurrentPaymentResponse(uri, MenuElementName, null);
+            }
+
             var payment = new CurrentPaymentResponseObject(Payment);
-            return new CurrentPaymentResponse(new Uri(Id, UriKind.RelativeOrAbsolute), MenuElementName, payment);
+            return new CurrentPaymentResponse(uri, MenuElementName, payment);
         }
     }
 }

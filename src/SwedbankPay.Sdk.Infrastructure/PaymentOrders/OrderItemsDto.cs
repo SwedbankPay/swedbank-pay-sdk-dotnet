@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
@@ -28,7 +29,8 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                        item.DiscountDescription,
                                        item.DiscountPrice));
             }
-            return new OrderItems(list);
+            var uri = new Uri(Id, UriKind.RelativeOrAbsolute);
+            return new OrderItems(uri, list);
         }
     }
 }

@@ -1,12 +1,14 @@
 ﻿using SwedbankPay.Sdk.Common;
+using System;
 using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
     public class OrderItems : IdLink
     {
-        public OrderItems(IEnumerable<OrderItem> orderItemList)
+        public OrderItems(Uri id, IEnumerable<OrderItem> orderItemList)
         {
+            Id = id;
             OrderItemList = orderItemList;
         }
         /// <summary>

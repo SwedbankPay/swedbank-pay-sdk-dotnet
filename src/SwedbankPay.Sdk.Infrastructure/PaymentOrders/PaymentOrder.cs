@@ -17,10 +17,11 @@ namespace SwedbankPay.Sdk.PaymentOrders
             Language = new CultureInfo(paymentOrder.Language);
             Metadata = paymentOrder.Metadata;
             Operation = paymentOrder.Operation;
-            OrderItems = paymentOrder.OrderItems.Map();
+            OrderItems = paymentOrder.OrderItems?.Map();
             PayeeInfo = paymentOrder.PayeeInfo.Map();
             Payers = paymentOrder.Payer.Map();
-            Payments = new IdLink() { Id = new Uri(paymentOrder.Payments.Id, UriKind.RelativeOrAbsolute) };
+            if(paymentOrder.Payments != null && string.IsNullOrEmpty(paymentOrder.Payments.Id))
+                Payments = new IdLink() { Id = new Uri(paymentOrder.Payments.Id, UriKind.RelativeOrAbsolute) };
             RemainingCancellationAmount = paymentOrder.RemainingCancellationAmount;
             RemainingCaptureAmount = paymentOrder.RemainingCaptureAmount;
             RemainingReversalAmount = paymentOrder.RemainingReversalAmount;

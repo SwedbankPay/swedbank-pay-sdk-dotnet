@@ -21,21 +21,26 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
         internal Payer Map()
         {
-            return new Payer
+            var payer = new Payer
             {
                 Id = Id,
                 AccountInfo = AccountInfo,
                 BillingAddress = BillingAddress,
                 ConsumerProfileRef = ConsumerProfileRef,
-                Email = new EmailAddress(Email),
                 FirstName = FirstName,
                 HomePhoneNumber = HomePhoneNumber,
                 LastName = LastName,
-                Msisdn = new Msisdn(Msisdn),
-                NationalIdentifier = new NationalIdentifier(new RegionInfo(NationalIdentifier.CountryCode), NationalIdentifier.SocialSecurityNumber),
                 ShippingAddress = ShippingAddress,
                 WorkPhoneNumber = WorkPhoneNumber
             };
+            if (Email != null)
+                payer.Email = new EmailAddress(Email);
+            if (!String.IsNullOrEmpty(Msisdn))
+                payer.Msisdn = new Msisdn(Msisdn);
+            if (NationalIdentifier != null)
+                payer.NationalIdentifier = new NationalIdentifier(new RegionInfo(NationalIdentifier.CountryCode), NationalIdentifier.SocialSecurityNumber);
+
+            return payer;
         }
     }
 }
