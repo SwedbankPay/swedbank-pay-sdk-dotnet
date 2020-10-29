@@ -14,6 +14,6 @@ namespace SwedbankPay.Sdk.Common
             Id = dictionary["id"]?.ToString();
         }
 
-        public string Id { get; }
+        public string Id { get; set; }
     }
 }

@@ -42,6 +42,7 @@ namespace SwedbankPay.Sdk.JsonSerialization
             settings.Converters.Add(new CustomMsisdnConverter());
             settings.Converters.Add(new CustomRegionInfoConverter());
             settings.Converters.Add(new CustomUriConverter());
+            settings.Converters.Add(new CustomMetaDataConverter());
 
             // Enum converters
             settings.Converters.Add(new TypedSafeEnumValueConverter<ShipIndicator, string>());
