@@ -47,6 +47,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
         public HttpOperation ViewSale { get; }
         public Func<PaymentAbortRequest, Task<ITrustlyPayment>> Abort { get; }
         public Func<TrustlyPaymentReversalRequest, Task<IReversalResponse>> Reverse { get; }
-        public Func<TrustlyPaymentCancelRequest, Task<CancellationResponse>> Cancel { get; }
+        public Func<TrustlyPaymentCancelRequest, Task<ICancellationResponse>> Cancel { get; }
     }
 }

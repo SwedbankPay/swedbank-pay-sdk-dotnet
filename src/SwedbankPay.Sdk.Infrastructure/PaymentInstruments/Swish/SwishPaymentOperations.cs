@@ -43,7 +43,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         }
 
         public Func<PaymentAbortRequest, Task<ISwishPaymentResponse>> Abort { get; }
-        public Func<SwishPaymentReversalRequest, Task<ReversalResponse>> Reverse { get; }
+        public Func<SwishPaymentReversalRequest, Task<IReversalResponse>> Reverse { get; }
         public Func<SwishPaymentSaleRequest, Task<SwishPaymentSaleResponse>> Sale { get; }
         public HttpOperation PaidPayment { get; }
         public HttpOperation RedirectSale { get; }
