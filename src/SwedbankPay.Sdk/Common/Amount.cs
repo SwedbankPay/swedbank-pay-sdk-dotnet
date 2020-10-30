@@ -14,10 +14,10 @@ namespace SwedbankPay.Sdk.Common
             // Use "Banker's Rounding" by default.
             const MidpointRounding roundingMode = MidpointRounding.ToEven;
             var roundedAmount = Math.Round(amount, 2, roundingMode);
-            InLowestMonetaryUnit = (int)(roundedAmount * 100);
+            InLowestMonetaryUnit = (long)(roundedAmount * 100);
         }
 
-        public int InLowestMonetaryUnit { get; }
+        public long InLowestMonetaryUnit { get; }
 
         public static implicit operator decimal(Amount amount)
         {
