@@ -7,7 +7,7 @@ namespace SwedbankPay.Sdk.Tests.Json
 {
     public class CustomAmountConverterTests
     {
-        private readonly long expectedAmount = 100;
+        private readonly int expectedAmount = 100;
 
 
         [Fact]
@@ -21,7 +21,7 @@ namespace SwedbankPay.Sdk.Tests.Json
             var result = JsonSerializer.Deserialize<Amount>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);
 
             //ASSERT
-            Assert.Equal(this.expectedAmount, result.InLowestMonetaryUnit);
+            Assert.Equal(new Amount(this.expectedAmount), result);
         }
 
 
@@ -38,7 +38,7 @@ namespace SwedbankPay.Sdk.Tests.Json
             var amount = obj.RootElement.GetProperty("amount").GetInt64();
 
             //ASSERT
-            Assert.Equal(this.expectedAmount, amount);
+            Assert.Equal(Amount.FromLowestMonetaryUnit(this.expectedAmount), amount);
         }
     }
 }
