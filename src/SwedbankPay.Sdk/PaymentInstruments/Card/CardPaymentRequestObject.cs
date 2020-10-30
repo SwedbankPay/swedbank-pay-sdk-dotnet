@@ -20,7 +20,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
                                                 CultureInfo language,
                                                 IUrls urls,
                                                 PayeeInfo payeeInfo,
-                                                RiskIndicator riskIndicator = null,
+                                                IRiskIndicator riskIndicator = null,
                                                 Cardholder cardholder = null,
                                                 CreditCard creditCard = null,
                                                 Dictionary<string, object> metadata = null,
@@ -59,7 +59,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         public string PayerReference { get; }
         public string PaymentToken { get; }
         public List<IPrice> Prices { get; }
-        public RiskIndicator RiskIndicator { get; }
+        public IRiskIndicator RiskIndicator { get; }
         public IUrls Urls { get; }
         public string UserAgent { get; }
     }

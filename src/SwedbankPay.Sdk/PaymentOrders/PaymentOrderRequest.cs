@@ -17,7 +17,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                    PayeeInfo payeeInfo,
                                    Payer payer = null,
                                    List<OrderItem> orderItems = null,
-                                   RiskIndicator riskIndicator = null,
+                                   IRiskIndicator riskIndicator = null,
                                    Dictionary<string, object> metadata = null,
                                    List<Item> items = null,
                                    bool? disablePaymentMenu = null)

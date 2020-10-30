@@ -18,7 +18,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                                      PayeeInfo payeeInfo,
                                                      Payer payer = null,
                                                      List<OrderItem> orderItems = null,
-                                                     RiskIndicator riskIndicator = null,
+                                                     IRiskIndicator riskIndicator = null,
                                                      Dictionary<string, object> metadata = null,
                                                      List<Item> items = null,
                                                      bool? disablePaymentMenu = null)
@@ -103,7 +103,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public Payer Payer { get; }
 
         //Information about risk indicator
-        public RiskIndicator RiskIndicator { get; }
+        public IRiskIndicator RiskIndicator { get; }
 
         /// <summary>
         ///     The urls property of the paymentOrder contains the URIs related to a payment order, including where the consumer

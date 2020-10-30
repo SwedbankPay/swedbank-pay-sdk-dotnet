@@ -19,7 +19,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
                               bool generatePaymentToken = false,
                               bool generateReccurenceToken = false,
                               string payerReference = null,
-                              RiskIndicator riskIndicator = null,
+                              IRiskIndicator riskIndicator = null,
                               Cardholder cardholder = null,
                               CreditCard creditCard = null,
                               MetadataResponse metadata = null,

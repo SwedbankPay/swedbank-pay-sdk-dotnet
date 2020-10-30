@@ -1,9 +1,11 @@
 ﻿using SwedbankPay.Sdk.Common;
+using SwedbankPay.Sdk.JsonSerialization.Converters;
 using System;
+using System.Text.Json.Serialization;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class RiskIndicator
+    public class RiskIndicator : IRiskIndicator
     {
         /// <summary>
         ///     For electronic delivery, the email address to which the merchandise was delivered.
@@ -33,6 +35,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         ///     For a pre-ordered purchase. The expected date that the merchandise will be available.
         ///     FORMAT: "YYYYMMDD"
         /// </summary>
+        [JsonConverter(typeof(CustomRiskIndicatorDateTime))]
         public DateTime PreOrderDate { get; set; }
 
         /// <summary>

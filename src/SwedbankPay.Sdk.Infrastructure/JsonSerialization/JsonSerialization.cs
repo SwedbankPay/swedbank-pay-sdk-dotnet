@@ -29,7 +29,7 @@ namespace SwedbankPay.Sdk.JsonSerialization
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                 WriteIndented = true,
                 MaxDepth = 64,
-                IgnoreReadOnlyProperties = false,
+                IgnoreReadOnlyProperties = false
             };
 
             // Converts enums to/from strings
