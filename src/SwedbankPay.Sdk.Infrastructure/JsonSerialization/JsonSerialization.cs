@@ -58,6 +58,7 @@ namespace SwedbankPay.Sdk.JsonSerialization
             settings.Converters.Add(new TypedSafeEnumValueConverter<Operation, string>());
             settings.Converters.Add(new TypedSafeEnumValueConverter<State, string>());
             settings.Converters.Add(new TypedSafeEnumValueConverter<PaymentOrderLanguage, string>());
+            settings.Converters.Add(new TypedSafeEnumValueConverter<OrderItemType, string>());
         }
     }
 }

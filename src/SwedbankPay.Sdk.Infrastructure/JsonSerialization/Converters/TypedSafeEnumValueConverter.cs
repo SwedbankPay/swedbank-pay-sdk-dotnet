@@ -55,12 +55,15 @@ namespace SwedbankPay.Sdk.JsonSerialization.Converters
         public override void Write(Utf8JsonWriter writer, TEnum value, JsonSerializerOptions options)
         {
             if (value is null && !options.IgnoreNullValues)
+            {
                 writer.WriteNullValue();
+            }
             else if (value is null && options.IgnoreNullValues)
+            {
                 return;
+            }
             else
             {
-                //string enumValue = Enum.GetName(value.GetType(), value.Value);
                 writer.WriteStringValue(value.Value.ToString());
             }
         }

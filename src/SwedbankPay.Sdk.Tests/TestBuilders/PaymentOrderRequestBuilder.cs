@@ -70,8 +70,8 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
                 new OrderItem("p2", "Product2", OrderItemType.Product, "ProductGroup1", 1, "pcs", new Amount(500), 0,
                               new Amount(500), new Amount(0))
             };
-            this.amount = new Amount(this.orderItems.Sum(s => new Amount(s.Amount).InLowestMonetaryUnit));
-            this.vatAmount = new Amount(this.orderItems.Sum(s => new Amount(s.VatAmount).InLowestMonetaryUnit));
+            this.amount = new Amount(this.orderItems.Sum(s => s.Amount));
+            this.vatAmount = new Amount(this.orderItems.Sum(s => s.VatAmount));
 
             return this;
         }
