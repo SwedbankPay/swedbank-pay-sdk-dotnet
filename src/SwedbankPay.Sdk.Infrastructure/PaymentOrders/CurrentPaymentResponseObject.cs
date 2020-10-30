@@ -33,7 +33,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
             Sales = payment.Sales.Map();
         }
 
-        public string Number { get; }
+        public long Number { get; }
         public PaymentInstrument Instrument { get; }
         public DateTime Created { get; }
         public DateTime Updated { get; }

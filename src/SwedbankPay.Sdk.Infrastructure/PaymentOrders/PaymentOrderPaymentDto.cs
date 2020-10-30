@@ -7,7 +7,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
     {
         public string CorporationId { get; set; }
         public string Id { get; set; }
-        public string Number { get; set; }
+        public long Number { get; set; }
         public DateTime Created { get; set; }
         public DateTime Updated { get; set; }
         public string Instrument { get; set; }

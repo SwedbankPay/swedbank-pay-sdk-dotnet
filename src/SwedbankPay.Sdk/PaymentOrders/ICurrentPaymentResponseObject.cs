@@ -16,7 +16,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         PaymentInstrument Instrument { get; }
         PaymentIntent Intent { get; }
         Language Language { get; }
-        string Number { get; }
+        long Number { get; }
         Operation Operation { get; }
         PayeeInfo PayeeInfo { get; }
         string PayerReference { get; }
