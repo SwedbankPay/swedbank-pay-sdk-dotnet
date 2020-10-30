@@ -6,19 +6,19 @@ namespace SwedbankPay.Sdk
 {
     public class TransactionDto
     {
-        public int Amount { get; }
-        public DateTime Created { get; }
-        public string Description { get; }
-        public string Id { get; }
-        public bool IsOperational { get; }
-        public string Number { get; }
-        public OperationListDto Operations { get; }
-        public string PayeeReference { get; }
-        public string State { get; }
-        public string Type { get; }
-        public DateTime Updated { get; }
-        public int VatAmount { get; }
-        public string Activity { get; }
+        public int Amount { get; set; }
+        public DateTime Created { get; set; }
+        public string Description { get; set; }
+        public string Id { get; set; }
+        public bool IsOperational { get; set; }
+        public long Number { get; set; }
+        public OperationListDto Operations { get; set; }
+        public string PayeeReference { get; set; }
+        public string State { get; set; }
+        public string Type { get; set; }
+        public DateTime Updated { get; set; }
+        public int VatAmount { get; set; }
+        public string Activity { get; set; }
 
         internal ITransaction Map()
         {

@@ -11,7 +11,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         string Description { get; }
         Uri Id { get; }
         bool IsOperational { get; }
-        string Number { get; }
+        long Number { get; }
         IOperationList Operations { get; }
         string PayeeReference { get; }
         State State { get; }

@@ -13,9 +13,9 @@ namespace SwedbankPay.Sdk.PaymentOrders
             Created = payment.Created;
             Updated = payment.Updated;
             Amount = payment.Amount;
-            Authorizations = payment.Authorizations.Map();
-            Cancellations = payment.Cancellations.Map();
-            Captures = payment.Captures.Map();
+            Authorizations = payment.Authorizations?.Map();
+            Cancellations = payment.Cancellations?.Map();
+            Captures = payment.Captures?.Map();
             Currency = new CurrencyCode(payment.Currency);
             Description = payment.Description;
             Intent = Enum.Parse<PaymentIntent>(payment.Intent);
@@ -25,9 +25,9 @@ namespace SwedbankPay.Sdk.PaymentOrders
             PayerReference = payment.PayerReference;
             PaymentToken = payment.PaymentToken;
             Prices = payment.Prices.Map();
-            Reversals = payment.Reversals.Map();
+            Reversals = payment.Reversals?.Map();
             State = payment.State;
-            Transactions = payment.Transactions.Map();
+            Transactions = payment.Transactions?.Map();
             Urls = new IdLink { Id = payment.Urls.Id };
             UserAgent = payment.UserAgent;
             Sales = payment.Sales.Map();

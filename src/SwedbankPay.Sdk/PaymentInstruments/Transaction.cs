@@ -10,7 +10,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
                            DateTime updated,
                            TransactionType type,
                            State state,
-                           string number,
+                           long number,
                            Amount amount,
                            Amount vatAmount,
                            string description,
@@ -40,7 +40,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         public string Description { get; }
         public Uri Id { get; }
         public bool IsOperational { get; }
-        public string Number { get; }
+        public long Number { get; }
         public IOperationList Operations { get; }
         public string PayeeReference { get; }
         public State State { get; }
