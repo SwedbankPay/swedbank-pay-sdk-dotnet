@@ -149,7 +149,7 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
             var uri = new Uri("http://api.externalintegration.payex.com");
 
             var sut = new HttpClient(handler);
-            await sut.SendAndProcessAsync<CaptureResponse>(HttpMethod.Get, uri, GetPaymentOrderCaptureRequest());
+            await sut.SendAndProcessAsync<CaptureTransactionResponseDto>(HttpMethod.Get, uri, GetPaymentOrderCaptureRequest());
         }
 
         [Fact]

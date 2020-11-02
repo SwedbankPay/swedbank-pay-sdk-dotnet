@@ -5,38 +5,14 @@ namespace SwedbankPay.Sdk
 {
     public class ProblemResponse
     {
-        public ProblemResponse()
-        {
+        public string Action { get; set; }
+        public string Detail { get; set; }
+        public string Instance { get; set; }
+        public List<ProblemResponseItem> Problems { get; set; }
+        public int Status { get; set; }
+        public string Title { get; set; }
 
-        }
-
-
-        public ProblemResponse(string type,
-                               string title,
-                               string detail,
-                               string instance,
-                               int status,
-                               string action,
-                               IEnumerable<ProblemResponseItem> problems)
-        {
-            Type = type;
-            Title = title;
-            Detail = detail;
-            Instance = instance;
-            Status = status;
-            Action = action;
-            Problems = problems;
-        }
-
-
-        public string Action { get; }
-        public string Detail { get; }
-        public string Instance { get; }
-        public IEnumerable<ProblemResponseItem> Problems { get; }
-        public int Status { get; }
-        public string Title { get; }
-
-        public string Type { get; }
+        public string Type { get; set; }
 
 
         public override string ToString()

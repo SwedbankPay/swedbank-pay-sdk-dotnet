@@ -2,16 +2,9 @@
 {
     public class ProblemResponseItem
     {
-        public ProblemResponseItem(string name, string description)
-        {
-            Description = description;
-            Name = name;
-        }
+        public string Description { get; set; }
 
-
-        public string Description { get; }
-
-        public string Name { get; }
+        public string Name { get; set; }
 
 
         public override string ToString()
