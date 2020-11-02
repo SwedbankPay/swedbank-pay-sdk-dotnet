@@ -1,7 +1,6 @@
 ﻿using SwedbankPay.Sdk.JsonSerialization.Converters;
 using SwedbankPay.Sdk.PaymentOrders;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace SwedbankPay.Sdk.JsonSerialization
 {
@@ -31,9 +30,6 @@ namespace SwedbankPay.Sdk.JsonSerialization
                 IgnoreReadOnlyProperties = false
             };
 
-            // Converts enums to/from strings
-            settings.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
-
             settings.Converters.Add(new CustomAmountConverter());
             settings.Converters.Add(new CustomCurrencyCodeConverter());
             settings.Converters.Add(new CustomEmailAddressConverter());
@@ -58,6 +54,9 @@ namespace SwedbankPay.Sdk.JsonSerialization
             settings.Converters.Add(new TypedSafeEnumValueConverter<State>());
             settings.Converters.Add(new TypedSafeEnumValueConverter<PaymentOrderLanguage>());
             settings.Converters.Add(new TypedSafeEnumValueConverter<OrderItemType>());
+
+            // Add all normal enums
+            settings.Converters.Add(new TypesafeEnumConverter<PaymentInstrument>());
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Net.Http;
-
-namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
 {
     public class TrustlyPaymentResponseDto
     {

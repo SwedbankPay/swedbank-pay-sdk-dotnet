@@ -17,7 +17,6 @@ namespace SwedbankPay.Sdk.JsonSerialization.Converters
         {
             if (reader.TokenType == JsonTokenType.PropertyName)
             {
-                reader.GetString();
                 reader.Read();
             }
 

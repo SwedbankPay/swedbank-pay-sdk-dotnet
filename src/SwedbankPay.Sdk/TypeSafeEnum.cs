@@ -29,12 +29,8 @@ namespace SwedbankPay.Sdk
         {
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentNullException(nameof(name));
-
-            if (value == null)
-                throw new ArgumentNullException(nameof(value));
-
             Name = name;
-            Value = value;
+            Value = value ?? throw new ArgumentNullException(nameof(value));
         }
 
 
