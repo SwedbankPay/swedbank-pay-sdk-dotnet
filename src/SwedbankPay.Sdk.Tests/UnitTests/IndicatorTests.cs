@@ -1,6 +1,4 @@
-﻿
-using SwedbankPay.Sdk.Common;
-using Xunit;
+﻿using Xunit;
 
 namespace SwedbankPay.Sdk.Tests.UnitTests
 {

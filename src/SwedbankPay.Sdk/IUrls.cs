@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SwedbankPay.Sdk.Common
+namespace SwedbankPay.Sdk
 {
     public interface IUrls
     {

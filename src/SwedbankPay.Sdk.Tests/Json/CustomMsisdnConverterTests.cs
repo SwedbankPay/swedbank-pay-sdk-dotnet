@@ -1,5 +1,4 @@
-﻿using SwedbankPay.Sdk.Common;
-using SwedbankPay.Sdk.PaymentInstruments;
+﻿using SwedbankPay.Sdk.PaymentInstruments;
 using System.Text.Json;
 
 using Xunit;

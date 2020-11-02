@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace SwedbankPay.Sdk.Common
+namespace SwedbankPay.Sdk
 {
     public abstract class TypeSafeEnum<TEnum, TValue> : IEquatable<TypeSafeEnum<TEnum, TValue>>
         where TEnum : TypeSafeEnum<TEnum, TValue>

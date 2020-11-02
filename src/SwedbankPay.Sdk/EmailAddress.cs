@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace SwedbankPay.Sdk.Common
+namespace SwedbankPay.Sdk
 {
     public class EmailAddress
     {

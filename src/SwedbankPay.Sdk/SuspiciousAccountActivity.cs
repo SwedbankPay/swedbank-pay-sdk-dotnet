@@ -1,4 +1,4 @@
-﻿namespace SwedbankPay.Sdk.Common
+﻿namespace SwedbankPay.Sdk
 {
     /// <summary>
     ///     Indicates whether merchant has experienced suspicious activity (including previous fraud) on the cardholder

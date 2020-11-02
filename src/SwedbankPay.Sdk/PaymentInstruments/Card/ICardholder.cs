@@ -1,6 +1,4 @@
-﻿using SwedbankPay.Sdk.Common;
-
-namespace SwedbankPay.Sdk.PaymentInstruments.Card
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
     public interface ICardholder
     {

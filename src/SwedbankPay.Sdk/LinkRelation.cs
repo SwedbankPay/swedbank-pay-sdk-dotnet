@@ -13,7 +13,7 @@ using SwedbankPay.Sdk.Consumers;
 using SwedbankPay.Sdk.PaymentInstruments;
 using SwedbankPay.Sdk.PaymentOrders;
 
-namespace SwedbankPay.Sdk.Common
+namespace SwedbankPay.Sdk
 {
     public sealed class LinkRelation : TypeSafeEnum<LinkRelation, string>
     {

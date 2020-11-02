@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace SwedbankPay.Sdk.Common
+namespace SwedbankPay.Sdk
 {
     public abstract class OperationsBase : IDictionary<LinkRelation, HttpOperation>
     {

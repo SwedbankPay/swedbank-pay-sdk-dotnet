@@ -1,6 +1,4 @@
-﻿using SwedbankPay.Sdk.Common;
-
-namespace SwedbankPay.Sdk.Consumers
+﻿namespace SwedbankPay.Sdk.Consumers
 {
     public class ConsumersResponse : IConsumersResponse
     {

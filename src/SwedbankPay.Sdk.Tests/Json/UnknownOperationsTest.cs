@@ -1,5 +1,4 @@
-﻿using SwedbankPay.Sdk.Common;
-using SwedbankPay.Sdk.PaymentInstruments.Card;
+﻿using SwedbankPay.Sdk.PaymentInstruments.Card;
 using System.Net.Http;
 using System.Text.Json;
 using Xunit;

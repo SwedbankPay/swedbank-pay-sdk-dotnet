@@ -1,5 +1,4 @@
-﻿using SwedbankPay.Sdk.Common;
-using SwedbankPay.Sdk.Exceptions;
+﻿using SwedbankPay.Sdk.Exceptions;
 using System;
 using System.Net.Http;
 using System.Text;

@@ -1,6 +1,4 @@
-﻿using SwedbankPay.Sdk.Common;
-
-namespace SwedbankPay.Sdk.PaymentInstruments
+﻿namespace SwedbankPay.Sdk.PaymentInstruments
 {
     public class ItemDescriptions
     {

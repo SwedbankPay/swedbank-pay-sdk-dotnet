@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace SwedbankPay.Sdk.Common
+namespace SwedbankPay.Sdk
 {
     public class Amount : IEquatable<Amount>, IComparable<Amount>, IComparable
     {

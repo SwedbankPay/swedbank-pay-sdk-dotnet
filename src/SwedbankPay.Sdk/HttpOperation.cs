@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 
-namespace SwedbankPay.Sdk.Common
+namespace SwedbankPay.Sdk
 {
     public class HttpOperation
     {

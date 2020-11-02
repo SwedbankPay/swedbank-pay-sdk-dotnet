@@ -1,5 +1,4 @@
-﻿using SwedbankPay.Sdk.Common;
-using SwedbankPay.Sdk.PaymentInstruments.MobilePay;
+﻿using SwedbankPay.Sdk.PaymentInstruments.MobilePay;
 using System;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Swish

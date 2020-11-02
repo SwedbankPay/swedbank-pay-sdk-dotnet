@@ -1,4 +1,4 @@
-﻿namespace SwedbankPay.Sdk.Common
+﻿namespace SwedbankPay.Sdk
 {
     /// <summary>
     ///     Length of time since the cardholder's account information with the merchant was changed. Including billing etc.

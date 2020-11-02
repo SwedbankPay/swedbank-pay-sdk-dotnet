@@ -1,4 +1,4 @@
-﻿namespace SwedbankPay.Sdk.Common
+﻿namespace SwedbankPay.Sdk
 {
     /// <summary>
     ///     Optional. If payer is known by merchant and have some kind of registered user then these fields can be set.

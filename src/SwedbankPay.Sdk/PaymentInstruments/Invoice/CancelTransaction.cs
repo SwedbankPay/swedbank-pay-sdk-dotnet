@@ -1,6 +1,4 @@
-﻿using SwedbankPay.Sdk.Common;
-
-namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
     public class CancelTransaction : ICancelTransaction
     {

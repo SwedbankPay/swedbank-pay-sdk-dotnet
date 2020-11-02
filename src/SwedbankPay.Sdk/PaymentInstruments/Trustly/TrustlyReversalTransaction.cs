@@ -1,6 +1,4 @@
-﻿using SwedbankPay.Sdk.Common;
-
-namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
 {
     public class TrustlyReversalTransaction
     {

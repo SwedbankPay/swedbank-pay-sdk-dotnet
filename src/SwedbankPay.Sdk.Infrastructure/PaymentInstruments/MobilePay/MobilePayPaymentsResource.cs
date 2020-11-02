@@ -1,5 +1,4 @@
-﻿using SwedbankPay.Sdk.Common;
-using SwedbankPay.Sdk.Extensions;
+﻿using SwedbankPay.Sdk.Extensions;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;

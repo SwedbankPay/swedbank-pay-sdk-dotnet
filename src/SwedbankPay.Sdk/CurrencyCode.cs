@@ -13,7 +13,7 @@ using System;
 using System.Globalization;
 using System.Linq;
 
-namespace SwedbankPay.Sdk.Common
+namespace SwedbankPay.Sdk
 {
     public class CurrencyCode
     {

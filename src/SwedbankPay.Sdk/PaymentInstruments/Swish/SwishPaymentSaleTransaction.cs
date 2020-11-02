@@ -1,6 +1,4 @@
-﻿using SwedbankPay.Sdk.Common;
-
-namespace SwedbankPay.Sdk.PaymentInstruments.Swish
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
     public class SwishPaymentSaleTransaction
     {

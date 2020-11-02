@@ -1,5 +1,4 @@
-﻿using SwedbankPay.Sdk.Common;
-using SwedbankPay.Sdk.JsonSerialization.Converters;
+﻿using SwedbankPay.Sdk.JsonSerialization.Converters;
 using System;
 using System.Text.Json.Serialization;
 

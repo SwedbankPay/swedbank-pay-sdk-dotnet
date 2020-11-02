@@ -1,4 +1,4 @@
-﻿namespace SwedbankPay.Sdk.Common
+﻿namespace SwedbankPay.Sdk
 {
     /// <summary>
     ///     Indicates the length of time that the payments account was enrolled in the cardholder's account with merchant.

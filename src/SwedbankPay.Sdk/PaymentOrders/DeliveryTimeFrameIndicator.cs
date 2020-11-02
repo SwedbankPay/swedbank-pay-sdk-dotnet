@@ -1,6 +1,4 @@
-﻿using SwedbankPay.Sdk.Common;
-
-namespace SwedbankPay.Sdk.PaymentOrders
+﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
     /// <summary>
     ///     Indicates the merchandise delivery timeframe.

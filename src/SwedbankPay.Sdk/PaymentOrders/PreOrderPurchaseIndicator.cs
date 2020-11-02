@@ -1,6 +1,4 @@
-﻿using SwedbankPay.Sdk.Common;
-
-namespace SwedbankPay.Sdk.PaymentOrders
+﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
     /// <summary>
     ///     Indicates whether Cardholder is placing an order for merchandise with a future availability or release date.

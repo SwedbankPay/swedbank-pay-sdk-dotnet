@@ -1,4 +1,4 @@
-﻿namespace SwedbankPay.Sdk.Common
+﻿namespace SwedbankPay.Sdk
 {
     /// <summary>
     ///     Payment Instrument

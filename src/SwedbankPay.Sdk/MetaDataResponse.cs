@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SwedbankPay.Sdk.Common
+namespace SwedbankPay.Sdk
 {
     public class MetadataResponse : Dictionary<string, object>
     {

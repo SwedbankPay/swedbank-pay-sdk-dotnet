@@ -1,6 +1,4 @@
-﻿using SwedbankPay.Sdk.Common;
-
-namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
     public class MobilePayReversalTransaction
     {

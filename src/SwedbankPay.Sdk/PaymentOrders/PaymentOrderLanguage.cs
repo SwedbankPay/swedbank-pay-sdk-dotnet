@@ -1,6 +1,4 @@
-﻿using SwedbankPay.Sdk.Common;
-
-namespace SwedbankPay.Sdk.PaymentOrders
+﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
     public class PaymentOrderLanguage : TypeSafeEnum<PaymentOrderLanguage, string>
     {

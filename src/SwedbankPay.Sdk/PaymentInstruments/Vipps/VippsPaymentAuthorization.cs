@@ -1,6 +1,4 @@
-﻿using SwedbankPay.Sdk.Common;
-
-namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {
     public class VippsPaymentAuthorization : IdLink, IVippsPaymentAuthorization
     {

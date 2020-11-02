@@ -1,5 +1,4 @@
-﻿using SwedbankPay.Sdk.Common;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
 namespace SwedbankPay.Sdk.Consumers
 {
