@@ -1,4 +1,6 @@
 ﻿using SwedbankPay.Sdk.JsonSerialization.Converters;
+using SwedbankPay.Sdk.PaymentInstruments;
+using SwedbankPay.Sdk.PaymentInstruments.Invoice;
 using SwedbankPay.Sdk.PaymentOrders;
 using System.Text.Json;
 
@@ -55,8 +57,12 @@ namespace SwedbankPay.Sdk.JsonSerialization
             settings.Converters.Add(new TypedSafeEnumValueConverter<PaymentOrderLanguage>());
             settings.Converters.Add(new TypedSafeEnumValueConverter<OrderItemType>());
 
-            // Add all normal enums
+            // Add all normal enums, to support the "Uknown" value.
             settings.Converters.Add(new TypesafeEnumConverter<PaymentInstrument>());
+            settings.Converters.Add(new TypesafeEnumConverter<PaymentIntent>());
+            settings.Converters.Add(new TypesafeEnumConverter<PriceType>());
+            settings.Converters.Add(new TypesafeEnumConverter<InvoiceType>());
+            settings.Converters.Add(new TypesafeEnumConverter<TransactionType>());
         }
     }
 }

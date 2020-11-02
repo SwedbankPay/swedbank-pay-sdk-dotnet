@@ -12,11 +12,6 @@ namespace SwedbankPay.Sdk.JsonSerialization.Converters
     {
         public string UnknownValue { get; } = "Unknown";
 
-        public override bool CanConvert(Type objectType)
-        {
-            return objectType.IsEnum && !objectType.IsDefined(typeof(FlagsAttribute));
-        }
-
         public override TEnum Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             if (reader.TokenType == JsonTokenType.PropertyName)
