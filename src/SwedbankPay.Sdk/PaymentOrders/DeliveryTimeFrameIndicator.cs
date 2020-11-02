@@ -3,7 +3,7 @@
     /// <summary>
     ///     Indicates the merchandise delivery timeframe.
     /// </summary>
-    public sealed class DeliveryTimeFrameIndicator : TypeSafeEnum<DeliveryTimeFrameIndicator, string>
+    public sealed class DeliveryTimeFrameIndicator : TypeSafeEnum<DeliveryTimeFrameIndicator>
     {
         public static readonly DeliveryTimeFrameIndicator ElectronicDelivery =
             new DeliveryTimeFrameIndicator(nameof(ElectronicDelivery), "01");

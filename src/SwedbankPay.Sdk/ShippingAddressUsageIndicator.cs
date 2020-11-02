@@ -3,7 +3,7 @@
     /// <summary>
     ///     Indicates when the shipping address used for this transaction was first used with the merchant.
     /// </summary>
-    public sealed class ShippingAddressUsageIndicator : TypeSafeEnum<ShippingAddressUsageIndicator, string>
+    public sealed class ShippingAddressUsageIndicator : TypeSafeEnum<ShippingAddressUsageIndicator>
     {
         public static readonly ShippingAddressUsageIndicator ThisTransaction =
             new ShippingAddressUsageIndicator(nameof(ThisTransaction), "01");

@@ -3,7 +3,7 @@
     /// <summary>
     ///     PRODUCT, SERVICE, SHIPPING_FEE, PAYMENT_FEE, DISCOUNT, VALUE_CODE or OTHER. The type of the order item.
     /// </summary>
-    public sealed class OrderItemType : TypeSafeEnum<OrderItemType, string>
+    public sealed class OrderItemType : TypeSafeEnum<OrderItemType>
     {
         public static readonly OrderItemType Product = new OrderItemType(nameof(Product), "PRODUCT");
         public static readonly OrderItemType Service = new OrderItemType(nameof(Service), "SERVICE");

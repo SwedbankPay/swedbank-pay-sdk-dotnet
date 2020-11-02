@@ -1,6 +1,6 @@
 ﻿namespace SwedbankPay.Sdk.PaymentInstruments
 {
-    public sealed class PaymentType : TypeSafeEnum<PaymentType, string>
+    public sealed class PaymentType : TypeSafeEnum<PaymentType>
     {
         public static readonly PaymentType CreditCard = new PaymentType(nameof(CreditCard), "creditcard");
         public static readonly PaymentType Swish = new PaymentType(nameof(Swish), "swish");

@@ -15,7 +15,7 @@ using SwedbankPay.Sdk.PaymentOrders;
 
 namespace SwedbankPay.Sdk
 {
-    public sealed class LinkRelation : TypeSafeEnum<LinkRelation, string>
+    public sealed class LinkRelation : TypeSafeEnum<LinkRelation>
     {
         public static readonly LinkRelation UpdatePaymentOrderUpdateOrder =
             new LinkRelation(nameof(UpdatePaymentOrderUpdateOrder), PaymentOrderResourceOperations.UpdatePaymentOrderUpdateOrder);

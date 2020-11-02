@@ -5,8 +5,8 @@ using System.Reflection;
 
 namespace SwedbankPay.Sdk
 {
-    public abstract class TypeSafeEnum<TEnum, TValue> : IEquatable<TypeSafeEnum<TEnum, TValue>>
-        where TEnum : TypeSafeEnum<TEnum, TValue>
+    public abstract class TypeSafeEnum<TEnum> : IEquatable<TypeSafeEnum<TEnum>>
+        where TEnum : TypeSafeEnum<TEnum>
     {
         private static readonly Lazy<Dictionary<string, TEnum>> fromName =
             new Lazy<Dictionary<string, TEnum>>(() => GetAllOptions().ToDictionary(item => item.Name));
@@ -14,18 +14,18 @@ namespace SwedbankPay.Sdk
         private static readonly Lazy<Dictionary<string, TEnum>> fromNameIgnoreCase =
             new Lazy<Dictionary<string, TEnum>>(() => GetAllOptions().ToDictionary(item => item.Name, StringComparer.OrdinalIgnoreCase));
 
-        private static readonly Lazy<Dictionary<TValue, TEnum>> fromValue =
-            new Lazy<Dictionary<TValue, TEnum>>(() =>
+        private static readonly Lazy<Dictionary<string, TEnum>> fromValue =
+            new Lazy<Dictionary<string, TEnum>>(() =>
             {
                 // multiple enums with same value are allowed but store only one per value
-                var dictionary = new Dictionary<TValue, TEnum>();
+                var dictionary = new Dictionary<string, TEnum>();
                 foreach (var item in GetAllOptions())
                     if (!dictionary.ContainsKey(item.Value))
                         dictionary.Add(item.Value, item);
                 return dictionary;
             });
 
-        protected TypeSafeEnum(string name, TValue value)
+        protected TypeSafeEnum(string name, string value)
         {
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentNullException(nameof(name));
@@ -45,10 +45,10 @@ namespace SwedbankPay.Sdk
 
         public string Name { get; }
 
-        public TValue Value { get; }
+        public string Value { get; }
 
 
-        public virtual bool Equals(TypeSafeEnum<TEnum, TValue> other)
+        public virtual bool Equals(TypeSafeEnum<TEnum> other)
         {
             // check if same instance
             if (ReferenceEquals(this, other))
@@ -65,7 +65,7 @@ namespace SwedbankPay.Sdk
 
         public override bool Equals(object obj)
         {
-            return obj is TypeSafeEnum<TEnum, TValue> other && Equals(other);
+            return obj is TypeSafeEnum<TEnum> other && Equals(other);
         }
 
 
@@ -87,7 +87,7 @@ namespace SwedbankPay.Sdk
         }
 
 
-        public static TEnum FromValue(TValue value)
+        public static TEnum FromValue(string value)
         {
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
@@ -107,14 +107,14 @@ namespace SwedbankPay.Sdk
         }
 
 
-        public static TEnum FromValue(TValue value, TEnum defaultValue)
+        public static TEnum FromValue(string value, TEnum defaulstring)
         {
             if (value == null)
 
                 throw new ArgumentNullException(nameof(value));
 
             if (!fromValue.Value.TryGetValue(value, out var result))
-                return defaultValue;
+                return defaulstring;
             return result;
         }
 
@@ -125,9 +125,9 @@ namespace SwedbankPay.Sdk
         }
 
 
-        public Type GetValueType()
+        public Type GestringType()
         {
-            return typeof(TValue);
+            return typeof(string);
         }
 
 
@@ -154,7 +154,7 @@ namespace SwedbankPay.Sdk
         }
 
 
-        public static bool TryFromValue(TValue value, out TEnum result)
+        public static bool TryFromValue(string value, out TEnum result)
         {
             if (value == null)
             {

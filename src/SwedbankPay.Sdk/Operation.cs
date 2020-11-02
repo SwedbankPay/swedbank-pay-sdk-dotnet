@@ -1,6 +1,6 @@
 ﻿namespace SwedbankPay.Sdk
 {
-    public sealed class Operation : TypeSafeEnum<Operation, string>
+    public sealed class Operation : TypeSafeEnum<Operation>
     {
         public static readonly Operation Purchase = new Operation(nameof(Purchase), "Purchase");
         public static readonly Operation UpdateOrder = new Operation(nameof(UpdateOrder), "UpdateOrder");

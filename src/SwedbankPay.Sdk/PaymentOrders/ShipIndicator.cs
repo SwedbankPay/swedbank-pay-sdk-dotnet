@@ -3,7 +3,7 @@
     /// <summary>
     ///     Indicates shipping method chosen for the transaction.
     /// </summary>
-    public sealed class ShipIndicator : TypeSafeEnum<ShipIndicator, string>
+    public sealed class ShipIndicator : TypeSafeEnum<ShipIndicator>
     {
         public static readonly ShipIndicator ShipToCardholdersBillingAddress =
             new ShipIndicator(nameof(ShipToCardholdersBillingAddress), "01");

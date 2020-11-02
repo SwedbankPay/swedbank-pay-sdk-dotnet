@@ -3,7 +3,7 @@
     /// <summary>
     ///     Initialized, Completed, Failed Ready, Pending or Aborted. Indicates the state.
     /// </summary>
-    public class State : TypeSafeEnum<State, string>
+    public class State : TypeSafeEnum<State>
     {
         public static readonly State Initialized = new State(nameof(Initialized), "Initialized");
         public static readonly State Completed = new State(nameof(Completed), "Completed");

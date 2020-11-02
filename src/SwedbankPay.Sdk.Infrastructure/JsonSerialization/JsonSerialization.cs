@@ -44,20 +44,20 @@ namespace SwedbankPay.Sdk.JsonSerialization
             settings.Converters.Add(new CustomMetaDataConverter());
 
             // Enum converters
-            settings.Converters.Add(new TypedSafeEnumValueConverter<ShipIndicator, string>());
-            settings.Converters.Add(new TypedSafeEnumValueConverter<DeliveryTimeFrameIndicator, string>());
-            settings.Converters.Add(new TypedSafeEnumValueConverter<PreOrderPurchaseIndicator, string>());
-            settings.Converters.Add(new TypedSafeEnumValueConverter<ReOrderPurchaseIndicator, string>());
-            settings.Converters.Add(new TypedSafeEnumValueConverter<AccountAgeIndicator, string>());
-            settings.Converters.Add(new TypedSafeEnumValueConverter<AccountChangeIndicator, string>());
-            settings.Converters.Add(new TypedSafeEnumValueConverter<AccountPwdChangeIndicator, string>());
-            settings.Converters.Add(new TypedSafeEnumValueConverter<ShippingAddressUsageIndicator, string>());
-            settings.Converters.Add(new TypedSafeEnumValueConverter<ShippingNameIndicator, string>());
-            settings.Converters.Add(new TypedSafeEnumValueConverter<SuspiciousAccountActivity, string>());
-            settings.Converters.Add(new TypedSafeEnumValueConverter<Operation, string>());
-            settings.Converters.Add(new TypedSafeEnumValueConverter<State, string>());
-            settings.Converters.Add(new TypedSafeEnumValueConverter<PaymentOrderLanguage, string>());
-            settings.Converters.Add(new TypedSafeEnumValueConverter<OrderItemType, string>());
+            settings.Converters.Add(new TypedSafeEnumValueConverter<ShipIndicator>());
+            settings.Converters.Add(new TypedSafeEnumValueConverter<DeliveryTimeFrameIndicator>());
+            settings.Converters.Add(new TypedSafeEnumValueConverter<PreOrderPurchaseIndicator>());
+            settings.Converters.Add(new TypedSafeEnumValueConverter<ReOrderPurchaseIndicator>());
+            settings.Converters.Add(new TypedSafeEnumValueConverter<AccountAgeIndicator>());
+            settings.Converters.Add(new TypedSafeEnumValueConverter<AccountChangeIndicator>());
+            settings.Converters.Add(new TypedSafeEnumValueConverter<AccountPwdChangeIndicator>());
+            settings.Converters.Add(new TypedSafeEnumValueConverter<ShippingAddressUsageIndicator>());
+            settings.Converters.Add(new TypedSafeEnumValueConverter<ShippingNameIndicator>());
+            settings.Converters.Add(new TypedSafeEnumValueConverter<SuspiciousAccountActivity>());
+            settings.Converters.Add(new TypedSafeEnumValueConverter<Operation>());
+            settings.Converters.Add(new TypedSafeEnumValueConverter<State>());
+            settings.Converters.Add(new TypedSafeEnumValueConverter<PaymentOrderLanguage>());
+            settings.Converters.Add(new TypedSafeEnumValueConverter<OrderItemType>());
         }
     }
 }

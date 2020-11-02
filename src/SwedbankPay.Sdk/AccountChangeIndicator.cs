@@ -3,7 +3,7 @@
     /// <summary>
     ///     Length of time since the cardholder's account information with the merchant was changed. Including billing etc.
     /// </summary>
-    public sealed class AccountChangeIndicator : TypeSafeEnum<AccountChangeIndicator, string>
+    public sealed class AccountChangeIndicator : TypeSafeEnum<AccountChangeIndicator>
     {
         public static readonly AccountChangeIndicator ChangedDuringTransaction =
             new AccountChangeIndicator(nameof(ChangedDuringTransaction), "01");

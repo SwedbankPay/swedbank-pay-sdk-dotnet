@@ -1,6 +1,6 @@
 ﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class PaymentOrderLanguage : TypeSafeEnum<PaymentOrderLanguage, string>
+    public class PaymentOrderLanguage : TypeSafeEnum<PaymentOrderLanguage>
     {
         public static readonly PaymentOrderLanguage Swedish = new PaymentOrderLanguage(nameof(Swedish), "sv-SE");
         public static readonly PaymentOrderLanguage Norwegian = new PaymentOrderLanguage(nameof(Norwegian), "nb-NO");

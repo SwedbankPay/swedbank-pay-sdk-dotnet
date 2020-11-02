@@ -4,8 +4,8 @@ using System.Text.Json.Serialization;
 
 namespace SwedbankPay.Sdk.JsonSerialization.Converters
 {
-    public class TypedSafeEnumValueConverter<TEnum, TValue> : JsonConverter<TEnum>
-        where TEnum : TypeSafeEnum<TEnum, TValue>
+    public class TypedSafeEnumValueConverter<TEnum> : JsonConverter<TEnum>
+        where TEnum : TypeSafeEnum<TEnum>
     {
         /// <summary>
         /// </summary>
@@ -31,13 +31,17 @@ namespace SwedbankPay.Sdk.JsonSerialization.Converters
 
             try
             {
-                TValue value;
-                if (reader.TokenType == JsonTokenType.Number && typeof(TValue) != typeof(long) && typeof(TValue) != typeof(bool))
-                    value = (TValue)Convert.ChangeType(reader.GetInt64(), typeof(TValue));
+                string value;
+                if (reader.TokenType == JsonTokenType.Number )
+                {
+                    value = reader.GetInt64().ToString();
+                }
                 else
-                    value = (TValue)Enum.Parse(typeToConvert, reader.GetString());
+                {
+                    value = reader.GetString();
+                }
 
-                return TypeSafeEnum<TEnum, TValue>.FromValue(value);
+                return TypeSafeEnum<TEnum>.FromValue(value);
             }
             catch (Exception e)
             {

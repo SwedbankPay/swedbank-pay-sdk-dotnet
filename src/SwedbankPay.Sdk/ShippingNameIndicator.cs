@@ -3,7 +3,7 @@
     /// <summary>
     ///     Indicates if the Cardholder Name on the account is identical to the shipping Name used for this transaction.
     /// </summary>
-    public sealed class ShippingNameIndicator : TypeSafeEnum<ShippingNameIndicator, string>
+    public sealed class ShippingNameIndicator : TypeSafeEnum<ShippingNameIndicator>
     {
         public static readonly ShippingNameIndicator AccountNameIdenticalToShippingName =
             new ShippingNameIndicator("Account name identical to shipping name", "01");

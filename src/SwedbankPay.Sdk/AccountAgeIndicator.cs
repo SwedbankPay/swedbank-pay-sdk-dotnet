@@ -3,7 +3,7 @@
     /// <summary>
     ///     Indicates the length of time that the payments account was enrolled in the cardholder's account with merchant.
     /// </summary>
-    public sealed class AccountAgeIndicator : TypeSafeEnum<AccountAgeIndicator, string>
+    public sealed class AccountAgeIndicator : TypeSafeEnum<AccountAgeIndicator>
     {
         public static readonly AccountAgeIndicator NoAccountGuest = new AccountAgeIndicator(nameof(NoAccountGuest), "01");
 

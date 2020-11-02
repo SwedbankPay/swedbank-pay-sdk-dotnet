@@ -3,7 +3,7 @@
     /// <summary>
     ///     Indicates whether Cardholder is placing an order for merchandise with a future availability or release date.
     /// </summary>
-    public sealed class ReOrderPurchaseIndicator : TypeSafeEnum<ReOrderPurchaseIndicator, string>
+    public sealed class ReOrderPurchaseIndicator : TypeSafeEnum<ReOrderPurchaseIndicator>
     {
         public static readonly ReOrderPurchaseIndicator MerchandiseAvailable =
             new ReOrderPurchaseIndicator(nameof(MerchandiseAvailable), "01");

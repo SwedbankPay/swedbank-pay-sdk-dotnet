@@ -4,7 +4,7 @@
     ///     Indicates the length of time since the cardholder's account with the merchant had a password change or account
     ///     reset.
     /// </summary>
-    public sealed class AccountPwdChangeIndicator : TypeSafeEnum<AccountPwdChangeIndicator, string>
+    public sealed class AccountPwdChangeIndicator : TypeSafeEnum<AccountPwdChangeIndicator>
     {
         public static readonly AccountPwdChangeIndicator NoChange = new AccountPwdChangeIndicator(nameof(NoChange), "01");
 
