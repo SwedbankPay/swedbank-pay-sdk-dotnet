@@ -9,7 +9,7 @@
         }
 
 
-        public string AbortReason { get; }
-        public string Operation { get; }
+        public string AbortReason { get; set; }
+        public string Operation { get; set; }
     }
 }
