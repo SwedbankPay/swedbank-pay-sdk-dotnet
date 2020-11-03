@@ -16,9 +16,9 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             RemainingCaptureAmount = payment.RemainingCaptureAmount;
             RemainingCancellationAmount = payment.RemainingCancellationAmount;
             RemainingReversalAmount = payment.RemainingReversalAmount;
-            Authorizations = payment.Authorizations.Map();
-            Cancellations = payment.Cancellations.Map();
-            Captures = payment.Captures.Map();
+            Authorizations = payment.Authorizations?.Map();
+            Cancellations = payment.Cancellations?.Map();
+            Captures = payment.Captures?.Map();
             Created = payment.Created;
             Updated = payment.Updated;
             Currency = new CurrencyCode(payment.Currency);
@@ -33,9 +33,9 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             PayerReference = payment.PayerReference;
             InitiatingSystemUserAgent = payment.InitiatingSystemUserAgent;
             Prices = payment.Prices.Map();
-            Reversals = payment.Reversals.Map();
+            Reversals = payment.Reversals?.Map();
             State = payment.State;
-            Transactions = payment.Transactions.Map();
+            Transactions = payment.Transactions?.Map();
             Urls = new Urls(payment.Urls);
             UserAgent = payment.UserAgent;
             Metadata = new MetadataResponse(payment.Metadata);
@@ -71,7 +71,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 
         public CultureInfo Language { get; }
 
-        public string Number { get; }
+        public long Number { get; }
 
         public Operation Operation { get; }
 
