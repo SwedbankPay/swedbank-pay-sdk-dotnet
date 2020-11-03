@@ -10,7 +10,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
                                                 string description,
                                                 string payerReference,
                                                 string userAgent,
-                                                CultureInfo language,
+                                                Language language,
                                                 IUrls urls,
                                                 PayeeInfo payeeInfo,
                                                 TrustlyPrefillInfo prefillInfo)
@@ -32,7 +32,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
         public CurrencyCode Currency { get; set; }
         public string Description { get; set; }
         public PaymentIntent Intent { get; set; }
-        public CultureInfo Language { get; set; }
+        public Language Language { get; set; }
         public Operation Operation { get; set; }
         public PayeeInfo PayeeInfo { get; internal set; }
         public string PayerReference { get; set; }

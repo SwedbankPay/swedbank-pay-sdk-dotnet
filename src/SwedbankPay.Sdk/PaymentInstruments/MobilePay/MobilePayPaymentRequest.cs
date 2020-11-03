@@ -12,7 +12,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
                               List<IPrice> prices,
                               string description,
                               string userAgent,
-                              CultureInfo language,
+                              Language language,
                               IUrls urls,
                               PayeeInfo payeeInfo,
                               Uri shopslogoUrl,

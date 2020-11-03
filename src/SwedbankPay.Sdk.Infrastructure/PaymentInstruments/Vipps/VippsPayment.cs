@@ -19,7 +19,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
             Id = payment.Id;
             Instrument = Enum.Parse<PaymentInstrument>(payment.Instrument);
             Intent = Enum.Parse<PaymentIntent>(payment.Intent);
-            Language = new CultureInfo(payment.Language);
+            Language = new Language(payment.Language);
             Number = payment.Number;
             Operation = payment.Operation;
             PayeeInfo = payment.PayeeInfo.Map();
@@ -45,7 +45,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         public Uri Id { get; }
         public PaymentInstrument Instrument { get; }
         public PaymentIntent Intent { get; }
-        public CultureInfo Language { get; }
+        public Language Language { get; }
         public string Number { get; }
         public Operation Operation { get; }
         public PayeeInfo PayeeInfo { get; }

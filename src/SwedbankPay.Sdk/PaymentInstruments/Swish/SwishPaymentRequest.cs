@@ -10,7 +10,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
                               string description,
                               string payerReference,
                               string userAgent,
-                              CultureInfo language,
+                              Language language,
                               IUrls urls,
                               PayeeInfo payeeInfo,
                               PrefillInfo prefillInfo,

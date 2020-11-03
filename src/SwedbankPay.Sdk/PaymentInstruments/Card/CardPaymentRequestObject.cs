@@ -16,7 +16,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
                                                 bool generatePaymentToken,
                                                 bool generateReccurenceToken,
                                                 string userAgent,
-                                                CultureInfo language,
+                                                Language language,
                                                 IUrls urls,
                                                 PayeeInfo payeeInfo,
                                                 IRiskIndicator riskIndicator = null,
@@ -51,7 +51,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         public bool GeneratePaymentToken { get; }
         public bool GenerateReccurenceToken { get; }
         public PaymentIntent Intent { get; }
-        public CultureInfo Language { get; }
+        public Language Language { get; }
         public Dictionary<string, object> Metadata { get; }
         public Operation Operation { get; }
         public PayeeInfo PayeeInfo { get; }

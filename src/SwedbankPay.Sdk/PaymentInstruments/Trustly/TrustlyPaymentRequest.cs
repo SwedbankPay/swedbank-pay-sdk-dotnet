@@ -11,7 +11,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
             string description,
             string payerReference,
             string userAgent,
-            CultureInfo language,
+            Language language,
             IUrls urls,
             PayeeInfo payeeInfo,
             TrustlyPrefillInfo prefillInfo)

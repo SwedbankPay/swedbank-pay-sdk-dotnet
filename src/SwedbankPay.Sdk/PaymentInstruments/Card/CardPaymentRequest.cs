@@ -12,7 +12,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
                               List<IPrice> prices,
                               string description,
                               string userAgent,
-                              CultureInfo language,
+                              Language language,
                               IUrls urls,
                               PayeeInfo payeeInfo,
                               bool generatePaymentToken = false,
@@ -30,6 +30,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         }
 
 
-        public CardPaymentRequestObject Payment;
+        public CardPaymentRequestObject Payment { get; }
     }
 }

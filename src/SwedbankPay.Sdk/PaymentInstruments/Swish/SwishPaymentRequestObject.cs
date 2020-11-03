@@ -10,7 +10,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
                                                 string description,
                                                 string payerReference,
                                                 string userAgent,
-                                                CultureInfo language,
+                                                Language language,
                                                 IUrls urls,
                                                 PayeeInfo payeeInfo,
                                                 PrefillInfo prefillInfo,
@@ -37,16 +37,13 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         public CurrencyCode Currency { get; }
         public string Description { get; }
         public PaymentIntent Intent { get; }
-        public CultureInfo Language { get; }
-
+        public Language Language { get; }
         public Operation Operation { get; }
         public PayeeInfo PayeeInfo { get; }
         public string PayerReference { get; }
         public PrefillInfo PrefillInfo { get; }
         public List<IPrice> Prices { get; }
-
         public SwishPaymentOptionsObject Swish { get; }
-
         public IUrls Urls { get; }
         public string UserAgent { get; }
         public Dictionary<string, object> Metadata { get; }

@@ -18,7 +18,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private CurrencyCode currency;
         private string description;
         private string userAgent;
-        private CultureInfo language;
+        private Language language;
         private Urls urls;
         private PayeeInfo payeeInfo;
         private PrefillInfo prefillInfo;
@@ -123,7 +123,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.description = "Test Description";
             this.payerReference = "AB1234";
             this.userAgent = "useragent";
-            this.language = new CultureInfo("sv-SE");
+            this.language = new Language("sv-SE");
             this.urls = new Urls(new UrlsDto
             {
                 HostUrls = new List<Uri> { new Uri("https://example.com") },
@@ -154,7 +154,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.description = "Test Description";
             this.payerReference = "AB1234";
             this.userAgent = "useragent";
-            this.language = new CultureInfo("sv-SE");
+            this.language = new Language("sv-SE");
             this.urls = new Urls(new UrlsDto
             {
                 HostUrls = new List<Uri> { new Uri("https://example.com") },
@@ -184,7 +184,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.description = "Test Description";
             this.payerReference = "AB1234";
             this.userAgent = "useragent";
-            this.language = new CultureInfo("nb-NO");
+            this.language = new Language("nb-NO");
             this.urls = new Urls(new UrlsDto
             {
                 HostUrls = new List<Uri> { new Uri("https://example.com") },
@@ -212,7 +212,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.description = "Test Description";
             this.payerReference = "AB1234";
             this.userAgent = "useragent";
-            this.language = new CultureInfo("nb-NO");
+            this.language = new Language("nb-NO");
             this.urls = new Urls(new UrlsDto
             {
                 HostUrls = new List<Uri> { new Uri("https://example.com") },
@@ -241,7 +241,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.description = "Test Description";
             this.payerReference = "AB1234";
             this.userAgent = "useragent";
-            this.language = new CultureInfo("sv-SE");
+            this.language = new Language("sv-SE");
             this.urls = new Urls(new UrlsDto
             {
                 HostUrls = new List<Uri> { new Uri("https://example.com") },
@@ -277,7 +277,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.description = "Test Purchase";
             this.payerReference = "SomeReference";
             this.userAgent = "Mozilla/5.0...";
-            this.language = new CultureInfo("sv-SE");
+            this.language = new Language("sv-SE");
             this.urls = new Urls(new UrlsDto
             {
                 HostUrls = new List<Uri> { new Uri("https://example.com") },

@@ -13,7 +13,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
                                                 string description,
                                                 string payerReference,
                                                 string userAgent,
-                                                CultureInfo language,
+                                                Language language,
                                                 IUrls urls,
                                                 PayeeInfo payeeInfo,
                                                 Dictionary<string, object> metadata = null,
@@ -37,7 +37,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         public CurrencyCode Currency { get; set; }
         public string Description { get; set; }
         public PaymentIntent Intent { get; set; }
-        public CultureInfo Language { get; set; }
+        public Language Language { get; set; }
         public Dictionary<string, object> Metadata { get; }
         public Operation Operation { get; set; }
         public PayeeInfo PayeeInfo { get; internal set; }

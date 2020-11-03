@@ -11,7 +11,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
                               List<IPrice> prices,
                               string description,
                               string userAgent,
-                              CultureInfo language,
+                              Language language,
                               IUrls urls,
                               PayeeInfo payeeInfo,
                               InvoiceType invoiceType,
