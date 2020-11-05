@@ -57,6 +57,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments
 
         public string UserAgent { get; set; }
 
-        public Dictionary<string, object> Metadata { get; set; }
+        public MetadataResponse Metadata { get; set; }
     }
 }
