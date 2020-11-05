@@ -2,7 +2,7 @@
 {
     public class InvoicePaymentResponseDto
     {
-        public OperationListDto Operations { get; internal set; }
+        public OperationListDto Operations { get; set; }
 
         public InvoicePaymentDto Payment { get; set; }
     }

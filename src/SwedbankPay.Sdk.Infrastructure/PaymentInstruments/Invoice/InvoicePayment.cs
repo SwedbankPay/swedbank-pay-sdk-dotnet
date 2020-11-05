@@ -13,8 +13,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
             RemainingCancellationAmount = payment.RemainingCancellationAmount;
             RemainingReversalAmount = payment.RemainingReversalAmount;
             Authorizations = payment.Authorizations.Map();
-            Cancellations = payment.Cancellations;
-            Captures = payment.Captures;
+            Cancellations = payment.Cancellations.Map();
+            Captures = payment.Captures.Map();
             Created = payment.Created;
             Updated = payment.Updated;
             Currency = new CurrencyCode(payment.Currency);
@@ -22,7 +22,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
             Id = payment.Id;
             Instrument = Enum.Parse<PaymentInstrument>(payment.Instrument);
             Intent = Enum.Parse<PaymentIntent>(payment.Intent);
-            Language = payment.Language;
+            Language = new Language(payment.Language);
             Number = payment.Number;
             Operation = payment.Operation;
             PayeeInfo = payment.PayeeInfo.Map();
@@ -31,7 +31,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
             Prices = payment.Prices.Map();
             Reversals = payment.Reversals.Map();
             State = payment.State;
-            Transactions = payment.Transactions;
+            Transactions = payment.Transactions.Map();
             Urls = payment.Urls.Map();
             UserAgent = payment.UserAgent;
             Metadata = payment.Metadata;
@@ -65,7 +65,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 
         public PaymentIntent Intent { get; }
 
-        public CultureInfo Language { get; }
+        public Language Language { get; }
 
         public long Number { get; }
 
