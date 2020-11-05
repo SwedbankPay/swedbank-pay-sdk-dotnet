@@ -8,12 +8,12 @@ namespace SwedbankPay.Sdk.PaymentInstruments
     {
         public string Id { get; set; }
 
-        public List<TransactionDto> Cancellations { get; set; } = new List<TransactionDto>();
+        public List<TransactionDto> CancellationList { get; set; } = new List<TransactionDto>();
 
         internal ICancellationsListResponse Map()
         {
             var list = new List<ITransaction>();
-            foreach (var item in Cancellations)
+            foreach (var item in CancellationList)
             {
                 list.Add(item.Map());
             }
