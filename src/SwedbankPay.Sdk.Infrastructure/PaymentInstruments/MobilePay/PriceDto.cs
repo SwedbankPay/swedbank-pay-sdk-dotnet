@@ -2,8 +2,8 @@
 {
     public class PriceDto
     {
-        public int Amount { get; }
-        public string Type { get; }
-        public int VatAmount { get; }
+        public int Amount { get; set; }
+        public string Type { get; set; }
+        public int VatAmount { get; set; }
     }
 }

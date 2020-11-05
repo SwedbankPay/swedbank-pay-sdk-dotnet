@@ -9,9 +9,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         public VippsPayment(VippsPaymentDto payment)
         {
             Amount = payment.Amount;
-            Authorizations = payment.Authorizations.Map();
-            Cancellations = payment.Cancellations.Map();
-            Captures = payment.Captures.Map();
             Created = payment.Created;
             Updated = payment.Updated;
             Currency = new CurrencyCode(payment.Currency);
@@ -26,12 +23,15 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
             PayerReference = payment.PayerReference;
             InitiatingSystemUserAgent = payment.InitiatingSystemUserAgent;
             Prices = payment.Prices.Map();
-            Reversals = payment.Reversals.Map();
             State = payment.State;
-            Transactions = payment.Transactions.Map();
             Urls = payment.Urls.Map();
             UserAgent = payment.UserAgent;
             Metadata = payment.Metadata;
+            Authorizations = payment.Authorizations?.Map();
+            Cancellations = payment.Cancellations?.Map();
+            Captures = payment.Captures?.Map();
+            Reversals = payment.Reversals?.Map();
+            Transactions = payment.Transactions?.Map();
         }
 
         public Amount Amount { get; }

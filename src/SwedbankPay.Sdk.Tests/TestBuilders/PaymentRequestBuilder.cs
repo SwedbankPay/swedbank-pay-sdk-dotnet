@@ -189,6 +189,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         public PaymentRequestBuilder WithVippsTestValues(Guid payeeId, Operation operation = null, PaymentIntent PaymentIntent = PaymentIntent.Authorization)
         {
             this.operation = operation ?? Operation.Purchase;
+            this.intent = PaymentIntent.Authorization;
             this.currency = new CurrencyCode("NOK");
             this.description = "Test Description";
             this.payerReference = "AB1234";
