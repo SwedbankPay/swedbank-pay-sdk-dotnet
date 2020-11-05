@@ -32,7 +32,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
             Metadata = payment.Metadata;
         }
 
-        public string Number { get; }
+        public long Number { get; }
         public DateTime Created { get; }
         public DateTime Updated { get; }
         public PaymentInstrument Instrument { get; }

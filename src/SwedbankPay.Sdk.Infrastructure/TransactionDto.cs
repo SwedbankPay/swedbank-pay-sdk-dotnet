@@ -15,7 +15,7 @@ namespace SwedbankPay.Sdk
         public string Id { get; set; }
         public bool IsOperational { get; set; }
         public long Number { get; set; }
-        public OperationListDto Operations { get; set; }
+        public OperationListDto Operations { get; set; } = new OperationListDto();
         public string PayeeReference { get; set; }
         public string State { get; set; }
         public string Type { get; set; }
@@ -32,10 +32,12 @@ namespace SwedbankPay.Sdk
                 operations.Add(new HttpOperation(item.Href, rel, item.Method, item.ContentType));
             }
 
+            var type = string.IsNullOrEmpty(Type)? TransactionType.Unknown : Enum.Parse<TransactionType>(Type);
+
             return new Transaction(new Uri(Id, UriKind.RelativeOrAbsolute),
                                    Created,
                                    Updated,
-                                   Enum.Parse<TransactionType>(Type),
+                                   type,
                                    State,
                                    Number,
                                    Amount,

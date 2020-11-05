@@ -67,7 +67,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 
         public CultureInfo Language { get; }
 
-        public string Number { get; }
+        public long Number { get; }
 
         public Operation Operation { get; }
 

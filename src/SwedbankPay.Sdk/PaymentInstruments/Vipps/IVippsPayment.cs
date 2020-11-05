@@ -17,7 +17,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         public PaymentInstrument Instrument { get; }
         public PaymentIntent Intent { get; }
         public Language Language { get; }
-        public string Number { get; }
+        public long Number { get; }
         public Operation Operation { get; }
         public PayeeInfo PayeeInfo { get; }
         public string PayerReference { get; }

@@ -29,7 +29,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
         public State State { get; }
 
-        public string Number { get; }
+        public long Number { get; }
 
         public Amount Amount { get; }
 

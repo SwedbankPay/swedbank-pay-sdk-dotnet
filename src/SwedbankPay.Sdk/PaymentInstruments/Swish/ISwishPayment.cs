@@ -5,7 +5,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
     public interface ISwishPayment
     {
-        public string Number { get; }
+        public long Number { get; }
         public DateTime Created { get; }
         public DateTime Updated { get; }
         public PaymentInstrument Instrument { get; }

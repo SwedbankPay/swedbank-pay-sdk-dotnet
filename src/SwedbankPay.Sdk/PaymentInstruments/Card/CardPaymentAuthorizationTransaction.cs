@@ -8,7 +8,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
                                         DateTime updated,
                                         string type,
                                         State state,
-                                        string number,
+                                        long number,
                                         Amount amount,
                                         Amount vatAmount,
                                         string description,
@@ -49,7 +49,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         public string FailedErrorDescription { get; }
         public string FailedReason { get; }
         public bool IsOperational { get; }
-        public string Number { get; }
+        public long Number { get; }
         public IOperationList Operations { get; }
         public string PayeeReference { get; }
         public ProblemResponse Problem { get; }

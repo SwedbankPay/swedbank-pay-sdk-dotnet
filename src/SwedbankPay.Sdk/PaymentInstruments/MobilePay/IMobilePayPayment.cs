@@ -17,7 +17,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         public PaymentInstrument Instrument { get; }
         public PaymentIntent Intent { get; }
         public CultureInfo Language { get; }
-        public string Number { get; }
+        public long Number { get; }
         public Operation Operation { get; }
         public PayeeInfo PayeeInfo { get; }
         public string PayerReference { get; }

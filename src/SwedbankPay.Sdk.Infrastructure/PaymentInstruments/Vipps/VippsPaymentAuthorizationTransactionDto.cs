@@ -12,7 +12,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         public string FailedErrorDescription { get; }
         public string FailedReason { get; }
         public bool IsOperational { get; }
-        public string Number { get; }
+        public long Number { get; }
         public OperationListDto Operations { get; }
         public string PayeeReference { get; }
         public string State { get; }

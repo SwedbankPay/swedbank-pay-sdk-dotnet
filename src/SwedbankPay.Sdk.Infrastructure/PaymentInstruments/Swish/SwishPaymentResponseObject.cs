@@ -6,7 +6,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
     public class SwishPaymentResponseObject
     {
         public SwishPaymentResponseObject(Uri id,
-                               string number,
+                               long number,
                                DateTime created,
                                DateTime updated,
                                PaymentInstrument instrument,
@@ -55,7 +55,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         }
 
 
-        public string Number { get; }
+        public long Number { get; }
         public DateTime Created { get; }
         public DateTime Updated { get; }
         public PaymentInstrument Instrument { get; }

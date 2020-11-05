@@ -9,7 +9,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public DateTime Updated { get; set; }
         public string Type { get; set; }
         public string State { get; set; }
-        public string Number { get; set; }
+        public long Number { get; set; }
         public int Amount { get; set; }
         public int VatAmount { get; set; }
         public string Description { get; set; }

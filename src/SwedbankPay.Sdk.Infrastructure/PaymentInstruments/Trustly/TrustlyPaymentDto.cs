@@ -14,7 +14,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
         public string Instrument { get; }
         public string Intent { get; }
         public string Language { get; }
-        public string Number { get; }
+        public long Number { get; }
         public string Operation { get; }
         public PayeeInfoDto PayeeInfo { get; }
         public TransactionListResponseDto Transactions { get; }
