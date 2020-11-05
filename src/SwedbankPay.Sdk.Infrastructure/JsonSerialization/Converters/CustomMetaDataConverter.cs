@@ -34,8 +34,6 @@ namespace SwedbankPay.Sdk.JsonSerialization.Converters
                         metadata.Id = itemValue;
 
                     metadata.Add(keyString, itemValue);
-                } else if(reader.TokenType == JsonTokenType.Number)
-                {
                 }
                 else if (reader.TokenType == JsonTokenType.Number)
                 {
@@ -54,7 +52,7 @@ namespace SwedbankPay.Sdk.JsonSerialization.Converters
                 }
             }
 
-            throw new JsonException("Error Occured");
+            throw new JsonException("Error Occured in reading MetaData");
         }
 
         public override void Write(Utf8JsonWriter writer, MetadataResponse value, JsonSerializerOptions options)
