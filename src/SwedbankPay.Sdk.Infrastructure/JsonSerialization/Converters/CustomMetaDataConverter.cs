@@ -30,14 +30,14 @@ namespace SwedbankPay.Sdk.JsonSerialization.Converters
                 {
                     string itemValue = reader.GetString();
 
-                    if (keyString.Equals(nameof(MetadataResponse.Id)))
+                    if (keyString.Equals(nameof(MetadataResponse.Id), StringComparison.InvariantCultureIgnoreCase))
                         metadata.Id = itemValue;
 
                     metadata.Add(keyString, itemValue);
                 }
                 else if (reader.TokenType == JsonTokenType.Number)
                 {
-                    var value = reader.GetInt64();
+                    var value = reader.GetDouble();
                     metadata.Add(keyString, value);
                 }
                 else if (reader.TokenType == JsonTokenType.False)
