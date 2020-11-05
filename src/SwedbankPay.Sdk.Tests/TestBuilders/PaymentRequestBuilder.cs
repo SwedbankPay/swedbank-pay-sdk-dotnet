@@ -124,14 +124,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.payerReference = "AB1234";
             this.userAgent = "useragent";
             this.language = new Language("sv-SE");
-            this.urls = new Urls(new UrlsDto
-            {
-                HostUrls = new List<Uri> { new Uri("https://example.com") },
-                CompleteUrl = "https://example.com/payment-completed",
-                CallbackUrl = "https://example.com/payment-callback",
-                TermsOfServiceUrl = "https://example.com/termsandconditoons.pdf",
-                CancelUrl = "https://example.com/payment-canceled"
-            });
+            SetUrls();
             this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
             this.generatePaymentToken = false;
             this.amount = new Amount(1600);
@@ -155,13 +148,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.payerReference = "AB1234";
             this.userAgent = "useragent";
             this.language = new Language("sv-SE");
-            this.urls = new Urls(new UrlsDto
-            {
-                HostUrls = new List<Uri> { new Uri("https://example.com") },
-                CallbackUrl = "https://example.com/payment-completed",
-                TermsOfServiceUrl = "https://example.com/termsandconditoons.pdf",
-                CancelUrl = "https://example.com/payment-canceled"
-            });
+            SetUrls();
             this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
             this.prefillInfo = new PrefillInfo(new Msisdn("+46701234567"));
             this.generatePaymentToken = false;
@@ -185,13 +172,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.payerReference = "AB1234";
             this.userAgent = "useragent";
             this.language = new Language("nb-NO");
-            this.urls = new Urls(new UrlsDto
-            {
-                HostUrls = new List<Uri> { new Uri("https://example.com") },
-                CallbackUrl = "https://example.com/payment-completed",
-                TermsOfServiceUrl = "https://example.com/termsandconditoons.pdf",
-                CancelUrl = "https://example.com/payment-canceled"
-            });
+            SetUrls();
             this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
             this.generatePaymentToken = false;
             this.amount = new Amount(1600);
@@ -213,13 +194,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.payerReference = "AB1234";
             this.userAgent = "useragent";
             this.language = new Language("nb-NO");
-            this.urls = new Urls(new UrlsDto
-            {
-                HostUrls = new List<Uri> { new Uri("https://example.com") },
-                CallbackUrl = "https://example.com/payment-completed",
-                TermsOfServiceUrl = "https://example.com/termsandconditoons.pdf",
-                CancelUrl = "https://example.com/payment-canceled"
-            });
+            SetUrls();
             this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
             this.generatePaymentToken = false;
             this.amount = new Amount(1600);
@@ -242,13 +217,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.payerReference = "AB1234";
             this.userAgent = "useragent";
             this.language = new Language("sv-SE");
-            this.urls = new Urls(new UrlsDto
-            {
-                HostUrls = new List<Uri> { new Uri("https://example.com") },
-                CallbackUrl = "https://example.com/payment-completed",
-                TermsOfServiceUrl = "https://example.com/termsandconditoons.pdf",
-                CancelUrl = "https://example.com/payment-canceled"
-            });
+            SetUrls();
             this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString(), "payeeName", "productCategory");
             this.prefillInfo = new PrefillInfo(new Msisdn("+46701234567"));
             this.amount = new Amount(1600);
@@ -278,13 +247,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.payerReference = "SomeReference";
             this.userAgent = "Mozilla/5.0...";
             this.language = new Language("sv-SE");
-            this.urls = new Urls(new UrlsDto
-            {
-                HostUrls = new List<Uri> { new Uri("https://example.com") },
-                CallbackUrl = "https://example.com/payment-completed",
-                TermsOfServiceUrl = "https://example.com/termsandconditoons.pdf",
-                CancelUrl = "https://example.com/payment-canceled"
-            });
+            SetUrls();
             this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
             this.amount = new Amount(1600);
             this.vatAmount = new Amount(0);
@@ -295,6 +258,18 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             };
             this.trustlyPrefillInfo = new TrustlyPrefillInfo("Ola", "Nordmann");
             return this;
+        }
+
+        private void SetUrls()
+        {
+            this.urls = new Urls(new UrlsDto
+            {
+                HostUrls = new List<Uri> { new Uri("https://example.com") },
+                CompleteUrl = "https://example.com/payment-completed",
+                CallbackUrl = "https://example.com/payment-callback",
+                TermsOfServiceUrl = "https://example.com/termsandconditoons.pdf",
+                CancelUrl = "https://example.com/payment-canceled"
+            });
         }
     }
 }
