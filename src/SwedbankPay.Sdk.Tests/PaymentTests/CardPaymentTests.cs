@@ -15,7 +15,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         public async Task GetPayment()
         {
             var creditCardPayment = await this.Sut.Payments.CardPayments.Get(
-                new Uri("/psp/creditcard/payments/23fb6fbd-3f09-4dcc-5d6e-08d7942d6bba", UriKind.Relative), PaymentExpand.All);
+                new Uri("/psp/creditcard/payments/a46d809a-8d6b-4ade-4b2c-08d88169daef", UriKind.Relative), PaymentExpand.All);
 
             Assert.NotNull(creditCardPayment);
         }

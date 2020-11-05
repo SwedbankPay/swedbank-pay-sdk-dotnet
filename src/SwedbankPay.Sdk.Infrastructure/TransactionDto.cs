@@ -1,14 +1,11 @@
 ﻿using SwedbankPay.Sdk.PaymentInstruments;
 using System;
+using System.Transactions;
 
 namespace SwedbankPay.Sdk
 {
     public class TransactionDto
     {
-        public TransactionDto()
-        {
-        }
-
         public int Amount { get; set; }
         public DateTime Created { get; set; }
         public string Description { get; set; }
@@ -34,7 +31,7 @@ namespace SwedbankPay.Sdk
 
             var type = string.IsNullOrEmpty(Type)? TransactionType.Unknown : Enum.Parse<TransactionType>(Type);
 
-            return new Transaction(new Uri(Id, UriKind.RelativeOrAbsolute),
+            return new PaymentInstruments.Transaction(new Uri(Id, UriKind.RelativeOrAbsolute),
                                    Created,
                                    Updated,
                                    type,
