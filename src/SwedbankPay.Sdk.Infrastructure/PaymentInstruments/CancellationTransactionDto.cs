@@ -8,7 +8,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
     {
         public string Id { get; set; }
 
-        public List<TransactionDto> Cancellations { get; set; }
+        public List<TransactionDto> Cancellations { get; set; } = new List<TransactionDto>();
 
         internal ICancellationsListResponse Map()
         {
