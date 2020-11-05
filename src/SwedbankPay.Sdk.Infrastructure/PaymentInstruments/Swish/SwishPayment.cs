@@ -23,13 +23,14 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
             InitiatingSystemUserAgent = payment.InitiatingSystemUserAgent;
             UserAgent = payment.UserAgent;
             Language = new CultureInfo(payment.Language);
-            Transactions = payment.Transactions.Map();
-            Sales = payment.Sales.Map();
-            Reversals = payment.Reversals.Map();
             Urls = payment.Urls.Map();
             PayeeInfo = payment.PayeeInfo.Map();
             Id = payment.Id;
             Metadata = payment.Metadata;
+
+            Transactions = payment.Transactions?.Map();
+            Sales = payment.Sales?.Map();
+            Reversals = payment.Reversals?.Map();
         }
 
         public long Number { get; }
