@@ -16,11 +16,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
             Language = new CultureInfo(paymentOrder.Language);
             Metadata = paymentOrder.Metadata;
             Operation = paymentOrder.Operation;
-            OrderItems = paymentOrder.OrderItems?.Map();
             PayeeInfo = paymentOrder.PayeeInfo.Map();
-            Payers = paymentOrder.Payer.Map();
-            if(paymentOrder.Payments != null && string.IsNullOrEmpty(paymentOrder.Payments.Id))
-                Payments = new IdLink() { Id = new Uri(paymentOrder.Payments.Id, UriKind.RelativeOrAbsolute) };
             RemainingCancellationAmount = paymentOrder.RemainingCancellationAmount;
             RemainingCaptureAmount = paymentOrder.RemainingCaptureAmount;
             RemainingReversalAmount = paymentOrder.RemainingReversalAmount;
@@ -30,6 +26,11 @@ namespace SwedbankPay.Sdk.PaymentOrders
             Urls = paymentOrder.Urls.Map();
             UserAgent = paymentOrder.UserAgent;
             VatAmount = paymentOrder.VatAmount;
+
+            OrderItems = paymentOrder.OrderItems?.Map();
+            Payers = paymentOrder.Payer?.Map();
+            if (paymentOrder.Payments != null && string.IsNullOrEmpty(paymentOrder.Payments.Id))
+                Payments = new IdLink() { Id = new Uri(paymentOrder.Payments.Id, UriKind.RelativeOrAbsolute) };
         }
 
         public Uri Id { get; }

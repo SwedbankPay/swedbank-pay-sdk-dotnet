@@ -164,7 +164,8 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
                 Id = GetUri(),
                 HostUrls = new List<Uri> { GetUri() },
                 CallbackUrl = GetUri().AbsoluteUri,
-                CompleteUrl = GetUri().AbsoluteUri
+                CompleteUrl = GetUri().AbsoluteUri,
+                TermsOfServiceUrl = GetUri().AbsoluteUri
             }),
             new PayeeInfo(Guid.Empty, "test")
             );
