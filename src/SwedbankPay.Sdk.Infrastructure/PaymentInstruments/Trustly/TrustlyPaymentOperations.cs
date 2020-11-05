@@ -26,8 +26,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
 
                     case PaymentResourceOperations.UpdatePaymentAbort:
                         Abort = async payload => {
-                            var dto = await client.SendAsJsonAsync<TrustlyPaymentDto>(httpOperation.Method, httpOperation.Href, payload);
-                            return new TrustlyPayment(dto);
+                            var dto = await client.SendAsJsonAsync<TrustlyPaymentResonseDto>(httpOperation.Method, httpOperation.Href, payload);
+                            return new TrustlyPayment(dto.Payment);
                         };
                         break;
 

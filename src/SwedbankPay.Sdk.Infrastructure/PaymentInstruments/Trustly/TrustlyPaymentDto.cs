@@ -5,25 +5,25 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
 {
     public class TrustlyPaymentDto
     {
-        public int Amount { get; }
-        public DateTime Created { get; }
-        public DateTime Updated { get; }
-        public string Currency { get; }
-        public string Description { get; }
-        public Uri Id { get; }
-        public string Instrument { get; }
-        public string Intent { get; }
-        public string Language { get; }
-        public long Number { get; }
-        public string Operation { get; }
-        public PayeeInfoDto PayeeInfo { get; }
-        public TransactionListResponseDto Transactions { get; }
-        public string PayerReference { get; }
-        public string InitiatingSystemUserAgent { get; }
-        public PricesListResponseDto Prices { get; }
-        public string State { get; }
-        public UrlsDto Urls { get; }
-        public string UserAgent { get; }
-        public MetadataResponse Metadata { get; }
+        public int Amount { get; set; }
+        public DateTime Created { get; set; }
+        public DateTime Updated { get; set; }
+        public string Currency { get; set; }
+        public string Description { get; set; }
+        public Uri Id { get; set; }
+        public string Instrument { get; set; }
+        public string Intent { get; set; }
+        public string Language { get; set; }
+        public long Number { get; set; }
+        public string Operation { get; set; }
+        public PayeeInfoDto PayeeInfo { get; set; }
+        public TransactionListResponseDto Transactions { get; set; }
+        public string PayerReference { get; set; }
+        public string InitiatingSystemUserAgent { get; set; }
+        public PricesListResponseDto Prices { get; set; }
+        public string State { get; set; }
+        public UrlsDto Urls { get; set; }
+        public string UserAgent { get; set; }
+        public MetadataResponse Metadata { get; set; }
     }
 }

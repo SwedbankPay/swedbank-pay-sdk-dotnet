@@ -19,7 +19,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
             Number = payment.Number;
             Operation = payment.Operation;
             PayeeInfo = payment.PayeeInfo.Map();
-            Transactions = payment.Transactions.Map();
             PayerReference = payment.PayerReference;
             InitiatingSystemUserAgent = payment.InitiatingSystemUserAgent;
             Prices = payment.Prices.Map();
@@ -27,6 +26,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
             Urls = payment.Urls.Map();
             UserAgent = payment.UserAgent;
             Metadata = payment.Metadata;
+            Transactions = payment.Transactions?.Map();
         }
 
         public Amount Amount { get; }
