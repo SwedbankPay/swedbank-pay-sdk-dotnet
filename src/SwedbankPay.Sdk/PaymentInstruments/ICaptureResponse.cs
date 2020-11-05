@@ -4,7 +4,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
 {
     public interface ICaptureResponse
     {
-        ITransactionResponse Capture { get; }
+        ITransaction Capture { get; }
         Uri Payment { get; }
     }
 }

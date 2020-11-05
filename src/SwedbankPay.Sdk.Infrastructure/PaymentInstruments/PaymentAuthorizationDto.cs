@@ -31,5 +31,30 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         {
             return new PaymentAuthorization(this);
         }
+
+        internal CardPaymentAuthorization MapToCard()
+        {
+            return new CardPaymentAuthorization(Direct,
+                                                PaymentToken,
+                                                RecurrenceToken,
+                                                MaskedPan,
+                                                ExpiryDate,
+                                                PanToken,
+                                                CardBrand,
+                                                CardType,
+                                                IssuingBank,
+                                                CountryCode,
+                                                AcquirerTransactionType,
+                                                IssuerAuthorizationApprovalCode,
+                                                AcquirerStan,
+                                                AcquirerTerminalId,
+                                                AcquirerTransactionTime,
+                                                AuthenticationStatus,
+                                                NonPaymentToken,
+                                                ExternalNonPaymentToken,
+                                                ExternalSiteId,
+                                                TransactionInitiator,
+                                                Transaction.Map());
+        }
     }
 }

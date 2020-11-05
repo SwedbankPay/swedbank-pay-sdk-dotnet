@@ -49,7 +49,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             Transaction = transaction;
         }
 
-
         public string AcquirerStan { get; }
         public string AcquirerTerminalId { get; }
         public DateTime AcquirerTransactionTime { get; }

@@ -28,13 +28,15 @@ namespace SwedbankPay.Sdk.PaymentOrders
                     case PaymentOrderResourceOperations.CreatePaymentOrderCapture:
                         Capture = async payload =>
                         {
-                            return await client.SendAsJsonAsync<CaptureResponse>(httpOperation.Method, httpOperation.Href, payload);
+                            var dto = await client.SendAsJsonAsync<CaptureResponseDto>(httpOperation.Method, httpOperation.Href, payload);
+                            return new CaptureResponse(dto.payment, dto.Capture.Map());
                         };
                         break;
                     case PaymentOrderResourceOperations.CreatePaymentOrderCancel:
                         Cancel = async payload =>
                         {
-                            return await client.SendAsJsonAsync<CancellationResponse>(httpOperation.Method, httpOperation.Href, payload);
+                            var dto = await client.SendAsJsonAsync<CancelResponseDto>(httpOperation.Method, httpOperation.Href, payload);
+                            return new CancellationResponse(dto.Payment, dto.Cancellation.Map());
                         };
                         break;
                     case PaymentOrderResourceOperations.CreatePaymentOrderReversal:

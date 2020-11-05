@@ -8,6 +8,6 @@
         }
 
 
-        public SwishPaymentSaleTransaction Transaction;
+        public SwishPaymentSaleTransaction Transaction { get; }
     }
 }

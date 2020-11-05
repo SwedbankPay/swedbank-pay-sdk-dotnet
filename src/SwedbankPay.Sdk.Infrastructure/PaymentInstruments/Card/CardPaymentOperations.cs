@@ -1,7 +1,9 @@
 ﻿using SwedbankPay.Sdk.Extensions;
+using SwedbankPay.Sdk.PaymentOrders;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
@@ -14,10 +16,11 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
                 switch (httpOperation.Rel.Value)
                 {
                     case PaymentResourceOperations.UpdatePaymentAbort:
-                        Abort = async payload =>
-                            await client.SendAsJsonAsync<ICardPaymentResponse>(httpOperation.Method, httpOperation.Href, payload);
+                        Abort = async payload => {
+                            var dto = await client.SendAsJsonAsync<CardPaymentResponseDto>(httpOperation.Method, httpOperation.Href, payload);
+                            return new CardPaymentResponse(dto, client);
+                        };
                         break;
-
                     case PaymentResourceOperations.RedirectAuthorization:
                         RedirectAuthorization = httpOperation;
                         break;
@@ -27,23 +30,31 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
                         break;
 
                     case PaymentResourceOperations.DirectAuthorization:
-                        DirectAuthorization = async payload =>
-                            await client.SendAsJsonAsync<CardPaymentAuthorizationResponse>(httpOperation.Method, httpOperation.Href, payload);
+                        DirectAuthorization = async payload => {
+                            var dto = await client.SendAsJsonAsync<CardPaymentAuthorizationResponseDto>(httpOperation.Method, httpOperation.Href, payload);
+                            return new CardPaymentAuthorizationResponse(dto.Payment, dto.Authorization.MapToCard());
+                        };
                         break;
 
                     case PaymentResourceOperations.CreateCapture:
-                        Capture = async payload =>
-                            await client.SendAsJsonAsync<CaptureResponse>(httpOperation.Method, httpOperation.Href, payload);
+                        Capture = async payload => {
+                            var dto = await client.SendAsJsonAsync<CaptureResponseDto>(httpOperation.Method, httpOperation.Href, payload);
+                            return new CaptureResponse(dto.payment, dto.Capture.Map());
+                        };
                         break;
 
                     case PaymentResourceOperations.CreateCancellation:
-                        Cancel = async payload =>
-                            await client.SendAsJsonAsync<CancellationResponse>(httpOperation.Method, httpOperation.Href, payload);
+                        Cancel = async payload => {
+                            var dto = await client.SendAsJsonAsync<CancellationResponseDto>(httpOperation.Method, httpOperation.Href, payload);
+                            return new CancellationResponse(dto.Payment, dto.Cancellation.Map());
+                        };
                         break;
 
                     case PaymentResourceOperations.CreateReversal:
-                        Reverse = async payload =>
-                            await client.SendAsJsonAsync<ReversalResponse>(httpOperation.Method, httpOperation.Href, payload);
+                        Reverse = async payload => {
+                            var dto = await client.SendAsJsonAsync<ReversalResponseDto>(httpOperation.Method, httpOperation.Href, payload);
+                            return new ReversalResponse(dto.Payment, dto.Reversal.Map());
+                        };
                         break;
 
                     case PaymentResourceOperations.RedirectVerification:

@@ -1,6 +1,9 @@
 ﻿using SwedbankPay.Sdk.Extensions;
+using SwedbankPay.Sdk.PaymentInstruments.Card;
+using SwedbankPay.Sdk.PaymentOrders;
 using System;
 using System.Net.Http;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
@@ -22,18 +25,24 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
                         break;
 
                     case PaymentResourceOperations.UpdatePaymentAbort:
-                        Abort = async payload =>
-                            await client.SendAsJsonAsync<ITrustlyPayment>(httpOperation.Method, httpOperation.Href, payload);
+                        Abort = async payload => {
+                            var dto = await client.SendAsJsonAsync<TrustlyPaymentDto>(httpOperation.Method, httpOperation.Href, payload);
+                            return new TrustlyPayment(dto);
+                        };
                         break;
 
                     case PaymentResourceOperations.CreateReversal:
-                        Reverse = async payload =>
-                            await client.SendAsJsonAsync<ReversalResponse>(httpOperation.Method, httpOperation.Href, payload);
+                        Reverse = async payload => {
+                            var dto= await client.SendAsJsonAsync<ReversalResponseDto>(httpOperation.Method, httpOperation.Href, payload);
+                            return new ReversalResponse(dto.Payment, dto.Reversal.Map());
+                        };
                         break;
 
                     case PaymentResourceOperations.CreateCancellation:
-                        Cancel = async payload =>
-                            await client.SendAsJsonAsync<CancellationResponse>(httpOperation.Method, httpOperation.Href, payload);
+                        Cancel = async payload => {
+                            var dto = await client.SendAsJsonAsync<CancellationResponseDto>(httpOperation.Method, httpOperation.Href, payload);
+                            return new CancellationResponse(dto.Payment, dto.Cancellation.Map());
+                        };
                         break;
                     default:
                         break;

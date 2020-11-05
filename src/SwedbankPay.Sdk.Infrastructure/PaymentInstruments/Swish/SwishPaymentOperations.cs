@@ -1,4 +1,5 @@
 ﻿using SwedbankPay.Sdk.Extensions;
+using SwedbankPay.Sdk.PaymentOrders;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -14,13 +15,17 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
                 switch (httpOperation.Rel.Value)
                 {
                     case PaymentResourceOperations.UpdatePaymentAbort:
-                        Abort = async payload =>
-                            await client.SendAsJsonAsync<SwishPaymentResponse>(httpOperation.Method, httpOperation.Href, payload);
+                        Abort = async payload => {
+                            var dto = await client.SendAsJsonAsync<SwishPaymentResponseDto>(httpOperation.Method, httpOperation.Href, payload);
+                            return new SwishPaymentResponse(dto, client);
+                        };
                         break;
 
                     case PaymentResourceOperations.CreateSale:
-                        Sale = async payload =>
-                            await client.SendAsJsonAsync<SwishPaymentSaleResponse>(httpOperation.Method, httpOperation.Href, payload);
+                        Sale = async payload => {
+                            var dto = await client.SendAsJsonAsync<SwishPaymentSaleResponseDto>(httpOperation.Method, httpOperation.Href, payload);
+                            return new SwishPaymentSaleResponse(dto.Payment, dto.Sale.Map());
+                        };
                         break;
                     case PaymentResourceOperations.RedirectSale:
                         RedirectSale = httpOperation;
@@ -30,8 +35,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
                         ViewSales = httpOperation;
                         break;
                     case PaymentResourceOperations.CreateReversal:
-                        Reverse = async payload =>
-                            await client.SendAsJsonAsync<ReversalResponse>(httpOperation.Method, httpOperation.Href, payload);
+                        Reverse = async payload => {
+                            var dto = await client.SendAsJsonAsync<ReversalResponseDto>(httpOperation.Method, httpOperation.Href, payload);
+                            return new ReversalResponse(dto.Payment, dto.Reversal.Map());
+                        };
                         break;
                     case PaymentResourceOperations.PaidPayment:
                         PaidPayment = httpOperation;
