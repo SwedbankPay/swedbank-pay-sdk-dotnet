@@ -26,7 +26,7 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
             ""problems"": [
                 {
                     ""name"": ""Transaction.Amount"",
-                    ""description"": ""  ""
+                    ""description"": ""Some description here""
                 }
             ]
         }";
@@ -117,7 +117,7 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
 
             var error = await Assert.ThrowsAsync<HttpResponseException>(() => sut.SendAndProcessAsync<ProblemResponse>(HttpMethod.Get, uri, null));
 
-            JsonSerializer.Serialize(error);
+            JsonSerializer.Serialize(error, JsonSerialization.JsonSerialization.Settings);
         }
 
         [Fact]
