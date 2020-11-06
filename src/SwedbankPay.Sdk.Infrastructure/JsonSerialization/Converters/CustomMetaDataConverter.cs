@@ -37,9 +37,9 @@ namespace SwedbankPay.Sdk.JsonSerialization.Converters
                 }
                 else if (reader.TokenType == JsonTokenType.Number)
                 {
-                    if (reader.TryGetInt64(out var valueDouble))
+                    if (reader.TryGetInt64(out var valueInt))
                     {
-                        metadata.Add(keyString, valueDouble);
+                        metadata.Add(keyString, valueInt);
                     }
                     else
                     {

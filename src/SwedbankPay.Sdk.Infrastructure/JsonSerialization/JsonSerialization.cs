@@ -8,7 +8,7 @@ namespace SwedbankPay.Sdk.JsonSerialization
 {
     public static class JsonSerialization
     {
-        private static JsonSerializerOptions settings = null;
+        private static JsonSerializerOptions settings;
 
         public static JsonSerializerOptions Settings
         {
