@@ -50,7 +50,7 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
                     ""description"": ""description"",
                     ""payeeReference"": ""637218522761159010"",
                     ""isOperational"": false,
-                    ""reconciliationNumber"": 0001,
+                    ""reconciliationNumber"": 1,
                     ""operations"": []
                 }
             }
