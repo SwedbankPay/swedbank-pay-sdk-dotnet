@@ -96,7 +96,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
                 {
                     new Price(amount, PriceType.Swish, vatAmount)
                 }, "Test Purchase", payeeRef, "GetUserAgent()",
-                CultureInfo.GetCultureInfo("sv-SE"),
+                new Language("sv-SE"),
                 new Urls(new List<Uri> { new Uri("http://api.externalintegration.payex.com") },
                     new Uri("http://api.externalintegration.payex.com"),
                     new Uri("http://api.externalintegration.payex.com")),
