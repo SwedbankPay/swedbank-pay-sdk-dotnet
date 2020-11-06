@@ -64,7 +64,7 @@ namespace Sample.AspNetCore.Controllers
                 var paymentOrderRequest = new PaymentOrderRequest(Operation.Purchase, new CurrencyCode("SEK"),
                                                                   new Amount(totalAmount),
                                                                   new Amount(0), "Test description", "useragent",
-                                                                  CultureInfo.CreateSpecificCulture("sv-SE"),
+                                                                  new Language("sv-SE"),
                                                                   false,
                                                                   new Urls(this.urls.HostUrls, this.urls.CompleteUrl,
                                                                            this.urls.TermsOfServiceUrl, this.urls.CancelUrl,
@@ -100,7 +100,7 @@ namespace Sample.AspNetCore.Controllers
                                                                                                  PriceType.CreditCard, vatAmount)
                                                                                    },
                                                                                    "Test Purchase", this.payeeInfoOptions.PayeeReference,
-                                                                                   CultureInfo.GetCultureInfo("sv-SE"),
+                                                                                   new Language("sv-SE"),
                                                                                    new Urls(this.urls.HostUrls, this.urls.CompleteUrl,
                                                                                             this.urls.TermsOfServiceUrl, this.urls.CancelUrl,
                                                                                             this.urls.PaymentUrl, this.urls.CallbackUrl, this.urls.LogoUrl),
@@ -136,7 +136,7 @@ namespace Sample.AspNetCore.Controllers
                                                                                                    PriceType.Trustly,
                                                                                                    vatAmount)
                                                                                      },
-                                                                                     "Test Purchase", this.payeeInfoOptions.PayeeReference, "useragent", CultureInfo.GetCultureInfo("sv-SE"),
+                                                                                     "Test Purchase", this.payeeInfoOptions.PayeeReference, "useragent", new Language("sv-SE"),
                                                                                      new Urls(this.urls.HostUrls, this.urls.CompleteUrl,
                                                                                               this.urls.TermsOfServiceUrl, this.urls.CancelUrl,
                                                                                               this.urls.PaymentUrl, this.urls.CallbackUrl, this.urls.LogoUrl),
@@ -169,7 +169,7 @@ namespace Sample.AspNetCore.Controllers
                                                                                          new Price(new Amount(totalAmount),
                                                                                                    PriceType.Swish, vatAmount)
                                                                                      },
-                                                                                     "Test Purchase", this.payeeInfoOptions.PayeeReference, "useragent", CultureInfo.GetCultureInfo("sv-SE"),
+                                                                                     "Test Purchase", this.payeeInfoOptions.PayeeReference, "useragent", new Language("sv-SE"),
                                                                                      new Urls(this.urls.HostUrls, this.urls.CompleteUrl,
                                                                                               this.urls.TermsOfServiceUrl, this.urls.CancelUrl,
                                                                                               this.urls.PaymentUrl, this.urls.CallbackUrl, this.urls.LogoUrl),

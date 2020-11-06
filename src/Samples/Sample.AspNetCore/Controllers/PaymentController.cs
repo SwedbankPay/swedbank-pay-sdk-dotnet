@@ -117,7 +117,7 @@ namespace Sample.AspNetCore.Controllers
                 var response = await paymentOrder.Operations.Capture(transActionRequestObject);
 
                 TempData["CaptureMessage"] =
-                    $"{response.Capture.Transaction.Id}, {response.Capture.Transaction.State}, {response.Capture.Transaction.Type}";
+                    $"{response.Capture.Id}, {response.Capture.State}, {response.Capture.Type}";
 
                 this.cartService.PaymentOrderLink = null;
 
@@ -153,7 +153,7 @@ namespace Sample.AspNetCore.Controllers
                                                                                                                    description,
                                                                                                                    DateTime.Now.Ticks.ToString());
                         var response = await cardPayment.Operations.Capture(captureRequest);
-                        TempData["CaptureMessage"] = $"{response.Capture.Transaction.Id}, {response.Capture.Transaction.State}, {response.Capture.Transaction.Type}";
+                        TempData["CaptureMessage"] = $"{response.Capture.Id}, {response.Capture.State}, {response.Capture.Type}";
                         break;
                 }
 
@@ -218,7 +218,7 @@ namespace Sample.AspNetCore.Controllers
             try
             {
                 var description = "Reversing the captured amount";
-                ReversalResponse response = null;
+                IReversalResponse response = null;
 
                 var order = await this.context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
                 switch (instrument)

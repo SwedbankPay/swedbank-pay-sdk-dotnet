@@ -53,7 +53,7 @@ namespace Sample.AspNetCore
         }
 
 
-        public static async Task<ReversalResponse> ReverseSwishPayment(string paymentId, Order order, string description, ISwedbankPayClient swedbankPayClient)
+        public static async Task<IReversalResponse> ReverseSwishPayment(string paymentId, Order order, string description, ISwedbankPayClient swedbankPayClient)
         {
             var swishPayment = await swedbankPayClient.Payments.SwishPayments.Get(new Uri(paymentId, UriKind.RelativeOrAbsolute));
             var swishReversal = new SwedbankPay.Sdk.PaymentInstruments.Swish.SwishPaymentReversalRequest(
@@ -63,7 +63,7 @@ namespace Sample.AspNetCore
         }
 
 
-        public static async Task<ReversalResponse> ReverseCreditCardPayment(string paymentId, Order order, string description, ISwedbankPayClient swedbankPayClient)
+        public static async Task<IReversalResponse> ReverseCreditCardPayment(string paymentId, Order order, string description, ISwedbankPayClient swedbankPayClient)
         {
             var cardPayment = await swedbankPayClient.Payments.CardPayments.Get(new Uri(paymentId, UriKind.RelativeOrAbsolute));
             var cardReversal = new SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentReversalRequest
@@ -77,7 +77,7 @@ namespace Sample.AspNetCore
         }
 
 
-        public static async Task<ReversalResponse> ReverseTrustlyPayment(string paymentId, Order order, string description, ISwedbankPayClient swedbankPayClient)
+        public static async Task<IReversalResponse> ReverseTrustlyPayment(string paymentId, Order order, string description, ISwedbankPayClient swedbankPayClient)
         {
             var trustlyPayment = await swedbankPayClient.Payments.TrustlyPayments.Get(new Uri(paymentId, UriKind.RelativeOrAbsolute));
             var trustlyReversal = new SwedbankPay.Sdk.PaymentInstruments.Trustly.TrustlyPaymentReversalRequest(Operation.Sale,

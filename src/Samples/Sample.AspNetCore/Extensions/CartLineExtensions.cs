@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 
 using Sample.AspNetCore.Models;
+using SwedbankPay.Sdk;
 using SwedbankPay.Sdk.PaymentOrders;
 
 namespace Sample.AspNetCore.Extensions

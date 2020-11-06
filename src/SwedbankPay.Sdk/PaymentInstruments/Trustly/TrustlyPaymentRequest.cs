@@ -13,7 +13,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
             Language language,
             IUrls urls,
             PayeeInfo payeeInfo,
-            TrustlyPrefillInfo prefillInfo)
+            TrustlyPrefillInfo prefillInfo = null)
         {
             Payment = new TrustlyPaymentRequestObject(currency, prices, description, payerReference, userAgent, language,
                                                urls, payeeInfo, prefillInfo);

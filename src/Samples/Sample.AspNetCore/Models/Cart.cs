@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using SwedbankPay.Sdk;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
