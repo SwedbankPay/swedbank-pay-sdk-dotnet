@@ -1,5 +1,6 @@
 ﻿using SwedbankPay.Sdk.Exceptions;
 using System;
+using System.Net.Http;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -9,7 +10,40 @@ namespace SwedbankPay.Sdk.JsonSerialization.Converters
     {
         public override HttpResponseException Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            throw new NotImplementedException();
+            if (reader.TokenType != JsonTokenType.StartObject)
+            {
+                throw new JsonException();
+            }
+
+            var httpException = new HttpResponseException();
+
+            while (reader.Read())
+            {
+                if (reader.TokenType == JsonTokenType.EndObject)
+                {
+                    return httpException;
+                }
+
+                if (reader.TokenType == JsonTokenType.PropertyName)
+                {
+                    var propertyName = reader.GetString();
+                    reader.Read();
+                    switch (propertyName)
+                    {
+                        case "HttpResponse":
+                            httpException.HttpResponse = JsonSerializer.Deserialize<HttpResponseMessage>(reader.GetString(), options);
+                            break;
+                        case "ProblemResponse":
+                            httpException.ProblemResponse = JsonSerializer.Deserialize<ProblemResponse>(reader.GetString(), options);
+                            break;
+                        case "HelpLink":
+                            httpException.HelpLink = reader.GetString();
+                            break;
+                    }
+                }
+            }
+
+            throw new JsonException();
         }
 
         public override void Write(Utf8JsonWriter writer, HttpResponseException value, JsonSerializerOptions options)

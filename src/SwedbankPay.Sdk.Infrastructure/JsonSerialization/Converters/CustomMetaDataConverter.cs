@@ -43,7 +43,7 @@ namespace SwedbankPay.Sdk.JsonSerialization.Converters
                     }
                     else
                     {
-                        var value = reader.GetDouble();
+                        var value = reader.GetDecimal();
                         metadata.Add(keyString, value);
                     }
                 }
