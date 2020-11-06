@@ -4,7 +4,6 @@ using SwedbankPay.Sdk.PaymentOrders;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Xml;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {

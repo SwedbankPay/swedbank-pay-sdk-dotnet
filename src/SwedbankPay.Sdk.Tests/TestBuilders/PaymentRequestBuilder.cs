@@ -7,7 +7,6 @@ using SwedbankPay.Sdk.PaymentInstruments.Trustly;
 using SwedbankPay.Sdk.PaymentInstruments.Vipps;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 
 namespace SwedbankPay.Sdk.Tests.TestBuilders
 {

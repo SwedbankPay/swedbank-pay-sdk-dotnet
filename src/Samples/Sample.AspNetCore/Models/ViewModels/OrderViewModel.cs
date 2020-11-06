@@ -1,5 +1,4 @@
 ﻿using SwedbankPay.Sdk;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Sample.AspNetCore.Models.ViewModels

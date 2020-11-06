@@ -1,6 +1,4 @@
-﻿using System.Net.Http;
-
-namespace SwedbankPay.Sdk.Consumers
+﻿namespace SwedbankPay.Sdk.Consumers
 {
     public class ConsumersResponse : IConsumersResponse
     {

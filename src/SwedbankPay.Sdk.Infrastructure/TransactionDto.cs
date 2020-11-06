@@ -1,6 +1,5 @@
 ﻿using SwedbankPay.Sdk.PaymentInstruments;
 using System;
-using System.Transactions;
 
 namespace SwedbankPay.Sdk
 {

@@ -3,7 +3,6 @@ using SwedbankPay.Sdk.PaymentInstruments.Card;
 using SwedbankPay.Sdk.PaymentOrders;
 using System;
 using System.Net.Http;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Trustly

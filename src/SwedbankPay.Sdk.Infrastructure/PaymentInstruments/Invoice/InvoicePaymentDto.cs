@@ -1,7 +1,5 @@
-﻿using SwedbankPay.Sdk.PaymentInstruments.Card;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {

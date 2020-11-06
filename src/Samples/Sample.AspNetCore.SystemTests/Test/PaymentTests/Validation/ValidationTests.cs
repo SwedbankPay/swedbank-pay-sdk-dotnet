@@ -3,7 +3,6 @@ using NUnit.Framework;
 using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
-using SwedbankPay.Sdk.Common;
 using SwedbankPay.Sdk.Exceptions;
 using SwedbankPay.Sdk.PaymentInstruments;
 using SwedbankPay.Sdk.PaymentInstruments.Swish;
