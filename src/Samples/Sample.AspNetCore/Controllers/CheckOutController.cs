@@ -16,8 +16,6 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using Sample.AspNetCore.Data;
-
-using SwedbankPay.Sdk.Common;
 using SwedbankPay.Sdk.PaymentInstruments.Card;
 using SwedbankPay.Sdk.PaymentInstruments;
 using SwedbankPay.Sdk.PaymentInstruments.Trustly;

@@ -1,6 +1,4 @@
-﻿using SwedbankPay.Sdk.Common;
-
-namespace Sample.AspNetCore.Models.ViewModels
+﻿namespace Sample.AspNetCore.Models.ViewModels
 {
     public class OrderViewModel
     {

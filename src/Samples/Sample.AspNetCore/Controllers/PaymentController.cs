@@ -6,7 +6,6 @@ using Sample.AspNetCore.Extensions;
 using Sample.AspNetCore.Models;
 
 using SwedbankPay.Sdk;
-using SwedbankPay.Sdk.Common;
 using SwedbankPay.Sdk.PaymentInstruments;
 using System;
 using System.Linq;

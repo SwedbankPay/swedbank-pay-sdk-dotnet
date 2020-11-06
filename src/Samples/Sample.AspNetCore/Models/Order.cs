@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using SwedbankPay.Sdk.Common;
 
 namespace Sample.AspNetCore.Models
 {

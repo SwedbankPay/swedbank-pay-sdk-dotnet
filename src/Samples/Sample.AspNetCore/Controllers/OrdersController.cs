@@ -7,7 +7,6 @@ using Sample.AspNetCore.Models;
 using Sample.AspNetCore.Models.ViewModels;
 
 using SwedbankPay.Sdk;
-using SwedbankPay.Sdk.Common;
 using SwedbankPay.Sdk.PaymentInstruments;
 
 namespace Sample.AspNetCore.Controllers
