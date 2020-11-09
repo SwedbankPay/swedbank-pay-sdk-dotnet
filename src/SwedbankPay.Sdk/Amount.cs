@@ -31,8 +31,7 @@ namespace SwedbankPay.Sdk
 
         public static implicit operator Amount(int amount)
         {
-            var decimalamount = amount / 100;
-            return new Amount(decimalamount);
+            return FromLowestMonetaryUnit(amount);
         }
 
         public static Amount operator +(Amount a, Amount b)
