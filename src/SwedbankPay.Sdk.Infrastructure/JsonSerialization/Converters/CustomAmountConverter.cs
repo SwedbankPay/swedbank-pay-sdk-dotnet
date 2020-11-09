@@ -36,7 +36,7 @@ namespace SwedbankPay.Sdk.JsonSerialization.Converters
 
         public override void Write(Utf8JsonWriter writer, Amount value, JsonSerializerOptions options)
         {
-            writer.WriteNumberValue(value.InLowestMonetaryUnit/100);
+            writer.WriteNumberValue(value.InLowestMonetaryUnit);
         }
     }
 }
