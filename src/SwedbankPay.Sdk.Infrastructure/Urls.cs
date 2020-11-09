@@ -7,28 +7,40 @@ namespace SwedbankPay.Sdk
     {
         public Urls(UrlsDto urls)
         {
-            HostUrls = urls.HostUrls ?? throw new ArgumentNullException(nameof(urls.HostUrls), $"{nameof(urls.HostUrls)} is required.");
-            CompleteUrl = new Uri(urls.CompleteUrl, UriKind.RelativeOrAbsolute) ?? throw new ArgumentNullException(nameof(urls.CompleteUrl), $"{nameof(urls.CompleteUrl)} is required.");
-            TermsOfServiceUrl = new Uri(urls.TermsOfServiceUrl, UriKind.RelativeOrAbsolute)
-                                ?? throw new ArgumentNullException(nameof(urls.TermsOfServiceUrl), $"{nameof(urls.TermsOfServiceUrl)} is required.");
+            Id = urls.Id;
+            if (urls.HostUrls != null)
+            {
+                HostUrls = urls.HostUrls;
+            }
+
+            if (urls.CompleteUrl != null)
+            {
+                CompleteUrl = urls.CompleteUrl;
+            }
+
+            if (urls.TermsOfServiceUrl != null)
+            {
+                TermsOfServiceUrl = urls.TermsOfServiceUrl;
+            }
+
             if (urls.CancelUrl != null)
             {
-                CancelUrl = new Uri(urls.CancelUrl, UriKind.RelativeOrAbsolute);
+                CancelUrl = urls.CancelUrl;
             }
 
             if (urls.PaymentUrl != null)
             {
-                PaymentUrl = new Uri(urls.PaymentUrl, UriKind.RelativeOrAbsolute);
+                PaymentUrl = urls.PaymentUrl;
             }
 
             if (urls.CallbackUrl != null)
             {
-                CallbackUrl = new Uri(urls.CallbackUrl, UriKind.RelativeOrAbsolute);
+                CallbackUrl = urls.CallbackUrl;
             }
 
             if (urls.LogoUrl != null)
             {
-                LogoUrl = new Uri(urls.LogoUrl, UriKind.RelativeOrAbsolute);
+                LogoUrl = urls.LogoUrl;
             }
         }
 

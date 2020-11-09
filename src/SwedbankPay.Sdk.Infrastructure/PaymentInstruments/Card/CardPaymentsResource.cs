@@ -11,7 +11,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         {
         }
 
-        public async Task<ICardPaymentResponse> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
+        public async Task<ICardPaymentResponse> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.All)
         {
             if (id == null)
             {
@@ -25,7 +25,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         }
 
 
-        public async Task<ICardPaymentResponse> Create(CardPaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None)
+        public async Task<ICardPaymentResponse> Create(CardPaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.All)
         {
             var url = new Uri("/psp/creditcard/payments", UriKind.Relative).GetUrlWithQueryString(paymentExpand);
 

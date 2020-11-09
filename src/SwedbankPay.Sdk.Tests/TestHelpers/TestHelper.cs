@@ -46,13 +46,13 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
                 .Bind(configuration);
             var urlsDto = new UrlsDto
             {
-                CallbackUrl = configuration.CallbackUrl.AbsoluteUri,
-                CompleteUrl = configuration.CompleteUrl.AbsoluteUri,
+                CallbackUrl = configuration.CallbackUrl,
+                CompleteUrl = configuration.CompleteUrl,
                 HostUrls = configuration.HostUrls,
-                CancelUrl = configuration.CancelUrl.AbsoluteUri,
-                LogoUrl = configuration.LogoUrl.AbsoluteUri,
-                PaymentUrl = configuration.PaymentUrl.AbsoluteUri,
-                TermsOfServiceUrl = configuration.TermsOfServiceUrl.AbsoluteUri
+                CancelUrl = configuration.CancelUrl,
+                LogoUrl = configuration.LogoUrl,
+                PaymentUrl = configuration.PaymentUrl,
+                TermsOfServiceUrl = configuration.TermsOfServiceUrl
             };
             return new Urls(urlsDto);
         }

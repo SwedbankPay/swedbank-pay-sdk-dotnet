@@ -20,7 +20,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
                         RedirectSale = httpOperation;
                         break;
 
-                    case PaymentResourceOperations.ViewSales:
+                    case PaymentResourceOperations.ViewSale:
                         ViewSale = httpOperation;
                         break;
 

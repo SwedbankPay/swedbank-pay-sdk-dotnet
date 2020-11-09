@@ -73,7 +73,7 @@ namespace SwedbankPay.Sdk
 
         public static readonly LinkRelation RedirectSale = new LinkRelation(nameof(RedirectSale), PaymentResourceOperations.RedirectSale);
 
-        public static readonly LinkRelation ViewSales = new LinkRelation(nameof(ViewSales), PaymentResourceOperations.ViewSales);
+        public static readonly LinkRelation ViewSales = new LinkRelation(nameof(ViewSales), PaymentResourceOperations.ViewSale);
 
         public static readonly LinkRelation AbortedPayment =
             new LinkRelation(nameof(AbortedPayment), PaymentResourceOperations.AbortedPayment);

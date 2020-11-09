@@ -265,10 +265,10 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.urls = new Urls(new UrlsDto
             {
                 HostUrls = new List<Uri> { new Uri("https://example.com") },
-                CompleteUrl = "https://example.com/payment-completed",
-                CallbackUrl = "https://example.com/payment-callback",
-                TermsOfServiceUrl = "https://example.com/termsandconditoons.pdf",
-                CancelUrl = "https://example.com/payment-canceled"
+                CompleteUrl = new Uri("https://example.com/payment-completed"),
+                CallbackUrl = new Uri("https://example.com/payment-callback"),
+                TermsOfServiceUrl = new Uri("https://example.com/termsandconditoons.pdf"),
+                CancelUrl = new Uri("https://example.com/payment-canceled")
             });
         }
     }

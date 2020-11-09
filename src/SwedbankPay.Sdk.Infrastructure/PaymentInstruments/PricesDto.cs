@@ -6,7 +6,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
 {
     public class PricesDto : IdLink
     {
-        public List<PriceListDto> PriceList { get; set; }
+        public List<PriceListDto> PriceList { get; set; } = new List<PriceListDto>();
 
         internal IPricesListResponse Map()
         {

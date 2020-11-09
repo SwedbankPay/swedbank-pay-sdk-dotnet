@@ -31,7 +31,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
                         RedirectSale = httpOperation;
                         break;
 
-                    case PaymentResourceOperations.ViewSales:
+                    case PaymentResourceOperations.ViewSale:
                         ViewSales = httpOperation;
                         break;
                     case PaymentResourceOperations.CreateReversal:

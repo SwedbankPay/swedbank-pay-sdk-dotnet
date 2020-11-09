@@ -89,9 +89,9 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.urls = new Urls(new UrlsDto
             {
                 HostUrls = new List<Uri> { new Uri("https://example.com") },
-                CompleteUrl = "https://example.com/payment-completed",
-                TermsOfServiceUrl = "https://example.com/termsandconditoons.pdf",
-                CancelUrl = "https://example.com/payment-canceled"
+                CompleteUrl = new Uri("https://example.com/payment-completed"),
+                TermsOfServiceUrl = new Uri("https://example.com/termsandconditoons.pdf"),
+                CancelUrl = new Uri("https://example.com/payment-canceled")
             });
             this.userAgent = "useragent";
             this.language = new Language("sv-SE");
