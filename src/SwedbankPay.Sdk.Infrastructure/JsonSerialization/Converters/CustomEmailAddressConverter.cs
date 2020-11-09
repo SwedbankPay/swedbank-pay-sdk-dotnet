@@ -27,7 +27,10 @@ namespace SwedbankPay.Sdk.JsonSerialization.Converters
             }
 
             if (reader.TokenType == JsonTokenType.String)
+            {
                 return new EmailAddress(reader.GetString());
+            }
+
             throw new JsonException();
         }
 

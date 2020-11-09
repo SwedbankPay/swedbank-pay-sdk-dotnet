@@ -14,15 +14,21 @@ namespace SwedbankPay.Sdk
         public SwedbankPayClient(HttpClient httpClient, IPaymentOrdersResource paymentOrders, IConsumersResource consumers, IPaymentsResource payments)
         {
             if (!ServicePointManager.SecurityProtocol.HasFlag(SecurityProtocolType.Tls12))
+            {
                 ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
+            }
 
             this.httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
 
             if (this.httpClient.BaseAddress == null)
+            {
                 throw new ArgumentNullException(nameof(httpClient), $"{nameof(httpClient.BaseAddress)} cannot be null.");
+            }
 
             if (this.httpClient.DefaultRequestHeaders?.Authorization?.Parameter == null)
+            {
                 throw new ArgumentException($"Please configure the {nameof(httpClient)} with an Authorization header.");
+            }
 
             PaymentOrders = paymentOrders ?? throw new ArgumentNullException(nameof(paymentOrders));
             Consumers = consumers ?? throw new ArgumentNullException(nameof(consumers));

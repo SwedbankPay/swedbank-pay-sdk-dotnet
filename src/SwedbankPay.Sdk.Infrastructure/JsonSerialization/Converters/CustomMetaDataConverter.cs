@@ -31,7 +31,9 @@ namespace SwedbankPay.Sdk.JsonSerialization.Converters
                     string itemValue = reader.GetString();
 
                     if (keyString.Equals(nameof(MetadataResponse.Id), StringComparison.InvariantCultureIgnoreCase))
+                    {
                         metadata.Id = itemValue;
+                    }
 
                     metadata.Add(keyString, itemValue);
                 }

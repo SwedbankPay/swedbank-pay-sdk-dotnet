@@ -14,7 +14,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         public async Task<ICardPaymentResponse> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
         {
             if (id == null)
+            {
                 throw new ArgumentNullException(nameof(id));
+            }
+
             Uri url = id.GetUrlWithQueryString(paymentExpand);
 
             var cardPaymentResponseDto = await HttpClient.GetAsJsonAsync<CardPaymentResponseDto>(url);

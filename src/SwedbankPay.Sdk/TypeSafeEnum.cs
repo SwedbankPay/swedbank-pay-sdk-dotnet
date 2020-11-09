@@ -20,15 +20,23 @@ namespace SwedbankPay.Sdk
                 // multiple enums with same value are allowed but store only one per value
                 var dictionary = new Dictionary<string, TEnum>();
                 foreach (var item in GetAllOptions())
+                {
                     if (!dictionary.ContainsKey(item.Value))
+                    {
                         dictionary.Add(item.Value, item);
+                    }
+                }
+
                 return dictionary;
             });
 
         protected TypeSafeEnum(string name, string value)
         {
             if (string.IsNullOrEmpty(name))
+            {
                 throw new ArgumentNullException(nameof(name));
+            }
+
             Name = name;
             Value = value ?? throw new ArgumentNullException(nameof(value));
         }
@@ -48,12 +56,16 @@ namespace SwedbankPay.Sdk
         {
             // check if same instance
             if (ReferenceEquals(this, other))
+            {
                 return true;
+            }
 
             // it's not same instance so 
             // check if it's not null and is same value
             if (other is null)
+            {
                 return false;
+            }
 
             return Value.Equals(other.Value);
         }
@@ -68,16 +80,24 @@ namespace SwedbankPay.Sdk
         public static TEnum FromName(string name, bool ignoreCase = false)
         {
             if (string.IsNullOrEmpty(name))
+            {
                 throw new ArgumentException("Argument cannot be null or empty.", name);
+            }
 
             if (ignoreCase)
+            {
                 return FromName(fromNameIgnoreCase.Value);
+            }
+
             return FromName(fromName.Value);
 
             TEnum FromName(Dictionary<string, TEnum> dictionary)
             {
                 if (!dictionary.TryGetValue(name, out var result))
+                {
                     throw new KeyNotFoundException($"Key: {name} not found.");
+                }
+
                 return result;
             }
         }
@@ -86,7 +106,9 @@ namespace SwedbankPay.Sdk
         public static TEnum FromValue(string value)
         {
             if (value == null)
+            {
                 throw new ArgumentNullException(nameof(value));
+            }
 
             if (!fromValue.Value.TryGetValue(value, out var result))
             {
@@ -106,11 +128,15 @@ namespace SwedbankPay.Sdk
         public static TEnum FromValue(string value, TEnum defaulstring)
         {
             if (value == null)
-
+            {
                 throw new ArgumentNullException(nameof(value));
+            }
 
             if (!fromValue.Value.TryGetValue(value, out var result))
+            {
                 return defaulstring;
+            }
+
             return result;
         }
 
@@ -142,10 +168,15 @@ namespace SwedbankPay.Sdk
         public static bool TryFromName(string name, bool ignoreCase, out TEnum result)
         {
             if (string.IsNullOrEmpty(name))
+            {
                 throw new ArgumentNullException(nameof(name));
+            }
 
             if (ignoreCase)
+            {
                 return fromNameIgnoreCase.Value.TryGetValue(name, out result);
+            }
+
             return fromName.Value.TryGetValue(name, out result);
         }
 

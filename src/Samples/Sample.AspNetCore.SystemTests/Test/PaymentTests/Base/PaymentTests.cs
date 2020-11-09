@@ -188,9 +188,11 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 .Do((x) =>
                 {
                     if (x.Header.ClearOrders.Exists(new SearchOptions { Timeout = new TimeSpan(0, 0, 0, 0, 500), IsSafely = true }))
+                    {
                         x
                         .Header.ClearOrders.Click()
                         .Header.Products.Click();
+                    }
 
                     foreach (var product in products)
                     {
@@ -201,9 +203,11 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                         product.UnitPrice = price;
 
                         if (product.Quantity != 1)
+                        {
                             x
                             .CartProducts.Rows[y => y.Name == product.Name].Quantity.Set(product.Quantity)
                             .CartProducts.Rows[y => y.Name == product.Name].Update.Click();
+                        }
                     }
                 });
         }
@@ -316,16 +320,20 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             var data = new List<object>();
 
             if (singleProduct)
+            {
                 data.Add(new[]
                 {
                     new Product { Name = Products.Product1, Quantity = 1 }
                 });
+            }
             else
+            {
                 data.Add(new[]
                 {
                     new Product { Name = Products.Product1, Quantity = 3 },
                     new Product { Name = Products.Product2, Quantity = 2 }
                 });
+            }
 
             switch (paymentMethod)
             {

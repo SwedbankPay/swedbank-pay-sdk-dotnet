@@ -20,9 +20,15 @@ namespace SwedbankPay.Sdk
         public CurrencyCode(string currencyCode)
         {
             if (string.IsNullOrEmpty(currencyCode))
+            {
                 throw new ArgumentNullException(nameof(currencyCode), "Currency code can't be null or empty");
+            }
+
             if (!IsValidCurrencyCode(currencyCode))
+            {
                 throw new ArgumentException($"Invalid currency code: {currencyCode}");
+            }
+
             Value = currencyCode;
         }
 
@@ -33,7 +39,9 @@ namespace SwedbankPay.Sdk
         public static bool IsValidCurrencyCode(string currencyCode)
         {
             if (string.IsNullOrWhiteSpace(currencyCode))
+            {
                 return false;
+            }
 
             var regions = CultureInfo.GetCultures(CultureTypes.AllCultures)
                 .Where(c => !c.IsNeutralCulture)

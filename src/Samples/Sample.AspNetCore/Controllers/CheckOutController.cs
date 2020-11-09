@@ -52,10 +52,12 @@ namespace Sample.AspNetCore.Controllers
             Payer payer = null;
 
             if (!string.IsNullOrWhiteSpace(consumerProfileRef))
+            {
                 payer = new Payer
                 {
                     ConsumerProfileRef = consumerProfileRef
                 };
+            }
 
             var orderItems = this.cartService.CartLines.ToOrderItems();
             var paymentOrderItems = orderItems?.ToList();

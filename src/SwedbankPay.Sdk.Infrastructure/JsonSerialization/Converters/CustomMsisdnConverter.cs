@@ -27,7 +27,10 @@ namespace SwedbankPay.Sdk.JsonSerialization.Converters
             }
 
             if (reader.TokenType == JsonTokenType.String)
+            {
                 return new Msisdn(reader.GetString());
+            }
+
             throw new JsonException();
         }
         public override void Write(Utf8JsonWriter writer, Msisdn value, JsonSerializerOptions options)

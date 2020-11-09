@@ -14,7 +14,9 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         public async Task<ISwishPaymentResponse> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
         {
             if (id == null)
+            {
                 throw new ArgumentNullException(nameof(id));
+            }
 
             Uri url = id.GetUrlWithQueryString(paymentExpand);
 

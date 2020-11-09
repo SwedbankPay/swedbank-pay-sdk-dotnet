@@ -20,11 +20,25 @@ namespace SwedbankPay.Sdk.PaymentOrders
                          string discountDescription = null,
                          Amount discountPrice = null)
         {
-            if (string.IsNullOrEmpty(reference)) throw new ArgumentException($"Required input {reference} was empty.", reference);
-            if (string.IsNullOrEmpty(name)) throw new ArgumentException($"Required input {name} was empty.", name);
+            if (string.IsNullOrEmpty(reference))
+            {
+                throw new ArgumentException($"Required input {reference} was empty.", reference);
+            }
+
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException($"Required input {name} was empty.", name);
+            }
+
             if (quantity < 1)
+            {
                 throw new ArgumentOutOfRangeException(nameof(quantity), $"Required input {quantity} must be equal or greater than 1.");
-            if (string.IsNullOrEmpty(quantityUnit)) throw new ArgumentException($"Required input {quantityUnit} was empty.", quantityUnit);
+            }
+
+            if (string.IsNullOrEmpty(quantityUnit))
+            {
+                throw new ArgumentException($"Required input {quantityUnit} was empty.", quantityUnit);
+            }
 
             Reference = reference;
             Name = name;

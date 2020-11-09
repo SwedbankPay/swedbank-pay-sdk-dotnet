@@ -16,11 +16,12 @@ namespace SwedbankPay.Sdk.Extensions
             var responseString = await apiResponse.Content.ReadAsStringAsync();
 
             if (!apiResponse.IsSuccessStatusCode)
+            {
                 throw new HttpResponseException(
                     apiResponse,
                     JsonSerializer.Deserialize<ProblemResponse>(responseString),
                     BuildErrorMessage(responseString, uri, apiResponse));
-
+            }
 
             return JsonSerializer.Deserialize<T>(responseString, JsonSerialization.JsonSerialization.Settings);
         }
@@ -50,7 +51,10 @@ namespace SwedbankPay.Sdk.Extensions
                 if (!httpResponseMessage.IsSuccessStatusCode)
                 {
                     if (string.IsNullOrEmpty(httpResponseContent))
+                    {
                         throw new HttpResponseException(httpResponseMessage, new ProblemResponse(), BuildErrorMessage(httpResponseContent));
+                    }
+
                     throw new HttpResponseException(
                         httpResponseMessage,
                         JsonSerializer.Deserialize<ProblemResponse>(httpResponseContent, JsonSerialization.JsonSerialization.Settings),

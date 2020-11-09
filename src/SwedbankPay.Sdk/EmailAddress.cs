@@ -9,7 +9,10 @@ namespace SwedbankPay.Sdk
         public EmailAddress(string emailAddress)
         {
             if (!IsValidEmail(emailAddress))
+            {
                 throw new ArgumentException($"Invalid email address: {emailAddress}", nameof(emailAddress));
+            }
+
             Value = emailAddress;
         }
 
@@ -20,7 +23,10 @@ namespace SwedbankPay.Sdk
         public static bool IsValidEmail(string emailAddress)
         {
             if (string.IsNullOrWhiteSpace(emailAddress))
+            {
                 return false;
+            }
+
             try
             {
                 // Normalize the domain

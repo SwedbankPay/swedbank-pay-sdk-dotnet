@@ -15,7 +15,9 @@ namespace SwedbankPay.Sdk.PaymentOrders
         internal PayeeInfo Map()
         {
             if (string.IsNullOrEmpty(PayeeId))
+            {
                 return new PayeeInfo(Id);
+            }
 
             return new PayeeInfo(Guid.Parse(PayeeId), PayeeReference, PayeeName, ProductCategory);
         }

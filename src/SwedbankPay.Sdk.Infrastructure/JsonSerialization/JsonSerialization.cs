@@ -15,7 +15,10 @@ namespace SwedbankPay.Sdk.JsonSerialization
             get
             {
                 if (settings == null)
+                {
                     CreateJsonSerializerOptions();
+                }
+
                 return settings;
             }
         }

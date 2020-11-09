@@ -23,7 +23,10 @@ namespace SwedbankPay.Sdk
         internal IUrls Map()
         {
             if (HostUrls == null)
+            {
                 return new IdLink() { Id = Id } as IUrls;
+            }
+
             return new Urls(this);
         }
     }

@@ -69,7 +69,9 @@ namespace Sample.AspNetCore.Controllers
         {
             var line = this.cartService.CartLines.FirstOrDefault(i => i.Product.ProductId == id);
             if (line != null)
+            {
                 this.cartService.RemoveItem(line.Product, line.Quantity);
+            }
 
             return RedirectToAction("Index", "Products");
         }

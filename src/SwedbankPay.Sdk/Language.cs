@@ -8,7 +8,10 @@ namespace SwedbankPay.Sdk
         public Language(string language)
         {
             if (language == null)
+            {
                 throw new ArgumentNullException(nameof(language));
+            }
+
             Culture = new CultureInfo(language);
             if (Culture.IsNeutralCulture)
             {

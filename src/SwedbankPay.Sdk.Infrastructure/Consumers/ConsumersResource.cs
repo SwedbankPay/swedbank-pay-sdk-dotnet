@@ -21,7 +21,9 @@ namespace SwedbankPay.Sdk.Consumers
         public Task<BillingDetails> GetBillingDetails(Uri url)
         {
             if (url == null)
+            {
                 throw new ArgumentNullException(nameof(url));
+            }
 
             return GetBillingDetailsInternalAsync(url);
         }
@@ -37,7 +39,9 @@ namespace SwedbankPay.Sdk.Consumers
         public Task<ShippingDetails> GetShippingDetails(Uri url)
         {
             if (url == null)
+            {
                 throw new ArgumentNullException(nameof(url));
+            }
 
             return GetShippingDetailsInternalAsync(url);
         }

@@ -24,7 +24,9 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public async Task<IPaymentOrderResponse> Get(Uri id, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
         {
             if (id == null)
+            {
                 throw new ArgumentNullException(nameof(id), $"{id} cannot be null");
+            }
 
             Uri url = id.GetUrlWithQueryString(paymentOrderExpand);
 

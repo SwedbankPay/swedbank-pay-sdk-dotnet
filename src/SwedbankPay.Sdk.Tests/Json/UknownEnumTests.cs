@@ -42,6 +42,6 @@ namespace SwedbankPay.Sdk.Tests.Json
             }
         }
 
-        public static string InvalidStringEnum = $"{{ \"propertyName\":\"ThisIsAVeryInvalidEnumValueForThisObject\"}}";
+        private static string InvalidStringEnum = $"{{ \"propertyName\":\"ThisIsAVeryInvalidEnumValueForThisObject\"}}";
     }
 }

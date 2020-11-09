@@ -31,12 +31,18 @@ namespace SwedbankPay.Sdk.JsonSerialization.Converters
                 var regionInfoString = reader.GetString();
 
                 if (string.IsNullOrEmpty(regionInfoString))
+                {
                     return null;
+                }
+
                 return new RegionInfo(regionInfoString);
             }
 
             if (reader.TokenType == JsonTokenType.Null)
+            {
                 return null;
+            }
+
             throw new JsonException();
         }
 

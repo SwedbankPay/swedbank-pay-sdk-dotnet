@@ -11,6 +11,7 @@ namespace Sample.AspNetCore.Extensions
         public static IEnumerable<OrderItem> ToOrderItems(this IEnumerable<CartLine> lines)
         {
             foreach (var line in lines)
+            {
                 yield return new OrderItem(line.Product.Reference, line.Product.Name, OrderItemType.FromValue(line.Product.Type),
                                            line.Product.Class,
                                            line.Quantity, "pcs", new Amount(line.Product.Price), 0,
@@ -18,7 +19,8 @@ namespace Sample.AspNetCore.Extensions
                                            new Amount(line.Product.VatPercentage == 0
                                                                   ? 0
                                                                   : line.CalculateTotal() * line.Product.VatPercentage
-                                                                    / 100)); 
+                                                                    / 100));
+            }
         }
     }
 }

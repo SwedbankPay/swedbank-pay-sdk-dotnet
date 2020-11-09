@@ -32,7 +32,9 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         public PaymentOrderRequestBuilder WithAmounts(long amount = 30000, long vatAmount = 7500)
         {
             if (amount - vatAmount < 0)
+            {
                 throw new ArgumentOutOfRangeException(nameof(vatAmount), $"{vatAmount} cant be greater than {amount}");
+            }
 
             this.amount = new Amount(amount);
             this.vatAmount = new Amount(vatAmount);

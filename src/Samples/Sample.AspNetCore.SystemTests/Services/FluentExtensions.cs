@@ -13,7 +13,9 @@ namespace Sample.AspNetCore.SystemTests.Services
             where TOwner : PageObject<TOwner>
         {
             foreach (var value in values)
+            {
                 action.Invoke(page, value);
+            }
 
             return page;
         }

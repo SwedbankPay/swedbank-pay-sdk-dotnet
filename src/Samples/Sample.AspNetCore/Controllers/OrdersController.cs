@@ -71,7 +71,9 @@ namespace Sample.AspNetCore.Controllers
             var order = await this.context.Orders
                 .FirstOrDefaultAsync();
             if (order == null)
+            {
                 return NotFound();
+            }
 
             IEnumerable<HttpOperation> operations = null;
 
@@ -115,11 +117,16 @@ namespace Sample.AspNetCore.Controllers
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
+            {
                 return NotFound();
+            }
 
             var order = await this.context.Orders.FindAsync(id);
             if (order == null)
+            {
                 return NotFound();
+            }
+
             return View(order);
         }
 
@@ -132,7 +139,9 @@ namespace Sample.AspNetCore.Controllers
         public async Task<IActionResult> Edit(int id, [Bind("Id,PaymentOrderId")] Order order)
         {
             if (id != order.OrderId)
+            {
                 return NotFound();
+            }
 
             if (ModelState.IsValid)
             {
@@ -144,7 +153,10 @@ namespace Sample.AspNetCore.Controllers
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!OrderExists(order.OrderId))
+                    {
                         return NotFound();
+                    }
+
                     throw;
                 }
 

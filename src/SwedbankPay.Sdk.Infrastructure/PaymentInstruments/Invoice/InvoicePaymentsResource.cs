@@ -14,7 +14,9 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         public async Task<IInvoicePaymentResponse> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
         {
             if (id == null)
+            {
                 throw new ArgumentNullException(nameof(id));
+            }
 
             var url = id.GetUrlWithQueryString(paymentExpand);
 

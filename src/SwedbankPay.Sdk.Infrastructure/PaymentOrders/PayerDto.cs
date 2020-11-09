@@ -33,11 +33,19 @@ namespace SwedbankPay.Sdk.PaymentOrders
                 WorkPhoneNumber = WorkPhoneNumber
             };
             if (Email != null)
+            {
                 payer.Email = new EmailAddress(Email);
+            }
+
             if (!String.IsNullOrEmpty(Msisdn))
+            {
                 payer.Msisdn = new Msisdn(Msisdn);
+            }
+
             if (NationalIdentifier != null)
+            {
                 payer.NationalIdentifier = new NationalIdentifier(new RegionInfo(NationalIdentifier.CountryCode), NationalIdentifier.SocialSecurityNumber);
+            }
 
             return payer;
         }

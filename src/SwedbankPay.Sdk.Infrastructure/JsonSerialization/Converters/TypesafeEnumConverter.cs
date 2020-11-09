@@ -31,7 +31,9 @@ namespace SwedbankPay.Sdk.JsonSerialization.Converters
                 var enumText = reader.GetString();
 
                 if (Enum.TryParse(typeToConvert, enumText, out var val))
+                {
                     return (TEnum)val;
+                }
             }
             else if (reader.TokenType == JsonTokenType.Number)
             {

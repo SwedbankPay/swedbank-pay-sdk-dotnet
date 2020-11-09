@@ -30,7 +30,9 @@ namespace SwedbankPay.Sdk.PaymentOrders
             OrderItems = paymentOrder.OrderItems?.Map();
             Payers = paymentOrder.Payer?.Map();
             if (paymentOrder.Payments != null && string.IsNullOrEmpty(paymentOrder.Payments.Id))
+            {
                 Payments = new IdLink() { Id = new Uri(paymentOrder.Payments.Id, UriKind.RelativeOrAbsolute) };
+            }
         }
 
         public Uri Id { get; }

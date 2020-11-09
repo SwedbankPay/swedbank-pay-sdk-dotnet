@@ -27,7 +27,10 @@ namespace SwedbankPay.Sdk.JsonSerialization.Converters
             }
 
             if (reader.TokenType == JsonTokenType.Number)
+            {
                 return new Amount(reader.GetInt64());
+            }
+
             throw new JsonException();
         }
 

@@ -30,14 +30,18 @@ namespace SwedbankPay.Sdk.Extensions
         {
             var intValue = Convert.ToInt64(paymentExpand);
             if (intValue == 0)
+            {
                 return string.Empty;
+            }
 
             var s = new List<string>();
             foreach (var enumValue in Enum.GetValues(typeof(T)))
             {
                 var name = Enum.GetName(typeof(T), enumValue);
                 if (paymentExpand.HasFlag((T)enumValue) && name != "None" && name != "All")
+                {
                     s.Add(name.ToLower());
+                }
             }
 
             var queryString = string.Join(",", s);

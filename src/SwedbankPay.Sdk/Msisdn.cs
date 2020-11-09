@@ -7,7 +7,10 @@ namespace SwedbankPay.Sdk
         public Msisdn(string msisdn)
         {
             if (!IsValidMsisdn(msisdn))
+            {
                 throw new ArgumentException($"Invalid msisdn: {msisdn}", nameof(msisdn));
+            }
+
             Value = msisdn;
         }
 
@@ -18,7 +21,10 @@ namespace SwedbankPay.Sdk
         public static bool IsValidMsisdn(string msisdn)
         {
             if (string.IsNullOrWhiteSpace(msisdn))
+            {
                 return false;
+            }
+
             return true;
         }
 

@@ -14,7 +14,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         public async Task<IMobilePayPaymentResponse> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
         {
             if (id == null)
+            {
                 throw new ArgumentNullException(nameof(id));
+            }
+
             Uri url = id.GetUrlWithQueryString(paymentExpand);
 
             var mobilepaymentResponseDto = await HttpClient.GetAsJsonAsync<MobilePayPaymentResponseDto>(url);
