@@ -8,7 +8,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
     {
         public Uri Id { get; set; }
 
-        public List<TransactionDto> TransactionList { get; set; }
+        public List<TransactionDto> TransactionList { get; set; } = new List<TransactionDto>();
 
         internal ITransactionListResponse Map()
         {

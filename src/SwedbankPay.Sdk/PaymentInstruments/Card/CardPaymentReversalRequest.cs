@@ -2,9 +2,11 @@
 {
     public class CardPaymentReversalRequest
     {
-        public Amount Amount { get; set; }
-        public string Description { get; set; }
-        public string PayeeReference { get; set; }
-        public Amount VatAmount { get; set; }
+        public CardPaymentReversalRequest(Amount amount, string description, string payeeReference, Amount vatAmount)
+        {
+            Transaction = new CardPaymentReversalTransaction(amount, vatAmount, description, payeeReference);
+        }
+
+        public CardPaymentReversalTransaction Transaction { get; }
     }
 }

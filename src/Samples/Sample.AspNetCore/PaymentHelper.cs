@@ -67,12 +67,12 @@ namespace Sample.AspNetCore
         {
             var cardPayment = await swedbankPayClient.Payments.CardPayments.Get(new Uri(paymentId, UriKind.RelativeOrAbsolute));
             var cardReversal = new SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentReversalRequest
-            {
-                Amount = new Amount(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
-                VatAmount = new Amount(0),
-                Description = description,
-                PayeeReference = DateTime.Now.Ticks.ToString()
-            };
+            (
+                new Amount(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
+                description,
+                DateTime.Now.Ticks.ToString(),
+                new Amount(0)
+            );
             return await cardPayment.Operations.Reverse.Invoke(cardReversal);
         }
 
