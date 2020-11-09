@@ -17,7 +17,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                 return new CurrentPaymentResponse(Id, MenuElementName, null);
             }
 
-            var payment = new CurrentPaymentResponseObject(Payment);
+            var payment = new CurrentPayment(Payment);
             return new CurrentPaymentResponse(Id, MenuElementName, payment);
         }
     }

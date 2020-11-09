@@ -3,9 +3,9 @@ using System;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class CurrentPaymentResponseObject : IdLink, ICurrentPaymentResponseObject
+    public class CurrentPayment : IdLink, ICurrentPayment
     {
-        public CurrentPaymentResponseObject(PaymentOrderPaymentDto payment)
+        public CurrentPayment(PaymentOrderPaymentDto payment)
         {
             Number = payment.Number;
             Instrument = Enum.Parse<PaymentInstrument>(payment.Instrument);

@@ -6,6 +6,6 @@ namespace SwedbankPay.Sdk.PaymentOrders
     {
         public Uri PaymentOrder { get; }
         public string MenuElementName { get; }
-        public ICurrentPaymentResponseObject Payment { get; }
+        public ICurrentPayment Payment { get; }
     }
 }

@@ -3,7 +3,7 @@ using System;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public interface ICurrentPaymentResponseObject
+    public interface ICurrentPayment
     {
         Amount Amount { get; }
         IPaymentAuthorizationResponse Authorizations { get; }
