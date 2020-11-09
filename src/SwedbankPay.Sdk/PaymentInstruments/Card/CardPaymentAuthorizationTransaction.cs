@@ -18,7 +18,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
                                         string failedErrorCode,
                                         string failedErrorDescription,
                                         bool isOperational,
-                                        ProblemResponse problem,
+                                        IProblemResponse problem,
                                         IOperationList operations)
         {
             Created = created;
@@ -52,7 +52,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         public long Number { get; }
         public IOperationList Operations { get; }
         public string PayeeReference { get; }
-        public ProblemResponse Problem { get; }
+        public IProblemResponse Problem { get; }
         public State State { get; }
         public string Type { get; }
         public DateTime Updated { get; }

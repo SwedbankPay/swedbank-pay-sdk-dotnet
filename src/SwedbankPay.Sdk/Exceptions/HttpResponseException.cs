@@ -7,7 +7,7 @@ namespace SwedbankPay.Sdk.Exceptions
     public class HttpResponseException : Exception
     {
         public HttpResponseException(HttpResponseMessage httpResponse,
-                                     ProblemResponse problemResponse = null,
+                                     IProblemResponse problemResponse = null,
                                      string message = null,
                                      Exception innerException = null)
             : base(message, innerException)
@@ -18,7 +18,7 @@ namespace SwedbankPay.Sdk.Exceptions
 
         public HttpResponseMessage HttpResponse { get; set; }
 
-        public ProblemResponse ProblemResponse { get; set; }
+        public IProblemResponse ProblemResponse { get; set; }
 
         public HttpResponseException()
         {

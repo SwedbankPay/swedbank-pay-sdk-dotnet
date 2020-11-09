@@ -1,6 +1,6 @@
 ﻿namespace SwedbankPay.Sdk
 {
-    public class ProblemResponseItem
+    public class ProblemResponseItem : IProblemResponseItem
     {
         public string Description { get; set; }
 

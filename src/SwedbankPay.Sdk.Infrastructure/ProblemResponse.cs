@@ -3,16 +3,16 @@ using System.Linq;
 
 namespace SwedbankPay.Sdk
 {
-    public class ProblemResponse
+    public class ProblemResponse : IProblemResponse
     {
-        public string Action { get; set; }
+        public string Action { get; }
         public string Detail { get; set; }
         public string Instance { get; set; }
-        public List<ProblemResponseItem> Problems { get; set; }
-        public int Status { get; set; }
-        public string Title { get; set; }
+        public List<IProblemResponseItem> Problems { get; }
+        public int Status { get; }
+        public string Title { get; }
 
-        public string Type { get; set; }
+        public string Type { get; }
 
 
         public override string ToString()
