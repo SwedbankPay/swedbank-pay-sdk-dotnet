@@ -2,6 +2,7 @@
 using SwedbankPay.Sdk.PaymentOrders;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace SwedbankPay.Sdk.Extensions
 {
@@ -40,7 +41,7 @@ namespace SwedbankPay.Sdk.Extensions
                 var name = Enum.GetName(typeof(T), enumValue);
                 if (paymentExpand.HasFlag((T)enumValue) && name != "None" && name != "All")
                 {
-                    s.Add(name.ToLower());
+                    s.Add(name.ToLower(CultureInfo.InvariantCulture));
                 }
             }
 

@@ -60,11 +60,7 @@ namespace SwedbankPay.Sdk.JsonSerialization.Converters
             {
                 writer.WriteNullValue();
             }
-            else if (value is null && options.IgnoreNullValues)
-            {
-                return;
-            }
-            else
+            else if (value != null)
             {
                 writer.WriteStringValue(value.Value.ToString());
             }
