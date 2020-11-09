@@ -84,8 +84,8 @@ namespace SwedbankPay.Sdk.Tests
 
             var response = await paymentOrder.Operations.Update(updateRequest);
 
-            Assert.Equal(updateRequest.PaymentOrder.Amount.InLowestMonetaryUnit, response.PaymentOrder.Amount.InLowestMonetaryUnit);
-            Assert.Equal(updateRequest.PaymentOrder.VatAmount.InLowestMonetaryUnit, response.PaymentOrder.VatAmount.InLowestMonetaryUnit);
+            Assert.Equal(updateRequest.PaymentOrder.Amount, response.PaymentOrder.Amount);
+            Assert.Equal(updateRequest.PaymentOrder.VatAmount, response.PaymentOrder.VatAmount);
         }
 
         [Fact]
@@ -94,7 +94,7 @@ namespace SwedbankPay.Sdk.Tests
             var paymentOrderRequest = this.paymentOrderRequestBuilder.WithTestValues(this.payeeId).Build();
             var paymentOrder = await this.Sut.PaymentOrders.Create(paymentOrderRequest);
             Assert.NotNull(paymentOrder.PaymentOrder);
-            Assert.Equal(paymentOrderRequest.PaymentOrder.Amount.InLowestMonetaryUnit, paymentOrder.PaymentOrder.Amount.InLowestMonetaryUnit);
+            Assert.Equal(paymentOrderRequest.PaymentOrder.Amount, paymentOrder.PaymentOrder.Amount);
         }
 
 

@@ -37,7 +37,7 @@ namespace SwedbankPay.Sdk.Tests.Json
             var amount = obj.RootElement.GetProperty("amount").GetInt64();
 
             //ASSERT
-            Assert.Equal(Amount.FromLowestMonetaryUnit(this.expectedAmount), amount);
+            Assert.Equal(Amount.FromLowestMonetaryUnit(this.expectedAmount), Amount.FromLowestMonetaryUnit(amount));
         }
     }
 }

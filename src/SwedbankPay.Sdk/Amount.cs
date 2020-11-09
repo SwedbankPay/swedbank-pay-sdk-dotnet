@@ -29,6 +29,12 @@ namespace SwedbankPay.Sdk
             return new Amount(amount);
         }
 
+        public static implicit operator Amount(int amount)
+        {
+            var decimalamount = amount / 100;
+            return new Amount(decimalamount);
+        }
+
         public static Amount operator +(Amount a, Amount b)
         {
             return new Amount(a.amount + b.amount);
