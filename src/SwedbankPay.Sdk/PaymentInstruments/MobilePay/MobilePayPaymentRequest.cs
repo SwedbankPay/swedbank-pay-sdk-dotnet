@@ -20,12 +20,12 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
                               PrefillInfo prefillInfo = null)
 
         {
-            Payment = new MobilePayPaymentRequestPaymentObject(operation, intent, currency, prices, description, payerReference, userAgent, language, urls, payeeInfo, metadata, prefillInfo);
+            Payment = new MobilePayPayment(operation, intent, currency, prices, description, payerReference, userAgent, language, urls, payeeInfo, metadata, prefillInfo);
             MobilePay = new MobilePayPaymentRequestObject(shopslogoUrl);
         }
 
 
-        public MobilePayPaymentRequestPaymentObject Payment { get; }
+        public MobilePayPayment Payment { get; }
         public MobilePayPaymentRequestObject MobilePay { get; }
     }
 }
