@@ -2,8 +2,8 @@
 {
     public interface IProblemResponseItem
     {
-        string Description { get; set; }
-        string Name { get; set; }
+        string Description { get; }
+        string Name { get; }
 
         string ToString();
     }

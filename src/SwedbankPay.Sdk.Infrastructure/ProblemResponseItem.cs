@@ -2,9 +2,15 @@
 {
     public class ProblemResponseItem : IProblemResponseItem
     {
-        public string Description { get; set; }
+        public ProblemResponseItem(string description, string name)
+        {
+            Description = description;
+            Name = name;
+        }
 
-        public string Name { get; set; }
+        public string Description { get; }
+
+        public string Name { get; }
 
 
         public override string ToString()

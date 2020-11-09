@@ -19,7 +19,7 @@ namespace SwedbankPay.Sdk.Extensions
             {
                 throw new HttpResponseException(
                     apiResponse,
-                    JsonSerializer.Deserialize<ProblemResponse>(responseString),
+                    JsonSerializer.Deserialize<ProblemResponseDto>(responseString).Map(),
                     BuildErrorMessage(responseString, uri, apiResponse));
             }
 
@@ -57,7 +57,7 @@ namespace SwedbankPay.Sdk.Extensions
 
                     throw new HttpResponseException(
                         httpResponseMessage,
-                        JsonSerializer.Deserialize<ProblemResponse>(httpResponseContent, JsonSerialization.JsonSerialization.Settings),
+                        JsonSerializer.Deserialize<ProblemResponseDto>(httpResponseContent, JsonSerialization.JsonSerialization.Settings).Map(),
                         BuildErrorMessage(httpResponseContent));
                 }
 
