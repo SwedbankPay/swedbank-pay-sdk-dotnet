@@ -10,7 +10,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
             Id = new Uri(dto.Id, UriKind.RelativeOrAbsolute);
             Created = dto.Created;
             Updated = dto.Updated;
-            Type = dto.Type;
+            Type = string.IsNullOrEmpty( dto.Type)? "Unknown": dto.Type;
             State = dto.State;
             Number = dto.Number;
             Amount = dto.Amount;
