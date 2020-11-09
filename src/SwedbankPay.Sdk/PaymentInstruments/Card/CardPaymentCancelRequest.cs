@@ -8,9 +8,5 @@
         }
 
         public CardPaymentCancelTransaction Transaction { get; }
-
-        public string Description => this.Transaction.Description;
-
-        public string PayeeReference => this.Transaction.PayeeReference;
     }
 }

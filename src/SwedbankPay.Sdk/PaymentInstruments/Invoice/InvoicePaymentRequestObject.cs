@@ -2,11 +2,11 @@
 {
     public class InvoicePaymentRequestObject : IInvoicePaymentRequestObject
     {
-        protected internal InvoicePaymentRequestObject(InvoiceType invoiceType)
+        public InvoicePaymentRequestObject(InvoiceType invoiceType)
         {
             InvoiceType = invoiceType;
         }
-        public InvoiceType InvoiceType { get; set; }
 
+        public InvoiceType InvoiceType { get; set; }
     }
 }

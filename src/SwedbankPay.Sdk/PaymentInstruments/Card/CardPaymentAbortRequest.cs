@@ -1,6 +1,6 @@
 ﻿namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
-    public class CardPaymentAbortRequest
+    public class CardPaymentAbortRequest : ICardPaymentAbortRequest
     {
         public CardPaymentAbortRequest(string abortReason)
         {

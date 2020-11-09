@@ -16,6 +16,6 @@
         }
 
 
-        public CardPaymentAuthorizationRequestTransaction Transaction { get; }
+        public ICardPaymentAuthorizationRequestTransaction Transaction { get; }
     }
 }
