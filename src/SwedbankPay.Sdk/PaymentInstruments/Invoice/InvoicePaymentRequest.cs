@@ -21,14 +21,14 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
                               string paymentToken = null,
                               PrefillInfo prefillInfo = null)
         {
-            Payment = new PaymentRequestObject(operation, intent, currency, prices, description, payerReference, generatePaymentToken,
+            Payment = new PaymentRequestData(operation, intent, currency, prices, description, payerReference, generatePaymentToken,
                                                generateReccurenceToken, userAgent, language, urls, payeeInfo,
                                                metadata, paymentToken, prefillInfo);
             Invoice = new InvoicePaymentRequestObject(invoiceType);
         }
 
 
-        public IPaymentRequestObject Payment { get; }
+        public IPaymentRequestData Payment { get; }
         public IInvoicePaymentRequestObject Invoice { get; }
     }
 
