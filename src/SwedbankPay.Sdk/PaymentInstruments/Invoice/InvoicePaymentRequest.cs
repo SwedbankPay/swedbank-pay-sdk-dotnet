@@ -24,12 +24,12 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
             Payment = new PaymentRequestData(operation, intent, currency, prices, description, payerReference, generatePaymentToken,
                                                generateReccurenceToken, userAgent, language, urls, payeeInfo,
                                                metadata, paymentToken, prefillInfo);
-            Invoice = new InvoicePaymentRequestObject(invoiceType);
+            Invoice = new InvoicePayment(invoiceType);
         }
 
 
         public IPaymentRequestData Payment { get; }
-        public IInvoicePaymentRequestObject Invoice { get; }
+        public IInvoicePayment Invoice { get; }
     }
 
 }

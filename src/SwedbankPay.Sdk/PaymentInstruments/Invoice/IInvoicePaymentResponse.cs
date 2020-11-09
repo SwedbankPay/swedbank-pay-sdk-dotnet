@@ -2,7 +2,7 @@
 {
     public interface IInvoicePaymentResponse
     {
-        IInvoicePayment Payment { get; }
+        IInvoicePaymentData Payment { get; }
         IInvoicePaymentOperations Operations { get; }
     }
 }
