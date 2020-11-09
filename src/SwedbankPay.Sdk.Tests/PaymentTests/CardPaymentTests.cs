@@ -14,7 +14,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         [Fact]
         public async Task GetPayment()
         {
-            var creditCardPayment = await this.Sut.Payments.CardPayments.Get(
+            var creditCardPayment = await Sut.Payments.CardPayments.Get(
                 new Uri("/psp/creditcard/payments/a46d809a-8d6b-4ade-4b2c-08d88169daef", UriKind.Relative), PaymentExpand.All);
 
             Assert.NotNull(creditCardPayment);
@@ -24,8 +24,8 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         [Fact]
         public async Task CreateVerifyPayment_ShouldReturnPayment()
         {
-            var paymentRequest = this.paymentRequestBuilder.WithCreditcardTestValues(this.payeeId, Operation.Verify).BuildCreditardPaymentRequest();
-            var creditCardPayment = await this.Sut.Payments.CardPayments.Create(paymentRequest, PaymentExpand.All);
+            var paymentRequest = paymentRequestBuilder.WithCreditcardTestValues(payeeId, Operation.Verify).BuildCreditardPaymentRequest();
+            var creditCardPayment = await Sut.Payments.CardPayments.Create(paymentRequest, PaymentExpand.All);
 
             Assert.NotNull(creditCardPayment);
         }
@@ -34,8 +34,8 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         [Fact]
         public async Task CreatePayment_ShouldReturnPayment()
         {
-            var paymentRequest = this.paymentRequestBuilder.WithCreditcardTestValues(this.payeeId).BuildCreditardPaymentRequest();
-            var creditCardPayment = await this.Sut.Payments.CardPayments.Create(paymentRequest, PaymentExpand.All);
+            var paymentRequest = paymentRequestBuilder.WithCreditcardTestValues(payeeId).BuildCreditardPaymentRequest();
+            var creditCardPayment = await Sut.Payments.CardPayments.Create(paymentRequest, PaymentExpand.All);
 
             Assert.NotNull(creditCardPayment);
             Assert.Equal(paymentRequest.Payment.Metadata["key1"], creditCardPayment.Payment.Metadata["key1"]);

@@ -4,7 +4,7 @@
     {
         public CardPaymentAbortRequest(string abortReason)
         {
-            this.Payment = new CardPaymentAbortPayment(abortReason);
+            Payment = new CardPaymentAbortPayment(abortReason);
         }
         public CardPaymentAbortPayment Payment { get; }
     }

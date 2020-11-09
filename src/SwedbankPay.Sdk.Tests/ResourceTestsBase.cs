@@ -17,13 +17,13 @@ namespace SwedbankPay.Sdk.Tests
 
         protected ResourceTestsBase()
         {
-            this.connectionSettings = TestHelper.GetSwedbankPayConnectionSettings(Environment.CurrentDirectory);
-            this.urls = TestHelper.GetUrls(Environment.CurrentDirectory);
-            this.payeeId = this.connectionSettings.PayeeId;
-            var httpClient = new HttpClient { BaseAddress = this.connectionSettings.ApiBaseUrl };
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this.connectionSettings.Token);
+            connectionSettings = TestHelper.GetSwedbankPayConnectionSettings(Environment.CurrentDirectory);
+            urls = TestHelper.GetUrls(Environment.CurrentDirectory);
+            payeeId = connectionSettings.PayeeId;
+            var httpClient = new HttpClient { BaseAddress = connectionSettings.ApiBaseUrl };
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", connectionSettings.Token);
 
-            this.Sut = new SwedbankPayClient(httpClient);
+            Sut = new SwedbankPayClient(httpClient);
         }
     }
 }

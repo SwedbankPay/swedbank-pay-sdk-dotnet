@@ -17,7 +17,7 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
 
         public bool Exists => true;
 
-        long IFileInfo.Length => this.content.LongLength;
+        long IFileInfo.Length => content.LongLength;
 
         public string PhysicalPath => null;
 
@@ -29,7 +29,7 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
 
         public Stream CreateReadStream()
         {
-            return new MemoryStream(this.content);
+            return new MemoryStream(content);
         }
     }
 }

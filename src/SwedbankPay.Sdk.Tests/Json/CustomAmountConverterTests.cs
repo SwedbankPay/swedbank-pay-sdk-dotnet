@@ -14,13 +14,13 @@ namespace SwedbankPay.Sdk.Tests.Json
         {
             //ARRANGE
 
-            var jsonObject = $"{{ \"xX123xxaddress\": {this.expectedAmount} }}";
+            var jsonObject = $"{{ \"xX123xxaddress\": {expectedAmount} }}";
 
             //ACT
             var result = JsonSerializer.Deserialize<Amount>(jsonObject, JsonSerialization.JsonSerialization.Settings);
 
             //ASSERT
-            Assert.Equal(new Amount(this.expectedAmount), result);
+            Assert.Equal(new Amount(expectedAmount), result);
         }
 
 
@@ -37,7 +37,7 @@ namespace SwedbankPay.Sdk.Tests.Json
             var amount = obj.RootElement.GetProperty("amount").GetInt64();
 
             //ASSERT
-            Assert.Equal(Amount.FromLowestMonetaryUnit(this.expectedAmount), Amount.FromLowestMonetaryUnit(amount));
+            Assert.Equal(Amount.FromLowestMonetaryUnit(expectedAmount), Amount.FromLowestMonetaryUnit(amount));
         }
     }
 }

@@ -12,7 +12,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
             SaleList = new List<ISaleListItem>();
             foreach (var item in dto.Sale)
             {
-                this.SaleList.Add(new SaleListItem(Id, item));
+                SaleList.Add(new SaleListItem(Id, item));
             }
 
         }

@@ -23,7 +23,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
                               MetadataResponse metadata = null,
                               string paymentToken = null)
         {
-            this.Payment = new CardPayment(operation, intent, currency, prices, description, payerReference, generatePaymentToken,
+            Payment = new CardPayment(operation, intent, currency, prices, description, payerReference, generatePaymentToken,
                                                generateReccurenceToken, userAgent, language, urls, payeeInfo, riskIndicator, cardholder,
                                                creditCard, metadata, paymentToken);
         }
