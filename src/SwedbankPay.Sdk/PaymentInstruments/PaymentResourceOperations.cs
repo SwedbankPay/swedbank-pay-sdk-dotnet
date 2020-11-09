@@ -29,6 +29,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         public const string CreateSale = "create-sale";
         public const string RedirectSale = "redirect-sale";
         public const string ViewSale = "view-sale";
+        public const string ViewSales = "view-sales";
         public const string ViewPayment = "view-payment";
         public const string AbortedPayment = "aborted-payment";
         public const string RedirectAppSwish = "redirect-app-swish";
