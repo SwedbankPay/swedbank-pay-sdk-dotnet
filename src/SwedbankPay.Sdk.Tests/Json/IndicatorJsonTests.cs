@@ -14,7 +14,7 @@ namespace SwedbankPay.Sdk.Tests.Json
             var jsonObject = $"{{\"AccountAgeIndicator\": \"01\" }}";
 
             //ACT
-            var result = JsonSerializer.Deserialize<AccountInfo>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);
+            var result = JsonSerializer.Deserialize<AccountInfo>(jsonObject, JsonSerialization.JsonSerialization.Settings);
 
             //ASSERT
             Assert.Equal("01", result.AccountAgeIndicator.Value);

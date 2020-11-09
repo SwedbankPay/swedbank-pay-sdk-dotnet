@@ -41,14 +41,14 @@ namespace SwedbankPay.Sdk
 
         public static Amount FromLowestMonetaryUnit(int amountInLowestMonetaryUnit)
         {
-            var amount = (decimal)amountInLowestMonetaryUnit / 100;
-            return new Amount(amount);
+            var convertedAmount = (decimal)amountInLowestMonetaryUnit / 100;
+            return new Amount(convertedAmount);
         }
 
         public static Amount FromLowestMonetaryUnit(long amountInLowestMonetaryUnit)
         {
-            var amount = (decimal)amountInLowestMonetaryUnit / 100;
-            return new Amount(amount);
+            var convertedAmount = (decimal)amountInLowestMonetaryUnit / 100;
+            return new Amount(convertedAmount);
         }
 
         public int CompareTo(object obj)

@@ -1,4 +1,5 @@
-﻿using SwedbankPay.Sdk.Extensions;
+﻿
+using SwedbankPay.Sdk.Extensions;
 using SwedbankPay.Sdk.PaymentInstruments.Card;
 using SwedbankPay.Sdk.PaymentOrders;
 using System;
@@ -42,8 +43,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
                             var dto = await client.SendAsJsonAsync<CancellationResponseDto>(httpOperation.Method, httpOperation.Href, payload);
                             return new CancellationResponse(dto.Payment, dto.Cancellation.Map());
                         };
-                        break;
-                    default:
                         break;
                 }
                 Add(httpOperation.Rel, httpOperation);

@@ -60,7 +60,6 @@ namespace SwedbankPay.Sdk.Tests
             var paymentOrder = await this.Sut.PaymentOrders.Create(paymentOrderRequest, PaymentOrderExpand.All);
             Assert.NotNull(paymentOrder);
             Assert.NotNull(paymentOrder.PaymentOrder);
-            var amount = paymentOrder.PaymentOrder.Amount;
 
             var newAmount = 50000;
             var updateRequest = new PaymentOrderUpdateRequest(new Amount(newAmount), null);

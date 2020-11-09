@@ -39,8 +39,6 @@ namespace SwedbankPay.Sdk.JsonSerialization.Converters
                         case "HelpLink":
                             httpException.HelpLink = reader.GetString();
                             break;
-                        default:
-                            break;
                     }
                 }
             }

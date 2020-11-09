@@ -36,7 +36,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Update
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible()
                 .Actions.Rows.Count.Should.Equal(3);
 
-            var _ = await SwedbankPayClient.PaymentOrders.Get(orderLink, PaymentOrderExpand.All);
+            await SwedbankPayClient.PaymentOrders.Get(orderLink, PaymentOrderExpand.All);
         }
     }
 }

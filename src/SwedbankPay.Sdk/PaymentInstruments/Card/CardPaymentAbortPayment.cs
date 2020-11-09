@@ -2,7 +2,7 @@
 {
     public class CardPaymentAbortPayment
     {
-        public string Operation = "Abort";
+        public string Operation { get; } = "Abort";
 
         public CardPaymentAbortPayment(string abortReason)
         {

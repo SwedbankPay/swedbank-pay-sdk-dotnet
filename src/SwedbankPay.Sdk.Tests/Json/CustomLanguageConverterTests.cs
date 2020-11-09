@@ -16,7 +16,7 @@ namespace SwedbankPay.Sdk.Tests.Json
             var jsonObject = $"{{ \"language\": \"{this.languageString}\" }}";
 
             //ACT
-            var result = JsonSerializer.Deserialize<Language>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);
+            var result = JsonSerializer.Deserialize<Language>(jsonObject, JsonSerialization.JsonSerialization.Settings);
 
             //ASSERT
             Assert.Equal(this.languageString, result.ToString());

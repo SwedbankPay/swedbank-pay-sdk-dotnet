@@ -17,7 +17,7 @@ namespace SwedbankPay.Sdk.Tests.Json
             var jsonObject = $"{{ \"xX123xxaddress\": {this.expectedAmount} }}";
 
             //ACT
-            var result = JsonSerializer.Deserialize<Amount>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);
+            var result = JsonSerializer.Deserialize<Amount>(jsonObject, JsonSerialization.JsonSerialization.Settings);
 
             //ASSERT
             Assert.Equal(new Amount(this.expectedAmount), result);

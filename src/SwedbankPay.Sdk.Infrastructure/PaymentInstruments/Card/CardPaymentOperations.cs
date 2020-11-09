@@ -71,8 +71,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
                     case PaymentResourceOperations.PaidPayment:
                         PaidPayment = httpOperation;
                         break;
-                    default:
-                        break;
                 }
                 Add(httpOperation.Rel, httpOperation);
             }

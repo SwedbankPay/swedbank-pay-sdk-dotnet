@@ -24,7 +24,7 @@ namespace SwedbankPay.Sdk
         {
             if (HostUrls == null)
             {
-                return new IdLink() { Id = Id } as IUrls;
+                return new IdLink { Id = Id } as IUrls;
             }
 
             return new Urls(this);
