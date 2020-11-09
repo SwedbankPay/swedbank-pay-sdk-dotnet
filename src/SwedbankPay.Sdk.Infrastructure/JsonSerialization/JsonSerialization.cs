@@ -8,22 +8,7 @@ namespace SwedbankPay.Sdk.JsonSerialization
 {
     public static class JsonSerialization
     {
-        private static JsonSerializerOptions settings;
-
-        public static JsonSerializerOptions Settings
-        {
-            get
-            {
-                if (settings == null)
-                {
-                    CreateJsonSerializerOptions();
-                }
-
-                return settings;
-            }
-        }
-
-        private static void CreateJsonSerializerOptions()
+        static JsonSerialization()
         {
             settings = new JsonSerializerOptions
             {
@@ -67,6 +52,21 @@ namespace SwedbankPay.Sdk.JsonSerialization
             settings.Converters.Add(new TypesafeEnumConverter<PriceType>());
             settings.Converters.Add(new TypesafeEnumConverter<InvoiceType>());
             settings.Converters.Add(new TypesafeEnumConverter<TransactionType>());
+        }
+
+        private static JsonSerializerOptions settings;
+
+        public static JsonSerializerOptions Settings
+        {
+            get
+            {
+                if (settings == null)
+                {
+                    settings = new JsonSerializerOptions();
+                }
+
+                return settings;
+            }
         }
     }
 }
