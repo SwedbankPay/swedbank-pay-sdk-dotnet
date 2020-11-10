@@ -8,12 +8,12 @@ namespace SwedbankPay.Sdk.PaymentOrders
     public class PaymentOrderReversals
     {
         public string Id { get; set; }
-        public List<TransactionDto> ReversalList { get; set; } = new List<TransactionDto>();
+        public List<TransactionDto> Reversals { get; set; } = new List<TransactionDto>();
 
         internal IReversalsListResponse Map()
         {
             var list = new List<ITransactionResponse>();
-            foreach (var item in ReversalList)
+            foreach (var item in Reversals)
             {
                 list.Add(new TransactionResponse(Id, item));
             }
