@@ -23,7 +23,6 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private PrefillInfo prefillInfo;
         private TrustlyPrefillInfo trustlyPrefillInfo;
         private bool generatePaymentToken;
-        private bool generateReccurrenceToken;
         private Amount amount;
         private Amount vatAmount;
         private string payerReference;
@@ -85,7 +84,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
                 this.payeeInfo,
                 this.payerReference,
                 this.generatePaymentToken,
-                this.generateReccurrenceToken,
+                false,
                 this.metadata);
 
         public MobilePayPaymentRequest BuildMobilePayRequest() => new MobilePayPaymentRequest(
