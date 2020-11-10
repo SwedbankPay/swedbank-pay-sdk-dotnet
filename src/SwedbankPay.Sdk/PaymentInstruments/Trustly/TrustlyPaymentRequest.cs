@@ -15,11 +15,11 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
             PayeeInfo payeeInfo,
             TrustlyPrefillInfo prefillInfo = null)
         {
-            Payment = new TrustlyPayment(currency, prices, description, payerReference, userAgent, language,
+            Payment = new TrustlyPaymentData(currency, prices, description, payerReference, userAgent, language,
                                                urls, payeeInfo, prefillInfo);
         }
 
 
-        public TrustlyPayment Payment { get; }
+        public TrustlyPaymentData Payment { get; }
     }
 }
