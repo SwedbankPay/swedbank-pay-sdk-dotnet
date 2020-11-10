@@ -16,7 +16,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
                               bool isEnabledForEcommerceOnly = false,
                               Dictionary<string, object> metadata = null)
         {
-            var swishRequest = new SwishPaymentOptionsObject(isEnabledForEcommerceOnly);
+            var swishRequest = new SwishPaymentOptions(isEnabledForEcommerceOnly);
             Payment = new SwishPaymentRequestObject(currency, prices, description, payerReference, userAgent, language, urls, payeeInfo,
                                                prefillInfo, swishRequest, metadata);
         }

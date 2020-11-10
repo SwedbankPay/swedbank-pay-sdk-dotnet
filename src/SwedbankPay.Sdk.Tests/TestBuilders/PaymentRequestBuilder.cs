@@ -27,7 +27,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private Amount amount;
         private Amount vatAmount;
         private string payerReference;
-        private SwishPaymentOptionsObject swish;
+        private SwishPaymentOptions swish;
         private List<IPrice> price;
         private MetadataResponse metadata;
         private InvoiceType invoiceType;
@@ -153,7 +153,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.generatePaymentToken = false;
             this.amount = new Amount(1600);
             this.vatAmount = new Amount(0);
-            this.swish = new SwishPaymentOptionsObject();
+            this.swish = new SwishPaymentOptions();
             this.metadata = new MetadataResponse { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
             this.price = new List<IPrice>
             {

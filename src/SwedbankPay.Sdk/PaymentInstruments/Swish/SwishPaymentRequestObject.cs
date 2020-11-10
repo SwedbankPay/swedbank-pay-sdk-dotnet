@@ -13,7 +13,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
                                                 IUrls urls,
                                                 PayeeInfo payeeInfo,
                                                 PrefillInfo prefillInfo,
-                                                SwishPaymentOptionsObject swishRequest,
+                                                SwishPaymentOptions swishRequest,
                                                 Dictionary<string, object> metadata = null)
         {
             Operation = Operation.Purchase;
@@ -42,7 +42,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         public string PayerReference { get; }
         public PrefillInfo PrefillInfo { get; }
         public List<IPrice> Prices { get; }
-        public SwishPaymentOptionsObject Swish { get; }
+        public SwishPaymentOptions Swish { get; }
         public IUrls Urls { get; }
         public string UserAgent { get; }
         public Dictionary<string, object> Metadata { get; }
