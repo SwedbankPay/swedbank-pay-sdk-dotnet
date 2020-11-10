@@ -2,9 +2,9 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
-    public class SwishPaymentRequestObject
+    public class SwishPaymentRequestData
     {
-        protected internal SwishPaymentRequestObject(CurrencyCode currency,
+        protected internal SwishPaymentRequestData(CurrencyCode currency,
                                                 List<IPrice> prices,
                                                 string description,
                                                 string payerReference,
