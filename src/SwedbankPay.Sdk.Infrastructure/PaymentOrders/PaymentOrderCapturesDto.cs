@@ -8,13 +8,13 @@ namespace SwedbankPay.Sdk.PaymentOrders
     public class PaymentOrderCapturesDto
     {
         public string Id { get; set; }
-        public List<TransactionDto> CaptureList { get; set; }
+        public List<TransactionDto> Capture { get; set; } = new List<TransactionDto>();
 
         internal ICapturesListResponse Map()
         {
             var list = new List<ITransaction>();
 
-            foreach (var c in CaptureList)
+            foreach (var c in Capture)
             {
                 list.Add(c.Map());
             }
