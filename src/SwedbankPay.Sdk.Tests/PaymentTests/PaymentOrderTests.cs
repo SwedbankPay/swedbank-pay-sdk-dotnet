@@ -1,15 +1,17 @@
 ﻿using SwedbankPay.Sdk.Exceptions;
+using SwedbankPay.Sdk.PaymentInstruments;
 using SwedbankPay.Sdk.PaymentOrders;
 using SwedbankPay.Sdk.Tests.TestHelpers;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace SwedbankPay.Sdk.Tests.PaymentTests
 {
-    public class PaymentOrderTests
+    public class PaymentOrderTests : ResourceTestsBase
     {
         private const string PaymentOrderResponse = @"{
     ""paymentOrder"": {
@@ -130,7 +132,50 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
     ]
 }";
 
+        private const string PaymentOrderCancelResponse = @"{
+    ""payment"": ""/psp/creditcard/payments/449fcc10-e73f-430a-3a1a-08d884bfe202"",
+    ""cancellation"": {
+        ""id"": ""/psp/creditcard/payments/449fcc10-e73f-430a-3a1a-08d884bfe202/cancellations/9b9da251-67e6-4466-38d3-08d884c0c381"",
+        ""transaction"": {
+            ""id"": ""/psp/creditcard/payments/449fcc10-e73f-430a-3a1a-08d884bfe202/transactions/9b9da251-67e6-4466-38d3-08d884c0c381"",
+            ""created"": ""2020-11-10T14:04:45.5892823Z"",
+            ""updated"": ""2020-11-10T14:04:45.6937756Z"",
+            ""type"": ""Cancellation"",
+            ""state"": ""Completed"",
+            ""number"": 70100597193,
+            ""amount"": 5000,
+            ""vatAmount"": 0,
+            ""description"": ""Test Cancellation"",
+            ""payeeReference"": ""someUniqueReference1605017083"",
+            ""isOperational"": false,
+            ""operations"": []
+        }
+    }
+}";
+
+        private const string PaymentOrderReversalResponse = @"{
+    ""payment"": ""/psp/creditcard/payments/449fcc10-e73f-430a-3a1a-08d884bfe202"",
+    ""reversal"": {
+        ""id"": ""/psp/creditcard/payments/449fcc10-e73f-430a-3a1a-08d884bfe202/reversals/396f4d54-3780-4cb0-ef75-08d884c39d47"",
+        ""transaction"": {
+            ""id"": ""/psp/creditcard/payments/449fcc10-e73f-430a-3a1a-08d884bfe202/transactions/396f4d54-3780-4cb0-ef75-08d884c39d47"",
+            ""created"": ""2020-11-10T14:04:28.5615072Z"",
+            ""updated"": ""2020-11-10T14:04:28.8787354Z"",
+            ""type"": ""Reversal"",
+            ""state"": ""Completed"",
+            ""number"": 70100597192,
+            ""amount"": 2500,
+            ""vatAmount"": 0,
+            ""description"": ""description for transaction"",
+            ""payeeReference"": ""someUniqueReference1605017066"",
+            ""isOperational"": false,
+            ""operations"": []
+        }
+    }
+}";
+
         private static Uri GetUri() => new Uri("http://api.externalintegration.payex.com/psp/paymentorders/2d35afaa-4e5a-4930-0de5-08d7da0988bc", UriKind.Absolute);
+        private static Uri UriForTesting() => new Uri("https://localhost:5001", UriKind.RelativeOrAbsolute);
 
         private static PaymentOrderCaptureRequest GetTestPaymentOrderCaptureRequest()
         {
@@ -150,8 +195,8 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             }, "Capturing payment.", "637218522761159010");
         }
 
-        private static PaymentOrderRequest GetPaymentOrderRequest() => new PaymentOrderRequest(
-            Operation.Initiate,
+        private PaymentOrderRequest GetPaymentOrderRequest() => new PaymentOrderRequest(
+            Operation.Purchase,
             new CurrencyCode("NOK"),
             new Amount(25767),
             new Amount(0),
@@ -161,14 +206,24 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             false,
             new Urls(new UrlsDto
             {
-                Id = GetUri(),
-                HostUrls = new List<Uri> { GetUri() },
-                CallbackUrl = GetUri(),
-                CompleteUrl = GetUri(),
-                TermsOfServiceUrl = GetUri()
+                Id = UriForTesting(),
+                HostUrls = new List<Uri> { UriForTesting() },
+                CallbackUrl = UriForTesting(),
+                CompleteUrl = UriForTesting(),
+                TermsOfServiceUrl = UriForTesting(),
+                PaymentUrl = UriForTesting()
             }),
-            new PayeeInfo(Guid.Empty, "test")
+            new PayeeInfo(payeeId, GeneratePayeeReference())
             );
+
+        private string GeneratePayeeReference()
+        {
+            var s = Guid.NewGuid().ToString();
+            s = s.Replace("-", "");
+            if (s.Length > 30)
+                s = s.Substring(0, 30);
+            return s;
+        }
 
         [Fact]
         public async Task WhenSendingACaptureRequest_WeDoNotCrash_AndGiveAReasonableError()
@@ -239,6 +294,20 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             Assert.NotNull(sut.Operations.Reverse);
             Assert.NotNull(sut.Operations.Update);
             Assert.NotNull(sut.Operations.View);
+        }
+
+        [Fact]
+        public void CanDeSerialize_Cancel_WithNoErrors()
+        {
+            var dto = JsonSerializer.Deserialize<CancelResponseDto>(PaymentOrderCancelResponse, JsonSerialization.JsonSerialization.Settings);
+            var sut = new CancellationResponse(dto.Payment, dto.Cancellation.Map());
+        }
+
+        [Fact]
+        public void CanDeSerialize_Reversal_WithNoErrors()
+        {
+            var dto = JsonSerializer.Deserialize<ReversalResponseDto>(PaymentOrderReversalResponse, JsonSerialization.JsonSerialization.Settings);
+            var sut = new ReversalResponse(dto.Payment, dto.Reversal.Map());
         }
     }
 }
