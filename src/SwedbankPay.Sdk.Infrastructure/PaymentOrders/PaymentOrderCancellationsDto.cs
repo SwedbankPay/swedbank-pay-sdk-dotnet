@@ -8,16 +8,14 @@ namespace SwedbankPay.Sdk.PaymentOrders
     public class PaymentOrderCancellationsDto
     {
         public string Id { get; set; }
-        public List<TransactionDto> CancelList { get; set; }
+        public TransactionDto Cancellation { get; set; }
 
         internal ICancellationsListResponse Map()
         {
-            var list = new List<ITransaction>();
-
-            foreach (var c in CancelList)
+            var list = new List<ITransaction>
             {
-                list.Add(c.Map());
-            }
+                Cancellation.Map()
+            };
 
             return new CancellationsListResponse(new Uri(Id, UriKind.RelativeOrAbsolute), list);
         }
