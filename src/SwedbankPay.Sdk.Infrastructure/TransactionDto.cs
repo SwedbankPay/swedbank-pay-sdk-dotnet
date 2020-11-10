@@ -30,7 +30,7 @@ namespace SwedbankPay.Sdk
 
             var type = string.IsNullOrEmpty(Type)? TransactionType.Unknown : Enum.Parse<TransactionType>(Type);
 
-            return new Transaction(new Uri(Id, UriKind.RelativeOrAbsolute),
+            return new PaymentInstruments.Transaction(new Uri(Id, UriKind.RelativeOrAbsolute),
                                    Created,
                                    Updated,
                                    type,
