@@ -4,9 +4,9 @@
     {
         public PaymentOrderUpdateRequest(Amount amount, Amount vatAmount)
         {
-            PaymentOrder = new PaymentOrderUpdateRequestObject(amount, vatAmount);
+            PaymentOrder = new PaymentOrderUpdateRequestData(amount, vatAmount);
         }
 
-        public PaymentOrderUpdateRequestObject PaymentOrder { get; }
+        public PaymentOrderUpdateRequestData PaymentOrder { get; }
     }
 }
