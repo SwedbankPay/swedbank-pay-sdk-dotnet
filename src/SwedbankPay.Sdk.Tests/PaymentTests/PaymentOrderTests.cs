@@ -301,6 +301,11 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         {
             var dto = JsonSerializer.Deserialize<CancelResponseDto>(PaymentOrderCancelResponse, JsonSerialization.JsonSerialization.Settings);
             var sut = new CancellationResponse(dto.Payment, dto.Cancellation.Map());
+
+            Assert.NotNull(sut);
+            Assert.NotNull(sut.Cancellation);
+            Assert.NotNull(sut.Cancellation.Transaction);
+            Assert.NotNull(sut.Payment);
         }
 
         [Fact]
@@ -308,6 +313,11 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         {
             var dto = JsonSerializer.Deserialize<ReversalResponseDto>(PaymentOrderReversalResponse, JsonSerialization.JsonSerialization.Settings);
             var sut = new ReversalResponse(dto.Payment, dto.Reversal.Map());
+
+            Assert.NotNull(sut);
+            Assert.NotNull(sut.Reversal);
+            Assert.NotNull(sut.Reversal.Transaction);
+            Assert.NotNull(sut.Payment);
         }
     }
 }
