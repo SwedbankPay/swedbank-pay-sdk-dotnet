@@ -11,7 +11,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
             Created = dto.Created;
             Updated = dto.Updated;
             Type = string.IsNullOrEmpty( dto.Type)? "Unknown": dto.Type;
-            State = dto.State;
+            State = string.IsNullOrEmpty(dto.State) ? "Unknown" : dto.State;
             Number = dto.Number;
             Amount = dto.Amount;
             VatAmount = dto.VatAmount;
