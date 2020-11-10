@@ -7,14 +7,14 @@ namespace SwedbankPay.Sdk.PaymentInstruments
     public class ReversalsListResponseDto
     {
         public string Id { get; set; }
-        public List<TransactionDto> ReversalList { get; set; } = new List<TransactionDto>();
+        public TransactionDto Reversal { get; set; } 
         internal IReversalsListResponse Map()
         {
-            var list = new List<ITransactionResponse>();
-            foreach (var item in ReversalList)
+            var list = new List<ITransactionResponse>
             {
-                list.Add(new TransactionResponse(Id, item));
-            }
+                new TransactionResponse(Id, Reversal)
+            };
+
             return new ReversalsListResponse(new Uri(Id, UriKind.RelativeOrAbsolute), list);
         }
     }
