@@ -26,7 +26,6 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private Amount amount;
         private Amount vatAmount;
         private string payerReference;
-        private SwishPaymentOptions swish;
         private List<IPrice> price;
         private MetadataResponse metadata;
         private InvoiceType invoiceType;
@@ -152,7 +151,6 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.generatePaymentToken = false;
             this.amount = new Amount(1600);
             this.vatAmount = new Amount(0);
-            this.swish = new SwishPaymentOptions();
             this.metadata = new MetadataResponse { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
             this.price = new List<IPrice>
             {
@@ -184,7 +182,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             return this;
         }
 
-        public PaymentRequestBuilder WithVippsTestValues(Guid payeeId, Operation operation = null, PaymentIntent PaymentIntent = PaymentIntent.Authorization)
+        public PaymentRequestBuilder WithVippsTestValues(Guid payeeId, Operation operation = null)
         {
             this.operation = operation ?? Operation.Purchase;
             this.intent = PaymentIntent.Authorization;
