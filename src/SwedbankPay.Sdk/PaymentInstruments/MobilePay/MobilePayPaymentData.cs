@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
-    public class MobilePayPayment
+    public class MobilePayPaymentData
     {
-        protected internal MobilePayPayment(Operation operation,
+        protected internal MobilePayPaymentData(Operation operation,
                                                 PaymentIntent intent,
                                                 CurrencyCode currency,
                                                 List<IPrice> prices,
