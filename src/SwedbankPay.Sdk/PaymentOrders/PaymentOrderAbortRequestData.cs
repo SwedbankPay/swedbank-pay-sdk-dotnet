@@ -1,8 +1,8 @@
 ﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class PaymentOrderAbortRequestObject
+    public class PaymentOrderAbortRequestData
     {
-        public PaymentOrderAbortRequestObject()
+        public PaymentOrderAbortRequestData()
         {
             Operation = "Abort";
             AbortReason = "CancelledByConsumer";

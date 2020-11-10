@@ -2,6 +2,6 @@
 {
     public class PaymentOrderAbortRequest
     {
-        public PaymentOrderAbortRequestObject PaymentOrder { get; } = new PaymentOrderAbortRequestObject();
+        public PaymentOrderAbortRequestData PaymentOrder { get; } = new PaymentOrderAbortRequestData();
     }
 }
