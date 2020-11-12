@@ -15,6 +15,9 @@ using System.Linq;
 
 namespace SwedbankPay.Sdk
 {
+    /// <summary>
+    /// The currency code used for the payment
+    /// </summary>
     public class CurrencyCode
     {
         public CurrencyCode(string currencyCode)

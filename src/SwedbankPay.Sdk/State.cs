@@ -1,7 +1,8 @@
 ﻿namespace SwedbankPay.Sdk
 {
     /// <summary>
-    ///     Initialized, Completed, Failed Ready, Pending or Aborted. Indicates the state.
+    ///     Initialized, Completed, Failed Ready, Pending or Aborted, or Paid.
+    ///     Indicates the current state.
     /// </summary>
     public class State : TypeSafeEnum<State>
     {
@@ -12,6 +13,7 @@
         public static readonly State Pending = new State(nameof(Pending), "Pending");
         public static readonly State Aborted = new State(nameof(Aborted), "Aborted");
         public static readonly State AwaitingActivity = new State(nameof(AwaitingActivity), "AwaitingActivity");
+        public static readonly State Paid = new State(nameof(Paid), "Paid");
 
 
         public State(string name, string value)

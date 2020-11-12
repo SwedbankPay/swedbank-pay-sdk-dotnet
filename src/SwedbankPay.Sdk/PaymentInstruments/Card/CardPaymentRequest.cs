@@ -28,7 +28,9 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
                                                creditCard, metadata, paymentToken);
         }
 
-
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public CardPaymentData Payment { get; }
     }
 }

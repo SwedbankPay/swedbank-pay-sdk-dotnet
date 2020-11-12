@@ -2,6 +2,9 @@
 
 namespace SwedbankPay.Sdk
 {
+    /// <summary>
+    /// Identifies the merchant that initiated the payment.
+    /// </summary>
     public class PayeeInfo : IdLink
     {
         public PayeeInfo(Uri id)
