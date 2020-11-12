@@ -12,10 +12,12 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
         internal ICancellationsListResponse Map()
         {
-            var list = new List<ITransaction>
+            var list = new List<ITransaction>();
+
+            if(Cancellation != null)
             {
-                Cancellation.Map()
-            };
+                list.Add(Cancellation.Map());
+            }
 
             return new CancellationsListResponse(new Uri(Id, UriKind.RelativeOrAbsolute), list);
         }
