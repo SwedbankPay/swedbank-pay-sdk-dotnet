@@ -5,9 +5,9 @@ namespace SwedbankPay.Sdk.PaymentOrders
 {
     public class CancelResponseDto
     {
-        public TransactionResponseDto Cancellation { get; }
+        public Uri Payment { get; set; }
 
-        public Uri Payment { get; }
+        public TransactionResponseDto Cancellation { get; set; }
 
         public ITransactionResponse Map()
         {
