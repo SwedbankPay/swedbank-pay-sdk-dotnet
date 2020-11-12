@@ -178,7 +178,7 @@ jobs:
     - name: Publish to NuGet
       if: startsWith(github.ref, 'refs/tags/') # Only publish tagged commits
       env:
-        PROJECT_FILE: src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj
+        PROJECT_FILE: src/SwedbankPay.Sdk.Infrastructure/SwedbankPay.Sdk.Infrastructure.csproj
         VERSION_NUMBER: ${{ needs.variables.outputs.FULLSEMVER }}
         NUGET_KEY: ${{ secrets.NUGET_KEY}}
         DEBUG: true
