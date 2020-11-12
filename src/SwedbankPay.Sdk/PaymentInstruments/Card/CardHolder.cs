@@ -1,5 +1,8 @@
 ﻿namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
+    /// <summary>
+    /// Information about a card holder
+    /// </summary>
     public class Cardholder : ICardholder
     {
         public AccountInfo AccountInfo { get; set; }

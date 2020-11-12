@@ -8,14 +8,16 @@
                                     string cardVerificationCode = null,
                                     string cardHolderName = null)
         {
-            Transaction = new CardPaymentAuthorizationRequestTransaction(cardNumber,
+            Transaction = new CardPaymentCardDetails(cardNumber,
                                                                          cardExpiryMonth,
                                                                          cardExpiryYear,
                                                                          cardVerificationCode,
                                                                          cardHolderName);
         }
 
-
-        public ICardPaymentAuthorizationRequestTransaction Transaction { get; }
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        public ICardPaymentCardDetails Transaction { get; }
     }
 }

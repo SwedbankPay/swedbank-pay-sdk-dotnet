@@ -9,6 +9,9 @@
             AbortReason = abortReason;
         }
 
+        /// <summary>
+        /// The reason for why the payment is being aborted
+        /// </summary>
         public string AbortReason { get; set; }
     }
 }

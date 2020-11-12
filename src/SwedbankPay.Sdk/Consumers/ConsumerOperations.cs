@@ -30,8 +30,16 @@ namespace SwedbankPay.Sdk.Consumers
             ViewConsumerIdentification = (HttpOperation)info.GetValue("ViewConsumerIdentification", typeof(HttpOperation));
         }
 
-
+        /// <summary>
+        /// The <seealso cref="HttpOperation"/> for redirecting the consumer to the
+        /// identification page
+        /// </summary>
         public HttpOperation RedirectConsumerIdentification { get; }
+
+        /// <summary>
+        /// The <seealso cref="HttpOperation"/> for viewing/opening
+        /// the identifiaction frame
+        /// </summary>
         public HttpOperation ViewConsumerIdentification { get; }
     }
 }

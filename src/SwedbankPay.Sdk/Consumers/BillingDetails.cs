@@ -14,14 +14,19 @@
             BillingAddress = billingAddress;
         }
 
-
+        /// <summary>
+        /// The payers billing address
+        /// </summary>
         public Address BillingAddress { get; }
+
+        /// <summary>
+        /// The payers email address
+        /// </summary>
         public EmailAddress Email { get; }
 
         /// <summary>
         ///     The MSISDN (mobile phone number) of the payer. Format Sweden: +46707777777. Format Norway: +4799999999.
         /// </summary>
-
         public Msisdn Msisdn { get; }
     }
 }

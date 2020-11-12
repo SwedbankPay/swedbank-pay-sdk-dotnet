@@ -8,9 +8,9 @@
         public string CardNumber { get; }
         public string CardVerificationCode { get; }
 
-        internal CardPaymentAuthorizationRequestTransaction Map()
+        internal CardPaymentCardDetails Map()
         {
-            return new CardPaymentAuthorizationRequestTransaction(
+            return new CardPaymentCardDetails(
                 CardNumber,
                 CardExpiryMonth,
                 CardExpiryYear,

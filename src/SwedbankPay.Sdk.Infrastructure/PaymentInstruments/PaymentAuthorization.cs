@@ -49,7 +49,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         public string PanToken { get; }
         public string PaymentToken { get; }
         public string RecurrenceToken { get; }
-        public ICardPaymentAuthorizationRequestTransaction Transaction { get; }
+        public ICardPaymentCardDetails Transaction { get; }
         public string TransactionInitiator { get; }
     }
 }

@@ -2,6 +2,9 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     public class CardPaymentAuthorization : IdLink, ICardPaymentAuthorization
     {
         public CardPaymentAuthorization(bool direct,
@@ -24,7 +27,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
                              string externalNonPaymentToken,
                              string externalSiteId,
                              string transactionInitiator,
-                             ICardPaymentAuthorizationRequestTransaction transaction)
+                             ICardPaymentCardDetails transaction)
         {
             Direct = direct;
             PaymentToken = paymentToken;
@@ -69,7 +72,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         public string PanToken { get; }
         public string PaymentToken { get; }
         public string RecurrenceToken { get; }
-        public ICardPaymentAuthorizationRequestTransaction Transaction { get; }
+        public ICardPaymentCardDetails Transaction { get; }
         public string TransactionInitiator { get; }
     }
 }
