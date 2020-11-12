@@ -221,7 +221,10 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             var s = Guid.NewGuid().ToString();
             s = s.Replace("-", "");
             if (s.Length > 30)
+            {
                 s = s.Substring(0, 30);
+            }
+
             return s;
         }
 
