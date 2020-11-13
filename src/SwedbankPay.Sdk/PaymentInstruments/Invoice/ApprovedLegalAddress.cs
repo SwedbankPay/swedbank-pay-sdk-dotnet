@@ -8,7 +8,14 @@
             ZipCode = zipCode;
         }
 
+        /// <summary>
+        /// The payers social security number.
+        /// </summary>
         public string SocialSecurityNumber { get; }
+
+        /// <summary>
+        /// The payers zip code.
+        /// </summary>
         public string ZipCode { get; }
     }
 }

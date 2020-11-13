@@ -7,6 +7,9 @@
             InvoiceType = invoiceType;
         }
 
+        /// <summary>
+        /// The invoice type for the current payment.
+        /// </summary>
         public InvoiceType InvoiceType { get; set; }
     }
 }

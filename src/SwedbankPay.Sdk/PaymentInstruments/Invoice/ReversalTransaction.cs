@@ -2,19 +2,20 @@
 {
     public class ReversalTransaction : IReversalTransaction
     {
-        public ReversalTransaction(Operation activity, Amount amount, Amount vatAmount, string description, string payeeReference)
+        public ReversalTransaction(Amount amount, Amount vatAmount, string description, string payeeReference, string receiptReference)
         {
-            TransactionActivity = activity;
             Amount = amount;
             VatAmount = vatAmount;
             Description = description;
             PayeeReference = payeeReference;
+            ReceiptReference = receiptReference;
         }
 
-        public Operation TransactionActivity { get; }
         public Amount Amount { get; }
         public string Description { get; }
         public string PayeeReference { get; }
         public Amount VatAmount { get; }
+
+        public string ReceiptReference { get; }
     }
 }

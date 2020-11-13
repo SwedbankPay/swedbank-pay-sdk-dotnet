@@ -7,7 +7,9 @@
             Transaction = transaction;
         }
 
-
+        /// <summary>
+        /// Details needed to cancel the current invoice payment.
+        /// </summary>
         public ICancelTransaction Transaction { get; }
 
     }

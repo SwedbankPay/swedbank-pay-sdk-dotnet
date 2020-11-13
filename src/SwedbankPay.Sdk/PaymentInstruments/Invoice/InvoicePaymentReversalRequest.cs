@@ -2,12 +2,14 @@
 {
     public class InvoicePaymentReversalRequest
     {
-        public InvoicePaymentReversalRequest(Operation activity, Amount amount, Amount vatAmount, string description, string payeeReference)
+        public InvoicePaymentReversalRequest(Amount amount, Amount vatAmount, string description, string payeeReference,string receiptReference)
         {
-            Transaction = new ReversalTransaction(activity, amount, vatAmount, description, payeeReference);
+            Transaction = new ReversalTransaction(amount, vatAmount, description, payeeReference, receiptReference);
         }
 
-
+        /// <summary>
+        /// Details about the invoice being reversed.
+        /// </summary>
         public IReversalTransaction Transaction { get; }
     }
 }

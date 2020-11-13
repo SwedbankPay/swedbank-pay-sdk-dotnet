@@ -27,8 +27,14 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
             Invoice = new InvoicePayment(invoiceType);
         }
 
-
+        /// <summary>
+        /// Request details about the current invoice payment.
+        /// </summary>
         public IPaymentRequestData Payment { get; }
+
+        /// <summary>
+        /// Request details about the invoice type.
+        /// </summary>
         public IInvoicePayment Invoice { get; }
     }
 

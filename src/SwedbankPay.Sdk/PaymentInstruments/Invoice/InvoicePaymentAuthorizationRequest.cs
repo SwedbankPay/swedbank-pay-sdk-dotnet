@@ -7,7 +7,9 @@
             Transaction = transaction;
         }
 
-
+        /// <summary>
+        /// Details needed to authorize this payment.
+        /// </summary>
         public IAuthorizationTransaction Transaction { get; }
     }
 }
