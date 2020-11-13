@@ -22,7 +22,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
             PayerReference = payment.PayerReference;
             InitiatingSystemUserAgent = payment.InitiatingSystemUserAgent;
             UserAgent = payment.UserAgent;
-            Language = new CultureInfo(payment.Language);
+            Language = new Language(payment.Language);
             Urls = payment.Urls.Map();
             PayeeInfo = payment.PayeeInfo.Map();
             Id = payment.Id;
@@ -48,7 +48,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         public string PayerReference { get; }
         public string InitiatingSystemUserAgent { get; }
         public string UserAgent { get; }
-        public CultureInfo Language { get; }
+        public Language Language { get; }
         public ITransactionListResponse Transactions { get; }
         public ISwishSaleListResponse Sales { get; }
         public IReversalsListResponse Reversals { get; }

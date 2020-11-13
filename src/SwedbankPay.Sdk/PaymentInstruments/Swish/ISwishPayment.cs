@@ -5,28 +5,117 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
     public interface ISwishPayment
     {
-        public long Number { get; }
-        public DateTime Created { get; }
-        public DateTime Updated { get; }
-        public PaymentInstrument Instrument { get; }
-        public Operation Operation { get; }
-        public PaymentIntent Intent { get; }
-        public State State { get; }
-        public CurrencyCode Currency { get; }
-        public IPricesListResponse Prices { get; }
-        public Amount Amount { get; }
-        public Amount RemainingReversalAmount { get; set; }
-        public string Description { get; }
-        public string PayerReference { get; }
-        public string InitiatingSystemUserAgent { get; }
-        public string UserAgent { get; }
-        public CultureInfo Language { get; }
-        public ITransactionListResponse Transactions { get; }
-        public ISwishSaleListResponse Sales { get; }
-        public IReversalsListResponse Reversals { get; }
-        public IUrls Urls { get; }
-        public PayeeInfo PayeeInfo { get; }
-        public Uri Id { get; }
-        public MetadataResponse Metadata { get; }
+        /// <summary>
+        /// The <seealso cref="Uri"/> to access details on this payment.
+        /// </summary>
+        Uri Id { get; }
+
+        /// <summary>
+        /// The payment number , useful when there’s need to reference the payment in human communication.
+        /// Not usable for programmatic identification of the payment, for that id should be used instead.
+        /// </summary>
+        long Number { get; }
+
+        /// <summary>
+        /// The <seealso cref="DateTime"/> this payment was created.
+        /// </summary>
+        DateTime Created { get; }
+
+        /// <summary>
+        /// The <seealso cref="DateTime"/> this payment was last updated.
+        /// </summary>
+        DateTime Updated { get; }
+
+        /// <summary>
+        /// The payment instrument used for this payment.
+        /// </summary>
+        PaymentInstrument Instrument { get; }
+
+        /// <summary>
+        /// The same as the Operation that was used to initiate the payment.
+        /// </summary>
+        Operation Operation { get; }
+
+        /// <summary>
+        /// The payment intent of the current payment.
+        /// </summary>
+        PaymentIntent Intent { get; }
+
+        /// <summary>
+        /// The current <seealso cref="Sdk.State"/> of the payment.
+        /// </summary>
+        State State { get; }
+
+        /// <summary>
+        /// The currency code this payment is to be paid in.
+        /// </summary>
+        CurrencyCode Currency { get; }
+
+        /// <summary>
+        /// Contains information of the prices resource.
+        /// </summary>
+        IPricesListResponse Prices { get; }
+
+        /// <summary>
+        /// The <seealso cref="Sdk.Amount"/> to be paid in this payment.
+        /// </summary>
+        Amount Amount { get; }
+
+        /// <summary>
+        /// The <seealso cref="Sdk.Amount"/> available for reversal on this payment.
+        /// </summary>
+        Amount RemainingReversalAmount { get; set; }
+
+        /// <summary>
+        /// A textual description for this payment.
+        /// </summary>
+        string Description { get; }
+
+        /// <summary>
+        /// The reference to the payer from the merchant system, like e-mail address, mobile number, customer number etc.
+        /// </summary>
+        string PayerReference { get; }
+        string InitiatingSystemUserAgent { get; }
+
+        /// <summary>
+        /// The user agent string of the payer’s browser.
+        /// </summary>
+        string UserAgent { get; }
+        Language Language { get; }
+
+        /// <summary>
+        /// Gives access to available transactions on this payment.
+        /// </summary>
+        ITransactionListResponse Transactions { get; }
+
+        /// <summary>
+        /// Gives access to available sales transactions on this payment.
+        /// </summary>
+        ISwishSaleListResponse Sales { get; }
+
+        /// <summary>
+        /// Gives access to available reversal transactions on this payment.
+        /// </summary>
+        IReversalsListResponse Reversals { get; }
+
+        /// <summary>
+        /// The <seealso cref="IUrls"/> sent in the initial request for this payment.
+        /// </summary>
+        IUrls Urls { get; }
+
+        /// <summary>
+        /// Identifies the merchant that initiated the payment.
+        /// </summary>
+        PayeeInfo PayeeInfo { get; }
+
+        /// <summary>
+        /// Metadata can be used to store data associated to a payment that can be retrieved later by performing a GET on the payment.
+        /// Swedbank Pay does not use or process metadata, it is only stored on the payment so it can be retrieved later alongside the payment.
+        /// An example where metadata might be useful is when several internal systems are involved in the payment process and the payment
+        /// creation is done in one system and post-purchases take place in another.
+        /// In order to transmit data between these two internal systems,
+        /// the data can be stored in metadata on the payment so the internal systems do not need to communicate with each other directly.
+        /// </summary>
+        MetadataResponse Metadata { get; }
     }
 }
