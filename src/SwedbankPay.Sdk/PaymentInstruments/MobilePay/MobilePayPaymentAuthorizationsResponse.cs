@@ -10,8 +10,14 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
             AuthorizationList = authorizationList;
         }
 
-
-        public MobilePayPaymentAuthorizationListResponse AuthorizationList { get; }
+        /// <summary>
+        /// A <seealso cref="Uri"/> point to the current payment.
+        /// </summary>
         public Uri Payment { get; }
+
+        /// <summary>
+        /// A list of currently available authorizations on this payment.
+        /// </summary>
+        public MobilePayPaymentAuthorizationListResponse AuthorizationList { get; }
     }
 }

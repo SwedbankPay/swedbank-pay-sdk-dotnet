@@ -71,7 +71,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// </summary>
         PaymentInstrument Instrument { get; }
         PaymentIntent Intent { get; }
-        CultureInfo Language { get; }
+        Language Language { get; }
 
         /// <summary>
         /// The payment number, useful when there’s need to reference the payment in human communication.

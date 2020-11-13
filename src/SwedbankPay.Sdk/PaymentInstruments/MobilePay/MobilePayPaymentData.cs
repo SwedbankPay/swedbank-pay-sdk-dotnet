@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
-    public class MobilePayPaymentData
+    public class MobilePayPaymentData : IMobilePayPaymentData
     {
-        protected internal MobilePayPaymentData(Operation operation,
+        public MobilePayPaymentData(Operation operation,
                                                 PaymentIntent intent,
                                                 CurrencyCode currency,
                                                 List<IPrice> prices,
@@ -15,7 +15,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
                                                 Language language,
                                                 IUrls urls,
                                                 PayeeInfo payeeInfo,
-                                                Dictionary<string, object> metadata = null,
+                                                MetadataResponse metadata = null,
                                                 PrefillInfo prefillInfo = null)
         {
             Operation = operation ?? throw new ArgumentNullException(nameof(operation));
@@ -37,7 +37,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         public string Description { get; set; }
         public PaymentIntent Intent { get; set; }
         public Language Language { get; set; }
-        public Dictionary<string, object> Metadata { get; }
         public Operation Operation { get; set; }
         public PayeeInfo PayeeInfo { get; internal set; }
         public string PayerReference { get; set; }
@@ -45,5 +44,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         public IUrls Urls { get; }
         public string UserAgent { get; set; }
         public PrefillInfo PrefillInfo { get; set; }
+        public MetadataResponse Metadata { get; }
     }
 }

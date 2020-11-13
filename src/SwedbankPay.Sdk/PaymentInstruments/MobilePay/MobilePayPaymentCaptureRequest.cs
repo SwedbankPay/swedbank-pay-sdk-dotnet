@@ -7,7 +7,9 @@
             Transaction = new CaptureTransaction(amount, vatAmount, description, payeeReference);
         }
 
-
+        /// <summary>
+        /// Details on what is being captured in the current payment.
+        /// </summary>
         public CaptureTransaction Transaction { get; }
     }
 }

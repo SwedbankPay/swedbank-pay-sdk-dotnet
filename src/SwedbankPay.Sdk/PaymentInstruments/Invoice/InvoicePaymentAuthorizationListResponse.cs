@@ -11,7 +11,9 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
             AuthorizationList = authorizationList;
         }
 
-
+        /// <summary>
+        /// A list of available authorizations on the current invoice.
+        /// </summary>
         public List<IInvoicePaymentAuthorization> AuthorizationList { get; }
     }
 }

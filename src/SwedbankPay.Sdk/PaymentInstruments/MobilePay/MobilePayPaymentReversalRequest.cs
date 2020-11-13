@@ -7,7 +7,9 @@
             Transaction = new MobilePayReversalTransaction(amount, vatAmount, description, payeeReference);
         }
 
-
+        /// <summary>
+        /// Information on how to reverse the MobilePay payment.
+        /// </summary>
         public MobilePayReversalTransaction Transaction { get; }
     }
 }

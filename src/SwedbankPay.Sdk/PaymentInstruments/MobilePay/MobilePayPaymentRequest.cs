@@ -16,7 +16,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
                               PayeeInfo payeeInfo,
                               Uri shopslogoUrl,
                               string payerReference = null,
-                              Dictionary<string, object> metadata = null,
+                              MetadataResponse metadata = null,
                               PrefillInfo prefillInfo = null)
 
         {
@@ -24,8 +24,14 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
             MobilePay = new MobilePayPaymentRequestData(shopslogoUrl);
         }
 
+        /// <summary>
+        /// Information about the payment to be created.
+        /// </summary>
+        public IMobilePayPaymentData Payment { get; }
 
-        public MobilePayPaymentData Payment { get; }
+        /// <summary>
+        /// MobilePay specific payment data, making a custom logo for the merchant available.
+        /// </summary>
         public MobilePayPaymentRequestData MobilePay { get; }
     }
 }

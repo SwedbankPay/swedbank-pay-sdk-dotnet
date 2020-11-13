@@ -4,7 +4,14 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
     public interface IMobilePayPaymentAuthorizationResponse
     {
+        /// <summary>
+        /// The currently available information about the authorization of the payment.
+        /// </summary>
         IMobilePayPaymentAuthorization Authorization { get; }
+
+        /// <summary>
+        /// The <seealso cref="Uri"/> to get the details about the currently available authorization.
+        /// </summary>
         Uri Payment { get; }
     }
 }
