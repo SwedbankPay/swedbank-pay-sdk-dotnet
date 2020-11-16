@@ -81,11 +81,11 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         public Func<CardPaymentAuthorizationRequest, Task<CardPaymentAuthorizationResponse>> DirectAuthorization { get; }
         public Func<CardPaymentReversalRequest, Task<IReversalResponse>> Reverse { get; }
         public Func<CardPaymentAbortRequest, Task<ICardPaymentResponse>> Abort { get; }
-        public HttpOperation DirectVerification { get; internal set; }
-        public HttpOperation PaidPayment { get; internal set; }
-        public HttpOperation RedirectAuthorization { get; internal set; }
-        public HttpOperation RedirectVerification { get; internal set; }
-        public HttpOperation ViewAuthorization { get; internal set; }
-        public HttpOperation ViewVerification { get; internal set; }
+        public HttpOperation DirectVerification { get; }
+        public HttpOperation PaidPayment { get; }
+        public HttpOperation RedirectAuthorization { get; }
+        public HttpOperation RedirectVerification { get; }
+        public HttpOperation ViewAuthorization { get; }
+        public HttpOperation ViewVerification { get; }
     }
 }

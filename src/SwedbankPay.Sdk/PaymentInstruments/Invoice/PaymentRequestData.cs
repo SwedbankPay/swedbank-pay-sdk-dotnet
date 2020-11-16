@@ -47,7 +47,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         public Language Language { get; set; }
         public Dictionary<string, object> Metadata { get; }
         public Operation Operation { get; set; }
-        public PayeeInfo PayeeInfo { get; internal set; }
+        public PayeeInfo PayeeInfo { get; set; }
         public string PayerReference { get; set; }
         public string PaymentToken { get; set; }
         public List<IPrice> Prices { get; set; }

@@ -8,7 +8,14 @@
             LastName = lastName;
         }
 
+        /// <summary>
+        /// First name of the payer.
+        /// </summary>
         public string FirstName { get; }
+
+        /// <summary>
+        /// Last name of the payer.
+        /// </summary>
         public string LastName { get; }
     }
 }

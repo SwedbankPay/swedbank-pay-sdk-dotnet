@@ -7,10 +7,9 @@
             Transaction = new TrustlyPaymentCancelTransaction(payeeReference, description);
         }
 
-        public TrustlyPaymentCancelTransaction Transaction { get; set; }
-
-        public string Description => Transaction.Description;
-
-        public string PayeeReference => Transaction.PayeeReference;
+        /// <summary>
+        /// Transactional details about cancelling a Trustly payment.
+        /// </summary>
+        public TrustlyPaymentCancelTransaction Transaction { get; }
     }
 }

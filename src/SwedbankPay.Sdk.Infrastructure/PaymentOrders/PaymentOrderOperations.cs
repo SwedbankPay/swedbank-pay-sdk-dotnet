@@ -76,6 +76,6 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public Func<PaymentOrderCaptureRequest, Task<CaptureResponse>> Capture { get; }
         public Func<PaymentOrderReversalRequest, Task<IReversalResponse>> Reverse { get; }
         public Func<PaymentOrderUpdateRequest, Task<IPaymentOrderResponse>> Update { get; }
-        public HttpOperation View { get; internal set; }
+        public HttpOperation View { get; }
     }
 }

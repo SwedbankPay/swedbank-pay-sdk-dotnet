@@ -17,7 +17,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
 
             Assert.NotNull(trustlyPayment);
             Assert.Equal(trustlyPaymentRequest.Payment.Intent, trustlyPayment.Payment.Intent);
-            Assert.True(trustlyPayment.Payment.Language.Name.Equals("sv-SE"));
+            Assert.True(trustlyPayment.Payment.Language.ToString().Equals("sv-SE"));
             Assert.True(trustlyPaymentRequest.Payment.Operation.Equals(Operation.Purchase));
             Assert.NotEmpty(trustlyPaymentRequest.Payment.UserAgent);
         }

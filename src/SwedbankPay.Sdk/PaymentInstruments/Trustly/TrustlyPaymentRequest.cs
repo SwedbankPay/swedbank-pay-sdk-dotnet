@@ -19,7 +19,9 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
                                                urls, payeeInfo, prefillInfo);
         }
 
-
+        /// <summary>
+        /// Data related to a Trustly payment.
+        /// </summary>
         public TrustlyPaymentData Payment { get; }
     }
 }

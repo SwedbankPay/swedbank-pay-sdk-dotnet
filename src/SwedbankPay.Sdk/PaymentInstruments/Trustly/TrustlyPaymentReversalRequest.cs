@@ -7,7 +7,9 @@
             Transaction = new TrustlyReversalTransaction(activity, amount, vatAmount, payeeReference, receiptReference, description);
         }
 
-
+        /// <summary>
+        /// Data to reverse a Trustly payment.
+        /// </summary>
         public TrustlyReversalTransaction Transaction { get; }
     }
 }
