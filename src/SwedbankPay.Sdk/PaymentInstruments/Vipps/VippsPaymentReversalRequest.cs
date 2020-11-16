@@ -7,7 +7,9 @@
             Transaction = new VippsReversalTransaction(amount, vatAmount, description, payeeReference);
         }
 
-
+        /// <summary>
+        /// Transactional details needed to reverse a Vipps payment.
+        /// </summary>
         public VippsReversalTransaction Transaction { get; }
     }
 }

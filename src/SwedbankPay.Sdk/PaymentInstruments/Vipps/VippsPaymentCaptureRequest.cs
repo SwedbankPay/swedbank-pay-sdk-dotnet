@@ -7,7 +7,9 @@
             Transaction = new VippsPaymentCaptureTransaction(amount, vatAmount, description, payeeReference);
         }
 
-
+        /// <summary>
+        /// Transactional details on capturing a Vipps payment.
+        /// </summary>
         public VippsPaymentCaptureTransaction Transaction { get; }
     }
 }

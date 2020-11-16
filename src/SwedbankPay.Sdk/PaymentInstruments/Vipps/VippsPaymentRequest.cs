@@ -24,7 +24,9 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
                                                generateReccurenceToken, userAgent, language, urls, payeeInfo, metadata, paymentToken);
         }
 
-
+        /// <summary>
+        /// Details for creating a Vipps payment.
+        /// </summary>
         public VippsPaymentRequestData Payment { get; }
     }
 }

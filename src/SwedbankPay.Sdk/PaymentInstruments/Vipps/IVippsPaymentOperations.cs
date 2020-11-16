@@ -6,12 +6,39 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {
     public interface IVippsPaymentOperations : IDictionary<LinkRelation, HttpOperation>
     {
+        /// <summary>
+        /// Performs a cancellation on the current payment, if available.
+        /// </summary>
         Func<VippsPaymentCancelRequest, Task<CancellationResponse>> Cancel { get; }
+
+        /// <summary>
+        /// Performs a capture on the current payment, if available.
+        /// </summary>
         Func<VippsPaymentCaptureRequest, Task<CaptureResponse>> Capture { get; }
+
+        /// <summary>
+        /// Does a direct authorization with no user input, if available.
+        /// </summary>
         Func<VippsPaymentAuthorizationRequest, Task<VippsPaymentAuthorizationResponse>> DirectAuthorization { get; }
+
+        /// <summary>
+        /// Get the details to redirect the payer to authorize the payment, if available.
+        /// </summary>
         HttpOperation RedirectAuthorization { get; }
+
+        /// <summary>
+        /// Performs a reversal on the current payment, if available.
+        /// </summary>
         Func<VippsPaymentReversalRequest, Task<IReversalResponse>> Reversal { get; }
+
+        /// <summary>
+        /// Updates the current payment, if available.
+        /// </summary>
         HttpOperation Update { get; }
+
+        /// <summary>
+        /// Get the details to open a hosted view authorization frame for the payer, if available.
+        /// </summary>
         HttpOperation ViewAuthorization { get; }
     }
 }

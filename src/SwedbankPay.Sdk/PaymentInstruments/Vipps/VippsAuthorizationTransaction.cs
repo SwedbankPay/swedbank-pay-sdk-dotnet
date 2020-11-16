@@ -2,10 +2,14 @@
 {
     public class VippsAuthorizationTransaction
     {
-        protected internal VippsAuthorizationTransaction(string msisdn)
+        public VippsAuthorizationTransaction(string msisdn)
         {
             Msisdn = msisdn;
         }
+
+        /// <summary>
+        /// The payers MSISDN, if set will autofill the payment UI.
+        /// </summary>
         public string Msisdn { get; }
     }
 }
