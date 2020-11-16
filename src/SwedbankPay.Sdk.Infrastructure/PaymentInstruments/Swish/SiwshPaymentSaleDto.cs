@@ -10,9 +10,9 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         public string PaymentRequestToken { get; set; }
         public TransactionDto Transaction { get; set; }
 
-        internal SiwshPaymentSale Map()
+        internal SwishPaymentSale Map()
         {
-            return new SiwshPaymentSale(Created, Updated, PaymentRequestToken, Id, Transaction.Map());
+            return new SwishPaymentSale(Created, Updated, PaymentRequestToken, Id, Transaction.Map());
         }
     }
 }

@@ -6,7 +6,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
     public interface ISwishResource
     {
         /// <summary>
-        ///     Creates a new swish payment
+        /// Creates a new swish payment
         /// </summary>
         /// <param name="paymentRequest"></param>
         /// <param name="paymentExpand"></param>
@@ -15,7 +15,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 
 
         ///// <summary>
-        /////     Gets an existing swish payment.
+        ///// Gets an existing swish payment.
         ///// </summary>
         ///// <param name="id"></param>
         ///// <param name="paymentExpand"></param>

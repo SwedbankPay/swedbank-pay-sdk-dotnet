@@ -2,12 +2,14 @@
 {
     public class SwishPaymentSaleTransaction
     {
-        protected internal SwishPaymentSaleTransaction(Msisdn msisdn)
+        public SwishPaymentSaleTransaction(Msisdn msisdn)
         {
             Msisdn = msisdn;
         }
 
-
+        /// <summary>
+        /// Prefill information about the payer.
+        /// </summary>
         public Msisdn Msisdn { get; }
     }
 }

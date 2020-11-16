@@ -2,7 +2,14 @@
 {
     public interface ISwishPaymentResponse
     {
-        ISwishPaymentOperations Operations { get; }
+        /// <summary>
+        /// The current Swish payment.
+        /// </summary>
         ISwishPayment Payment { get; }
+
+        /// <summary>
+        /// Operations available on this Swish payment.
+        /// </summary>
+        ISwishPaymentOperations Operations { get; }
     }
 }

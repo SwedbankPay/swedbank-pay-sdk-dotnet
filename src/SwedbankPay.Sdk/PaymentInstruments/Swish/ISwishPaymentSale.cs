@@ -2,10 +2,10 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
-    public interface ISiwshPaymentSale
+    public interface ISwishPaymentSale
     {
         /// <summary>
-        /// A URI to access
+        /// The <seealso cref="Uri"/> to access this payment
         /// </summary>
         Uri Id { get; }
 

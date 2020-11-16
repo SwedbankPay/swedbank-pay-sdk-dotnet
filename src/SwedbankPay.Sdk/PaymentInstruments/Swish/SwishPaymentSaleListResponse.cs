@@ -9,6 +9,9 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
             SaleList = saleList;
         }
 
+        /// <summary>
+        /// A list of sale summary items.
+        /// </summary>
         public List<ISwishSaleListItem> SaleList { get; }
     }
 }

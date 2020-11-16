@@ -165,18 +165,18 @@ namespace Sample.AspNetCore.Controllers
             var vatAmount = new Amount(0);
             try
             {
-                var swishRequest = new SwishPaymentRequest(new CurrencyCode("SEK"),
-                                                                                     new List<IPrice>
+                var swishRequest = new SwishPaymentRequest(new List<IPrice>
                                                                                      {
                                                                                          new Price(new Amount(totalAmount),
                                                                                                    PriceType.Swish, vatAmount)
                                                                                      },
-                                                                                     "Test Purchase", payeeInfoOptions.PayeeReference, "useragent", new Language("sv-SE"),
-                                                                                     new Urls(urls.HostUrls, urls.CompleteUrl,
+                                                                                     "Test Purchase",
+                                                                                     payeeInfoOptions.PayeeReference, "useragent", new Language("sv-SE"), new Urls(urls.HostUrls, urls.CompleteUrl,
                                                                                               urls.TermsOfServiceUrl, urls.CancelUrl,
                                                                                               urls.PaymentUrl, urls.CallbackUrl, urls.LogoUrl),
                                                                                      new PayeeInfo(payeeInfoOptions.PayeeId,
-                                                                                                   payeeInfoOptions.PayeeReference), new PrefillInfo(new Msisdn("+46739000001")));
+                                                                                                   payeeInfoOptions.PayeeReference),
+                                                                                     new PrefillInfo(new Msisdn("+46739000001")));
                 var swishPayment = await swedbankPayClient.Payments.SwishPayments.Create(swishRequest);
                 cartService.PaymentLink = swishPayment.Payment.Id.OriginalString;
                 cartService.Instrument = PaymentInstrument.Swish;
