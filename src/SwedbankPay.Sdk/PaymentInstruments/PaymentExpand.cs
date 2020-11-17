@@ -2,6 +2,9 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
+    /// <summary>
+    /// Expands optional resources on a payment.
+    /// </summary>
     [Flags]
     public enum PaymentExpand
     {

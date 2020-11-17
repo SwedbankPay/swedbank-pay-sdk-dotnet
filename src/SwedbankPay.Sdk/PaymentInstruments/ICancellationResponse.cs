@@ -4,7 +4,14 @@ namespace SwedbankPay.Sdk.PaymentInstruments
 {
     public interface ICancellationResponse
     {
-        ITransactionResponse Cancellation { get; }
+        /// <summary>
+        /// A unique <seealso cref="Uri"/> to access this cancellation resource.
+        /// </summary>
         Uri Payment { get; }
+
+        /// <summary>
+        /// Transactional information about this cancellation.
+        /// </summary>
+        ITransactionResponse Cancellation { get; }
     }
 }

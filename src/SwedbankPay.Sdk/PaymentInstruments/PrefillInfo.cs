@@ -9,7 +9,7 @@
 
 
         /// <summary>
-        ///     "+47xxxxxxxx"
+        /// MSISDN of the payer, with landcode.
         /// </summary>
         public Msisdn Msisdn { get; }
     }

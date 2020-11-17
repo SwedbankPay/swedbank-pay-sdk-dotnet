@@ -11,8 +11,20 @@
             VatAmount = vatAmount;
         }
 
+        /// <summary>
+        /// Total price for this order line - entered in the lowest momentary units of the selected currency.
+        /// </summary>
         public Amount Amount { get; }
+
+        /// <summary>
+        /// The percent value of the VAT multiplied by 100.
+        /// Supported values : 0, 600, 800, 1000, 1200, 1400, 1500, 2200, 2400, 2500.
+        /// </summary>
         public string VatPercent { get; set; }
+
+        /// <summary>
+        /// VAT Amount entered in the lowest momentary units of the selected currency.
+        /// </summary>
         public Amount VatAmount { get; }
 
     }

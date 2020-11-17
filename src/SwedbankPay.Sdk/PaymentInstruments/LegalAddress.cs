@@ -15,12 +15,39 @@ namespace SwedbankPay.Sdk.PaymentInstruments
             CountryCode = countryCode;
         }
 
+        /// <summary>
+        /// A unique <seealso cref="Uri"/> to access this legal address resource.
+        /// </summary>
         public Uri Id { get; }
+
+        /// <summary>
+        /// Full name of the addressee, the receiver of the shipped goods for the current payment.
+        /// </summary>
         public string Addressee { get; }
+
+        /// <summary>
+        /// Payers c/o address, if applicable.
+        /// </summary>
         public string CoAddress { get; }
+
+        /// <summary>
+        /// The street address of the payer.
+        /// </summary>
         public string StreetAddress { get; }
+
+        /// <summary>
+        /// The zip code of the payer.
+        /// </summary>
         public string ZipCode { get; }
+
+        /// <summary>
+        /// The city of the payers residence.
+        /// </summary>
         public string City { get; }
+
+        /// <summary>
+        /// The country code of the payers residence.
+        /// </summary>
         public string CountryCode { get; }
     }
 }
