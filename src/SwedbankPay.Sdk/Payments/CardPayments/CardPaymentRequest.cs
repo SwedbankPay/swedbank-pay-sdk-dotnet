@@ -18,7 +18,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
                               Urls urls,
                               PayeeInfo payeeInfo,
                               bool generatePaymentToken = false,
-                              bool generateReccurenceToken = false,
+                              bool generateRecurrenceToken = false,
                               string payerReference = null,
                               RiskIndicator riskIndicator = null,
                               Cardholder cardholder = null,
@@ -27,7 +27,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
                               string paymentToken = null)
         {
             this.Payment = new CardPaymentRequestObject(operation, intent, currency, prices, description, payerReference, generatePaymentToken,
-                                               generateReccurenceToken, userAgent, language, urls, payeeInfo, riskIndicator, cardholder,
+                                               generateRecurrenceToken, userAgent, language, urls, payeeInfo, riskIndicator, cardholder,
                                                creditCard, metadata, paymentToken);
         }
 
@@ -43,7 +43,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
                                                     string description,
                                                     string payerReference,
                                                     bool generatePaymentToken,
-                                                    bool generateReccurenceToken,
+                                                    bool generateRecurrenceToken,
                                                     string userAgent,
                                                     CultureInfo language,
                                                     Urls urls,
@@ -69,7 +69,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
                 CreditCard = creditCard;
                 Metadata = metadata;
                 GeneratePaymentToken = generatePaymentToken;
-                GenerateReccurenceToken = generateReccurenceToken;
+                GenerateRecurrenceToken = generateRecurrenceToken;
                 PaymentToken = paymentToken;
             }
 
@@ -79,7 +79,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
             public CurrencyCode Currency;
             public string Description;
             public bool GeneratePaymentToken;
-            public bool GenerateReccurenceToken;
+            public bool GenerateRecurrenceToken;
             public Intent Intent;
             public CultureInfo Language;
             public Dictionary<string, object> Metadata;

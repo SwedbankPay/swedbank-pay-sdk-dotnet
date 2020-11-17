@@ -17,13 +17,13 @@ namespace SwedbankPay.Sdk.Payments.VippsPayments
                               PayeeInfo payeeInfo,
                               string payerReference,
                               bool generatePaymentToken = false,
-                              bool generateReccurenceToken = false,
+                              bool generateRecurrenceToken = false,
                               Dictionary<string, object> metadata = null,
                               string paymentToken = null)
 
         {
             Payment = new PaymentRequestObject(operation, intent, currency, prices, description, payerReference, generatePaymentToken,
-                                               generateReccurenceToken, userAgent, language, urls, payeeInfo, metadata, paymentToken);
+                                               generateRecurrenceToken, userAgent, language, urls, payeeInfo, metadata, paymentToken);
         }
 
 
@@ -38,7 +38,7 @@ namespace SwedbankPay.Sdk.Payments.VippsPayments
                                                     string description,
                                                     string payerReference,
                                                     bool generatePaymentToken,
-                                                    bool generateReccurenceToken,
+                                                    bool generateRecurrenceToken,
                                                     string userAgent,
                                                     CultureInfo language,
                                                     Urls urls,
@@ -58,7 +58,7 @@ namespace SwedbankPay.Sdk.Payments.VippsPayments
                 PayeeInfo = payeeInfo;
                 Metadata = metadata;
                 GeneratePaymentToken = generatePaymentToken;
-                GenerateReccurenceToken = generateReccurenceToken;
+                generateRecurrenceToken = generateRecurrenceToken;
                 PaymentToken = paymentToken;
             }
 
@@ -66,7 +66,7 @@ namespace SwedbankPay.Sdk.Payments.VippsPayments
             public CurrencyCode Currency { get; set; }
             public string Description { get; set; }
             public bool GeneratePaymentToken { get; set; }
-            public bool GenerateReccurenceToken { get; set; }
+            public bool generateRecurrenceToken { get; set; }
             public Intent Intent { get; set; }
             public CultureInfo Language { get; set; }
             public Dictionary<string, object> Metadata { get; }
