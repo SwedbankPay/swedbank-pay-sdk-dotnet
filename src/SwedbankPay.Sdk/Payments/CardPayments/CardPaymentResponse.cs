@@ -39,6 +39,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
                                string userAgent,
                                CultureInfo language,
                                PricesListResponse prices,
+                               Guid? recurrenceToken,
                                TransactionListResponse transactions,
                                CardPaymentAuthorizationListResponse authorizations,
                                CapturesListResponse captures,
@@ -58,6 +59,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
             State = state;
             Currency = currency;
             Prices = prices;
+            RecurrenceToken = recurrenceToken;
             Amount = amount;
             RemainingCaptureAmount = remainingCaptureAmount;
             RemainingCancellationAmount = remainingCancellationAmount;
@@ -99,6 +101,7 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
         public string PayerReference { get; }
         public string InitiatingSystemUserAgent { get; }
         public PricesListResponse Prices { get; }
+        public Guid? RecurrenceToken { get; }
         public ReversalsListResponse Reversals { get; }
         public State State { get; }
         public TransactionListResponse Transactions { get; }
