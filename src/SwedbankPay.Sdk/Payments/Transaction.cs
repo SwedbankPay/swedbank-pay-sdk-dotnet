@@ -15,6 +15,7 @@ namespace SwedbankPay.Sdk.Payments
                            string description,
                            string payeeReference,
                            bool isOperational,
+                           ProblemResponse problem,
                            OperationList operations,
                            string activity)
         {
@@ -29,6 +30,7 @@ namespace SwedbankPay.Sdk.Payments
             Description = description;
             PayeeReference = payeeReference;
             IsOperational = isOperational;
+            Problem = problem;
             Operations = operations;
             Activity = activity;
         }
@@ -42,6 +44,7 @@ namespace SwedbankPay.Sdk.Payments
         public string Number { get; }
         public OperationList Operations { get; }
         public string PayeeReference { get; }
+        public ProblemResponse Problem { get; }
         public State State { get; }
         public TransactionType Type { get; }
         public DateTime Updated { get; }
