@@ -58,7 +58,7 @@ namespace SwedbankPay.Sdk.Payments.VippsPayments
                 PayeeInfo = payeeInfo;
                 Metadata = metadata;
                 GeneratePaymentToken = generatePaymentToken;
-                generateRecurrenceToken = generateRecurrenceToken;
+                GenerateRecurrenceToken = generateRecurrenceToken;
                 PaymentToken = paymentToken;
             }
 
@@ -66,7 +66,7 @@ namespace SwedbankPay.Sdk.Payments.VippsPayments
             public CurrencyCode Currency { get; set; }
             public string Description { get; set; }
             public bool GeneratePaymentToken { get; set; }
-            public bool generateRecurrenceToken { get; set; }
+            public bool GenerateRecurrenceToken { get; set; }
             public Intent Intent { get; set; }
             public CultureInfo Language { get; set; }
             public Dictionary<string, object> Metadata { get; }
