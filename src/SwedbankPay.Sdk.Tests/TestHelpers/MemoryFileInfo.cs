@@ -8,10 +8,10 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
     {
         private readonly byte[] content;
 
-        public MemoryFileInfo(string name, byte[] content, DateTimeOffset timestamp)
+        public MemoryFileInfo(string name, byte[] byteContent, DateTimeOffset timestamp)
         {
             Name = name;
-            this.content = content;
+            content = byteContent;
             LastModified = timestamp;
         }
 

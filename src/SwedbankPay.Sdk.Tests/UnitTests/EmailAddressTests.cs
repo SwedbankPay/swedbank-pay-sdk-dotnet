@@ -13,10 +13,10 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
         public void AddressValue_IsSetCorrectly_WhenGivenValidAddressString()
         {
             //ACT
-            var addressObject = new EmailAddress(this.validAddress);
+            var addressObject = new EmailAddress(validAddress);
 
             //ASSERT
-            Assert.Equal(this.validAddress, addressObject.ToString());
+            Assert.Equal(validAddress, addressObject.ToString());
         }
 
 

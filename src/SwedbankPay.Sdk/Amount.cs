@@ -7,9 +7,9 @@ namespace SwedbankPay.Sdk
     {
         private readonly decimal amount;
 
-        public Amount(decimal amount)
+        public Amount(decimal decimalAmount)
         {
-            this.amount = amount;
+            amount = decimalAmount;
 
             // Use "Banker's Rounding" by default.
             const MidpointRounding roundingMode = MidpointRounding.ToEven;

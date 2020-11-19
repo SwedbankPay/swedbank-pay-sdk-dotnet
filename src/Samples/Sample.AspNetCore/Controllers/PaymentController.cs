@@ -20,11 +20,11 @@ namespace Sample.AspNetCore.Controllers
         private readonly ISwedbankPayClient swedbankPayClient;
 
 
-        public PaymentController(Cart cartService, StoreDbContext context, ISwedbankPayClient swedbankPayClient)
+        public PaymentController(Cart cart, StoreDbContext dbContext, ISwedbankPayClient payClient)
         {
-            this.cartService = cartService;
-            this.context = context;
-            this.swedbankPayClient = swedbankPayClient;
+            cartService = cart;
+            context = dbContext;
+            swedbankPayClient = payClient;
         }
 
 
@@ -34,12 +34,12 @@ namespace Sample.AspNetCore.Controllers
         {
             try
             {
-                var paymentOrder = await this.swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
+                var paymentOrder = await swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
 
                 var response = await paymentOrder.Operations.Abort();
 
                 TempData["AbortMessage"] = $"Payment Order: {response.PaymentOrder.Id} has been {response.PaymentOrder.State}";
-                this.cartService.PaymentOrderLink = null;
+                cartService.PaymentOrderLink = null;
 
                 return RedirectToAction(nameof(Index), "Products");
             }
@@ -56,14 +56,14 @@ namespace Sample.AspNetCore.Controllers
         {
             try
             {
-                var paymentOrder = await this.swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
+                var paymentOrder = await swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
                 
                 if (paymentOrder.Operations.Cancel != null)
                 {
                     var cancelRequest = new SwedbankPay.Sdk.PaymentOrders.PaymentOrderCancelRequest(DateTime.Now.Ticks.ToString(), "Cancelling parts of the total amount");
                     var response = await paymentOrder.Operations.Cancel(cancelRequest);
                     TempData["CancelMessage"] = $"Payment has been cancelled: {response.Cancellation.Transaction.Id}";
-                    this.cartService.PaymentOrderLink = null;
+                    cartService.PaymentOrderLink = null;
                 }
                 else
                 {
@@ -89,10 +89,10 @@ namespace Sample.AspNetCore.Controllers
                 switch (instrument)
                 {
                     case PaymentInstrument.CreditCard:
-                        await PaymentHelper.CancelCreditCardPayment(paymentId, this.swedbankPayClient, TempData, this.cartService);
+                        await PaymentHelper.CancelCreditCardPayment(paymentId, swedbankPayClient, TempData, cartService);
                         break;
                     case PaymentInstrument.Trustly:
-                        await PaymentHelper.CancelTrustlyPayment(paymentId, this.swedbankPayClient, TempData, this.cartService);
+                        await PaymentHelper.CancelTrustlyPayment(paymentId, swedbankPayClient, TempData, cartService);
                         break;
                 }
 
@@ -112,14 +112,14 @@ namespace Sample.AspNetCore.Controllers
             try
             {
                 var transActionRequestObject = await GetCaptureRequest("Capturing the authorized payment");
-                var paymentOrder = await this.swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
+                var paymentOrder = await swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
 
                 var response = await paymentOrder.Operations.Capture(transActionRequestObject);
 
                 TempData["CaptureMessage"] =
                     $"{response.Capture.Id}, {response.Capture.State}, {response.Capture.Type}";
 
-                this.cartService.PaymentOrderLink = null;
+                cartService.PaymentOrderLink = null;
 
                 return RedirectToAction("Details", "Orders");
             }
@@ -142,9 +142,9 @@ namespace Sample.AspNetCore.Controllers
                 switch (instrument)
                 {
                     case PaymentInstrument.CreditCard:
-                        var cardPayment = await this.swedbankPayClient.Payments.CardPayments.Get(new Uri(paymentId, UriKind.RelativeOrAbsolute));
+                        var cardPayment = await swedbankPayClient.Payments.CardPayments.Get(new Uri(paymentId, UriKind.RelativeOrAbsolute));
 
-                        var order = await this.context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
+                        var order = await context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
                         var orderItems = order.Lines.ToOrderItems();
 
                         var captureRequest = new SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentCaptureRequest(new Amount(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
@@ -157,7 +157,7 @@ namespace Sample.AspNetCore.Controllers
                         break;
                 }
 
-                this.cartService.PaymentLink = null;
+                cartService.PaymentLink = null;
                 return RedirectToAction("Details", "Orders");
             }
             catch (Exception e)
@@ -171,20 +171,20 @@ namespace Sample.AspNetCore.Controllers
         [HttpPost]
         public void OnCompleted(string paymentLinkId)
         {
-            if (this.cartService.CartLines != null && this.cartService.CartLines.Any())
+            if (cartService.CartLines != null && cartService.CartLines.Any())
             {
-                var products = this.cartService.CartLines.Select(p => p.Product);
-                this.context.Products.AttachRange(products);
+                var products = cartService.CartLines.Select(p => p.Product);
+                context.Products.AttachRange(products);
 
-                this.context.Orders.Add(new Order
+                context.Orders.Add(new Order
                 {
-                    PaymentOrderLink = this.cartService.PaymentOrderLink != null ? new Uri(this.cartService.PaymentOrderLink, UriKind.RelativeOrAbsolute) : null,
+                    PaymentOrderLink = cartService.PaymentOrderLink != null ? new Uri(cartService.PaymentOrderLink, UriKind.RelativeOrAbsolute) : null,
                     PaymentLink = !string.IsNullOrWhiteSpace(paymentLinkId) ? new Uri(paymentLinkId, UriKind.RelativeOrAbsolute) : null,
-                    Instrument = this.cartService.Instrument,
-                    Lines = this.cartService.CartLines.ToList()
+                    Instrument = cartService.Instrument,
+                    Lines = cartService.CartLines.ToList()
                 });
-                this.context.SaveChanges(true);
-                this.cartService.Clear();
+                context.SaveChanges(true);
+                cartService.Clear();
             }
         }
 
@@ -194,13 +194,13 @@ namespace Sample.AspNetCore.Controllers
             try
             {
                 var transActionRequestObject = await GetReversalRequest("Reversing the capture amount");
-                var paymentOrder = await this.swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
+                var paymentOrder = await swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
 
                 var response = await paymentOrder.Operations.Reverse.Invoke(transActionRequestObject);
 
                 TempData["ReversalMessage"] =
                     $"{response.Reversal.Transaction.Id}, {response.Reversal.Transaction.Type}, {response.Reversal.Transaction.State}";
-                this.cartService.PaymentOrderLink = null;
+                cartService.PaymentOrderLink = null;
 
                 return RedirectToAction("Details", "Orders");
             }
@@ -220,22 +220,22 @@ namespace Sample.AspNetCore.Controllers
                 var description = "Reversing the captured amount";
                 IReversalResponse response = null;
 
-                var order = await this.context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
+                var order = await context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
                 switch (instrument)
                 {
                     case PaymentInstrument.Swish:
-                        response = await PaymentHelper.ReverseSwishPayment(paymentId, order, description, this.swedbankPayClient);
+                        response = await PaymentHelper.ReverseSwishPayment(paymentId, order, description, swedbankPayClient);
                         break;
                     case PaymentInstrument.CreditCard:
-                        response = await PaymentHelper.ReverseCreditCardPayment(paymentId, order, description, this.swedbankPayClient);
+                        response = await PaymentHelper.ReverseCreditCardPayment(paymentId, order, description, swedbankPayClient);
                         break;
                     case PaymentInstrument.Trustly:
-                        response = await PaymentHelper.ReverseTrustlyPayment(paymentId, order, description, this.swedbankPayClient);
+                        response = await PaymentHelper.ReverseTrustlyPayment(paymentId, order, description, swedbankPayClient);
                         break;
                 }
 
                 TempData["ReversalMessage"] = $"{response.Reversal.Transaction.Id}, {response.Reversal.Transaction.Type}, {response.Reversal.Transaction.State}";
-                this.cartService.PaymentOrderLink = null;
+                cartService.PaymentOrderLink = null;
 
                 return RedirectToAction("Details", "Orders");
             }
@@ -249,7 +249,7 @@ namespace Sample.AspNetCore.Controllers
 
         private async Task<SwedbankPay.Sdk.PaymentOrders.PaymentOrderCaptureRequest> GetCaptureRequest(string description)
         {
-            var order = await this.context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
+            var order = await context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
             var orderItems = order.Lines.ToOrderItems();
 
             return new SwedbankPay.Sdk.PaymentOrders.PaymentOrderCaptureRequest(new Amount(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
@@ -258,7 +258,7 @@ namespace Sample.AspNetCore.Controllers
 
         private async Task<SwedbankPay.Sdk.PaymentOrders.PaymentOrderReversalRequest> GetReversalRequest(string description)
         {
-            var order = await this.context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
+            var order = await context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
             var orderItems = order.Lines.ToOrderItems();
 
             return new SwedbankPay.Sdk.PaymentOrders.PaymentOrderReversalRequest(new Amount(order.Lines.Sum(e => e.Quantity * e.Product.Price)),

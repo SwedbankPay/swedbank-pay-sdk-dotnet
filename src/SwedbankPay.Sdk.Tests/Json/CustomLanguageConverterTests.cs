@@ -13,13 +13,13 @@ namespace SwedbankPay.Sdk.Tests.Json
         public void CanDeSerialize_Language()
         {
             //ARRANGE
-            var jsonObject = $"{{ \"language\": \"{this.languageString}\" }}";
+            var jsonObject = $"{{ \"language\": \"{languageString}\" }}";
 
             //ACT
             var result = JsonSerializer.Deserialize<Language>(jsonObject, JsonSerialization.JsonSerialization.Settings);
 
             //ASSERT
-            Assert.Equal(this.languageString, result.ToString());
+            Assert.Equal(languageString, result.ToString());
         }
 
 
@@ -29,7 +29,7 @@ namespace SwedbankPay.Sdk.Tests.Json
             //ARRANGE
             var lang = new DummyLanguageClass
             {
-                Language = new Language(this.languageString)
+                Language = new Language(languageString)
             };
 
             //ACT
@@ -38,7 +38,7 @@ namespace SwedbankPay.Sdk.Tests.Json
 
             var language = obj.RootElement.GetProperty("language").ToString();
             //ASSERT
-            Assert.Equal(this.languageString, language);
+            Assert.Equal(languageString, language);
         }
 
         private class DummyLanguageClass

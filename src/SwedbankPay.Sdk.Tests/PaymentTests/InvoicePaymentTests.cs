@@ -12,8 +12,8 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         [Fact]
         public async Task CreatePayment()
         {
-            var invoicePaymentRequest = this.paymentRequestBuilder.WithInvoiceTestValues(this.payeeId, Operation.FinancingConsumer).BuildInvoiceRequest();
-            var invoicePayment = await this.Sut.Payments.InvoicePayments.Create(invoicePaymentRequest, PaymentExpand.All);
+            var invoicePaymentRequest = paymentRequestBuilder.WithInvoiceTestValues(payeeId, Operation.FinancingConsumer).BuildInvoiceRequest();
+            var invoicePayment = await Sut.Payments.InvoicePayments.Create(invoicePaymentRequest, PaymentExpand.All);
 
             Assert.NotNull(invoicePayment);
             Assert.Equal(invoicePaymentRequest.Payment.Intent, invoicePayment.Payment.Intent);

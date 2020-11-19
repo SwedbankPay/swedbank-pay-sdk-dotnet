@@ -34,15 +34,15 @@ namespace Sample.AspNetCore.Controllers
 
         public CheckOutController(IOptionsSnapshot<PayeeInfoConfig> payeeInfoOptionsAccessor,
                                   IOptionsSnapshot<UrlsOptions> urlsAccessor,
-                                  Cart cartService,
-                                  StoreDbContext context,
-                                  ISwedbankPayClient swedbankPayClient)
+                                  Cart cart,
+                                  StoreDbContext storeDbContext,
+                                  ISwedbankPayClient payClient)
         {
             payeeInfoOptions = payeeInfoOptionsAccessor.Value;
             urls = urlsAccessor.Value;
-            this.cartService = cartService;
-            this.context = context;
-            this.swedbankPayClient = swedbankPayClient;
+            cartService = cart;
+            this.context = storeDbContext;
+            this.swedbankPayClient = payClient;
         }
 
 
@@ -241,12 +241,12 @@ namespace Sample.AspNetCore.Controllers
 
         //public async Task<IActionResult> Details(int? id)
         //{
-        //    var order = await this.context.Orders
+        //    var order = await context.Orders
         //        .FirstOrDefaultAsync();
         //    if (order == null)
         //        return NotFound();
 
-        //    var paymentOrder = await this.swedbankPayClient.PaymentOrder.Get(new Uri(order.PaymentOrderLink, UriKind.RelativeOrAbsolute));
+        //    var paymentOrder = await swedbankPayClient.PaymentOrder.Get(new Uri(order.PaymentOrderLink, UriKind.RelativeOrAbsolute));
 
         //    var paymentOrderOperations = paymentOrder.Operations.Where(r => r.Key.Value.Contains("paymentorder")).Select(x => x.Value);
 

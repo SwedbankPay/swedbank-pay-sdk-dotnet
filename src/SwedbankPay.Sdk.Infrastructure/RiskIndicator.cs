@@ -26,7 +26,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public bool GiftCardPurchase { get; set; }
 
         /// <summary>
-        ///     If shipIndicator set to 4, then prefil this.
+        ///     If shipIndicator set to 4, then prefil 
         /// </summary>
         public PickUpAddress PickUpAddress { get; set; }
 

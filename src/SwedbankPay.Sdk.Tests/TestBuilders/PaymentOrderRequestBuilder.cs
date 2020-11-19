@@ -23,21 +23,21 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
 
         public PaymentOrderRequest Build()
         {
-            return new PaymentOrderRequest(this.operation, this.currency, this.amount, this.vatAmount, this.description, this.userAgent,
-                                           this.language, this.generateRecurrenceToken, this.urls, this.payeeInfo,
-                                           orderItems: this.orderItems, metadata: this.metadata);
+            return new PaymentOrderRequest(operation, currency, amount, vatAmount, description, userAgent,
+                                           language, generateRecurrenceToken, urls, payeeInfo,
+                                           orderItems: orderItems, metadata: metadata);
         }
 
 
-        public PaymentOrderRequestBuilder WithAmounts(long amount = 30000, long vatAmount = 7500)
+        public PaymentOrderRequestBuilder WithAmounts(long longAmount = 30000, long longVatAmount = 7500)
         {
-            if (amount - vatAmount < 0)
+            if (longAmount - longVatAmount < 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(vatAmount), $"{vatAmount} cant be greater than {amount}");
+                throw new ArgumentOutOfRangeException(nameof(longVatAmount), $"{longVatAmount} cant be greater than {longAmount}");
             }
 
-            this.amount = new Amount(amount);
-            this.vatAmount = new Amount(vatAmount);
+            amount = new Amount(longAmount);
+            vatAmount = new Amount(longVatAmount);
 
             return this;
         }
@@ -45,14 +45,14 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
 
         public PaymentOrderRequestBuilder WithLanguageCode(string code)
         {
-            this.language = new Language(code);
+            language = new Language(code);
             return this;
         }
 
 
         public PaymentOrderRequestBuilder WithMetadata()
         {
-            this.metadata = new Dictionary<string, object>
+            metadata = new Dictionary<string, object>
             {
                 ["testvalue"] = 3,
                 ["testvalue2"] = "test"
@@ -63,7 +63,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
 
         public PaymentOrderRequestBuilder WithOrderItems()
         {
-            this.orderItems = new List<OrderItem>
+            orderItems = new List<OrderItem>
             {
                 new OrderItem("p1", "Product1", OrderItemType.Product, "ProductGroup1", 4, "pcs", new Amount(300), 0,
                               new Amount(1200), new Amount(0), "https://example.com/products/123",
@@ -71,8 +71,8 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
                 new OrderItem("p2", "Product2", OrderItemType.Product, "ProductGroup1", 1, "pcs", new Amount(500), 0,
                               new Amount(500), new Amount(0))
             };
-            this.amount = new Amount(this.orderItems.Sum(s => s.Amount));
-            this.vatAmount = new Amount(this.orderItems.Sum(s => s.VatAmount));
+            amount = new Amount(orderItems.Sum(s => s.Amount));
+            vatAmount = new Amount(orderItems.Sum(s => s.VatAmount));
 
             return this;
         }
@@ -80,23 +80,23 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
 
         public PaymentOrderRequestBuilder WithTestValues(Guid payeeId)
         {
-            this.operation = Operation.Purchase;
-            this.currency = new CurrencyCode("SEK");
-            this.amount = new Amount(1700);
-            this.vatAmount = new Amount(0);
-            this.description = "Test Description";
-            this.generateRecurrenceToken = false;
-            this.urls = new Urls(new UrlsDto
+            operation = Operation.Purchase;
+            currency = new CurrencyCode("SEK");
+            amount = new Amount(1700);
+            vatAmount = new Amount(0);
+            description = "Test Description";
+            generateRecurrenceToken = false;
+            urls = new Urls(new UrlsDto
             {
                 HostUrls = new List<Uri> { new Uri("https://example.com") },
                 CompleteUrl = new Uri("https://example.com/payment-completed"),
                 TermsOfServiceUrl = new Uri("https://example.com/termsandconditoons.pdf"),
                 CancelUrl = new Uri("https://example.com/payment-canceled")
             });
-            this.userAgent = "useragent";
-            this.language = new Language("sv-SE");
-            this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
-            this.metadata = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
+            userAgent = "useragent";
+            language = new Language("sv-SE");
+            payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
+            metadata = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
             return this;
         }
     }

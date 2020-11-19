@@ -37,7 +37,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
         [SetUp]
         public void SetUp()
         {
-            this._testWebApplicationFactory = new TestWebApplicationFactory();
+            _testWebApplicationFactory = new TestWebApplicationFactory();
             var chromeOptions = DriverOptionsFactory.GetDriverOptions(Driver.Chrome) as ChromeOptions;
             AtataContext.Configure()
                         .UseChrome()
@@ -48,7 +48,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
 
         protected TestBase(string driverAlias)
         {
-            this._driverAlias = driverAlias;
+            _driverAlias = driverAlias;
         }
 
         [TearDown]
