@@ -207,13 +207,13 @@ namespace Sample.AspNetCore.Controllers
             var response = await swedbankPayClient.Consumers.InitiateSession(initiateConsumerRequest);
             var jsSource = response.Operations.ViewConsumerIdentification?.Href;
 
-            var swedBankPaySource = new SwedbankPayCheckoutSource
+            var swedbankPaySource = new SwedbankPayCheckoutSource
             {
                 JavascriptSource = jsSource,
                 Culture = CultureInfo.GetCultureInfo("sv-SE"),
                 UseAnonymousCheckout = false
             };
-            return View("Checkout", swedBankPaySource);
+            return View("Checkout", swedbankPaySource);
         }
 
 
@@ -223,7 +223,7 @@ namespace Sample.AspNetCore.Controllers
 
             var jsSource = response.Operations.View.Href;
 
-            var swedBankPaySource = new SwedbankPayCheckoutSource
+            var swedbankPaySource = new SwedbankPayCheckoutSource
             {
                 JavascriptSource = jsSource,
                 Culture = CultureInfo.GetCultureInfo("sv-SE"),
@@ -231,7 +231,7 @@ namespace Sample.AspNetCore.Controllers
                 AbortOperationLink = response.Operations[LinkRelation.UpdateAbort].Href
             };
 
-            return View("Checkout", swedBankPaySource);
+            return View("Checkout", swedbankPaySource);
         }
 
         public IActionResult LoadCardPaymentMenu()
@@ -265,7 +265,7 @@ namespace Sample.AspNetCore.Controllers
 
             var jsSource = response.Operations.ViewSales.Href;
 
-            var swedBankPaySource = new SwedbankPayCheckoutSource
+            var swedbankPaySource = new SwedbankPayCheckoutSource
             {
                 JavascriptSource = jsSource,
                 Culture = CultureInfo.GetCultureInfo("sv-SE"),
@@ -273,7 +273,7 @@ namespace Sample.AspNetCore.Controllers
                 AbortOperationLink = response.Operations[LinkRelation.UpdateAbort].Href
             };
 
-            return View("Checkout", swedBankPaySource);
+            return View("Checkout", swedbankPaySource);
         }
 
         [HttpPost]
