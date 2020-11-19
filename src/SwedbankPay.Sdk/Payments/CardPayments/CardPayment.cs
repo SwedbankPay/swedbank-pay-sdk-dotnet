@@ -31,6 +31,17 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
         }
 
 
+        internal static async Task<CardPayment> Create(CardPaymentRecurRequest paymentRequest,
+                                                       HttpClient client,
+                                                       string paymentExpand)
+        {
+            var url = new Uri($"/psp/creditcard/payments{paymentExpand}", UriKind.Relative);
+
+            var paymentResponse = await client.PostAsJsonAsync<CardPaymentResponse>(url, paymentRequest);
+            return new CardPayment(paymentResponse, client);
+        }
+
+
         internal static async Task<CardPayment> Get(Uri id, HttpClient client, string paymentExpand)
         {
             var url = !string.IsNullOrWhiteSpace(paymentExpand)

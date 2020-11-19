@@ -14,6 +14,15 @@ namespace SwedbankPay.Sdk.Payments.CardPayments
         Task<CardPayment> Create(CardPaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None);
 
 
+        /// <summary>
+        ///     Creates a new credit card payment based on an earlier generated recurrenceToken
+        /// </summary>
+        /// <param name="paymentRequest"></param>
+        /// <param name="paymentExpand"></param>
+        /// <returns></returns>
+        Task<CardPayment> Create(CardPaymentRecurRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None);
+
+
         ///// <summary>
         /////     Gets an existing card payment.
         ///// </summary>
