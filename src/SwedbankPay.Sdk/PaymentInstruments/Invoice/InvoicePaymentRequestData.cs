@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
-    public class PaymentRequestData : IPaymentRequestData
+    public class InvoicePaymentRequestData : IPaymentRequestData
     {
-        public PaymentRequestData(Operation operation,
+        public InvoicePaymentRequestData(Operation operation,
                                                     PaymentIntent intent,
                                                     CurrencyCode currency,
                                                     List<IPrice> prices,

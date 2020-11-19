@@ -42,7 +42,5 @@ namespace SwedbankPay.Sdk
         /// it might lead you to a human readable description of the error and how it can be recovered from.
         /// </summary>
         string Type { get; }
-
-        string ToString();
     }
 }

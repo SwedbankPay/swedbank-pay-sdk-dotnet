@@ -14,7 +14,6 @@ namespace SwedbankPay.Sdk.PaymentOrders
             {
                 SaleList.Add(new SaleListItem(Id, item));
             }
-
         }
 
         public Uri Id { get; }

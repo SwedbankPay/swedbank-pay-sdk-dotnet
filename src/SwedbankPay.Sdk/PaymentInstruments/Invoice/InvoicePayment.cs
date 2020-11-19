@@ -1,6 +1,6 @@
 ﻿namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
-    public class InvoicePayment : IInvoicePayment
+    public class InvoicePayment : IInvoiceData
     {
         public InvoicePayment(InvoiceType invoiceType)
         {

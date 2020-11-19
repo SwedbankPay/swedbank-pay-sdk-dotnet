@@ -12,12 +12,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
         internal ICurrentPaymentResponse Map()
         {
-            if (Payment == null)
-            {
-                return new CurrentPaymentResponse(Id, MenuElementName, null);
-            }
-
-            var payment = new CurrentPayment(Payment);
+            var payment = Payment != null ? new CurrentPayment(Payment) : null;
             return new CurrentPaymentResponse(Id, MenuElementName, payment);
         }
     }

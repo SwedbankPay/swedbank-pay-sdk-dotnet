@@ -12,6 +12,5 @@
         /// The name of the field, header, object, entity or likewise that was erroneous.
         /// </summary>
         string Name { get; }
-        string ToString();
     }
 }

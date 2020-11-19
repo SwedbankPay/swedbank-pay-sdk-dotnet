@@ -22,12 +22,11 @@ namespace SwedbankPay.Sdk.Consumers
         }
 
 
-        protected ConsumerOperations(
-            SerializationInfo info)
+        protected ConsumerOperations(SerializationInfo info)
             : base()
         {
-            RedirectConsumerIdentification = (HttpOperation)info.GetValue("RedirectConsumerIdentification", typeof(HttpOperation));
-            ViewConsumerIdentification = (HttpOperation)info.GetValue("ViewConsumerIdentification", typeof(HttpOperation));
+            RedirectConsumerIdentification = (HttpOperation)info.GetValue(nameof(RedirectConsumerIdentification), typeof(HttpOperation));
+            ViewConsumerIdentification = (HttpOperation)info.GetValue(nameof(ViewConsumerIdentification), typeof(HttpOperation));
         }
 
         /// <summary>

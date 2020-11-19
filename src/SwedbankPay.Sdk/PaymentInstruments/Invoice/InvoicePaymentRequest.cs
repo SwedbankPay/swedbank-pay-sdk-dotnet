@@ -21,7 +21,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
                               string paymentToken = null,
                               PrefillInfo prefillInfo = null)
         {
-            Payment = new PaymentRequestData(operation, intent, currency, prices, description, payerReference, generatePaymentToken,
+            Payment = new InvoicePaymentRequestData(operation, intent, currency, prices, description, payerReference, generatePaymentToken,
                                                GenerateRecurrenceToken, userAgent, language, urls, payeeInfo,
                                                metadata, paymentToken, prefillInfo);
             Invoice = new InvoicePayment(invoiceType);
@@ -35,7 +35,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         /// <summary>
         /// Request details about the invoice type.
         /// </summary>
-        public IInvoicePayment Invoice { get; }
+        public IInvoiceData Invoice { get; }
     }
 
 }

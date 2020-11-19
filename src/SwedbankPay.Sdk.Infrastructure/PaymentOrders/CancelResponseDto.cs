@@ -8,10 +8,5 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public Uri Payment { get; set; }
 
         public TransactionResponseDto Cancellation { get; set; }
-
-        public ITransactionResponse Map()
-        {
-            return Cancellation.Map();
-        }
     }
 }

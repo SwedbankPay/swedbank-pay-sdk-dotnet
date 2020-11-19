@@ -19,7 +19,8 @@ namespace SwedbankPay.Sdk.PaymentOrders
                 list.Add(c.Map());
             }
 
-            return new CapturesListResponse(new Uri(Id, UriKind.RelativeOrAbsolute), list);
+            Uri id = new Uri(Id, UriKind.RelativeOrAbsolute);
+            return new CapturesListResponse(id, list);
         }
     }
 }

@@ -5,16 +5,12 @@ namespace SwedbankPay.Sdk
 {
     public class ProblemResponse : IProblemResponse
     {
-        public ProblemResponse()
-        {
-        }
-
-        public ProblemResponse(string action, string detail, string instance, List<IProblemResponseItem> list, int status, string title, string type)
+        public ProblemResponse(string action, string detail, string instance, List<IProblemResponseItem> problems, int status, string title, string type)
         {
             Action = action;
             Detail = detail;
             Instance = instance;
-            Problems = list;
+            Problems = problems;
             Status = status;
             Title = title;
             Type = type;

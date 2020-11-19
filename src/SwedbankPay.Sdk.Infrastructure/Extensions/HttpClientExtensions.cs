@@ -1,5 +1,6 @@
 ﻿using SwedbankPay.Sdk.Exceptions;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -53,7 +54,15 @@ namespace SwedbankPay.Sdk.Extensions
                 {
                     if (string.IsNullOrEmpty(httpResponseContent))
                     {
-                        throw new HttpResponseException(httpResponseMessage, new ProblemResponse(), BuildErrorMessage(httpResponseContent));
+                        var httpStatusCode = (int)httpResponseMessage.StatusCode;
+                        var problem = new ProblemResponse(httpResponseContent,
+                                                          httpResponseContent,
+                                                          httpResponseContent,
+                                                          new List<IProblemResponseItem>(),
+                                                          httpStatusCode,
+                                                          httpResponseContent,
+                                                          httpResponseContent);
+                        throw new HttpResponseException(httpResponseMessage, problem, BuildErrorMessage(httpResponseContent));
                     }
 
                     var problemResponseDto = JsonSerializer.Deserialize<ProblemResponseDto>(httpResponseContent, JsonSerialization.JsonSerialization.Settings).Map();

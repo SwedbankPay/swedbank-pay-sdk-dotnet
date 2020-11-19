@@ -6,7 +6,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
     {
         public InvoicePaymentResponse(InvoicePaymentResponseDto paymentResponseContainer, HttpClient httpClient)
         {
-            Operations = new InvoicePaymentOperations(paymentResponseContainer.Operations.Map(), httpClient);
+            var operations = paymentResponseContainer.Operations.Map();
+            Operations = new InvoicePaymentOperations(operations, httpClient);
             Payment = new InvoicePaymentData(paymentResponseContainer.Payment);
         }
 
