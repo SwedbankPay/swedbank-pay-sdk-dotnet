@@ -12,7 +12,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
                                                 string description,
                                                 string payerReference,
                                                 bool generatePaymentToken,
-                                                bool generateReccurenceToken,
+                                                bool GenerateRecurrenceToken,
                                                 string userAgent,
                                                 Language language,
                                                 IUrls urls,
@@ -32,7 +32,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
             PayeeInfo = payeeInfo;
             Metadata = metadata;
             GeneratePaymentToken = generatePaymentToken;
-            GenerateReccurenceToken = generateReccurenceToken;
+            GenerateRecurrenceToken = GenerateRecurrenceToken;
             PaymentToken = paymentToken;
         }
 
@@ -54,7 +54,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         /// <summary>
         /// Set this to true if you want to create a recurrenceToken for future use Recurring purchases (subscription payments).
         /// </summary>
-        public bool GenerateReccurenceToken { get; set; }
+        public bool GenerateRecurrenceToken { get; set; }
 
         /// <summary>
         /// <seealso cref="PaymentIntent.Authorization"/> reserves the amount, and is followed by a cancellation or capture of funds.

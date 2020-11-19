@@ -13,7 +13,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
                                                 string description,
                                                 string payerReference,
                                                 bool generatePaymentToken,
-                                                bool generateReccurenceToken,
+                                                bool GenerateRecurrenceToken,
                                                 string userAgent,
                                                 Language language,
                                                 IUrls urls,
@@ -39,7 +39,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             CreditCard = creditCard;
             Metadata = metadata;
             GeneratePaymentToken = generatePaymentToken;
-            GenerateReccurenceToken = generateReccurenceToken;
+            GenerateRecurrenceToken = GenerateRecurrenceToken;
             PaymentToken = paymentToken;
         }
 
@@ -75,7 +75,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// <summary>
         /// Set this to true if you want to create a recurrenceToken for future use Recurring purchases (subscription payments).
         /// </summary>
-        public bool GenerateReccurenceToken { get; }
+        public bool GenerateRecurrenceToken { get; }
 
         /// <summary>
         /// The intent of the payment

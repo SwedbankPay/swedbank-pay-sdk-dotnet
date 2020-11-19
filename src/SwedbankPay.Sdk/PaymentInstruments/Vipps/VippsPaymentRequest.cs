@@ -15,13 +15,13 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
                               PayeeInfo payeeInfo,
                               string payerReference,
                               bool generatePaymentToken = false,
-                              bool generateReccurenceToken = false,
+                              bool GenerateRecurrenceToken = false,
                               Dictionary<string, object> metadata = null,
                               string paymentToken = null)
 
         {
             Payment = new VippsPaymentRequestData(operation, intent, currency, prices, description, payerReference, generatePaymentToken,
-                                               generateReccurenceToken, userAgent, language, urls, payeeInfo, metadata, paymentToken);
+                                               GenerateRecurrenceToken, userAgent, language, urls, payeeInfo, metadata, paymentToken);
         }
 
         /// <summary>

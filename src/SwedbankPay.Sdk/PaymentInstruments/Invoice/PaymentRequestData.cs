@@ -12,7 +12,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
                                                     string description,
                                                     string payerReference,
                                                     bool generatePaymentToken,
-                                                    bool generateReccurenceToken,
+                                                    bool GenerateRecurrenceToken,
                                                     string userAgent,
                                                     Language language,
                                                     IUrls urls,
@@ -33,7 +33,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
             PayeeInfo = payeeInfo;
             Metadata = metadata;
             GeneratePaymentToken = generatePaymentToken;
-            GenerateReccurenceToken = generateReccurenceToken;
+            GenerateRecurrenceToken = GenerateRecurrenceToken;
             PaymentToken = paymentToken;
             PrefillInfo = prefillInfo;
         }
@@ -42,7 +42,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         public CurrencyCode Currency { get; set; }
         public string Description { get; set; }
         public bool GeneratePaymentToken { get; set; }
-        public bool GenerateReccurenceToken { get; set; }
+        public bool GenerateRecurrenceToken { get; set; }
         public PaymentIntent Intent { get; set; }
         public Language Language { get; set; }
         public Dictionary<string, object> Metadata { get; }

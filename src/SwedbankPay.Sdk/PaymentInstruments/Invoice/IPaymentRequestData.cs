@@ -22,7 +22,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         /// <summary>
         /// Set this to true if you want to create a recurrenceToken for future use Recurring purchases (subscription payments).
         /// </summary>
-        bool GenerateReccurenceToken { get; set; }
+        bool GenerateRecurrenceToken { get; set; }
 
         /// <summary>
         /// The initial intent of the invoice request.

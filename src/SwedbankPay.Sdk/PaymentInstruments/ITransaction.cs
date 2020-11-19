@@ -74,5 +74,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         /// Set to 0 (zero) if there is no VAT amount charged.
         /// </summary>
         Amount VatAmount { get; }
+
+        /// <summary>
+        /// Indicates any problems with the transaction.
+        /// </summary>
+        IProblemResponse Problem { get; }
     }
 }

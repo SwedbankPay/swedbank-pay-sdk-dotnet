@@ -15,14 +15,14 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
                               PayeeInfo payeeInfo,
                               InvoiceType invoiceType,
                               bool generatePaymentToken = false,
-                              bool generateReccurenceToken = false,
+                              bool GenerateRecurrenceToken = false,
                               string payerReference = null,
                               Dictionary<string, object> metadata = null,
                               string paymentToken = null,
                               PrefillInfo prefillInfo = null)
         {
             Payment = new PaymentRequestData(operation, intent, currency, prices, description, payerReference, generatePaymentToken,
-                                               generateReccurenceToken, userAgent, language, urls, payeeInfo,
+                                               GenerateRecurrenceToken, userAgent, language, urls, payeeInfo,
                                                metadata, paymentToken, prefillInfo);
             Invoice = new InvoicePayment(invoiceType);
         }

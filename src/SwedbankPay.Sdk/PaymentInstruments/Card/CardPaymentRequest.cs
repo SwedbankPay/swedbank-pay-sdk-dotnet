@@ -15,7 +15,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
                               IUrls urls,
                               PayeeInfo payeeInfo,
                               bool generatePaymentToken = false,
-                              bool generateReccurenceToken = false,
+                              bool GenerateRecurrenceToken = false,
                               string payerReference = null,
                               IRiskIndicator riskIndicator = null,
                               Cardholder cardholder = null,
@@ -24,7 +24,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
                               string paymentToken = null)
         {
             Payment = new CardPaymentData(operation, intent, currency, prices, description, payerReference, generatePaymentToken,
-                                               generateReccurenceToken, userAgent, language, urls, payeeInfo, riskIndicator, cardholder,
+                                               GenerateRecurrenceToken, userAgent, language, urls, payeeInfo, riskIndicator, cardholder,
                                                creditCard, metadata, paymentToken);
         }
 
