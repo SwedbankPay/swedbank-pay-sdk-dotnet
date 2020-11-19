@@ -21,7 +21,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
             PayerReference = payment.PayerReference;
             PaymentToken = payment.PaymentToken;
             State = payment.State;
-            Urls = new IdLink { Id = payment.Urls.Id };
+            Urls = payment.Urls.Map();
             UserAgent = payment.UserAgent;
 
             Authorizations = payment.Authorizations?.Map();
@@ -53,7 +53,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public IReversalsListResponse Reversals { get; }
         public State State { get; }
         public ITransactionListResponse Transactions { get; }
-        public IdLink Urls { get; }
+        public IUrls Urls { get; }
         public string UserAgent { get; }
         public ISaleListResponse Sales { get; }
     }

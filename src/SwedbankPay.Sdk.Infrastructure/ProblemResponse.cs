@@ -20,15 +20,13 @@ namespace SwedbankPay.Sdk
             Type = type;
         }
 
-        public string Action { get; }
+        public string Action { get; set; }
         public string Detail { get; set; }
         public string Instance { get; set; }
-        public List<IProblemResponseItem> Problems { get; }
-        public int Status { get; }
-        public string Title { get; }
-
-        public string Type { get; }
-
+        public List<IProblemResponseItem> Problems { get; set;}
+        public int Status { get; set; }
+        public string Title { get; set; }
+        public string Type { get; set; }
 
         public override string ToString()
         {

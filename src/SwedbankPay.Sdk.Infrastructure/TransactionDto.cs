@@ -18,6 +18,7 @@ namespace SwedbankPay.Sdk
         public DateTime Updated { get; set; }
         public int VatAmount { get; set; }
         public string Activity { get; set; }
+        public ProblemResponse Problem { get; set; }
 
         internal ITransaction Map()
         {
@@ -43,7 +44,8 @@ namespace SwedbankPay.Sdk
                                    PayeeReference,
                                    IsOperational,
                                    operations,
-                                   Activity);
+                                   Activity,
+                                   Problem);
         }
     }
 }

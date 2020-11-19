@@ -13,7 +13,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
                                                 string description,
                                                 string payerReference,
                                                 bool generatePaymentToken,
-                                                bool GenerateRecurrenceToken,
+                                                bool generateRecurrenceToken,
                                                 string userAgent,
                                                 Language language,
                                                 IUrls urls,
@@ -39,7 +39,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             CreditCard = creditCard;
             Metadata = metadata;
             GeneratePaymentToken = generatePaymentToken;
-            GenerateRecurrenceToken = GenerateRecurrenceToken;
+            GenerateRecurrenceToken = generateRecurrenceToken;
             PaymentToken = paymentToken;
         }
 

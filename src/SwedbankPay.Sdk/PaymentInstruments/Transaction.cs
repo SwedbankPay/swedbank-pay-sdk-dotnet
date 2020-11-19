@@ -16,7 +16,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments
                            string payeeReference,
                            bool isOperational,
                            IOperationList operations,
-                           string activity)
+                           string activity,
+                           IProblemResponse problem)
         {
             Id = id;
             Created = created;
@@ -31,6 +32,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
             IsOperational = isOperational;
             Operations = operations;
             Activity = activity;
+            Problem = problem;
         }
 
 
@@ -47,5 +49,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         public DateTime Updated { get; }
         public Amount VatAmount { get; }
         public string Activity { get; }
+        public IProblemResponse Problem { get; }
     }
 }

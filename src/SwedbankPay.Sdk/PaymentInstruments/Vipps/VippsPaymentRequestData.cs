@@ -12,7 +12,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
                                                 string description,
                                                 string payerReference,
                                                 bool generatePaymentToken,
-                                                bool GenerateRecurrenceToken,
+                                                bool generateRecurrenceToken,
                                                 string userAgent,
                                                 Language language,
                                                 IUrls urls,
@@ -32,7 +32,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
             PayeeInfo = payeeInfo;
             Metadata = metadata;
             GeneratePaymentToken = generatePaymentToken;
-            GenerateRecurrenceToken = GenerateRecurrenceToken;
+            GenerateRecurrenceToken = generateRecurrenceToken;
             PaymentToken = paymentToken;
         }
 
