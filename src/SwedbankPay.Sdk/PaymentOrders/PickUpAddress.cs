@@ -3,16 +3,39 @@
 namespace SwedbankPay.Sdk.PaymentOrders
 {
     /// <summary>
-    ///     If shipIndicator set to 4, then prefil this.
+    ///     If shipIndicator set to <see cref="RiskIndicator.ShipIndicator" />, then prefil this.
     /// </summary>
-    /// <see cref="RiskIndicator.ShipIndicator" />
+    /// 
     public class PickUpAddress
     {
+        /// <summary>
+        /// Payers city of residence.
+        /// </summary>
         public string City { get; set; }
+
+        /// <summary>
+        /// Payers C/O address (if applicable).
+        /// </summary>
         public string CoAddress { get; set; }
+
+        /// <summary>
+        /// Country code of the payer.
+        /// </summary>
         public RegionInfo CountryCode { get; set; }
+
+        /// <summary>
+        /// Full name of the payer.
+        /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Street address of the payers residence.
+        /// </summary>
         public string StreetAddress { get; set; }
+
+        /// <summary>
+        /// Zip code of the payers residence.
+        /// </summary>
         public string ZipCode { get; set; }
     }
 }

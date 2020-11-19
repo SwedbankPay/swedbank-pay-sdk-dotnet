@@ -2,6 +2,9 @@
 {
     public class Payer : IdLink
     {
+        /// <summary>
+        /// Account information about the payer if such is known by the merchant system.
+        /// </summary>
         public AccountInfo AccountInfo { get; set; }
 
         public Address BillingAddress { get; set; }

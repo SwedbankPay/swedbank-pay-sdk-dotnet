@@ -9,7 +9,9 @@ namespace SwedbankPay.Sdk.PaymentOrders
             Transaction = new PaymentOrderCaptureTransaction(amount, vatAmount, orderItems, description, payeeReference);
         }
 
-
+        /// <summary>
+        /// Transactional details about the capture of the current payment order.
+        /// </summary>
         public PaymentOrderCaptureTransaction Transaction { get; }
     }
 }

@@ -7,6 +7,9 @@
             PaymentOrder = new PaymentOrderUpdateRequestData(amount, vatAmount);
         }
 
+        /// <summary>
+        /// Details about the amount being updated.
+        /// </summary>
         public PaymentOrderUpdateRequestData PaymentOrder { get; }
     }
 }

@@ -4,12 +4,18 @@
     {
         public PaymentOrderAbortRequestData()
         {
-            Operation = "Abort";
             AbortReason = "CancelledByConsumer";
         }
 
+        /// <summary>
+        /// The reason why the current payment is being aborted.
+        /// </summary>
+        public string AbortReason { get; set; }
 
-        public string AbortReason { get; }
-        public string Operation { get; }
+        /// <summary>
+        /// The Api operation.
+        /// This is set to "Abort".
+        /// </summary>
+        public string Operation { get; } = "Abort";
     }
 }

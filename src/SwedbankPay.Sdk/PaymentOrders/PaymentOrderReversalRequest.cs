@@ -9,7 +9,9 @@ namespace SwedbankPay.Sdk.PaymentOrders
             Transaction = new PaymentOrderReversalTransaction(amount, vatAmount, orderItems, description, payeeReference);
         }
 
-
+        /// <summary>
+        /// Transactional details about what is being reversed.
+        /// </summary>
         public PaymentOrderReversalTransaction Transaction { get; }
     }
 }

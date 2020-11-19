@@ -26,7 +26,9 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                                          metadata, items, disablePaymentMenu);
         }
 
-
+        /// <summary>
+        /// Transactional details about the payment order.
+        /// </summary>
         public PaymentOrderRequestData PaymentOrder { get; }
     }
 }

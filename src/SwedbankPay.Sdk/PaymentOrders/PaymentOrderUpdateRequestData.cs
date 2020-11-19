@@ -18,6 +18,7 @@
 
         /// <summary>
         ///     The operation that the payment order is supposed to perform.
+        ///     Set to <seealso cref="Operation.UpdateOrder"/>
         /// </summary>
 
         public Operation Operation { get; }

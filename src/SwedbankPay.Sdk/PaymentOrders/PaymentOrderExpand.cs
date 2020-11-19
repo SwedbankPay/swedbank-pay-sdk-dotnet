@@ -2,6 +2,10 @@
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
+    /// <summary>
+    /// Use to have sub-resources of a payment order be automatically expanded/filled
+    /// when using a GET request for a payment order.
+    /// </summary>
     [Flags]
     public enum PaymentOrderExpand
     {
