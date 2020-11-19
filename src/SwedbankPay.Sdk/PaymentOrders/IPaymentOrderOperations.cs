@@ -7,11 +7,34 @@ namespace SwedbankPay.Sdk.PaymentOrders
 {
     public interface IPaymentOrderOperations : IDictionary<LinkRelation, HttpOperation>
     {
+        /// <summary>
+        /// Aborts the payment order, if available.
+        /// </summary>
         Func<Task<IPaymentOrderResponse>> Abort { get; }
+
+        /// <summary>
+        /// Cancels the payment order, if available.
+        /// </summary>
         Func<PaymentOrderCancelRequest, Task<CancellationResponse>> Cancel { get; }
+
+        /// <summary>
+        /// Captures the authorized <seealso cref="Sdk.Amount"/> on the payment order, if available.
+        /// </summary>
         Func<PaymentOrderCaptureRequest, Task<CaptureResponse>> Capture { get; }
+
+        /// <summary>
+        /// Reverses previously captured <seealso cref="Sdk.Amount"/> on the payment order, if available.
+        /// </summary>
         Func<PaymentOrderReversalRequest, Task<IReversalResponse>> Reverse { get; }
+
+        /// <summary>
+        /// Updates the contents of the payment order, if available.
+        /// </summary>
         Func<PaymentOrderUpdateRequest, Task<IPaymentOrderResponse>> Update { get; }
+
+        /// <summary>
+        /// Returns details needed to created a hosted view for the payer to see the payment order, if available.
+        /// </summary>
         HttpOperation View { get; }
     }
 }

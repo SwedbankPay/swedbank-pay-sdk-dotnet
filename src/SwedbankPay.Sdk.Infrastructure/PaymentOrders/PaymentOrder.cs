@@ -13,7 +13,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
             Currency = new CurrencyCode(paymentOrder.Currency);
             CurrentPayment = paymentOrder.CurrentPayment.Map();
             Description = paymentOrder.Description;
-            Language = new CultureInfo(paymentOrder.Language);
+            Language = new Language(paymentOrder.Language);
             Metadata = paymentOrder.Metadata;
             Operation = paymentOrder.Operation;
             PayeeInfo = paymentOrder.PayeeInfo.Map();
@@ -41,7 +41,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public CurrencyCode Currency { get; }
         public ICurrentPaymentResponse CurrentPayment { get; }
         public string Description { get; }
-        public CultureInfo Language { get; }
+        public Language Language { get; }
         public MetadataResponse Metadata { get; }
         public string Operation { get; }
         public OrderItems OrderItems { get; }
