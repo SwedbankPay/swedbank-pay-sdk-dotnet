@@ -26,6 +26,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         public string RecurrenceToken { get; set; }
         public CardPaymentAuthorizationRequestTransactionDto Transaction { get; set; }
         public string TransactionInitiator { get; set; }
+        public Uri Id { get; set; }
 
         internal IPaymentAuthorization Map()
         {
@@ -54,7 +55,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments
                                                 ExternalNonPaymentToken,
                                                 ExternalSiteId,
                                                 TransactionInitiator,
-                                                Transaction.Map());
+                                                Transaction.Map(),
+                                                Id);
         }
     }
 }

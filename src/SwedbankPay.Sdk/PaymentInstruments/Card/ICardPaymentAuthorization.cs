@@ -105,5 +105,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// </summary>
         ICardPaymentCardDetails Transaction { get; }
         string TransactionInitiator { get; }
+
+        /// <summary>
+        /// A unique relative <seealso cref="Uri"/> to access this authorization.
+        /// </summary>
+        Uri Id { get; }
     }
 }

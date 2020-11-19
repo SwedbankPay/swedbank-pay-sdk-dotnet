@@ -17,7 +17,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
             Metadata = paymentOrder.Metadata;
             Operation = paymentOrder.Operation;
             PayeeInfo = paymentOrder.PayeeInfo.Map();
-            RemainingCancellationAmount = paymentOrder.RemainingCancellationAmount;
+            RemainingCancelAmount = paymentOrder.RemainingCancelAmount;
             RemainingCaptureAmount = paymentOrder.RemainingCaptureAmount;
             RemainingReversalAmount = paymentOrder.RemainingReversalAmount;
             Settings = paymentOrder.Settings;
@@ -48,7 +48,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public PayeeInfo PayeeInfo { get; }
         public Payer Payers { get; }
         public IdLink Payments { get; }
-        public Amount RemainingCancellationAmount { get; }
+        public Amount RemainingCancelAmount { get; }
         public Amount RemainingCaptureAmount { get; }
         public Amount RemainingReversalAmount { get; }
         public IdLink Settings { get; }

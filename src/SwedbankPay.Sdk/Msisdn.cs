@@ -4,6 +4,10 @@ namespace SwedbankPay.Sdk
 {
     public class Msisdn
     {
+        /// <summary>
+        /// Creates a new <seealso cref="Msisdn"/>
+        /// </summary>
+        /// <param name="msisdn">The payers MSISDN.</param>
         public Msisdn(string msisdn)
         {
             if (!IsValidMsisdn(msisdn))

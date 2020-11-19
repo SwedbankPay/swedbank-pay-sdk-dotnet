@@ -17,18 +17,33 @@ namespace SwedbankPay.Sdk
             InLowestMonetaryUnit = (long)(roundedAmount * 100);
         }
 
+        /// <summary>
+        /// Gets the amount in a format suitable for api requests.
+        /// </summary>
         public long InLowestMonetaryUnit { get; }
 
+        /// <summary>
+        /// Returns the original amount passed in the constructor.
+        /// </summary>
+        /// <param name="amount">The <seealso cref="Amount"/> you want converted.</param>
         public static implicit operator decimal(Amount amount)
         {
             return amount.amount;
         }
 
+        /// <summary>
+        /// Converts a <seealso cref="decimal"/> to a <seealso cref="Amount"/>
+        /// </summary>
+        /// <param name="amount">The <seealso cref="decimal"/> you want converted.</param>
         public static implicit operator Amount(decimal amount)
         {
             return new Amount(amount);
         }
 
+        /// <summary>
+        /// Converts a <seealso cref="int"/> to a <seealso cref="Amount"/>.
+        /// </summary>
+        /// <param name="amount">The <seealso cref="int"/> you want to convert.</param>
         public static implicit operator Amount(int amount)
         {
             return FromLowestMonetaryUnit(amount);
@@ -44,12 +59,22 @@ namespace SwedbankPay.Sdk
             return new Amount(a.amount - b.amount);
         }
 
+        /// <summary>
+        /// Converts a <seealso cref="int"/> to a <seealso cref="Amount"/>.
+        /// </summary>
+        /// <param name="amountInLowestMonetaryUnit">The amount.</param>
+        /// <returns>A new <seealso cref="Amount"/> based on the <paramref name="amountInLowestMonetaryUnit"/>.</returns>
         public static Amount FromLowestMonetaryUnit(int amountInLowestMonetaryUnit)
         {
             var convertedAmount = (decimal)amountInLowestMonetaryUnit / 100;
             return new Amount(convertedAmount);
         }
 
+        /// <summary>
+        /// Converts a <seealso cref="long"/> to a <seealso cref="Amount"/>.
+        /// </summary>
+        /// <param name="amountInLowestMonetaryUnit">The amount.</param>
+        /// <returns>A new <seealso cref="Amount"/> based on the <paramref name="amountInLowestMonetaryUnit"/>.</returns>
         public static Amount FromLowestMonetaryUnit(long amountInLowestMonetaryUnit)
         {
             var convertedAmount = (decimal)amountInLowestMonetaryUnit / 100;

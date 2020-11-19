@@ -24,13 +24,11 @@ namespace SwedbankPay.Sdk
         ///     The HTTP content type of the target URI. Indicates what sort of resource is to be found at the URI, how it is
         ///     expected to be used and behave.
         /// </summary>
-
         public string ContentType { get; }
 
         /// <summary>
         ///     The target URI of the operation.
         /// </summary>
-
         public Uri Href { get; }
 
         /// <summary>
@@ -44,6 +42,9 @@ namespace SwedbankPay.Sdk
         /// </summary>
         public LinkRelation Rel { get; }
 
+        /// <summary>
+        /// Contains a preset header to accept <see cref="ContentType"/>
+        /// </summary>
         public HttpRequestMessage Request { get; }
     }
 }

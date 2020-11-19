@@ -1,5 +1,8 @@
 ﻿namespace SwedbankPay.Sdk
 {
+    /// <summary>
+    /// Indicates the payment method used in the price object.
+    /// </summary>
     public enum PriceType
     {
         Unknown = default,

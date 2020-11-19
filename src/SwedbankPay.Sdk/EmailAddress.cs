@@ -19,7 +19,11 @@ namespace SwedbankPay.Sdk
 
         private string Value { get; }
 
-
+        /// <summary>
+        /// Validates a email address.
+        /// </summary>
+        /// <param name="emailAddress">The email address to validate.</param>
+        /// <returns><seealso cref="true"/> if it is valid, <seealso cref="false"/> othervise.</returns>
         public static bool IsValidEmail(string emailAddress)
         {
             if (string.IsNullOrWhiteSpace(emailAddress))

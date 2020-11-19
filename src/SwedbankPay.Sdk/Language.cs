@@ -5,6 +5,10 @@ namespace SwedbankPay.Sdk
 {
     public class Language
     {
+        /// <summary>
+        /// Creates a new <seealso cref="Language"/>.
+        /// </summary>
+        /// <param name="language">A string in the format of xx-YY</param>
         public Language(string language)
         {
             if (language == null)

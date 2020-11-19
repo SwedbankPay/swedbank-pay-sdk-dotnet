@@ -14,7 +14,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public MetadataResponse Metadata { get; set; }
         public string Operation { get; set; }
         public OrderItemsDto OrderItems { get; set; }
-        public int RemainingCancellationAmount { get; set; }
+        public int RemainingCancelAmount { get; set; }
         public int RemainingCaptureAmount { get; set; }
         public int RemainingReversalAmount { get; set; }
         public IdLink Settings { get; set; }

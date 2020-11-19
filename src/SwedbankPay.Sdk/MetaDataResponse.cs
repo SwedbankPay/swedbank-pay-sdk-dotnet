@@ -14,6 +14,9 @@ namespace SwedbankPay.Sdk
             Id = dictionary["id"]?.ToString();
         }
 
+        /// <summary>
+        /// Unique ID that references this resource.
+        /// </summary>
         public string Id { get; set; }
     }
 }

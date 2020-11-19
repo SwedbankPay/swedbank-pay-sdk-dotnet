@@ -38,7 +38,12 @@ namespace SwedbankPay.Sdk
 
         private string Value { get; }
 
-
+        /// <summary>
+        /// Checks if the <paramref name="currencyCode"/> is valid.
+        /// This checks that it's of neutral culture, and use ISO currency symbols.
+        /// </summary>
+        /// <param name="currencyCode"></param>
+        /// <returns></returns>
         public static bool IsValidCurrencyCode(string currencyCode)
         {
             if (string.IsNullOrWhiteSpace(currencyCode))
