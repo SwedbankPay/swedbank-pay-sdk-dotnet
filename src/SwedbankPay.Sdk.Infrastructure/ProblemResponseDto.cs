@@ -1,7 +1,7 @@
-﻿using System;
+﻿using SwedbankPay.Sdk.Extensions;
 using System.Collections.Generic;
 
-namespace SwedbankPay.Sdk.Extensions
+namespace SwedbankPay.Sdk
 {
     public class ProblemResponseDto
     {

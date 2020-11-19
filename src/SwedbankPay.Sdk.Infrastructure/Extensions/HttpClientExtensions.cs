@@ -17,9 +17,10 @@ namespace SwedbankPay.Sdk.Extensions
 
             if (!apiResponse.IsSuccessStatusCode)
             {
+                var problemResponseDto = JsonSerializer.Deserialize<ProblemResponseDto>(responseString).Map();
                 throw new HttpResponseException(
                     apiResponse,
-                    JsonSerializer.Deserialize<ProblemResponseDto>(responseString).Map(),
+                    problemResponseDto,
                     BuildErrorMessage(responseString, uri, apiResponse));
             }
 
@@ -55,9 +56,10 @@ namespace SwedbankPay.Sdk.Extensions
                         throw new HttpResponseException(httpResponseMessage, new ProblemResponse(), BuildErrorMessage(httpResponseContent));
                     }
 
+                    var problemResponseDto = JsonSerializer.Deserialize<ProblemResponseDto>(httpResponseContent, JsonSerialization.JsonSerialization.Settings).Map();
                     throw new HttpResponseException(
                         httpResponseMessage,
-                        JsonSerializer.Deserialize<ProblemResponseDto>(httpResponseContent, JsonSerialization.JsonSerialization.Settings).Map(),
+                        problemResponseDto,
                         BuildErrorMessage(httpResponseContent));
                 }
 
