@@ -16,7 +16,7 @@
         }
 
         /// <summary>
-        /// <inheritdoc/>
+        /// Transactional details on the card payment.
         /// </summary>
         public ICardPaymentCardDetails Transaction { get; }
     }
