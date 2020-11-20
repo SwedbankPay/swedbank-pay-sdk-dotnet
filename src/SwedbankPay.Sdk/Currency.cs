@@ -51,7 +51,7 @@ namespace SwedbankPay.Sdk
                 return false;
             }
 
-            var regions = CultureInfo.GetCultures(CultureTypes.AllCultures)
+            var regions = GetCultures()
                 .Where(c => !c.IsNeutralCulture)
                 .Select(culture =>
                 {
@@ -68,6 +68,10 @@ namespace SwedbankPay.Sdk
             return regions.Any(ri => ri != null && ri.ISOCurrencySymbol.Equals(currencyCode));
         }
 
+        private static CultureInfo[] GetCultures()
+        {
+            return CultureInfo.GetCultures(CultureTypes.AllCultures);
+        }
 
         public override string ToString()
         {
