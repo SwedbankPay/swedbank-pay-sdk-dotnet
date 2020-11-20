@@ -41,8 +41,8 @@ namespace Sample.AspNetCore.Controllers
             payeeInfoOptions = payeeInfoOptionsAccessor.Value;
             urls = urlsAccessor.Value;
             cartService = cart;
-            this.context = storeDbContext;
-            this.swedbankPayClient = payClient;
+            context = storeDbContext;
+            swedbankPayClient = payClient;
         }
 
 

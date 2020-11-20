@@ -20,7 +20,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
         public string RootUri { get; set; } //Save this use by tests
 
         private const string SampleProjectLocation = "./../../../../Sample.AspNetCore";
-        IWebHost _host;
+        IWebHost host;
 
         public TestWebApplicationFactory()
         {
@@ -32,10 +32,10 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
         protected override TestServer CreateServer(IWebHostBuilder builder)
         {
             //Real TCP port
-            _host = builder.Build();
-            _host.Start();
-            RootUri = _host.ServerFeatures.Get<IServerAddressesFeature>().Addresses.LastOrDefault();
-            using (var scope = _host.Services.CreateScope())
+            host = builder.Build();
+            host.Start();
+            RootUri = host.ServerFeatures.Get<IServerAddressesFeature>().Addresses.LastOrDefault();
+            using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
                 ProductGenerator.Initialize(services);
@@ -63,7 +63,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
             base.Dispose(disposing);
             if (disposing)
             {
-                _host.Dispose();
+                host.Dispose();
             }
         }
     }

@@ -13,22 +13,22 @@ namespace Sample.AspNetCore.Controllers
 {
     public class CartController : Controller
     {
-        private readonly Cart _cartService;
-        private readonly StoreDbContext _storesContext;
+        private readonly Cart cartService;
+        private readonly StoreDbContext storesContext;
 
 
-        public CartController(StoreDbContext storesContext, Cart cartService)
+        public CartController(StoreDbContext storeDb, Cart cart)
         {
-            _storesContext = storesContext;
-            _cartService = cartService;
+            storesContext = storeDb;
+            cartService = cart;
         }
 
 
         public async Task<IActionResult> AddToCart(int id)
         {
-            var productList = await _storesContext.Products.ToListAsync();
+            var productList = await storesContext.Products.ToListAsync();
             var product = productList.FirstOrDefault(p => p.ProductId == id);
-            _cartService.AddItem(product, 1);
+            cartService.AddItem(product, 1);
 
             return RedirectToAction("Index", "Products");
         }
@@ -67,10 +67,10 @@ namespace Sample.AspNetCore.Controllers
 
         public IActionResult RemoveFromCart(int id)
         {
-            var line = _cartService.CartLines.FirstOrDefault(i => i.Product.ProductId == id);
+            var line = cartService.CartLines.FirstOrDefault(i => i.Product.ProductId == id);
             if (line != null)
             {
-                _cartService.RemoveItem(line.Product, line.Quantity);
+                cartService.RemoveItem(line.Product, line.Quantity);
             }
 
             return RedirectToAction("Index", "Products");
@@ -80,11 +80,11 @@ namespace Sample.AspNetCore.Controllers
         [HttpPost]
         public IActionResult UpdateQuantity(int id, int quantity)
         {
-            var line = _cartService.CartLines.FirstOrDefault(i => i.Product.ProductId == id);
+            var line = cartService.CartLines.FirstOrDefault(i => i.Product.ProductId == id);
             if (line != null)
             {
                 line.Quantity = quantity;
-                _cartService.Update();
+                cartService.Update();
             }
 
             return RedirectToAction("Index", "Products");

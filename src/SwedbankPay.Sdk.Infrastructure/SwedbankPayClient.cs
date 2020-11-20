@@ -9,25 +9,25 @@ namespace SwedbankPay.Sdk
 {
     public class SwedbankPayClient : ISwedbankPayClient
     {
-        private readonly HttpClient _httpClient;
+        private readonly HttpClient httpClient;
 
-        public SwedbankPayClient(HttpClient httpClient, IPaymentOrdersResource paymentOrders, IConsumersResource consumers, IPaymentInstrumentsResource payments)
+        public SwedbankPayClient(HttpClient injectedHttpClient, IPaymentOrdersResource paymentOrders, IConsumersResource consumers, IPaymentInstrumentsResource payments)
         {
             if (!ServicePointManager.SecurityProtocol.HasFlag(SecurityProtocolType.Tls12))
             {
                 ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
             }
 
-            _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+            httpClient = injectedHttpClient ?? throw new ArgumentNullException(nameof(injectedHttpClient));
 
-            if (_httpClient.BaseAddress == null)
+            if (httpClient.BaseAddress == null)
             {
-                throw new ArgumentNullException(nameof(_httpClient), $"{nameof(_httpClient.BaseAddress)} cannot be null.");
+                throw new ArgumentNullException(nameof(httpClient), $"{nameof(httpClient.BaseAddress)} cannot be null.");
             }
 
-            if (_httpClient.DefaultRequestHeaders?.Authorization?.Parameter == null)
+            if (httpClient.DefaultRequestHeaders?.Authorization?.Parameter == null)
             {
-                throw new ArgumentException($"Please configure the {nameof(_httpClient)} with an Authorization header.");
+                throw new ArgumentException($"Please configure the {nameof(httpClient)} with an Authorization header.");
             }
 
             PaymentOrders = paymentOrders ?? throw new ArgumentNullException(nameof(paymentOrders));
