@@ -11,7 +11,7 @@ namespace SwedbankPay.Sdk
     {
         private readonly HttpClient _httpClient;
 
-        public SwedbankPayClient(HttpClient httpClient, IPaymentOrdersResource paymentOrders, IConsumersResource consumers, IPaymentsResource payments)
+        public SwedbankPayClient(HttpClient httpClient, IPaymentOrdersResource paymentOrders, IConsumersResource consumers, IPaymentInstrumentsResource payments)
         {
             if (!ServicePointManager.SecurityProtocol.HasFlag(SecurityProtocolType.Tls12))
             {
@@ -45,6 +45,6 @@ namespace SwedbankPay.Sdk
 
         public IPaymentOrdersResource PaymentOrders { get; }
         public IConsumersResource Consumers { get; }
-        public IPaymentsResource Payments { get; }
+        public IPaymentInstrumentsResource Payments { get; }
     }
 }

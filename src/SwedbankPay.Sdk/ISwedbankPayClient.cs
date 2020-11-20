@@ -19,6 +19,6 @@ namespace SwedbankPay.Sdk
         /// <summary>
         /// Resource to create and get payments on several payment instruments.
         /// </summary>
-        IPaymentsResource Payments { get; }
+        IPaymentInstrumentsResource Payments { get; }
     }
 }

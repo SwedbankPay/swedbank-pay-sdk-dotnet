@@ -7,7 +7,7 @@ using SwedbankPay.Sdk.PaymentInstruments.Vipps;
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
-    public interface IPaymentsResource
+    public interface IPaymentInstrumentsResource
     {
         /// <summary>
         /// Used to gain access to credit card payments.

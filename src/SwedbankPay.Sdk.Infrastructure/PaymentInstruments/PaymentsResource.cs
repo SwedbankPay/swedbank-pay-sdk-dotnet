@@ -9,7 +9,7 @@ using System.Net.Http;
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
-    public class PaymentsResource : ResourceBase, IPaymentsResource
+    public class PaymentsResource : ResourceBase, IPaymentInstrumentsResource
     {
         public ICardResource CardPayments { get; }
         public ISwishResource SwishPayments { get; }
