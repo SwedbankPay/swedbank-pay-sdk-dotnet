@@ -132,7 +132,8 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
             var uri = new Uri("http://api.externalintegration.payex.com");
             var sut = new HttpClient(handler);
 
-            var result = await sut.SendAndProcessAsync<ProblemResponse>(HttpMethod.Get, uri, null);
+            var resultDto = await sut.SendAndProcessAsync<ProblemResponseDto>(HttpMethod.Get, uri, null);
+            var result = resultDto.Map();
 
             Assert.IsType<ProblemResponse>(result);
         }
