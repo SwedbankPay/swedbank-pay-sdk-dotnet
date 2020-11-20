@@ -29,7 +29,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         /// <summary>
         /// Initiates a sales transaction, if available.
         /// </summary>
-        Func<SwishPaymentSaleRequest, Task<SwishPaymentSaleResponse>> Sale { get; }
+        Func<SwishPaymentSaleRequest, Task<ISwishPaymentSaleResponse>> Sale { get; }
 
         /// <summary>
         /// Gives access to view sales transactions on the payment, if available.

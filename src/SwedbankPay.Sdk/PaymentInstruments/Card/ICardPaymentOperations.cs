@@ -25,7 +25,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// Does a direct authorization of this payment if available.
         /// Requires that you are compliant with PCI-DSS regulations.
         /// </summary>
-        Func<CardPaymentAuthorizationRequest, Task<CardPaymentAuthorizationResponse>> DirectAuthorization { get; }
+        Func<CardPaymentAuthorizationRequest, Task<ICardPaymentAuthorizationResponse>> DirectAuthorization { get; }
 
         /// <summary>
         /// Does a direct verification of this payment if available.

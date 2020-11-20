@@ -19,7 +19,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         /// <summary>
         /// Does a direct authorization with no user input, if available.
         /// </summary>
-        Func<VippsPaymentAuthorizationRequest, Task<VippsPaymentAuthorizationResponse>> DirectAuthorization { get; }
+        Func<VippsPaymentAuthorizationRequest, Task<IVippsPaymentAuthorizationResponse>> DirectAuthorization { get; }
 
         /// <summary>
         /// Get the details to redirect the payer to authorize the payment, if available.
