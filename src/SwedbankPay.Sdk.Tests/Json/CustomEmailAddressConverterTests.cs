@@ -14,13 +14,13 @@ namespace SwedbankPay.Sdk.Tests.Json
         {
             //ARRANGE
 
-            var jsonObject = $"{{\"xX123xxaddress\": \"{address}\"}}";
+            var jsonObject = $"{{\"xX123xxaddress\": \"{this.address}\"}}";
 
             //ACT
             var result = JsonSerializer.Deserialize<EmailAddress>(jsonObject, JsonSerialization.JsonSerialization.Settings);
 
             //ASSERT
-            Assert.Equal(address, result.ToString());
+            Assert.Equal(this.address, result.ToString());
         }
 
 
@@ -28,14 +28,14 @@ namespace SwedbankPay.Sdk.Tests.Json
         public void CanSerialize_EmailAddress()
         {
             //ARRANGE
-            var riskIndicator = new RiskIndicator { DeliveryEmailAddress = new EmailAddress(address) };
+            var riskIndicator = new RiskIndicator { DeliveryEmailAddress = new EmailAddress(this.address) };
 
             //ACT
             var result = JsonSerializer.Serialize(riskIndicator, JsonSerialization.JsonSerialization.Settings);
             var obj = JsonDocument.Parse(result);
             var devliveryEmailAddress = obj.RootElement.GetProperty("deliveryEmailAddress");
             //ASSERT
-            Assert.Equal(address, devliveryEmailAddress.ToString());
+            Assert.Equal(this.address, devliveryEmailAddress.ToString());
         }
     }
 }

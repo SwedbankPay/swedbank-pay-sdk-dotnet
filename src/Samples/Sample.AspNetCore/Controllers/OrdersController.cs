@@ -29,11 +29,11 @@ namespace Sample.AspNetCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Clear()
         {
-            var orders = await context.Orders.ToListAsync();
+            var orders = await this.context.Orders.ToListAsync();
             if (orders != null)
             {
-                context.Orders.RemoveRange(orders);
-                await context.SaveChangesAsync();
+                this.context.Orders.RemoveRange(orders);
+                await this.context.SaveChangesAsync();
             }
 
             return RedirectToAction(nameof(Index));
@@ -56,8 +56,8 @@ namespace Sample.AspNetCore.Controllers
         {
             if (ModelState.IsValid)
             {
-                context.Add(order);
-                await context.SaveChangesAsync();
+                this.context.Add(order);
+                await this.context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
@@ -68,7 +68,7 @@ namespace Sample.AspNetCore.Controllers
         // GET: Orders/Details/5
         public async Task<IActionResult> Details(int? _)
         {
-            var order = await context.Orders
+            var order = await this.context.Orders
                 .FirstOrDefaultAsync();
             if (order == null)
             {
@@ -79,7 +79,7 @@ namespace Sample.AspNetCore.Controllers
 
             if (order.PaymentOrderLink != null)
             {
-                var paymentOrder = await swedbankPayClient.PaymentOrders.Get(order.PaymentOrderLink);
+                var paymentOrder = await this.swedbankPayClient.PaymentOrders.Get(order.PaymentOrderLink);
                 var paymentOrderOperations = paymentOrder.Operations.Where(r => r.Key.Value.Contains("paymentorder")).Select(x => x.Value);
                 operations = paymentOrderOperations;
             }
@@ -88,17 +88,17 @@ namespace Sample.AspNetCore.Controllers
                 switch (order.Instrument)
                 {
                     case PaymentInstrument.Swish:
-                        var swishPayment = await swedbankPayClient.Payments.SwishPayments.Get(order.PaymentLink, PaymentExpand.All);
+                        var swishPayment = await this.swedbankPayClient.Payments.SwishPayments.Get(order.PaymentLink, PaymentExpand.All);
                         var swishOperations = swishPayment.Operations;
                         operations = swishOperations.Values;
                         break;
                     case PaymentInstrument.CreditCard:
-                        var cardPayment = await swedbankPayClient.Payments.SwishPayments.Get(order.PaymentLink, PaymentExpand.All);
+                        var cardPayment = await this.swedbankPayClient.Payments.SwishPayments.Get(order.PaymentLink, PaymentExpand.All);
                         var cardOperations = cardPayment.Operations;
                         operations = cardOperations.Values;
                         break;
                     case PaymentInstrument.Trustly:
-                        var trustlyPayment = await swedbankPayClient.Payments.TrustlyPayments.Get(order.PaymentLink, PaymentExpand.All);
+                        var trustlyPayment = await this.swedbankPayClient.Payments.TrustlyPayments.Get(order.PaymentLink, PaymentExpand.All);
                         var trustlyOperations = trustlyPayment.Operations;
                         operations = trustlyOperations.Values;
                         break;
@@ -121,7 +121,7 @@ namespace Sample.AspNetCore.Controllers
                 return NotFound();
             }
 
-            var order = await context.Orders.FindAsync(id);
+            var order = await this.context.Orders.FindAsync(id);
             if (order == null)
             {
                 return NotFound();
@@ -147,8 +147,8 @@ namespace Sample.AspNetCore.Controllers
             {
                 try
                 {
-                    context.Update(order);
-                    await context.SaveChangesAsync();
+                    this.context.Update(order);
+                    await this.context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -176,7 +176,7 @@ namespace Sample.AspNetCore.Controllers
 
         private bool OrderExists(int id)
         {
-            return context.Orders.Any(e => e.OrderId == id);
+            return this.context.Orders.Any(e => e.OrderId == id);
         }
     }
 }

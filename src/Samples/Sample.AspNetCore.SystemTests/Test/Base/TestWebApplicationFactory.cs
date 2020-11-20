@@ -32,10 +32,10 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
         protected override TestServer CreateServer(IWebHostBuilder builder)
         {
             //Real TCP port
-            host = builder.Build();
-            host.Start();
-            RootUri = host.ServerFeatures.Get<IServerAddressesFeature>().Addresses.LastOrDefault();
-            using (var scope = host.Services.CreateScope())
+            this.host = builder.Build();
+            this.host.Start();
+            RootUri = this.host.ServerFeatures.Get<IServerAddressesFeature>().Addresses.LastOrDefault();
+            using (var scope = this.host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
                 ProductGenerator.Initialize(services);
@@ -63,7 +63,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
             base.Dispose(disposing);
             if (disposing)
             {
-                host.Dispose();
+                this.host.Dispose();
             }
         }
     }

@@ -9,11 +9,11 @@ namespace SwedbankPay.Sdk
 
         public Amount(decimal decimalAmount)
         {
-            amount = decimalAmount;
+            this.amount = decimalAmount;
 
             // Use "Banker's Rounding" by default.
             const MidpointRounding roundingMode = MidpointRounding.ToEven;
-            var roundedAmount = Math.Round(amount, 2, roundingMode);
+            var roundedAmount = Math.Round(this.amount, 2, roundingMode);
             InLowestMonetaryUnit = (long)(roundedAmount * 100);
         }
 
@@ -113,7 +113,7 @@ namespace SwedbankPay.Sdk
                 return 1;
             }
 
-            return amount.CompareTo(other.amount);
+            return this.amount.CompareTo(other.amount);
         }
 
         public bool Equals(Amount other)
@@ -128,7 +128,7 @@ namespace SwedbankPay.Sdk
                 return true;
             }
 
-            return amount == other.amount;
+            return this.amount == other.amount;
         }
 
         public override bool Equals(object obj)
@@ -148,7 +148,7 @@ namespace SwedbankPay.Sdk
 
         public override int GetHashCode()
         {
-            return amount.GetHashCode();
+            return this.amount.GetHashCode();
         }
 
         public override string ToString()
@@ -158,7 +158,7 @@ namespace SwedbankPay.Sdk
 
         public string ToString(string format)
         {
-            return amount.ToString(format, CultureInfo.InvariantCulture);
+            return this.amount.ToString(format, CultureInfo.InvariantCulture);
         }
 
         public static bool operator ==(Amount left, Amount right)

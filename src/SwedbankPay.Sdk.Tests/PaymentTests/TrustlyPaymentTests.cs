@@ -12,8 +12,8 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         [Fact]
         public async Task CreatePayment()
         {
-            var trustlyPaymentRequest = paymentRequestBuilder.WithTruslyTestValues(payeeId).BuildTrustlyRequest();
-            var trustlyPayment = await Sut.Payments.TrustlyPayments.Create(trustlyPaymentRequest, PaymentExpand.All);
+            var trustlyPaymentRequest = this.paymentRequestBuilder.WithTruslyTestValues(this.payeeId).BuildTrustlyRequest();
+            var trustlyPayment = await this.Sut.Payments.TrustlyPayments.Create(trustlyPaymentRequest, PaymentExpand.All);
 
             Assert.NotNull(trustlyPayment);
             Assert.Equal(trustlyPaymentRequest.Payment.Intent, trustlyPayment.Payment.Intent);
@@ -26,9 +26,9 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         [Fact]
         public async Task AbortPayment()
         {
-            var paymentRequest = paymentRequestBuilder.WithTruslyTestValues(payeeId).BuildTrustlyRequest();
+            var paymentRequest = this.paymentRequestBuilder.WithTruslyTestValues(this.payeeId).BuildTrustlyRequest();
 
-            var payment = await Sut.Payments.TrustlyPayments.Create(paymentRequest, PaymentExpand.All);
+            var payment = await this.Sut.Payments.TrustlyPayments.Create(paymentRequest, PaymentExpand.All);
 
             Assert.NotNull(payment);
             Assert.NotNull(payment.Operations.Abort);

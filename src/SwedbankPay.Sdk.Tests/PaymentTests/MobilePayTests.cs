@@ -13,8 +13,8 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         [Fact(Skip = "Not supported by merchants that have both Checkout and Payment Pages")]
         public async Task CreateMobilePayPayment_ShouldReturnPayment()
         {
-            var paymentRequest = paymentRequestBuilder.WithMobilePayTestValues(payeeId).BuildMobilePayRequest();
-            var mobilePayPayment = await Sut.Payments.MobilePayPayments.Create(paymentRequest, PaymentExpand.All);
+            var paymentRequest = this.paymentRequestBuilder.WithMobilePayTestValues(this.payeeId).BuildMobilePayRequest();
+            var mobilePayPayment = await this.Sut.Payments.MobilePayPayments.Create(paymentRequest, PaymentExpand.All);
             Assert.NotNull(mobilePayPayment);
         }
     }

@@ -15,29 +15,29 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
 
         public ConsumersRequest Build()
         {
-            return new ConsumersRequest(language, shippingAddressRestrictedToCountryCodes, operation, nationalIdentifier: nationalIdentifier);
+            return new ConsumersRequest(this.language, this.shippingAddressRestrictedToCountryCodes, this.operation, nationalIdentifier: this.nationalIdentifier);
         }
 
 
         public ConsumersRequestContainerBuilder WithEmptyShippingAddressCountryCodes()
         {
-            shippingAddressRestrictedToCountryCodes = null;
+            this.shippingAddressRestrictedToCountryCodes = null;
             return this;
         }
 
 
         public ConsumersRequestContainerBuilder WithNationalIdentifier()
         {
-            nationalIdentifier = new NationalIdentifier(new RegionInfo("sv-SE"), "19891010292");
+            this.nationalIdentifier = new NationalIdentifier(new RegionInfo("sv-SE"), "19891010292");
             return this;
         }
 
 
         public ConsumersRequestContainerBuilder WithTestValues()
         {
-            operation = Operation.Initiate;
-            language = new Language("sv-SE");
-            shippingAddressRestrictedToCountryCodes = new List<RegionInfo>
+            this.operation = Operation.Initiate;
+            this.language = new Language("sv-SE");
+            this.shippingAddressRestrictedToCountryCodes = new List<RegionInfo>
                 { new RegionInfo("SE"), new RegionInfo("NO"), new RegionInfo("DK") };
             return this;
         }

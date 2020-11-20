@@ -18,16 +18,16 @@ namespace SwedbankPay.Sdk
                 ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
             }
 
-            httpClient = injectedHttpClient ?? throw new ArgumentNullException(nameof(injectedHttpClient));
+            this.httpClient = injectedHttpClient ?? throw new ArgumentNullException(nameof(injectedHttpClient));
 
-            if (httpClient.BaseAddress == null)
+            if (this.httpClient.BaseAddress == null)
             {
-                throw new ArgumentNullException(nameof(httpClient), $"{nameof(httpClient.BaseAddress)} cannot be null.");
+                throw new ArgumentNullException(nameof(this.httpClient), $"{nameof(this.httpClient.BaseAddress)} cannot be null.");
             }
 
-            if (httpClient.DefaultRequestHeaders?.Authorization?.Parameter == null)
+            if (this.httpClient.DefaultRequestHeaders?.Authorization?.Parameter == null)
             {
-                throw new ArgumentException($"Please configure the {nameof(httpClient)} with an Authorization header.");
+                throw new ArgumentException($"Please configure the {nameof(this.httpClient)} with an Authorization header.");
             }
 
             PaymentOrders = paymentOrders ?? throw new ArgumentNullException(nameof(paymentOrders));

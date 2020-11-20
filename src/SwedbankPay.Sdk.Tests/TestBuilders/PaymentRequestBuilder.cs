@@ -34,101 +34,44 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
 
         public CardPaymentRequest BuildCreditardPaymentRequest()
         {
-            return new CardPaymentRequest(
-                operation,
-                intent,
-                currency,
-                price,
-                description,
-                userAgent,
-                language,
-                urls,
-                payeeInfo,
-                generatePaymentToken: generatePaymentToken, GenerateRecurrenceToken: false, payerReference: payerReference, riskIndicator: null, metadata: metadata);
+            return new CardPaymentRequest(this.operation, this.intent, this.currency, this.price, this.description, this.userAgent, this.language, this.urls, this.payeeInfo,
+                                          generatePaymentToken: this.generatePaymentToken, GenerateRecurrenceToken: false, payerReference: this.payerReference, riskIndicator: null, metadata: this.metadata);
         }
 
-        public SwishPaymentRequest BuildSwishPaymentRequest() => new SwishPaymentRequest(price,
-                                      description,
-                                      payerReference,
-                                      userAgent,
-                                      language,
-                                      urls,
-                                      payeeInfo,
-                                      prefillInfo,
-                                      metadata: metadata
+        public SwishPaymentRequest BuildSwishPaymentRequest() => new SwishPaymentRequest(this.price, this.description, this.payerReference, this.userAgent, this.language, this.urls, this.payeeInfo, this.prefillInfo,
+                                                                                         metadata: this.metadata
             );
 
-        public InvoicePaymentRequest BuildInvoiceRequest() => new InvoicePaymentRequest(
-                operation,
-                intent,
-                currency,
-                price,
-                description,
-                userAgent,
-                language,
-                urls,
-                payeeInfo,
-                invoiceType);
+        public InvoicePaymentRequest BuildInvoiceRequest() => new InvoicePaymentRequest(this.operation, this.intent, this.currency, this.price, this.description, this.userAgent, this.language, this.urls, this.payeeInfo, this.invoiceType);
 
-        public VippsPaymentRequest BuildVippsRequest() => new VippsPaymentRequest(
-                operation,
-                intent,
-                currency,
-                price,
-                description,
-                userAgent,
-                language,
-                urls,
-                payeeInfo,
-                payerReference,
-                generatePaymentToken,
-                false,
-                metadata);
+        public VippsPaymentRequest BuildVippsRequest() => new VippsPaymentRequest(this.operation, this.intent, this.currency, this.price, this.description, this.userAgent, this.language, this.urls, this.payeeInfo, this.payerReference, this.generatePaymentToken,
+                                                                                  false, this.metadata);
 
-        public MobilePayPaymentRequest BuildMobilePayRequest() => new MobilePayPaymentRequest(
-                operation,
-                intent,
-                currency,
-                price,
-                description,
-                userAgent,
-                language,
-                urls,
-                payeeInfo,
-                shopslogoUrl);
+        public MobilePayPaymentRequest BuildMobilePayRequest() => new MobilePayPaymentRequest(this.operation, this.intent, this.currency, this.price, this.description, this.userAgent, this.language, this.urls, this.payeeInfo, this.shopslogoUrl);
 
         public TrustlyPaymentRequest BuildTrustlyRequest()
         {
-            return new TrustlyPaymentRequest(
-                currency,
-                price,
-                description,
-                payerReference,
-                userAgent,
-                language,
-                urls,
-                payeeInfo,
-                trustlyPrefillInfo);
+            return new TrustlyPaymentRequest(this.currency, this.price, this.description, this.payerReference, this.userAgent, this.language, this.urls, this.payeeInfo, this.trustlyPrefillInfo);
         }
 
         public PaymentRequestBuilder WithCreditcardTestValues(Guid payeeId, Operation testOperation = null, PaymentIntent paymentIntent = PaymentIntent.Authorization)
         {
-            operation = testOperation ?? Operation.Purchase;
-            intent = paymentIntent;
-            currency = new Currency("SEK");
-            description = "Test Description";
-            payerReference = "AB1234";
-            userAgent = "useragent";
-            language = new Language("sv-SE");
+            this.operation = testOperation ?? Operation.Purchase;
+            this.intent = paymentIntent;
+            this.currency = new Currency("SEK");
+            this.description = "Test Description";
+            this.payerReference = "AB1234";
+            this.userAgent = "useragent";
+            this.language = new Language("sv-SE");
             SetUrls();
-            payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
-            generatePaymentToken = false;
-            amount = new Amount(1600);
-            vatAmount = new Amount(0);
-            metadata = new MetadataResponse { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
-            price = new List<IPrice>
+            this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
+            this.generatePaymentToken = false;
+            this.amount = new Amount(1600);
+            this.vatAmount = new Amount(0);
+            this.metadata = new MetadataResponse { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
+            this.price = new List<IPrice>
             {
-                new Price(amount, PriceType.CreditCard, vatAmount)
+                new Price(this.amount, PriceType.CreditCard, this.vatAmount)
             };
 
             return this;
@@ -137,92 +80,92 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
 
         public PaymentRequestBuilder WithSwishTestValues(Guid payeeId)
         {
-            operation = Operation.Purchase;
-            intent = PaymentIntent.Sale;
-            currency = new Currency("SEK");
-            description = "Test Description";
-            payerReference = "AB1234";
-            userAgent = "useragent";
-            language = new Language("sv-SE");
+            this.operation = Operation.Purchase;
+            this.intent = PaymentIntent.Sale;
+            this.currency = new Currency("SEK");
+            this.description = "Test Description";
+            this.payerReference = "AB1234";
+            this.userAgent = "useragent";
+            this.language = new Language("sv-SE");
             SetUrls();
-            payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
-            prefillInfo = new PrefillInfo(new Msisdn("+46701234567"));
-            generatePaymentToken = false;
-            amount = new Amount(1600);
-            vatAmount = new Amount(0);
-            metadata = new MetadataResponse { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
-            price = new List<IPrice>
+            this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
+            this.prefillInfo = new PrefillInfo(new Msisdn("+46701234567"));
+            this.generatePaymentToken = false;
+            this.amount = new Amount(1600);
+            this.vatAmount = new Amount(0);
+            this.metadata = new MetadataResponse { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
+            this.price = new List<IPrice>
             {
-                new Price(amount, PriceType.Swish, vatAmount)
+                new Price(this.amount, PriceType.Swish, this.vatAmount)
             };
             return this;
         }
 
         public PaymentRequestBuilder WithInvoiceTestValues(Guid payeeId, Operation testOperation = null)
         {
-            operation = testOperation ?? Operation.FinancingConsumer;
-            intent = PaymentIntent.Authorization;
-            currency = new Currency("NOK");
-            description = "Test Description";
-            payerReference = "AB1234";
-            userAgent = "useragent";
-            language = new Language("nb-NO");
+            this.operation = testOperation ?? Operation.FinancingConsumer;
+            this.intent = PaymentIntent.Authorization;
+            this.currency = new Currency("NOK");
+            this.description = "Test Description";
+            this.payerReference = "AB1234";
+            this.userAgent = "useragent";
+            this.language = new Language("nb-NO");
             SetUrls();
-            payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
-            generatePaymentToken = false;
-            amount = new Amount(1600);
-            vatAmount = new Amount(0);
-            metadata = new MetadataResponse { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
-            invoiceType = InvoiceType.PayExFinancingNO;
-            price = new List<IPrice>
+            this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
+            this.generatePaymentToken = false;
+            this.amount = new Amount(1600);
+            this.vatAmount = new Amount(0);
+            this.metadata = new MetadataResponse { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
+            this.invoiceType = InvoiceType.PayExFinancingNO;
+            this.price = new List<IPrice>
             {
-                new Price(amount, PriceType.Invoice, vatAmount)
+                new Price(this.amount, PriceType.Invoice, this.vatAmount)
             };
             return this;
         }
 
         public PaymentRequestBuilder WithVippsTestValues(Guid payeeId, Operation testOperation = null)
         {
-            operation = testOperation ?? Operation.Purchase;
-            intent = PaymentIntent.Authorization;
-            currency = new Currency("NOK");
-            description = "Test Description";
-            payerReference = "AB1234";
-            userAgent = "useragent";
-            language = new Language("nb-NO");
+            this.operation = testOperation ?? Operation.Purchase;
+            this.intent = PaymentIntent.Authorization;
+            this.currency = new Currency("NOK");
+            this.description = "Test Description";
+            this.payerReference = "AB1234";
+            this.userAgent = "useragent";
+            this.language = new Language("nb-NO");
             SetUrls();
-            payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
-            generatePaymentToken = false;
-            amount = new Amount(1600);
-            vatAmount = new Amount(0);
-            metadata = new MetadataResponse { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
+            this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
+            this.generatePaymentToken = false;
+            this.amount = new Amount(1600);
+            this.vatAmount = new Amount(0);
+            this.metadata = new MetadataResponse { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
 
-            price = new List<IPrice>
+            this.price = new List<IPrice>
             {
-                new Price(amount, PriceType.Vipps, vatAmount)
+                new Price(this.amount, PriceType.Vipps, this.vatAmount)
             };
             return this;
         }
 
         public PaymentRequestBuilder WithMobilePayTestValues(Guid payeeId)
         {
-            operation = Operation.Purchase;
-            intent = PaymentIntent.Authorization;
-            currency = new Currency("SEK");
-            description = "Test Description";
-            payerReference = "AB1234";
-            userAgent = "useragent";
-            language = new Language("sv-SE");
+            this.operation = Operation.Purchase;
+            this.intent = PaymentIntent.Authorization;
+            this.currency = new Currency("SEK");
+            this.description = "Test Description";
+            this.payerReference = "AB1234";
+            this.userAgent = "useragent";
+            this.language = new Language("sv-SE");
             SetUrls();
-            payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString(), "payeeName", "productCategory");
-            prefillInfo = new PrefillInfo(new Msisdn("+46701234567"));
-            amount = new Amount(1600);
-            vatAmount = new Amount(0);
-            metadata = new MetadataResponse { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
-            shopslogoUrl = new Uri("https://example.com");
-            price = new List<IPrice>
+            this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString(), "payeeName", "productCategory");
+            this.prefillInfo = new PrefillInfo(new Msisdn("+46701234567"));
+            this.amount = new Amount(1600);
+            this.vatAmount = new Amount(0);
+            this.metadata = new MetadataResponse { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
+            this.shopslogoUrl = new Uri("https://example.com");
+            this.price = new List<IPrice>
             {
-                new Price(amount, PriceType.Visa, vatAmount)
+                new Price(this.amount, PriceType.Visa, this.vatAmount)
             };
             return this;
         }
@@ -236,29 +179,29 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
 
         public PaymentRequestBuilder WithTruslyTestValues(Guid payeeId, Operation testOperation)
         {
-            operation = testOperation ?? Operation.Purchase;
-            intent = PaymentIntent.Sale;
-            currency = new Currency("SEK");
-            description = "Test Purchase";
-            payerReference = "SomeReference";
-            userAgent = "Mozilla/5.0...";
-            language = new Language("sv-SE");
+            this.operation = testOperation ?? Operation.Purchase;
+            this.intent = PaymentIntent.Sale;
+            this.currency = new Currency("SEK");
+            this.description = "Test Purchase";
+            this.payerReference = "SomeReference";
+            this.userAgent = "Mozilla/5.0...";
+            this.language = new Language("sv-SE");
             SetUrls();
-            payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
-            amount = new Amount(1600);
-            vatAmount = new Amount(0);
-            metadata = new MetadataResponse { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
-            price = new List<IPrice>
+            this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
+            this.amount = new Amount(1600);
+            this.vatAmount = new Amount(0);
+            this.metadata = new MetadataResponse { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
+            this.price = new List<IPrice>
             {
-                new Price(amount, PriceType.Trustly, vatAmount)
+                new Price(this.amount, PriceType.Trustly, this.vatAmount)
             };
-            trustlyPrefillInfo = new TrustlyPrefillInfo("Ola", "Nordmann");
+            this.trustlyPrefillInfo = new TrustlyPrefillInfo("Ola", "Nordmann");
             return this;
         }
 
         private void SetUrls()
         {
-            urls = new Urls(new UrlsDto
+            this.urls = new Urls(new UrlsDto
             {
                 HostUrls = new List<Uri> { new Uri("https://example.com") },
                 CompleteUrl = new Uri("https://example.com/payment-completed"),

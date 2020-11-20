@@ -15,13 +15,13 @@ namespace SwedbankPay.Sdk.Tests.Json
         {
             //ARRANGE
 
-            var jsonObject = $"{{ \"id\": \"{idstring}\" }}";
+            var jsonObject = $"{{ \"id\": \"{this.idstring}\" }}";
 
             //ACT
             var result = JsonSerializer.Deserialize<Uri>(jsonObject, JsonSerialization.JsonSerialization.Settings);
 
             //ASSERT
-            Assert.Equal(idstring, result.OriginalString);
+            Assert.Equal(this.idstring, result.OriginalString);
         }
 
 
@@ -31,7 +31,7 @@ namespace SwedbankPay.Sdk.Tests.Json
             //ARRANGE
             var dummy = new DummyClass
             {
-                Id = new Uri(idstring, UriKind.RelativeOrAbsolute)
+                Id = new Uri(this.idstring, UriKind.RelativeOrAbsolute)
             };
 
             //ACT
@@ -40,7 +40,7 @@ namespace SwedbankPay.Sdk.Tests.Json
 
             var id = obj.RootElement.GetProperty("id").ToString();
             //ASSERT
-            Assert.Equal(idstring, id);
+            Assert.Equal(this.idstring, id);
         }
 
 

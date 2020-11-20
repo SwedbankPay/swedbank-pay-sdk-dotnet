@@ -17,12 +17,12 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
 
         public MockFileProvider(params IFileInfo[] fileInfos)
         {
-            files = fileInfos;
+            this.files = fileInfos;
         }
 
         public MockFileProvider(params KeyValuePair<string, IChangeToken>[] mockChangeTokens)
         {
-            changeTokens = mockChangeTokens.ToDictionary(
+            this.changeTokens = mockChangeTokens.ToDictionary(
                 changeToken => changeToken.Key,
                 changeToken => changeToken.Value,
                 StringComparer.Ordinal);
@@ -35,11 +35,11 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
 
             if (string.IsNullOrEmpty(subpath))
             {
-                contents.GetEnumerator().Returns(files.GetEnumerator());
+                contents.GetEnumerator().Returns(this.files.GetEnumerator());
                 return contents;
             }
 
-            var filesInFolder = files.Where(f => f.Name.StartsWith(subpath, StringComparison.Ordinal));
+            var filesInFolder = this.files.Where(f => f.Name.StartsWith(subpath, StringComparison.Ordinal));
             if (filesInFolder.Any())
             {
                 contents.GetEnumerator().Returns(filesInFolder.GetEnumerator());
@@ -50,15 +50,15 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
 
         public IFileInfo GetFileInfo(string subpath)
         {
-            var file = files.FirstOrDefault(f => f.Name == subpath);
+            var file = this.files.FirstOrDefault(f => f.Name == subpath);
             return file ?? new NotFoundFileInfo(subpath);
         }
 
         public IChangeToken Watch(string filter)
         {
-            if (changeTokens != null && changeTokens.ContainsKey(filter))
+            if (this.changeTokens != null && this.changeTokens.ContainsKey(filter))
             {
-                return changeTokens[filter];
+                return this.changeTokens[filter];
             }
             return NullChangeToken.Singleton;
         }

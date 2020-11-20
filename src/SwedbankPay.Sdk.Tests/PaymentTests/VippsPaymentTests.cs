@@ -14,8 +14,8 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         [Fact]
         public async Task CreateVippsPayment_ShouldReturnWithExpectedValues()
         {
-            var vippsPaymentRequest = paymentRequestBuilder.WithVippsTestValues(payeeId, Operation.Purchase).BuildVippsRequest();
-            var vippsPayment = await Sut.Payments.VippsPayments.Create(vippsPaymentRequest, PaymentExpand.All);
+            var vippsPaymentRequest = this.paymentRequestBuilder.WithVippsTestValues(this.payeeId, Operation.Purchase).BuildVippsRequest();
+            var vippsPayment = await this.Sut.Payments.VippsPayments.Create(vippsPaymentRequest, PaymentExpand.All);
 
             Assert.NotNull(vippsPayment);
             Assert.Equal(vippsPaymentRequest.Payment.Metadata["key1"], vippsPayment.Payment.Metadata["key1"]);
@@ -31,10 +31,10 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         [Fact]
         public async Task CreateAndGetVippsPayment_ShouldReturnPaymentId()
         {
-            var vippsPaymentRequest = paymentRequestBuilder.WithVippsTestValues(payeeId, Operation.Purchase).BuildVippsRequest();
-            var vippsPayment = await Sut.Payments.VippsPayments.Create(vippsPaymentRequest, PaymentExpand.All);
+            var vippsPaymentRequest = this.paymentRequestBuilder.WithVippsTestValues(this.payeeId, Operation.Purchase).BuildVippsRequest();
+            var vippsPayment = await this.Sut.Payments.VippsPayments.Create(vippsPaymentRequest, PaymentExpand.All);
             var vippsPaymentId = vippsPayment.Payment.Id;
-            var getVippsPayment = await Sut.Payments.VippsPayments.Get(vippsPaymentId);
+            var getVippsPayment = await this.Sut.Payments.VippsPayments.Get(vippsPaymentId);
 
             Assert.NotNull(getVippsPayment);
 

@@ -19,16 +19,16 @@ namespace Sample.AspNetCore.Controllers
 
         public CartController(StoreDbContext storeDb, Cart cart)
         {
-            storesContext = storeDb;
-            cartService = cart;
+            this.storesContext = storeDb;
+            this.cartService = cart;
         }
 
 
         public async Task<IActionResult> AddToCart(int id)
         {
-            var productList = await storesContext.Products.ToListAsync();
+            var productList = await this.storesContext.Products.ToListAsync();
             var product = productList.FirstOrDefault(p => p.ProductId == id);
-            cartService.AddItem(product, 1);
+            this.cartService.AddItem(product, 1);
 
             return RedirectToAction("Index", "Products");
         }
@@ -67,10 +67,10 @@ namespace Sample.AspNetCore.Controllers
 
         public IActionResult RemoveFromCart(int id)
         {
-            var line = cartService.CartLines.FirstOrDefault(i => i.Product.ProductId == id);
+            var line = this.cartService.CartLines.FirstOrDefault(i => i.Product.ProductId == id);
             if (line != null)
             {
-                cartService.RemoveItem(line.Product, line.Quantity);
+                this.cartService.RemoveItem(line.Product, line.Quantity);
             }
 
             return RedirectToAction("Index", "Products");
@@ -80,11 +80,11 @@ namespace Sample.AspNetCore.Controllers
         [HttpPost]
         public IActionResult UpdateQuantity(int id, int quantity)
         {
-            var line = cartService.CartLines.FirstOrDefault(i => i.Product.ProductId == id);
+            var line = this.cartService.CartLines.FirstOrDefault(i => i.Product.ProductId == id);
             if (line != null)
             {
                 line.Quantity = quantity;
-                cartService.Update();
+                this.cartService.Update();
             }
 
             return RedirectToAction("Index", "Products");

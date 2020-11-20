@@ -213,7 +213,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
                 TermsOfServiceUrl = UriForTesting(),
                 PaymentUrl = UriForTesting()
             }),
-            new PayeeInfo(payeeId, GeneratePayeeReference())
+            new PayeeInfo(this.payeeId, GeneratePayeeReference())
             );
 
         private string GeneratePayeeReference()
