@@ -18,6 +18,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         /// <summary>
         /// Detailed information about this sales payment.
         /// </summary>
-        public SwishPaymentSale Sale { get; }
+        public ISwishPaymentSale Sale { get; }
     }
 }
