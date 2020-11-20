@@ -8,11 +8,11 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         {
             var operations = paymentResponseContainer.Operations.Map();
             Operations = new InvoicePaymentOperations(operations, httpClient);
-            Payment = new InvoicePaymentData(paymentResponseContainer.Payment);
+            Payment = new InvoicePaymentDetails(paymentResponseContainer.Payment);
         }
 
         public IInvoicePaymentOperations Operations { get; }
 
-        public IInvoicePaymentData Payment { get; }
+        public IInvoicePaymentDetails Payment { get; }
     }
 }

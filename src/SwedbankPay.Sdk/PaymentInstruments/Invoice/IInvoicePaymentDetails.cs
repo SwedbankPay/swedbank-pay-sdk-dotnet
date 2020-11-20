@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
-    public interface IInvoicePaymentData
+    public interface IInvoicePaymentDetails
     {
         /// <summary>
         /// The amount (including VAT, if any) to charge the payer,

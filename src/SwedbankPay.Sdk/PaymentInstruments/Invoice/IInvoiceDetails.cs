@@ -1,6 +1,6 @@
 ﻿namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
-    public interface IInvoiceData
+    public interface IInvoiceDetails
     {
         InvoiceType InvoiceType { get; set; }
     }

@@ -2,9 +2,9 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
 {
-    public class TrustlyPaymentData
+    public class TrustlyPaymentDetails
     {
-        public TrustlyPaymentData(Currency currency,
+        public TrustlyPaymentDetails(Currency currency,
                                                 List<IPrice> prices,
                                                 string description,
                                                 string payerReference,

@@ -4,12 +4,12 @@
     {
         public PaymentOrderUpdateRequest(Amount amount, Amount vatAmount)
         {
-            PaymentOrder = new PaymentOrderUpdateRequestData(amount, vatAmount);
+            PaymentOrder = new PaymentOrderUpdateRequestDetails(amount, vatAmount);
         }
 
         /// <summary>
         /// Details about the amount being updated.
         /// </summary>
-        public PaymentOrderUpdateRequestData PaymentOrder { get; }
+        public PaymentOrderUpdateRequestDetails PaymentOrder { get; }
     }
 }

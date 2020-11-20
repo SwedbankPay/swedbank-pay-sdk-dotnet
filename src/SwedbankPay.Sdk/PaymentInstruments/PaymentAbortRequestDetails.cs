@@ -1,8 +1,8 @@
 ﻿namespace SwedbankPay.Sdk.PaymentInstruments
 {
-    public class PaymentAbortRequestData
+    public class PaymentAbortRequestDetails
     {
-        public PaymentAbortRequestData()
+        public PaymentAbortRequestDetails()
         {
             AbortReason = "CancelledByConsumer";
         }

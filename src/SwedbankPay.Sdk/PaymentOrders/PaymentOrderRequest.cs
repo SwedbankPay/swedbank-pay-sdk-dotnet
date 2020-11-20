@@ -21,7 +21,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                    List<Item> items = null,
                                    bool? disablePaymentMenu = null)
         {
-            PaymentOrder = new PaymentOrderRequestData(operation, currency, amount, vatAmount, description, userAgent, language,
+            PaymentOrder = new PaymentOrderRequestDetails(operation, currency, amount, vatAmount, description, userAgent, language,
                                                          generateRecurrenceToken, urls, payeeInfo, payer, orderItems, riskIndicator,
                                                          metadata, items, disablePaymentMenu);
         }
@@ -29,6 +29,6 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <summary>
         /// Transactional details about the payment order.
         /// </summary>
-        public PaymentOrderRequestData PaymentOrder { get; }
+        public PaymentOrderRequestDetails PaymentOrder { get; }
     }
 }

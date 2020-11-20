@@ -5,6 +5,6 @@
         /// <summary>
         /// Data detailing why the current payment is being aborted.
         /// </summary>
-        public PaymentAbortRequestData Payment { get; set; } = new PaymentAbortRequestData();
+        public PaymentAbortRequestDetails Payment { get; set; } = new PaymentAbortRequestDetails();
     }
 }

@@ -2,9 +2,9 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
-    public class MobilePayPaymentRequestData
+    public class MobilePayPaymentRequestDetails
     {
-        protected internal MobilePayPaymentRequestData(Uri shoplogoUrl)
+        protected internal MobilePayPaymentRequestDetails(Uri shoplogoUrl)
         {
             ShoplogoUrl = shoplogoUrl;
         }

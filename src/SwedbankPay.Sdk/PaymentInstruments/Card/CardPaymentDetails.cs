@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
-    public class CardPaymentData
+    public class CardPaymentDetails
     {
-        public CardPaymentData(Operation operation,
+        public CardPaymentDetails(Operation operation,
                                                 PaymentIntent intent,
                                                 Currency currency,
                                                 List<IPrice> prices,

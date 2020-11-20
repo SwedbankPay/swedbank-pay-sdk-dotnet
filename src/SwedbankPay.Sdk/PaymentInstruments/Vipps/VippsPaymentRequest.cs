@@ -20,13 +20,13 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
                               string paymentToken = null)
 
         {
-            Payment = new VippsPaymentRequestData(operation, intent, currency, prices, description, payerReference, generatePaymentToken,
+            Payment = new VippsPaymentRequestDetails(operation, intent, currency, prices, description, payerReference, generatePaymentToken,
                                                GenerateRecurrenceToken, userAgent, language, urls, payeeInfo, metadata, paymentToken);
         }
 
         /// <summary>
         /// Details for creating a Vipps payment.
         /// </summary>
-        public VippsPaymentRequestData Payment { get; }
+        public VippsPaymentRequestDetails Payment { get; }
     }
 }

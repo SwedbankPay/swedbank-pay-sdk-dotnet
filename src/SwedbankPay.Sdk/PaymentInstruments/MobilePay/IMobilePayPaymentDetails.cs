@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
-    public interface IMobilePayPaymentData
+    public interface IMobilePayPaymentDetails
     {
         /// <summary>
         /// The currency code of the payment.

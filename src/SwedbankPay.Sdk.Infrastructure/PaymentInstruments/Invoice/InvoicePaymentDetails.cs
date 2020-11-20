@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
-    internal class InvoicePaymentData : IInvoicePaymentData
+    internal class InvoicePaymentDetails : IInvoicePaymentDetails
     {
-        public InvoicePaymentData(InvoicePaymentDto payment)
+        public InvoicePaymentDetails(InvoicePaymentDto payment)
         {
             Amount = payment.Amount;
             RemainingCaptureAmount = payment.RemainingCaptureAmount;

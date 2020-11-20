@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {
-    public class VippsPaymentRequestData
+    public class VippsPaymentRequestDetails
     {
-        protected internal VippsPaymentRequestData(Operation operation,
+        protected internal VippsPaymentRequestDetails(Operation operation,
                                                 PaymentIntent intent,
                                                 Currency currency,
                                                 List<IPrice> prices,

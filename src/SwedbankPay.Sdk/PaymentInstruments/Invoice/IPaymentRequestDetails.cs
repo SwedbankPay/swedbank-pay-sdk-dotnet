@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
-    public interface IPaymentRequestData
+    public interface IPaymentRequestDetails
     {
         /// <summary>
         /// The currency code for this invoice.

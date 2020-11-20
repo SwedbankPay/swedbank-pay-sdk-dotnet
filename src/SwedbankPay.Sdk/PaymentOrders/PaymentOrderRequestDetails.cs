@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class PaymentOrderRequestData
+    public class PaymentOrderRequestDetails
     {
-        protected internal PaymentOrderRequestData(Operation operation,
+        protected internal PaymentOrderRequestDetails(Operation operation,
                                                      Currency currency,
                                                      Amount amount,
                                                      Amount vatAmount,

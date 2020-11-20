@@ -23,7 +23,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
                               MetadataResponse metadata = null,
                               string paymentToken = null)
         {
-            Payment = new CardPaymentData(operation, intent, currency, prices, description, payerReference, generatePaymentToken,
+            Payment = new CardPaymentDetails(operation, intent, currency, prices, description, payerReference, generatePaymentToken,
                                                GenerateRecurrenceToken, userAgent, language, urls, payeeInfo, riskIndicator, cardholder,
                                                creditCard, metadata, paymentToken);
         }
@@ -31,6 +31,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
-        public CardPaymentData Payment { get; }
+        public CardPaymentDetails Payment { get; }
     }
 }
