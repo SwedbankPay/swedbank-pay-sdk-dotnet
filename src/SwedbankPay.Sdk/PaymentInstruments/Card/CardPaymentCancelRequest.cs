@@ -7,6 +7,9 @@
             Transaction = new CardPaymentCancelTransaction(payeeReference, description);
         }
 
+        /// <summary>
+        /// Transactional details about the cancellation.
+        /// </summary>
         public CardPaymentCancelTransaction Transaction { get; }
     }
 }

@@ -19,6 +19,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         /// </summary>
         PaymentIntent Intent { get; set; }
         Language Language { get; set; }
+
+        /// <summary>
+        /// The <seealso cref="Sdk.Operation"/> used to initate this payment.
+        /// </summary>
         Operation Operation { get; set; }
 
         /// <summary>

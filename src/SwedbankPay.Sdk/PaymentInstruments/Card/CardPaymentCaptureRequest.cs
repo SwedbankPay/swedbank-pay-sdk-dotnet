@@ -10,6 +10,9 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             Transaction = new CardPaymentCaptureTransaction(amount, vatAmount, orderItems, description, payeeReference);
         }
 
+        /// <summary>
+        /// Transactional details about the capture.
+        /// </summary>
         public CardPaymentCaptureTransaction Transaction { get; }
     }
 }
