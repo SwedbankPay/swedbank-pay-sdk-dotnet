@@ -20,8 +20,8 @@ namespace Sample.AspNetCore.Controllers
         public OrdersController(StoreDbContext storeDbContext,
                                 ISwedbankPayClient payClient)
         {
-            this.context = storeDbContext;
-            this.swedbankPayClient = payClient;
+            context = storeDbContext;
+            swedbankPayClient = payClient;
         }
 
 
