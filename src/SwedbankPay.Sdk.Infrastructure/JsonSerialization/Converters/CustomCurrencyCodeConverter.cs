@@ -4,9 +4,9 @@ using System.Text.Json.Serialization;
 
 namespace SwedbankPay.Sdk.JsonSerialization.Converters
 {
-    public class CustomCurrencyCodeConverter : JsonConverter<CurrencyCode>
+    public class CustomCurrencyCodeConverter : JsonConverter<Currency>
     {
-        public override CurrencyCode Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        public override Currency Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             if (reader.TokenType == JsonTokenType.PropertyName)
             {
@@ -28,14 +28,14 @@ namespace SwedbankPay.Sdk.JsonSerialization.Converters
 
             if (reader.TokenType == JsonTokenType.String)
             {
-                return new CurrencyCode(reader.GetString());
+                return new Currency(reader.GetString());
             }
 
             throw new JsonException();
         }
 
 
-        public override void Write(Utf8JsonWriter writer, CurrencyCode value, JsonSerializerOptions options)
+        public override void Write(Utf8JsonWriter writer, Currency value, JsonSerializerOptions options)
         {
             writer.WriteStringValue(value.ToString());
         }

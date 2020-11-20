@@ -7,7 +7,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
     {
         public MobilePayPaymentData(Operation operation,
                                                 PaymentIntent intent,
-                                                CurrencyCode currency,
+                                                Currency currency,
                                                 List<IPrice> prices,
                                                 string description,
                                                 string payerReference,
@@ -33,7 +33,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         }
 
 
-        public CurrencyCode Currency { get; set; }
+        public Currency Currency { get; set; }
         public string Description { get; set; }
         public PaymentIntent Intent { get; set; }
         public Language Language { get; set; }

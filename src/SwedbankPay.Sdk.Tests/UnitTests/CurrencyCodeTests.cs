@@ -15,7 +15,7 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
         public void CreateNewCurrencyCode_DoesNotThrow_WhenGivenValidCurrencyCode(string currencyCode)
         {
             //ACT
-            var ex = Record.Exception(() => new CurrencyCode(currencyCode));
+            var ex = Record.Exception(() => new Currency(currencyCode));
 
             //ASSERT
             Assert.Null(ex);
@@ -29,7 +29,7 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
         public void ThrowsArgumentException_WhenGivenInvalidCurrencyCode(string currencyCode)
         {
             //ASSERT
-            Assert.Throws<ArgumentException>(() => new CurrencyCode(currencyCode));
+            Assert.Throws<ArgumentException>(() => new Currency(currencyCode));
         }
 
 
@@ -37,7 +37,7 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
         public void ThrowsArgumentNullException_WhenGivenNullOrEmptyCurrencyCode()
         {
             //ASSERT
-            Assert.Throws<ArgumentNullException>("currencyCode", () => new CurrencyCode(""));
+            Assert.Throws<ArgumentNullException>("currencyCode", () => new Currency(""));
         }
     }
 }

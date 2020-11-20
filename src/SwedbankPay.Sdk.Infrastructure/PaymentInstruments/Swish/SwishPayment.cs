@@ -14,7 +14,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
             Operation = payment.Operation;
             Intent = Enum.Parse<PaymentIntent>(payment.Intent);
             State = payment.State;
-            Currency = new CurrencyCode(payment.Currency);
+            Currency = new Currency(payment.Currency);
             Prices = payment.Prices.Map();
             Amount = payment.Amount;
             RemainingReversalAmount = payment.RemainingReversalAmount;
@@ -40,7 +40,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         public Operation Operation { get; }
         public PaymentIntent Intent { get; }
         public State State { get; }
-        public CurrencyCode Currency { get; }
+        public Currency Currency { get; }
         public IPricesListResponse Prices { get; }
         public Amount Amount { get; }
         public Amount RemainingReversalAmount { get; set; }

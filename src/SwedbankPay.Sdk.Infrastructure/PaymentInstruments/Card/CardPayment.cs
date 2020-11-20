@@ -18,7 +18,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             RemainingReversalAmount = payment.RemainingReversalAmount;
             Created = payment.Created;
             Updated = payment.Updated;
-            Currency = new CurrencyCode(payment.Currency);
+            Currency = new Currency(payment.Currency);
             Description = payment.Description;
             Id = new Uri(payment.Id, UriKind.RelativeOrAbsolute);
             Instrument = Enum.Parse<PaymentInstrument>(payment.Instrument);
@@ -63,7 +63,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 
         public DateTime Updated { get; }
 
-        public CurrencyCode Currency { get; }
+        public Currency Currency { get; }
 
         public string Description { get; }
 

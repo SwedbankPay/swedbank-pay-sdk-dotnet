@@ -8,7 +8,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
     public class PaymentOrderRequestBuilder
     {
         private Amount amount;
-        private CurrencyCode currency;
+        private Currency currency;
         private string description;
         private bool generateRecurrenceToken;
         private Language language;
@@ -81,7 +81,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         public PaymentOrderRequestBuilder WithTestValues(Guid payeeId)
         {
             operation = Operation.Purchase;
-            currency = new CurrencyCode("SEK");
+            currency = new Currency("SEK");
             amount = new Amount(1700);
             vatAmount = new Amount(0);
             description = "Test Description";

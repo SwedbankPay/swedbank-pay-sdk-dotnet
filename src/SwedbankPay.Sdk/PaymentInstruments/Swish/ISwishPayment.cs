@@ -49,7 +49,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         /// <summary>
         /// The currency code this payment is to be paid in.
         /// </summary>
-        CurrencyCode Currency { get; }
+        Currency Currency { get; }
 
         /// <summary>
         /// Contains information of the prices resource.

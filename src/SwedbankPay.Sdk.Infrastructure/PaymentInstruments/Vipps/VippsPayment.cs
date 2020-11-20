@@ -10,7 +10,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
             Amount = payment.Amount;
             Created = payment.Created;
             Updated = payment.Updated;
-            Currency = new CurrencyCode(payment.Currency);
+            Currency = new Currency(payment.Currency);
             Description = payment.Description;
             Id = payment.Id;
             Instrument = Enum.Parse<PaymentInstrument>(payment.Instrument);
@@ -39,7 +39,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         public ICapturesListResponse Captures { get; }
         public DateTime Created { get; }
         public DateTime Updated { get; }
-        public CurrencyCode Currency { get; }
+        public Currency Currency { get; }
         public string Description { get; }
         public Uri Id { get; }
         public PaymentInstrument Instrument { get; }

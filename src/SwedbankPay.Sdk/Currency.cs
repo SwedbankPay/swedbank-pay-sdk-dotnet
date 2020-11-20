@@ -18,9 +18,9 @@ namespace SwedbankPay.Sdk
     /// <summary>
     /// The currency code used for the payment
     /// </summary>
-    public class CurrencyCode
+    public class Currency
     {
-        public CurrencyCode(string currencyCode)
+        public Currency(string currencyCode)
         {
             if (string.IsNullOrEmpty(currencyCode))
             {

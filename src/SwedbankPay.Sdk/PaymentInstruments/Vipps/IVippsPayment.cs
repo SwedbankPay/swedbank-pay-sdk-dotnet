@@ -35,9 +35,9 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         public DateTime Updated { get; }
 
         /// <summary>
-        /// The set <seealso cref="CurrencyCode"/> for this payment.
+        /// The set <seealso cref="Sdk.Currency"/> for this payment.
         /// </summary>
-        public CurrencyCode Currency { get; }
+        public Currency Currency { get; }
 
         /// <summary>
         /// A textual description of what is being paid for.

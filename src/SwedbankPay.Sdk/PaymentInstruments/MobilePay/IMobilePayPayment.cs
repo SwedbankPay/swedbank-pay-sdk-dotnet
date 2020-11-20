@@ -43,7 +43,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         /// <summary>
         /// The currency this payment is to be paid in.
         /// </summary>
-        CurrencyCode Currency { get; }
+        Currency Currency { get; }
 
         /// <summary>
         /// A textual description of what this payment is for.

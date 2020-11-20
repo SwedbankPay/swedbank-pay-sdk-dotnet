@@ -197,7 +197,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
 
         private PaymentOrderRequest GetPaymentOrderRequest() => new PaymentOrderRequest(
             Operation.Purchase,
-            new CurrencyCode("NOK"),
+            new Currency("NOK"),
             new Amount(25767),
             new Amount(0),
             "test",

@@ -16,7 +16,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
             Captures = payment.Captures.Map();
             Created = payment.Created;
             Updated = payment.Updated;
-            Currency = new CurrencyCode(payment.Currency);
+            Currency = new Currency(payment.Currency);
             Description = payment.Description;
             Id = payment.Id;
             Instrument = Enum.Parse<PaymentInstrument>(payment.Instrument);
@@ -54,7 +54,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 
         public DateTime Updated { get; }
 
-        public CurrencyCode Currency { get; }
+        public Currency Currency { get; }
 
         public string Description { get; }
 

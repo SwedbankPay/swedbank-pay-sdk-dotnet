@@ -17,7 +17,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         {
             Operation = Operation.Purchase;
             Intent = PaymentIntent.Sale;
-            Currency = new CurrencyCode("SEK");
+            Currency = new Currency("SEK");
             Prices = prices;
             Description = description;
             PayerReference = payerReference;
@@ -33,7 +33,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         /// <summary>
         /// SEK is the currency for Swish
         /// </summary>
-        public CurrencyCode Currency { get; }
+        public Currency Currency { get; }
 
         /// <summary>
         /// A 40 character max length textual description of the purchase.

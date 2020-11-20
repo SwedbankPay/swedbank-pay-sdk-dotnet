@@ -12,7 +12,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
             Created = payment.Created;
             Updated = payment.Updated;
             Amount = payment.Amount;
-            Currency = new CurrencyCode(payment.Currency);
+            Currency = new Currency(payment.Currency);
             Description = payment.Description;
             Intent = Enum.Parse<PaymentIntent>(payment.Intent);
             Language = new Language(payment.Language);
@@ -41,7 +41,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public IPaymentAuthorizationResponse Authorizations { get; }
         public ICancellationsListResponse Cancellations { get; }
         public ICapturesListResponse Captures { get; }
-        public CurrencyCode Currency { get; }
+        public Currency Currency { get; }
         public string Description { get; }
         public PaymentIntent Intent { get; }
         public Language Language { get; }

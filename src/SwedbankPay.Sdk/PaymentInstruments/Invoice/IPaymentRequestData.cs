@@ -7,7 +7,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         /// <summary>
         /// The currency code for this invoice.
         /// </summary>
-        CurrencyCode Currency { get; set; }
+        Currency Currency { get; set; }
 
         /// <summary>
         /// A 40 character length textual description of the purchase.

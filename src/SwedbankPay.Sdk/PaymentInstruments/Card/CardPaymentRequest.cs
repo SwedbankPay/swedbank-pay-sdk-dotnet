@@ -7,7 +7,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
     {
         public CardPaymentRequest(Operation operation,
                               PaymentIntent intent,
-                              CurrencyCode currency,
+                              Currency currency,
                               List<IPrice> prices,
                               string description,
                               string userAgent,

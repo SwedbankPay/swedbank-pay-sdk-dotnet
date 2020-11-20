@@ -8,7 +8,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
     {
         public CardPaymentData(Operation operation,
                                                 PaymentIntent intent,
-                                                CurrencyCode currency,
+                                                Currency currency,
                                                 List<IPrice> prices,
                                                 string description,
                                                 string payerReference,
@@ -57,7 +57,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// <summary>
         /// The currency used to pay the payment.
         /// </summary>
-        public CurrencyCode Currency { get; }
+        public Currency Currency { get; }
 
         /// <summary>
         /// Description about the current payment.

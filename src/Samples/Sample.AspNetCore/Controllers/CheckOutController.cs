@@ -63,7 +63,7 @@ namespace Sample.AspNetCore.Controllers
             var paymentOrderItems = orderItems?.ToList();
             try
             {
-                var paymentOrderRequest = new PaymentOrderRequest(Operation.Purchase, new CurrencyCode("SEK"),
+                var paymentOrderRequest = new PaymentOrderRequest(Operation.Purchase, new Currency("SEK"),
                                                                   new Amount(totalAmount),
                                                                   new Amount(0), "Test description", "useragent",
                                                                   new Language("sv-SE"),
@@ -95,7 +95,7 @@ namespace Sample.AspNetCore.Controllers
             var vatAmount = new Amount(0);
             try
             {
-                var cardRequest = new CardPaymentRequest(Operation.Purchase, PaymentIntent.Authorization, new CurrencyCode("SEK"),
+                var cardRequest = new CardPaymentRequest(Operation.Purchase, PaymentIntent.Authorization, new Currency("SEK"),
                                                                                    new List<IPrice>
                                                                                    {
                                                                                        new Price(new Amount(totalAmount),
@@ -131,7 +131,7 @@ namespace Sample.AspNetCore.Controllers
             var vatAmount = new Amount(0);
             try
             {
-                var trustlyPaymentRequest = new TrustlyPaymentRequest(new CurrencyCode("SEK"),
+                var trustlyPaymentRequest = new TrustlyPaymentRequest(new Currency("SEK"),
                                                                                      new List<IPrice>
                                                                                      {
                                                                                          new Price(new Amount(totalAmount),

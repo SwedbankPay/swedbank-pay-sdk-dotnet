@@ -14,7 +14,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
     {
         private Operation operation;
         private PaymentIntent intent;
-        private CurrencyCode currency;
+        private Currency currency;
         private string description;
         private string userAgent;
         private Language language;
@@ -115,7 +115,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         {
             operation = testOperation ?? Operation.Purchase;
             intent = paymentIntent;
-            currency = new CurrencyCode("SEK");
+            currency = new Currency("SEK");
             description = "Test Description";
             payerReference = "AB1234";
             userAgent = "useragent";
@@ -139,7 +139,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         {
             operation = Operation.Purchase;
             intent = PaymentIntent.Sale;
-            currency = new CurrencyCode("SEK");
+            currency = new Currency("SEK");
             description = "Test Description";
             payerReference = "AB1234";
             userAgent = "useragent";
@@ -162,7 +162,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         {
             operation = testOperation ?? Operation.FinancingConsumer;
             intent = PaymentIntent.Authorization;
-            currency = new CurrencyCode("NOK");
+            currency = new Currency("NOK");
             description = "Test Description";
             payerReference = "AB1234";
             userAgent = "useragent";
@@ -185,7 +185,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         {
             operation = testOperation ?? Operation.Purchase;
             intent = PaymentIntent.Authorization;
-            currency = new CurrencyCode("NOK");
+            currency = new Currency("NOK");
             description = "Test Description";
             payerReference = "AB1234";
             userAgent = "useragent";
@@ -208,7 +208,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         {
             operation = Operation.Purchase;
             intent = PaymentIntent.Authorization;
-            currency = new CurrencyCode("SEK");
+            currency = new Currency("SEK");
             description = "Test Description";
             payerReference = "AB1234";
             userAgent = "useragent";
@@ -238,7 +238,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         {
             operation = testOperation ?? Operation.Purchase;
             intent = PaymentIntent.Sale;
-            currency = new CurrencyCode("SEK");
+            currency = new Currency("SEK");
             description = "Test Purchase";
             payerReference = "SomeReference";
             userAgent = "Mozilla/5.0...";

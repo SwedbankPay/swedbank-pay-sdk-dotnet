@@ -29,7 +29,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
         /// THe currency of the provided amount.
         /// SEK or EUR.
         /// </summary>
-        public CurrencyCode Currency { get; }
+        public Currency Currency { get; }
 
         /// <summary>
         /// A 40 character length textual description of the purchase.

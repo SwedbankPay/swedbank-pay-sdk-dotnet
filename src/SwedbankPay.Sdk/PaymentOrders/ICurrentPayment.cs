@@ -33,7 +33,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <summary>
         /// The currency of the payment.
         /// </summary>
-        CurrencyCode Currency { get; }
+        Currency Currency { get; }
 
         /// <summary>
         /// A 40 character length textual description of the purchase.

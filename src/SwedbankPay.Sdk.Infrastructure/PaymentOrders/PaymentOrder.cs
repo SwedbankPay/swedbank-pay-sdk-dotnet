@@ -10,7 +10,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
             Id = new Uri(paymentOrder.Id, UriKind.RelativeOrAbsolute);
             Amount = paymentOrder.Amount;
             Created = paymentOrder.Created;
-            Currency = new CurrencyCode(paymentOrder.Currency);
+            Currency = new Currency(paymentOrder.Currency);
             CurrentPayment = paymentOrder.CurrentPayment.Map();
             Description = paymentOrder.Description;
             Language = new Language(paymentOrder.Language);
@@ -38,7 +38,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public Uri Id { get; }
         public Amount Amount { get; }
         public DateTime Created { get; }
-        public CurrencyCode Currency { get; }
+        public Currency Currency { get; }
         public ICurrentPaymentResponse CurrentPayment { get; }
         public string Description { get; }
         public Language Language { get; }

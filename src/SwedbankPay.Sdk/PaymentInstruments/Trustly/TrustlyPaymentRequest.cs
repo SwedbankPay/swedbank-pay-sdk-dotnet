@@ -5,7 +5,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
     public class TrustlyPaymentRequest
     {
         public TrustlyPaymentRequest(
-            CurrencyCode currency,
+            Currency currency,
             List<IPrice> prices,
             string description,
             string payerReference,

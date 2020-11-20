@@ -7,7 +7,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
     {
         public MobilePayPaymentRequest(Operation operation,
                               PaymentIntent intent,
-                              CurrencyCode currency,
+                              Currency currency,
                               List<IPrice> prices,
                               string description,
                               string userAgent,

@@ -7,7 +7,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         /// <summary>
         /// The currency code of the payment.
         /// </summary>
-        CurrencyCode Currency { get; set; }
+        Currency Currency { get; set; }
 
         /// <summary>
         /// A textual description of what the payment contains.

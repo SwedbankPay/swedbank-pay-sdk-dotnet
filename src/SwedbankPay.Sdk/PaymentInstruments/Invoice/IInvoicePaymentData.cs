@@ -54,7 +54,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         /// <summary>
         /// SEK, NOK, EUR etc
         /// </summary>
-        CurrencyCode Currency { get; }
+        Currency Currency { get; }
 
         /// <summary>
         /// A textual description of the transaction,

@@ -54,7 +54,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// <summary>
         /// The currency of this payment.
         /// </summary>
-        CurrencyCode Currency { get; }
+        Currency Currency { get; }
 
         /// <summary>
         /// Your description of this payment.

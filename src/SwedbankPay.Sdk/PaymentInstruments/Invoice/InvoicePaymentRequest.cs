@@ -6,7 +6,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
     {
         public InvoicePaymentRequest(Operation operation,
                               PaymentIntent intent,
-                              CurrencyCode currency,
+                              Currency currency,
                               List<IPrice> prices,
                               string description,
                               string userAgent,

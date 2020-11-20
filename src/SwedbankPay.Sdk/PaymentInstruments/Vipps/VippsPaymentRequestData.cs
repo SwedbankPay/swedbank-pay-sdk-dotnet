@@ -7,7 +7,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
     {
         protected internal VippsPaymentRequestData(Operation operation,
                                                 PaymentIntent intent,
-                                                CurrencyCode currency,
+                                                Currency currency,
                                                 List<IPrice> prices,
                                                 string description,
                                                 string payerReference,
@@ -39,7 +39,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         /// <summary>
         /// The currency to be paid with.
         /// </summary>
-        public CurrencyCode Currency { get; set; }
+        public Currency Currency { get; set; }
 
         /// <summary>
         /// A textual description of the payment.

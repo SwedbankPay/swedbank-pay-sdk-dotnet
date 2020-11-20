@@ -6,7 +6,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
     public class PaymentOrderRequestData
     {
         protected internal PaymentOrderRequestData(Operation operation,
-                                                     CurrencyCode currency,
+                                                     Currency currency,
                                                      Amount amount,
                                                      Amount vatAmount,
                                                      string description,
@@ -50,7 +50,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <summary>
         ///     The currency of the payment.
         /// </summary>
-        public CurrencyCode Currency { get; }
+        public Currency Currency { get; }
 
         /// <summary>
         ///     The description of the payment order.

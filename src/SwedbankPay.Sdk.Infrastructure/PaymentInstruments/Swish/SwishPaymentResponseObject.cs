@@ -13,7 +13,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
                                Operation operation,
                                PaymentIntent intent,
                                State state,
-                               CurrencyCode currency,
+                               Currency currency,
                                IPricesListResponse prices,
                                Amount amount,
                                Amount remainingReversalAmount,
@@ -62,7 +62,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         public Operation Operation { get; }
         public PaymentIntent Intent { get; }
         public State State { get; }
-        public CurrencyCode Currency { get; }
+        public Currency Currency { get; }
         public IPricesListResponse Prices { get; }
         public Amount Amount { get; }
         public Amount RemainingReversalAmount { get; set; }

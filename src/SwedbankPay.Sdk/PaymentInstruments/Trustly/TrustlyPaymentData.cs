@@ -4,7 +4,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
 {
     public class TrustlyPaymentData
     {
-        public TrustlyPaymentData(CurrencyCode currency,
+        public TrustlyPaymentData(Currency currency,
                                                 List<IPrice> prices,
                                                 string description,
                                                 string payerReference,
@@ -30,7 +30,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
         /// <summary>
         /// SEK, EUR. The currency of the provided <seealso cref="Sdk.Amount"/>.
         /// </summary>
-        public CurrencyCode Currency { get; set; }
+        public Currency Currency { get; set; }
 
         /// <summary>
         /// A 40 character length textual description of the purchase.

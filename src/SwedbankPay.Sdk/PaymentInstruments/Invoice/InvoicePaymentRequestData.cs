@@ -7,7 +7,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
     {
         public InvoicePaymentRequestData(Operation operation,
                                                     PaymentIntent intent,
-                                                    CurrencyCode currency,
+                                                    Currency currency,
                                                     List<IPrice> prices,
                                                     string description,
                                                     string payerReference,
@@ -39,7 +39,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         }
 
 
-        public CurrencyCode Currency { get; set; }
+        public Currency Currency { get; set; }
         public string Description { get; set; }
         public bool GeneratePaymentToken { get; set; }
         public bool GenerateRecurrenceToken { get; set; }

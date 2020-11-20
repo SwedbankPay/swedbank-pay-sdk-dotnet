@@ -5,7 +5,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
     public class PaymentOrderRequest
     {
         public PaymentOrderRequest(Operation operation,
-                                   CurrencyCode currency,
+                                   Currency currency,
                                    Amount amount,
                                    Amount vatAmount,
                                    string description,

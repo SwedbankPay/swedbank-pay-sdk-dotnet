@@ -6,7 +6,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
     {
         public VippsPaymentRequest(Operation operation,
                               PaymentIntent intent,
-                              CurrencyCode currency,
+                              Currency currency,
                               List<IPrice> prices,
                               string description,
                               string userAgent,

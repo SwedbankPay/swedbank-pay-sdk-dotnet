@@ -19,7 +19,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <summary>
         /// The selected currency for this payment order.
         /// </summary>
-        public CurrencyCode Currency { get; }
+        public Currency Currency { get; }
 
         /// <summary>
         /// Resource where information about the current – and sole active – payment can be retrieved.
