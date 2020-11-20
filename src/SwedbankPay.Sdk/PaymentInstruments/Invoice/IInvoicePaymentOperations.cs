@@ -29,7 +29,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         /// <summary>
         /// Performs a direct authorization on the current payment, if available.
         /// </summary>
-        [Obsolete]
+        [Obsolete("Will be phased out, use PaymentOrder instead")]
         Func<InvoicePaymentAuthorizationRequest, Task<IInvoicePaymentAuthorizationResponse>> DirectAuthorization { get; }
 
         /// <summary>
