@@ -31,6 +31,24 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
 
             Assert.NotNull(cardPayment.Payment.RecurrenceToken);
             Assert.True(!string.IsNullOrEmpty(cardPayment.Payment.RecurrenceToken));
+
+            var recur = new SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurRequest(Operation.Verify,
+                PaymentIntent.Authorization,
+                cardPayment.Payment.RecurrenceToken,
+                cardPayment.Payment.Currency,
+                cardPayment.Payment.Amount,
+                new Amount(0),
+                cardPayment.Payment.Description,
+                cardPayment.Payment.UserAgent,
+                cardPayment.Payment.Language,
+                cardPayment.Payment.Urls.CallbackUrl,
+                cardPayment.Payment.PayeeInfo,
+                cardPayment.Payment.Metadata);
+
+            var result = await SwedbankPayClient.Payments.CardPayments.Create(recur);
+
+            Assert.NotNull(result);
+            Assert.NotNull(result.Payment);
         }
     }
 }
