@@ -33,6 +33,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             Urls = new Urls(payment.Urls);
             UserAgent = payment.UserAgent;
             Metadata = new MetadataResponse(payment.Metadata);
+            RecurrenceToken = payment.RecurrenceToken;
 
             Authorizations = payment.Authorizations?.Map();
             Cancellations = payment.Cancellations?.Map();
@@ -98,5 +99,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         public string UserAgent { get; }
 
         public MetadataResponse Metadata { get; }
+
+        public string RecurrenceToken { get; }
     }
 }
