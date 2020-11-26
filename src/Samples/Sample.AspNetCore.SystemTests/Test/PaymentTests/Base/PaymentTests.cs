@@ -79,7 +79,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             switch (checkout)
             {
                 case Checkout.Option.LocalPaymentMenu:
-                    return GoToLocalPaymentPage(products, checkout)
+                    return GoToLocalPaymentPage(products)
                         .CreditCard.IsVisible.WaitTo.BeTrue()
                         .CreditCard.Click()
                         .PaymentFrame.SwitchTo<PayexCardFramePage>();
@@ -113,55 +113,39 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
 
         protected PayexSwishFramePage GoToPayexSwishPaymentFrame(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
-            switch (checkout)
+            return checkout switch
             {
-                case Checkout.Option.LocalPaymentMenu:
-                    return GoToLocalPaymentPage(products, checkout)
-                        .Swish.IsVisible.WaitTo.BeTrue()
-                        .Swish.Click()
-                        .PaymentFrame.SwitchTo<PayexSwishFramePage>();
-
-                case Checkout.Option.Anonymous:
-                case Checkout.Option.Standard:
-                default:
-
-                    return GoToPaymentFramePage(products, checkout)
-                        .PaymentMethods[x => x.Name == PaymentMethods.Swish].IsVisible.WaitTo.BeTrue()
-                        .PaymentMethods[x => x.Name == PaymentMethods.Swish].Click()
-                        .PaymentMethods[x => x.Name == PaymentMethods.Swish].PaymentFrame.SwitchTo<PayexSwishFramePage>();
-
-
-            }
-
+                Checkout.Option.LocalPaymentMenu => GoToLocalPaymentPage(products)
+                                       .Swish.IsVisible.WaitTo.BeTrue()
+                                       .Swish.Click()
+                                       .PaymentFrame.SwitchTo<PayexSwishFramePage>(),
+                _ => GoToPaymentFramePage(products, checkout)
+                    .PaymentMethods[x => x.Name == PaymentMethods.Swish].IsVisible.WaitTo.BeTrue()
+                    .PaymentMethods[x => x.Name == PaymentMethods.Swish].Click()
+                    .PaymentMethods[x => x.Name == PaymentMethods.Swish].PaymentFrame.SwitchTo<PayexSwishFramePage>(),
+            };
         }
 
 
         protected PaymentFramePage GoToPaymentFramePage(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
-            switch (checkout)
+            return checkout switch
             {
-                case Checkout.Option.Standard:
-
-                    return GoToPayexPaymentPage(products, checkout)
-                        .IdentificationFrame.SwitchTo()
-                        .Email.IsVisible.WaitTo.BeTrue()
-                        .Email.SetWithSpeed(TestDataService.Email, interval: 0.1)
-                        .PhoneNumber.SetWithSpeed(TestDataService.SwedishPhoneNumber, interval: 0.1)
-                        .Next.Click().SwitchToRoot<PaymentPage>().Wait(TimeSpan.FromSeconds(20))
-                        .PaymentMethodsFrame.SwitchTo();
-
-                case Checkout.Option.Anonymous:
-                default:
-
-                    return GoToPayexPaymentPage(products, checkout)
-                        .PaymentMethodsFrame.IsVisible.WaitTo.BeTrue()
-                        .PaymentMethodsFrame.SwitchTo();
-
-            }
+                Checkout.Option.Standard => GoToPayexPaymentPage(products, checkout)
+                                       .IdentificationFrame.SwitchTo()
+                                       .Email.IsVisible.WaitTo.BeTrue()
+                                       .Email.SetWithSpeed(TestDataService.Email, interval: 0.1)
+                                       .PhoneNumber.SetWithSpeed(TestDataService.SwedishPhoneNumber, interval: 0.1)
+                                       .Next.Click().SwitchToRoot<PaymentPage>().Wait(TimeSpan.FromSeconds(20))
+                                       .PaymentMethodsFrame.SwitchTo(),
+                _ => GoToPayexPaymentPage(products, checkout)
+                    .PaymentMethodsFrame.IsVisible.WaitTo.BeTrue()
+                    .PaymentMethodsFrame.SwitchTo(),
+            };
         }
 
 
-        protected LocalPaymentMenuPage GoToLocalPaymentPage(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)
+        protected LocalPaymentMenuPage GoToLocalPaymentPage(Product[] products)
         {
             return SelectProducts(products)
                     .LocalPaymentMenu.ClickAndGo();
@@ -170,15 +154,11 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
 
         protected PaymentPage GoToPayexPaymentPage(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
-            switch (checkout)
+            return checkout switch
             {
-                case Checkout.Option.Standard:
-                    return SelectProducts(products).StandardCheckout.ClickAndGo();
-
-                case Checkout.Option.Anonymous:
-                default:
-                    return SelectProducts(products).AnonymousCheckout.ClickAndGo();
-            }
+                Checkout.Option.Standard => SelectProducts(products).StandardCheckout.ClickAndGo(),
+                _ => SelectProducts(products).AnonymousCheckout.ClickAndGo(),
+            };
         }
 
 
@@ -214,104 +194,88 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
 
         protected ThankYouPage PayWithPayexCard(Product[] products, PayexCardInfo info, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
-            switch (checkout)
+            return checkout switch
             {
-                case Checkout.Option.Standard:
-                    return GoToPayexCardPaymentFrame(products, checkout)
-                        .Do(x =>
-                        {
-                            if (x.PreFilledCards.Exists(new SearchOptions { IsSafely = true, Timeout = TimeSpan.FromSeconds(3) }))
-                            {
-                                if (x.PreFilledCards.Items[y => y.CreditCardNumber.Value.Contains(info.CreditCardNumber.Substring(info.CreditCardNumber.Length - 4))].Exists())
-                                {
-                                    x
-                                    .PreFilledCards
-                                    .Items[
-                                        y => y.CreditCardNumber.Value.Contains(
-                                            info.CreditCardNumber.Substring(info.CreditCardNumber.Length - 4))].Click()
-                                    .Cvc.SetWithSpeed(info.Cvc, interval: 0.1);
-                                }
-                                else
-                                {
-                                    x
-                                    .AddNewCard.Click()
-                                    .CreditCardNumber.SetWithSpeed(TestDataService.CreditCardNumber, interval: 0.1)
-                                    .ExpiryDate.SetWithSpeed(TestDataService.CreditCardExpirationDate, interval: 0.1)
-                                    .Cvc.SetWithSpeed(TestDataService.CreditCardCvc, interval: 0.1);
-                                }
-                            }
-                            else if (x.CreditCardNumber.Exists(new SearchOptions { IsSafely = true, Timeout = TimeSpan.FromSeconds(3) }))
-                            {
-                                x
-                                .CreditCardNumber.SetWithSpeed(info.CreditCardNumber, interval: 0.1)
-                                .ExpiryDate.SetWithSpeed(info.ExpiryDate, interval: 0.1)
-                                .Cvc.SetWithSpeed(info.Cvc, interval: 0.1);
-                            }
-                        })
-                        .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
-                        .Pay.ClickAndGo();
-                case Checkout.Option.LocalPaymentMenu:
-                case Checkout.Option.Anonymous:
-                default:
-                    return GoToPayexCardPaymentFrame(products, checkout)
-                        .CreditCardNumber.IsVisible.WaitTo.BeTrue()
-                        .CreditCardNumber.SetWithSpeed(info.CreditCardNumber, interval: 0.1)
-                        .ExpiryDate.SetWithSpeed(info.ExpiryDate, interval: 0.1)
-                        .Cvc.SetWithSpeed(info.Cvc, interval: 0.1)
-                        .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
-                        .Pay.ClickAndGo();
-            }
+                Checkout.Option.Standard => GoToPayexCardPaymentFrame(products, checkout)
+                                       .Do(x =>
+                                       {
+                                           if (x.PreFilledCards.Exists(new SearchOptions { IsSafely = true, Timeout = TimeSpan.FromSeconds(3) }))
+                                           {
+                                               if (x.PreFilledCards.Items[y => y.CreditCardNumber.Value.Contains(info.CreditCardNumber.Substring(info.CreditCardNumber.Length - 4))].Exists())
+                                               {
+                                                   x
+                                                   .PreFilledCards
+                                                   .Items[
+                                                       y => y.CreditCardNumber.Value.Contains(
+                                                           info.CreditCardNumber.Substring(info.CreditCardNumber.Length - 4))].Click()
+                                                   .Cvc.SetWithSpeed(info.Cvc, interval: 0.1);
+                                               }
+                                               else
+                                               {
+                                                   x
+                                                   .AddNewCard.Click()
+                                                   .CreditCardNumber.SetWithSpeed(TestDataService.CreditCardNumber, interval: 0.1)
+                                                   .ExpiryDate.SetWithSpeed(TestDataService.CreditCardExpirationDate, interval: 0.1)
+                                                   .Cvc.SetWithSpeed(TestDataService.CreditCardCvc, interval: 0.1);
+                                               }
+                                           }
+                                           else if (x.CreditCardNumber.Exists(new SearchOptions { IsSafely = true, Timeout = TimeSpan.FromSeconds(3) }))
+                                           {
+                                               x
+                                               .CreditCardNumber.SetWithSpeed(info.CreditCardNumber, interval: 0.1)
+                                               .ExpiryDate.SetWithSpeed(info.ExpiryDate, interval: 0.1)
+                                               .Cvc.SetWithSpeed(info.Cvc, interval: 0.1);
+                                           }
+                                       })
+                                       .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
+                                       .Pay.ClickAndGo(),
+                _ => GoToPayexCardPaymentFrame(products, checkout)
+                    .CreditCardNumber.IsVisible.WaitTo.BeTrue()
+                    .CreditCardNumber.SetWithSpeed(info.CreditCardNumber, interval: 0.1)
+                    .ExpiryDate.SetWithSpeed(info.ExpiryDate, interval: 0.1)
+                    .Cvc.SetWithSpeed(info.Cvc, interval: 0.1)
+                    .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
+                    .Pay.ClickAndGo(),
+            };
         }
 
 
         protected ThankYouPage PayWithPayexInvoice(Product[] products, PayexInvoiceInfo info, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
-            switch (checkout)
+            return checkout switch
             {
-                case Checkout.Option.Standard:
-                    return GoToPayexInvoicePaymentFrame(products, checkout)
-                        .PersonalNumber.IsVisible.WaitTo.BeTrue()
-                        .PersonalNumber.SetWithSpeed(info.PersonalNumber.Substring(info.PersonalNumber.Length - 4), interval: 0.15)
-                        .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
-                        .Pay.ClickAndGo();
-
-                case Checkout.Option.Anonymous:
-                default:
-
-                    return GoToPayexInvoicePaymentFrame(products, checkout)
-                        .PersonalNumber.IsVisible.WaitTo.BeTrue()
-                        .PersonalNumber.SetWithSpeed(info.PersonalNumber, interval: 0.1)
-                        .Email.SetWithSpeed(info.Email, interval: 0.1)
-                        .PhoneNumber.SetWithSpeed(info.PhoneNumber, interval: 0.1)
-                        .ZipCode.SetWithSpeed(info.ZipCode, interval: 0.1)
-                        .Next.Click()
-                        .Wait(TimeSpan.FromSeconds(10))
-                        .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
-                        .Pay.ClickAndGo();
-            }
+                Checkout.Option.Standard => GoToPayexInvoicePaymentFrame(products, checkout)
+                                       .PersonalNumber.IsVisible.WaitTo.BeTrue()
+                                       .PersonalNumber.SetWithSpeed(info.PersonalNumber.Substring(info.PersonalNumber.Length - 4), interval: 0.15)
+                                       .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
+                                       .Pay.ClickAndGo(),
+                _ => GoToPayexInvoicePaymentFrame(products, checkout)
+                    .PersonalNumber.IsVisible.WaitTo.BeTrue()
+                    .PersonalNumber.SetWithSpeed(info.PersonalNumber, interval: 0.1)
+                    .Email.SetWithSpeed(info.Email, interval: 0.1)
+                    .PhoneNumber.SetWithSpeed(info.PhoneNumber, interval: 0.1)
+                    .ZipCode.SetWithSpeed(info.ZipCode, interval: 0.1)
+                    .Next.Click()
+                    .Wait(TimeSpan.FromSeconds(10))
+                    .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
+                    .Pay.ClickAndGo(),
+            };
         }
 
 
         protected ThankYouPage PayWithPayexSwish(Product[] products, PayexSwishInfo info, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
-            switch (checkout)
+            return checkout switch
             {
-                case Checkout.Option.Standard:
-
-                    return GoToPayexSwishPaymentFrame(products, checkout)
-                    .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
-                    .Pay.ClickAndGo();
-
-                case Checkout.Option.LocalPaymentMenu:
-                case Checkout.Option.Anonymous:
-                default:
-
-                    return GoToPayexSwishPaymentFrame(products, checkout)
-                        .SwishNumber.IsVisible.WaitTo.BeTrue()
-                        .SwishNumber.SetWithSpeed(info.SwishNumber, interval: 0.1)
-                        .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
-                        .Pay.ClickAndGo();
-            }
+                Checkout.Option.Standard => GoToPayexSwishPaymentFrame(products, checkout)
+                                   .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
+                                   .Pay.ClickAndGo(),
+                _ => GoToPayexSwishPaymentFrame(products, checkout)
+                      .SwishNumber.IsVisible.WaitTo.BeTrue()
+                      .SwishNumber.SetWithSpeed(info.SwishNumber, interval: 0.1)
+                      .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
+                      .Pay.ClickAndGo(),
+            };
         }
 
 
