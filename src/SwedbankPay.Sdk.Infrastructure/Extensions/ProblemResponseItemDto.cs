@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SwedbankPay.Sdk.Extensions
+﻿namespace SwedbankPay.Sdk.Extensions
 {
     public class ProblemResponseItemDto
     {
