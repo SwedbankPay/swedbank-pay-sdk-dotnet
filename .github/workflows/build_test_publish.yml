@@ -123,8 +123,11 @@ jobs:
     - name: Download All artifacts
       uses: actions/download-artifact@v2
 
-    - name: Run SDK Tests
+    - name: Run SDK Unit Tests
       run: dotnet test src/SwedbankPay.Sdk.Tests/SwedbankPay.Sdk.Tests.csproj
+
+    - name: Run SDK Integration Tests
+      run: dotnet test src/SwedbankPay.Sdk.IntegrationTests/SwedbankPay.Sdk.IntegrationTests.csproj
       env:
         SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
         SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}

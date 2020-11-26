@@ -58,10 +58,4 @@
     <ProjectReference Include="..\SwedbankPay.Sdk\SwedbankPay.Sdk.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="appsettings.local.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>

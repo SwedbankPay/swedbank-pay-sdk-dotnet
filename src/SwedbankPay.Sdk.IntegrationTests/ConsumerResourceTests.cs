@@ -1,8 +1,5 @@
 ﻿using SwedbankPay.Sdk.Tests;
 using SwedbankPay.Sdk.Tests.TestBuilders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
