@@ -35,7 +35,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         public CardPaymentRequest BuildCreditardPaymentRequest()
         {
             return new CardPaymentRequest(this.operation, this.intent, this.currency, this.price, this.description, this.userAgent, this.language, this.urls, this.payeeInfo,
-                                          generatePaymentToken: this.generatePaymentToken, GenerateRecurrenceToken: false, payerReference: this.payerReference, riskIndicator: null, metadata: this.metadata);
+                                          generatePaymentToken: this.generatePaymentToken, generateRecurrenceToken: false, payerReference: this.payerReference, riskIndicator: null, metadata: this.metadata);
         }
 
         public SwishPaymentRequest BuildSwishPaymentRequest() => new SwishPaymentRequest(this.price, this.description, this.payerReference, this.userAgent, this.language, this.urls, this.payeeInfo, this.prefillInfo,
