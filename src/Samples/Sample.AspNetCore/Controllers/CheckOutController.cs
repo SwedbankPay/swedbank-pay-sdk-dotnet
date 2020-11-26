@@ -101,7 +101,8 @@ namespace Sample.AspNetCore.Controllers
                                                                                    "Test Purchase", this.payeeInfoOptions.PayeeReference,
                                                                                    new Language("sv-SE"),
                                                                                    new Urls(this.urls.HostUrls, this.urls.CompleteUrl, this.urls.TermsOfServiceUrl, this.urls.CancelUrl, this.urls.PaymentUrl, this.urls.CallbackUrl, this.urls.LogoUrl),
-                                                                                   new PayeeInfo(this.payeeInfoOptions.PayeeId, this.payeeInfoOptions.PayeeReference));
+                                                                                   new PayeeInfo(this.payeeInfoOptions.PayeeId, this.payeeInfoOptions.PayeeReference),
+                                                                                   generateRecurrenceToken: true);
 
                 var cardPayment = await this.swedbankPayClient.Payments.CardPayments.Create(cardRequest);
                 this.cartService.PaymentLink = cardPayment.Payment.Id.OriginalString;
