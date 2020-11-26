@@ -21,5 +21,13 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         ///// <param name="paymentExpand"></param>
         ///// <returns></returns>
         Task<ICardPaymentResponse> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None);
+
+        /// <summary>
+        /// Creates a new card payment with recur token
+        /// </summary>
+        /// <param name="paymentRequest"></param>
+        /// <param name="paymentExpand"></param>
+        /// <returns></returns>
+        Task<ICardPaymentResponse> Create(CardPaymentRecurRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.All);
     }
 }
