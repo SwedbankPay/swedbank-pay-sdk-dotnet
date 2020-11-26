@@ -6,6 +6,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments
     {
         public int Amount { get; set; }
 
+        public int VatAmount { get; set; }
+
         public int RemainingCaptureAmount { get; set; }
 
         public int RemainingCancellationAmount { get; set; }

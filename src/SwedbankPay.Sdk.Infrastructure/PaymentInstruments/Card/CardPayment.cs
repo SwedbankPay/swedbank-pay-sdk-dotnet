@@ -13,6 +13,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             }
 
             Amount = payment.Amount;
+            VatAmount = payment.VatAmount;
             RemainingCaptureAmount = payment.RemainingCaptureAmount;
             RemainingCancellationAmount = payment.RemainingCancellationAmount;
             RemainingReversalAmount = payment.RemainingReversalAmount;
@@ -101,5 +102,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         public MetadataResponse Metadata { get; }
 
         public string RecurrenceToken { get; }
+
+        public Amount VatAmount { get; }
     }
 }
