@@ -14,7 +14,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
                                        string description,
                                        string userAgent,
                                        Language language,
-                                       Uri callbackUrl,
+                                       IUrls urls,
                                        PayeeInfo payeeInfo,
                                        Dictionary<string, object> metadata = null)
         {
@@ -27,7 +27,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             Description = description;
             UserAgent = userAgent;
             Language = language;
-            CallbackUrl = callbackUrl;
+            Urls = urls;
             PayeeInfo = payeeInfo;
             Metadata = metadata;
         }
@@ -41,7 +41,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         public string Description { get; }
         public string UserAgent { get; }
         public Language Language { get; }
-        public Uri CallbackUrl { get; }
+        public IUrls Urls { get; }
         public PayeeInfo PayeeInfo { get; }
         public Dictionary<string, object> Metadata { get; }
     }
