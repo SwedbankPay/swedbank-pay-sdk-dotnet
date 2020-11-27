@@ -2,8 +2,30 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
+    /// <summary>
+    /// Holds transactional details about authorization a card payment.
+    /// </summary>
     public class CardPaymentAuthorizationTransaction : Identifiable
     {
+        /// <summary>
+        /// Constructs a new card payment authorization request.
+        /// </summary>
+        /// <param name="created">The <see cref="DateTime"/> the payment is created.</param>
+        /// <param name="updated">The <see cref="DateTime"/> the payment was last updated.</param>
+        /// <param name="type">The type of the transaction.</param>
+        /// <param name="state">The current <see cref="Sdk.State"/> of the transaction.</param>
+        /// <param name="number">The number reference for the transaction.</param>
+        /// <param name="amount">The <seealso cref="Sdk.Amount"/> used for the payment.</param>
+        /// <param name="vatAmount">The Vat<seealso cref="Sdk.Amount"/> used for the payment.</param>
+        /// <param name="description">The textual description of the payment.</param>
+        /// <param name="payeeReference">The unique payer reference.</param>
+        /// <param name="failedReason">The reason this transaction failed.</param>
+        /// <param name="failedActivityName">The activity that caused the failure.</param>
+        /// <param name="failedErrorCode">The error code of the failure.</param>
+        /// <param name="failedErrorDescription">A description of the failure.</param>
+        /// <param name="isOperational">Is this transaction operational?</param>
+        /// <param name="problem">Any problems that may have occured.</param>
+        /// <param name="operations">Available operations.</param>
         public CardPaymentAuthorizationTransaction(DateTime created,
                                         DateTime updated,
                                         string type,
@@ -53,8 +75,20 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// A 40 character length textual description of the purchase.
         /// </summary>
         public string Description { get; }
+
+        /// <summary>
+        /// The name of the failed activity.
+        /// </summary>
         public string FailedActivityName { get; }
+
+        /// <summary>
+        /// The error code of the failure.
+        /// </summary>
         public string FailedErrorCode { get; }
+
+        /// <summary>
+        /// A textual description of the failure.
+        /// </summary>
         public string FailedErrorDescription { get; }
 
         /// <summary>
@@ -69,7 +103,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 
         /// <summary>
         /// The transaction number, useful when there’s need to reference the transaction in human communication.
-        /// Not usable for programmatic identification of the transaction, where <see cref="Id"/> should be used instead.
+        /// Not usable for programmatic identification of the transaction, where <see cref="Identifiable.Id"/> should be used instead.
         /// </summary>
         public long Number { get; }
 
@@ -83,6 +117,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// It is set per operation to ensure an exactly-once delivery of a transactional operation.
         /// </summary>
         public string PayeeReference { get; }
+
+        /// <summary>
+        /// Any problems will be listed here.
+        /// </summary>
         public IProblemResponse Problem { get; }
 
         /// <summary>
