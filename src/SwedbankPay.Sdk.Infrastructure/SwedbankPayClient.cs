@@ -11,14 +11,14 @@ namespace SwedbankPay.Sdk
     {
         private readonly HttpClient httpClient;
 
-        public SwedbankPayClient(HttpClient injectedHttpClient, IPaymentOrdersResource paymentOrders, IConsumersResource consumers, IPaymentInstrumentsResource payments)
+        public SwedbankPayClient(HttpClient httpClient, IPaymentOrdersResource paymentOrders, IConsumersResource consumers, IPaymentInstrumentsResource payments)
         {
             if (!ServicePointManager.SecurityProtocol.HasFlag(SecurityProtocolType.Tls12))
             {
                 ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
             }
 
-            this.httpClient = injectedHttpClient ?? throw new ArgumentNullException(nameof(injectedHttpClient));
+            this.httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
 
             if (this.httpClient.BaseAddress == null)
             {
