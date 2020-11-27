@@ -13,6 +13,9 @@
     <RootNamespace>SwedbankPay.Sdk</RootNamespace>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\Programmer\git\swedbank-pay-sdk-dotnet\src\SwedbankPay.Sdk\SwedbankPay.Sdk.xml</DocumentationFile>
+  </PropertyGroup>
   <ItemGroup>
     <None Include="..\icon.png">
       <Pack>True</Pack>
