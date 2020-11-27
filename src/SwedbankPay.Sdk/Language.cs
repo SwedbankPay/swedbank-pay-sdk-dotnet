@@ -3,10 +3,13 @@ using System.Globalization;
 
 namespace SwedbankPay.Sdk
 {
+    /// <summary>
+    /// Contains information about a payers prefered langauge.
+    /// </summary>
     public class Language
     {
         /// <summary>
-        /// Creates a new <seealso cref="Language"/>.
+        /// Instantiates a new <seealso cref="Language"/>.
         /// </summary>
         /// <param name="language">A string in the format of xx-YY</param>
         public Language(string language)
