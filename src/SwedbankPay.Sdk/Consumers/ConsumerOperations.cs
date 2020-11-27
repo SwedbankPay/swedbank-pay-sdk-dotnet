@@ -2,8 +2,15 @@
 
 namespace SwedbankPay.Sdk.Consumers
 {
+    /// <summary>
+    /// Holds all currently available operations for a consumer.
+    /// </summary>
     public class ConsumerOperations : OperationsBase
     {
+        /// <summary>
+        /// Consturcts a <see cref="ConsumerOperations"/> holding all currently available operations for a consumer.
+        /// </summary>
+        /// <param name="operations">A list of available operations.</param>
         public ConsumerOperations(IOperationList operations)
         {
             foreach (var httpOperation in operations)
@@ -21,7 +28,10 @@ namespace SwedbankPay.Sdk.Consumers
             }
         }
 
-
+        /// <summary>
+        /// Constructs a <see cref="ConsumerOperations"/> using data from <seealso cref="SerializationInfo"/>.
+        /// </summary>
+        /// <param name="info">A <seealso cref="SerializationInfo"/> containging the needed operations.</param>
         protected ConsumerOperations(SerializationInfo info)
             : base()
         {

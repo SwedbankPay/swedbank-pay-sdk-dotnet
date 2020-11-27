@@ -2,6 +2,9 @@
 
 namespace SwedbankPay.Sdk
 {
+    /// <summary>
+    /// Holds details about a problem response from the API.
+    /// </summary>
     public interface IProblemResponse
     {
         /// <summary>

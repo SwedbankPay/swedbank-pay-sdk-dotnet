@@ -3,6 +3,9 @@ using System;
 
 namespace SwedbankPay.Sdk
 {
+    /// <summary>
+    /// Contains information about a Card payment authorization.
+    /// </summary>
     public interface IPaymentAuthorization
     {
         /// <summary>

@@ -1,5 +1,8 @@
 ﻿namespace SwedbankPay.Sdk.Consumers
 {
+    /// <summary>
+    /// Interface describing a API response from Consumers.
+    /// </summary>
     public interface IConsumersResponse
     {
         /// <summary>

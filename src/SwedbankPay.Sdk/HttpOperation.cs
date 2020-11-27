@@ -3,8 +3,18 @@ using System.Net.Http;
 
 namespace SwedbankPay.Sdk
 {
+    /// <summary>
+    /// Holds information about a API relevant Operation.
+    /// </summary>
     public class HttpOperation
     {
+        /// <summary>
+        /// Instansiates a new <seealso cref="HttpOperation"/> with the provided parameters.
+        /// </summary>
+        /// <param name="href">The <seealso cref="Uri"/> for the operation.</param>
+        /// <param name="rel">The name of the operation.</param>
+        /// <param name="method">The <seealso cref="HttpMethod"/> as a string for the operation.</param>
+        /// <param name="contentType">The content type of the operation.</param>
         public HttpOperation(Uri href, LinkRelation rel, string method, string contentType)
         {
             Href = href;

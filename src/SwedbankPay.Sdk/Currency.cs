@@ -20,6 +20,10 @@ namespace SwedbankPay.Sdk
     /// </summary>
     public class Currency
     {
+        /// <summary>
+        /// Constructs a new <seealso cref="Currency"/> using a ISO 4217 currency symbol.
+        /// </summary>
+        /// <param name="currencyCode">A ISO 4217 currency symbol.</param>
         public Currency(string currencyCode)
         {
             if (string.IsNullOrEmpty(currencyCode))
@@ -73,6 +77,10 @@ namespace SwedbankPay.Sdk
             return CultureInfo.GetCultures(CultureTypes.AllCultures);
         }
 
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <returns><inheritdoc/></returns>
         public override string ToString()
         {
             return Value;

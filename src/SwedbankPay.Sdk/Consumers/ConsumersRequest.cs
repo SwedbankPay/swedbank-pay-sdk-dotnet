@@ -4,8 +4,20 @@ using System.Globalization;
 
 namespace SwedbankPay.Sdk.Consumers
 {
+    /// <summary>
+    /// Holds details to identify a consumer when initiating a payment.
+    /// </summary>
     public class ConsumersRequest
     {
+        /// <summary>
+        /// Constructs a new request to the Consumers API resource.
+        /// </summary>
+        /// <param name="language">The prefered langauge for the consumer.</param>
+        /// <param name="shippingAddressRestrictedToCountryCodes">A <seealso cref="IEnumerable{RegionInfo}"/> that lists available countrys this payment will ship to.</param>
+        /// <param name="operation">The initiating operation for this request.</param>
+        /// <param name="msisdn">The consumers <seealso cref="Sdk.Msisdn"/>.</param>
+        /// <param name="email">The consumers <seealso cref="Sdk.EmailAddress"/>.</param>
+        /// <param name="nationalIdentifier">The consumers <seealso cref="Sdk.PaymentOrders.NationalIdentifier"/>.</param>
         public ConsumersRequest(Language language,
                                 IEnumerable<RegionInfo> shippingAddressRestrictedToCountryCodes,
                                 Operation operation = null,
