@@ -9,25 +9,25 @@ namespace SwedbankPay.Sdk
 {
     public class SwedbankPayClient : ISwedbankPayClient
     {
-        private readonly HttpClient httpClient;
-
         public SwedbankPayClient(HttpClient httpClient, IPaymentOrdersResource paymentOrders, IConsumersResource consumers, IPaymentInstrumentsResource payments)
         {
             if (!ServicePointManager.SecurityProtocol.HasFlag(SecurityProtocolType.Tls12))
             {
                 ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
             }
-
-            this.httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
-
-            if (this.httpClient.BaseAddress == null)
+            if (httpClient == null)
             {
-                throw new ArgumentNullException(nameof(this.httpClient), $"{nameof(this.httpClient.BaseAddress)} cannot be null.");
+                throw new ArgumentNullException(nameof(httpClient));
             }
 
-            if (this.httpClient.DefaultRequestHeaders?.Authorization?.Parameter == null)
+            if (httpClient.BaseAddress == null)
             {
-                throw new ArgumentException($"Please configure the {nameof(this.httpClient)} with an Authorization header.");
+                throw new ArgumentNullException(nameof(httpClient), $"{nameof(httpClient.BaseAddress)} cannot be null.");
+            }
+
+            if (httpClient.DefaultRequestHeaders?.Authorization?.Parameter == null)
+            {
+                throw new ArgumentException($"Please configure the {nameof(httpClient)} with an Authorization header.");
             }
 
             PaymentOrders = paymentOrders ?? throw new ArgumentNullException(nameof(paymentOrders));
