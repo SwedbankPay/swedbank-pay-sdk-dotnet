@@ -4,50 +4,46 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
     public class CardPaymentRecurResponseDetailsDto
     {
-        public Uri Id { get; }
+        public Uri Id { get; set; }
 
-        public string RecurrenceToken { get; }
+        public string RecurrenceToken { get; set; }
 
-        public long Number { get; }
+        public long Number { get; set; }
 
-        public DateTime Created { get; }
+        public DateTime Created { get; set; }
 
-        public DateTime Updated { get; }
+        public DateTime Updated { get; set; }
 
-        public string Instrument { get; }
+        public string Instrument { get; set; }
 
-        public string Operation { get; }
+        public string Operation { get; set; }
 
-        public string Intent { get; }
+        public string State { get; set; }
 
-        public string State { get; }
+        public string Currency { get; set; }
 
-        public string Currency { get; }
+        public PricesDto Prices { get; set; }
 
-        public PricesDto Prices { get; }
+        public int Amount { get; set; }
 
-        public int Amount { get; }
+        public int ReminaingCaptureAmount { get; set; }
 
-        public int VatAmount { get; }
+        public int RemainingCancellationAmount { get; set; }
 
-        public int ReminaingCaptureAmount { get; }
+        public string Description { get; set; }
 
-        public int RemainingCancellationAmount { get; }
+        public string InitiatingSystemUserAgent { get; set; }
 
-        public string Description { get; }
+        public string UserAgent { get; set; }
 
-        public string InitiatingSystemUserAgent { get; }
+        public TransactionListResponseDto Transactions { get; set; }
 
-        public string UserAgent { get; }
+        public PaymentAuthorizationDto Authorizations { get; set; }
 
-        public TransactionListResponseDto Transactions { get; }
+        public UrlsDto Urls { get; set; }
 
-        public PaymentAuthorizationDto Authorizations { get; }
+        public PayeeInfoDto PayeeInfo { get; set; }
 
-        public UrlsDto Urls { get; }
-
-        public PayeeInfoDto PayeeInfo { get; }
-
-        public MetadataResponse MetaData { get; }
+        public MetadataResponse MetaData { get; set; }
     }
 }

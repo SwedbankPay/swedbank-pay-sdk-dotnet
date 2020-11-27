@@ -15,7 +15,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
                                        Language language,
                                        IUrls urls,
                                        PayeeInfo payeeInfo,
-                                       Dictionary<string, object> metadata = null)
+                                       MetadataResponse metadata = null)
         {
             Operation = operation;
             Intent = intent;
@@ -42,6 +42,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         public Language Language { get; }
         public IUrls Urls { get; }
         public PayeeInfo PayeeInfo { get; }
-        public Dictionary<string, object> Metadata { get; }
+        public MetadataResponse Metadata { get; }
     }
 }

@@ -70,7 +70,7 @@ namespace SwedbankPay.Sdk.JsonSerialization.Converters
 
             foreach (KeyValuePair<string, object> item in value)
             {
-                if (!item.Key.Equals("Id", StringComparison.InvariantCultureIgnoreCase))
+                if (!item.Key.Equals("id", StringComparison.InvariantCultureIgnoreCase))
                 {
                     writer.WriteString(item.Key, item.Value.ToString());
                 }

@@ -18,7 +18,12 @@ namespace SwedbankPay.Sdk.Extensions
 
             if (!apiResponse.IsSuccessStatusCode)
             {
-                var problemResponseDto = JsonSerializer.Deserialize<ProblemResponseDto>(responseString).Map();
+                IProblemResponse problemResponseDto = null;
+                if (!string.IsNullOrEmpty(responseString))
+                {
+                    problemResponseDto = JsonSerializer.Deserialize<ProblemResponseDto>(responseString).Map();
+                }
+
                 throw new HttpResponseException(
                     apiResponse,
                     problemResponseDto,

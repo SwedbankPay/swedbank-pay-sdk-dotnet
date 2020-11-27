@@ -18,8 +18,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 
         Operation Operation { get; }
 
-        PaymentIntent Intent { get; }
-
         State State { get; }
 
         Currency Currency { get; }
@@ -27,8 +25,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         IPricesListResponse Prices { get; }
 
         Amount Amount { get; }
-
-        Amount VatAmount { get; }
 
         Amount ReminaingCaptureAmount { get; }
 

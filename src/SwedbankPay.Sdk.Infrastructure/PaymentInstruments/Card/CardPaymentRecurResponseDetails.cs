@@ -13,22 +13,20 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             Updated = dto.Updated;
             Instrument = Enum.Parse<PaymentInstrument>(dto.Instrument);
             Operation = dto.Operation;
-            Intent = Enum.Parse<PaymentIntent>(dto.Intent);
             State = dto.State;
             Currency = new Currency(dto.Currency);
-            Prices = dto.Prices.Map();
             Amount = dto.Amount;
-            VatAmount = dto.VatAmount;
             RemainingCancellationAmount = dto.RemainingCancellationAmount;
             ReminaingCaptureAmount = dto.ReminaingCaptureAmount;
             Description = dto.Description;
             InitiatingSystemUserAgent = dto.InitiatingSystemUserAgent;
             UserAgent = dto.UserAgent;
-            Transactions = dto.Transactions.Map();
-            Authorizations = dto.Authorizations.MapToCard();
-            Urls = dto.Urls.Map();
-            PayeeInfo = dto.PayeeInfo.Map();
             MetaData = dto.MetaData;
+            Authorizations = dto.Authorizations?.MapToCard();
+            Transactions = dto.Transactions?.Map();
+            Urls = dto.Urls?.Map();
+            PayeeInfo = dto.PayeeInfo?.Map();
+            Prices = dto.Prices?.Map();
         }
 
         public Uri Id { get; }
@@ -45,8 +43,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 
         public Operation Operation { get; }
 
-        public PaymentIntent Intent { get; }
-
         public State State { get; }
 
         public Currency Currency { get; }
@@ -54,8 +50,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         public IPricesListResponse Prices { get; }
 
         public Amount Amount { get; }
-
-        public Amount VatAmount { get; }
 
         public Amount ReminaingCaptureAmount { get; }
 

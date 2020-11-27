@@ -15,7 +15,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
                                        Language language,
                                        IUrls urls,
                                        PayeeInfo payeeInfo,
-                                       Dictionary<string, object> metadata = null)
+                                       MetadataResponse metadata = null)
         {
             Payment = new CardPaymentRecurPayment(operation,
                                                       intent,

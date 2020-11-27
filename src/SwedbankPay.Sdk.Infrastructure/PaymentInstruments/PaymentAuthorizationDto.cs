@@ -55,7 +55,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
                                                 ExternalNonPaymentToken,
                                                 ExternalSiteId,
                                                 TransactionInitiator,
-                                                Transaction.Map(),
+                                                Transaction?.Map(),
                                                 Id);
         }
     }

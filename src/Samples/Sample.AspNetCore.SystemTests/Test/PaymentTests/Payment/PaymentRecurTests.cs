@@ -34,23 +34,29 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
             Assert.NotNull(cardPayment.Payment.Urls);
             Assert.NotNull(cardPayment.Payment.Urls.CallbackUrl);
 
+            PayeeInfo payeeInfo = new PayeeInfo(cardPayment.Payment.PayeeInfo.PayeeId, GeneratePayeeReference());
             var recur = new SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurRequest(Operation.Verify,
                 PaymentIntent.Authorization,
                 cardPayment.Payment.RecurrenceToken,
                 cardPayment.Payment.Currency,
                 cardPayment.Payment.Amount,
-                new Amount(0),
+                cardPayment.Payment.VatAmount,
                 cardPayment.Payment.Description,
                 cardPayment.Payment.UserAgent,
                 cardPayment.Payment.Language,
                 cardPayment.Payment.Urls,
-                cardPayment.Payment.PayeeInfo,
+                payeeInfo,
                 cardPayment.Payment.Metadata);
 
             var result = await SwedbankPayClient.Payments.CardPayments.Create(recur);
 
             Assert.NotNull(result);
             Assert.NotNull(result.Payment);
+        }
+
+        private string GeneratePayeeReference()
+        {
+            return System.DateTime.UtcNow.Ticks.ToString();
         }
     }
 }
