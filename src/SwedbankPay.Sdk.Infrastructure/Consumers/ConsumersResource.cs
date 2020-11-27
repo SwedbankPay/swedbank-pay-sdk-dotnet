@@ -11,24 +11,26 @@ namespace SwedbankPay.Sdk.Consumers
         {
         }
 
-        public Task<BillingDetails> GetBillingDetails(Uri url)
+        public async Task<BillingDetails> GetBillingDetails(Uri url)
         {
             if (url == null)
             {
                 throw new ArgumentNullException(nameof(url));
             }
 
-            return HttpClient.GetAsJsonAsync<BillingDetails>(url);
+            var details = await HttpClient.GetAsJsonAsync<BillingDetailsDto>(url);
+            return details.Map();
         }
 
-        public Task<ShippingDetails> GetShippingDetails(Uri url)
+        public async Task<ShippingDetails> GetShippingDetails(Uri url)
         {
             if (url == null)
             {
                 throw new ArgumentNullException(nameof(url));
             }
 
-            return HttpClient.GetAsJsonAsync<ShippingDetails>(url);
+            var details = await HttpClient.GetAsJsonAsync<ShippingDetailsDto>(url);
+            return details.Map();
         }
 
         public async Task<IConsumersResponse> InitiateSession(ConsumersRequest consumersRequest)

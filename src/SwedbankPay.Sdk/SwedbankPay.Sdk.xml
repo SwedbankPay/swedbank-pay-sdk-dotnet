@@ -9,10 +9,69 @@
                 Indicates the length of time that the payments account was enrolled in the cardholder's account with merchant.
             </summary>
         </member>
+        <member name="F:SwedbankPay.Sdk.AccountAgeIndicator.NoAccountGuest">
+            <summary>
+            User does not have an account or only a guest account.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.AccountAgeIndicator.CreatedDuringTransaction">
+            <summary>
+            Account is created during transaction.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.AccountAgeIndicator.LessThanThirtyDays">
+            <summary>
+            Account has existed for less than thirty days.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.AccountAgeIndicator.ThirtyToSixtyDays">
+            <summary>
+            Account is between thirty to sixty days old.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.AccountAgeIndicator.MoreThanSixtyDays">
+            <summary>
+            Account is older than sixty days.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.AccountAgeIndicator.#ctor(System.String,System.String)">
+            <summary>
+            Creates a new custom account age indicator.
+            </summary>
+            <param name="name">The name of the enum value.</param>
+            <param name="value">The value of the enum.</param>
+        </member>
         <member name="T:SwedbankPay.Sdk.AccountChangeIndicator">
             <summary>
                 Length of time since the cardholder's account information with the merchant was changed. Including billing etc.
             </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.AccountChangeIndicator.ChangedDuringTransaction">
+            <summary>
+            Account details will change during transaction.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.AccountChangeIndicator.LessThanThirtyDays">
+            <summary>
+            Account details was last changed less than thirty days ago.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.AccountChangeIndicator.ThirtyToSixtyDays">
+            <summary>
+            Account details was last changed between thirty to sixty days ago.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.AccountChangeIndicator.MoreThanSixtyDays">
+            <summary>
+            Account details last changed more than sixty days ago.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.AccountChangeIndicator.#ctor(System.String,System.String)">
+            <summary>
+            Creates a new custom account change indicator.
+            </summary>
+            <param name="name">The name of the account change indicator.</param>
+            <param name="value">The enum value for the account change.</param>
         </member>
         <member name="T:SwedbankPay.Sdk.AccountInfo">
             <summary>
@@ -84,6 +143,43 @@
                 reset.
             </summary>
         </member>
+        <member name="F:SwedbankPay.Sdk.AccountPwdChangeIndicator.NoChange">
+            <summary>
+            The account password has never changed.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.AccountPwdChangeIndicator.ChangedDuringTransaction">
+            <summary>
+            The account password will be changed during transaction.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.AccountPwdChangeIndicator.LessThanThirtyDays">
+            <summary>
+            Account password was last changed less than thirty days ago.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.AccountPwdChangeIndicator.ThirtyToSixtyDays">
+            <summary>
+            Account password was last changed between thirty to sixty days ago.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.AccountPwdChangeIndicator.MoreThanSixtyDays">
+            <summary>
+            Account password was last changed more than sixty days ago.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.AccountPwdChangeIndicator.#ctor(System.String,System.String)">
+            <summary>
+            Creates a new custom account password changed indicator.
+            </summary>
+            <param name="name">The name of the enum value.</param>
+            <param name="value">The value for the enum.</param>
+        </member>
+        <member name="T:SwedbankPay.Sdk.Address">
+            <summary>
+            Holds details about a users current address.
+            </summary>
+        </member>
         <member name="P:SwedbankPay.Sdk.Address.City">
             <summary>
             The payers city of residence.
@@ -132,6 +228,18 @@
             Payers zip code of their country of residence.
             </summary>
         </member>
+        <member name="T:SwedbankPay.Sdk.Amount">
+            <summary>
+            Wraps the amount passed to and from API requests to make
+            dealing with the amount in code more frictionless.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.Amount.#ctor(System.Decimal)">
+            <summary>
+            Creates a new <seealso cref="T:SwedbankPay.Sdk.Amount"/> using the passed in value.
+            </summary>
+            <param name="decimalAmount">A <seealso cref="T:System.Decimal"/> representing the value.</param>
+        </member>
         <member name="P:SwedbankPay.Sdk.Amount.InLowestMonetaryUnit">
             <summary>
             Gets the amount in a format suitable for api requests.
@@ -169,6 +277,53 @@
             <param name="amountInLowestMonetaryUnit">The amount.</param>
             <returns>A new <seealso cref="T:SwedbankPay.Sdk.Amount"/> based on the <paramref name="amountInLowestMonetaryUnit"/>.</returns>
         </member>
+        <member name="M:SwedbankPay.Sdk.Amount.CompareTo(System.Object)">
+            <summary>
+            <inheritdoc/>
+            </summary>
+            <returns><inheritdoc/></returns>
+        </member>
+        <member name="M:SwedbankPay.Sdk.Amount.CompareTo(SwedbankPay.Sdk.Amount)">
+            <summary>
+            <inheritdoc/>
+            </summary>
+            <returns><inheritdoc/></returns>
+        </member>
+        <member name="M:SwedbankPay.Sdk.Amount.Equals(SwedbankPay.Sdk.Amount)">
+            <summary>
+            <inheritdoc/>
+            </summary>
+            <returns><inheritdoc/></returns>
+        </member>
+        <member name="M:SwedbankPay.Sdk.Amount.Equals(System.Object)">
+            <summary>
+            <inheritdoc/>
+            </summary>
+            <returns><inheritdoc/></returns>
+        </member>
+        <member name="M:SwedbankPay.Sdk.Amount.GetHashCode">
+            <summary>
+            <inheritdoc/>
+            </summary>
+            <returns><inheritdoc/></returns>
+        </member>
+        <member name="M:SwedbankPay.Sdk.Amount.ToString">
+            <summary>
+            <inheritdoc/>
+            </summary>
+            <returns><inheritdoc/></returns>
+        </member>
+        <member name="M:SwedbankPay.Sdk.Amount.ToString(System.String)">
+            <summary>
+            <inheritdoc/>
+            </summary>
+            <returns><inheritdoc/></returns>
+        </member>
+        <member name="T:SwedbankPay.Sdk.Consumers.Address">
+            <summary>
+            Holds details about a consumers addres.
+            </summary>
+        </member>
         <member name="P:SwedbankPay.Sdk.Consumers.Address.Addressee">
             <summary>
             The name of the addressee – the receiver of the shipped goods.
@@ -197,6 +352,11 @@
         <member name="P:SwedbankPay.Sdk.Consumers.Address.ZipCode">
             <summary>
             Payers zip code
+            </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.Consumers.BillingDetails">
+            <summary>
+            Holds billing details about a consumer.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.Consumers.BillingDetails.BillingAddress">
@@ -301,8 +461,16 @@
         </member>
         <member name="T:SwedbankPay.Sdk.Consumers.ShippingDetails">
             <summary>
-            A payers shipping details
+            A payers shipping details.
             </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.Consumers.ShippingDetails.#ctor(SwedbankPay.Sdk.EmailAddress,SwedbankPay.Sdk.Msisdn,SwedbankPay.Sdk.Consumers.Address)">
+            <summary>
+            Constructs a new object holding a payers shipping details.
+            </summary>
+            <param name="email">The payers email.</param>
+            <param name="msisdn">The payers MSISDN.</param>
+            <param name="shippingAddress">The payers shippingaddress.</param>
         </member>
         <member name="P:SwedbankPay.Sdk.Consumers.ShippingDetails.Email">
             <summary>
@@ -2599,6 +2767,16 @@
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.PaymentAbortRequest.Payment">
             <summary>
             Data detailing why the current payment is being aborted.
+            </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.PaymentAbortRequestDetails">
+            <summary>
+            Contains the deails about aborting a payment.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.PaymentAbortRequestDetails.#ctor">
+            <summary>
+            Constructs with default values.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.PaymentAbortRequestDetails.AbortReason">

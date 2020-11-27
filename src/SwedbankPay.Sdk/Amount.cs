@@ -3,10 +3,18 @@ using System.Globalization;
 
 namespace SwedbankPay.Sdk
 {
+    /// <summary>
+    /// Wraps the amount passed to and from API requests to make
+    /// dealing with the amount in code more frictionless.
+    /// </summary>
     public class Amount : IEquatable<Amount>, IComparable<Amount>, IComparable
     {
         private readonly decimal amount;
 
+        /// <summary>
+        /// Creates a new <seealso cref="Sdk.Amount"/> using the passed in value.
+        /// </summary>
+        /// <param name="decimalAmount">A <seealso cref="decimal"/> representing the value.</param>
         public Amount(decimal decimalAmount)
         {
             this.amount = decimalAmount;
@@ -81,6 +89,10 @@ namespace SwedbankPay.Sdk
             return new Amount(convertedAmount);
         }
 
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <returns><inheritdoc/></returns>
         public int CompareTo(object obj)
         {
             if (obj is null)
@@ -101,6 +113,10 @@ namespace SwedbankPay.Sdk
             return CompareTo((Amount)obj);
         }
 
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <returns><inheritdoc/></returns>
         public int CompareTo(Amount other)
         {
             if (ReferenceEquals(this, other))
@@ -116,6 +132,10 @@ namespace SwedbankPay.Sdk
             return this.amount.CompareTo(other.amount);
         }
 
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <returns><inheritdoc/></returns>
         public bool Equals(Amount other)
         {
             if (other is null)
@@ -131,6 +151,10 @@ namespace SwedbankPay.Sdk
             return this.amount == other.amount;
         }
 
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <returns><inheritdoc/></returns>
         public override bool Equals(object obj)
         {
             if (obj is null)
@@ -146,16 +170,28 @@ namespace SwedbankPay.Sdk
             return obj.GetType() == GetType() && Equals((Amount)obj);
         }
 
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <returns><inheritdoc/></returns>
         public override int GetHashCode()
         {
             return this.amount.GetHashCode();
         }
 
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <returns><inheritdoc/></returns>
         public override string ToString()
         {
             return ToString("N2");
         }
 
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <returns><inheritdoc/></returns>
         public string ToString(string format)
         {
             return this.amount.ToString(format, CultureInfo.InvariantCulture);

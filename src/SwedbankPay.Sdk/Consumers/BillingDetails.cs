@@ -1,5 +1,8 @@
 ﻿namespace SwedbankPay.Sdk.Consumers
 {
+    /// <summary>
+    /// Holds billing details about a consumer.
+    /// </summary>
     public class BillingDetails
     {
         public BillingDetails()

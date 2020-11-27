@@ -1,14 +1,16 @@
 ﻿namespace SwedbankPay.Sdk.Consumers
 {
     /// <summary>
-    /// A payers shipping details
+    /// A payers shipping details.
     /// </summary>
     public class ShippingDetails
     {
-        public ShippingDetails()
-        {
-        }
-
+        /// <summary>
+        /// Constructs a new object holding a payers shipping details.
+        /// </summary>
+        /// <param name="email">The payers email.</param>
+        /// <param name="msisdn">The payers MSISDN.</param>
+        /// <param name="shippingAddress">The payers shippingaddress.</param>
         public ShippingDetails(EmailAddress email, Msisdn msisdn, Address shippingAddress)
         {
             Email = email;

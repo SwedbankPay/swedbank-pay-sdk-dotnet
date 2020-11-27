@@ -2,6 +2,9 @@
 
 namespace SwedbankPay.Sdk.Consumers
 {
+    /// <summary>
+    /// Holds details about a consumers addres.
+    /// </summary>
     public class Address
     {
         /// <summary>
