@@ -17,7 +17,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             Currency = new Currency(dto.Currency);
             Amount = dto.Amount;
             RemainingCancellationAmount = dto.RemainingCancellationAmount;
-            ReminaingCaptureAmount = dto.ReminaingCaptureAmount;
+            RemainingCaptureAmount = dto.ReminaingCaptureAmount;
             Description = dto.Description;
             InitiatingSystemUserAgent = dto.InitiatingSystemUserAgent;
             UserAgent = dto.UserAgent;
@@ -51,7 +51,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 
         public Amount Amount { get; }
 
-        public Amount ReminaingCaptureAmount { get; }
+        public Amount RemainingCaptureAmount { get; }
 
         public Amount RemainingCancellationAmount { get; }
 
