@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
-    public class InvoicePaymentAuthorization : IdLink, IInvoicePaymentAuthorization
+    public class InvoicePaymentAuthorization : Identifiable, IInvoicePaymentAuthorization
     {
         public InvoicePaymentAuthorization(Uri id, InvoicePaymentAuthorizationDto item)
         {

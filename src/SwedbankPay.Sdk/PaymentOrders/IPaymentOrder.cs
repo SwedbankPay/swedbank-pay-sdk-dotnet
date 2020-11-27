@@ -64,7 +64,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <summary>
         /// Resource where information about all underlying payments can be retrieved.
         /// </summary>
-        public IdLink Payments { get; }
+        public Identifiable Payments { get; }
 
         /// <summary>
         /// The available <seealso cref="Sdk.Amount"/> to cancel.
@@ -80,7 +80,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// The available <seealso cref="Sdk.Amount"/> to reverse.
         /// </summary>
         public Amount RemainingReversalAmount { get; }
-        public IdLink Settings { get; }
+        public Identifiable Settings { get; }
 
         /// <summary>
         /// Indicates the state of the payment order.

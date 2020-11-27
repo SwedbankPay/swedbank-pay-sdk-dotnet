@@ -5,7 +5,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public class CardPaymentAuthorization : IdLink, ICardPaymentAuthorization
+    public class CardPaymentAuthorization : Identifiable, ICardPaymentAuthorization
     {
         public CardPaymentAuthorization(bool direct,
                              string paymentToken,

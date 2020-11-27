@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {
-    public class VippsPaymentAuthorizationListResponse : IdLink, IVippsPaymentAuthorizationListResponse
+    public class VippsPaymentAuthorizationListResponse : Identifiable, IVippsPaymentAuthorizationListResponse
     {
         public VippsPaymentAuthorizationListResponse(Uri id, List<IVippsPaymentAuthorization> authorizationList)
         {

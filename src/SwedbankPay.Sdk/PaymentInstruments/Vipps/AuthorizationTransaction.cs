@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {
-    public class AuthorizationTransaction : IdLink
+    public class AuthorizationTransaction : Identifiable
     {
         public AuthorizationTransaction(DateTime created,
                                         DateTime updated,

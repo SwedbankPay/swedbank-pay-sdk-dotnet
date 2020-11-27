@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
-    public class MobilePayPaymentAuthorization : IdLink, IMobilePayPaymentAuthorization
+    public class MobilePayPaymentAuthorization : Identifiable, IMobilePayPaymentAuthorization
     {
         public MobilePayPaymentAuthorization(Uri id, MobilePayPaymentAuthorizationDto item)
         {

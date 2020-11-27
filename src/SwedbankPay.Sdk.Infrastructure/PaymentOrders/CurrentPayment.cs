@@ -3,7 +3,7 @@ using System;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class CurrentPayment : IdLink, ICurrentPayment
+    public class CurrentPayment : Identifiable, ICurrentPayment
     {
         public CurrentPayment(PaymentOrderPaymentDto payment)
         {

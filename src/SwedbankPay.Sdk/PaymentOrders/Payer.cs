@@ -1,6 +1,6 @@
 ﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class Payer : IdLink
+    public class Payer : Identifiable
     {
         /// <summary>
         /// Account information about the payer if such is known by the merchant system.

@@ -1,6 +1,6 @@
 ﻿namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {
-    public class VippsPaymentAuthorization : IdLink, IVippsPaymentAuthorization
+    public class VippsPaymentAuthorization : Identifiable, IVippsPaymentAuthorization
     {
         public VippsPaymentAuthorization(
                              string vippsTransactionId,

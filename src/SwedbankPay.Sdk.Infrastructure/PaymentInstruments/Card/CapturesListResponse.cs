@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
-    public class CapturesListResponse : IdLink, ICapturesListResponse
+    public class CapturesListResponse : Identifiable, ICapturesListResponse
     {
         public CapturesListResponse(Uri id, List<ITransaction> captureList)
         {

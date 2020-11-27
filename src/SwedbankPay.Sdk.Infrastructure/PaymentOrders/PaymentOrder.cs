@@ -30,7 +30,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
             Payers = paymentOrder.Payer?.Map();
             if (paymentOrder.Payments != null && string.IsNullOrEmpty(paymentOrder.Payments.Id))
             {
-                Payments = new IdLink { Id = new Uri(paymentOrder.Payments.Id, UriKind.RelativeOrAbsolute) };
+                Payments = new Identifiable { Id = new Uri(paymentOrder.Payments.Id, UriKind.RelativeOrAbsolute) };
             }
         }
 
@@ -46,11 +46,11 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public OrderItems OrderItems { get; }
         public PayeeInfo PayeeInfo { get; }
         public Payer Payers { get; }
-        public IdLink Payments { get; }
+        public Identifiable Payments { get; }
         public Amount RemainingCancelAmount { get; }
         public Amount RemainingCaptureAmount { get; }
         public Amount RemainingReversalAmount { get; }
-        public IdLink Settings { get; }
+        public Identifiable Settings { get; }
         public State State { get; }
         public DateTime Updated { get; }
         public IUrls Urls { get; }

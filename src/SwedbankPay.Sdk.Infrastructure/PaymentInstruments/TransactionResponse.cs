@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
-    public class TransactionResponse : IdLink, ITransactionResponse
+    public class TransactionResponse : Identifiable, ITransactionResponse
     {
         public TransactionResponse(string id, TransactionDto transaction)
         {

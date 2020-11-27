@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk
 {
-    public class Urls : IdLink, IUrls
+    public class Urls : Identifiable, IUrls
     {
         public Urls(UrlsDto urls)
         {

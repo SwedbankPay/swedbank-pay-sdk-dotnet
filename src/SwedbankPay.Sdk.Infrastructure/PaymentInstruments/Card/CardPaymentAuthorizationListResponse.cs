@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
-    public class CardPaymentAuthorizationListResponse : IdLink, ICardPaymentAuthorizationListResponse
+    public class CardPaymentAuthorizationListResponse : Identifiable, ICardPaymentAuthorizationListResponse
     {
         public CardPaymentAuthorizationListResponse(List<IPaymentAuthorization> authorizationList)
         {

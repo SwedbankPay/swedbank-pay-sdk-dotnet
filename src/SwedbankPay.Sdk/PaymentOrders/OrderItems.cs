@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class OrderItems : IdLink
+    public class OrderItems : Identifiable
     {
         public OrderItems(Uri id, IEnumerable<OrderItem> orderItemList)
         {

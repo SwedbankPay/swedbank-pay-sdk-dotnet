@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
-    public class PricesDto : IdLink
+    public class PricesDto : Identifiable
     {
         public List<PriceListDto> PriceList { get; set; } = new List<PriceListDto>();
 

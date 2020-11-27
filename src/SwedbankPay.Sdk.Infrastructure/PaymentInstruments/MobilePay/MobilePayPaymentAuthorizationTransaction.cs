@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
-    public class MobilePayPaymentAuthorizationTransaction : IdLink
+    public class MobilePayPaymentAuthorizationTransaction : Identifiable
     {
         public MobilePayPaymentAuthorizationTransaction(MobilePayPaymentAuthorizationTransactionDto dto)
         {
