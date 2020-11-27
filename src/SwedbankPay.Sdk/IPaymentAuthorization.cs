@@ -22,6 +22,10 @@ namespace SwedbankPay.Sdk
         /// The ID of the acquirer terminal.
         /// </summary>
         public string AcquirerTerminalId { get; }
+
+        /// <summary>
+        /// 3DSECURE or SSL. Indicates the transaction type of the acquirer.
+        /// </summary>
         public DateTime AcquirerTransactionTime { get; }
 
         /// <summary>
@@ -68,7 +72,15 @@ namespace SwedbankPay.Sdk
         /// If not, our own token (Mastercard / Amex).
         /// </summary>
         public string ExternalNonPaymentToken { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string ExternalSiteId { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string IssuerAuthorizationApprovalCode { get; }
 
         /// <summary>
@@ -105,6 +117,10 @@ namespace SwedbankPay.Sdk
         /// The transaction object, containing information about the current transaction.
         /// </summary>
         public ICardPaymentCardDetails Transaction { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string TransactionInitiator { get; }
     }
 }

@@ -26,18 +26,36 @@ namespace SwedbankPay.Sdk.Exceptions
             ProblemResponse = problemResponse;
         }
 
+        /// <summary>
+        /// The <seealso cref="HttpResponseMessage"/> that was part of the exception.
+        /// </summary>
         public HttpResponseMessage HttpResponse { get; set; }
 
+        /// <summary>
+        /// The <seealso cref="IProblemResponse"/> in the <seealso cref="HttpResponseException"/>.
+        /// </summary>
         public IProblemResponse ProblemResponse { get; set; }
 
-        public HttpResponseException()
+        /// <summary>
+        /// Instantiates a new empty <seealso cref="HttpResponseException"/>.
+        /// </summary>
+        public HttpResponseException(): base()
         {
         }
 
+        /// <summary>
+        /// Instantiates a new <seealso cref="HttpResponseException"/> with only a <paramref name="message"/>.
+        /// </summary>
+        /// <param name="message"></param>
         public HttpResponseException(string message) : base(message)
         {
         }
 
+        /// <summary>
+        /// Instantiates a new <see cref="HttpResponseException"/> with the provided parameters.
+        /// </summary>
+        /// <param name="message">The message of the <seealso cref="Exception"/>.</param>
+        /// <param name="innerException">The inner <seealso cref="Exception"/>.</param>
         public HttpResponseException(string message, Exception innerException) : base(message, innerException)
         {
         }
