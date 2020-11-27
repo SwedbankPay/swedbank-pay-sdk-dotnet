@@ -10,6 +10,6 @@
         /// <summary>
         /// The invoice type for the current payment.
         /// </summary>
-        public InvoiceType InvoiceType { get; set; }
+        public InvoiceType InvoiceType { get; }
     }
 }

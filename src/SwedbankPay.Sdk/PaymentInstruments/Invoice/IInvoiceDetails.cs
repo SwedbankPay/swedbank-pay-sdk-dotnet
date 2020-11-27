@@ -5,6 +5,6 @@
         /// <summary>
         /// The type this invoice was created with.
         /// </summary>
-        InvoiceType InvoiceType { get; set; }
+        InvoiceType InvoiceType { get; }
     }
 }
