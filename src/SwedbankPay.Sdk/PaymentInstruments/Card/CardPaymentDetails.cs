@@ -4,8 +4,31 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
+    /// <summary>
+    /// Holds details about a card payment.
+    /// </summary>
     public class CardPaymentDetails
     {
+        /// <summary>
+        /// Instantiates a new <see cref="CardPaymentDetails"/> with the provided parameters.
+        /// </summary>
+        /// <param name="operation">The <see cref="Sdk.Operation"/> to perform.</param>
+        /// <param name="intent">The initial <seealso cref="Sdk.PaymentInstruments.PaymentIntent"/> of the payment.</param>
+        /// <param name="currency">The <seealso cref="Sdk.Currency"/> to be paid in.</param>
+        /// <param name="prices">A list of price objects.</param>
+        /// <param name="description">A textual description of the purchase.</param>
+        /// <param name="payerReference">The payer reference.</param>
+        /// <param name="generatePaymentToken">Set if you want a payment token to be generated.</param>
+        /// <param name="generateRecurrenceToken">Set if you want a recurrence token to be generated.</param>
+        /// <param name="userAgent">The payers user agent.</param>
+        /// <param name="language">The payers prefered langauge.</param>
+        /// <param name="urls">URLs relevant for this payment.</param>
+        /// <param name="payeeInfo">Identifies the merchant.</param>
+        /// <param name="riskIndicator">Risk indicator details.</param>
+        /// <param name="cardholder">Information about the card holder.</param>
+        /// <param name="creditCard">Information about the credit card.</param>
+        /// <param name="metadata">Any relevant meta data to be stored.</param>
+        /// <param name="paymentToken">Set this to true if you want to create a paymentToken for future use as One Click.</param>
         public CardPaymentDetails(Operation operation,
                                                 PaymentIntent intent,
                                                 Currency currency,
@@ -81,6 +104,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// The intent of the payment
         /// </summary>
         public PaymentIntent Intent { get; }
+
+        /// <summary>
+        /// The payers prefered language.
+        /// </summary>
         public Language Language { get; }
 
         /// <summary>
@@ -100,6 +127,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// like e-mail address, mobile number, customer number etc.
         /// </summary>
         public string PayerReference { get; }
+
+        /// <summary>
+        /// Set this to true if you want to create a paymentToken for future use as One Click.
+        /// </summary>
         public string PaymentToken { get; }
 
         /// <summary>
