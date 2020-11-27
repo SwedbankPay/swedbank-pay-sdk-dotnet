@@ -7,11 +7,24 @@ namespace SwedbankPay.Sdk
     /// </summary>
     public class PayeeInfo : Identifiable
     {
+        /// <summary>
+        /// Constructs a <seealso cref="PayeeInfo"/> with only the <see cref="Identifiable.Id"/> set.
+        /// </summary>
+        /// <param name="id">The <seealso cref="Uri"/> used to access the resource.</param>
         public PayeeInfo(Uri id)
         {
             Id = id;
         }
 
+        /// <summary>
+        /// Constructs a fully qualified <seealso cref="PayeeInfo"/>, but without a <seealso cref="Identifiable.Id"/>.
+        /// </summary>
+        /// <param name="payeeId"></param>
+        /// <param name="payeeReference"></param>
+        /// <param name="payeeName"></param>
+        /// <param name="productCategory"></param>
+        /// <param name="subsite"></param>
+        /// <param name="orderReference"></param>
         public PayeeInfo(Guid payeeId,
                          string payeeReference,
                          string payeeName = null,

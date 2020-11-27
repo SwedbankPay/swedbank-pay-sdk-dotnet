@@ -15,6 +15,6 @@
         /// <summary>
         /// Api operation, set to 'Abort' by default.
         /// </summary>
-        public string Operation { get; set; } = "Abort";
+        public string Operation { get; } = "Abort";
     }
 }
