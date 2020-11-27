@@ -2,6 +2,9 @@
 
 namespace SwedbankPay.Sdk
 {
+    /// <summary>
+    /// Holds details about a users current address.
+    /// </summary>
     public class Address
     {
         /// <summary>
