@@ -4,6 +4,10 @@ using SwedbankPay.Sdk.PaymentOrders;
 
 namespace SwedbankPay.Sdk
 {
+    /// <summary>
+    /// The entrypoint of this SDK!
+    /// Used to access the different APIs'.
+    /// </summary>
     public interface ISwedbankPayClient
     {
         /// <summary>

@@ -1,5 +1,8 @@
 ﻿namespace SwedbankPay.Sdk
 {
+    /// <summary>
+    /// Class to describe problem responses in certain api responses.
+    /// </summary>
     public interface IProblemResponseItem
     {
         /// <summary>

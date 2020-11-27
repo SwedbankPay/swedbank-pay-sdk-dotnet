@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk
 {
+    /// <summary>
+    /// Resource to access the URLs used for a payment resource.
+    /// </summary>
     public interface IUrls
     {
         /// <summary>
@@ -27,6 +30,12 @@ namespace SwedbankPay.Sdk
         /// The array of URIs valid for embedding of Swedbank Pay Hosted Views.
         /// </summary>
         ICollection<Uri> HostUrls { get; }
+
+        /// <summary>
+        /// The URL that will be used for showing the customer logo.
+        /// Must be a picture with maximum 50px height and 400px width.
+        /// Requires HTTPS.
+        /// </summary>
         Uri LogoUrl { get; }
 
         /// <summary>
