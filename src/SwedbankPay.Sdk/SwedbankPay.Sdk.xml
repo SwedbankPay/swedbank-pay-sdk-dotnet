@@ -263,6 +263,20 @@
             </summary>
             <param name="amount">The <seealso cref="T:System.Int32"/> you want to convert.</param>
         </member>
+        <member name="M:SwedbankPay.Sdk.Amount.op_Addition(SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount)">
+            <summary>
+            Adds the amounts in two <seealso cref="T:SwedbankPay.Sdk.Amount"/> instances together.
+            </summary>
+            <returns>A new <seealso cref="T:SwedbankPay.Sdk.Amount"/> with the amounts added together.</returns>
+        </member>
+        <member name="M:SwedbankPay.Sdk.Amount.op_Subtraction(SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount)">
+            <summary>
+            Subtracts two amounts in <seealso cref="T:SwedbankPay.Sdk.Amount"/> from eachother.
+            </summary>
+            <param name="a">The left side parameter of the - operator.</param>
+            <param name="b">The right side parameter of the - operatior.</param>
+            <returns>A new <seealso cref="T:SwedbankPay.Sdk.Amount"/> with the new sum.</returns>
+        </member>
         <member name="M:SwedbankPay.Sdk.Amount.FromLowestMonetaryUnit(System.Int32)">
             <summary>
             Converts a <seealso cref="T:System.Int32"/> to a <seealso cref="T:SwedbankPay.Sdk.Amount"/>.
@@ -319,6 +333,50 @@
             </summary>
             <returns><inheritdoc/></returns>
         </member>
+        <member name="M:SwedbankPay.Sdk.Amount.op_Equality(SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount)">
+            <summary>
+            Checks that two <seealso cref="T:SwedbankPay.Sdk.Amount"/> are equal.
+            </summary>
+            <returns>true if equal, false otherwise.</returns>
+        </member>
+        <member name="M:SwedbankPay.Sdk.Amount.op_Inequality(SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount)">
+            <summary>
+            Checks that two <seealso cref="T:SwedbankPay.Sdk.Amount"/> are not equal.
+            </summary>
+            <returns>true if not equal, false otherwise.</returns>
+        </member>
+        <member name="M:SwedbankPay.Sdk.Amount.op_LessThan(SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount)">
+            <summary>
+            Checks if the first <seealso cref="T:SwedbankPay.Sdk.Amount"/> is smaler than the second.
+            </summary>
+            <param name="left">The first <seealso cref="T:SwedbankPay.Sdk.Amount"/> to check.</param>
+            <param name="right">The second <seealso cref="T:SwedbankPay.Sdk.Amount"/> to check.</param>
+            <returns>true if <paramref name="left"/> is smaler, false otherwise.</returns>
+        </member>
+        <member name="M:SwedbankPay.Sdk.Amount.op_LessThanOrEqual(SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount)">
+            <summary>
+            Checks if the <paramref name="left"/> is smaler or equal to <paramref name="right"/>.
+            </summary>
+            <param name="left">The first <seealso cref="T:SwedbankPay.Sdk.Amount"/> to check.</param>
+            <param name="right">The second <seealso cref="T:SwedbankPay.Sdk.Amount"/> to check.</param>
+            <returns>true if <paramref name="left"/> is smaller or equal to <paramref name="right"/>.</returns>
+        </member>
+        <member name="M:SwedbankPay.Sdk.Amount.op_GreaterThan(SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount)">
+            <summary>
+            Checks if <paramref name="left"/> is larger than <paramref name="right"/>.
+            </summary>
+            <param name="left">The first <paramref name="left"/> to check.</param>
+            <param name="right">The second <paramref name="right"/> to check.</param>
+            <returns>true if <paramref name="left"/> is larger than <paramref name="right"/>, false othervise.</returns>
+        </member>
+        <member name="M:SwedbankPay.Sdk.Amount.op_GreaterThanOrEqual(SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount)">
+            <summary>
+            Checks if <paramref name="left"/> is larger than, or equal to<paramref name="right"/>.
+            </summary>
+            <param name="left">The first <paramref name="left"/> to check.</param>
+            <param name="right">The second <paramref name="right"/> to check.</param>
+            <returns>true if <paramref name="left"/> is larger than or equal to <paramref name="right"/>, false othervise.</returns>
+        </member>
         <member name="T:SwedbankPay.Sdk.Consumers.Address">
             <summary>
             Holds details about a consumers addres.
@@ -359,6 +417,14 @@
             Holds billing details about a consumer.
             </summary>
         </member>
+        <member name="M:SwedbankPay.Sdk.Consumers.BillingDetails.#ctor(SwedbankPay.Sdk.EmailAddress,SwedbankPay.Sdk.Msisdn,SwedbankPay.Sdk.Consumers.Address)">
+            <summary>
+            Instantiates a new <see cref="T:SwedbankPay.Sdk.Consumers.BillingDetails"/> with the provided parameters.
+            </summary>
+            <param name="email">The consumers email address.</param>
+            <param name="msisdn">The consumers MSISDN.</param>
+            <param name="billingAddress">The consumers billing address.</param>
+        </member>
         <member name="P:SwedbankPay.Sdk.Consumers.BillingDetails.BillingAddress">
             <summary>
             The payers billing address
@@ -374,6 +440,23 @@
                 The MSISDN (mobile phone number) of the payer. Format Sweden: +46707777777. Format Norway: +4799999999.
             </summary>
         </member>
+        <member name="T:SwedbankPay.Sdk.Consumers.ConsumerOperations">
+            <summary>
+            Holds all currently available operations for a consumer.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.Consumers.ConsumerOperations.#ctor(SwedbankPay.Sdk.IOperationList)">
+            <summary>
+            Consturcts a <see cref="T:SwedbankPay.Sdk.Consumers.ConsumerOperations"/> holding all currently available operations for a consumer.
+            </summary>
+            <param name="operations">A list of available operations.</param>
+        </member>
+        <member name="M:SwedbankPay.Sdk.Consumers.ConsumerOperations.#ctor(System.Runtime.Serialization.SerializationInfo)">
+            <summary>
+            Constructs a <see cref="T:SwedbankPay.Sdk.Consumers.ConsumerOperations"/> using data from <seealso cref="T:System.Runtime.Serialization.SerializationInfo"/>.
+            </summary>
+            <param name="info">A <seealso cref="T:System.Runtime.Serialization.SerializationInfo"/> containging the needed operations.</param>
+        </member>
         <member name="P:SwedbankPay.Sdk.Consumers.ConsumerOperations.RedirectConsumerIdentification">
             <summary>
             The <seealso cref="T:SwedbankPay.Sdk.HttpOperation"/> for redirecting the consumer to the
@@ -385,6 +468,37 @@
             The <seealso cref="T:SwedbankPay.Sdk.HttpOperation"/> for viewing/opening
             the identifiaction frame
             </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.Consumers.ConsumerResourceOperations">
+            <summary>
+            Currently mapped operations available for consumers.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.Consumers.ConsumerResourceOperations.ViewConsumerIdentification">
+            <summary>
+            The Operation used to open a iframe to view consumer identification.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.Consumers.ConsumerResourceOperations.RedirectConsumerIdentification">
+            <summary>
+            The operation used to redirect a consumer for identification.
+            </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.Consumers.ConsumersRequest">
+            <summary>
+            Holds details to identify a consumer when initiating a payment.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.Consumers.ConsumersRequest.#ctor(SwedbankPay.Sdk.Language,System.Collections.Generic.IEnumerable{System.Globalization.RegionInfo},SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.Msisdn,SwedbankPay.Sdk.EmailAddress,SwedbankPay.Sdk.PaymentOrders.NationalIdentifier)">
+            <summary>
+            Constructs a new request to the Consumers API resource.
+            </summary>
+            <param name="language">The prefered langauge for the consumer.</param>
+            <param name="shippingAddressRestrictedToCountryCodes">A <seealso cref="T:System.Collections.Generic.IEnumerable`1"/> that lists available countrys this payment will ship to.</param>
+            <param name="operation">The initiating operation for this request.</param>
+            <param name="msisdn">The consumers <seealso cref="T:SwedbankPay.Sdk.Msisdn"/>.</param>
+            <param name="email">The consumers <seealso cref="T:SwedbankPay.Sdk.EmailAddress"/>.</param>
+            <param name="nationalIdentifier">The consumers <seealso cref="T:SwedbankPay.Sdk.PaymentOrders.NationalIdentifier"/>.</param>
         </member>
         <member name="P:SwedbankPay.Sdk.Consumers.ConsumersRequest.Email">
             <summary>
@@ -449,6 +563,11 @@
             <exception cref="T:SwedbankPay.Sdk.Exceptions.HttpResponseException"></exception>
             <returns></returns>
         </member>
+        <member name="T:SwedbankPay.Sdk.Consumers.IConsumersResponse">
+            <summary>
+            Interface describing a API response from Consumers.
+            </summary>
+        </member>
         <member name="P:SwedbankPay.Sdk.Consumers.IConsumersResponse.Operations">
             <summary>
                 The array of operation objects to choose from
@@ -492,6 +611,12 @@
             The currency code used for the payment
             </summary>
         </member>
+        <member name="M:SwedbankPay.Sdk.Currency.#ctor(System.String)">
+            <summary>
+            Constructs a new <seealso cref="T:SwedbankPay.Sdk.Currency"/> using a ISO 4217 currency symbol.
+            </summary>
+            <param name="currencyCode">A ISO 4217 currency symbol.</param>
+        </member>
         <member name="M:SwedbankPay.Sdk.Currency.IsValidCurrencyCode(System.String)">
             <summary>
             Checks if the <paramref name="currencyCode"/> is valid.
@@ -500,12 +625,63 @@
             <param name="currencyCode"></param>
             <returns></returns>
         </member>
+        <member name="M:SwedbankPay.Sdk.Currency.ToString">
+            <summary>
+            <inheritdoc/>
+            </summary>
+            <returns><inheritdoc/></returns>
+        </member>
+        <member name="T:SwedbankPay.Sdk.EmailAddress">
+            <summary>
+            Object holding a payer/consumer email address.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.EmailAddress.#ctor(System.String)">
+            <summary>
+            Constructs a <seealso cref="T:SwedbankPay.Sdk.EmailAddress"/> after validating the input.
+            </summary>
+            <param name="emailAddress">A email to be validated and stored.</param>
+        </member>
         <member name="M:SwedbankPay.Sdk.EmailAddress.IsValidEmail(System.String)">
             <summary>
             Validates a email address.
             </summary>
             <param name="emailAddress">The email address to validate.</param>
-            <returns><seealso cref="!:true"/> if it is valid, <seealso cref="!:false"/> othervise.</returns>
+            <returns>true if it is valid, false othervise.</returns>
+        </member>
+        <member name="M:SwedbankPay.Sdk.EmailAddress.ToString">
+            <summary>
+            <inheritdoc/>
+            </summary>
+            <returns><inheritdoc/></returns>
+        </member>
+        <member name="T:SwedbankPay.Sdk.Exceptions.HttpResponseException">
+            <summary>
+            Contains detailed information about an <seealso cref="T:System.Exception"/> made during a HTTP request.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.Exceptions.HttpResponseException.#ctor(System.Net.Http.HttpResponseMessage,SwedbankPay.Sdk.IProblemResponse,System.String,System.Exception)">
+            <summary>
+            Instantiates a new <seealso cref="T:SwedbankPay.Sdk.Exceptions.HttpResponseException"/> with the parameters passed in.
+            </summary>
+            <param name="httpResponse"></param>
+            <param name="problemResponse"></param>
+            <param name="message"></param>
+            <param name="innerException"></param>
+        </member>
+        <member name="T:SwedbankPay.Sdk.HttpOperation">
+            <summary>
+            Holds information about a API relevant Operation.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.HttpOperation.#ctor(System.Uri,SwedbankPay.Sdk.LinkRelation,System.String,System.String)">
+            <summary>
+            Instansiates a new <seealso cref="T:SwedbankPay.Sdk.HttpOperation"/> with the provided parameters.
+            </summary>
+            <param name="href">The <seealso cref="T:System.Uri"/> for the operation.</param>
+            <param name="rel">The name of the operation.</param>
+            <param name="method">The <seealso cref="T:System.Net.Http.HttpMethod"/> as a string for the operation.</param>
+            <param name="contentType">The content type of the operation.</param>
         </member>
         <member name="P:SwedbankPay.Sdk.HttpOperation.ContentType">
             <summary>
@@ -542,6 +718,22 @@
         <member name="P:SwedbankPay.Sdk.Identifiable.Id">
             <summary>
                 Relative URL to the resource
+            </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.IOperationList">
+            <summary>
+            Holds a list of <seealso cref="T:SwedbankPay.Sdk.HttpOperation"/>s.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.IOperationList.ToString">
+            <summary>
+            Transforms the list to a string.
+            </summary>
+            <returns>The transformed string.</returns>
+        </member>
+        <member name="T:SwedbankPay.Sdk.IPaymentAuthorization">
+            <summary>
+            Contains information about a Card payment authorization.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.IPaymentAuthorization.Id">
@@ -639,6 +831,11 @@
             The transaction object, containing information about the current transaction.
             </summary>
         </member>
+        <member name="T:SwedbankPay.Sdk.IProblemResponse">
+            <summary>
+            Holds details about a problem response from the API.
+            </summary>
+        </member>
         <member name="P:SwedbankPay.Sdk.IProblemResponse.Action">
             <summary>
             The action indicates how the error can be recovered from.
@@ -678,6 +875,11 @@
             it might lead you to a human readable description of the error and how it can be recovered from.
             </summary>
         </member>
+        <member name="T:SwedbankPay.Sdk.IProblemResponseItem">
+            <summary>
+            Class to describe problem responses in certain api responses.
+            </summary>
+        </member>
         <member name="P:SwedbankPay.Sdk.IProblemResponseItem.Description">
             <summary>
             The human readable description of what was wrong with the field,
@@ -687,6 +889,12 @@
         <member name="P:SwedbankPay.Sdk.IProblemResponseItem.Name">
             <summary>
             The name of the field, header, object, entity or likewise that was erroneous.
+            </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.ISwedbankPayClient">
+            <summary>
+            The entrypoint of this SDK!
+            Used to access the different APIs'.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.ISwedbankPayClient.PaymentOrders">
@@ -702,6 +910,11 @@
         <member name="P:SwedbankPay.Sdk.ISwedbankPayClient.Payments">
             <summary>
             Resource to create and get payments on several payment instruments.
+            </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.IUrls">
+            <summary>
+            Resource to access the URLs used for a payment resource.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.IUrls.CallbackUrl">
@@ -727,6 +940,13 @@
             The array of URIs valid for embedding of Swedbank Pay Hosted Views.
             </summary>
         </member>
+        <member name="P:SwedbankPay.Sdk.IUrls.LogoUrl">
+            <summary>
+            The URL that will be used for showing the customer logo.
+            Must be a picture with maximum 50px height and 400px width.
+            Requires HTTPS.
+            </summary>
+        </member>
         <member name="P:SwedbankPay.Sdk.IUrls.PaymentUrl">
             <summary>
             With permission and activation on your contract,
@@ -743,15 +963,215 @@
             HTTPS is a requirement.
             </summary>
         </member>
+        <member name="T:SwedbankPay.Sdk.Language">
+            <summary>
+            Contains information about a payers prefered langauge.
+            </summary>
+        </member>
         <member name="M:SwedbankPay.Sdk.Language.#ctor(System.String)">
             <summary>
-            Creates a new <seealso cref="T:SwedbankPay.Sdk.Language"/>.
+            Instantiates a new <seealso cref="T:SwedbankPay.Sdk.Language"/>.
             </summary>
             <param name="language">A string in the format of xx-YY</param>
         </member>
+        <member name="M:SwedbankPay.Sdk.Language.ToString">
+            <summary>
+            Returns the provided language from the constructor as a string.
+            </summary>
+            <returns>The provided language from the constructor.</returns>
+        </member>
+        <member name="T:SwedbankPay.Sdk.LinkRelation">
+            <summary>
+            Enum-like object to programatically inspect API Operations.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.LinkRelation.UpdatePaymentOrderUpdateOrder">
+            <summary>
+            <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/> for PaymentOrder UpdatePaymentorder.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.LinkRelation.CreatePaymentOrderCapture">
+            <summary>
+            <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/> for PaymentOrder UpdatePaymentorder.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.LinkRelation.CreatePaymentOrderCancel">
+            <summary>
+            <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/> for PaymentOrder UpdatePaymentorder.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.LinkRelation.UpdateAbort">
+            <summary>
+            <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/> for PaymentOrder UpdateAbort.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.LinkRelation.CreatePaymentOrderReversal">
+            <summary>
+            <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/> for PaymentOrder UpdatePaymentorderReversal.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.LinkRelation.View">
+            <summary>
+            <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/> for PaymentOrder View.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.LinkRelation.RedirectPaymentOrder">
+            <summary>
+            <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/> for PaymentOrder RedirectPaymentOrder.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.LinkRelation.RedirectVerification">
+            <summary>
+            <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/> for PaymentOrder RedirectVerification.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.LinkRelation.ViewConsumerIdentification">
+            <summary>
+            <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/> for Consumer ViewConsumerIdentification.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.LinkRelation.RedirectConsumerIdentification">
+            <summary>
+            <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/> for Consumer RedirectConsumerIdentification.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.LinkRelation.CreateCancellation">
+            <summary>
+            <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/> for Payment CreateCancellation.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.LinkRelation.CreateCapture">
+            <summary>
+            <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/> for Payment CreateCapture.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.LinkRelation.CreateReversal">
+            <summary>
+            <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/> for Payment CreateReversal.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.LinkRelation.PaidPaymentOrder">
+            <summary>
+            <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/> for Payment PaidPaymentOrder.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.LinkRelation.PaidPayment">
+            <summary>
+            <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/> for Payment PaidPayment.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.LinkRelation.UpdatePaymentAbort">
+            <summary>
+            <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/> for Payment UpdatePaymentAbort.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.LinkRelation.ViewAuthorization">
+            <summary>
+            <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/> for Payment ViewAuthorization.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.LinkRelation.RedirectAuthorization">
+            <summary>
+            <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/> for Payment RedirectAuthorization.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.LinkRelation.CreateSale">
+            <summary>
+            <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/> for Payment CreateSale.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.LinkRelation.RedirectSale">
+            <summary>
+            <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/> for Paymen RedirectSale.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.LinkRelation.ViewSales">
+            <summary>
+            <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/> for Paymen ViewSale.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.LinkRelation.AbortedPayment">
+            <summary>
+            <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/> for Payment AbortedPayment.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.LinkRelation.AbortedPaymentOrder">
+            <summary>
+            <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/> for PaymentOrder AbortedPaymentOrder.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.LinkRelation.RedirectAppSwish">
+            <summary>
+            <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/> for Payment RedirectAppSwish.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.LinkRelation.ViewPayment">
+            <summary>
+            <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/> for Payment ViewPayment.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.LinkRelation.ViewVerification">
+            <summary>
+            <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/> for Payment ViewVerification.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.LinkRelation.UpdateAuthorizationOverchargedamount">
+            <summary>
+            <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/> for Payment UpdateAuthorizationOverchargedAmount.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.LinkRelation.CreateApprovedLegalAddress">
+            <summary>
+            <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/> for Payment CreateApprovedLegalAddress.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.LinkRelation.CreateAuthorization">
+            <summary>
+            <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/> for Payment CreateAuthorization.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.LinkRelation.DirectAuthorization">
+            <summary>
+            <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/> for Payment DirectAuthorization.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.LinkRelation.#ctor(System.String)">
+            <summary>
+            Instantiates a new <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/> where both name and value are <paramref name="name"/>.
+            </summary>
+            <param name="name">The name/value combo.</param>
+        </member>
+        <member name="M:SwedbankPay.Sdk.LinkRelation.#ctor(System.String,System.String)">
+            <summary>
+            Instantiates a new <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/> using the provided parameters.
+            </summary>
+            <param name="name">The name of the <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/>.</param>
+            <param name="value">The value of the <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/>.</param>
+        </member>
+        <member name="T:SwedbankPay.Sdk.MetadataResponse">
+            <summary>
+            Contains the MetaData for a Payment/PaymentOrder.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.MetadataResponse.#ctor">
+            <summary>
+            Instantiates a new empty <seealso cref="T:SwedbankPay.Sdk.MetadataResponse"/>.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.MetadataResponse.#ctor(System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Instantiates a new <seealso cref="T:SwedbankPay.Sdk.MetadataResponse"/> using the provided <seealso cref="T:System.Collections.Generic.Dictionary`2"/>.
+            </summary>
+            <param name="dictionary">A <seealso cref="T:System.Collections.Generic.Dictionary`2"/> with values to be added.</param>
+        </member>
         <member name="P:SwedbankPay.Sdk.MetadataResponse.Id">
             <summary>
-            Unique ID that references this resource.
+            Unique ID that references this resource, available if set.
+            </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.Msisdn">
+            <summary>
+            Object to hold a consumers/payers <seealso cref="T:SwedbankPay.Sdk.Msisdn"/> information.
             </summary>
         </member>
         <member name="M:SwedbankPay.Sdk.Msisdn.#ctor(System.String)">
@@ -759,6 +1179,72 @@
             Creates a new <seealso cref="T:SwedbankPay.Sdk.Msisdn"/>
             </summary>
             <param name="msisdn">The payers MSISDN.</param>
+        </member>
+        <member name="M:SwedbankPay.Sdk.Msisdn.IsValidMsisdn(System.String)">
+            <summary>
+            Method to validate a provided <seealso cref="T:System.String"/>.
+            </summary>
+            <param name="msisdn">The <seealso cref="T:System.String"/> to validate.</param>
+            <returns>false if not valid, true otherwise.</returns>
+        </member>
+        <member name="M:SwedbankPay.Sdk.Msisdn.ToString">
+            <summary>
+            <inheritdoc/>
+            </summary>
+            <returns><inheritdoc/></returns>
+        </member>
+        <member name="T:SwedbankPay.Sdk.Operation">
+            <summary>
+            A enum-like class that holds <seealso cref="T:SwedbankPay.Sdk.Operation"/>.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.Operation.Purchase">
+            <summary>
+            The <seealso cref="T:SwedbankPay.Sdk.Operation"/> for Purchase.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.Operation.UpdateOrder">
+            <summary>
+            The <seealso cref="T:SwedbankPay.Sdk.Operation"/> for UpdateOrder.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.Operation.Verify">
+            <summary>
+            The <seealso cref="T:SwedbankPay.Sdk.Operation"/> for Verify.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.Operation.Initiate">
+            <summary>
+            The <seealso cref="T:SwedbankPay.Sdk.Operation"/> for initiate-consumer-session.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.Operation.Recur">
+            <summary>
+            The <seealso cref="T:SwedbankPay.Sdk.Operation"/> for Recur.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.Operation.FinancingConsumer">
+            <summary>
+            The <seealso cref="T:SwedbankPay.Sdk.Operation"/> for FinancingConsumer.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.Operation.Sale">
+            <summary>
+            The <seealso cref="T:SwedbankPay.Sdk.Operation"/> for Sale.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.Operation.#ctor(System.String,System.String)">
+            <summary>
+            Instantiates a new <seealso cref="T:SwedbankPay.Sdk.Operation"/> with the provided parameters.
+            </summary>
+            <param name="name">The name of the operation.</param>
+            <param name="value">The API value for the operation.</param>
+        </member>
+        <member name="M:SwedbankPay.Sdk.Operation.op_Implicit(System.String)~SwedbankPay.Sdk.Operation">
+            <summary>
+            Implicitly converts a string to a <seealso cref="T:SwedbankPay.Sdk.Operation"/>.
+            </summary>
+            <param name="operation">The name/value of the <seealso cref="T:SwedbankPay.Sdk.Operation"/>.</param>
         </member>
         <member name="T:SwedbankPay.Sdk.PayeeInfo">
             <summary>

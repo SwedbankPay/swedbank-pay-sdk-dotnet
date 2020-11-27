@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Consumers
 {
+    /// <summary>
+    /// Methods to initiate and get consumer information.
+    /// </summary>
     public interface IConsumersResource
     {
         /// <summary>

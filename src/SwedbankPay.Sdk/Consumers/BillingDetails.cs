@@ -5,11 +5,12 @@
     /// </summary>
     public class BillingDetails
     {
-        public BillingDetails()
-        {
-        }
-
-
+        /// <summary>
+        /// Instantiates a new <see cref="BillingDetails"/> with the provided parameters.
+        /// </summary>
+        /// <param name="email">The consumers email address.</param>
+        /// <param name="msisdn">The consumers MSISDN.</param>
+        /// <param name="billingAddress">The consumers billing address.</param>
         public BillingDetails(EmailAddress email, Msisdn msisdn, Address billingAddress)
         {
             Email = email;

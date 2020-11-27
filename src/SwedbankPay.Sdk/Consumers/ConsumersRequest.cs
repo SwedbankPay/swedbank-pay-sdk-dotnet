@@ -49,6 +49,9 @@ namespace SwedbankPay.Sdk.Consumers
         /// </summary>
         public Msisdn Msisdn { get; }
 
+        /// <summary>
+        /// The payers <seealso cref="Sdk.PaymentOrders.NationalIdentifier"/>.
+        /// </summary>
         public NationalIdentifier NationalIdentifier { get; }
 
         /// <summary>

@@ -28,6 +28,10 @@ namespace SwedbankPay.Sdk
 
         private CultureInfo Culture { get; }
 
+        /// <summary>
+        /// Returns the provided language from the constructor as a string.
+        /// </summary>
+        /// <returns>The provided language from the constructor.</returns>
         public override string ToString()
         {
             return Culture.Name;

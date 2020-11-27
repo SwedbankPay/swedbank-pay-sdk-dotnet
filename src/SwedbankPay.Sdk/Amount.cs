@@ -57,11 +57,21 @@ namespace SwedbankPay.Sdk
             return FromLowestMonetaryUnit(amount);
         }
 
+        /// <summary>
+        /// Adds the amounts in two <seealso cref="Sdk.Amount"/> instances together.
+        /// </summary>
+        /// <returns>A new <seealso cref="Sdk.Amount"/> with the amounts added together.</returns>
         public static Amount operator +(Amount a, Amount b)
         {
             return new Amount(a.amount + b.amount);
         }
 
+        /// <summary>
+        /// Subtracts two amounts in <seealso cref="Sdk.Amount"/> from eachother.
+        /// </summary>
+        /// <param name="a">The left side parameter of the - operator.</param>
+        /// <param name="b">The right side parameter of the - operatior.</param>
+        /// <returns>A new <seealso cref="Sdk.Amount"/> with the new sum.</returns>
         public static Amount operator -(Amount a, Amount b)
         {
             return new Amount(a.amount - b.amount);
@@ -197,6 +207,10 @@ namespace SwedbankPay.Sdk
             return this.amount.ToString(format, CultureInfo.InvariantCulture);
         }
 
+        /// <summary>
+        /// Checks that two <seealso cref="Sdk.Amount"/> are equal.
+        /// </summary>
+        /// <returns>true if equal, false otherwise.</returns>
         public static bool operator ==(Amount left, Amount right)
         {
             if (left is null)
@@ -207,26 +221,54 @@ namespace SwedbankPay.Sdk
             return left.Equals(right);
         }
 
+        /// <summary>
+        /// Checks that two <seealso cref="Sdk.Amount"/> are not equal.
+        /// </summary>
+        /// <returns>true if not equal, false otherwise.</returns>
         public static bool operator !=(Amount left, Amount right)
         {
             return !(left.InLowestMonetaryUnit == right.InLowestMonetaryUnit);
         }
 
+        /// <summary>
+        /// Checks if the first <seealso cref="Sdk.Amount"/> is smaler than the second.
+        /// </summary>
+        /// <param name="left">The first <seealso cref="Sdk.Amount"/> to check.</param>
+        /// <param name="right">The second <seealso cref="Sdk.Amount"/> to check.</param>
+        /// <returns>true if <paramref name="left"/> is smaler, false otherwise.</returns>
         public static bool operator <(Amount left, Amount right)
         {
             return left is null ? right is object : left.CompareTo(right) < 0;
         }
 
+        /// <summary>
+        /// Checks if the <paramref name="left"/> is smaler or equal to <paramref name="right"/>.
+        /// </summary>
+        /// <param name="left">The first <seealso cref="Sdk.Amount"/> to check.</param>
+        /// <param name="right">The second <seealso cref="Sdk.Amount"/> to check.</param>
+        /// <returns>true if <paramref name="left"/> is smaller or equal to <paramref name="right"/>.</returns>
         public static bool operator <=(Amount left, Amount right)
         {
             return left is null || left.CompareTo(right) <= 0;
         }
 
+        /// <summary>
+        /// Checks if <paramref name="left"/> is larger than <paramref name="right"/>.
+        /// </summary>
+        /// <param name="left">The first <paramref name="left"/> to check.</param>
+        /// <param name="right">The second <paramref name="right"/> to check.</param>
+        /// <returns>true if <paramref name="left"/> is larger than <paramref name="right"/>, false othervise.</returns>
         public static bool operator >(Amount left, Amount right)
         {
             return left is object && left.CompareTo(right) > 0;
         }
 
+        /// <summary>
+        /// Checks if <paramref name="left"/> is larger than, or equal to<paramref name="right"/>.
+        /// </summary>
+        /// <param name="left">The first <paramref name="left"/> to check.</param>
+        /// <param name="right">The second <paramref name="right"/> to check.</param>
+        /// <returns>true if <paramref name="left"/> is larger than or equal to <paramref name="right"/>, false othervise.</returns>
         public static bool operator >=(Amount left, Amount right)
         {
             return left is null ? right is null : left.CompareTo(right) >= 0;
