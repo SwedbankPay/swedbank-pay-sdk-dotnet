@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
+    /// <summary>
+    /// Transactional details about a invoice payment.
+    /// </summary>
     public interface IInvoicePaymentDetails
     {
         /// <summary>
@@ -104,6 +107,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         /// like e-mail address, mobile number, customer number etc.
         /// </summary>
         string PayerReference { get; }
+
+        /// <summary>
+        /// The user agent of the initiating system.
+        /// </summary>
         string InitiatingSystemUserAgent { get; }
 
         /// <summary>

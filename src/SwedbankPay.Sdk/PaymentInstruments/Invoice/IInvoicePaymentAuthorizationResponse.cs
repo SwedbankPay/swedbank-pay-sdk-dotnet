@@ -2,6 +2,9 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
+    /// <summary>
+    /// Wrapper for a invoice payment authorization.
+    /// </summary>
     public interface IInvoicePaymentAuthorizationResponse
     {
         /// <summary>

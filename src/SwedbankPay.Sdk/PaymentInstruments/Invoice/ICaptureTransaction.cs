@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
+    /// <summary>
+    /// Transactional details for capturing a invoice payment.
+    /// </summary>
     public interface ICaptureTransaction
     {
         /// <summary>
@@ -19,6 +22,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         /// A list describing each item being captured in this request.
         /// </summary>
         List<ItemDescriptions> ItemDescriptions { get; set; }
+
+        /// <summary>
+        /// List of <seealso cref="OrderItem"/> to be captured in this transaction.
+        /// </summary>
         List<OrderItem> OrderItems { get; }
 
         /// <summary>
@@ -27,6 +34,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         /// This must be unique for each operation and must follow the regex pattern [\w-]*.
         /// </summary>
         string PayeeReference { get; }
+
+        /// <summary>
+        /// The API operation to be used.
+        /// </summary>
         Operation TransactionActivity { get; set; }
 
         /// <summary>

@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
+    /// <summary>
+    /// The entrypoint for the invoice API.
+    /// </summary>
     public interface IInvoiceResource
     {
         /// <summary>
@@ -14,12 +17,12 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         Task<IInvoicePaymentResponse> Create(InvoicePaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None);
 
 
-        ///// <summary>
-        ///// Gets an existing invoice payment.
-        ///// </summary>
-        ///// <param name="id"></param>
-        ///// <param name="paymentExpand"></param>
-        ///// <returns></returns>
+        /// <summary>
+        /// Gets an existing invoice payment.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="paymentExpand"></param>
+        /// <returns></returns>
         Task<IInvoicePaymentResponse> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None);
     }
 }

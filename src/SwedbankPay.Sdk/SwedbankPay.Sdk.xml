@@ -3223,6 +3223,11 @@
             <inheritdoc/>
             </summary>
         </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.IAuthorizationTransaction">
+            <summary>
+            Transactional details for authorizing a invoice transaction.
+            </summary>
+        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.IAuthorizationTransaction.Addressee">
             <summary>
             The full (first and last) name of the consumer.
@@ -3306,6 +3311,11 @@
             FinancingConsumer
             </summary>
         </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.ICaptureTransaction">
+            <summary>
+            Transactional details for capturing a invoice payment.
+            </summary>
+        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.ICaptureTransaction.Amount">
             <summary>
             The <seealso cref="T:SwedbankPay.Sdk.Amount"/> to be captured.
@@ -3321,11 +3331,21 @@
             A list describing each item being captured in this request.
             </summary>
         </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.ICaptureTransaction.OrderItems">
+            <summary>
+            List of <seealso cref="T:SwedbankPay.Sdk.PaymentOrders.OrderItem"/> to be captured in this transaction.
+            </summary>
+        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.ICaptureTransaction.PayeeReference">
             <summary>
             The payeeReference is the receipt/invoice number if receiptReference is not defined,
             which is a unique reference with max 50 characters set by the merchant system.
             This must be unique for each operation and must follow the regex pattern [\w-]*.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.ICaptureTransaction.TransactionActivity">
+            <summary>
+            The API operation to be used.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.ICaptureTransaction.VatAmount">
@@ -3338,9 +3358,19 @@
             A list describing each items vat summary.
             </summary>
         </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.IInvoiceDetails">
+            <summary>
+            Wrapper for transactional details on a invoice.
+            </summary>
+        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.IInvoiceDetails.InvoiceType">
             <summary>
             The type this invoice was created with.
+            </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.IInvoicePaymentAuthorization">
+            <summary>
+            Wrapper for transactional details of a invocie authorization.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.IInvoicePaymentAuthorization.Transaction">
@@ -3348,9 +3378,19 @@
             Transactional details about this authorization.
             </summary>
         </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.IInvoicePaymentAuthorizationListResponse">
+            <summary>
+            Wrapper for a list of invoice authorizations.
+            </summary>
+        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.IInvoicePaymentAuthorizationListResponse.AuthorizationList">
             <summary>
             A list of authorizations done on this invoice payment.
+            </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.IInvoicePaymentAuthorizationResponse">
+            <summary>
+            Wrapper for a invoice payment authorization.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.IInvoicePaymentAuthorizationResponse.Payment">
@@ -3361,6 +3401,11 @@
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.IInvoicePaymentAuthorizationResponse.Authorization">
             <summary>
             Transactional details about this authorization.
+            </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.IInvoicePaymentDetails">
+            <summary>
+            Transactional details about a invoice payment.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.IInvoicePaymentDetails.Amount">
@@ -3463,6 +3508,11 @@
             like e-mail address, mobile number, customer number etc.
             </summary>
         </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.IInvoicePaymentDetails.InitiatingSystemUserAgent">
+            <summary>
+            The user agent of the initiating system.
+            </summary>
+        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.IInvoicePaymentDetails.Prices">
             <summary>
             The prices resource lists the prices related to this payment.
@@ -3496,6 +3546,11 @@
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.IInvoicePaymentDetails.Metadata">
             <summary>
             Metadata sent in by the merchant for this payment.
+            </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.IInvoicePaymentOperations">
+            <summary>
+            Gives access to all currently mapped operations in the invoice API.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.IInvoicePaymentOperations.Abort">
@@ -3538,6 +3593,12 @@
             Gets the information needed to view the authorization of the payment, if available.
             </summary>
         </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.IInvoicePaymentResponse">
+            <summary>
+            Object holding the current invoice payment details
+            and available operations for that invoice.
+            </summary>
+        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.IInvoicePaymentResponse.Payment">
             <summary>
             The data and details about the current invoice payment.
@@ -3548,6 +3609,11 @@
             The currently available operations on this invoice payment.
             </summary>
         </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.IInvoiceResource">
+            <summary>
+            The entrypoint for the invoice API.
+            </summary>
+        </member>
         <member name="M:SwedbankPay.Sdk.PaymentInstruments.Invoice.IInvoiceResource.Create(SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentRequest,SwedbankPay.Sdk.PaymentInstruments.PaymentExpand)">
             <summary>
             Creates a new invoice payment
@@ -3556,29 +3622,110 @@
             <param name="paymentExpand"></param>
             <returns></returns>
         </member>
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Invoice.IInvoiceResource.Get(System.Uri,SwedbankPay.Sdk.PaymentInstruments.PaymentExpand)">
+            <summary>
+            Gets an existing invoice payment.
+            </summary>
+            <param name="id"></param>
+            <param name="paymentExpand"></param>
+            <returns></returns>
+        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoiceApprovedLegalAddressRequest.Addressee">
             <summary>
             The addressee you want the approved legal address for.
             </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePayment">
+            <summary>
+            Wrapper for a <seealso cref="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoiceType"/>.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePayment.#ctor(SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoiceType)">
+            <summary>
+            Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePayment"/> with the provided <paramref name="invoiceType"/>.
+            </summary>
+            <param name="invoiceType">The type of invoice.</param>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePayment.InvoiceType">
             <summary>
             The invoice type for the current payment.
             </summary>
         </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentAuthorizationRequest">
+            <summary>
+            Object for storing a authorization request to the invoice API.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentAuthorizationRequest.#ctor(SwedbankPay.Sdk.PaymentInstruments.Invoice.IAuthorizationTransaction)">
+            <summary>
+            Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentAuthorizationRequest"/>
+            with the provided <paramref name="transaction"/>.
+            </summary>
+            <param name="transaction">Transactional details about a invoice authorization.</param>
+        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentAuthorizationRequest.Transaction">
             <summary>
             Details needed to authorize this payment.
             </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentCancelRequest">
+            <summary>
+            Object for storing transactional details cancelling a invoice payment.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentCancelRequest.#ctor(SwedbankPay.Sdk.PaymentInstruments.Invoice.ICancelTransaction)">
+            <summary>
+            Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentCancelRequest"/>
+            with the provided <paramref name="transaction"/>.
+            </summary>
+            <param name="transaction">Transactional details about a
+            invoice cancellation.</param>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentCancelRequest.Transaction">
             <summary>
             Details needed to cancel the current invoice payment.
             </summary>
         </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentCaptureRequest">
+            <summary>
+            Object holding the details needed to capture a invoice payment.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentCaptureRequest.#ctor(SwedbankPay.Sdk.PaymentInstruments.Invoice.ICaptureTransaction)">
+            <summary>
+            Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentCaptureRequest"/> with
+            the provided <paramref name="transaction"/>.
+            </summary>
+            <param name="transaction">Transactional details needed to capture a invoice payment.</param>
+        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentCaptureRequest.Transaction">
             <summary>
             Details needed to capture the current payment.
+            </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoiceType">
+            <summary>
+            Enum detailing the available invoice types.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoiceType.Unknown">
+            <summary>
+            The invoice type is unknown.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoiceType.PayExFinancingNO">
+            <summary>
+            <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoiceType"/> used for norwegian invoices.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoiceType.PayExFinancingFI">
+            <summary>
+            <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoiceType"/> used for finish invoices.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoiceType.PayExFinancingSE">
+            <summary>
+            <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoiceType"/> used for swedish invoices.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentRequest.Payment">

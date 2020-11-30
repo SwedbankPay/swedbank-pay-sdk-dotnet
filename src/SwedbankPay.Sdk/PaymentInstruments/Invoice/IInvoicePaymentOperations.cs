@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
+    /// <summary>
+    /// Gives access to all currently mapped operations in the invoice API.
+    /// </summary>
     public interface IInvoicePaymentOperations : IDictionary<LinkRelation, HttpOperation>
     {
         /// <summary>

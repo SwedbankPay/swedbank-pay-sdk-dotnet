@@ -1,5 +1,8 @@
 ﻿namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
+    /// <summary>
+    /// Transactional details for authorizing a invoice transaction.
+    /// </summary>
     public interface IAuthorizationTransaction
     {
         /// <summary>

@@ -1,7 +1,14 @@
 ﻿namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
+    /// <summary>
+    /// Wrapper for a <seealso cref="Invoice.InvoiceType"/>.
+    /// </summary>
     public class InvoicePayment : IInvoiceDetails
     {
+        /// <summary>
+        /// Instantiates a new <see cref="InvoicePayment"/> with the provided <paramref name="invoiceType"/>.
+        /// </summary>
+        /// <param name="invoiceType">The type of invoice.</param>
         public InvoicePayment(InvoiceType invoiceType)
         {
             InvoiceType = invoiceType;
