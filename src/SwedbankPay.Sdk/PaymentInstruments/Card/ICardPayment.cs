@@ -2,6 +2,9 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
+    /// <summary>
+    /// Describes a credt card payment.
+    /// </summary>
     public interface ICardPayment
     {
         /// <summary>
@@ -77,7 +80,15 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// The payment instrument used for this payment.
         /// </summary>
         PaymentInstrument Instrument { get; }
+
+        /// <summary>
+        /// The initial intent of the payment.
+        /// </summary>
         PaymentIntent Intent { get; }
+
+        /// <summary>
+        /// The prefered <see cref="Sdk.Language"/> of the payer.
+        /// </summary>
         Language Language { get; }
 
         /// <summary>
@@ -101,6 +112,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// It is set per operation to ensure an exactly-once delivery of a transactional operation.
         /// </summary>
         string PayerReference { get; }
+
+        /// <summary>
+        /// The user agent of the initiating system.
+        /// </summary>
         string InitiatingSystemUserAgent { get; }
 
         /// <summary>

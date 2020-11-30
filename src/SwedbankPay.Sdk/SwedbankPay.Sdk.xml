@@ -515,6 +515,11 @@
                 The MSISDN (mobile phone number) of the payer. Format Sweden: +46707777777. Format Norway: +4799999999.
             </summary>
         </member>
+        <member name="P:SwedbankPay.Sdk.Consumers.ConsumersRequest.NationalIdentifier">
+            <summary>
+            The payers <seealso cref="T:SwedbankPay.Sdk.PaymentOrders.NationalIdentifier"/>.
+            </summary>
+        </member>
         <member name="P:SwedbankPay.Sdk.Consumers.ConsumersRequest.Operation">
             <summary>
                 the operation to perform.
@@ -523,6 +528,11 @@
         <member name="P:SwedbankPay.Sdk.Consumers.ConsumersRequest.ShippingAddressRestrictedToCountryCodes">
             <summary>
                 List of supported shipping countries for merchant. Using ISO-3166 standard.
+            </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.Consumers.IConsumersResource">
+            <summary>
+            Methods to initiate and get consumer information.
             </summary>
         </member>
         <member name="M:SwedbankPay.Sdk.Consumers.IConsumersResource.GetBillingDetails(System.Uri)">
@@ -669,6 +679,34 @@
             <param name="message"></param>
             <param name="innerException"></param>
         </member>
+        <member name="P:SwedbankPay.Sdk.Exceptions.HttpResponseException.HttpResponse">
+            <summary>
+            The <seealso cref="T:System.Net.Http.HttpResponseMessage"/> that was part of the exception.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.Exceptions.HttpResponseException.ProblemResponse">
+            <summary>
+            The <seealso cref="T:SwedbankPay.Sdk.IProblemResponse"/> in the <seealso cref="T:SwedbankPay.Sdk.Exceptions.HttpResponseException"/>.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.Exceptions.HttpResponseException.#ctor">
+            <summary>
+            Instantiates a new empty <seealso cref="T:SwedbankPay.Sdk.Exceptions.HttpResponseException"/>.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.Exceptions.HttpResponseException.#ctor(System.String)">
+            <summary>
+            Instantiates a new <seealso cref="T:SwedbankPay.Sdk.Exceptions.HttpResponseException"/> with only a <paramref name="message"/>.
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:SwedbankPay.Sdk.Exceptions.HttpResponseException.#ctor(System.String,System.Exception)">
+            <summary>
+            Instantiates a new <see cref="T:SwedbankPay.Sdk.Exceptions.HttpResponseException"/> with the provided parameters.
+            </summary>
+            <param name="message">The message of the <seealso cref="T:System.Exception"/>.</param>
+            <param name="innerException">The inner <seealso cref="T:System.Exception"/>.</param>
+        </member>
         <member name="T:SwedbankPay.Sdk.HttpOperation">
             <summary>
             Holds information about a API relevant Operation.
@@ -751,6 +789,11 @@
             The ID of the acquirer terminal.
             </summary>
         </member>
+        <member name="P:SwedbankPay.Sdk.IPaymentAuthorization.AcquirerTransactionTime">
+            <summary>
+            3DSECURE or SSL. Indicates the transaction type of the acquirer.
+            </summary>
+        </member>
         <member name="P:SwedbankPay.Sdk.IPaymentAuthorization.AcquirerTransactionType">
             <summary>
             3DSECURE or SSL. Indicates the transaction type of the acquirer.
@@ -796,6 +839,16 @@
             If not, our own token (Mastercard / Amex).
             </summary>
         </member>
+        <member name="P:SwedbankPay.Sdk.IPaymentAuthorization.ExternalSiteId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.IPaymentAuthorization.IssuerAuthorizationApprovalCode">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:SwedbankPay.Sdk.IPaymentAuthorization.IssuingBank">
             <summary>
             The name of the bank that issued the card used for the authorization.
@@ -829,6 +882,11 @@
         <member name="P:SwedbankPay.Sdk.IPaymentAuthorization.Transaction">
             <summary>
             The transaction object, containing information about the current transaction.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.IPaymentAuthorization.TransactionInitiator">
+            <summary>
+            
             </summary>
         </member>
         <member name="T:SwedbankPay.Sdk.IProblemResponse">
@@ -1246,6 +1304,91 @@
             </summary>
             <param name="operation">The name/value of the <seealso cref="T:SwedbankPay.Sdk.Operation"/>.</param>
         </member>
+        <member name="T:SwedbankPay.Sdk.OperationsBase">
+            <summary>
+            Abstract class to handle the relation between <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/> and <seealso cref="T:SwedbankPay.Sdk.HttpOperation"/>.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.OperationsBase.Keys">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.OperationsBase.Values">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.OperationsBase.Count">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.OperationsBase.IsReadOnly">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.OperationsBase.GetEnumerator">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.OperationsBase.Add(SwedbankPay.Sdk.LinkRelation,SwedbankPay.Sdk.HttpOperation)">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.OperationsBase.ContainsKey(SwedbankPay.Sdk.LinkRelation)">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.OperationsBase.Remove(SwedbankPay.Sdk.LinkRelation)">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.OperationsBase.TryGetValue(SwedbankPay.Sdk.LinkRelation,SwedbankPay.Sdk.HttpOperation@)">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.OperationsBase.Add(System.Collections.Generic.KeyValuePair{SwedbankPay.Sdk.LinkRelation,SwedbankPay.Sdk.HttpOperation})">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.OperationsBase.Clear">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.OperationsBase.Contains(System.Collections.Generic.KeyValuePair{SwedbankPay.Sdk.LinkRelation,SwedbankPay.Sdk.HttpOperation})">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.OperationsBase.CopyTo(System.Collections.Generic.KeyValuePair{SwedbankPay.Sdk.LinkRelation,SwedbankPay.Sdk.HttpOperation}[],System.Int32)">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.OperationsBase.Remove(System.Collections.Generic.KeyValuePair{SwedbankPay.Sdk.LinkRelation,SwedbankPay.Sdk.HttpOperation})">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.OperationsBase.System#Collections#Generic#IEnumerable{System#Collections#Generic#KeyValuePair{SwedbankPay#Sdk#LinkRelation,SwedbankPay#Sdk#HttpOperation}}#GetEnumerator">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.OperationsBase.Item(SwedbankPay.Sdk.LinkRelation)">
+            <summary>
+            Gets a <paramref name="rel"/> if the dictionary contains it, otherwise null.
+            </summary>
+        </member>
         <member name="T:SwedbankPay.Sdk.PayeeInfo">
             <summary>
             Identifies the merchant that initiated the payment.
@@ -1311,6 +1454,58 @@
                 Payment Instrument
             </summary>
         </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstrument.Unknown">
+            <summary>
+            Instrument is unknown, default value.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstrument.Invoice">
+            <summary>
+            Invoice payment instrument.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstrument.MobilePay">
+            <summary>
+            MobilePay payment instrument.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstrument.CreditCard">
+            <summary>
+            Credit card payment instrument.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstrument.Swish">
+            <summary>
+            Swish payment instrument.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstrument.Vipps">
+            <summary>
+            Vipps payment instrument.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstrument.DirectDebit">
+            <summary>
+            Direct debit payment instrument.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstrument.Trustly">
+            <summary>
+            Trustly payment instrument.
+            </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.ApprovedLegalAddressResponse">
+            <summary>
+            Holds details about a consumers approved legal address.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.ApprovedLegalAddressResponse.#ctor(System.Uri,SwedbankPay.Sdk.PaymentInstruments.LegalAddress)">
+            <summary>
+            Instantiates a new <seealso cref="T:SwedbankPay.Sdk.PaymentInstruments.ApprovedLegalAddressResponse"/> from the provided parameters.
+            </summary>
+            <param name="payment">The <seealso cref="T:System.Uri"/> to the current payment.</param>
+            <param name="approvedLegalAddress">The payers <seealso cref="T:SwedbankPay.Sdk.PaymentInstruments.LegalAddress"/>.</param>
+        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.ApprovedLegalAddressResponse.Payment">
             <summary>
             A unique <seealso cref="T:System.Uri"/> to access this resource.
@@ -1321,6 +1516,18 @@
             Object containing the payers approved legal address.
             </summary>
         </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.CancellationResponse">
+            <summary>
+            Holds details a bout a cancelled payments.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.CancellationResponse.#ctor(System.Uri,SwedbankPay.Sdk.PaymentInstruments.ITransactionResponse)">
+            <summary>
+            Instantiates a new response about a cancelled payment.
+            </summary>
+            <param name="payment">The <seealso cref="T:System.Uri"/> of the payment.</param>
+            <param name="cancellation">Details about the transaction.</param>
+        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.CancellationResponse.Payment">
             <summary>
             A unique <seealso cref="T:System.Uri"/> to access this resource.
@@ -1330,6 +1537,18 @@
             <summary>
             Holds transactional information about this cancellation.
             </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.CaptureResponse">
+            <summary>
+            Holds information about a captured payment.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.CaptureResponse.#ctor(System.Uri,SwedbankPay.Sdk.PaymentInstruments.ITransaction)">
+            <summary>
+            Instantiates a new <seealso cref="T:SwedbankPay.Sdk.PaymentInstruments.CaptureResponse"/> with the provided parameters.
+            </summary>
+            <param name="payment"><seealso cref="T:System.Uri"/> of the payment.</param>
+            <param name="capture">Transactional details about the capture.</param>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.CaptureResponse.Payment">
             <summary>
@@ -1346,20 +1565,270 @@
             Information about a card holder
             </summary>
         </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.Cardholder.AccountInfo">
+            <summary>
+            The card holders account info.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.Cardholder.BillingAddress">
+            <summary>
+            The card holders billing address.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.Cardholder.Email">
+            <summary>
+            The card holders email address.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.Cardholder.FirstName">
+            <summary>
+            The card holders first name.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.Cardholder.HomePhoneNumber">
+            <summary>
+            The card holders home <seealso cref="T:SwedbankPay.Sdk.Msisdn"/>.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.Cardholder.LastName">
+            <summary>
+            The card holders last name.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.Cardholder.Msisdn">
+            <summary>
+            The card holders <seealso cref="T:SwedbankPay.Sdk.Msisdn"/>.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.Cardholder.Shippingaddress">
+            <summary>
+            The card holders shipping <seealso cref="T:SwedbankPay.Sdk.Address"/>.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.Cardholder.WorkPhoneNumber">
+            <summary>
+            The card holders work <seealso cref="T:SwedbankPay.Sdk.Msisdn"/>.
+            </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAbortPayment">
+            <summary>
+            Contains the details about why a payment is being aborted.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAbortPayment.Operation">
+            <summary>
+            The API operation to be performed; "Abort".
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAbortPayment.#ctor(System.String)">
+            <summary>
+            Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAbortPayment"/> with the provided <paramref name="abortReason"/>.
+            </summary>
+            <param name="abortReason">The textual reason for this abort.</param>
+        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAbortPayment.AbortReason">
             <summary>
             The reason for why the payment is being aborted
             </summary>
         </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAbortRequest">
+            <summary>
+            Holds transactional details about a payment being aborted.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAbortRequest.#ctor(System.String)">
+            <summary>
+            Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAbortRequest"/> with the provided <paramref name="abortReason"/>.
+            </summary>
+            <param name="abortReason">The reason for the abort.</param>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAbortRequest.Payment">
+            <summary>
+            Payment details of why it's being aborted.
+            </summary>
+        </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorization">
+            <summary>
+            Holds details on a card payment being authorized.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorization.#ctor(System.Boolean,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.DateTime,System.String,System.String,System.String,System.String,System.String,SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentCardDetails,System.Uri)">
+            <summary>
+            Instantiates a new <seealso cref="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorization"/> with the provided parameters.
+            </summary>
+            <param name="direct"></param>
+            <param name="paymentToken"></param>
+            <param name="recurrenceToken"></param>
+            <param name="maskedPan"></param>
+            <param name="expiryDate"></param>
+            <param name="panToken"></param>
+            <param name="cardBrand"></param>
+            <param name="cardType"></param>
+            <param name="issuingBank"></param>
+            <param name="countryCode"></param>
+            <param name="acquirerTransactionType"></param>
+            <param name="issuerAuthorizationApprovalCode"></param>
+            <param name="acquirerStan"></param>
+            <param name="acquirerTerminalId"></param>
+            <param name="acquirerTransactionTime"></param>
+            <param name="authenticationStatus"></param>
+            <param name="nonPaymentToken"></param>
+            <param name="externalNonPaymentToken"></param>
+            <param name="externalSiteId"></param>
+            <param name="transactionInitiator"></param>
+            <param name="transaction"></param>
+            <param name="id"></param>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorization.AcquirerStan">
             <summary>
             <inheritdoc/>
             </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorization.AcquirerTerminalId">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorization.AcquirerTransactionTime">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorization.AcquirerTransactionType">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorization.AuthenticationStatus">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorization.CardBrand">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorization.CardType">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorization.CountryCode">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorization.Direct">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorization.ExpiryDate">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorization.ExternalNonPaymentToken">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorization.ExternalSiteId">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorization.IssuerAuthorizationApprovalCode">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorization.IssuingBank">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorization.MaskedPan">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorization.NonPaymentToken">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorization.PanToken">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorization.PaymentToken">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorization.RecurrenceToken">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorization.Transaction">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorization.TransactionInitiator">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorizationRequest">
+            <summary>
+            Holds details about a card payment authorization request.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorizationRequest.#ctor(System.String,System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorizationRequest"/> with the provided parameters.
+            </summary>
+            <param name="cardNumber">The payers card number.</param>
+            <param name="cardExpiryMonth">The payers card expiry month.</param>
+            <param name="cardExpiryYear">The payers card expiry year.</param>
+            <param name="cardVerificationCode">The payers card verification code.</param>
+            <param name="cardHolderName">The payers card holder name.</param>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorizationRequest.Transaction">
             <summary>
             Transactional details on the card payment.
             </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorizationTransaction">
+            <summary>
+            Holds transactional details about authorization a card payment.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorizationTransaction.#ctor(System.DateTime,System.DateTime,System.String,SwedbankPay.Sdk.State,System.Int64,SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,SwedbankPay.Sdk.IProblemResponse,SwedbankPay.Sdk.IOperationList)">
+            <summary>
+            Constructs a new card payment authorization request.
+            </summary>
+            <param name="created">The <see cref="T:System.DateTime"/> the payment is created.</param>
+            <param name="updated">The <see cref="T:System.DateTime"/> the payment was last updated.</param>
+            <param name="type">The type of the transaction.</param>
+            <param name="state">The current <see cref="T:SwedbankPay.Sdk.State"/> of the transaction.</param>
+            <param name="number">The number reference for the transaction.</param>
+            <param name="amount">The <seealso cref="T:SwedbankPay.Sdk.Amount"/> used for the payment.</param>
+            <param name="vatAmount">The Vat<seealso cref="T:SwedbankPay.Sdk.Amount"/> used for the payment.</param>
+            <param name="description">The textual description of the payment.</param>
+            <param name="payeeReference">The unique payer reference.</param>
+            <param name="failedReason">The reason this transaction failed.</param>
+            <param name="failedActivityName">The activity that caused the failure.</param>
+            <param name="failedErrorCode">The error code of the failure.</param>
+            <param name="failedErrorDescription">A description of the failure.</param>
+            <param name="isOperational">Is this transaction operational?</param>
+            <param name="problem">Any problems that may have occured.</param>
+            <param name="operations">Available operations.</param>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorizationTransaction.Amount">
             <summary>
@@ -1376,6 +1845,21 @@
             A 40 character length textual description of the purchase.
             </summary>
         </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorizationTransaction.FailedActivityName">
+            <summary>
+            The name of the failed activity.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorizationTransaction.FailedErrorCode">
+            <summary>
+            The error code of the failure.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorizationTransaction.FailedErrorDescription">
+            <summary>
+            A textual description of the failure.
+            </summary>
+        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorizationTransaction.FailedReason">
             <summary>
             The human readable explanation of why the payment failed.
@@ -1389,7 +1873,7 @@
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorizationTransaction.Number">
             <summary>
             The transaction number, useful when there’s need to reference the transaction in human communication.
-            Not usable for programmatic identification of the transaction, where <see cref="!:Id"/> should be used instead.
+            Not usable for programmatic identification of the transaction, where <see cref="P:SwedbankPay.Sdk.Identifiable.Id"/> should be used instead.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorizationTransaction.Operations">
@@ -1401,6 +1885,11 @@
             <summary>
             A unique reference from the merchant system.
             It is set per operation to ensure an exactly-once delivery of a transactional operation.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorizationTransaction.Problem">
+            <summary>
+            Any problems will be listed here.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorizationTransaction.State">
@@ -1426,10 +1915,34 @@
             Set to 0 (zero) if there is no VAT amount charged.
             </summary>
         </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentCancelRequest">
+            <summary>
+            Contains details about cancelling a card payment.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentCancelRequest.#ctor(System.String,System.String)">
+            <summary>
+            Instantiates a new <seealso cref="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentCancelRequest"/> with the provided parameters.
+            </summary>
+            <param name="payeeReference">A unique payee reference for this transaction.</param>
+            <param name="description">A textual description of the cancellation.</param>
+        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentCancelRequest.Transaction">
             <summary>
             Transactional details about the cancellation.
             </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentCancelTransaction">
+            <summary>
+            Class to hold transactional details about cancelling a card payment.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentCancelTransaction.#ctor(System.String,System.String)">
+            <summary>
+            Instantiates a new <seealso cref="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentCancelTransaction"/> with the provided parameters.
+            </summary>
+            <param name="payeeReference">A unique payee reference for this transaction.</param>
+            <param name="description">A textual description of the cancellation.</param>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentCancelTransaction.Description">
             <summary>
@@ -1442,10 +1955,40 @@
             It is set per operation to ensure an exactly-once delivery of a transactional operation.
             </summary>
         </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentCaptureRequest">
+            <summary>
+            A request for capturing a card payment.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentCaptureRequest.#ctor(SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.Collections.Generic.List{SwedbankPay.Sdk.PaymentOrders.OrderItem},System.String,System.String)">
+            <summary>
+            Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentCaptureRequest"/> with the provided parameters.
+            </summary>
+            <param name="amount">The <seealso cref="T:SwedbankPay.Sdk.Amount"/> to capture.</param>
+            <param name="vatAmount">The <seealso cref="T:SwedbankPay.Sdk.Amount"/> to capture in VAT.</param>
+            <param name="orderItems">A list of <seealso cref="T:SwedbankPay.Sdk.PaymentOrders.OrderItem"/> that is part of the payment.</param>
+            <param name="description">A textual description of the capture.</param>
+            <param name="payeeReference">A unique payee reference for this capture.</param>
+        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentCaptureRequest.Transaction">
             <summary>
             Transactional details about the capture.
             </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentCaptureTransaction">
+            <summary>
+            Transactional details about a card payment being captured.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentCaptureTransaction.#ctor(SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.Collections.Generic.List{SwedbankPay.Sdk.PaymentOrders.OrderItem},System.String,System.String)">
+            <summary>
+            Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentCaptureTransaction"/> with the provided parameters.
+            </summary>
+            <param name="amount">The <see cref="T:SwedbankPay.Sdk.Amount"/> to capture.</param>
+            <param name="vatAmount">The <see cref="T:SwedbankPay.Sdk.Amount"/> to capture as VAT.</param>
+            <param name="orderItems">A list of <seealso cref="T:SwedbankPay.Sdk.PaymentOrders.OrderItem"/> that is being captured and paid for.</param>
+            <param name="description">A textual description of the purchase.</param>
+            <param name="payeeReference">A unique payee refrence for the capture.</param>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentCaptureTransaction.Amount">
             <summary>
@@ -1456,6 +1999,12 @@
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentCaptureTransaction.Description">
             <summary>
             A 40 character length textual description of the purchase.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentCaptureTransaction.OrderItems">
+            <summary>
+            List of <seealso cref="T:SwedbankPay.Sdk.PaymentOrders.OrderItem"/> that is being captured.
+            Only required if payment was authorizied with the OrderItems field.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentCaptureTransaction.PayeeReference">
@@ -1471,6 +2020,73 @@
             This field is used to specify how much ofthe total amount the VAT will be.
             Set to 0 (zero) if there is no VAT amount charged.
             </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentCardDetails">
+            <summary>
+            Object to hold details about a payments card details.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentCardDetails.#ctor(System.String,System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentCardDetails"/> with the provided parameters.
+            </summary>
+            <param name="cardNumber">The card number.</param>
+            <param name="cardExpiryMonth">The card expiry month.</param>
+            <param name="cardExpiryYear">The card expiry year.</param>
+            <param name="cardVerificationCode">The card verification code.</param>
+            <param name="cardHolderName">The card holders name.</param>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentCardDetails.CardExpiryMonth">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentCardDetails.CardExpiryYear">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentCardDetails.CardHolderName">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentCardDetails.CardNumber">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentCardDetails.CardVerificationCode">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentDetails">
+            <summary>
+            Holds details about a card payment.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentDetails.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.List{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,System.Boolean,System.Boolean,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,SwedbankPay.Sdk.PaymentOrders.IRiskIndicator,SwedbankPay.Sdk.PaymentInstruments.Card.Cardholder,SwedbankPay.Sdk.PaymentOrders.CreditCard,System.Collections.Generic.Dictionary{System.String,System.Object},System.String)">
+            <summary>
+            Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentDetails"/> with the provided parameters.
+            </summary>
+            <param name="operation">The <see cref="T:SwedbankPay.Sdk.Operation"/> to perform.</param>
+            <param name="intent">The initial <seealso cref="T:SwedbankPay.Sdk.PaymentInstruments.PaymentIntent"/> of the payment.</param>
+            <param name="currency">The <seealso cref="T:SwedbankPay.Sdk.Currency"/> to be paid in.</param>
+            <param name="prices">A list of price objects.</param>
+            <param name="description">A textual description of the purchase.</param>
+            <param name="payerReference">The payer reference.</param>
+            <param name="generatePaymentToken">Set if you want a payment token to be generated.</param>
+            <param name="generateRecurrenceToken">Set if you want a recurrence token to be generated.</param>
+            <param name="userAgent">The payers user agent.</param>
+            <param name="language">The payers prefered langauge.</param>
+            <param name="urls">URLs relevant for this payment.</param>
+            <param name="payeeInfo">Identifies the merchant.</param>
+            <param name="riskIndicator">Risk indicator details.</param>
+            <param name="cardholder">Information about the card holder.</param>
+            <param name="creditCard">Information about the credit card.</param>
+            <param name="metadata">Any relevant meta data to be stored.</param>
+            <param name="paymentToken">Set this to true if you want to create a paymentToken for future use as One Click.</param>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentDetails.Cardholder">
             <summary>
@@ -1511,6 +2127,11 @@
             The intent of the payment
             </summary>
         </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentDetails.Language">
+            <summary>
+            The payers prefered language.
+            </summary>
+        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentDetails.Operation">
             <summary>
             The operation that the payment is supposed to perform
@@ -1527,6 +2148,11 @@
             <summary>
             The reference to the payer in the merchant system,
             like e-mail address, mobile number, customer number etc.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentDetails.PaymentToken">
+            <summary>
+            Set this to true if you want to create a paymentToken for future use as One Click.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentDetails.Prices">
@@ -1558,9 +2184,154 @@
             by the merchant.
             </summary>
         </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurPayment">
+            <summary>
+            Details on initiating a recurring payment for credit card.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurPayment.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,System.String,SwedbankPay.Sdk.Currency,SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,SwedbankPay.Sdk.MetadataResponse)">
+            <summary>
+            Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurPayment"/> with the provided parameters.
+            </summary>
+            <param name="operation">The initial <see cref="T:SwedbankPay.Sdk.Operation"/> of the payment.</param>
+            <param name="intent">The initial intent of the payment.</param>
+            <param name="recurrenceToken">A previosuly created recurrence token, from a verify request.</param>
+            <param name="currency">The <see cref="T:SwedbankPay.Sdk.Currency"/> to be paid.</param>
+            <param name="amount">The <seealso cref="T:SwedbankPay.Sdk.Amount"/> to be paid.</param>
+            <param name="vatAmount">The <seealso cref="T:SwedbankPay.Sdk.Amount"/> to be paid in VAT.</param>
+            <param name="description">A textual description of the recurring payment.</param>
+            <param name="userAgent">The payers user agent.</param>
+            <param name="language">The payers prefered <seealso cref="T:SwedbankPay.Sdk.Language"/>.</param>
+            <param name="urls">Relevant URLs for the payment.</param>
+            <param name="payeeInfo">Merchant payee information.</param>
+            <param name="metadata">Any metadata to be stored.</param>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurPayment.Operation">
+            <summary>
+            The initial <seealso cref="T:SwedbankPay.Sdk.Operation"/> of the payment.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurPayment.Intent">
+            <summary>
+            The initial <seealso cref="T:SwedbankPay.Sdk.PaymentInstruments.PaymentIntent"/> of the payment.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurPayment.RecurrenceToken">
+            <summary>
+            The provided reccurence token.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurPayment.Currency">
+            <summary>
+            The <seealso cref="T:SwedbankPay.Sdk.Currency"/> to be paid.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurPayment.Amount">
+            <summary>
+            The <seealso cref="T:SwedbankPay.Sdk.Amount"/> to be paid.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurPayment.VatAmount">
+            <summary>
+            Any VAT<seealso cref="T:SwedbankPay.Sdk.Amount"/> to be paid.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurPayment.Description">
+            <summary>
+            A textual description of the payment.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurPayment.UserAgent">
+            <summary>
+            The payers user agent.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurPayment.Language">
+            <summary>
+            The payers prefered <see cref="T:SwedbankPay.Sdk.Language"/>.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurPayment.Urls">
+            <summary>
+            Urls relevant for the payment.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurPayment.PayeeInfo">
+            <summary>
+            The merchant information.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurPayment.Metadata">
+            <summary>
+            Metadata can be used to store data associated to a payment that can be
+            retrieved later by performing a GET on the payment.
+            Swedbank Pay does not use or process metadata,
+            it is only stored on the payment so it can be retrieved later alongside the payment.
+            An example where metadata might be useful is when several internal systems
+            are involved in the payment process and the payment creation is done in one system
+            and post-purchases take place in another.
+            In order to transmit data between these two internal systems,
+            the data can be stored in metadata on the payment so the internal
+            systems do not need to communicate with each other directly.
+            </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurRequest">
+            <summary>
+            Used to pay a credit card recurring payment.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,System.String,SwedbankPay.Sdk.Currency,SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,SwedbankPay.Sdk.MetadataResponse)">
+            <summary>
+            Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurRequest"/> with the provided parameters.
+            </summary>
+            <param name="operation">The wanted <seealso cref="T:SwedbankPay.Sdk.Operation"/> to perform.</param>
+            <param name="intent">The current <seealso cref="T:SwedbankPay.Sdk.PaymentInstruments.PaymentIntent"/> for this payment.</param>
+            <param name="recurrenceToken">A previously authorizied reucrrence token.</param>
+            <param name="currency">The <seealso cref="T:SwedbankPay.Sdk.Currency"/> the payment is being paid in.</param>
+            <param name="amount">The amount the payer pays.</param>
+            <param name="vatAmount">The <seealso cref="T:SwedbankPay.Sdk.Amount"/> to be paid as Value Added Tax.</param>
+            <param name="description">A textual description of the payment.</param>
+            <param name="userAgent">The payers User Agent.</param>
+            <param name="language">The prefered <seealso cref="T:SwedbankPay.Sdk.Language"/> of the payer.</param>
+            <param name="urls">All relevant <seealso cref="T:SwedbankPay.Sdk.IUrls"/> for this payment.</param>
+            <param name="payeeInfo">Your payee information.</param>
+            <param name="metadata">Any meta data you want stored on this payment.</param>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurRequest.Payment">
+            <summary>
+            Hold detailed information about this payment.
+            </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRequest">
+            <summary>
+            Class to hold details about a card payment request.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.List{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,System.Boolean,System.Boolean,System.String,SwedbankPay.Sdk.PaymentOrders.IRiskIndicator,SwedbankPay.Sdk.PaymentInstruments.Card.Cardholder,SwedbankPay.Sdk.PaymentOrders.CreditCard,SwedbankPay.Sdk.MetadataResponse,System.String)">
+            <summary>
+            Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRequest"/> using the provided parameters.
+            </summary>
+            <param name="operation">The initial <see cref="T:SwedbankPay.Sdk.Operation"/> for the request.</param>
+            <param name="intent">The initial intent of this payment.</param>
+            <param name="currency">The wanted <seealso cref="T:SwedbankPay.Sdk.Currency"/> for the payment to be paid in.</param>
+            <param name="prices">Prices shows different prices for different payment options.</param>
+            <param name="description">A textual description of the payment.</param>
+            <param name="userAgent">The payers UserAgent.</param>
+            <param name="language">The prefered <seealso cref="T:SwedbankPay.Sdk.Language"/> of the payer.</param>
+            <param name="urls">Object holding relevant <seealso cref="T:SwedbankPay.Sdk.IUrls"/> for the payment.</param>
+            <param name="payeeInfo">Object identifying the payee.</param>
+            <param name="generatePaymentToken">Set if you want a payment token to be generated for later use.</param>
+            <param name="generateRecurrenceToken">Set if you want a recurrence token to be generated for later use.</param>
+            <param name="payerReference">A reference for the payer in your systems.</param>
+            <param name="riskIndicator">Object that reduces the amount of risk of the payment the more details is has.</param>
+            <param name="cardholder">Information about the card holder.</param>
+            <param name="creditCard">Information about the credt card to be used.</param>
+            <param name="metadata">Meta data relevant for the payment.</param>
+            <param name="paymentToken">A previously generated payment token.</param>
+        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRequest.Payment">
             <summary>
-            <inheritdoc/>
+            Detailed information about this card payment.
             </summary>
         </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentReversalRequest">
@@ -1569,10 +2340,53 @@
             captured payment.
             </summary>
         </member>
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentReversalRequest.#ctor(SwedbankPay.Sdk.Amount,System.String,System.String,SwedbankPay.Sdk.Amount)">
+            <summary>
+            Instantiates a new <seealso cref="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentReversalRequest"/> with the provided parameters.
+            </summary>
+            <param name="amount">The <seealso cref="T:SwedbankPay.Sdk.Amount"/> to be reversed.</param>
+            <param name="description">A textual description of the reversal.</param>
+            <param name="payeeReference">A transactionally unique payee reference from the merchant system.</param>
+            <param name="vatAmount">The Value Added Taxes to be reversed.</param>
+        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentReversalRequest.Transaction">
             <summary>
             <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentReversalTransaction"/> with information
             needed to reverse a payment.
+            </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentReversalTransaction">
+            <summary>
+            Transactional details for reversing a credit card payment.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentReversalTransaction.#ctor(SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.String,System.String)">
+            <summary>
+            Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentReversalTransaction"/> with the provided parameters.
+            </summary>
+            <param name="amount">The <see cref="T:SwedbankPay.Sdk.Amount"/> to be reversed back to the payer.</param>
+            <param name="vatAmount">The <see cref="T:SwedbankPay.Sdk.Amount"/> that is VAT to be reversed.</param>
+            <param name="description">A textual description of the reversal.</param>
+            <param name="payeeReference">A transactionally unique reference to this reversal.</param>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentReversalTransaction.Amount">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentReversalTransaction.Description">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentReversalTransaction.PayeeReference">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentReversalTransaction.VatAmount">
+            <summary>
+            <inheritdoc/>
             </summary>
         </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.ICardholder">
@@ -1626,6 +2440,11 @@
             <summary>
             The MSISDN (mobile phone number) of the card holders work phone
             Format Sweden: +46xxxxxxxxx. Format Norway: +47xxxxxxxx
+            </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPayment">
+            <summary>
+            Describes a credt card payment.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPayment.Amount">
@@ -1702,6 +2521,16 @@
             The payment instrument used for this payment.
             </summary>
         </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPayment.Intent">
+            <summary>
+            The initial intent of the payment.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPayment.Language">
+            <summary>
+            The prefered <see cref="T:SwedbankPay.Sdk.Language"/> of the payer.
+            </summary>
+        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPayment.Number">
             <summary>
             The payment number, useful when there’s need to reference the payment in human communication.
@@ -1722,6 +2551,11 @@
             <summary>
             A unique reference from the merchant system.
             It is set per operation to ensure an exactly-once delivery of a transactional operation.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPayment.InitiatingSystemUserAgent">
+            <summary>
+            The user agent of the initiating system.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPayment.Prices">
@@ -1764,9 +2598,19 @@
             The created recurrenceToken, if <seealso cref="F:SwedbankPay.Sdk.Operation.Verify"/>, <seealso cref="F:SwedbankPay.Sdk.Operation.Recur"/> generateRecurrenceToken: true was used.
             </summary>
         </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentAbortRequest">
+            <summary>
+            Holds details on aborting a credit card payment.
+            </summary>
+        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentAbortRequest.Payment">
             <summary>
             Details about the abort.
+            </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentAuthorization">
+            <summary>
+            Transactional details about a credit card authorization.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentAuthorization.AcquirerStan">
@@ -1833,6 +2677,16 @@
             If not, token stored by SwedbankPay (Mastercard / Amex)
             </summary>
         </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentAuthorization.ExternalSiteId">
+            <summary>
+            ID of the external site.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentAuthorization.IssuerAuthorizationApprovalCode">
+            <summary>
+            Code given from authorization issuer for the approval.
+            </summary>
+        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentAuthorization.IssuingBank">
             <summary>
             The name of the bank that issued the card used for the authorization
@@ -1868,9 +2722,20 @@
             <inheritdoc/>
             </summary>
         </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentAuthorization.TransactionInitiator">
+            <summary>
+            Hints to who initiated the transaction.
+            </summary>
+        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentAuthorization.Id">
             <summary>
             A unique relative <seealso cref="T:System.Uri"/> to access this authorization.
+            </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentAuthorizationListResponse">
+            <summary>
+            Holds a list of <seealso cref="T:SwedbankPay.Sdk.IPaymentAuthorization"/> if available when
+            doing a GET on the <see cref="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentAuthorizationListResponse.Id"/>.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentAuthorizationListResponse.Id">
@@ -1883,6 +2748,11 @@
             List of avaialbe <see cref="T:SwedbankPay.Sdk.IPaymentAuthorization"/> on the current payment.
             </summary>
         </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentAuthorizationResponse">
+            <summary>
+            Transactional details about a credit card authorization.
+            </summary>
+        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentAuthorizationResponse.Authorization">
             <summary>
             Transactional details about the authorization.
@@ -1891,6 +2761,11 @@
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentAuthorizationResponse.Payment">
             <summary>
             A unique <seealso cref="T:System.Uri"/> to access this authorization.
+            </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentCardDetails">
+            <summary>
+            Object that holds credit card details for a payment.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentCardDetails.CardExpiryMonth">
@@ -1917,6 +2792,11 @@
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentCardDetails.CardVerificationCode">
             <summary>
             Card verification code (CVC/CVV/CVC2), usually printed on the back of the card
+            </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentOperations">
+            <summary>
+            Interface that describes currently known credit card operations.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentOperations.Abort">
@@ -1975,6 +2855,12 @@
             View the verification if available.
             </summary>
         </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentRecurResponse">
+            <summary>
+            Transactional details about a response for a credit card
+            recurring payment.
+            </summary>
+        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentRecurResponse.Payment">
             <summary>
             The current recur payment.
@@ -1983,6 +2869,11 @@
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentRecurResponse.Operations">
             <summary>
             The available operations on this payment.
+            </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentRecurResponseDetails">
+            <summary>
+            Transactional details about a recurring credit card payment.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentRecurResponseDetails.Id">
@@ -2042,9 +2933,24 @@
             entered in the lowest monetary unit of the selected currency. 
             </summary>
         </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentRecurResponseDetails.RemainingCaptureAmount">
+            <summary>
+            The <seealso cref="T:SwedbankPay.Sdk.Amount"/> available for later capture.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentRecurResponseDetails.RemainingCancellationAmount">
+            <summary>
+            The remainder of authorized amount (<seealso cref="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentRecurResponseDetails.Amount"/>) not yet captured.
+            </summary>
+        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentRecurResponseDetails.Description">
             <summary>
             A textual human readable description of the purchase.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentRecurResponseDetails.InitiatingSystemUserAgent">
+            <summary>
+            The user agent of the initiating system.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentRecurResponseDetails.UserAgent">

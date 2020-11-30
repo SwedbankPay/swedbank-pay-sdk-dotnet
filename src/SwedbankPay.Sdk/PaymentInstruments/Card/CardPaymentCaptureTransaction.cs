@@ -39,6 +39,11 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// A 40 character length textual description of the purchase.
         /// </summary>
         public string Description { get; }
+
+        /// <summary>
+        /// List of <seealso cref="OrderItem"/> that is being captured.
+        /// Only required if payment was authorizied with the OrderItems field.
+        /// </summary>
         public List<OrderItem> OrderItems { get; }
 
         /// <summary>

@@ -2,6 +2,9 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
+    /// <summary>
+    /// Transactional details about a recurring credit card payment.
+    /// </summary>
     public interface ICardPaymentRecurResponseDetails
     {
         /// <summary>
@@ -61,8 +64,14 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// </summary>
         Amount Amount { get; }
 
+        /// <summary>
+        /// The <seealso cref="Sdk.Amount"/> available for later capture.
+        /// </summary>
         Amount RemainingCaptureAmount { get; }
 
+        /// <summary>
+        /// The remainder of authorized amount (<seealso cref="Amount"/>) not yet captured.
+        /// </summary>
         Amount RemainingCancellationAmount { get; }
 
         /// <summary>
@@ -70,6 +79,9 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// </summary>
         string Description { get; }
 
+        /// <summary>
+        /// The user agent of the initiating system.
+        /// </summary>
         string InitiatingSystemUserAgent { get; }
 
         /// <summary>

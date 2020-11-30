@@ -1,5 +1,9 @@
 ﻿namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
+    /// <summary>
+    /// Transactional details about a response for a credit card
+    /// recurring payment.
+    /// </summary>
     public interface ICardPaymentRecurResponse
     {
         /// <summary>

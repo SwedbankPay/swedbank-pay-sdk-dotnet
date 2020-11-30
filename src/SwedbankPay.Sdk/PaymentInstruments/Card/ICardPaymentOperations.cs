@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
+    /// <summary>
+    /// Interface that describes currently known credit card operations.
+    /// </summary>
     public interface ICardPaymentOperations : IDictionary<LinkRelation, HttpOperation>
     {
         /// <summary>

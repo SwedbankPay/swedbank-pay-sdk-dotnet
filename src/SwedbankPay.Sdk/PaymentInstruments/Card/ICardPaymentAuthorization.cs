@@ -2,6 +2,9 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
+    /// <summary>
+    /// Transactional details about a credit card authorization.
+    /// </summary>
     public interface ICardPaymentAuthorization
     {
         /// <summary>
@@ -67,7 +70,15 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// If not, token stored by SwedbankPay (Mastercard / Amex)
         /// </summary>
         string ExternalNonPaymentToken { get; }
+
+        /// <summary>
+        /// ID of the external site.
+        /// </summary>
         string ExternalSiteId { get; }
+
+        /// <summary>
+        /// Code given from authorization issuer for the approval.
+        /// </summary>
         string IssuerAuthorizationApprovalCode { get; }
 
         /// <summary>
@@ -104,6 +115,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// <inheritdoc/>
         /// </summary>
         ICardPaymentCardDetails Transaction { get; }
+
+        /// <summary>
+        /// Hints to who initiated the transaction.
+        /// </summary>
         string TransactionInitiator { get; }
 
         /// <summary>
