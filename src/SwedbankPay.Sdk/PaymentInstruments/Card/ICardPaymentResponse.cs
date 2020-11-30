@@ -1,5 +1,9 @@
 ﻿namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
+    /// <summary>
+    /// Object containing details on a credit card payment and
+    /// its available operations.
+    /// </summary>
     public interface ICardPaymentResponse
     {
         /// <summary>

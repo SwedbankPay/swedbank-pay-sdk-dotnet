@@ -2,6 +2,9 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
+    /// <summary>
+    /// Transactional details about a cancelled payment.
+    /// </summary>
     public interface ICancellationResponse
     {
         /// <summary>

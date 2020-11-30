@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
+    /// <summary>
+    /// The entrypoint for talkig with the creditcard APIs.
+    /// </summary>
     public interface ICardResource
     {
         /// <summary>
@@ -14,12 +17,12 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         Task<ICardPaymentResponse> Create(CardPaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None);
 
 
-        ///// <summary>
-        /////     Gets an existing card payment.
-        ///// </summary>
-        ///// <param name="id"></param>
-        ///// <param name="paymentExpand"></param>
-        ///// <returns></returns>
+        /// <summary>
+        ///     Gets an existing card payment.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="paymentExpand"></param>
+        /// <returns></returns>
         Task<ICardPaymentResponse> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None);
 
         /// <summary>

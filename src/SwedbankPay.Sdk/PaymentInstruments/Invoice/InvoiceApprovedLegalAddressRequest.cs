@@ -4,12 +4,12 @@
     {
         public InvoiceApprovedLegalAddressRequest(string socialSecurityNumber, string zipCode)
         {
-            Addressee = new ApprovedLegalAddress(socialSecurityNumber, zipCode);
+            Addressee = new ApprovedLegalAddressRequest(socialSecurityNumber, zipCode);
         }
 
         /// <summary>
         /// The addressee you want the approved legal address for.
         /// </summary>
-        public ApprovedLegalAddress Addressee { get; }
+        public ApprovedLegalAddressRequest Addressee { get; }
     }
 }
