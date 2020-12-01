@@ -1,8 +1,16 @@
 ﻿namespace SwedbankPay.Sdk.PaymentInstruments
 {
-    public class ItemDescriptions
+    /// <summary>
+    /// Object wrapping description of an purchasable item.
+    /// </summary>
+    public class ItemDescription
     {
-        public ItemDescriptions(Amount amount,
+        /// <summary>
+        /// Instantiates a new <see cref="ItemDescription"/> with the provided parameters.
+        /// </summary>
+        /// <param name="amount">The <seealso cref="Sdk.Amount"/> the payer will pay for this item.</param>
+        /// <param name="description">A textual description of this item.</param>
+        public ItemDescription(Amount amount,
                                 string description)
         {
             Amount = amount;

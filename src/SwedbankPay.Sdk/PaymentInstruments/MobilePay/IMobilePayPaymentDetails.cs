@@ -2,6 +2,9 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
+    /// <summary>
+    /// Transactional detail about a payment for Mobile Pay.
+    /// </summary>
     public interface IMobilePayPaymentDetails
     {
         /// <summary>
@@ -18,6 +21,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         /// The payment intent of the current payment.
         /// </summary>
         PaymentIntent Intent { get; set; }
+
+        /// <summary>
+        /// The prefered langauge of the payer.
+        /// </summary>
         Language Language { get; set; }
 
         /// <summary>

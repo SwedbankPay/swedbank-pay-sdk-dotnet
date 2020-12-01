@@ -2,6 +2,9 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
+    /// <summary>
+    /// Object detailing a authorized Mobile Pay payment.
+    /// </summary>
     public interface IMobilePayPaymentAuthorization
     {
         /// <summary>
@@ -49,6 +52,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         /// The masked PAN number of the card.
         /// </summary>
         string MaskedPan { get; }
+
+        /// <summary>
+        /// Tokenized version of the primary account number.
+        /// </summary>
         string PanToken { get; }
 
         /// <summary>

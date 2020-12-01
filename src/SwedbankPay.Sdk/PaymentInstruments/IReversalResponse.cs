@@ -2,6 +2,9 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
+    /// <summary>
+    /// Object holding possible reversals on a payment.
+    /// </summary>
     public interface IReversalResponse
     {
         /// <summary>

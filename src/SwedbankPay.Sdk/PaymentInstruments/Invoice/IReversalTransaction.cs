@@ -1,5 +1,8 @@
 ﻿namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
+    /// <summary>
+    /// Transactional details for reversing a previously captured invoice payment.
+    /// </summary>
     public interface IReversalTransaction
     {
         /// <summary>

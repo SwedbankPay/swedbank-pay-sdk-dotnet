@@ -21,7 +21,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         /// <summary>
         /// A list describing each item being captured in this request.
         /// </summary>
-        List<ItemDescriptions> ItemDescriptions { get; set; }
+        List<ItemDescription> ItemDescriptions { get; set; }
 
         /// <summary>
         /// List of <seealso cref="OrderItem"/> to be captured in this transaction.

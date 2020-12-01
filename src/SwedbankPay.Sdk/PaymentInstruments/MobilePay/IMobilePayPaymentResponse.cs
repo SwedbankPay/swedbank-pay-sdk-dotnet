@@ -1,5 +1,8 @@
 ﻿namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
+    /// <summary>
+    /// Object describing a Mobile Pay payment and its currently available operations.
+    /// </summary>
     public interface IMobilePayPaymentResponse
     {
         /// <summary>

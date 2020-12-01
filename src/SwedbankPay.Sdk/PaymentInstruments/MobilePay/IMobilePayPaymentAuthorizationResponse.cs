@@ -2,6 +2,9 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
+    /// <summary>
+    /// Object holding a reference to a authorization resource.
+    /// </summary>
     public interface IMobilePayPaymentAuthorizationResponse
     {
         /// <summary>

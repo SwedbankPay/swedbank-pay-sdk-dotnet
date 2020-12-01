@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
+    /// <summary>
+    /// Object holding available a transaction list.
+    /// </summary>
     public interface ITransactionListResponse
     {
         /// <summary>

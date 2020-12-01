@@ -2,6 +2,9 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
+    /// <summary>
+    /// Object holding details about a transaction.
+    /// </summary>
     public interface ITransaction
     {
         /// <summary>
@@ -18,6 +21,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         /// The <seealso cref="DateTime"/> this transaction was last updated.
         /// </summary>
         DateTime Updated { get; }
+
+        /// <summary>
+        /// The latest activity on this transaction.
+        /// </summary>
         string Activity { get; }
 
         /// <summary>

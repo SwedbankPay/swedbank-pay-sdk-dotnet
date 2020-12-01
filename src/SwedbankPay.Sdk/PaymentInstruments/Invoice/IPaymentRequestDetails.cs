@@ -2,6 +2,9 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
+    /// <summary>
+    /// Transactional details for creating a invoice payment.
+    /// </summary>
     public interface IPaymentRequestDetails
     {
         /// <summary>

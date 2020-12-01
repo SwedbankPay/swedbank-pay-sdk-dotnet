@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
+    /// <summary>
+    /// Object mapping the currently known operations for Mobile Pay payments.
+    /// </summary>
     public interface IMobilePayPaymentOperations : IDictionary<LinkRelation, HttpOperation>
     {
         /// <summary>

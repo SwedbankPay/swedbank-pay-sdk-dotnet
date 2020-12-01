@@ -2,8 +2,21 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
+    /// <summary>
+    /// Object holding a payers legal address.
+    /// </summary>
     public class LegalAddress
     {
+        /// <summary>
+        /// Instantiates a new <see cref="LegalAddress"/> with the provided parameters.
+        /// </summary>
+        /// <param name="id">The resource ID.</param>
+        /// <param name="addressee">Full name of the addressee.</param>
+        /// <param name="coAddress">C/O address, if applicable.</param>
+        /// <param name="streetAddress">The payers street address.</param>
+        /// <param name="zipCode">The payers zip code.</param>
+        /// <param name="city">The payers city of residence.</param>
+        /// <param name="countryCode">The payers country code of residence.</param>
         public LegalAddress(Uri id, string addressee, string coAddress, string streetAddress, string zipCode, string city, string countryCode)
         {
             Id = id;

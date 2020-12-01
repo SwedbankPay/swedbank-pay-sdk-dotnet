@@ -1,5 +1,9 @@
 ﻿namespace SwedbankPay.Sdk.PaymentInstruments
 {
+    /// <summary>
+    /// Object wrapping payment instrument prices.
+    /// Allows for discounts using different payment instruments.
+    /// </summary>
     public interface IPrice
     {
         /// <summary>

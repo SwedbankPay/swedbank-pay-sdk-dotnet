@@ -7,6 +7,10 @@ using SwedbankPay.Sdk.PaymentInstruments.Vipps;
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
+    /// <summary>
+    /// The entry point for specifying what payment instrument to use for a payment.
+    /// Use this to get access to our payment instrument APIs.
+    /// </summary>
     public interface IPaymentInstrumentsResource
     {
         /// <summary>

@@ -1,7 +1,15 @@
 ﻿namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
+    /// <summary>
+    /// Wraps a cancel transaction for Mobile Pay payment instrument.
+    /// </summary>
     public class CancelTransaction
     {
+        /// <summary>
+        /// Instantiates a <see cref="CancelTransaction"/> with the provided parameters.
+        /// </summary>
+        /// <param name="payeeReference">A transactionally unique reference set by the merchant system.</param>
+        /// <param name="description">A textual description of the cancellation.</param>
         public CancelTransaction(string payeeReference, string description)
         {
             PayeeReference = payeeReference;

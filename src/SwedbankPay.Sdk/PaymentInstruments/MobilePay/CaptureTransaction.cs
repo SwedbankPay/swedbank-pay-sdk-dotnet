@@ -1,8 +1,18 @@
 ﻿namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
+    /// <summary>
+    /// Object holding details for capturing a authorized Mobile Pay payment.
+    /// </summary>
     public class CaptureTransaction
     {
-        protected internal CaptureTransaction(Amount amount,
+        /// <summary>
+        /// Instantiates a new <see cref="CaptureTransaction"/> with the provided parameters.
+        /// </summary>
+        /// <param name="amount">The <seealso cref="Sdk.Amount"/> to capture.</param>
+        /// <param name="vatAmount">The <see cref="Sdk.Amount"/> to capture as value added taxes.</param>
+        /// <param name="description">A textual description of the capture.</param>
+        /// <param name="payeeReference">Transactionally unique reference set by the merchant system.</param>
+        public CaptureTransaction(Amount amount,
                                                 Amount vatAmount,
                                                 string description,
                                                 string payeeReference)

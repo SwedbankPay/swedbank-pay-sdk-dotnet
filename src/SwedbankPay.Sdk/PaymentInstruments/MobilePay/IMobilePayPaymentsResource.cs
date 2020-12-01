@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
+    /// <summary>
+    /// THe entry point for creating and retreving Mobile Pay payments in our API.
+    /// </summary>
     public interface IMobilePayResource
     {
         /// <summary>
