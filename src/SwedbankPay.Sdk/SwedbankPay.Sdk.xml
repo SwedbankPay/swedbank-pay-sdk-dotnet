@@ -4029,6 +4029,31 @@
             <param name="receiptReference">The receiptReference is a reference from the merchant system.
             This reference is used as an invoice/receipt number.</param>
         </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.ReversalTransaction.Amount">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.ReversalTransaction.Description">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.ReversalTransaction.PayeeReference">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.ReversalTransaction.VatAmount">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.ReversalTransaction.ReceiptReference">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.IPaymentInstrumentsResource">
             <summary>
             The entry point for specifying what payment instrument to use for a payment.
@@ -4849,6 +4874,20 @@
             Information on how to reverse the MobilePay payment.
             </summary>
         </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.MobilePay.MobilePayReversalTransaction">
+            <summary>
+            Object describing a reversal transaction for Mobile Pay.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.MobilePay.MobilePayReversalTransaction.#ctor(SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.String,System.String)">
+            <summary>
+            Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.MobilePay.MobilePayReversalTransaction"/> with the provided parameters.
+            </summary>
+            <param name="amount">The <seealso cref="T:SwedbankPay.Sdk.Amount"/> to pay back to the payer.</param>
+            <param name="vatAmount">The <seealso cref="T:SwedbankPay.Sdk.Amount"/> to pay back to the payer as VAT.</param>
+            <param name="description">A textual description of the reversal.</param>
+            <param name="payeeReference">A transactionally unique reference to this reversal.</param>
+        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.MobilePayReversalTransaction.Amount">
             <summary>
             The <seealso cref="T:SwedbankPay.Sdk.Amount"/> to be reversed on the current payment.
@@ -4872,6 +4911,17 @@
             This field is used to specify how much ofthe total amount the VAT will be.
             Set to zero if there is no VAT amount charged.
             </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.PaymentAbortRequest">
+            <summary>
+            Object describing a abort request for a payment.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.PaymentAbortRequest.#ctor(SwedbankPay.Sdk.PaymentInstruments.PaymentAbortRequestDetails)">
+            <summary>
+            Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.PaymentAbortRequest"/> with the provided <paramref name="payment"/>.
+            </summary>
+            <param name="payment">Details of why the payment is being aborted.</param>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.PaymentAbortRequest.Payment">
             <summary>
@@ -4903,9 +4953,200 @@
             Expands optional resources on a payment.
             </summary>
         </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentExpand.None">
+            <summary>
+            Don't expand any sub-resource.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentExpand.Prices">
+            <summary>
+            Expand the Prices sub-resource.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentExpand.PayeeInfo">
+            <summary>
+            Expand the PayeeInfo sub-resource.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentExpand.Urls">
+            <summary>
+            Expand the Urls sub-resource.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentExpand.Transactions">
+            <summary>
+            Expand the Transactions sub-resource.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentExpand.Authorizations">
+            <summary>
+            Expand the Authorizations sub-resource.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentExpand.Captures">
+            <summary>
+            Expand the Captures sub-resource.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentExpand.Reversals">
+            <summary>
+            Expand the Reversals sub-resource.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentExpand.Cancellations">
+            <summary>
+            Expand the Cancellations sub-resource.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentExpand.Sales">
+            <summary>
+            Expand the Sales sub-resource.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentExpand.Metadata">
+            <summary>
+            Expand the MetaData sub-resource.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentExpand.All">
+            <summary>
+            Expand all sub-resources.
+            </summary>
+        </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.PaymentIntent">
             <summary>
             Details the inital intent of the payment.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentIntent.Unknown">
+            <summary>
+            The intent is not yet mapped, or corrupted.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentIntent.Authorization">
+            <summary>
+            The intent of the payment request is a authorization.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentIntent.Sale">
+            <summary>
+            THe intent of the payment request is a Sale.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentIntent.AutoCapture">
+            <summary>
+            The intent of the payment is an automatic capture.
+            </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.PaymentResourceOperations">
+            <summary>
+            List of all currently known mapped operations in the payment instrument resources.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentResourceOperations.UpdatePaymentAbort">
+            <summary>
+            Updates the payment to a aborted state.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentResourceOperations.CreateCapture">
+            <summary>
+            Operation to capture the authorized funds for a payment.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentResourceOperations.CreateCancellation">
+            <summary>
+            Cancels the currently authorized payment and amount.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentResourceOperations.RedirectAuthorization">
+            <summary>
+            Operation to redirect the payer to a authorization site.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentResourceOperations.CreateReversal">
+            <summary>
+            Creates a reversal on a already captured payment.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentResourceOperations.PaidPayment">
+            <summary>
+            Operation returns information about a payment that has the <seealso cref="F:SwedbankPay.Sdk.State.Paid"/>.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentResourceOperations.CreateAuthorization">
+            <summary>
+            Operation to create a authorization.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentResourceOperations.ViewAuthorization">
+            <summary>
+            Operation to view a authorization frame.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentResourceOperations.DirectAuthorization">
+            <summary>
+            Operation to create a authorization using the Direct flow.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentResourceOperations.RedirectVerification">
+            <summary>
+            Operation to redirect a payer to a authorization page.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentResourceOperations.ViewVerification">
+            <summary>
+            Operation to view a verification frame.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentResourceOperations.DirectVerification">
+            <summary>
+            Operation to authorize a payment without the direct involvemnt of a payer.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentResourceOperations.CreateSale">
+            <summary>
+            Operation to create a sales transaction on a authorized sales transaction.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentResourceOperations.RedirectSale">
+            <summary>
+            Operation to get a HREF that will redirect a payer to complete a sales transaction.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentResourceOperations.ViewSale">
+            <summary>
+            Operation to embed a iframe for a sales transaction.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentResourceOperations.ViewSales">
+            <summary>
+            Operation to embed a iframe for a sales transaction.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentResourceOperations.ViewPayment">
+            <summary>
+            Operation to embed a ifreme for viewing a payment.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentResourceOperations.AbortedPayment">
+            <summary>
+            Operation to view the aborted reason on a payment.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentResourceOperations.RedirectAppSwish">
+            <summary>
+            Operation to redirect a payer to the swish app.
+            Used for M-Commerce.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentResourceOperations.UpdateAuthorizationOverchargedAmount">
+            <summary>
+            When using a direct authorization allows to overcharge the amount a payment has been authorized for.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentResourceOperations.CreateApprovedLegalAddress">
+            <summary>
+            Creates a new <seealso cref="T:SwedbankPay.Sdk.PaymentInstruments.LegalAddress"/> for a payer.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.PrefillInfo.Msisdn">

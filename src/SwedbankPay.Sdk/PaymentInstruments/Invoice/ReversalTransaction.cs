@@ -25,11 +25,29 @@
             ReceiptReference = receiptReference;
         }
 
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public Amount Amount { get; }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public string Description { get; }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public string PayeeReference { get; }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public Amount VatAmount { get; }
 
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public string ReceiptReference { get; }
     }
 }

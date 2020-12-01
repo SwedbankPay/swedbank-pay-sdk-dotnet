@@ -1,7 +1,17 @@
 ﻿namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
+    /// <summary>
+    /// Object describing a reversal transaction for Mobile Pay.
+    /// </summary>
     public class MobilePayReversalTransaction
     {
+        /// <summary>
+        /// Instantiates a new <see cref="MobilePayReversalTransaction"/> with the provided parameters.
+        /// </summary>
+        /// <param name="amount">The <seealso cref="Sdk.Amount"/> to pay back to the payer.</param>
+        /// <param name="vatAmount">The <seealso cref="Sdk.Amount"/> to pay back to the payer as VAT.</param>
+        /// <param name="description">A textual description of the reversal.</param>
+        /// <param name="payeeReference">A transactionally unique reference to this reversal.</param>
         public MobilePayReversalTransaction(Amount amount, Amount vatAmount, string description, string payeeReference)
         {
             Amount = amount;
