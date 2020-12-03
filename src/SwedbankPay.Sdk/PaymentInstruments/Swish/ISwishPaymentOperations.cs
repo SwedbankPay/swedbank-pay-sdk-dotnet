@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
+    /// <summary>
+    /// Maps the currently known operations for a Swish payment.
+    /// </summary>
     public interface ISwishPaymentOperations : IDictionary<LinkRelation, HttpOperation>
     {
         /// <summary>

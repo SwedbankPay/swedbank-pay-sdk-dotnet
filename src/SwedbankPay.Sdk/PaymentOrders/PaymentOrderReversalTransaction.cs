@@ -2,8 +2,19 @@
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
+    /// <summary>
+    /// Reverses captured funds back to the payer.
+    /// </summary>
     public class PaymentOrderReversalTransaction
     {
+        /// <summary>
+        /// Instantaites a <see cref="PaymentOrderReversalTransaction"/> with the provided parameters.
+        /// </summary>
+        /// <param name="amount">The amount to refund to the payer.</param>
+        /// <param name="vatAmount">The amount of VAT to refund.</param>
+        /// <param name="orderItems">Order items being refunded for.</param>
+        /// <param name="description">Textual description of the reversal.</param>
+        /// <param name="payeeReference">Unique ID set by the merchant for this transaction.</param>
         protected internal PaymentOrderReversalTransaction(Amount amount,
                                                Amount vatAmount,
                                                List<OrderItem> orderItems,

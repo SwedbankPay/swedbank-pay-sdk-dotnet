@@ -1,5 +1,9 @@
 ﻿namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
+    /// <summary>
+    /// Response object for a Swish payment and its
+    /// available operations.
+    /// </summary>
     public interface ISwishPaymentResponse
     {
         /// <summary>

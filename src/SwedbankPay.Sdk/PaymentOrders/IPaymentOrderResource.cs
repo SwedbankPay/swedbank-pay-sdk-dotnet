@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
+    /// <summary>
+    /// Entrypoint to our PaymentOrders API resource.
+    /// </summary>
     public interface IPaymentOrdersResource
     {
         /// <summary>
@@ -13,7 +16,6 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="InvalidOperationException"></exception>
         /// <exception cref="System.Net.Http.HttpRequestException"></exception>
-        /// <exception cref="HttpResponseException"></exception>
         /// <returns></returns>
         Task<IPaymentOrderResponse> Create(PaymentOrderRequest paymentOrderRequest, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None);
 
@@ -26,7 +28,6 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="InvalidOperationException"></exception>
         /// <exception cref="System.Net.Http.HttpRequestException"></exception>
-        /// <exception cref="HttpResponseException"></exception>
         /// <returns></returns>
         Task<IPaymentOrderResponse> Get(Uri id, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None);
     }

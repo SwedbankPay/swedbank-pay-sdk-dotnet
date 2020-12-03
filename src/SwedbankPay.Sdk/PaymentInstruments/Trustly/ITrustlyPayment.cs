@@ -2,6 +2,9 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
 {
+    /// <summary>
+    /// Transacational details for a Trustly payment.
+    /// </summary>
     public interface ITrustlyPayment
     {
         /// <summary>
@@ -34,6 +37,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
         /// A 40 character length textual description of the purchase.
         /// </summary>
         public string Description { get; }
+
+        /// <summary>
+        /// Instrument used for this payment.
+        /// </summary>
         public PaymentInstrument Instrument { get; }
 
         /// <summary>
@@ -41,7 +48,15 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
         /// Performs the payment when the end-user gets redirected and completes the payment.
         /// </summary>
         public PaymentIntent Intent { get; }
+
+        /// <summary>
+        /// The payers language.
+        /// </summary>
         public Language Language { get; }
+
+        /// <summary>
+        /// Transactional number reference.
+        /// </summary>
         public long Number { get; }
 
         /// <summary>
@@ -65,6 +80,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
         /// like e-mail address, mobile number, customer number etc.
         /// </summary>
         public string PayerReference { get; }
+
+        /// <summary>
+        /// UserAgent of the initiating system.
+        /// </summary>
         public string InitiatingSystemUserAgent { get; }
 
         /// <summary>

@@ -11,12 +11,12 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
             var saleList = new List<ISwishSaleListItem>();
             foreach (var item in Sales)
             {
-                saleList.Add(new SwishSaleListItem(item.Date,
+                saleList.Add(new SwishSaleListItem(item.Id,
+                                               item.Date,
                                                item.PaymentRequestToken,
                                                item.PayerAlias,
                                                item.SwishPaymentReference,
                                                item.SwishStatus,
-                                               item.Id,
                                                item.Transaction.Map()));
             }
             return new SwishPaymentSaleListResponse(saleList);

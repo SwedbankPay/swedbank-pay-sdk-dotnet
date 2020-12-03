@@ -1,5 +1,8 @@
 ﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
+    /// <summary>
+    /// API detail for setting Swish specific details.
+    /// </summary>
     public class Swish
     {
         /// <summary>

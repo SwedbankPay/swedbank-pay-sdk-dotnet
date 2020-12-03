@@ -1,7 +1,15 @@
 ﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
+    /// <summary>
+    /// API details for updating the amounts on a payment order.
+    /// </summary>
     public class PaymentOrderUpdateRequestDetails
     {
+        /// <summary>
+        /// Instantiates a <see cref="PaymentOrderUpdateRequestDetails"/> with the provided parameters.
+        /// </summary>
+        /// <param name="amount">The amount to update to.</param>
+        /// <param name="vatAmount">The VAT amount to update to.</param>
         protected internal PaymentOrderUpdateRequestDetails(Amount amount, Amount vatAmount)
         {
             Operation = Operation.UpdateOrder;

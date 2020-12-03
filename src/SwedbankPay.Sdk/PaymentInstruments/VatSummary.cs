@@ -1,7 +1,16 @@
 ﻿namespace SwedbankPay.Sdk.PaymentInstruments
 {
+    /// <summary>
+    /// Gives a summary for the Value Added Taxes for a order line.
+    /// </summary>
     public class VatSummary
     {
+        /// <summary>
+        /// Instantiates a <see cref="VatSummary"/> with the provided parameters.
+        /// </summary>
+        /// <param name="amount">Total price of the order line.</param>
+        /// <param name="vatPercent">Percent value of the VAT multiplied by 100.</param>
+        /// <param name="vatAmount">The VAT for the orderline.</param>
         public VatSummary(Amount amount,
                           string vatPercent,
                           Amount vatAmount)

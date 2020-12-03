@@ -50,18 +50,64 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
             PrefillInfo = prefillInfo;
         }
 
-
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public Currency Currency { get; set; }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public string Description { get; set; }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public PaymentIntent Intent { get; set; }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public Language Language { get; set; }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public Operation Operation { get; set; }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public PayeeInfo PayeeInfo { get; set; }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public string PayerReference { get; set; }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public List<IPrice> Prices { get; set; }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public IUrls Urls { get; }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public string UserAgent { get; set; }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public PrefillInfo PrefillInfo { get; set; }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public MetadataResponse Metadata { get; }
     }
 }

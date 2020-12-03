@@ -1,7 +1,17 @@
 ﻿namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {
+    /// <summary>
+    /// Transactional details for a Vipps reversal.
+    /// </summary>
     public class VippsReversalTransaction
     {
+        /// <summary>
+        /// Instantiates a <see cref="VippsReversalTransaction"/> with the provided parameters.
+        /// </summary>
+        /// <param name="amount">The amount to reverse back to the payer.</param>
+        /// <param name="vatAmount">The amount of VAT to reverse back.</param>
+        /// <param name="description">A textual description of the reversal.</param>
+        /// <param name="payeeReference">Transactionally unique reference from the merchant system.</param>
         public VippsReversalTransaction(Amount amount, Amount vatAmount, string description, string payeeReference)
         {
             Amount = amount;

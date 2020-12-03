@@ -3,7 +3,7 @@
 namespace SwedbankPay.Sdk.PaymentOrders
 {
     /// <summary>
-    ///     If shipIndicator set to <see cref="RiskIndicator.ShipIndicator" />, then prefil 
+    ///     If shipIndicator set, then prefil 
     /// </summary>
     /// 
     public class PickUpAddress

@@ -2,8 +2,28 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
+    /// <summary>
+    /// Low level information about a payment transaction.
+    /// </summary>
     public class Transaction : ITransaction
     {
+        /// <summary>
+        /// Instantiates a new <see cref="Transaction"/> with the provided parameters.
+        /// </summary>
+        /// <param name="id">A unique reference to this transaction.</param>
+        /// <param name="created">The <seealso cref="DateTime"/> the transaction was created.</param>
+        /// <param name="updated">The <seealso cref="DateTime"/> the transaction was last updated.</param>
+        /// <param name="type">The transaction type.</param>
+        /// <param name="state">The last known state of this transaction.</param>
+        /// <param name="number">Unique number of this transaction.</param>
+        /// <param name="amount">Amount to charge the payer.</param>
+        /// <param name="vatAmount">Amount to charge the payer as value added taxes.</param>
+        /// <param name="description">A textual description of the payment.</param>
+        /// <param name="payeeReference">Unique reference to this transaction in the merchant system.</param>
+        /// <param name="isOperational">Indicates if this transaction was operational.</param>
+        /// <param name="operations">Available operations for this transaction.</param>
+        /// <param name="activity">Latest activity to happen to this transaction.</param>
+        /// <param name="problem">Any known problems about this transaction.</param>
         public Transaction(Uri id,
                            DateTime created,
                            DateTime updated,
@@ -17,7 +37,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
                            bool isOperational,
                            IOperationList operations,
                            string activity,
-                           IProblemResponse problem)
+                           IProblemResponse problem = null)
         {
             Id = id;
             Created = created;
@@ -35,20 +55,74 @@ namespace SwedbankPay.Sdk.PaymentInstruments
             Problem = problem;
         }
 
-
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public Amount Amount { get; }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public DateTime Created { get; }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public string Description { get; }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public Uri Id { get; }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public bool IsOperational { get; }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public long Number { get; }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public IOperationList Operations { get; }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public string PayeeReference { get; }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public State State { get; }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public TransactionType Type { get; }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public DateTime Updated { get; }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public Amount VatAmount { get; }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public string Activity { get; }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
         public IProblemResponse Problem { get; }
     }
 }

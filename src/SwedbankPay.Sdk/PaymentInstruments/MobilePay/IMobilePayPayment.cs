@@ -72,6 +72,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         /// Not usable for programmatic identification of the payment, for that id should be used instead.
         /// </summary>
         long Number { get; }
+
+        /// <summary>
+        /// The operation used to initiate this payment.
+        /// </summary>
         Operation Operation { get; }
 
         /// <summary>

@@ -2,6 +2,9 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
+    /// <summary>
+    /// Describes how a Swish payment returned from the api look like.
+    /// </summary>
     public interface ISwishPayment
     {
         /// <summary>
@@ -74,12 +77,20 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         /// The reference to the payer from the merchant system, like e-mail address, mobile number, customer number etc.
         /// </summary>
         string PayerReference { get; }
+
+        /// <summary>
+        /// User agent string identifying the initiator.
+        /// </summary>
         string InitiatingSystemUserAgent { get; }
 
         /// <summary>
         /// The user agent string of the payer’s browser.
         /// </summary>
         string UserAgent { get; }
+
+        /// <summary>
+        /// The prefered language of the payer.
+        /// </summary>
         Language Language { get; }
 
         /// <summary>

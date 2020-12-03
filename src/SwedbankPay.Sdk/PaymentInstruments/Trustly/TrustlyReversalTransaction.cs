@@ -1,10 +1,22 @@
 ﻿namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
 {
+    /// <summary>
+    /// API details for reversing funds of a Trustly payment.
+    /// </summary>
     public class TrustlyReversalTransaction
     {
-        public TrustlyReversalTransaction(Operation activity, Amount amount, Amount vatAmount, string payeeReference, string receiptReference, string description)
+        /// <summary>
+        /// Instantiates a <see cref="TrustlyReversalTransaction"/> with the provided parameters.
+        /// </summary>
+        /// <param name="operation">The API operation to use.</param>
+        /// <param name="amount">The amount to refund back to the payer.</param>
+        /// <param name="vatAmount">The amount of VAT to refund back to the payer.</param>
+        /// <param name="payeeReference"></param>
+        /// <param name="receiptReference"></param>
+        /// <param name="description"></param>
+        public TrustlyReversalTransaction(Operation operation, Amount amount, Amount vatAmount, string payeeReference, string receiptReference, string description)
         {
-            TransactionActivity = activity;
+            TransactionActivity = operation;
             Amount = amount;
             VatAmount = vatAmount;
             Description = description;
@@ -12,7 +24,9 @@
             RecepitReference = receiptReference;
         }
 
-
+        /// <summary>
+        /// The API operation to perform.
+        /// </summary>
         public Operation TransactionActivity { get; }
 
         /// <summary>

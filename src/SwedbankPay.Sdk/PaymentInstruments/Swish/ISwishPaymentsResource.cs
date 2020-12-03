@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
+    /// <summary>
+    /// Entrypoint to our Swish resource API.
+    /// </summary>
     public interface ISwishResource
     {
         /// <summary>

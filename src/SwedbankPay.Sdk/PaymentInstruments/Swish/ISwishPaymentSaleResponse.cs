@@ -2,6 +2,10 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
+    /// <summary>
+    /// Resource identificatior to access the sales response available
+    /// on a Swish payment.
+    /// </summary>
     public interface ISwishPaymentSaleResponse
     {
         /// <summary>

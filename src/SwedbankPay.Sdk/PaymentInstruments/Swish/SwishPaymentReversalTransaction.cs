@@ -1,7 +1,17 @@
 ﻿namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
+    /// <summary>
+    /// API request for reversing a captured Swish payment.
+    /// </summary>
     public class SwishPaymentReversalTransaction
     {
+        /// <summary>
+        /// Instantiates a new <see cref="SwishPaymentReversalTransaction"/> with the provided parameters.
+        /// </summary>
+        /// <param name="amount">The amount to reverse on the payment.</param>
+        /// <param name="vatAmount">The amount to reverse that was captured as value added taxes.</param>
+        /// <param name="description">A textual description of the reversal.</param>
+        /// <param name="payeeReference">Transactionally unique reference for this request.</param>
         public SwishPaymentReversalTransaction(Amount amount, Amount vatAmount, string description, string payeeReference)
         {
             Amount = amount;

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
+    /// <summary>
+    /// Resource to retreive and inspect sale items for Swish.
+    /// </summary>
     public interface ISwishSaleListResponse
     {
         /// <summary>

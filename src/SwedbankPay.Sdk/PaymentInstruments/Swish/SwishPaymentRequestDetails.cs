@@ -2,8 +2,25 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
+    /// <summary>
+    /// Detailes needed for creating a Swish payment.
+    /// </summary>
     public class SwishPaymentRequestDetails
     {
+        /// <summary>
+        /// Instantiates a new <see cref="SwishPaymentRequestDetails"/> with the provided parameters.
+        /// </summary>
+        /// <param name="prices">List of prices object to give discounts.</param>
+        /// <param name="description">Textual description of the payment.</param>
+        /// <param name="payerReference">Refence to the payer in the merchant systems.</param>
+        /// <param name="userAgent">The UserAgent string of the payers device.</param>
+        /// <param name="language">The payers prefered langauge.</param>
+        /// <param name="urls">Object describing relevant URLs for this payment.</param>
+        /// <param name="payeeInfo">Object holding information about the merchant-</param>
+        /// <param name="prefillInfo">Known information about the payer than can be
+        /// pre-filled in the payment window.</param>
+        /// <param name="metadata">MetaData to be stored on the payment.</param>
+        /// <param name="swishRequest">Sets Swish payment specific options.</param>
         protected internal SwishPaymentRequestDetails(List<IPrice> prices,
                                                 string description,
                                                 string payerReference,
@@ -44,6 +61,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         /// <see cref="PaymentIntent.Sale"/> is the only allowed value for this request.
         /// </summary>
         public PaymentIntent Intent { get; }
+
+        /// <summary>
+        /// Sets the payers prefered language.
+        /// </summary>
         public Language Language { get; }
 
         /// <summary>

@@ -1,5 +1,8 @@
 ﻿namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
 {
+    /// <summary>
+    /// Object holding a Trustly payment and its available operations.
+    /// </summary>
     public interface ITrustlyPaymentResponse
     {
         /// <summary>

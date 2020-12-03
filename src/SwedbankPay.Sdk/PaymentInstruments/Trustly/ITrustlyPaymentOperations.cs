@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
 {
+    /// <summary>
+    /// All currently mapped Trustly operations.
+    /// </summary>
     public interface ITrustlyPaymentOperations : IDictionary<LinkRelation, HttpOperation>
     {
         /// <summary>

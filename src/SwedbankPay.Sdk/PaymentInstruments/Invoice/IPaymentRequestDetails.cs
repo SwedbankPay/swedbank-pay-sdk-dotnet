@@ -51,6 +51,13 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         /// The reference to the payer from the merchant system, like e-mail address, mobile number, customer number etc.
         /// </summary>
         string PayerReference { get; set; }
+
+        /// <summary>
+        /// If a paymentToken is included in the request,
+        /// the card details stored in the paymentToken will be prefilled on the payment page.
+        /// The payer still has to enter the cvc to complete the purchase.
+        /// This is called a “One Click” purchase.
+        /// </summary>
         string PaymentToken { get; set; }
 
         /// <summary>

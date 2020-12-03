@@ -3,8 +3,28 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {
+    /// <summary>
+    /// Details needed to create a Vipps payment.
+    /// </summary>
     public class VippsPaymentRequestDetails
     {
+        /// <summary>
+        /// Instantiates a <see cref="VippsPaymentRequestDetails"/> with the provided parameters.
+        /// </summary>
+        /// <param name="operation">The initial operation of this payment.</param>
+        /// <param name="intent">The intent of this payment.</param>
+        /// <param name="currency">The wanted currency of the payment.</param>
+        /// <param name="prices">List of payment instrument prices.</param>
+        /// <param name="description">Textual description of the payment.</param>
+        /// <param name="payerReference">Merchant reference to the payer.</param>
+        /// <param name="generatePaymentToken">Set if you want a payment token to be generated for later use.</param>
+        /// <param name="generateRecurrenceToken">Set if you want a recurrence token to be generated for later use.</param>
+        /// <param name="userAgent">The payers UserAgent string.</param>
+        /// <param name="language">The payers prefered language.</param>
+        /// <param name="urls">Object with relevant URLs for the payment.</param>
+        /// <param name="payeeInfo">Object with information about the merchant.</param>
+        /// <param name="metadata">MetaData to be stored with the payment.</param>
+        /// <param name="paymentToken">A previously generated payment token. See <paramref name="generatePaymentToken"/>.</param>
         protected internal VippsPaymentRequestDetails(Operation operation,
                                                 PaymentIntent intent,
                                                 Currency currency,
@@ -61,6 +81,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         /// <seealso cref="PaymentIntent.AutoCapture"/> is a one phase option that enable capture of funds automatically after authorization.
         /// </summary>
         public PaymentIntent Intent { get; set; }
+
+        /// <summary>
+        /// Payers prefered language.
+        /// </summary>
         public Language Language { get; set; }
 
         /// <summary>
@@ -71,7 +95,11 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         /// In order to transmit data between these two internal systems,
         /// the data can be stored in metadata on the payment so the internal systems do not need to communicate with each other directly.
         /// </summary>
-        public Dictionary<string, object> Metadata { get; }
+        public Dictionary<string, object> Metadata { get; set; }
+
+        /// <summary>
+        /// Initial operation of the payment.
+        /// </summary>
         public Operation Operation { get; set; }
 
         /// <summary>
@@ -83,6 +111,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         /// The reference to the payer from the merchant system, like e-mail address, mobile number, customer number etc.
         /// </summary>
         public string PayerReference { get; set; }
+
+        /// <summary>
+        /// Previously generated payment token, allows for performing a payment without payer involvement.
+        /// </summary>
         public string PaymentToken { get; set; }
 
         /// <summary>

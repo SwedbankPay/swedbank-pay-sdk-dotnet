@@ -2,9 +2,32 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {
+    /// <summary>
+    /// Object describing a authorization transaction for Vipps.
+    /// </summary>
     public class AuthorizationTransaction : Identifiable
     {
-        public AuthorizationTransaction(DateTime created,
+        /// <summary>
+        /// Instantiates a new <see cref="AuthorizationTransaction"/> with the provided parameters.
+        /// </summary>
+        /// <param name="id">A unique reference to this transaction.</param>
+        /// <param name="created">The <seealso cref="DateTime"/> the transaction was created.</param>
+        /// <param name="updated">The <seealso cref="DateTime"/> the transaction was last updated.</param>
+        /// <param name="type">The transaction type.</param>
+        /// <param name="state">The last known state of this transaction.</param>
+        /// <param name="number">Unique number of this transaction.</param>
+        /// <param name="amount">Amount to charge the payer.</param>
+        /// <param name="vatAmount">Amount to charge the payer as value added taxes.</param>
+        /// <param name="description">A textual description of the payment.</param>
+        /// <param name="payeeReference">Unique reference to this transaction in the merchant system.</param>
+        /// <param name="failedActivityName">If failed showes what activity failed.</param>
+        /// <param name="failedErrorCode">If failed shows the error code.</param>
+        /// <param name="failedReason">If failed gives the reason for the failure.</param>
+        /// <param name="failedErrorDescription">If failed describes the failure.</param>
+        /// <param name="isOperational">Indicates if this transaction was operational.</param>
+        /// <param name="operations">Available operations for this transaction.</param>
+        public AuthorizationTransaction(Uri id,
+                                        DateTime created,
                                         DateTime updated,
                                         string type,
                                         State state,
@@ -20,6 +43,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
                                         bool isOperational,
                                         IOperationList operations)
         {
+            Id = id;
             Created = created;
             Updated = updated;
             Type = type;
@@ -51,8 +75,20 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         /// A textual description of the payment.
         /// </summary>
         public string Description { get; }
+
+        /// <summary>
+        /// If the authorization failed this gives the name of the failure code.
+        /// </summary>
         public string FailedActivityName { get; }
+
+        /// <summary>
+        /// If the authorization failed this gives the failure code.
+        /// </summary>
         public string FailedErrorCode { get; }
+
+        /// <summary>
+        /// If the authorization failed this gives the description of the failure code.
+        /// </summary>
         public string FailedErrorDescription { get; }
 
         /// <summary>
@@ -67,7 +103,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 
         /// <summary>
         /// The transaction number, useful when there’s need to reference the transaction in human communication.
-        /// Not usable for programmatic identification of the transaction, where <see cref="Id"/> should be used instead.
+        /// Not usable for programmatic identification of the transaction, where the ID should be used instead.
         /// </summary>
         public long Number { get; }
 
