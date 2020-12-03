@@ -39,7 +39,7 @@ namespace SwedbankPay.Sdk.Exceptions
         /// <summary>
         /// Instantiates a new empty <seealso cref="HttpResponseException"/>.
         /// </summary>
-        public HttpResponseException(): base()
+        public HttpResponseException()
         {
         }
 
