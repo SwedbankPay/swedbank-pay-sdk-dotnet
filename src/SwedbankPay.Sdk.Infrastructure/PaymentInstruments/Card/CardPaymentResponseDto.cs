@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
-    public class CardPaymentResponseDto
+    internal class CardPaymentResponseDto
     {
         public OperationListDto Operations { get; set; }
 

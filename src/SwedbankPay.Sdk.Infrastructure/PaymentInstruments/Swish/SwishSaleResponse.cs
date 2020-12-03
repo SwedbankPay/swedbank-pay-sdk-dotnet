@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
-    public class SwishSaleResponse
+    internal class SwishSaleResponse
     {
         public SwishSaleResponse(Uri payment, ISwishSaleListResponse sales)
         {

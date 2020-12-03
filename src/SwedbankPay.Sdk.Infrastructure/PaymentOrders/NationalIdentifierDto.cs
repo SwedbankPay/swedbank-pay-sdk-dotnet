@@ -1,6 +1,6 @@
 ﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class NationalIdentifierDto
+    internal class NationalIdentifierDto
     {
         public string CountryCode { get; set; }
 

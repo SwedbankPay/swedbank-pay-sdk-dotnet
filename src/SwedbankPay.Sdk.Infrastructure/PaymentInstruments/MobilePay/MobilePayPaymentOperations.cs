@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
-    public class MobilePayPaymentOperations : OperationsBase, IMobilePayPaymentOperations
+    internal class MobilePayPaymentOperations : OperationsBase, IMobilePayPaymentOperations
     {
         public MobilePayPaymentOperations(IOperationList operations, HttpClient client)
         {

@@ -3,7 +3,7 @@ using System;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
-    public class SwishPaymentDto
+    internal class SwishPaymentDto
     {
         public long Number { get; set; }
         public DateTime Created { get; set; }

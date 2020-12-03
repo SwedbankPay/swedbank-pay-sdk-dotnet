@@ -1,6 +1,6 @@
 ﻿namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
-    public class CardPaymentRecurResponseDto
+    internal class CardPaymentRecurResponseDto
     {
         public CardPaymentRecurResponseDetailsDto Payment { get; set; }
 

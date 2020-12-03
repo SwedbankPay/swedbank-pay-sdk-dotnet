@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
-    public class ReversalsListResponse : Identifiable, IReversalsListResponse
+    internal class ReversalsListResponse : Identifiable, IReversalsListResponse
     {
         public ReversalsListResponse(Uri id, List<ITransactionResponse> reversalList)
         {

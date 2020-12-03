@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
-    public class SaleListItemDto
+    internal class SaleListItemDto
     {
         public DateTime Date { get; }
         public Uri Id { get; }

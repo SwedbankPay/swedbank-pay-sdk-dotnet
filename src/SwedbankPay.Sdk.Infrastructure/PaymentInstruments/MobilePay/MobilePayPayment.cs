@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
-    public class MobilePayPayment : IMobilePayPayment
+    internal class MobilePayPayment : IMobilePayPayment
     {
         public MobilePayPayment(MobilePayPaymentDto payment)
         {

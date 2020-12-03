@@ -3,7 +3,7 @@ using System;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {
-    public class VippsPaymentDto
+    internal class VippsPaymentDto
     {
         public Amount Amount { get; set; }
         public VippsPaymentAuthorizationListResponseDto Authorizations { get; set; }

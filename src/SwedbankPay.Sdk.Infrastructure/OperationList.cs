@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk
 {
-    public class OperationList : List<HttpOperation>, IOperationList
+    internal class OperationList : List<HttpOperation>, IOperationList
     {
     }
 }

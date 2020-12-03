@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
-    public class MobilePayPaymentAuthorizationTransactionDto
+    internal class MobilePayPaymentAuthorizationTransactionDto
     {
         public int Amount { get; }
         public DateTime Created { get; }

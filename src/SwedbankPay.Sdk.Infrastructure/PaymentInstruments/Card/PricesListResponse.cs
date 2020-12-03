@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
-    public class PricesListResponse : Identifiable, IPricesListResponse
+    internal class PricesListResponse : Identifiable, IPricesListResponse
     {
         public PricesListResponse(List<IPrice> priceList)
         {

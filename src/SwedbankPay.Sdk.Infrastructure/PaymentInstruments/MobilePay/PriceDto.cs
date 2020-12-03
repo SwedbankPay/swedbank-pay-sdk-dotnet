@@ -1,6 +1,6 @@
 ﻿namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
-    public class PriceDto
+    internal class PriceDto
     {
         public int Amount { get; set; }
         public string Type { get; set; }

@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
-    public class MobilePayPaymentResponse : IMobilePayPaymentResponse
+    internal class MobilePayPaymentResponse : IMobilePayPaymentResponse
     {
 
         public MobilePayPaymentResponse(MobilePayPaymentResponseDto mobilePayPaymentResponseDto, HttpClient httpClient)

@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace SwedbankPay.Sdk.JsonSerialization.Converters
 {
-    public class CustomAmountConverter : JsonConverter<Amount>
+    internal class CustomAmountConverter : JsonConverter<Amount>
     {
         public override Amount Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class PaymentAuthorizationListResponse : IPaymentAuthorizationListResponse
+    internal class PaymentAuthorizationListResponse : IPaymentAuthorizationListResponse
     {
         public PaymentAuthorizationListResponse(Uri id, List<IPaymentAuthorization> authorizationList)
         {

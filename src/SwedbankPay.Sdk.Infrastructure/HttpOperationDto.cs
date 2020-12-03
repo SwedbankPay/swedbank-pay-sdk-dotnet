@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk
 {
-    public class HttpOperationDto
+    internal class HttpOperationDto
     {
         public string ContentType { get; set; }
         public Uri Href { get; set; }

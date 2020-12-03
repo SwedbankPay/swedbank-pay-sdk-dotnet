@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace SwedbankPay.Sdk.JsonSerialization.Converters
 {
-    public class CustomMetaDataConverter : JsonConverter<MetadataResponse>
+    internal class CustomMetaDataConverter : JsonConverter<MetadataResponse>
     {
         public override MetadataResponse Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {

@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
-    public class InvoicePaymentResponse : IInvoicePaymentResponse
+    internal class InvoicePaymentResponse : IInvoicePaymentResponse
     {
         public InvoicePaymentResponse(InvoicePaymentResponseDto paymentResponseContainer, HttpClient httpClient)
         {

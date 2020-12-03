@@ -1,6 +1,6 @@
 ﻿namespace SwedbankPay.Sdk.Consumers
 {
-    public class ConsumersResponse : IConsumersResponse
+    internal class ConsumersResponse : IConsumersResponse
     {
         public ConsumersResponse(ConsumersResponseDto consumerResponse)
         {

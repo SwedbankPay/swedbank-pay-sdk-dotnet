@@ -3,9 +3,9 @@ using System;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class CaptureResponseDto
+    internal class CaptureResponseDto
     {
-        public Uri payment { get; set; }
+        public Uri Payment { get; set; }
 
         public TransactionDto Capture { get; set; }
 

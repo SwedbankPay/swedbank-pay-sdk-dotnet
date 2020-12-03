@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {
-    public class VippsPaymentResponseDto
+    internal class VippsPaymentResponseDto
     {
         public OperationListDto Operations { get; set; }
         public VippsPaymentDto Payment { get; set; }

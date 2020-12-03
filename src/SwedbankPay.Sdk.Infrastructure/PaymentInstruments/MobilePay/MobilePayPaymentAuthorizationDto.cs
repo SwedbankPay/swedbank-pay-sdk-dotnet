@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
-    public class MobilePayPaymentAuthorizationDto
+    internal class MobilePayPaymentAuthorizationDto
     {
         public string AcquirerStan { get; }
         public string AcquirerTerminalId { get; }

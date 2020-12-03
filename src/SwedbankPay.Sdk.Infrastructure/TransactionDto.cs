@@ -3,7 +3,7 @@ using System;
 
 namespace SwedbankPay.Sdk
 {
-    public class TransactionDto
+    internal class TransactionDto
     {
         public int Amount { get; set; }
         public DateTime Created { get; set; }

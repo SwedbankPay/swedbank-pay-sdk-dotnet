@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace SwedbankPay.Sdk
 {
-    public class OperationListDto : List<HttpOperationDto>
+    internal class OperationListDto : List<HttpOperationDto>
     {
         public OperationListDto()
         {

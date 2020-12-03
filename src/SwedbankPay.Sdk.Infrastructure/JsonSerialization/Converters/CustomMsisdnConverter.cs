@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace SwedbankPay.Sdk.JsonSerialization.Converters
 {
-    public class CustomMsisdnConverter : JsonConverter<Msisdn>
+    internal class CustomMsisdnConverter : JsonConverter<Msisdn>
     {
         public override Msisdn Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {

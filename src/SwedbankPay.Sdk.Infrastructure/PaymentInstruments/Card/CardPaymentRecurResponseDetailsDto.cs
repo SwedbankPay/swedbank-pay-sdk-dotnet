@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
-    public class CardPaymentRecurResponseDetailsDto
+    internal class CardPaymentRecurResponseDetailsDto
     {
         public Uri Id { get; set; }
 

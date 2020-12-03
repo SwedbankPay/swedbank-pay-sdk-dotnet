@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
-    public class SwishPaymentResponseDto
+    internal class SwishPaymentResponseDto
     {
         public OperationListDto Operations { get; set; }
         public SwishPaymentDto Payment { get; set; }

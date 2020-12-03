@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class SalesTransactionListResponseDto
+    internal class SalesTransactionListResponseDto
     {
         public Uri Id { get; set; }
         public string Payment { get; set; }

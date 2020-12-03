@@ -1,6 +1,6 @@
 ﻿namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
-    public class AuthorizationTransaction : IAuthorizationTransaction
+    internal class AuthorizationTransaction : IAuthorizationTransaction
     {
         public AuthorizationTransaction(InvoicePaymentAuthorizationDto item)
         {

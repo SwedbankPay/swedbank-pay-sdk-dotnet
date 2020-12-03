@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace SwedbankPay.Sdk.JsonSerialization.Converters
 {
-    public class CustomCurrencyCodeConverter : JsonConverter<Currency>
+    internal class CustomCurrencyCodeConverter : JsonConverter<Currency>
     {
         public override Currency Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {

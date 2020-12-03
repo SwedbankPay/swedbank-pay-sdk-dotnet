@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
-    public class InvoicePaymentDto
+    internal class InvoicePaymentDto
     {
         public int Amount { get; set; }
         public int RemainingCaptureAmount { get; set; }

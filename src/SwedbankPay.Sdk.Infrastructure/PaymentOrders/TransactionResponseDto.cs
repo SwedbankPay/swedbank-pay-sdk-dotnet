@@ -3,7 +3,7 @@ using System;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class TransactionResponseDto
+    internal class TransactionResponseDto
     {
         public Uri Id { get; set; }
         public TransactionDto Transaction { get; set; }

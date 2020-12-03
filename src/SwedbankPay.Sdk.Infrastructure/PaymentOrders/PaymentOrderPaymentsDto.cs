@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class PaymentOrderPaymentsDto
+    internal class PaymentOrderPaymentsDto
     {
         public string Id { get; set; }
         public List<PaymentOrderPaymentListDto> PaymentList { get; set; }

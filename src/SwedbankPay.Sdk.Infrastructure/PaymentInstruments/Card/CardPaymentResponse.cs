@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
-    public class CardPaymentResponse : ICardPaymentResponse
+    internal class CardPaymentResponse : ICardPaymentResponse
     {
         internal CardPaymentResponse(CardPaymentResponseDto cardPaymentResponseDto, HttpClient httpClient)
         {

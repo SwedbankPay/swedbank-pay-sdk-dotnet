@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
-    public class PricesListResponseDto
+    internal class PricesListResponseDto
     {
         public List<PriceDto> PriceList { get; set; } = new List<PriceDto>();
 

@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
-    public class PayeeInfoDto
+    internal class PayeeInfoDto
     {
         public string Id { get; set; }
         public string OrderReference { get; set; }

@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class PayerDto
+    internal class PayerDto
     {
         public Uri Id { get; set; }
         public AccountInfo AccountInfo { get; set; }

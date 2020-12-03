@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class CardBrandListDto
+    internal class CardBrandListDto
     {
         public List<string> CardBrands { get; set; }
     }

@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {
-    public class VippsPaymentAuthorizationDto
+    internal class VippsPaymentAuthorizationDto
     {
         public Uri Id { get; set; }
         public string VippsTransactionId { get; set; }

@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace SwedbankPay.Sdk
 {
-    public class ProblemResponse : IProblemResponse
+    internal class ProblemResponse : IProblemResponse
     {
         public ProblemResponse(string action, string detail, string instance, List<IProblemResponseItem> problems, int status, string title, string type)
         {

@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 
 namespace SwedbankPay.Sdk.JsonSerialization.Converters
 {
-    public class CustomHttpResponseExceptionConverter : JsonConverter<HttpResponseException>
+    internal class CustomHttpResponseExceptionConverter : JsonConverter<HttpResponseException>
     {
         public override HttpResponseException Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {

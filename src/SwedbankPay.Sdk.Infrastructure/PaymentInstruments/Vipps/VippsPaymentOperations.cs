@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {
-    public class VippsPaymentOperations : OperationsBase, IVippsPaymentOperations
+    internal class VippsPaymentOperations : OperationsBase, IVippsPaymentOperations
     {
         public VippsPaymentOperations(IOperationList operations, HttpClient client)
         {
@@ -29,7 +29,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
                     case PaymentResourceOperations.CreateCapture:
                         Capture = async payload => {
                             var dto = await client.SendAsJsonAsync<CaptureResponseDto>(httpOperation.Method, httpOperation.Href, payload);
-                            return new CaptureResponse(dto.payment, dto.Capture.Map());
+                            return new CaptureResponse(dto.Payment, dto.Capture.Map());
                         };
                         break;
 

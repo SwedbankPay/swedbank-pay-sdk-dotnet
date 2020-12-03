@@ -3,7 +3,7 @@ using System;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
-    public class CancellationResponseDto
+    internal class CancellationResponseDto
     {
         public TransactionResponseDto Cancellation { get; set; }
 

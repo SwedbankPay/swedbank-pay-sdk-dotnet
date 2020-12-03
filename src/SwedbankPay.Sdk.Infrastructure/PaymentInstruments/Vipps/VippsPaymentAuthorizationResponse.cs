@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {
-    public class VippsPaymentAuthorizationResponse : IVippsPaymentAuthorizationResponse
+    internal class VippsPaymentAuthorizationResponse : IVippsPaymentAuthorizationResponse
     {
         public VippsPaymentAuthorizationResponse(Uri payment, IVippsPaymentAuthorization authorization)
         {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
-    public class InvoicePaymentOperations : OperationsBase, IInvoicePaymentOperations
+    internal class InvoicePaymentOperations : OperationsBase, IInvoicePaymentOperations
     {
         public InvoicePaymentOperations(IOperationList operations, HttpClient client)
         {
@@ -33,7 +33,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
                     case PaymentResourceOperations.CreateCapture:
                         Capture = async payload => {
                             var dto = await client.SendAsJsonAsync<CaptureResponseDto>(httpOperation.Method, httpOperation.Href, payload);
-                            return new CaptureResponse(dto.payment, dto.Capture.Map());
+                            return new CaptureResponse(dto.Payment, dto.Capture.Map());
                         };
                         break;
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
-    public class InvoicePaymentAuthorizationListDto
+    internal class InvoicePaymentAuthorizationListDto
     {
         public Uri Id { get; set; }
         public List<InvoicePaymentAuthorizationDto> AuthorizationList { get; set; }

@@ -3,7 +3,7 @@ using System.Net.Http;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class PaymentOrderResponse : IPaymentOrderResponse
+    internal class PaymentOrderResponse : IPaymentOrderResponse
     {
         public PaymentOrderResponse(PaymentOrderResponseDto paymentOrder, HttpClient httpClient)
         {

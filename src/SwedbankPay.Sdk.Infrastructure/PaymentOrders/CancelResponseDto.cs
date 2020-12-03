@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class CancelResponseDto
+    internal class CancelResponseDto
     {
         public Uri Payment { get; set; }
 

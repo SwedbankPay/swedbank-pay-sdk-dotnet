@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk
 {
-    public class ProblemResponseDto
+    internal class ProblemResponseDto
     {
         public string Action { get; set; }
         public string Detail { get; set; }

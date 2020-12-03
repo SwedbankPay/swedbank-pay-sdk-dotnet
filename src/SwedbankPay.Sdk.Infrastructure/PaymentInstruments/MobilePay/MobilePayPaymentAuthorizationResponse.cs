@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
-    public class MobilePayPaymentAuthorizationResponse : IMobilePayPaymentAuthorizationResponse
+    internal class MobilePayPaymentAuthorizationResponse : IMobilePayPaymentAuthorizationResponse
     {
         public MobilePayPaymentAuthorizationResponse(Uri payment, MobilePayPaymentAuthorization authorization)
         {

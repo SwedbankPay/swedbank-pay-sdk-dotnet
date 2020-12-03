@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
 {
-    public class TrustlyPaymentOperations : OperationsBase, ITrustlyPaymentOperations
+    internal class TrustlyPaymentOperations : OperationsBase, ITrustlyPaymentOperations
     {
         public TrustlyPaymentOperations(IOperationList operations, HttpClient client)
         {

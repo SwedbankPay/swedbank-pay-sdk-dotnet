@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace SwedbankPay.Sdk.JsonSerialization.Converters
 {
-    public class CustomRegionInfoConverter : JsonConverter<RegionInfo>
+    internal class CustomRegionInfoConverter : JsonConverter<RegionInfo>
     {
         public override RegionInfo Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {

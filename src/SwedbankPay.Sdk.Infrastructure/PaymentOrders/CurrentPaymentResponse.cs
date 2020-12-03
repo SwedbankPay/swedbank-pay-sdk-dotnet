@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class CurrentPaymentResponse : ICurrentPaymentResponse
+    internal class CurrentPaymentResponse : ICurrentPaymentResponse
     {
         public CurrentPaymentResponse(Uri paymentOrder, string menuElementName, ICurrentPayment payment)
         {

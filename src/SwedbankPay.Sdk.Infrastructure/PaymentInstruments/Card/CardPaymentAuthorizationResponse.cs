@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
-    public class CardPaymentAuthorizationResponse : ICardPaymentAuthorizationResponse
+    internal class CardPaymentAuthorizationResponse : ICardPaymentAuthorizationResponse
     {
         public CardPaymentAuthorizationResponse(Uri payment, ICardPaymentAuthorization authorization)
         {

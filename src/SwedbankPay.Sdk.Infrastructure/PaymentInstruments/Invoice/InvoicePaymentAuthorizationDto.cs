@@ -1,6 +1,6 @@
 ﻿namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
-    public class InvoicePaymentAuthorizationDto
+    internal class InvoicePaymentAuthorizationDto
     {
         public string Addressee { get; set; }
         public string City { get; set; }

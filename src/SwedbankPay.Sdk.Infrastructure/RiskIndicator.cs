@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class RiskIndicator : IRiskIndicator
+    internal class RiskIndicator : IRiskIndicator
     {
         /// <summary>
         ///     For electronic delivery, the email address to which the merchandise was delivered.

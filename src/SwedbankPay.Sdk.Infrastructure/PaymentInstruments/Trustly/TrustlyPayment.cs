@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
 {
-    public class TrustlyPayment : ITrustlyPayment
+    internal class TrustlyPayment : ITrustlyPayment
     {
         public TrustlyPayment(TrustlyPaymentDto payment)
         {

@@ -1,6 +1,6 @@
 ﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class DeviceDto
+    internal class DeviceDto
     {
         public int DetectionAccuracy { get; set; }
         public string IpAddress { get; set; }

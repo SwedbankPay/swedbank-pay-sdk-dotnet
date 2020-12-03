@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class PaymentOrder : IPaymentOrder
+    internal class PaymentOrder : IPaymentOrder
     {
         public PaymentOrder(PaymentOrderDto paymentOrder)
         {

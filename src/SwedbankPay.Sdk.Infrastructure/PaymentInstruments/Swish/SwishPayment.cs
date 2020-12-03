@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
-    public class SwishPayment : ISwishPayment
+    internal class SwishPayment : ISwishPayment
     {
         public SwishPayment(SwishPaymentDto payment)
         {

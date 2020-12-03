@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
-    public class AuthorizationTransactionDto
+    internal class AuthorizationTransactionDto
     {
         public Uri Id { get; set; }
         public List<PaymentAuthorizationDto> AuthorizationList { get; set; } = new List<PaymentAuthorizationDto>();

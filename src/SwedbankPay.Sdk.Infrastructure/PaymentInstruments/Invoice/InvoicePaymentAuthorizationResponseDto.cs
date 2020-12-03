@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
-    public class InvoicePaymentAuthorizationResponseDto
+    internal class InvoicePaymentAuthorizationResponseDto
     {
         public InvoicePaymentAuthorizationDto Authorization { get; set; }
         public Uri Payment { get; set; }

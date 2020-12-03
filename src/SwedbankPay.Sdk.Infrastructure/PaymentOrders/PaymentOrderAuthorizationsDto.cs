@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class PaymentOrderAuthorizationsDto
+    internal class PaymentOrderAuthorizationsDto
     {
         public string Id { get; set; }
         public DateTime Created { get; set; }

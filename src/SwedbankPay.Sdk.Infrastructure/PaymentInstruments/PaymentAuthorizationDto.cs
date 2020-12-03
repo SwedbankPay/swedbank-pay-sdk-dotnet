@@ -3,7 +3,7 @@ using System;
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
-    public class PaymentAuthorizationDto
+    internal class PaymentAuthorizationDto
     {
         public string AcquirerStan { get; set; }
         public string AcquirerTerminalId { get; set; }

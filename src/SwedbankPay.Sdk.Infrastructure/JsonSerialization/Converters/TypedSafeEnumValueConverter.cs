@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace SwedbankPay.Sdk.JsonSerialization.Converters
 {
-    public class TypedSafeEnumValueConverter<TEnum> : JsonConverter<TEnum>
+    internal class TypedSafeEnumValueConverter<TEnum> : JsonConverter<TEnum>
         where TEnum : TypeSafeEnum<TEnum>
     {
         /// <summary>

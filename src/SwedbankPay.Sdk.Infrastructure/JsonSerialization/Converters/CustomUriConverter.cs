@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace SwedbankPay.Sdk.JsonSerialization.Converters
 {
-    public class CustomUriConverter : JsonConverter<Uri>
+    internal class CustomUriConverter : JsonConverter<Uri>
     {
         public override Uri Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {

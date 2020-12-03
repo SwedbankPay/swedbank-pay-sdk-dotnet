@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class PaymentOrderOperations : OperationsBase, IPaymentOrderOperations
+    internal class PaymentOrderOperations : OperationsBase, IPaymentOrderOperations
     {
         public PaymentOrderOperations(IOperationList operations, HttpClient client)
         {
@@ -29,7 +29,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                         Capture = async payload =>
                         {
                             var dto = await client.SendAsJsonAsync<CaptureResponseDto>(httpOperation.Method, httpOperation.Href, payload);
-                            return new CaptureResponse(dto.payment, dto.Capture.Map());
+                            return new CaptureResponse(dto.Payment, dto.Capture.Map());
                         };
                         break;
                     case PaymentOrderResourceOperations.CreatePaymentOrderCancel:

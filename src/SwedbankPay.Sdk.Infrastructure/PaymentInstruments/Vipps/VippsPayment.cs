@@ -3,7 +3,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {
-    public class VippsPayment : IVippsPayment
+    internal class VippsPayment : IVippsPayment
     {
         public VippsPayment(VippsPaymentDto payment)
         {

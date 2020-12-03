@@ -3,7 +3,7 @@ using System;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
 {
-    public class TrustlyPaymentDto
+    internal class TrustlyPaymentDto
     {
         public int Amount { get; set; }
         public DateTime Created { get; set; }

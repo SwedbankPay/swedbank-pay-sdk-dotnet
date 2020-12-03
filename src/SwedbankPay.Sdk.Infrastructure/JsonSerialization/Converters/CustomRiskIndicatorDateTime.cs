@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace SwedbankPay.Sdk.JsonSerialization.Converters
 {
-    public class CustomRiskIndicatorDateTime : JsonConverter<DateTime>
+    internal class CustomRiskIndicatorDateTime : JsonConverter<DateTime>
     {
         private const string ThreeDSecureDateTimeString = "yyyyMMdd";
 

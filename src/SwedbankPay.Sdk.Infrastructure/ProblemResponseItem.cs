@@ -1,6 +1,6 @@
 ﻿namespace SwedbankPay.Sdk
 {
-    public class ProblemResponseItem : IProblemResponseItem
+    internal class ProblemResponseItem : IProblemResponseItem
     {
         public ProblemResponseItem(string description, string name)
         {

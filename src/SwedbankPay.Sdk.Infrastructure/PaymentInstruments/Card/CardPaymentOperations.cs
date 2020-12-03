@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
-    public class CardPaymentOperations : OperationsBase, ICardPaymentOperations
+    internal class CardPaymentOperations : OperationsBase, ICardPaymentOperations
     {
         internal CardPaymentOperations(IOperationList operations, HttpClient client)
         {
@@ -38,7 +38,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
                     case PaymentResourceOperations.CreateCapture:
                         Capture = async payload => {
                             var dto = await client.SendAsJsonAsync<CaptureResponseDto>(httpOperation.Method, httpOperation.Href, payload);
-                            return new CaptureResponse(dto.payment, dto.Capture.Map());
+                            return new CaptureResponse(dto.Payment, dto.Capture.Map());
                         };
                         break;
 

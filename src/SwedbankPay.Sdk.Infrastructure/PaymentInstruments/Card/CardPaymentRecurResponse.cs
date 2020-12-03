@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
-    public class CardPaymentRecurResponse : ICardPaymentRecurResponse
+    internal class CardPaymentRecurResponse : ICardPaymentRecurResponse
     {
         public CardPaymentRecurResponse(CardPaymentRecurResponseDto dto, HttpClient httpClient)
         {

@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
-    public class LegalAddressDto
+    internal class LegalAddressDto
     {
         public Uri Id { get; set; }
         public string Addressee { get; set; }

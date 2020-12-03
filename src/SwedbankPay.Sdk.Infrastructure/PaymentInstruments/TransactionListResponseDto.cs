@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
-    public class TransactionListResponseDto
+    internal class TransactionListResponseDto
     {
         public Uri Id { get; set; }
 
