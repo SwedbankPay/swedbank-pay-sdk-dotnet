@@ -2,6 +2,9 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {
+    /// <summary>
+    /// Transactional details about a Vipps payment.
+    /// </summary>
     public interface IVippsPayment
     {
         /// <summary>
@@ -59,6 +62,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         /// The intended <seealso cref="PaymentIntent"/> for this payment.
         /// </summary>
         public PaymentIntent Intent { get; }
+
+        /// <summary>
+        /// Payers prefered language.
+        /// </summary>
         public Language Language { get; }
 
         /// <summary>
@@ -66,6 +73,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         /// Not usable for programmatic identification of the transaction, where <see cref="Id"/> should be used instead.
         /// </summary>
         public long Number { get; }
+
+        /// <summary>
+        /// Operation used to create this payment.
+        /// </summary>
         public Operation Operation { get; }
 
         /// <summary>
@@ -77,6 +88,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         /// The reference to the payer from the merchant system, like e-mail address, mobile number, customer number etc.
         /// </summary>
         public string PayerReference { get; }
+
+        /// <summary>
+        /// The initiating systems UserAgent.
+        /// </summary>
         public string InitiatingSystemUserAgent { get; }
 
         /// <summary>

@@ -2,8 +2,19 @@
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
+    /// <summary>
+    /// Transactional details for capturing funds for a payment order.
+    /// </summary>
     public class PaymentOrderCaptureTransaction
     {
+        /// <summary>
+        /// Instantiates a <see cref="PaymentOrderCaptureTransaction"/> with the provided parameters.
+        /// </summary>
+        /// <param name="amount">The amount of funds to capture.</param>
+        /// <param name="vatAmount">The amount of funds to capture as value added taxes.</param>
+        /// <param name="orderItems"><seealso cref="OrderItem"/>s involved in the capture.</param>
+        /// <param name="description">A textual description of the capture.</param>
+        /// <param name="payeeReference">Transactionally unique reference from the merchant system.</param>
         protected internal PaymentOrderCaptureTransaction(Amount amount,
                                                 Amount vatAmount,
                                                 List<OrderItem> orderItems,

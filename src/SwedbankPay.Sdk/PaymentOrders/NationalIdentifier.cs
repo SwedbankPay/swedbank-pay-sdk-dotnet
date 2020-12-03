@@ -3,8 +3,16 @@ using System.Globalization;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
+    /// <summary>
+    /// Identifies a consumer with country and social security number.
+    /// </summary>
     public class NationalIdentifier
     {
+        /// <summary>
+        /// Instantiates a <see cref="NationalIdentifier"/> with the provided parameters.
+        /// </summary>
+        /// <param name="countryCode">The payers country code.</param>
+        /// <param name="socialSecurityNumber">The payers provided social security number.</param>
         public NationalIdentifier(RegionInfo countryCode, string socialSecurityNumber)
         {
             CountryCode = countryCode ?? throw new ArgumentNullException(nameof(countryCode));

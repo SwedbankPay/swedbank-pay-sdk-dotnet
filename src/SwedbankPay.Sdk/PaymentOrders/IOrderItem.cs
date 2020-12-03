@@ -1,5 +1,8 @@
 ﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
+    /// <summary>
+    /// Detailed information about a Order Item in a payment order.
+    /// </summary>
     public interface IOrderItem
     {
         /// <summary>

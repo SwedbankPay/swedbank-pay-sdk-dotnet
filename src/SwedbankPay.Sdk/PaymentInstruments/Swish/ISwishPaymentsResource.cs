@@ -17,12 +17,12 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         Task<ISwishPaymentResponse> Create(SwishPaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None);
 
 
-        ///// <summary>
-        ///// Gets an existing swish payment.
-        ///// </summary>
-        ///// <param name="id"></param>
-        ///// <param name="paymentExpand"></param>
-        ///// <returns></returns>
+        /// <summary>
+        /// Gets an existing swish payment.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="paymentExpand"></param>
+        /// <returns></returns>
         Task<ISwishPaymentResponse> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None);
     }
 }

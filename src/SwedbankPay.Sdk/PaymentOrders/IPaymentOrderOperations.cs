@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
+    /// <summary>
+    /// Mapps the currently known operations in payment order to easily
+    /// accessable methods.
+    /// </summary>
     public interface IPaymentOrderOperations : IDictionary<LinkRelation, HttpOperation>
     {
         /// <summary>

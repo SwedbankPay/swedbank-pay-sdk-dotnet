@@ -2,6 +2,9 @@
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
+    /// <summary>
+    /// Api resoure describing a current payment.
+    /// </summary>
     public interface ICurrentPaymentResponse
     {
         /// <summary>

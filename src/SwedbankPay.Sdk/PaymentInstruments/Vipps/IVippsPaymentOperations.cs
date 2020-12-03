@@ -4,6 +4,10 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {
+    /// <summary>
+    /// Map of all currently available operations in Vipps.
+    /// Mapped to a <seealso cref="Func{T, TResult}"/> for your convenience.
+    /// </summary>
     public interface IVippsPaymentOperations : IDictionary<LinkRelation, HttpOperation>
     {
         /// <summary>

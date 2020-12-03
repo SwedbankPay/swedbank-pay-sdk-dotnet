@@ -3,6 +3,9 @@ using System;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
+    /// <summary>
+    /// Resource describing a item involved in a sale operation.
+    /// </summary>
     public interface ISaleListItem
     {
         /// <summary>

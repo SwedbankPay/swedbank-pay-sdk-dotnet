@@ -1,5 +1,8 @@
 ﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
+    /// <summary>
+    /// Transactional details about credit card involved in a payment order.
+    /// </summary>
     public class CreditCard
     {
         /// <summary>

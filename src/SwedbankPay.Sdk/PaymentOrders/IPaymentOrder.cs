@@ -2,6 +2,9 @@
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
+    /// <summary>
+    /// Detailed information about a payment order.
+    /// </summary>
     public interface IPaymentOrder
     {
         /// <summary>
@@ -29,6 +32,10 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// A 40 character length textual description of the purchase.
         /// </summary>
         public string Description { get; }
+
+        /// <summary>
+        /// Payers prefered language.
+        /// </summary>
         public Language Language { get; }
 
         /// <summary>
@@ -80,6 +87,10 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// The available <seealso cref="Sdk.Amount"/> to reverse.
         /// </summary>
         public Amount RemainingReversalAmount { get; }
+
+        /// <summary>
+        /// For admin users gives detailed information about current settings.
+        /// </summary>
         public Identifiable Settings { get; }
 
         /// <summary>

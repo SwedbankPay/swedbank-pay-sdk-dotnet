@@ -3,6 +3,9 @@ using System;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
+    /// <summary>
+    /// Transactional details about a current payment in a payment order.
+    /// </summary>
     public interface ICurrentPayment
     {
         /// <summary>
@@ -49,6 +52,10 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// The initial intent of this payment order.
         /// </summary>
         PaymentIntent Intent { get; }
+
+        /// <summary>
+        /// Prefered language of the payer.
+        /// </summary>
         Language Language { get; }
 
         /// <summary>
@@ -71,6 +78,10 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// The reference to the payer from the merchant system, like e-mail address, mobile number, customer number etc.
         /// </summary>
         string PayerReference { get; }
+
+        /// <summary>
+        /// Payment token for recuring payments if available.
+        /// </summary>
         string PaymentToken { get; }
 
         /// <summary>

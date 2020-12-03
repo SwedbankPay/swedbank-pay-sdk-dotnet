@@ -1,5 +1,9 @@
 ﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
+    /// <summary>
+    /// Transactional details about a invoice payment.
+    /// Involves what the fee to charge a payer if selected.
+    /// </summary>
     public class Invoice
     {
         /// <summary>

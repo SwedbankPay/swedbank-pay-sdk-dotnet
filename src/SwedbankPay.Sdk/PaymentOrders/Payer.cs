@@ -1,5 +1,8 @@
 ﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
+    /// <summary>
+    /// Detailed information about a payer for a payment order.
+    /// </summary>
     public class Payer : Identifiable
     {
         /// <summary>
@@ -7,6 +10,9 @@
         /// </summary>
         public AccountInfo AccountInfo { get; set; }
 
+        /// <summary>
+        /// Payers billing address for this payment order.
+        /// </summary>
         public Address BillingAddress { get; set; }
 
         /// <summary>
@@ -47,6 +53,9 @@
         /// </summary>
         public NationalIdentifier NationalIdentifier { get; set; }
 
+        /// <summary>
+        /// Payers shipping address for this payment order.
+        /// </summary>
         public Address ShippingAddress { get; set; }
 
         /// <summary>

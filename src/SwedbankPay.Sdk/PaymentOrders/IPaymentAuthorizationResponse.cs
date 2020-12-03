@@ -3,6 +3,9 @@ using System;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
+    /// <summary>
+    /// Transactional details for a authorization in payment order.
+    /// </summary>
     public interface IPaymentAuthorizationResponse
     {
         /// <summary>

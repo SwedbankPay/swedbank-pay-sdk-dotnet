@@ -1,7 +1,13 @@
 ﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
+    /// <summary>
+    /// Transactional details for aborting a payment order.
+    /// </summary>
     public class PaymentOrderAbortRequestDetails
     {
+        /// <summary>
+        /// Instantiates a <see cref="PaymentOrderAbortRequestDetails"/> with default values.
+        /// </summary>
         public PaymentOrderAbortRequestDetails()
         {
             AbortReason = "CancelledByConsumer";

@@ -1,5 +1,8 @@
 ﻿namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {
+    /// <summary>
+    /// API response object for a Vipps payment.
+    /// </summary>
     public interface IVippsPaymentReponse
     {
         /// <summary>

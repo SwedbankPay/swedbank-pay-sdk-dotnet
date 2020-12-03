@@ -5,6 +5,12 @@
     /// </summary>
     public class Item
     {
+        /// <summary>
+        /// Insttanciates a <see cref="Item"/> with the provided parameters.
+        /// </summary>
+        /// <param name="creditCard">Credit card options.</param>
+        /// <param name="invoice">Invoice options.</param>
+        /// <param name="swish">Swish options.</param>
         public Item(CreditCard creditCard, Invoice invoice, Swish swish)
         {
             CreditCard = creditCard;

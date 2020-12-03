@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
+    /// <summary>
+    /// API resource giving access to currently available list of <seealso cref="ISaleListItem"/>.
+    /// </summary>
     public interface ISaleListResponse
     {
         /// <summary>

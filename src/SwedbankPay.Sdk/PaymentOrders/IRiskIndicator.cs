@@ -2,8 +2,14 @@
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
+    /// <summary>
+    /// Risk indicator object for 3D Secure 2.0 risk assessment.
+    /// </summary>
     public interface IRiskIndicator
     {
+        /// <summary>
+        /// Payers delivery email address.
+        /// </summary>
         EmailAddress DeliveryEmailAddress { get; set; }
 
         /// <summary>

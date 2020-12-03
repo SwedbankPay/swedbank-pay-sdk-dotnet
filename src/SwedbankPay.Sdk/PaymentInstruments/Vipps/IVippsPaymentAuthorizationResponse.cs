@@ -2,6 +2,9 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {
+    /// <summary>
+    /// Resource for getting the authorization on a Vipps payment.
+    /// </summary>
     public interface IVippsPaymentAuthorizationResponse
     {
         /// <summary>
