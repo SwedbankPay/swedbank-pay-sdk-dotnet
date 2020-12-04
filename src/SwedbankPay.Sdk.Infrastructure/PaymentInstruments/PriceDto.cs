@@ -1,4 +1,4 @@
-﻿namespace SwedbankPay.Sdk.PaymentInstruments.Card
+﻿namespace SwedbankPay.Sdk.PaymentInstruments
 {
     internal class PriceDto
     {
