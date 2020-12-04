@@ -6,6 +6,8 @@ namespace SwedbankPay.Sdk
 {
     internal class RiskIndicatorDto
     {
+        private const string ThreeDSecureDateTimeString = "yyyyMMdd";
+
         public RiskIndicatorDto(IRiskIndicator riskIndicator)
         {
             if (riskIndicator == null)
@@ -17,7 +19,7 @@ namespace SwedbankPay.Sdk
             DeliveryTimeFrameIndicator = riskIndicator.DeliveryTimeFrameIndicator.Value;
             GiftCardPurchase = riskIndicator.GiftCardPurchase;
             PickUpAddress = new AddressDto(riskIndicator.PickUpAddress);
-            PreOrderDate = riskIndicator.PreOrderDate;
+            PreOrderDate = riskIndicator.PreOrderDate.ToString(ThreeDSecureDateTimeString);
             PreOrderPurchaseIndicator = riskIndicator.PreOrderPurchaseIndicator.Value;
             ReOrderPurchaseIndicator = riskIndicator.ReOrderPurchaseIndicator.Value;
             ShipIndicator = riskIndicator.ShipIndicator.Value;
@@ -31,7 +33,7 @@ namespace SwedbankPay.Sdk
 
         public AddressDto PickUpAddress { get; set; }
 
-        public DateTime PreOrderDate { get; set; }
+        public string PreOrderDate { get; set; }
 
         public string PreOrderPurchaseIndicator { get; set; }
 

@@ -4,6 +4,8 @@ namespace SwedbankPay.Sdk.PaymentOrders
 {
     internal class ItemDto
     {
+        public ItemDto() { }
+
         public ItemDto(Item item)
         {
             CreditCard = new CreditCardItemDto(item.CreditCard);

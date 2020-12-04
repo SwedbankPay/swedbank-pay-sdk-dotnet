@@ -10,18 +10,8 @@ namespace SwedbankPay.Sdk.PaymentOrders
             Currency = paymentOrder.Currency.ToString();
             Description = paymentOrder.Description;
             GenerateRecurrenceToken = paymentOrder.GenerateRecurrenceToken;
-            Items = new List<ItemDto>();
-            foreach (var item in paymentOrder.Items)
-            {
-                Items.Add(new ItemDto(item));
-            }
             Language = paymentOrder.Language.ToString();
-            Operation = paymentOrder.Operation.Value;
-            OrderItems = new List<OrderItemDto>();
-            foreach (var item in paymentOrder.OrderItems)
-            {
-                OrderItems.Add(new OrderItemDto(item));
-            }
+            Operation = paymentOrder.Operation.Value;            
             PayeeInfo = new PayeeInfoDto(paymentOrder.PayeeInfo);
             Payer = new PayerDto(paymentOrder.Payer);
             RiskIndicator = new RiskIndicatorDto(paymentOrder.RiskIndicator);
@@ -30,6 +20,24 @@ namespace SwedbankPay.Sdk.PaymentOrders
             VatAmount = paymentOrder.VatAmount.InLowestMonetaryUnit;
             DisablePaymentMenu = paymentOrder.DisablePaymentMenu;
             Metadata = paymentOrder.Metadata;
+
+            if (paymentOrder.Items != null)
+            {
+                Items = new List<ItemDto>();
+                foreach (var item in paymentOrder.Items)
+                {
+                    Items.Add(new ItemDto(item));
+                }
+            }
+
+            if (paymentOrder.OrderItems != null)
+            {
+                OrderItems = new List<OrderItemDto>();
+                foreach (var item in paymentOrder.OrderItems)
+                {
+                    OrderItems.Add(new OrderItemDto(item));
+                }
+            }
         }
 
         public long Amount { get; }
