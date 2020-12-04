@@ -28,8 +28,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         public async Task<ICardPaymentResponse> Create(CardPaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.All)
         {
             var url = new Uri("/psp/creditcard/payments", UriKind.Relative).GetUrlWithQueryString(paymentExpand);
+            
+            var requestDto = new CardPaymentRequestDto(paymentRequest);
 
-            var cardPaymentResponseDto = await HttpClient.PostAsJsonAsync<CardPaymentResponseDto>(url.GetUrlWithQueryString(paymentExpand), paymentRequest);
+            var cardPaymentResponseDto = await HttpClient.PostAsJsonAsync<CardPaymentResponseDto>(url.GetUrlWithQueryString(paymentExpand), requestDto);
             return new CardPaymentResponse(cardPaymentResponseDto, HttpClient);
         }
 

@@ -5,7 +5,21 @@ namespace SwedbankPay.Sdk
 {
     internal class UrlsDto
     {
+        public UrlsDto() { }
+
+        public UrlsDto(IUrls urls)
+        {
+            CallbackUrl = urls.CallbackUrl;
+            CancelUrl = urls.CancelUrl;
+            CompleteUrl = urls.CompleteUrl;
+            LogoUrl = urls.LogoUrl;
+            PaymentUrl = urls.PaymentUrl;
+            TermsOfServiceUrl = urls.TermsOfServiceUrl;
+            HostUrls = urls.HostUrls;
+        }
+
         public Uri Id { get; set; }
+
         public Uri CallbackUrl { get; set; }
 
         public Uri CancelUrl { get; set; }

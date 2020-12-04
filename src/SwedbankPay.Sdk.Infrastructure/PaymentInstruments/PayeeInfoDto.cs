@@ -4,7 +4,21 @@ namespace SwedbankPay.Sdk.PaymentInstruments
 {
     internal class PayeeInfoDto
     {
+        public PayeeInfoDto() { }
+
+        public PayeeInfoDto(PayeeInfo payeeInfo)
+        {
+            Id = payeeInfo.Id.OriginalString;
+            OrderReference = payeeInfo.OrderReference;
+            PayeeId = payeeInfo.PayeeId;
+            PayeeName = payeeInfo.PayeeName;
+            PayeeReference = payeeInfo.PayeeReference;
+            ProductCategory = payeeInfo.ProductCategory;
+            Subsite = payeeInfo.Subsite;
+        }
+
         public string Id { get; set; }
+
         public string OrderReference { get; set; }
 
         public Guid PayeeId { get; set; }
