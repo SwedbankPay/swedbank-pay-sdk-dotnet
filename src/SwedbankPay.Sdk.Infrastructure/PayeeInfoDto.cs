@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SwedbankPay.Sdk.PaymentInstruments
+namespace SwedbankPay.Sdk
 {
     internal class PayeeInfoDto
     {

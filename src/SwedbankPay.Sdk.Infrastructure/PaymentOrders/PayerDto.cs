@@ -5,6 +5,29 @@ namespace SwedbankPay.Sdk.PaymentOrders
 {
     internal class PayerDto
     {
+        public PayerDto() { }
+
+        public PayerDto(Payer payer)
+        {
+            if(payer == null)
+            {
+                return;
+            }
+
+            Id = payer.Id;
+            AccountInfo = payer.AccountInfo;
+            BillingAddress = payer.BillingAddress;
+            ConsumerProfileRef = payer.ConsumerProfileRef;
+            Email = payer.Email.ToString();
+            FirstName = payer.FirstName;
+            HomePhoneNumber = payer.HomePhoneNumber;
+            LastName = payer.LastName;
+            Msisdn = payer.Msisdn.ToString();
+            NationalIdentifier = new NationalIdentifierDto(payer.NationalIdentifier);
+            ShippingAddress = payer.ShippingAddress;
+            WorkPhoneNumber = payer.WorkPhoneNumber;
+        }
+
         public Uri Id { get; set; }
         public AccountInfo AccountInfo { get; set; }
         public Address BillingAddress { get; set; }

@@ -104,7 +104,6 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <summary>
         ///     The operation that the payment order is supposed to perform.
         /// </summary>
-
         public Operation Operation { get; }
 
         /// <summary>

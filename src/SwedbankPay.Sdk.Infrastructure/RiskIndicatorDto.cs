@@ -1,13 +1,14 @@
-﻿using SwedbankPay.Sdk.PaymentOrders;
+﻿using SwedbankPay.Sdk.PaymentInstruments.Card;
+using SwedbankPay.Sdk.PaymentOrders;
 using System;
 
-namespace SwedbankPay.Sdk.PaymentInstruments.Card
+namespace SwedbankPay.Sdk
 {
     internal class RiskIndicatorDto
     {
         public RiskIndicatorDto(IRiskIndicator riskIndicator)
         {
-            if(riskIndicator == null)
+            if (riskIndicator == null)
             {
                 return;
             }

@@ -46,7 +46,9 @@ namespace SwedbankPay.Sdk.PaymentOrders
         {
             var url = new Uri("/psp/paymentorders", UriKind.Relative).GetUrlWithQueryString(paymentOrderExpand);
 
-            var paymentOrderResponseContainer = await HttpClient.PostAsJsonAsync<PaymentOrderResponseDto>(url, paymentOrderRequest);
+            var requestDto = new PaymentOrderRequestDto(paymentOrderRequest);
+
+            var paymentOrderResponseContainer = await HttpClient.PostAsJsonAsync<PaymentOrderResponseDto>(url, requestDto);
 
             return new PaymentOrderResponse(paymentOrderResponseContainer, HttpClient);
         }
