@@ -27,7 +27,9 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
         {
             var url = new Uri("/psp/trustly/payments", UriKind.Relative).GetUrlWithQueryString(paymentExpand);
 
-            var paymentResponse = await HttpClient.PostAsJsonAsync<TrustlyPaymentResponseDto>(url, paymentRequest);
+            var requestDto = new TrustlyPaymentRequestDto(paymentRequest);
+
+            var paymentResponse = await HttpClient.PostAsJsonAsync<TrustlyPaymentResponseDto>(url, requestDto);
             return new TrustlyPaymentResponse(paymentResponse, HttpClient);
         }
     }
