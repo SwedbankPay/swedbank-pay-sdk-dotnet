@@ -39,7 +39,9 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         {
             var url = new Uri("/psp/creditcard/payments", UriKind.Relative).GetUrlWithQueryString(paymentExpand);
 
-            var cardPaymentResponseDto = await HttpClient.PostAsJsonAsync<CardPaymentRecurResponseDto>(url.GetUrlWithQueryString(paymentExpand), paymentRequest);
+            var requestDto = new CardPaymentRecurRequestDto(paymentRequest);
+
+            var cardPaymentResponseDto = await HttpClient.PostAsJsonAsync<CardPaymentRecurResponseDto>(url.GetUrlWithQueryString(paymentExpand), requestDto);
             return new CardPaymentRecurResponse(cardPaymentResponseDto, HttpClient);
         }
     }
