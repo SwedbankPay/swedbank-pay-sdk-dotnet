@@ -29,7 +29,9 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         {
             var url = new Uri("/psp/swish/payments", UriKind.Relative).GetUrlWithQueryString(paymentExpand);
 
-            var paymentResponse = await HttpClient.PostAsJsonAsync<SwishPaymentResponseDto>(url, paymentRequest);
+            var requestDto = new SwishPaymentRequestDto(paymentRequest);
+
+            var paymentResponse = await HttpClient.PostAsJsonAsync<SwishPaymentResponseDto>(url, requestDto);
             return new SwishPaymentResponse(paymentResponse, HttpClient);
         }
     }
