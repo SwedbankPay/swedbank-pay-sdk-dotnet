@@ -1,10 +1,10 @@
-﻿namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
+﻿namespace SwedbankPay.Sdk.PaymentInstruments
 {
     public class PrefillInfoDto
     {
         public PrefillInfoDto(PrefillInfo prefillInfo)
         {
-            if(prefillInfo == null)
+            if (prefillInfo == null)
             {
                 return;
             }

@@ -2,8 +2,17 @@
 {
     internal class PriceDto
     {
-        public int Amount { get; set; }
+        public PriceDto() { }
+
+        public PriceDto(IPrice item)
+        {
+            Amount = item.Amount.InLowestMonetaryUnit;
+            VatAmount = item.VatAmount.InLowestMonetaryUnit;
+            Type = item.Type.ToString();
+        }
+
+        public long Amount { get; set; }
         public string Type { get; set; }
-        public int VatAmount { get; set; }
+        public long VatAmount { get; set; }
     }
 }
