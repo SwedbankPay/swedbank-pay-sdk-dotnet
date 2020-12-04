@@ -27,9 +27,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             Urls = new UrlsDto(payment.Urls);
             UserAgent = payment.UserAgent;
             Metadata = payment.Metadata;
-            // The key ID is not allowed in this object.
-            // It results in a error.
-            Metadata.Remove("Id");
         }
 
         public CardholderDto Cardholder { get; set; }

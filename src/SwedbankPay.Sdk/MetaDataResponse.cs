@@ -7,6 +7,8 @@ namespace SwedbankPay.Sdk
     /// </summary>
     public class MetadataResponse : Dictionary<string, object>
     {
+        private const string ForbiddenKey = "id";
+
         /// <summary>
         /// Instantiates a new empty <seealso cref="MetadataResponse"/>.
         /// </summary>
@@ -21,7 +23,11 @@ namespace SwedbankPay.Sdk
         public MetadataResponse(Dictionary<string, object> dictionary)
             : base(dictionary)
         {
-            Id = dictionary["id"]?.ToString();
+            Id = dictionary[ForbiddenKey]?.ToString();
+            if (this.ContainsKey(ForbiddenKey))
+            {
+                Remove(ForbiddenKey);
+            }
         }
 
         /// <summary>

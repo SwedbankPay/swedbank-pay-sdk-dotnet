@@ -18,8 +18,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             Urls = new UrlsDto(payment.Urls);
             PayeeInfo = new PayeeInfoDto(payment.PayeeInfo);
             Metadata = payment.Metadata;
-            // Id is reserved and not allowed to be sent to the API.
-            Metadata.Remove("Id");
         }
 
         public string Operation { get; }
