@@ -29,7 +29,9 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         {
             var url = new Uri("/psp/vipps/payments", UriKind.Relative).GetUrlWithQueryString(paymentExpand);
 
-            var paymentResponse = await HttpClient.PostAsJsonAsync<VippsPaymentResponseDto>(url, paymentRequest);
+            var requestDto = new VippsPaymentRequestDto(paymentRequest);
+
+            var paymentResponse = await HttpClient.PostAsJsonAsync<VippsPaymentResponseDto>(url, requestDto);
             return new VippsPaymentResponse(paymentResponse, HttpClient);
         }
     }
