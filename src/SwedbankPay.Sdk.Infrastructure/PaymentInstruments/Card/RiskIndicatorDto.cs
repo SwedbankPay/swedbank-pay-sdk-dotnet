@@ -7,6 +7,11 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
     {
         public RiskIndicatorDto(IRiskIndicator riskIndicator)
         {
+            if(riskIndicator == null)
+            {
+                return;
+            }
+
             DeliveryEmailAddress = riskIndicator.DeliveryEmailAddress.ToString();
             DeliveryTimeFrameIndicator = riskIndicator.DeliveryTimeFrameIndicator.Value;
             GiftCardPurchase = riskIndicator.GiftCardPurchase;

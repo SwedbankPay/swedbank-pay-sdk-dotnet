@@ -6,6 +6,11 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
     {
         public CreditCardDto(CreditCard creditCard)
         {
+            if(creditCard == null)
+            {
+                return;
+            }
+
             MailOrderTelephoneOrder = creditCard.MailOrderTelephoneOrder;
             RejectAuthenticationStatusA = creditCard.RejectAuthenticationStatusA;
             RejectAuthenticationStatusU = creditCard.RejectAuthenticationStatusU;

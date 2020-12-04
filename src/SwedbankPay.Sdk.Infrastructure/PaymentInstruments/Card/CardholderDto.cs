@@ -4,6 +4,10 @@
     {
         public CardholderDto(Cardholder cardholder)
         {
+            if(cardholder == null)
+            {
+                return;
+            }
             AccountInfo = new AccountInfoDto(cardholder.AccountInfo);
             BillingAddress = new AddressDto(cardholder.BillingAddress);
             Email = cardholder.Email.ToString();

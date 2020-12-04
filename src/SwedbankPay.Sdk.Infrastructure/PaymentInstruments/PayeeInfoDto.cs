@@ -8,7 +8,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments
 
         public PayeeInfoDto(PayeeInfo payeeInfo)
         {
-            Id = payeeInfo.Id.OriginalString;
             OrderReference = payeeInfo.OrderReference;
             PayeeId = payeeInfo.PayeeId;
             PayeeName = payeeInfo.PayeeName;
