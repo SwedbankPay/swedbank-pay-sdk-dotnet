@@ -227,6 +227,11 @@ namespace SwedbankPay.Sdk
         /// <returns>true if not equal, false otherwise.</returns>
         public static bool operator !=(Amount left, Amount right)
         {
+            if(left is null || right is null)
+            {
+                return false;
+            }
+
             return !(left.InLowestMonetaryUnit == right.InLowestMonetaryUnit);
         }
 

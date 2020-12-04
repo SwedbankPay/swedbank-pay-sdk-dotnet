@@ -4,11 +4,16 @@
     {
         public OrderItemDto(OrderItem item)
         {
+            if(item == null)
+            {
+                return;
+            }
+
             Amount = item.Amount.InLowestMonetaryUnit;
             Class = item.Class;
             Description = item.Description;
             DiscountDescription = item.DiscountDescription;
-            DiscountPrice = item.DiscountPrice.InLowestMonetaryUnit;
+            DiscountPrice = item.DiscountPrice?.InLowestMonetaryUnit;
             ImageUrl = item.ImageUrl;
             ItemUrl = item.ItemUrl;
             Name = item.Name;
@@ -29,7 +34,7 @@
 
         public string DiscountDescription { get; }
 
-        public long DiscountPrice { get; }
+        public long? DiscountPrice { get; }
 
         public string ImageUrl { get; }
 
