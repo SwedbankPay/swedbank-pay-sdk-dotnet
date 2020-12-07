@@ -36,6 +36,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             IConfigurationRoot configRoot = new ConfigurationBuilder()
                 .SetBasePath(Environment.CurrentDirectory)
                 .AddJsonFile("appsettings.json", true)
+                .AddJsonFile("appsettings.local.json", true)
                 .AddEnvironmentVariables()
                 .Build();
 

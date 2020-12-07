@@ -18,11 +18,11 @@ namespace SwedbankPay.Sdk.PaymentOrders
             AccountInfo = payer.AccountInfo;
             BillingAddress = payer.BillingAddress;
             ConsumerProfileRef = payer.ConsumerProfileRef;
-            Email = payer.Email.ToString();
+            Email = payer.Email?.ToString();
             FirstName = payer.FirstName;
             HomePhoneNumber = payer.HomePhoneNumber;
             LastName = payer.LastName;
-            Msisdn = payer.Msisdn.ToString();
+            Msisdn = payer.Msisdn?.ToString();
             NationalIdentifier = new NationalIdentifierDto(payer.NationalIdentifier);
             ShippingAddress = payer.ShippingAddress;
             WorkPhoneNumber = payer.WorkPhoneNumber;

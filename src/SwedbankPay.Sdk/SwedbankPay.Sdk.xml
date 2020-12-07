@@ -249,6 +249,7 @@
         <member name="M:SwedbankPay.Sdk.Amount.#ctor(System.Int64)">
             <summary>
             Creates a new <seealso cref="T:SwedbankPay.Sdk.Amount"/> using the passed in value.
+            This does not do any rounding.
             </summary>
             <param name="longAmount">A <seealso cref="T:System.Int64"/> representing the value.</param>
         </member>
