@@ -136,7 +136,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             SetUrls();
             this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
             this.generatePaymentToken = false;
-            this.amount = new Amount(1600);
+            this.amount = new Amount(123.45M);
             this.vatAmount = new Amount(0);
             this.metadata = new MetadataResponse { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
 

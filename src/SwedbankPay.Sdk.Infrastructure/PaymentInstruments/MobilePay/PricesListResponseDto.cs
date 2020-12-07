@@ -22,7 +22,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
                     priceType = Enum.Parse<PriceType>(item.Type);
                 }
                     
-                priceList.Add(new Price(item.Amount, priceType, item.Amount));
+                priceList.Add(new Price(item.Amount, priceType, item.VatAmount));
             }
             return new PricesListResponse(priceList);
         }

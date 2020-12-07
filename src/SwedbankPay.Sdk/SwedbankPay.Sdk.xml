@@ -240,6 +240,18 @@
             </summary>
             <param name="decimalAmount">A <seealso cref="T:System.Decimal"/> representing the value.</param>
         </member>
+        <member name="M:SwedbankPay.Sdk.Amount.#ctor(System.Int32)">
+            <summary>
+            Creates a new <seealso cref="T:SwedbankPay.Sdk.Amount"/> using the passed in value.
+            </summary>
+            <param name="intAmount">A <seealso cref="T:System.Int64"/> representing the value.</param>
+        </member>
+        <member name="M:SwedbankPay.Sdk.Amount.#ctor(System.Int64)">
+            <summary>
+            Creates a new <seealso cref="T:SwedbankPay.Sdk.Amount"/> using the passed in value.
+            </summary>
+            <param name="longAmount">A <seealso cref="T:System.Int64"/> representing the value.</param>
+        </member>
         <member name="P:SwedbankPay.Sdk.Amount.InLowestMonetaryUnit">
             <summary>
             Gets the amount in a format suitable for api requests.
@@ -256,6 +268,12 @@
             Converts a <seealso cref="T:System.Decimal"/> to a <seealso cref="T:SwedbankPay.Sdk.Amount"/>
             </summary>
             <param name="amount">The <seealso cref="T:System.Decimal"/> you want converted.</param>
+        </member>
+        <member name="M:SwedbankPay.Sdk.Amount.op_Implicit(System.Int64)~SwedbankPay.Sdk.Amount">
+            <summary>
+            Converts a <seealso cref="T:System.Int64"/> to a <seealso cref="T:SwedbankPay.Sdk.Amount"/>
+            </summary>
+            <param name="amount">The <seealso cref="T:System.Int64"/> you want converted.</param>
         </member>
         <member name="M:SwedbankPay.Sdk.Amount.op_Implicit(System.Int32)~SwedbankPay.Sdk.Amount">
             <summary>

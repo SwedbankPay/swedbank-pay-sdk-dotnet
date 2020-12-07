@@ -12,23 +12,42 @@ namespace SwedbankPay.Sdk
         private readonly decimal amount;
 
         /// <summary>
-        /// Creates a new <seealso cref="Sdk.Amount"/> using the passed in value.
+        /// Creates a new <seealso cref="Amount"/> using the passed in value.
         /// </summary>
         /// <param name="decimalAmount">A <seealso cref="decimal"/> representing the value.</param>
         public Amount(decimal decimalAmount)
         {
             this.amount = decimalAmount;
 
-            // Use "Banker's Rounding" by default.
-            const MidpointRounding roundingMode = MidpointRounding.ToEven;
-            var roundedAmount = Math.Round(this.amount, 2, roundingMode);
-            InLowestMonetaryUnit = (long)(roundedAmount * 100);
+            RoundAndSetMonetaryUnit();
+        }
+
+        /// <summary>
+        /// Creates a new <seealso cref="Amount"/> using the passed in value.
+        /// </summary>
+        /// <param name="intAmount">A <seealso cref="long"/> representing the value.</param>
+        public Amount(int intAmount)
+        {
+            var amount = Convert.ToDecimal(intAmount);
+            this.amount = amount;
+            RoundAndSetMonetaryUnit();
+        }
+
+        /// <summary>
+        /// Creates a new <seealso cref="Amount"/> using the passed in value.
+        /// </summary>
+        /// <param name="longAmount">A <seealso cref="long"/> representing the value.</param>
+        public Amount(long longAmount)
+        {
+            var am = Convert.ToDecimal(longAmount);
+            this.amount = am;
+            this.InLowestMonetaryUnit = longAmount;
         }
 
         /// <summary>
         /// Gets the amount in a format suitable for api requests.
         /// </summary>
-        public long InLowestMonetaryUnit { get; }
+        public long InLowestMonetaryUnit { get; private set; }
 
         /// <summary>
         /// Returns the original amount passed in the constructor.
@@ -44,6 +63,15 @@ namespace SwedbankPay.Sdk
         /// </summary>
         /// <param name="amount">The <seealso cref="decimal"/> you want converted.</param>
         public static implicit operator Amount(decimal amount)
+        {
+            return new Amount(amount);
+        }
+
+        /// <summary>
+        /// Converts a <seealso cref="long"/> to a <seealso cref="Amount"/>
+        /// </summary>
+        /// <param name="amount">The <seealso cref="long"/> you want converted.</param>
+        public static implicit operator Amount(long amount)
         {
             return new Amount(amount);
         }
@@ -277,6 +305,15 @@ namespace SwedbankPay.Sdk
         public static bool operator >=(Amount left, Amount right)
         {
             return left is null ? right is null : left.CompareTo(right) >= 0;
+        }
+
+        private void RoundAndSetMonetaryUnit()
+        {
+            // Use "Banker's Rounding" by default.
+            const MidpointRounding roundingMode = MidpointRounding.ToEven;
+            var roundedAmount = Math.Round(this.amount, 2, roundingMode);
+            var longAmount = Convert.ToInt64(roundedAmount);
+            InLowestMonetaryUnit = longAmount * 100;
         }
     }
 }

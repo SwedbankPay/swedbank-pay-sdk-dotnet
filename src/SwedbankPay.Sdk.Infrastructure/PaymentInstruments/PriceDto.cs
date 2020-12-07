@@ -2,6 +2,10 @@
 {
     internal class PriceDto
     {
+        public PriceDto()
+        {
+        }
+
         public PriceDto(IPrice item)
         {
             Amount = item.Amount.InLowestMonetaryUnit;
@@ -11,8 +15,8 @@
 
         public long Amount { get; set; }
 
-        public string Type { get; set; }
-
         public long VatAmount { get; set; }
+
+        public string Type { get; set; }
     }
 }

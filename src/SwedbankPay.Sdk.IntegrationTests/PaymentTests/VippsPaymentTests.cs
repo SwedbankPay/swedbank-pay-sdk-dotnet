@@ -42,8 +42,8 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
 
             Assert.NotEmpty(priceList);
             var price = priceList.First();
-
             Assert.Equal(vippsPaymentRequest.Payment.Prices.First().Amount.InLowestMonetaryUnit, price.Amount.InLowestMonetaryUnit);
+            Assert.Equal(vippsPaymentRequest.Payment.Prices.First().VatAmount.InLowestMonetaryUnit, price.VatAmount.InLowestMonetaryUnit);
         }
     }
 }
