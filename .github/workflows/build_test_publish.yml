@@ -10,7 +10,7 @@ jobs:
   
   variables:
     name: Create variables
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     outputs:
       ENVIRONMENT: ${{ steps.setoutputvariables.outputs.ENVIRONMENT }}
       AZURE_WEBAPP_NAME: ${{ steps.setoutputvariables.outputs.AZURE_WEBAPP_NAME }}
