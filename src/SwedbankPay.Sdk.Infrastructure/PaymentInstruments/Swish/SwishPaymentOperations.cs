@@ -16,14 +16,16 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
                 {
                     case PaymentResourceOperations.UpdatePaymentAbort:
                         Abort = async payload => {
-                            var dto = await client.SendAsJsonAsync<SwishPaymentResponseDto>(httpOperation.Method, httpOperation.Href, payload);
+                            var payloadDto = new PaymentAbortRequestDto(payload);
+                            var dto = await client.SendAsJsonAsync<SwishPaymentResponseDto>(httpOperation.Method, httpOperation.Href, payloadDto);
                             return new SwishPaymentResponse(dto, client);
                         };
                         break;
 
                     case PaymentResourceOperations.CreateSale:
                         Sale = async payload => {
-                            var dto = await client.SendAsJsonAsync<SwishPaymentSaleResponseDto>(httpOperation.Method, httpOperation.Href, payload);
+                            var payloadDto = new SwishPaymentSaleRequestDto(payload);
+                            var dto = await client.SendAsJsonAsync<SwishPaymentSaleResponseDto>(httpOperation.Method, httpOperation.Href, payloadDto);
                             return new SwishPaymentSaleResponse(dto.Payment, dto.Sale.Map());
                         };
                         break;
@@ -36,6 +38,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
                         break;
                     case PaymentResourceOperations.CreateReversal:
                         Reverse = async payload => {
+                            var payloadDto = new SwishPaymentReversalRequestDto(payload);
                             var dto = await client.SendAsJsonAsync<ReversalResponseDto>(httpOperation.Method, httpOperation.Href, payload);
                             return new ReversalResponse(dto.Payment, dto.Reversal.Map());
                         };
