@@ -27,7 +27,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             foreach (var item in payment.Prices)
             {
                 Prices.Add(new PriceDto(item));
-            };
+            }
         }
 
         public CardholderDto Cardholder { get; set; }
