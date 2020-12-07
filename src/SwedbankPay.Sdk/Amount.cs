@@ -28,8 +28,8 @@ namespace SwedbankPay.Sdk
         /// <param name="intAmount">A <seealso cref="long"/> representing the value.</param>
         public Amount(int intAmount)
         {
-            var amount = Convert.ToDecimal(intAmount);
-            this.amount = amount;
+            var convertedAmount = Convert.ToDecimal(intAmount);
+            amount = convertedAmount;
             RoundAndSetMonetaryUnit();
         }
 

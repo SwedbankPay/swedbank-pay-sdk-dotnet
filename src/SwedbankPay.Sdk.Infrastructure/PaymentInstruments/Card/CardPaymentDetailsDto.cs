@@ -18,15 +18,16 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             PayeeInfo = new PayeeInfoDto(payment.PayeeInfo);
             PayerReference = payment.PayerReference;
             PaymentToken = payment.PaymentToken;
+            RiskIndicator = new RiskIndicatorDto(payment.RiskIndicator);
+            Urls = new UrlsDto(payment.Urls);
+            UserAgent = payment.UserAgent;
+            Metadata = payment.Metadata;
+
             Prices = new List<PriceDto>();
             foreach (var item in payment.Prices)
             {
                 Prices.Add(new PriceDto(item));
             };
-            RiskIndicator = new RiskIndicatorDto(payment.RiskIndicator);
-            Urls = new UrlsDto(payment.Urls);
-            UserAgent = payment.UserAgent;
-            Metadata = payment.Metadata;
         }
 
         public CardholderDto Cardholder { get; set; }
