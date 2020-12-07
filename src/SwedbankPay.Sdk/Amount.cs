@@ -35,6 +35,7 @@ namespace SwedbankPay.Sdk
 
         /// <summary>
         /// Creates a new <seealso cref="Amount"/> using the passed in value.
+        /// This does not do any rounding.
         /// </summary>
         /// <param name="longAmount">A <seealso cref="long"/> representing the value.</param>
         public Amount(long longAmount)
