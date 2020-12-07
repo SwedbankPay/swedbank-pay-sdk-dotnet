@@ -19,6 +19,8 @@ namespace SwedbankPay.Sdk.JsonSerialization
                 MaxDepth = 64,
                 IgnoreReadOnlyProperties = false
             };
+
+            Settings.Converters.Add(new CustomMetaDataConverter());
         }
 
         public static JsonSerializerOptions Settings { get; private set; }
