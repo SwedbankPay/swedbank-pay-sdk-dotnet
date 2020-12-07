@@ -1,4 +1,6 @@
-﻿namespace SwedbankPay.Sdk.PaymentInstruments.Swish
+﻿using SwedbankPay.Sdk.PaymentInstruments;
+
+namespace SwedbankPay.Sdk
 {
     internal class PaymentAbortRequestDto
     {

@@ -1,5 +1,6 @@
 ﻿using SwedbankPay.Sdk.Extensions;
 using SwedbankPay.Sdk.PaymentInstruments.Card;
+using SwedbankPay.Sdk.PaymentInstruments.Swish;
 using SwedbankPay.Sdk.PaymentOrders;
 using System;
 using System.Net.Http;
@@ -17,7 +18,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
                 {
                     case PaymentResourceOperations.UpdatePaymentAbort:
                         Abort = async payload => {
-                            var dto = await client.SendAsJsonAsync<InvoicePaymentResponseDto>(httpOperation.Method, httpOperation.Href, payload);
+                            var requestDto = new PaymentAbortRequestDto(payload);
+                            var dto = await client.SendAsJsonAsync<InvoicePaymentResponseDto>(httpOperation.Method, httpOperation.Href, requestDto);
                             return new InvoicePaymentResponse(dto, client);
                         };
                         break;
@@ -32,35 +34,40 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 
                     case PaymentResourceOperations.CreateCapture:
                         Capture = async payload => {
-                            var dto = await client.SendAsJsonAsync<CaptureResponseDto>(httpOperation.Method, httpOperation.Href, payload);
+                            var requestDto = new InvoicePaymentCaptureRequestDto(payload);
+                            var dto = await client.SendAsJsonAsync<CaptureResponseDto>(httpOperation.Method, httpOperation.Href, requestDto);
                             return new CaptureResponse(dto.Payment, dto.Capture.Map());
                         };
                         break;
 
                     case PaymentResourceOperations.CreateCancellation:
                         Cancel = async payload => {
-                            var dto = await client.SendAsJsonAsync<CancellationResponseDto>(httpOperation.Method, httpOperation.Href, payload);
+                            var requestDto = new InvoicePaymentCancelRequestDto(payload);
+                            var dto = await client.SendAsJsonAsync<CancellationResponseDto>(httpOperation.Method, httpOperation.Href, requestDto);
                             return new CancellationResponse(dto.Payment, dto.Cancellation.Map());
                         };
                         break;
 
                     case PaymentResourceOperations.CreateReversal:
                         Reversal = async payload => {
-                            var dto = await client.SendAsJsonAsync<ReversalResponseDto>(httpOperation.Method, httpOperation.Href, payload);
+                            var requestDto = new InvoicePaymentReversalRequestDto(payload);
+                            var dto = await client.SendAsJsonAsync<ReversalResponseDto>(httpOperation.Method, httpOperation.Href, requestDto);
                             return new ReversalResponse(dto.Payment, dto.Reversal.Map());
                         };
                         break;
 
                     case PaymentResourceOperations.CreateApprovedLegalAddress:
                         ApprovedLegalAddress = async payload => {
-                            var dto = await client.SendAsJsonAsync<ApprovedLegalAddressResponseDto>(httpOperation.Method, httpOperation.Href, payload);
+                            var requestDto = new InvoiceApprovedLegalAddressRequestDto(payload);
+                            var dto = await client.SendAsJsonAsync<ApprovedLegalAddressResponseDto>(httpOperation.Method, httpOperation.Href, requestDto);
                             return new ApprovedLegalAddressResponse(dto.Payment, dto.ApprovedLegalAddress.Map());
                         };
                         break;
 
                     case PaymentResourceOperations.DirectAuthorization:
                         DirectAuthorization = async payload => {
-                            var dto = await client.SendAsJsonAsync<InvoicePaymentAuthorizationResponseDto>(httpOperation.Method, httpOperation.Href, payload);
+                            var requestDto = new InvoicePaymentAuthorizationRequestDto(payload);
+                            var dto = await client.SendAsJsonAsync<InvoicePaymentAuthorizationResponseDto>(httpOperation.Method, httpOperation.Href, requestDto);
                             return new InvoicePaymentAuthorizationResponse(dto.Payment, dto.Map());
                         };
                         break;
