@@ -21,6 +21,7 @@ namespace SwedbankPay.Sdk.JsonSerialization
             };
 
             Settings.Converters.Add(new CustomMetaDataConverter());
+            Settings.Converters.Add(new CustomHttpResponseExceptionConverter());
         }
 
         public static JsonSerializerOptions Settings { get; private set; }
