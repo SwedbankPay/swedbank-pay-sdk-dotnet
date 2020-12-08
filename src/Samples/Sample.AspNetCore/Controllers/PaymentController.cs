@@ -36,7 +36,7 @@ namespace Sample.AspNetCore.Controllers
             {
                 var paymentOrder = await this.swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
 
-                var response = await paymentOrder.Operations.Abort();
+                var response = await paymentOrder.Operations.Abort(new SwedbankPay.Sdk.PaymentOrders.PaymentOrderAbortRequest("Canceled by user"));
 
                 TempData["AbortMessage"] = $"Payment Order: {response.PaymentOrder.Id} has been {response.PaymentOrder.State}";
                 this.cartService.PaymentOrderLink = null;
