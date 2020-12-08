@@ -18,10 +18,10 @@ namespace SwedbankPay.Sdk.Tests.Json
             var jsonObject = $"{{ \"id\": \"{this.idstring}\" }}";
 
             //ACT
-            var result = JsonSerializer.Deserialize<Uri>(jsonObject, JsonSerialization.JsonSerialization.Settings);
+            var result = JsonSerializer.Deserialize<DummyClass>(jsonObject, JsonSerialization.JsonSerialization.Settings);
 
             //ASSERT
-            Assert.Equal(this.idstring, result.OriginalString);
+            Assert.Equal(this.idstring, result.Id.OriginalString);
         }
 
 
