@@ -39,7 +39,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
                     case PaymentResourceOperations.CreateReversal:
                         Reverse = async payload => {
                             var payloadDto = new SwishPaymentReversalRequestDto(payload);
-                            var dto = await client.SendAsJsonAsync<ReversalResponseDto>(httpOperation.Method, httpOperation.Href, payload);
+                            var dto = await client.SendAsJsonAsync<ReversalResponseDto>(httpOperation.Method, httpOperation.Href, payloadDto);
                             return new ReversalResponse(dto.Payment, dto.Reversal.Map());
                         };
                         break;
