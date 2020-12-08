@@ -14,8 +14,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
                 switch (httpOperation.Rel.Value)
                 {
                     case PaymentResourceOperations.UpdatePaymentAbort:
-                        Abort = async payload =>
-                            await client.SendAsJsonAsync<MobilePayPaymentResponse>(httpOperation.Method, httpOperation.Href, payload);
+                        Abort = async payload => {
+                            var requestDto = new PaymentAbortRequestDto(payload);
+                            return await client.SendAsJsonAsync<MobilePayPaymentResponse>(httpOperation.Method, httpOperation.Href, requestDto);
+                        };
                         break;
 
                     case PaymentResourceOperations.RedirectAuthorization:
@@ -27,18 +29,24 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
                         break;
 
                     case PaymentResourceOperations.CreateCapture:
-                        Capture = async payload =>
-                            await client.SendAsJsonAsync<CaptureResponse>(httpOperation.Method, httpOperation.Href, payload);
+                        Capture = async payload => {
+                            var requestDto = new MobilePayPaymentCaptureRequestDto(payload);
+                            return await client.SendAsJsonAsync<CaptureResponse>(httpOperation.Method, httpOperation.Href, requestDto);
+                        };
                         break;
 
                     case PaymentResourceOperations.CreateCancellation:
-                        Cancel = async payload =>
-                            await client.SendAsJsonAsync<CancellationResponse>(httpOperation.Method, httpOperation.Href, payload);
+                        Cancel = async payload => {
+                            var requestDto = new MobilePayPaymentCancelRequestDto(payload);
+                            return await client.SendAsJsonAsync<CancellationResponse>(httpOperation.Method, httpOperation.Href, requestDto);
+                        };
                         break;
 
                     case PaymentResourceOperations.CreateReversal:
-                        Reverse = async payload =>
-                            await client.SendAsJsonAsync<ReversalResponse>(httpOperation.Method, httpOperation.Href, payload);
+                        Reverse = async payload => {
+                            var requestDto = new MobilePayPaymentReversalRequestDto(payload);
+                            return await client.SendAsJsonAsync<ReversalResponse>(httpOperation.Method, httpOperation.Href, requestDto);
+                        };
                         break;
                 }
                 Add(httpOperation.Rel, httpOperation);
