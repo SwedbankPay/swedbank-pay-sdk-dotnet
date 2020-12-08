@@ -4,9 +4,9 @@
     {
         public PaymentOrderUpdateRequestDetailsDto(PaymentOrderUpdateRequestDetails paymentOrder)
         {
-            Amount = paymentOrder.Amount;
+            Amount = paymentOrder.Amount.InLowestMonetaryUnit;
             Operation = paymentOrder.Operation.Value;
-            VatAmount = paymentOrder.VatAmount;
+            VatAmount = paymentOrder.VatAmount?.InLowestMonetaryUnit;
         }
 
         public long Amount { get; }

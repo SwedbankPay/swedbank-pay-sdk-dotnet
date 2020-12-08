@@ -13,8 +13,8 @@
         protected internal PaymentOrderUpdateRequestDetails(Amount amount, Amount vatAmount)
         {
             Operation = Operation.UpdateOrder;
-            Amount = amount.InLowestMonetaryUnit;
-            VatAmount = vatAmount?.InLowestMonetaryUnit;
+            Amount = amount;
+            VatAmount = vatAmount;
         }
 
 
@@ -22,7 +22,7 @@
         ///     The amount including VAT in the lowest monetary unit of the currency. E.g. 10000 equals 100.00 NOK and 5000 equals
         ///     50.00 NOK.
         /// </summary>
-        public long Amount { get; }
+        public Amount Amount { get; }
 
         /// <summary>
         ///     The operation that the payment order is supposed to perform.
@@ -35,6 +35,6 @@
         ///     The amount of VAT in the lowest monetary unit of the currency. E.g. 10000 equals 100.00 NOK and 5000 equals 50.00
         ///     NOK.
         /// </summary>
-        public long? VatAmount { get; }
+        public Amount VatAmount { get; }
     }
 }

@@ -10,12 +10,12 @@
         {
             Amount = item.Amount.InLowestMonetaryUnit;
             Type = item.Type.ToString();
-            VatAmount = item.VatAmount.InLowestMonetaryUnit;
+            VatAmount = item.VatAmount?.InLowestMonetaryUnit;
         }
 
         public long Amount { get; set; }
 
-        public long VatAmount { get; set; }
+        public long? VatAmount { get; set; }
 
         public string Type { get; set; }
     }
