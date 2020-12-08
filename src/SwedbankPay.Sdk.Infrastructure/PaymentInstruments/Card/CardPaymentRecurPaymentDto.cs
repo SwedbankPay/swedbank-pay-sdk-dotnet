@@ -14,7 +14,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             VatAmount = payment.VatAmount.InLowestMonetaryUnit;
             Description = payment.Description;
             UserAgent = payment.UserAgent;
-            Language = payment.Language;
+            Language = payment.Language.ToString();
             Urls = new UrlsDto(payment.Urls);
             PayeeInfo = new PayeeInfoDto(payment.PayeeInfo);
             Metadata = payment.Metadata;
@@ -36,7 +36,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 
         public string UserAgent { get; }
 
-        public Language Language { get; }
+        public string Language { get; }
 
         public UrlsDto Urls { get; }
 
