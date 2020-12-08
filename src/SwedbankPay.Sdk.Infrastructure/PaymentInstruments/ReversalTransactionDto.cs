@@ -1,5 +1,6 @@
 ﻿using SwedbankPay.Sdk.PaymentInstruments.Invoice;
 using SwedbankPay.Sdk.PaymentInstruments.MobilePay;
+using SwedbankPay.Sdk.PaymentInstruments.Trustly;
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
@@ -22,6 +23,16 @@ namespace SwedbankPay.Sdk.PaymentInstruments
             VatAmount = transaction.VatAmount.InLowestMonetaryUnit;
         }
 
+        public ReversalTransactionDto(TrustlyReversalTransaction transaction)
+        {
+            Amount = transaction.Amount.InLowestMonetaryUnit;
+            Description = transaction.Description;
+            PayeeReference = transaction.PayeeReference;
+            VatAmount = transaction.VatAmount.InLowestMonetaryUnit;
+            RecepitReference = transaction.RecepitReference;
+            TransactionActivity = transaction.TransactionActivity.Value;
+        }
+
         public long Amount { get; }
 
         public string Description { get; }
@@ -29,6 +40,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         public string PayeeReference { get; }
 
         public long VatAmount { get; }
+
+        public string RecepitReference { get; }
+
+        public string TransactionActivity { get; }
 
         public string ReceiptReference { get; }
     }

@@ -26,21 +26,24 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
 
                     case PaymentResourceOperations.UpdatePaymentAbort:
                         Abort = async payload => {
-                            var dto = await client.SendAsJsonAsync<TrustlyPaymentResonseDto>(httpOperation.Method, httpOperation.Href, payload);
+                            var requestDto = new PaymentAbortRequestDto(payload);
+                            var dto = await client.SendAsJsonAsync<TrustlyPaymentResonseDto>(httpOperation.Method, httpOperation.Href, requestDto);
                             return new TrustlyPayment(dto.Payment);
                         };
                         break;
 
                     case PaymentResourceOperations.CreateReversal:
                         Reverse = async payload => {
-                            var dto= await client.SendAsJsonAsync<ReversalResponseDto>(httpOperation.Method, httpOperation.Href, payload);
+                            var requestDto = new TrustlyPaymentReversalRequestDto(payload);
+                            var dto= await client.SendAsJsonAsync<ReversalResponseDto>(httpOperation.Method, httpOperation.Href, requestDto);
                             return new ReversalResponse(dto.Payment, dto.Reversal.Map());
                         };
                         break;
 
                     case PaymentResourceOperations.CreateCancellation:
                         Cancel = async payload => {
-                            var dto = await client.SendAsJsonAsync<CancellationResponseDto>(httpOperation.Method, httpOperation.Href, payload);
+                            var requestDto = new TrustlyPaymentCancelRequestDto(payload);
+                            var dto = await client.SendAsJsonAsync<CancellationResponseDto>(httpOperation.Method, httpOperation.Href, requestDto);
                             return new CancellationResponse(dto.Payment, dto.Cancellation.Map());
                         };
                         break;

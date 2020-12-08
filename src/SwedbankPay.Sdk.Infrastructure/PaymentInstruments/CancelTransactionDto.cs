@@ -1,4 +1,5 @@
 ﻿using SwedbankPay.Sdk.PaymentInstruments.Invoice;
+using SwedbankPay.Sdk.PaymentInstruments.Trustly;
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
@@ -12,6 +13,12 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         }
 
         public CancelTransactionDto(MobilePay.CancelTransaction transaction)
+        {
+            Description = transaction.Description;
+            PayeeReference = transaction.PayeeReference;
+        }
+
+        public CancelTransactionDto(TrustlyPaymentCancelTransaction transaction)
         {
             Description = transaction.Description;
             PayeeReference = transaction.PayeeReference;
