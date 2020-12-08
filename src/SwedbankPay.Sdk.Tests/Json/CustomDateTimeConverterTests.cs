@@ -25,9 +25,10 @@ namespace SwedbankPay.Sdk.Tests.Json
                     CountryCode = new RegionInfo("NO")
                 }
             };
+            var dto = new RiskIndicatorDto(riskIndicator);
 
             //ACT
-            var result = JsonSerializer.Serialize(riskIndicator, JsonSerialization.JsonSerialization.Settings);
+            var result = JsonSerializer.Serialize(dto, JsonSerialization.JsonSerialization.Settings);
             using JsonDocument doc = JsonDocument.Parse(result);
             var dateTimeAsString = doc.RootElement.GetProperty("preOrderDate").ToString();
             var shipInd = doc.RootElement.GetProperty("shipIndicator").ToString();
