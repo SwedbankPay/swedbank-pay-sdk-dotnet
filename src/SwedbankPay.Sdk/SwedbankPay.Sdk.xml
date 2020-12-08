@@ -8187,6 +8187,12 @@
             API request object for aborting a payment order.
             </summary>
         </member>
+        <member name="M:SwedbankPay.Sdk.PaymentOrders.PaymentOrderAbortRequest.#ctor(System.String)">
+            <summary>
+            Instantiates a <see cref="T:SwedbankPay.Sdk.PaymentOrders.PaymentOrderAbortRequest"/> with the provided <paramref name="abortReason"/>.
+            </summary>
+            <param name="abortReason">A textual reason for the abort.</param>
+        </member>
         <member name="P:SwedbankPay.Sdk.PaymentOrders.PaymentOrderAbortRequest.PaymentOrder">
             <summary>
             Transactional details for aborting a payment order.

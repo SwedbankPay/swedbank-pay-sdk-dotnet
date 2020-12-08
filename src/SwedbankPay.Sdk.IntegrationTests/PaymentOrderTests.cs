@@ -26,7 +26,7 @@ namespace SwedbankPay.Sdk.Tests
             Assert.NotEmpty(paymentOrder.Operations);
             Assert.NotNull(paymentOrder.Operations.Abort);
 
-            var responseContainer = await paymentOrder.Operations.Abort();
+            var responseContainer = await paymentOrder.Operations.Abort(new PaymentOrderAbortRequest("test abort reason"));
 
             Assert.NotNull(responseContainer);
             Assert.NotNull(responseContainer.PaymentOrder);

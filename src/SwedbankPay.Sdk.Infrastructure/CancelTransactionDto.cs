@@ -1,7 +1,8 @@
 ﻿using SwedbankPay.Sdk.PaymentInstruments.Invoice;
 using SwedbankPay.Sdk.PaymentInstruments.Trustly;
+using SwedbankPay.Sdk.PaymentOrders;
 
-namespace SwedbankPay.Sdk.PaymentInstruments
+namespace SwedbankPay.Sdk
 {
     internal class CancelTransactionDto
     {
@@ -12,7 +13,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
             TransactionActivity = transaction.TransactionActivity.Value;
         }
 
-        public CancelTransactionDto(MobilePay.CancelTransaction transaction)
+        public CancelTransactionDto(PaymentInstruments.MobilePay.CancelTransaction transaction)
         {
             Description = transaction.Description;
             PayeeReference = transaction.PayeeReference;
@@ -24,8 +25,15 @@ namespace SwedbankPay.Sdk.PaymentInstruments
             PayeeReference = transaction.PayeeReference;
         }
 
-        public CancelTransactionDto(Vipps.CancelTransaction transaction)
+        public CancelTransactionDto(PaymentInstruments.Vipps.CancelTransaction transaction)
         {
+            Description = transaction.Description;
+            PayeeReference = transaction.PayeeReference;
+        }
+
+        public CancelTransactionDto(PaymentOrderCancelTransaction transaction)
+        {
+
             Description = transaction.Description;
             PayeeReference = transaction.PayeeReference;
         }

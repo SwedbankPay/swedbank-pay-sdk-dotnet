@@ -28,14 +28,16 @@ namespace SwedbankPay.Sdk.PaymentOrders
                     case PaymentOrderResourceOperations.CreatePaymentOrderCapture:
                         Capture = async payload =>
                         {
-                            var dto = await client.SendAsJsonAsync<CaptureResponseDto>(httpOperation.Method, httpOperation.Href, payload);
+                            var requestDto = new PaymentOrderCaptureRequestDto(payload);
+                            var dto = await client.SendAsJsonAsync<CaptureResponseDto>(httpOperation.Method, httpOperation.Href, requestDto);
                             return new CaptureResponse(dto.Payment, dto.Capture.Map());
                         };
                         break;
                     case PaymentOrderResourceOperations.CreatePaymentOrderCancel:
                         Cancel = async payload =>
                         {
-                            var dto = await client.SendAsJsonAsync<CancelResponseDto>(httpOperation.Method, httpOperation.Href, payload);
+                            var requestDto = new PaymentOrderCancelRequestDto(payload);
+                            var dto = await client.SendAsJsonAsync<CancelResponseDto>(httpOperation.Method, httpOperation.Href, requestDto);
                             return new CancellationResponse(dto.Payment, dto.Cancellation.Map());
                         };
                         break;
@@ -43,7 +45,8 @@ namespace SwedbankPay.Sdk.PaymentOrders
                         Reverse = async payload =>
                         {
                             var url = httpOperation.Href.GetUrlWithQueryString(PaymentExpand.All);
-                            var paymentOrderResponseContainer = await client.SendAsJsonAsync<ReversalResponseDto>(httpOperation.Method, url, payload);
+                            var requestDto = new PaymentOrderReversalRequestDto(payload);
+                            var paymentOrderResponseContainer = await client.SendAsJsonAsync<ReversalResponseDto>(httpOperation.Method, url, requestDto);
                             return new ReversalResponse(paymentOrderResponseContainer.Payment, paymentOrderResponseContainer.Reversal.Map());
                         };
                         break;
@@ -51,15 +54,16 @@ namespace SwedbankPay.Sdk.PaymentOrders
                         Update = async payload =>
                         {
                             var url = httpOperation.Href.GetUrlWithQueryString(PaymentExpand.All);
-                            var paymentOrderResponseContainer = await client.SendAsJsonAsync<PaymentOrderResponseDto>(httpOperation.Method, url, payload);
+                            var requestDto = new PaymentOrderUpdateRequestDto(payload);
+                            var paymentOrderResponseContainer = await client.SendAsJsonAsync<PaymentOrderResponseDto>(httpOperation.Method, url, requestDto);
                             return new PaymentOrderResponse(paymentOrderResponseContainer, client);
                         };
                         break;
                     case PaymentOrderResourceOperations.UpdatePaymentOrderAbort:
-                        Abort = async () =>
+                        Abort = async payload =>
                         {
                             var url = httpOperation.Href.GetUrlWithQueryString(PaymentExpand.All);
-                            var paymentOrderResponseContainer = await client.SendAsJsonAsync<PaymentOrderResponseDto>(httpOperation.Method, url, new PaymentOrderAbortRequest());
+                            var paymentOrderResponseContainer = await client.SendAsJsonAsync<PaymentOrderResponseDto>(httpOperation.Method, url, payload);
                             return new PaymentOrderResponse(paymentOrderResponseContainer, client);
                         };
                         break;
@@ -71,7 +75,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
             }
         }
 
-        public Func<Task<IPaymentOrderResponse>> Abort { get; }
+        public Func<PaymentOrderAbortRequest, Task<IPaymentOrderResponse>> Abort { get; }
         public Func<PaymentOrderCancelRequest, Task<CancellationResponse>> Cancel { get; }
         public Func<PaymentOrderCaptureRequest, Task<CaptureResponse>> Capture { get; }
         public Func<PaymentOrderReversalRequest, Task<IReversalResponse>> Reverse { get; }

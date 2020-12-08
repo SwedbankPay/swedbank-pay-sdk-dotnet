@@ -14,7 +14,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <summary>
         /// Aborts the payment order, if available.
         /// </summary>
-        Func<Task<IPaymentOrderResponse>> Abort { get; }
+        Func<PaymentOrderAbortRequest, Task<IPaymentOrderResponse>> Abort { get; }
 
         /// <summary>
         /// Cancels the payment order, if available.
