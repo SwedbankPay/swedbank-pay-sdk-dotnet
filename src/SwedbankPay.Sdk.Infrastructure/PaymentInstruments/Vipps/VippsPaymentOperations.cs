@@ -21,28 +21,32 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 
                     case PaymentResourceOperations.DirectAuthorization:
                         DirectAuthorization = async payload => {
-                            var dto = await client.SendAsJsonAsync<VippsPaymentAuthorizationResponseDto>(httpOperation.Method, httpOperation.Href, payload);
+                            var requestDto = new VippsPaymentAuthorizationRequestDto(payload);
+                            var dto = await client.SendAsJsonAsync<VippsPaymentAuthorizationResponseDto>(httpOperation.Method, httpOperation.Href, requestDto);
                             return new VippsPaymentAuthorizationResponse(dto.Payment, dto.Authorization.Map());
                         };
                         break;
 
                     case PaymentResourceOperations.CreateCapture:
                         Capture = async payload => {
-                            var dto = await client.SendAsJsonAsync<CaptureResponseDto>(httpOperation.Method, httpOperation.Href, payload);
+                            var requestDto = new VippsPaymentCaptureRequestDto(payload);
+                            var dto = await client.SendAsJsonAsync<CaptureResponseDto>(httpOperation.Method, httpOperation.Href, requestDto);
                             return new CaptureResponse(dto.Payment, dto.Capture.Map());
                         };
                         break;
 
                     case PaymentResourceOperations.CreateCancellation:
                         Cancel = async payload => {
-                            var dto = await client.SendAsJsonAsync<CancellationResponseDto>(httpOperation.Method, httpOperation.Href, payload);
+                            var requestDto = new VippsPaymentCancelRequestDto(payload);
+                            var dto = await client.SendAsJsonAsync<CancellationResponseDto>(httpOperation.Method, httpOperation.Href, requestDto);
                             return new CancellationResponse(dto.Payment, dto.Cancellation.Map());
                         };
                         break;
 
                     case PaymentResourceOperations.CreateReversal:
                         Reversal = async payload => {
-                            var dto = await client.SendAsJsonAsync<ReversalResponseDto>(httpOperation.Method, httpOperation.Href, payload);
+                            var requestDto = new VippsPaymentReversalRequestDto(payload);
+                            var dto = await client.SendAsJsonAsync<ReversalResponseDto>(httpOperation.Method, httpOperation.Href, requestDto);
                             return new ReversalResponse(dto.Payment, dto.Reversal.Map());
                         };
                         break;

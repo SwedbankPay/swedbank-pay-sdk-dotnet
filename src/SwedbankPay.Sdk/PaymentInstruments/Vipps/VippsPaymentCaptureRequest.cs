@@ -14,12 +14,12 @@
         /// <param name="payeeReference">Transactionally unique reference to this capture transaction.</param>
         public VippsPaymentCaptureRequest(Amount amount, Amount vatAmount, string description, string payeeReference)
         {
-            Transaction = new VippsPaymentCaptureTransaction(amount, vatAmount, description, payeeReference);
+            Transaction = new CaptureTransaction(amount, vatAmount, description, payeeReference);
         }
 
         /// <summary>
         /// Transactional details on capturing a Vipps payment.
         /// </summary>
-        public VippsPaymentCaptureTransaction Transaction { get; }
+        public CaptureTransaction Transaction { get; }
     }
 }

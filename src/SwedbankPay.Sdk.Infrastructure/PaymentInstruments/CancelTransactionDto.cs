@@ -24,6 +24,12 @@ namespace SwedbankPay.Sdk.PaymentInstruments
             PayeeReference = transaction.PayeeReference;
         }
 
+        public CancelTransactionDto(Vipps.CancelTransaction transaction)
+        {
+            Description = transaction.Description;
+            PayeeReference = transaction.PayeeReference;
+        }
+
         public string Description { get; }
 
         public string PayeeReference { get; }

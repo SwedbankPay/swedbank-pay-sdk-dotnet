@@ -18,7 +18,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
 
         public CancellationTransactionDto Cancellations { get; set; }
 
-        public CaptureTransactionDto Captures { get; set; }
+        public CaptureListTransactionDto Captures { get; set; }
 
         public DateTime Created { get; set; }
 

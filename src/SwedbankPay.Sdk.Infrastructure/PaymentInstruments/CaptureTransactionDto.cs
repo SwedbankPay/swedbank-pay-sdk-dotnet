@@ -1,24 +1,23 @@
-﻿using SwedbankPay.Sdk.PaymentInstruments.Card;
-using SwedbankPay.Sdk.PaymentInstruments.MobilePay;
-using System;
-using System.Collections.Generic;
+﻿using SwedbankPay.Sdk.PaymentInstruments.Vipps;
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
     internal class CaptureTransactionDto
     {
-        public Uri Id { get; set; }
-
-        public List<TransactionDto> CaptureList { get; set; } = new List<TransactionDto>();
-
-        internal ICapturesListResponse Map()
+        public CaptureTransactionDto(CaptureTransaction transaction)
         {
-            var list = new List<ITransaction>();
-            foreach (var c in CaptureList)
-            {
-                list.Add(c.Map());
-            }
-            return new CapturesListResponse(Id, list);
+            Amount = transaction.Amount.InLowestMonetaryUnit;
+            Description = transaction.Description;
+            PayeeReference = transaction.PayeeReference;
+            VatAmount = transaction.VatAmount.InLowestMonetaryUnit;
         }
+
+        public long Amount { get; }
+
+        public string Description { get; }
+
+        public string PayeeReference { get; }
+
+        public long VatAmount { get; }
     }
 }

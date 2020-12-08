@@ -1,6 +1,7 @@
 ﻿using SwedbankPay.Sdk.PaymentInstruments.Invoice;
 using SwedbankPay.Sdk.PaymentInstruments.MobilePay;
 using SwedbankPay.Sdk.PaymentInstruments.Trustly;
+using SwedbankPay.Sdk.PaymentInstruments.Vipps;
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
@@ -31,6 +32,14 @@ namespace SwedbankPay.Sdk.PaymentInstruments
             VatAmount = transaction.VatAmount.InLowestMonetaryUnit;
             RecepitReference = transaction.RecepitReference;
             TransactionActivity = transaction.TransactionActivity.Value;
+        }
+
+        public ReversalTransactionDto(VippsReversalTransaction transaction)
+        {
+            Amount = transaction.Amount.InLowestMonetaryUnit;
+            Description = transaction.Description;
+            PayeeReference = transaction.PayeeReference;
+            VatAmount = transaction.VatAmount.InLowestMonetaryUnit;
         }
 
         public long Amount { get; }

@@ -1,4 +1,4 @@
-﻿namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
+﻿namespace SwedbankPay.Sdk.PaymentInstruments
 {
     /// <summary>
     /// Object holding details for capturing a authorized Mobile Pay payment.

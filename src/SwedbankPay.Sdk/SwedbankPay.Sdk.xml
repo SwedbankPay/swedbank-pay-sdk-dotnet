@@ -1579,6 +1579,44 @@
             Holds transactional information about this capture.
             </summary>
         </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.CaptureTransaction">
+            <summary>
+            Object holding details for capturing a authorized Mobile Pay payment.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.CaptureTransaction.#ctor(SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.String,System.String)">
+            <summary>
+            Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.CaptureTransaction"/> with the provided parameters.
+            </summary>
+            <param name="amount">The <seealso cref="T:SwedbankPay.Sdk.Amount"/> to capture.</param>
+            <param name="vatAmount">The <see cref="T:SwedbankPay.Sdk.Amount"/> to capture as value added taxes.</param>
+            <param name="description">A textual description of the capture.</param>
+            <param name="payeeReference">Transactionally unique reference set by the merchant system.</param>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.CaptureTransaction.Amount">
+            <summary>
+            The <seealso cref="T:SwedbankPay.Sdk.Amount"/> to be captured.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.CaptureTransaction.Description">
+            <summary>
+            A textual description of what is being captured.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.CaptureTransaction.PayeeReference">
+            <summary>
+            A unique reference from the merchant system.
+            It is set per operation to ensure an exactly-once delivery of a transactional operation.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.CaptureTransaction.VatAmount">
+            <summary>
+            The payment’s VAT (Value Added Tax) amount, entered in the lowest monetary unit of the selected currency.
+            The vatAmount entered will not affect the amount shown on the payment page, which only shows the total amount.
+            This field is used to specify how much ofthe total amount the VAT will be.
+            Set to 0 (zero) if there is no VAT amount charged.
+            </summary>
+        </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.Cardholder">
             <summary>
             Information about a card holder
@@ -4389,44 +4427,6 @@
              It is set per operation to ensure an exactly-once delivery of a transactional operation.
             </summary>
         </member>
-        <member name="T:SwedbankPay.Sdk.PaymentInstruments.MobilePay.CaptureTransaction">
-            <summary>
-            Object holding details for capturing a authorized Mobile Pay payment.
-            </summary>
-        </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.MobilePay.CaptureTransaction.#ctor(SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.String,System.String)">
-            <summary>
-            Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.MobilePay.CaptureTransaction"/> with the provided parameters.
-            </summary>
-            <param name="amount">The <seealso cref="T:SwedbankPay.Sdk.Amount"/> to capture.</param>
-            <param name="vatAmount">The <see cref="T:SwedbankPay.Sdk.Amount"/> to capture as value added taxes.</param>
-            <param name="description">A textual description of the capture.</param>
-            <param name="payeeReference">Transactionally unique reference set by the merchant system.</param>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.CaptureTransaction.Amount">
-            <summary>
-            The <seealso cref="T:SwedbankPay.Sdk.Amount"/> to be captured.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.CaptureTransaction.Description">
-            <summary>
-            A textual description of what is being captured.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.CaptureTransaction.PayeeReference">
-            <summary>
-            A unique reference from the merchant system.
-            It is set per operation to ensure an exactly-once delivery of a transactional operation.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.CaptureTransaction.VatAmount">
-            <summary>
-            The payment’s VAT (Value Added Tax) amount, entered in the lowest monetary unit of the selected currency.
-            The vatAmount entered will not affect the amount shown on the payment page, which only shows the total amount.
-            This field is used to specify how much ofthe total amount the VAT will be.
-            Set to 0 (zero) if there is no VAT amount charged.
-            </summary>
-        </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.MobilePay.IMobilePayPayment">
             <summary>
             Object describing a payment for the Mobile Pay payment instrument.
@@ -6979,44 +6979,6 @@
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Vipps.VippsPaymentCaptureRequest.Transaction">
             <summary>
             Transactional details on capturing a Vipps payment.
-            </summary>
-        </member>
-        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Vipps.VippsPaymentCaptureTransaction">
-            <summary>
-            Transactional details for capturing a Vipps payment.
-            </summary>
-        </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Vipps.VippsPaymentCaptureTransaction.#ctor(SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.String,System.String)">
-            <summary>
-            Instantiates a <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Vipps.VippsPaymentCaptureTransaction"/> with the provided parameters.
-            </summary>
-            <param name="amount">The amount of funds to capture.</param>
-            <param name="vatAmount">The amount of funds to capture as value added taxes.</param>
-            <param name="description">A textual description of the payment.</param>
-            <param name="payeeReference">Transactionally unique reference to this capture transaction.</param>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Vipps.VippsPaymentCaptureTransaction.Amount">
-            <summary>
-            The <seealso cref="T:SwedbankPay.Sdk.Amount"/> (including VAT, if any) to charge the payer, entered in the selected currency.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Vipps.VippsPaymentCaptureTransaction.Description">
-            <summary>
-            Textual description of the payment.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Vipps.VippsPaymentCaptureTransaction.PayeeReference">
-            <summary>
-            A unique reference from the merchant system.
-            It is set per operation to ensure an exactly-once delivery of a transactional operation.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Vipps.VippsPaymentCaptureTransaction.VatAmount">
-            <summary>
-            The payment’s VAT (Value Added Tax) amount, entered in the lowest monetary unit of the selected currency.
-            The vatAmount entered will not affect the amount shown on the payment page, which only shows the total amount.
-            This field is used to specify how much ofthe total amount the VAT will be.
-            Set to 0 (zero) if there is no VAT amount charged.
             </summary>
         </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.Vipps.VippsPaymentRequest">

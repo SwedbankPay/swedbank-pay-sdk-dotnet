@@ -4,9 +4,9 @@
     {
         public MobilePayPaymentCaptureRequestDto(MobilePayPaymentCaptureRequest payload)
         {
-            Transaction = new MobilePayPaymentCaptureTransactionDto(payload.Transaction);
+            Transaction = new CaptureTransactionDto(payload.Transaction);
         }
 
-        public MobilePayPaymentCaptureTransactionDto Transaction { get; }
+        public CaptureTransactionDto Transaction { get; }
     }
 }
