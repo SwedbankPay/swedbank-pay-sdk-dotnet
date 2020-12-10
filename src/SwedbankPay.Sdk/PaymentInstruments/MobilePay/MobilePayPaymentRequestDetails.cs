@@ -19,7 +19,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         /// <summary>
         ///    URI to logo that will be visible at MobilePay payment menu
         /// </summary>
-        public Uri ShoplogoUrl { get; set; }
+        public Uri ShoplogoUrl { get; }
 
     }
 }

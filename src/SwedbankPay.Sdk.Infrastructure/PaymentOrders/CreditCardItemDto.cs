@@ -2,7 +2,7 @@
 {
     internal class CreditCardItemDto
     {
-        public CreditCardItemDto(CreditCard creditCard)
+        public CreditCardItemDto(PaymentOrderCreditCardOptions creditCard)
         {
             if(creditCard == null)
             {

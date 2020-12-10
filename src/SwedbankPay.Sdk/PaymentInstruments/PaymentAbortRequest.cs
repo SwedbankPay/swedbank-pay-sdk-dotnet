@@ -17,6 +17,6 @@
         /// <summary>
         /// Data detailing why the current payment is being aborted.
         /// </summary>
-        public PaymentAbortRequestDetails Payment { get; } = new PaymentAbortRequestDetails();
+        public PaymentAbortRequestDetails Payment { get; }
     }
 }

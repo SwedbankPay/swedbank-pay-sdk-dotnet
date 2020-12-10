@@ -1,7 +1,4 @@
 ﻿using SwedbankPay.Sdk.JsonSerialization.Converters;
-using SwedbankPay.Sdk.PaymentInstruments;
-using SwedbankPay.Sdk.PaymentInstruments.Invoice;
-using SwedbankPay.Sdk.PaymentOrders;
 using System.Text.Json;
 
 namespace SwedbankPay.Sdk.JsonSerialization

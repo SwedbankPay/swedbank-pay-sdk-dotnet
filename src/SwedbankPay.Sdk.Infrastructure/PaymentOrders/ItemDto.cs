@@ -6,7 +6,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
     {
         public ItemDto() { }
 
-        public ItemDto(Item item)
+        public ItemDto(PaymentOrderPaymentOptionsItems item)
         {
             CreditCard = new CreditCardItemDto(item.CreditCard);
             Invoice = new InvoiceItemDto(item.Invoice);

@@ -43,7 +43,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
                                                 PayeeInfo payeeInfo,
                                                 IRiskIndicator riskIndicator = null,
                                                 Cardholder cardholder = null,
-                                                CreditCard creditCard = null,
+                                                PaymentOrderCreditCardOptions creditCard = null,
                                                 Dictionary<string, object> metadata = null,
                                                 string paymentToken = null)
         {
@@ -75,7 +75,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// <summary>
         /// Holds information about the credit card used.
         /// </summary>
-        public CreditCard CreditCard { get; }
+        public PaymentOrderCreditCardOptions CreditCard { get; }
 
         /// <summary>
         /// The currency used to pay the payment.

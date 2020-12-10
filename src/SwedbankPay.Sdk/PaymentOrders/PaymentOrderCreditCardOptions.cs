@@ -3,7 +3,7 @@
     /// <summary>
     /// Transactional details about credit card involved in a payment order.
     /// </summary>
-    public class CreditCard
+    public class PaymentOrderCreditCardOptions
     {
         /// <summary>
         ///     true if this is a MOTO payment; otherwise false. Default value is set on the contract.

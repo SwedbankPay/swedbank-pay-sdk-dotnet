@@ -2123,7 +2123,7 @@
             Holds details about a card payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentDetails.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.List{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,System.Boolean,System.Boolean,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,SwedbankPay.Sdk.PaymentOrders.IRiskIndicator,SwedbankPay.Sdk.PaymentInstruments.Card.Cardholder,SwedbankPay.Sdk.PaymentOrders.CreditCard,System.Collections.Generic.Dictionary{System.String,System.Object},System.String)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentDetails.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.List{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,System.Boolean,System.Boolean,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,SwedbankPay.Sdk.PaymentOrders.IRiskIndicator,SwedbankPay.Sdk.PaymentInstruments.Card.Cardholder,SwedbankPay.Sdk.PaymentOrders.PaymentOrderCreditCardOptions,System.Collections.Generic.Dictionary{System.String,System.Object},System.String)">
             <summary>
             Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentDetails"/> with the provided parameters.
             </summary>
@@ -2364,7 +2364,7 @@
             Class to hold details about a card payment request.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.List{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,System.Boolean,System.Boolean,System.String,SwedbankPay.Sdk.PaymentOrders.IRiskIndicator,SwedbankPay.Sdk.PaymentInstruments.Card.Cardholder,SwedbankPay.Sdk.PaymentOrders.CreditCard,SwedbankPay.Sdk.MetadataResponse,System.String)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.List{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,System.Boolean,System.Boolean,System.String,SwedbankPay.Sdk.PaymentOrders.IRiskIndicator,SwedbankPay.Sdk.PaymentInstruments.Card.Cardholder,SwedbankPay.Sdk.PaymentOrders.PaymentOrderCreditCardOptions,SwedbankPay.Sdk.MetadataResponse,System.String)">
             <summary>
             Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRequest"/> using the provided parameters.
             </summary>
@@ -7167,55 +7167,6 @@
             Set to 0 (zero) if there is no VAT amount charged.
             </summary>
         </member>
-        <member name="T:SwedbankPay.Sdk.PaymentOrders.CreditCard">
-            <summary>
-            Transactional details about credit card involved in a payment order.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentOrders.CreditCard.MailOrderTelephoneOrder">
-            <summary>
-                true if this is a MOTO payment; otherwise false. Default value is set on the contract.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentOrders.CreditCard.RejectAuthenticationStatusA">
-            <summary>
-                true if response code A from issuer bank should be declined; otherwise  false. Default value is set on the
-                contract.Response code A means that the 3DSecure service is unavailable and therefore a 3DSecure verification is
-                not made.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentOrders.CreditCard.RejectAuthenticationStatusU">
-            <summary>
-                true if response code U from issuer bank should be declined; otherwise  false. Default value is set on the
-                contract. Response code U means that it couldn't be determined if card was 3DSecure enrolled or not.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentOrders.CreditCard.RejectCardNot3DSecureEnrolled">
-            <summary>
-                true if cards not enrolled with 3D-secure should be declined; otherwise false. Default value is set on the
-                contract.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentOrders.CreditCard.RejectConsumerCards">
-            <summary>
-                true if consumer cards should be declined; otherwise false. Default value is set on the contract.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentOrders.CreditCard.RejectCorporateCards">
-            <summary>
-                true if corporate cards should be declined; otherwise false. Default value is set on the contract.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentOrders.CreditCard.RejectCreditCards">
-            <summary>
-                true if credit cards should be declined; otherwise false. Default value is set on the contract.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentOrders.CreditCard.RejectDebitCards">
-            <summary>
-                true if debit cards should be declined; otherwise false. Default value is set on the contract.
-            </summary>
-        </member>
         <member name="T:SwedbankPay.Sdk.PaymentOrders.DeliveryTimeFrameIndicator">
             <summary>
                 Indicates the merchandise delivery timeframe.
@@ -7892,34 +7843,6 @@
             Contains all currently available sale list items for this payment order.
             </summary>
         </member>
-        <member name="T:SwedbankPay.Sdk.PaymentOrders.Item">
-            <summary>
-            The items field of the paymentOrder is an array containing items that will affect how the payment is performed.
-            </summary>
-        </member>
-        <member name="M:SwedbankPay.Sdk.PaymentOrders.Item.#ctor(SwedbankPay.Sdk.PaymentOrders.CreditCard,SwedbankPay.Sdk.PaymentOrders.Invoice,SwedbankPay.Sdk.PaymentOrders.Swish)">
-            <summary>
-            Insttanciates a <see cref="T:SwedbankPay.Sdk.PaymentOrders.Item"/> with the provided parameters.
-            </summary>
-            <param name="creditCard">Credit card options.</param>
-            <param name="invoice">Invoice options.</param>
-            <param name="swish">Swish options.</param>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentOrders.Item.CreditCard">
-            <summary>
-            Object holding credit card specific options.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentOrders.Item.Invoice">
-            <summary>
-            Object holding invoice specific options.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentOrders.Item.Swish">
-            <summary>
-            Object holding Swish specific options.
-            </summary>
-        </member>
         <member name="T:SwedbankPay.Sdk.PaymentOrders.NationalIdentifier">
             <summary>
             Identifies a consumer with country and social security number.
@@ -8327,6 +8250,55 @@
             Set to 0 (zero) if there is no VAT amount charged.
             </summary>
         </member>
+        <member name="T:SwedbankPay.Sdk.PaymentOrders.PaymentOrderCreditCardOptions">
+            <summary>
+            Transactional details about credit card involved in a payment order.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentOrders.PaymentOrderCreditCardOptions.MailOrderTelephoneOrder">
+            <summary>
+                true if this is a MOTO payment; otherwise false. Default value is set on the contract.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentOrders.PaymentOrderCreditCardOptions.RejectAuthenticationStatusA">
+            <summary>
+                true if response code A from issuer bank should be declined; otherwise  false. Default value is set on the
+                contract.Response code A means that the 3DSecure service is unavailable and therefore a 3DSecure verification is
+                not made.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentOrders.PaymentOrderCreditCardOptions.RejectAuthenticationStatusU">
+            <summary>
+                true if response code U from issuer bank should be declined; otherwise  false. Default value is set on the
+                contract. Response code U means that it couldn't be determined if card was 3DSecure enrolled or not.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentOrders.PaymentOrderCreditCardOptions.RejectCardNot3DSecureEnrolled">
+            <summary>
+                true if cards not enrolled with 3D-secure should be declined; otherwise false. Default value is set on the
+                contract.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentOrders.PaymentOrderCreditCardOptions.RejectConsumerCards">
+            <summary>
+                true if consumer cards should be declined; otherwise false. Default value is set on the contract.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentOrders.PaymentOrderCreditCardOptions.RejectCorporateCards">
+            <summary>
+                true if corporate cards should be declined; otherwise false. Default value is set on the contract.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentOrders.PaymentOrderCreditCardOptions.RejectCreditCards">
+            <summary>
+                true if credit cards should be declined; otherwise false. Default value is set on the contract.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentOrders.PaymentOrderCreditCardOptions.RejectDebitCards">
+            <summary>
+                true if debit cards should be declined; otherwise false. Default value is set on the contract.
+            </summary>
+        </member>
         <member name="T:SwedbankPay.Sdk.PaymentOrders.PaymentOrderExpand">
             <summary>
             Use to have sub-resources of a payment order be automatically expanded/filled
@@ -8410,12 +8382,40 @@
             <param name="name">Human readable version of the language.</param>
             <param name="value">ISO/API version of the language.</param>
         </member>
+        <member name="T:SwedbankPay.Sdk.PaymentOrders.PaymentOrderPaymentOptionsItems">
+            <summary>
+            The items field of the paymentOrder is an array containing items that will affect how the payment is performed.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.PaymentOrders.PaymentOrderPaymentOptionsItems.#ctor(SwedbankPay.Sdk.PaymentOrders.PaymentOrderCreditCardOptions,SwedbankPay.Sdk.PaymentOrders.Invoice,SwedbankPay.Sdk.PaymentOrders.Swish)">
+            <summary>
+            Insttanciates a <see cref="T:SwedbankPay.Sdk.PaymentOrders.PaymentOrderPaymentOptionsItems"/> with the provided parameters.
+            </summary>
+            <param name="creditCard">Credit card options.</param>
+            <param name="invoice">Invoice options.</param>
+            <param name="swish">Swish options.</param>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentOrders.PaymentOrderPaymentOptionsItems.CreditCard">
+            <summary>
+            Object holding credit card specific options.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentOrders.PaymentOrderPaymentOptionsItems.Invoice">
+            <summary>
+            Object holding invoice specific options.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentOrders.PaymentOrderPaymentOptionsItems.Swish">
+            <summary>
+            Object holding Swish specific options.
+            </summary>
+        </member>
         <member name="T:SwedbankPay.Sdk.PaymentOrders.PaymentOrderRequest">
             <summary>
             Request details for creating a payment order.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentOrders.PaymentOrderRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.Currency,SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.String,System.String,SwedbankPay.Sdk.Language,System.Boolean,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,SwedbankPay.Sdk.PaymentOrders.Payer,System.Collections.Generic.List{SwedbankPay.Sdk.PaymentOrders.OrderItem},SwedbankPay.Sdk.PaymentOrders.IRiskIndicator,System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.List{SwedbankPay.Sdk.PaymentOrders.Item},System.Nullable{System.Boolean})">
+        <member name="M:SwedbankPay.Sdk.PaymentOrders.PaymentOrderRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.Currency,SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.String,System.String,SwedbankPay.Sdk.Language,System.Boolean,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,SwedbankPay.Sdk.PaymentOrders.Payer,System.Collections.Generic.List{SwedbankPay.Sdk.PaymentOrders.OrderItem},SwedbankPay.Sdk.PaymentOrders.IRiskIndicator,System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.List{SwedbankPay.Sdk.PaymentOrders.PaymentOrderPaymentOptionsItems},System.Nullable{System.Boolean})">
             <summary>
             Request details for creating a payment order.
             </summary>
@@ -8446,7 +8446,7 @@
             Transactional details for creating a payment order.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentOrders.PaymentOrderRequestDetails.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.Currency,SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.String,System.String,SwedbankPay.Sdk.Language,System.Boolean,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,SwedbankPay.Sdk.PaymentOrders.Payer,System.Collections.Generic.List{SwedbankPay.Sdk.PaymentOrders.OrderItem},SwedbankPay.Sdk.PaymentOrders.IRiskIndicator,System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.List{SwedbankPay.Sdk.PaymentOrders.Item},System.Nullable{System.Boolean})">
+        <member name="M:SwedbankPay.Sdk.PaymentOrders.PaymentOrderRequestDetails.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.Currency,SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.String,System.String,SwedbankPay.Sdk.Language,System.Boolean,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,SwedbankPay.Sdk.PaymentOrders.Payer,System.Collections.Generic.List{SwedbankPay.Sdk.PaymentOrders.OrderItem},SwedbankPay.Sdk.PaymentOrders.IRiskIndicator,System.Collections.Generic.Dictionary{System.String,System.Object},System.Collections.Generic.List{SwedbankPay.Sdk.PaymentOrders.PaymentOrderPaymentOptionsItems},System.Nullable{System.Boolean})">
             <summary>
             Request details for creating a payment order.
             </summary>

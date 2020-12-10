@@ -41,7 +41,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                                      List<OrderItem> orderItems = null,
                                                      IRiskIndicator riskIndicator = null,
                                                      Dictionary<string, object> metadata = null,
-                                                     List<Item> items = null,
+                                                     List<PaymentOrderPaymentOptionsItems> items = null,
                                                      bool? disablePaymentMenu = null)
         {
             Operation = operation ?? throw new ArgumentNullException(nameof(operation));
@@ -88,7 +88,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <summary>
         ///     The array of items that will affect how the payment is performed.
         /// </summary>
-        public List<Item> Items { get; }
+        public List<PaymentOrderPaymentOptionsItems> Items { get; }
 
         /// <summary>
         ///     The language of the payer.

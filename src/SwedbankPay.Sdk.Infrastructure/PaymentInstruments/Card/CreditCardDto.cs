@@ -4,7 +4,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
     internal class CreditCardDto
     {
-        public CreditCardDto(CreditCard creditCard)
+        public CreditCardDto(PaymentOrderCreditCardOptions creditCard)
         {
             if(creditCard == null)
             {

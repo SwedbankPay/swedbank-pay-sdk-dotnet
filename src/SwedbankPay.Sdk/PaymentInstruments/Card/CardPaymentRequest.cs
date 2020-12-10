@@ -42,7 +42,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
                               string payerReference = null,
                               IRiskIndicator riskIndicator = null,
                               Cardholder cardholder = null,
-                              CreditCard creditCard = null,
+                              PaymentOrderCreditCardOptions creditCard = null,
                               MetadataResponse metadata = null,
                               string paymentToken = null)
         {

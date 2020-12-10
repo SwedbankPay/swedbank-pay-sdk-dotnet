@@ -40,7 +40,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                    List<OrderItem> orderItems = null,
                                    IRiskIndicator riskIndicator = null,
                                    Dictionary<string, object> metadata = null,
-                                   List<Item> items = null,
+                                   List<PaymentOrderPaymentOptionsItems> items = null,
                                    bool? disablePaymentMenu = null)
         {
             PaymentOrder = new PaymentOrderRequestDetails(operation, currency, amount, vatAmount, description, userAgent, language,
