@@ -9,7 +9,7 @@ namespace SwedbankPay.Sdk.Tests
     {
         protected ISwedbankPayClient Sut;
 
-        protected readonly Urls urls;
+        protected readonly IUrls urls;
 
         protected readonly Guid payeeId;
 

@@ -204,7 +204,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             "test",
             new Language("no-nb"),
             false,
-            new Urls(new UrlsDto
+            new UrlsResponse(new UrlsDto
             {
                 Id = UriForTesting(),
                 HostUrls = new List<Uri> { UriForTesting() },

@@ -35,7 +35,7 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
         }
 
 
-        public static Urls GetUrls(string outputPath)
+        public static IUrls GetUrls(string outputPath)
         {
             var configuration = new UrlsOptions();
 
@@ -54,7 +54,7 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
                 PaymentUrl = configuration.PaymentUrl,
                 TermsOfServiceUrl = configuration.TermsOfServiceUrl
             };
-            return new Urls(urlsDto);
+            return new UrlsResponse(urlsDto);
         }
     }
 }
