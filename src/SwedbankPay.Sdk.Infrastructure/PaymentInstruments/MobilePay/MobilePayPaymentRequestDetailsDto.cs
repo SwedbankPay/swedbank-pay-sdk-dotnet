@@ -4,7 +4,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
     internal class MobilePayPaymentRequestDetailsDto
     {
-        public MobilePayPaymentRequestDetailsDto(MobilePayPaymentRequestDetails mobilePay)
+        public MobilePayPaymentRequestDetailsDto(MobilePayRequestData mobilePay)
         {
             ShoplogoUrl = mobilePay.ShoplogoUrl;
         }

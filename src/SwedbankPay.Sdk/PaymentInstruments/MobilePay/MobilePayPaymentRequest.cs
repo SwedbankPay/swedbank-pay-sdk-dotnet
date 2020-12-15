@@ -32,7 +32,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 
         {
             Payment = new MobilePayPaymentDetails(operation, intent, currency, description, userAgent, language, urls, payeeInfo);
-            MobilePay = new MobilePayPaymentRequestDetails
+            MobilePay = new MobilePayRequestData
             {
                 ShoplogoUrl = shopslogoUrl
             };
@@ -46,6 +46,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         /// <summary>
         /// MobilePay specific payment data, making a custom logo for the merchant available.
         /// </summary>
-        public MobilePayPaymentRequestDetails MobilePay { get; }
+        public MobilePayRequestData MobilePay { get; }
     }
 }

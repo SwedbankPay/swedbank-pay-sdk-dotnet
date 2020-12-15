@@ -5,7 +5,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
     /// <summary>
     /// Object containing custom information for the Mobile Pay payment window.
     /// </summary>
-    public class MobilePayPaymentRequestDetails
+    public class MobilePayRequestData
     {
         /// <summary>
         ///    URI to logo that will be visible at MobilePay payment menu
