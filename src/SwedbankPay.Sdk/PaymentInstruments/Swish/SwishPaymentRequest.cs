@@ -10,7 +10,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         /// <summary>
         /// Instantiates a new <see cref="SwishPaymentRequest"/> with the provided parameters.
         /// </summary>
-        /// <param name="prices">List of prices object to give discounts.</param>
         /// <param name="description">Textual description of the payment.</param>
         /// <param name="payerReference">Refence to the payer in the merchant systems.</param>
         /// <param name="userAgent">The UserAgent string of the payers device.</param>
@@ -19,8 +18,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         /// <param name="payeeInfo">Object holding information about the merchant-</param>
         /// <param name="prefillInfo">Known information about the payer than can be
         /// pre-filled in the payment window.</param>
-        public SwishPaymentRequest(List<IPrice> prices,
-                              string description,
+        public SwishPaymentRequest(string description,
                               string payerReference,
                               string userAgent,
                               Language language,
@@ -29,7 +27,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
                               PrefillInfo prefillInfo)
         {
             var swishRequest = new SwishPaymentOptions();
-            Payment = new SwishPaymentRequestDetails(prices, description, payerReference, userAgent, language, urls, payeeInfo, prefillInfo,
+            Payment = new SwishPaymentRequestDetails(description, payerReference, userAgent, language, urls, payeeInfo, prefillInfo,
                                                swishRequest);
         }
 
