@@ -13,18 +13,15 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// </summary>
         /// <param name="amount">The <see cref="Sdk.Amount"/> to capture.</param>
         /// <param name="vatAmount">The <see cref="Sdk.Amount"/> to capture as VAT.</param>
-        /// <param name="orderItems">A list of <seealso cref="OrderItem"/> that is being captured and paid for.</param>
         /// <param name="description">A textual description of the purchase.</param>
         /// <param name="payeeReference">A unique payee refrence for the capture.</param>
         protected internal CardPaymentCaptureTransaction(Amount amount,
                                                 Amount vatAmount,
-                                                List<OrderItem> orderItems,
                                                 string description,
                                                 string payeeReference)
         {
             Amount = amount;
             VatAmount = vatAmount;
-            OrderItems = orderItems;
             Description = description;
             PayeeReference = payeeReference;
         }
@@ -44,7 +41,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// List of <seealso cref="OrderItem"/> that is being captured.
         /// Only required if payment was authorizied with the OrderItems field.
         /// </summary>
-        public List<OrderItem> OrderItems { get; }
+        public List<OrderItem> OrderItems { get; } = new List<OrderItem>();
 
         /// <summary>
         /// A unique reference from the merchant system.

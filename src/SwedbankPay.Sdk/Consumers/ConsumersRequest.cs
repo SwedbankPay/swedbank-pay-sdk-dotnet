@@ -13,13 +13,11 @@ namespace SwedbankPay.Sdk.Consumers
         /// Constructs a new request to the Consumers API resource.
         /// </summary>
         /// <param name="language">The prefered langauge for the consumer.</param>
-        /// <param name="shippingAddressRestrictedToCountryCodes">A <seealso cref="IEnumerable{RegionInfo}"/> that lists available countrys this payment will ship to.</param>
-        public ConsumersRequest(Language language,
-                                IEnumerable<RegionInfo> shippingAddressRestrictedToCountryCodes)
+        public ConsumersRequest(Language language)
         {
             Operation = Operation.Initiate;
             Language = language;
-            ShippingAddressRestrictedToCountryCodes = shippingAddressRestrictedToCountryCodes ?? new List<RegionInfo>();
+            ShippingAddressRestrictedToCountryCodes = new List<RegionInfo>();
         }
 
 

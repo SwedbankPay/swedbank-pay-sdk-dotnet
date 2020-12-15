@@ -15,7 +15,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// <param name="operation">The <see cref="Sdk.Operation"/> to perform.</param>
         /// <param name="intent">The initial <seealso cref="PaymentIntent"/> of the payment.</param>
         /// <param name="currency">The <seealso cref="Sdk.Currency"/> to be paid in.</param>
-        /// <param name="prices">A list of price objects.</param>
         /// <param name="description">A textual description of the purchase.</param>
         /// <param name="userAgent">The payers user agent.</param>
         /// <param name="language">The payers prefered langauge.</param>
@@ -24,7 +23,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         public CardPaymentDetails(Operation operation,
                                                 PaymentIntent intent,
                                                 Currency currency,
-                                                List<IPrice> prices,
                                                 string description,
                                                 string userAgent,
                                                 Language language,
@@ -34,7 +32,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             Operation = operation ?? throw new ArgumentNullException(nameof(operation));
             Intent = intent;
             Currency = currency;
-            Prices = prices;
             Description = description;
             UserAgent = userAgent;
             Language = language;
@@ -112,7 +109,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// <summary>
         /// A list of <see cref="IPrice"/> objects.
         /// </summary>
-        public List<IPrice> Prices { get; }
+        public List<IPrice> Prices { get; } = new List<IPrice>();
 
         /// <summary>
         /// This optional object consist of information that helps verifying the payer.

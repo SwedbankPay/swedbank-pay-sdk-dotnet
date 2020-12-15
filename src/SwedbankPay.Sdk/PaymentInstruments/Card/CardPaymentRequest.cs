@@ -14,7 +14,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// <param name="operation">The initial <see cref="Operation"/> for the request.</param>
         /// <param name="intent">The initial intent of this payment.</param>
         /// <param name="currency">The wanted <seealso cref="Currency"/> for the payment to be paid in.</param>
-        /// <param name="prices">Prices shows different prices for different payment options.</param>
         /// <param name="description">A textual description of the payment.</param>
         /// <param name="userAgent">The payers UserAgent.</param>
         /// <param name="language">The prefered <seealso cref="Language"/> of the payer.</param>
@@ -23,14 +22,13 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         public CardPaymentRequest(Operation operation,
                               PaymentIntent intent,
                               Currency currency,
-                              List<IPrice> prices,
                               string description,
                               string userAgent,
                               Language language,
                               IUrls urls,
                               PayeeInfo payeeInfo)
         {
-            Payment = new CardPaymentDetails(operation, intent, currency, prices, description,  
+            Payment = new CardPaymentDetails(operation, intent, currency, description,  
                                                userAgent, language, urls, payeeInfo);
         }
 
