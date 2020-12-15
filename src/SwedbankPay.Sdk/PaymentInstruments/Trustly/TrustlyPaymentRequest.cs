@@ -18,7 +18,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
         /// <param name="language">The payers prefered language.</param>
         /// <param name="urls">Object holding relevant URLs for this payment.</param>
         /// <param name="payeeInfo">Object with merchant information.</param>
-        /// <param name="prefillInfo">Relevant information about the payer to pre-fill payment window.</param>
         public TrustlyPaymentRequest(
             Currency currency,
             List<IPrice> prices,
@@ -27,11 +26,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
             string userAgent,
             Language language,
             IUrls urls,
-            PayeeInfo payeeInfo,
-            TrustlyPrefillInfo prefillInfo = null)
+            PayeeInfo payeeInfo)
         {
             Payment = new TrustlyPaymentDetails(currency, prices, description, payerReference, userAgent, language,
-                                               urls, payeeInfo, prefillInfo);
+                                               urls, payeeInfo);
         }
 
         /// <summary>
