@@ -68,7 +68,15 @@ namespace Sample.AspNetCore.Controllers
                                                                   new Amount(0), "Test description", "useragent",
                                                                   new Language("sv-SE"),
                                                                   false,
-                                                                  new Urls(this.urls.HostUrls, this.urls.CompleteUrl, this.urls.TermsOfServiceUrl, this.urls.CancelUrl, this.urls.PaymentUrl, this.urls.CallbackUrl, this.urls.LogoUrl),
+                                                                  new Urls(this.urls.HostUrls,
+                                                                           this.urls.CompleteUrl,
+                                                                           this.urls.TermsOfServiceUrl)
+                                                                  {
+                                                                      CancelUrl = this.urls.CancelUrl,
+                                                                      PaymentUrl = this.urls.PaymentUrl,
+                                                                      CallbackUrl = this.urls.CallbackUrl,
+                                                                      LogoUrl = this.urls.LogoUrl
+                                                                  },
                                                                   new PayeeInfo(this.payeeInfoOptions.PayeeId, this.payeeInfoOptions.PayeeReference));
                 paymentOrderRequest.PaymentOrder.OrderItems = paymentOrderItems;
                 paymentOrderRequest.PaymentOrder.Payer = payer;
@@ -94,17 +102,27 @@ namespace Sample.AspNetCore.Controllers
             var vatAmount = new Amount(0);
             try
             {
-                var cardRequest = new CardPaymentRequest(Operation.Purchase, PaymentIntent.Authorization, new Currency("SEK"),
-                                                                                   new List<IPrice>
-                                                                                   {
-                                                                                       new Price(new Amount(totalAmount),
-                                                                                                 PriceType.CreditCard, vatAmount)
-                                                                                   },
-                                                                                   "Test Purchase", this.payeeInfoOptions.PayeeReference,
-                                                                                   new Language("sv-SE"),
-                                                                                   new Urls(this.urls.HostUrls, this.urls.CompleteUrl, this.urls.TermsOfServiceUrl, this.urls.CancelUrl, this.urls.PaymentUrl, this.urls.CallbackUrl, this.urls.LogoUrl),
-                                                                                   new PayeeInfo(this.payeeInfoOptions.PayeeId, this.payeeInfoOptions.PayeeReference)
-                                                                                   );
+                var cardRequest = new CardPaymentRequest(Operation.Purchase, 
+                                                        PaymentIntent.Authorization, new Currency("SEK"),
+                                                        new List<IPrice>
+                                                        {
+                                                            new Price(new Amount(totalAmount),
+                                                                        PriceType.CreditCard, vatAmount)
+                                                        },
+                                                        "Test Purchase", this.payeeInfoOptions.PayeeReference,
+                                                        new Language("sv-SE"),
+                                                        new Urls(this.urls.HostUrls,
+                                                                this.urls.CompleteUrl,
+                                                                this.urls.TermsOfServiceUrl)
+                                                        {
+                                                            CancelUrl = this.urls.CancelUrl,
+                                                            PaymentUrl = this.urls.PaymentUrl,
+                                                            CallbackUrl = this.urls.CallbackUrl,
+                                                            LogoUrl = this.urls.LogoUrl
+                                                        },
+                                                        new PayeeInfo(this.payeeInfoOptions.PayeeId,
+                                                                      this.payeeInfoOptions.PayeeReference)
+                                                        );
 
                 cardRequest.Payment.GenerateRecurrenceToken = true;
 
@@ -130,16 +148,26 @@ namespace Sample.AspNetCore.Controllers
             var vatAmount = new Amount(0);
             try
             {
-                var trustlyPaymentRequest = new TrustlyPaymentRequest(new Currency("SEK"),
-                                                                                     new List<IPrice>
-                                                                                     {
-                                                                                         new Price(new Amount(totalAmount),
-                                                                                                   PriceType.Trustly,
-                                                                                                   vatAmount)
-                                                                                     },
-                                                                                     "Test Purchase", this.payeeInfoOptions.PayeeReference, "useragent", new Language("sv-SE"),
-                                                                                     new Urls(this.urls.HostUrls, this.urls.CompleteUrl, this.urls.TermsOfServiceUrl, this.urls.CancelUrl, this.urls.PaymentUrl, this.urls.CallbackUrl, this.urls.LogoUrl),
-                                                                                     new PayeeInfo(this.payeeInfoOptions.PayeeId, this.payeeInfoOptions.PayeeReference));
+                var trustlyPaymentRequest = new TrustlyPaymentRequest(
+                                                                    new Currency("SEK"),
+                                                                    new List<IPrice>
+                                                                    {
+                                                                        new Price(new Amount(totalAmount),
+                                                                                PriceType.Trustly,
+                                                                                vatAmount)
+                                                                    },
+                                                                    "Test Purchase", this.payeeInfoOptions.PayeeReference, "useragent", new Language("sv-SE"),
+                                                                    new Urls(this.urls.HostUrls,
+                                                                             this.urls.CompleteUrl,
+                                                                             this.urls.TermsOfServiceUrl)
+                                                                    {
+                                                                        CancelUrl = this.urls.CancelUrl,
+                                                                        PaymentUrl = this.urls.PaymentUrl,
+                                                                        CallbackUrl = this.urls.CallbackUrl,
+                                                                        LogoUrl = this.urls.LogoUrl
+                                                                    },
+                                                                    new PayeeInfo(this.payeeInfoOptions.PayeeId,
+                                                                                  this.payeeInfoOptions.PayeeReference));
                 var trustlyPayment = await this.swedbankPayClient.Payments.TrustlyPayments.Create(trustlyPaymentRequest);
                 this.cartService.PaymentLink = trustlyPayment.Payment.Id.OriginalString;
                 this.cartService.Instrument = PaymentInstrument.Trustly;
@@ -162,13 +190,13 @@ namespace Sample.AspNetCore.Controllers
             try
             {
                 var swishRequest = new SwishPaymentRequest(new List<IPrice>
-                                                                                     {
-                                                                                         new Price(new Amount(totalAmount),
-                                                                                                   PriceType.Swish, vatAmount)
-                                                                                     },
-                                                                                     "Test Purchase", this.payeeInfoOptions.PayeeReference, "useragent", new Language("sv-SE"), new Urls(this.urls.HostUrls, this.urls.CompleteUrl, this.urls.TermsOfServiceUrl, this.urls.CancelUrl, this.urls.PaymentUrl, this.urls.CallbackUrl, this.urls.LogoUrl),
-                                                                                     new PayeeInfo(this.payeeInfoOptions.PayeeId, this.payeeInfoOptions.PayeeReference),
-                                                                                     new PrefillInfo(new Msisdn("+46739000001")));
+                                                            {
+                                                                new Price(new Amount(totalAmount),
+                                                                        PriceType.Swish, vatAmount)
+                                                            },
+                                                            "Test Purchase", this.payeeInfoOptions.PayeeReference, "useragent", new Language("sv-SE"), new Urls(this.urls.HostUrls, this.urls.CompleteUrl, this.urls.TermsOfServiceUrl) { CancelUrl = this.urls.CancelUrl, PaymentUrl = this.urls.PaymentUrl, CallbackUrl = this.urls.CallbackUrl, LogoUrl = this.urls.LogoUrl },
+                                                            new PayeeInfo(this.payeeInfoOptions.PayeeId, this.payeeInfoOptions.PayeeReference),
+                                                            new PrefillInfo(new Msisdn("+46739000001")));
                 var swishPayment = await this.swedbankPayClient.Payments.SwishPayments.Create(swishRequest);
                 this.cartService.PaymentLink = swishPayment.Payment.Id.OriginalString;
                 this.cartService.Instrument = PaymentInstrument.Swish;
