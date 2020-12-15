@@ -26,7 +26,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
                                                 IUrls urls,
                                                 PayeeInfo payeeInfo,
                                                 PrefillInfo prefillInfo,
-                                                SwishPaymentOptions swishRequest)
+                                                SwishRequestData swishRequest)
         {
             Operation = Operation.Purchase;
             Intent = PaymentIntent.Sale;
@@ -90,7 +90,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         /// <summary>
         /// An object that holds different scenarios for Swish payments.
         /// </summary>
-        public SwishPaymentOptions Swish { get; }
+        public SwishRequestData Swish { get; }
 
         /// <summary>
         /// The urls resource lists urls that redirects users to relevant sites.

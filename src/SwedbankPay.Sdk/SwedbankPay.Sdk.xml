@@ -3702,22 +3702,6 @@
             The addressee you want the approved legal address for.
             </summary>
         </member>
-        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePayment">
-            <summary>
-            Wrapper for a <seealso cref="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoiceType"/>.
-            </summary>
-        </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePayment.#ctor(SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoiceType)">
-            <summary>
-            Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePayment"/> with the provided <paramref name="invoiceType"/>.
-            </summary>
-            <param name="invoiceType">The type of invoice.</param>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePayment.InvoiceType">
-            <summary>
-            The invoice type for the current payment.
-            </summary>
-        </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentAuthorizationRequest">
             <summary>
             Object for storing a authorization request to the invoice API.
@@ -3822,6 +3806,22 @@
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentRequest.Invoice">
             <summary>
             Request details about the invoice type.
+            </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentRequestData">
+            <summary>
+            Wrapper for a <seealso cref="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoiceType"/>.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentRequestData.#ctor(SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoiceType)">
+            <summary>
+            Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentRequestData"/> with the provided <paramref name="invoiceType"/>.
+            </summary>
+            <param name="invoiceType">The type of invoice.</param>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentRequestData.InvoiceType">
+            <summary>
+            The invoice type for the current payment.
             </summary>
         </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentRequestDetails">
@@ -4912,16 +4912,6 @@
             MobilePay specific payment data, making a custom logo for the merchant available.
             </summary>
         </member>
-        <member name="T:SwedbankPay.Sdk.PaymentInstruments.MobilePay.MobilePayPaymentRequestDetails">
-            <summary>
-            Object containing custom information for the Mobile Pay payment window.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.MobilePayPaymentRequestDetails.ShoplogoUrl">
-            <summary>
-               URI to logo that will be visible at MobilePay payment menu
-            </summary>
-        </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.MobilePay.MobilePayPaymentReversalRequest">
             <summary>
             Object describing a reversal request for a Mobile Pay payment.
@@ -4939,6 +4929,16 @@
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.MobilePayPaymentReversalRequest.Transaction">
             <summary>
             Information on how to reverse the MobilePay payment.
+            </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.MobilePay.MobilePayRequestData">
+            <summary>
+            Object containing custom information for the Mobile Pay payment window.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.MobilePayRequestData.ShoplogoUrl">
+            <summary>
+               URI to logo that will be visible at MobilePay payment menu
             </summary>
         </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.MobilePay.MobilePayReversalTransaction">
@@ -5567,17 +5567,6 @@
             A list of Swish sale list items.
             </summary>
         </member>
-        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Swish.SwishPaymentOptions">
-            <summary>
-            Object for setting E-Commerce options for a Swish payment.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Swish.SwishPaymentOptions.EnableEcomOnly">
-            <summary>
-            Set to only enable Swish on browser based transactions.
-            Otherwise to also enable Swish transactions via in-app payments.
-            </summary>
-        </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.Swish.SwishPaymentRequest">
             <summary>
             Wrapper for creating a Swish payment request.
@@ -5606,7 +5595,7 @@
             Detailes needed for creating a Swish payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Swish.SwishPaymentRequestDetails.#ctor(System.String,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,SwedbankPay.Sdk.PaymentInstruments.PrefillInfo,SwedbankPay.Sdk.PaymentInstruments.Swish.SwishPaymentOptions)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Swish.SwishPaymentRequestDetails.#ctor(System.String,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,SwedbankPay.Sdk.PaymentInstruments.PrefillInfo,SwedbankPay.Sdk.PaymentInstruments.Swish.SwishRequestData)">
             <summary>
             Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Swish.SwishPaymentRequestDetails"/> with the provided parameters.
             </summary>
@@ -5817,6 +5806,17 @@
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Swish.SwishPaymentSaleTransaction.Msisdn">
             <summary>
             Prefill information about the payer.
+            </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Swish.SwishRequestData">
+            <summary>
+            Object for setting E-Commerce options for a Swish payment.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Swish.SwishRequestData.EnableEcomOnly">
+            <summary>
+            Set to only enable Swish on browser based transactions.
+            Otherwise to also enable Swish transactions via in-app payments.
             </summary>
         </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.Swish.SwishSaleListItem">

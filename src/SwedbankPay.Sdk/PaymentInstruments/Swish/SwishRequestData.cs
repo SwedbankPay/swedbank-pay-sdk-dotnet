@@ -3,7 +3,7 @@
     /// <summary>
     /// Object for setting E-Commerce options for a Swish payment.
     /// </summary>
-    public class SwishPaymentOptions
+    public class SwishRequestData
     {
         /// <summary>
         /// Set to only enable Swish on browser based transactions.

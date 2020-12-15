@@ -2,7 +2,7 @@
 {
     internal class SwishPaymentOptionsDto
     {
-        public SwishPaymentOptionsDto(SwishPaymentOptions swish)
+        public SwishPaymentOptionsDto(SwishRequestData swish)
         {
             EnableEcomOnly = swish.EnableEcomOnly;
         }
