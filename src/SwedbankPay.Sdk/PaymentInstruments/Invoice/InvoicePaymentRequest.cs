@@ -16,16 +16,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         /// <param name="prices">A list of objects detailing price differences between different payment instruments.</param>
         /// <param name="description">A textual description of what is being paid.</param>
         /// <param name="userAgent">The payers UserAgent string.</param>
-        /// <param name="language">The payers prefered <seealso cref="Sdk.Language"/>.</param>
+        /// <param name="language">The payers prefered <seealso cref="Language"/>.</param>
         /// <param name="urls">Object containing relevant URLs for this payment.</param>
         /// <param name="payeeInfo">Object with merchant information.</param>
         /// <param name="invoiceType">Specifies the invoice type, country, of the invoice.</param>
-        /// <param name="generatePaymentToken">Set if you want to generate a payment token for later use for this payment.</param>
-        /// <param name="generateRecurrenceToken">Set if you want this to be a recurring payment.</param>
-        /// <param name="payerReference">A transactionally unique payer reference from the merchant system.</param>
-        /// <param name="metadata">Used to store meta data on the payment.</param>
-        /// <param name="paymentToken">A previously generated payment token for this payment.</param>
-        /// <param name="prefillInfo">Pre-fills the payment window with known information about the payer.</param>
         public InvoicePaymentRequest(Operation operation,
                               PaymentIntent intent,
                               Currency currency,
@@ -35,17 +29,9 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
                               Language language,
                               IUrls urls,
                               PayeeInfo payeeInfo,
-                              InvoiceType invoiceType,
-                              bool generatePaymentToken = false,
-                              bool generateRecurrenceToken = false,
-                              string payerReference = null,
-                              Dictionary<string, object> metadata = null,
-                              string paymentToken = null,
-                              PrefillInfo prefillInfo = null)
+                              InvoiceType invoiceType)
         {
-            Payment = new InvoicePaymentRequestDetails(operation, intent, currency, prices, description, payerReference, generatePaymentToken,
-                                               generateRecurrenceToken, userAgent, language, urls, payeeInfo,
-                                               metadata, paymentToken, prefillInfo);
+            Payment = new InvoicePaymentRequestDetails(operation, intent, currency, prices, description, userAgent, language, urls, payeeInfo);
             Invoice = new InvoicePayment(invoiceType);
         }
 

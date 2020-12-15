@@ -20,43 +20,26 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         /// <param name="language">The payers prefered <seealso cref="Sdk.Language"/>.</param>
         /// <param name="urls">Object containing relevant URLs for this payment.</param>
         /// <param name="payeeInfo">Object with merchant information.</param>
-        /// <param name="generatePaymentToken">Set if you want to generate a payment token for later use for this payment.</param>
-        /// <param name="generateRecurrenceToken">Set if you want this to be a recurring payment.</param>
-        /// <param name="payerReference">A transactionally unique payer reference from the merchant system.</param>
-        /// <param name="metadata">Used to store meta data on the payment.</param>
-        /// <param name="paymentToken">A previously generated payment token for this payment.</param>
-        /// <param name="prefillInfo">Pre-fills the payment window with known information about the payer.</param>
         public InvoicePaymentRequestDetails(Operation operation,
                                                     PaymentIntent intent,
                                                     Currency currency,
                                                     List<IPrice> prices,
                                                     string description,
-                                                    string payerReference,
-                                                    bool generatePaymentToken,
-                                                    bool generateRecurrenceToken,
                                                     string userAgent,
                                                     Language language,
                                                     IUrls urls,
-                                                    PayeeInfo payeeInfo,
-                                                    Dictionary<string, object> metadata = null,
-                                                    string paymentToken = null,
-                                                    PrefillInfo prefillInfo = null)
+                                                    PayeeInfo payeeInfo)
         {
             Operation = operation ?? throw new ArgumentNullException(nameof(operation));
             Intent = intent;
             Currency = currency;
             Prices = prices;
             Description = description;
-            PayerReference = payerReference;
+            
             UserAgent = userAgent;
             Language = language;
             Urls = urls;
             PayeeInfo = payeeInfo;
-            Metadata = metadata;
-            GeneratePaymentToken = generatePaymentToken;
-            GenerateRecurrenceToken = generateRecurrenceToken;
-            PaymentToken = paymentToken;
-            PrefillInfo = prefillInfo;
         }
 
         /// <summary>
@@ -92,7 +75,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
-        public Dictionary<string, object> Metadata { get; }
+        public Dictionary<string, object> Metadata { get; set; }
 
         /// <summary>
         /// <inheritdoc/>
