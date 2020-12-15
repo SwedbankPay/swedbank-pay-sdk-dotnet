@@ -21,7 +21,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// <param name="language">The prefered <seealso cref="Language"/> of the payer.</param>
         /// <param name="urls">All relevant <seealso cref="IUrls"/> for this payment.</param>
         /// <param name="payeeInfo">Your payee information.</param>
-        /// <param name="metadata">Any meta data you want stored on this payment.</param>
         public CardPaymentRecurRequest(Operation operation,
                                        PaymentIntent intent,
                                        string recurrenceToken,
@@ -32,8 +31,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
                                        string userAgent,
                                        Language language,
                                        IUrls urls,
-                                       PayeeInfo payeeInfo,
-                                       MetadataResponse metadata = null)
+                                       PayeeInfo payeeInfo)
         {
             Payment = new CardPaymentRecurPayment(operation,
                                                       intent,
@@ -45,8 +43,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
                                                       userAgent,
                                                       language,
                                                       urls,
-                                                      payeeInfo,
-                                                      metadata);
+                                                      payeeInfo);
         }
 
         /// <summary>

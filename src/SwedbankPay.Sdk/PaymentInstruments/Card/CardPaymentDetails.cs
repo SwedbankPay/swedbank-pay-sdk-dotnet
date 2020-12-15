@@ -13,69 +13,45 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// Instantiates a new <see cref="CardPaymentDetails"/> with the provided parameters.
         /// </summary>
         /// <param name="operation">The <see cref="Sdk.Operation"/> to perform.</param>
-        /// <param name="intent">The initial <seealso cref="Sdk.PaymentInstruments.PaymentIntent"/> of the payment.</param>
+        /// <param name="intent">The initial <seealso cref="PaymentIntent"/> of the payment.</param>
         /// <param name="currency">The <seealso cref="Sdk.Currency"/> to be paid in.</param>
         /// <param name="prices">A list of price objects.</param>
         /// <param name="description">A textual description of the purchase.</param>
-        /// <param name="payerReference">The payer reference.</param>
-        /// <param name="generatePaymentToken">Set if you want a payment token to be generated.</param>
-        /// <param name="generateRecurrenceToken">Set if you want a recurrence token to be generated.</param>
         /// <param name="userAgent">The payers user agent.</param>
         /// <param name="language">The payers prefered langauge.</param>
         /// <param name="urls">URLs relevant for this payment.</param>
         /// <param name="payeeInfo">Identifies the merchant.</param>
-        /// <param name="riskIndicator">Risk indicator details.</param>
-        /// <param name="cardholder">Information about the card holder.</param>
-        /// <param name="creditCard">Information about the credit card.</param>
-        /// <param name="metadata">Any relevant meta data to be stored.</param>
-        /// <param name="paymentToken">Set this to true if you want to create a paymentToken for future use as One Click.</param>
         public CardPaymentDetails(Operation operation,
                                                 PaymentIntent intent,
                                                 Currency currency,
                                                 List<IPrice> prices,
                                                 string description,
-                                                string payerReference,
-                                                bool generatePaymentToken,
-                                                bool generateRecurrenceToken,
                                                 string userAgent,
                                                 Language language,
                                                 IUrls urls,
-                                                PayeeInfo payeeInfo,
-                                                IRiskIndicator riskIndicator = null,
-                                                Cardholder cardholder = null,
-                                                PaymentOrderCreditCardOptions creditCard = null,
-                                                Dictionary<string, object> metadata = null,
-                                                string paymentToken = null)
+                                                PayeeInfo payeeInfo)
         {
             Operation = operation ?? throw new ArgumentNullException(nameof(operation));
             Intent = intent;
             Currency = currency;
             Prices = prices;
             Description = description;
-            PayerReference = payerReference;
             UserAgent = userAgent;
             Language = language;
             Urls = urls;
             PayeeInfo = payeeInfo;
-            RiskIndicator = riskIndicator;
-            Cardholder = cardholder;
-            CreditCard = creditCard;
-            Metadata = metadata;
-            GeneratePaymentToken = generatePaymentToken;
-            GenerateRecurrenceToken = generateRecurrenceToken;
-            PaymentToken = paymentToken;
         }
 
         /// <summary>
         /// Cardholder object that can hold information about a buyer (private or company).
         /// The information added increases the chance for frictionless flow and is related to 3-D Secure 2.0.
         /// </summary>
-        public Cardholder Cardholder { get; }
+        public Cardholder Cardholder { get; set; }
 
         /// <summary>
         /// Holds information about the credit card used.
         /// </summary>
-        public PaymentOrderCreditCardOptions CreditCard { get; }
+        public PaymentOrderCreditCardOptions CreditCard { get; set; }
 
         /// <summary>
         /// The currency used to pay the payment.
@@ -93,12 +69,12 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// You can do this either by by setting the GeneratePaymentToken field to true,
         /// or set the initial operation to Verify.
         /// </summary>
-        public bool GeneratePaymentToken { get; }
+        public bool GeneratePaymentToken { get; set; }
 
         /// <summary>
         /// Set this to true if you want to create a recurrenceToken for future use Recurring purchases (subscription payments).
         /// </summary>
-        public bool GenerateRecurrenceToken { get; }
+        public bool GenerateRecurrenceToken { get; set; }
 
         /// <summary>
         /// The intent of the payment
@@ -131,7 +107,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// <summary>
         /// Set this to true if you want to create a paymentToken for future use as One Click.
         /// </summary>
-        public string PaymentToken { get; }
+        public string PaymentToken { get; set; }
 
         /// <summary>
         /// A list of <see cref="IPrice"/> objects.
@@ -143,7 +119,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// Providing these fields decreases the likelyhood of having to promt for 3-D Secure 
         /// 2.0 authentication of the payer when they are authenticating the purchase.
         /// </summary>
-        public IRiskIndicator RiskIndicator { get; }
+        public IRiskIndicator RiskIndicator { get; set; }
 
         /// <summary>
         /// The URI to the urls resource where all URIs related to the payment can be retrieved
@@ -160,6 +136,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// <seealso cref="Dictionary{TKey, TValue}"/> with arbitrary data provided
         /// by the merchant.
         /// </summary>
-        public Dictionary<string, object> Metadata { get; }
+        public Dictionary<string, object> Metadata { get; set; }
     }
 }

@@ -20,14 +20,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// <param name="language">The prefered <seealso cref="Language"/> of the payer.</param>
         /// <param name="urls">Object holding relevant <seealso cref="IUrls"/> for the payment.</param>
         /// <param name="payeeInfo">Object identifying the payee.</param>
-        /// <param name="generatePaymentToken">Set if you want a payment token to be generated for later use.</param>
-        /// <param name="generateRecurrenceToken">Set if you want a recurrence token to be generated for later use.</param>
-        /// <param name="payerReference">A reference for the payer in your systems.</param>
-        /// <param name="riskIndicator">Object that reduces the amount of risk of the payment the more details is has.</param>
-        /// <param name="cardholder">Information about the card holder.</param>
-        /// <param name="creditCard">Information about the credt card to be used.</param>
-        /// <param name="metadata">Meta data relevant for the payment.</param>
-        /// <param name="paymentToken">A previously generated payment token.</param>
         public CardPaymentRequest(Operation operation,
                               PaymentIntent intent,
                               Currency currency,
@@ -36,19 +28,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
                               string userAgent,
                               Language language,
                               IUrls urls,
-                              PayeeInfo payeeInfo,
-                              bool generatePaymentToken = false,
-                              bool generateRecurrenceToken = false,
-                              string payerReference = null,
-                              IRiskIndicator riskIndicator = null,
-                              Cardholder cardholder = null,
-                              PaymentOrderCreditCardOptions creditCard = null,
-                              MetadataResponse metadata = null,
-                              string paymentToken = null)
+                              PayeeInfo payeeInfo)
         {
-            Payment = new CardPaymentDetails(operation, intent, currency, prices, description, payerReference, generatePaymentToken,
-                                               generateRecurrenceToken, userAgent, language, urls, payeeInfo, riskIndicator, cardholder,
-                                               creditCard, metadata, paymentToken);
+            Payment = new CardPaymentDetails(operation, intent, currency, prices, description,  
+                                               userAgent, language, urls, payeeInfo);
         }
 
         /// <summary>
