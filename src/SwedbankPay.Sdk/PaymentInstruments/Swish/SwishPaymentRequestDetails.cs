@@ -19,7 +19,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         /// <param name="payeeInfo">Object holding information about the merchant-</param>
         /// <param name="prefillInfo">Known information about the payer than can be
         /// pre-filled in the payment window.</param>
-        /// <param name="metadata">MetaData to be stored on the payment.</param>
         /// <param name="swishRequest">Sets Swish payment specific options.</param>
         protected internal SwishPaymentRequestDetails(List<IPrice> prices,
                                                 string description,
@@ -29,8 +28,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
                                                 IUrls urls,
                                                 PayeeInfo payeeInfo,
                                                 PrefillInfo prefillInfo,
-                                                SwishPaymentOptions swishRequest,
-                                                Dictionary<string, object> metadata = null)
+                                                SwishPaymentOptions swishRequest)
         {
             Operation = Operation.Purchase;
             Intent = PaymentIntent.Sale;
@@ -44,7 +42,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
             PayeeInfo = payeeInfo;
             PrefillInfo = prefillInfo;
             Swish = swishRequest;
-            Metadata = metadata;
         }
 
         /// <summary>
@@ -116,6 +113,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         /// In order to transmit data between these two internal systems,
         /// the data can be stored in metadata on the payment so the internal systems do not need to communicate with each other directly. 
         /// </summary>
-        public Dictionary<string, object> Metadata { get; }
+        public Dictionary<string, object> Metadata { get; set; }
     }
 }

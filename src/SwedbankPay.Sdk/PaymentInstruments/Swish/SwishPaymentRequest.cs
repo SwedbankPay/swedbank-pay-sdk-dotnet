@@ -19,8 +19,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         /// <param name="payeeInfo">Object holding information about the merchant-</param>
         /// <param name="prefillInfo">Known information about the payer than can be
         /// pre-filled in the payment window.</param>
-        /// <param name="isEnabledForEcommerceOnly">Set this to disable in-app payments.</param>
-        /// <param name="metadata">MetaData to be stored on the payment.</param>
         public SwishPaymentRequest(List<IPrice> prices,
                               string description,
                               string payerReference,
@@ -28,13 +26,11 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
                               Language language,
                               IUrls urls,
                               PayeeInfo payeeInfo,
-                              PrefillInfo prefillInfo,
-                              bool isEnabledForEcommerceOnly = false,
-                              Dictionary<string, object> metadata = null)
+                              PrefillInfo prefillInfo)
         {
-            var swishRequest = new SwishPaymentOptions(isEnabledForEcommerceOnly);
+            var swishRequest = new SwishPaymentOptions();
             Payment = new SwishPaymentRequestDetails(prices, description, payerReference, userAgent, language, urls, payeeInfo, prefillInfo,
-                                               swishRequest, metadata);
+                                               swishRequest);
         }
 
         /// <summary>
