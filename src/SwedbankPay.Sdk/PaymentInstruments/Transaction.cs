@@ -23,7 +23,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         /// <param name="isOperational">Indicates if this transaction was operational.</param>
         /// <param name="operations">Available operations for this transaction.</param>
         /// <param name="activity">Latest activity to happen to this transaction.</param>
-        /// <param name="problem">Any known problems about this transaction.</param>
         public Transaction(Uri id,
                            DateTime created,
                            DateTime updated,
@@ -36,8 +35,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
                            string payeeReference,
                            bool isOperational,
                            IOperationList operations,
-                           string activity,
-                           IProblemResponse problem = null)
+                           string activity)
         {
             Id = id;
             Created = created;
@@ -52,7 +50,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments
             IsOperational = isOperational;
             Operations = operations;
             Activity = activity;
-            Problem = problem;
         }
 
         /// <summary>
@@ -123,6 +120,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
-        public IProblemResponse Problem { get; }
+        public IProblemResponse Problem { get; set; }
     }
 }
