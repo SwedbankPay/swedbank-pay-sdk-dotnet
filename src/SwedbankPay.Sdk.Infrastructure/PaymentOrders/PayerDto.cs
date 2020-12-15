@@ -14,7 +14,6 @@ namespace SwedbankPay.Sdk.PaymentOrders
                 return;
             }
 
-            Id = payer.Id;
             AccountInfo = payer.AccountInfo;
             BillingAddress = payer.BillingAddress;
             ConsumerProfileRef = payer.ConsumerProfileRef;
@@ -41,9 +40,9 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public Address ShippingAddress { get; set; }
         public string WorkPhoneNumber { get; set; }
 
-        internal Payer Map()
+        internal PayerResponse Map()
         {
-            var payer = new Payer(Id)
+            var payer = new PayerResponse(Id)
             {
                 AccountInfo = AccountInfo,
                 BillingAddress = BillingAddress,

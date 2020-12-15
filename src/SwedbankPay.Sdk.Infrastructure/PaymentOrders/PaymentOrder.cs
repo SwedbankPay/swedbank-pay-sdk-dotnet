@@ -45,7 +45,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public string Operation { get; }
         public OrderItems OrderItems { get; }
         public PayeeInfo PayeeInfo { get; }
-        public Payer Payers { get; }
+        public PayerResponse Payers { get; }
         public Identifiable Payments { get; }
         public Amount RemainingCancelAmount { get; }
         public Amount RemainingCaptureAmount { get; }

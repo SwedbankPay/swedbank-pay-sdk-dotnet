@@ -18,7 +18,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private string description;
         private string userAgent;
         private Language language;
-        private Urls urls;
+        private IUrls urls;
         private PayeeInfo payeeInfo;
         private PrefillInfo prefillInfo;
         private TrustlyPrefillInfo trustlyPrefillInfo;
@@ -220,7 +220,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
 
         private void SetUrls()
         {
-            this.urls = new Urls(new UrlsDto
+            this.urls = new UrlsResponse(new UrlsDto
             {
                 HostUrls = new List<Uri> { new Uri("https://example.com") },
                 CompleteUrl = new Uri("https://example.com/payment-completed"),

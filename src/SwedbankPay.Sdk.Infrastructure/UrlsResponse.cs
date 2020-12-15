@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk
 {
-    public class Urls : Identifiable, IUrls
+    public class UrlsResponse : Identifiable, IUrls
     {
-        internal Urls(UrlsDto urls)
-            : base(urls.Id)
+        internal UrlsResponse(UrlsDto urls)
+               : base(urls.Id)
         {
             if (urls.HostUrls != null)
             {
@@ -42,16 +42,6 @@ namespace SwedbankPay.Sdk
             {
                 LogoUrl = urls.LogoUrl;
             }
-        }
-
-        public Urls(ICollection<Uri> hostUrls,
-                    Uri completeUrl,
-                    Uri termsOfServiceUrl)
-        {
-            HostUrls = hostUrls ?? throw new ArgumentNullException(nameof(hostUrls), $"{nameof(hostUrls)} is required.");
-            CompleteUrl = completeUrl ?? throw new ArgumentNullException(nameof(completeUrl), $"{nameof(completeUrl)} is required.");
-            TermsOfServiceUrl = termsOfServiceUrl
-                                ?? throw new ArgumentNullException(nameof(termsOfServiceUrl), $"{nameof(termsOfServiceUrl)} is required.");
         }
 
         /// <summary>

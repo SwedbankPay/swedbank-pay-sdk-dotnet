@@ -8031,6 +8031,74 @@
                 Optional (increases chance for challenge flow if not set)
             </summary>
         </member>
+        <member name="T:SwedbankPay.Sdk.PaymentOrders.PayerResponse">
+            <summary>
+            Resource to access the Payer information on a payment order.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.PaymentOrders.PayerResponse.#ctor(System.Uri)">
+            <summary>
+            Instantiates a <see cref="T:SwedbankPay.Sdk.PaymentOrders.PayerResponse"/> with the provided <paramref name="id"/>.
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentOrders.PayerResponse.AccountInfo">
+            <summary>
+            Account information about the payer if such is known by the merchant system.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentOrders.PayerResponse.BillingAddress">
+            <summary>
+            Payers billing address for this payment order.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentOrders.PayerResponse.ConsumerProfileRef">
+            <summary>
+                The consumer profile reference as obtained through the Consumers API.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentOrders.PayerResponse.Email">
+            <summary>
+                Optional (increases chance for challenge flow if not set)
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentOrders.PayerResponse.FirstName">
+            <summary>
+                Optional (increases chance for challenge flow if not set) If buyer is a company, use only firstName for
+                companyName.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentOrders.PayerResponse.HomePhoneNumber">
+            <summary>
+                Optional (increases chance for challenge flow if not set)
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentOrders.PayerResponse.LastName">
+            <summary>
+                Optional (increases chance for challenge flow if not set) If buyer is a company, use only firstName for
+                companyName.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentOrders.PayerResponse.Msisdn">
+            <summary>
+                Optional (increases chance for challenge flow if not set)
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentOrders.PayerResponse.NationalIdentifier">
+            <summary>
+                Required when merchant onboards consumer.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentOrders.PayerResponse.ShippingAddress">
+            <summary>
+            Payers shipping address for this payment order.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentOrders.PayerResponse.WorkPhoneNumber">
+            <summary>
+                Optional (increases chance for challenge flow if not set)
+            </summary>
+        </member>
         <member name="T:SwedbankPay.Sdk.PaymentOrders.PaymentOrderAbortRequest">
             <summary>
             API request object for aborting a payment order.
@@ -9138,6 +9206,56 @@
             <param name="value">The value to map to <typeparamref name="TEnum"/>.</param>
             <param name="result">The result from mapping.</param>
             <returns>true if successfull, false otherwise.</returns>
+        </member>
+        <member name="T:SwedbankPay.Sdk.Urls">
+            <summary>
+            Object for holding Urls needed for a payment.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.Urls.#ctor(System.Collections.Generic.ICollection{System.Uri},System.Uri,System.Uri)">
+            <summary>
+            Instantiates a <see cref="T:SwedbankPay.Sdk.Urls"/> with the provided parameters.
+            </summary>
+            <param name="hostUrls">Collection of <seealso cref="T:System.Uri"/> this payment can be embedded.</param>
+            <param name="completeUrl"><seealso cref="T:System.Uri"/> to redirect the payer at completion.</param>
+            <param name="termsOfServiceUrl"><seealso cref="T:System.Uri"/> to view your terms of service.</param>
+        </member>
+        <member name="P:SwedbankPay.Sdk.Urls.CallbackUrl">
+            <summary>
+                The URI to the API endpoint receiving  POST requests on transaction activity related to the payment order.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.Urls.CancelUrl">
+            <summary>
+                The URI to redirect the payer to if the payment is canceled.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.Urls.CompleteUrl">
+            <summary>
+                The URI to redirect the payer to once the payment is completed.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.Urls.HostUrls">
+            <summary>
+                The list of URIs valid for embedding of PayEx Hosted Views.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.Urls.LogoUrl">
+            <summary>
+                The URI to the logo that will be displayed on redirect pages.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.Urls.PaymentUrl">
+            <summary>
+                The URI that SwedbankPay will redirect back to when the payment menu needs to be loaded, to inspect and act on the
+                current status of the payment. Only used in hosted views. Can not be used simultaneously with cancelUrl; only
+                cancelUrl or paymentUrl can be used, not both.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.Urls.TermsOfServiceUrl">
+            <summary>
+                The URI to the terms of service document the payer must accept in order to complete the payment.
+            </summary>
         </member>
     </members>
 </doc>

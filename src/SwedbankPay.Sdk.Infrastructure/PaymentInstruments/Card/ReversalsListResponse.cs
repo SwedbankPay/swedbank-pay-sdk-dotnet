@@ -6,8 +6,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
     internal class ReversalsListResponse : Identifiable, IReversalsListResponse
     {
         public ReversalsListResponse(Uri id, List<ITransactionResponse> reversalList)
+            : base(id)
         {
-            Id = id;
             ReversalList = reversalList;
         }
 

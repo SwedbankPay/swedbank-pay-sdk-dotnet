@@ -3,10 +3,18 @@
 namespace SwedbankPay.Sdk.PaymentOrders
 {
     /// <summary>
-    /// Detailed information about a payer for a payment order.
+    /// Resource to access the Payer information on a payment order.
     /// </summary>
-    public class Payer
+    public class PayerResponse : Identifiable
     {
+        /// <summary>
+        /// Instantiates a <see cref="PayerResponse"/> with the provided <paramref name="id"/>.
+        /// </summary>
+        /// <param name="id"></param>
+        public PayerResponse(Uri id) : base(id)
+        {
+        }
+
         /// <summary>
         /// Account information about the payer if such is known by the merchant system.
         /// </summary>

@@ -16,7 +16,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private Operation operation;
         private List<OrderItem> orderItems;
         private PayeeInfo payeeInfo;
-        private Urls urls;
+        private IUrls urls;
         private string userAgent;
         private Amount vatAmount;
 
@@ -91,7 +91,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.vatAmount = new Amount(0);
             this.description = "Test Description";
             this.generateRecurrenceToken = false;
-            this.urls = new Urls(new UrlsDto
+            this.urls = new UrlsResponse(new UrlsDto
             {
                 HostUrls = new List<Uri> { new Uri("https://example.com") },
                 CompleteUrl = new Uri("https://example.com/payment-completed"),

@@ -66,7 +66,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <summary>
         /// Resource where information about the payee of the payment order can be retrieved.
         /// </summary>
-        public Payer Payers { get; }
+        public PayerResponse Payers { get; }
 
         /// <summary>
         /// Resource where information about all underlying payments can be retrieved.
