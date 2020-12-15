@@ -21,41 +21,29 @@ namespace SwedbankPay.Sdk
         /// </summary>
         /// <param name="payeeId"></param>
         /// <param name="payeeReference"></param>
-        /// <param name="payeeName"></param>
-        /// <param name="productCategory"></param>
-        /// <param name="subsite"></param>
-        /// <param name="orderReference"></param>
         public PayeeInfo(Guid payeeId,
-                         string payeeReference,
-                         string payeeName = null,
-                         string productCategory = null,
-                         string subsite = null,
-                         string orderReference = null)
+                         string payeeReference)
         {
             PayeeId = payeeId;
             PayeeReference = payeeReference;
-            PayeeName = payeeName;
-            ProductCategory = productCategory;
-            Subsite = subsite;
-            OrderReference = orderReference;
         }
 
 
         /// <summary>
         ///     The order reference should reflect the order reference found in the merchant's systems.
         /// </summary>
-        public string OrderReference { get; }
+        public string OrderReference { get; set; }
 
         /// <summary>
         ///     This is the unique id that identifies this payee (like merchant) set by PayEx.
         /// </summary>
-        public Guid PayeeId { get; }
+        public Guid PayeeId { get; set; }
 
         /// <summary>
         ///     The name of the payee, usually the name of the merchant.
         /// </summary>
 
-        public string PayeeName { get; }
+        public string PayeeName { get; set; }
 
         /// <summary>
         ///     A unique reference, max 30 characters, set by the merchant system - this must be unique for each operation!
@@ -66,18 +54,18 @@ namespace SwedbankPay.Sdk
         ///     If PayEx sends the payeeRef to the acquirer, the parameter is limited to the format of String(12) AND all
         ///     characters must be digits/numbers.
         /// </summary>
-        public string PayeeReference { get; }
+        public string PayeeReference { get; set; }
 
         /// <summary>
         ///     A product category or number sent in from the payee/merchant. This is not validated by PayEx, but will be passed
         ///     through the payment process and may be used in the settlement process.9
         /// </summary>
-        public string ProductCategory { get; }
+        public string ProductCategory { get; set; }
 
         /// <summary>
         ///     The subsite field can be used to perform split settlement on the payment. The subsites must be resolved with PayEx
         ///     reconciliation before being used.
         /// </summary>
-        public string Subsite { get; }
+        public string Subsite { get; set; }
     }
 }
