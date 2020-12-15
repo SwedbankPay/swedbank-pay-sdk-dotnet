@@ -34,7 +34,8 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
 
         public CardPaymentRequest BuildCreditardPaymentRequest()
         {
-            var req = new CardPaymentRequest(this.operation, this.intent, this.currency, this.price, this.description, this.userAgent, this.language, this.urls, this.payeeInfo);
+            var req = new CardPaymentRequest(this.operation, this.intent, this.currency, this.description, this.userAgent, this.language, this.urls, this.payeeInfo);
+            req.Payment.Prices.AddRange(this.price);
             req.Payment.GeneratePaymentToken = this.generatePaymentToken;
             req.Payment.PayerReference = this.payerReference;
             req.Payment.Metadata = metadata;
@@ -44,28 +45,44 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
 
         public SwishPaymentRequest BuildSwishPaymentRequest()
         {
-            var req = new SwishPaymentRequest(this.price, this.description, this.payerReference, this.userAgent, this.language, this.urls, this.payeeInfo, this.prefillInfo);
+            var req = new SwishPaymentRequest(this.description, this.payerReference, this.userAgent, this.language, this.urls, this.payeeInfo, this.prefillInfo);
+            req.Payment.Prices.AddRange(this.price);
             req.Payment.Metadata = this.metadata;
 
             return req;
         }
 
-        public InvoicePaymentRequest BuildInvoiceRequest() => new InvoicePaymentRequest(this.operation, this.intent, this.currency, this.price, this.description, this.userAgent, this.language, this.urls, this.payeeInfo, this.invoiceType);
+        public InvoicePaymentRequest BuildInvoiceRequest()
+        {
+            var req = new InvoicePaymentRequest(this.operation, this.intent, this.currency, this.description, this.userAgent, this.language, this.urls, this.payeeInfo, this.invoiceType);
+            req.Payment.Prices.AddRange(this.price);
+            req.Payment.Metadata = this.metadata;
+
+            return req;
+        }
 
         public VippsPaymentRequest BuildVippsRequest()
         {
-            var req = new VippsPaymentRequest(this.operation, this.intent, this.currency, this.price, this.description, this.userAgent, this.language, this.urls, this.payeeInfo, this.payerReference);
+            var req = new VippsPaymentRequest(this.operation, this.intent, this.currency, this.description, this.userAgent, this.language, this.urls, this.payeeInfo, this.payerReference);
             req.Payment.GeneratePaymentToken = this.generatePaymentToken;
+            req.Payment.Prices.AddRange(this.price);
             req.Payment.Metadata = this.metadata;
             return req;
         }
 
-        public MobilePayPaymentRequest BuildMobilePayRequest() => new MobilePayPaymentRequest(this.operation, this.intent, this.currency, this.price, this.description, this.userAgent, this.language, this.urls, this.payeeInfo, this.shopslogoUrl);
+        public MobilePayPaymentRequest BuildMobilePayRequest()
+        {
+            var req = new MobilePayPaymentRequest(this.operation, this.intent, this.currency, this.description, this.userAgent, this.language, this.urls, this.payeeInfo, this.shopslogoUrl);
+            req.Payment.Prices.AddRange(this.price);
+
+            return req;
+        }
 
         public TrustlyPaymentRequest BuildTrustlyRequest()
         {
-            var req = new TrustlyPaymentRequest(this.currency, this.price, this.description, this.payerReference, this.userAgent, this.language, this.urls, this.payeeInfo);
+            var req = new TrustlyPaymentRequest(this.currency, this.description, this.payerReference, this.userAgent, this.language, this.urls, this.payeeInfo);
             req.Payment.PrefillInfo = trustlyPrefillInfo;
+            req.Payment.Prices.AddRange(this.price);
             return req;
         }
 

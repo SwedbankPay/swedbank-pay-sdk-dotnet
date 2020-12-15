@@ -58,9 +58,8 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
 
         private static PaymentOrderCaptureRequest GetPaymentOrderCaptureRequest()
         {
-            return new PaymentOrderCaptureRequest(new Amount(25767), new Amount(0), new System.Collections.Generic.List<OrderItem>
-            {
-                new OrderItem(
+            var req = new PaymentOrderCaptureRequest(new Amount(25767), new Amount(0), "Capturing payment.", "637218522761159010");
+            req.Transaction.OrderItems.Add(new OrderItem(
                     "Test",
                     "Test",
                     OrderItemType.Other,
@@ -70,8 +69,9 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
                     new Amount(25767),
                     0,
                     new Amount(25767),
-                    new Amount(0))
-            }, "Capturing payment.", "637218522761159010");
+                    new Amount(0)));
+
+            return req;
         }
 
         [Fact]

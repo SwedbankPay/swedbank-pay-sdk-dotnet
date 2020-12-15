@@ -17,10 +17,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         /// <param name="orderItems">List of <seealso cref="OrderItem"/> to be captured in this transaction.</param>
         /// <param name="description">A textual description of the capture.</param>
         /// <param name="payeeReference">Transactionally unique reference from the merchant system.</param>
-        /// <param name="itemDescriptions">A list of <seealso cref="Sdk.PaymentInstruments.ItemDescription"/>
-        /// involved in the capture.</param>
-        /// <param name="vatSummary">List of <seealso cref="Sdk.PaymentInstruments.VatSummary"/> involved
-        /// in the capture.</param>
         public CaptureTransaction(Operation transactionActivity,
                                               Amount amount,
                                               Amount vatAmount,

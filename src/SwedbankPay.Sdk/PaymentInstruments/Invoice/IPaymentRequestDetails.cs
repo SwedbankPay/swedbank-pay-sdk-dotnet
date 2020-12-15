@@ -84,6 +84,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         /// Metadata sent in by the merchant.
         /// Not processed or used by SwedbankPay.
         /// </summary>
-        Dictionary<string, object> Metadata { get; }
+        Dictionary<string, object> Metadata { get; set; }
     }
 }

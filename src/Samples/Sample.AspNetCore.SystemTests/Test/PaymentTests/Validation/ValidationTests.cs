@@ -90,17 +90,15 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
             var amount = new Amount(1600);
             var vatAmount = new Amount(0);
             var phoneNumber = "+46739000001";
-            var swishRequest = new SwishPaymentRequest(new List<IPrice>
-                {
-                    new Price(amount, PriceType.Swish, vatAmount)
-                },
+            var swishRequest = new SwishPaymentRequest(
                 "Test Purchase", payeeRef, "GetUserAgent()", new Language("sv-SE"),
-                new Urls(new List<Uri> { new Uri("http://api.externalintegration.payex.com") },
+                new Urls(
                     new Uri("http://api.externalintegration.payex.com"),
                     new Uri("http://api.externalintegration.payex.com")),
                 new PayeeInfo(Guid.NewGuid(), payeeRef),
                 new PrefillInfo(new Msisdn(phoneNumber)));
-
+            swishRequest.Payment.Prices.Add(new Price(amount, PriceType.Swish, vatAmount));
+            swishRequest.Payment.Urls.HostUrls.Add(new Uri("http://api.externalintegration.payex.com"));
             var error = Assert.ThrowsAsync<HttpResponseException>(() => swedbankPayClient.Payments.SwishPayments.Create(swishRequest));
 
             Assert.AreEqual(1, error.Data.Keys.Count);

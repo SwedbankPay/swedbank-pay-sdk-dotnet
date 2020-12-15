@@ -15,11 +15,18 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
 
         public ConsumersRequest Build()
         {
-            return new ConsumersRequest(this.language, this.shippingAddressRestrictedToCountryCodes)
+            var req = new ConsumersRequest(this.language)
             {
                 Operation = operation,
                 NationalIdentifier = nationalIdentifier
             };
+
+            if(shippingAddressRestrictedToCountryCodes != null)
+            {
+                req.ShippingAddressRestrictedToCountryCodes.AddRange(this.shippingAddressRestrictedToCountryCodes);
+            }
+
+            return req;
         }
 
 

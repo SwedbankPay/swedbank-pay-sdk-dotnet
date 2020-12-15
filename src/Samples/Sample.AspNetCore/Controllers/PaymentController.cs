@@ -149,9 +149,9 @@ namespace Sample.AspNetCore.Controllers
 
                         var captureRequest = new SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentCaptureRequest(new Amount(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
                                                                                                                    new Amount(0),
-                                                                                                                   orderItems.ToList(),
                                                                                                                    description,
                                                                                                                    DateTime.Now.Ticks.ToString());
+                        captureRequest.Transaction.OrderItems.AddRange(orderItems);
                         var response = await cardPayment.Operations.Capture(captureRequest);
                         TempData["CaptureMessage"] = $"{response.Capture.Id}, {response.Capture.State}, {response.Capture.Type}";
                         break;
@@ -252,8 +252,11 @@ namespace Sample.AspNetCore.Controllers
             var order = await this.context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
             var orderItems = order.Lines.ToOrderItems();
 
-            return new SwedbankPay.Sdk.PaymentOrders.PaymentOrderCaptureRequest(new Amount(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
-                                                                  new Amount(0), orderItems.ToList(), description, DateTime.Now.Ticks.ToString());
+            var request = new SwedbankPay.Sdk.PaymentOrders.PaymentOrderCaptureRequest(new Amount(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
+                                                                  new Amount(0), description, DateTime.Now.Ticks.ToString());
+            request.Transaction.OrderItems.AddRange(orderItems);
+
+            return request;
         }
 
         private async Task<SwedbankPay.Sdk.PaymentOrders.PaymentOrderReversalRequest> GetReversalRequest(string description)
@@ -261,11 +264,13 @@ namespace Sample.AspNetCore.Controllers
             var order = await this.context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
             var orderItems = order.Lines.ToOrderItems();
 
-            return new SwedbankPay.Sdk.PaymentOrders.PaymentOrderReversalRequest(new Amount(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
+            var request = new SwedbankPay.Sdk.PaymentOrders.PaymentOrderReversalRequest(new Amount(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
                                                                                  new Amount(0),
-                                                                                 orderItems.ToList(),
                                                                                  description,
                                                                                  DateTime.Now.Ticks.ToString());
+            request.Transaction.OrderItems.AddRange(orderItems);
+
+            return request;
         }
     }
 }

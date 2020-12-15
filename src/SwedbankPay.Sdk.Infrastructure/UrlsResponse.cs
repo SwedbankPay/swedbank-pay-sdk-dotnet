@@ -62,7 +62,7 @@ namespace SwedbankPay.Sdk
         /// <summary>
         ///     The list of URIs valid for embedding of PayEx Hosted Views.
         /// </summary>
-        public ICollection<Uri> HostUrls { get; }
+        public List<Uri> HostUrls { get; } = new List<Uri>();
 
         /// <summary>
         ///     The URI to the logo that will be displayed on redirect pages.
