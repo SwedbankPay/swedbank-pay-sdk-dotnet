@@ -10,7 +10,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
         internal ITransactionResponse Map()
         {
-            return new TransactionResponse(Id.OriginalString, Transaction);
+            return new TransactionResponse(Id, Transaction);
         }
     }
 }

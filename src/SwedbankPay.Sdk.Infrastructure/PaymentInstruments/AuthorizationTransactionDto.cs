@@ -15,7 +15,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
             {
                 list.Add(new PaymentAuthorization(item));
             }
-            return new CardPaymentAuthorizationListResponse(list);
+            return new CardPaymentAuthorizationListResponse(Id, list);
         }
     }
 }

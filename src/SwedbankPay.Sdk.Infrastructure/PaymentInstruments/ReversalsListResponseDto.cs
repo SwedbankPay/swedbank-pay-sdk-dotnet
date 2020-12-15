@@ -6,7 +6,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
 {
     internal class ReversalsListResponseDto
     {
-        public string Id { get; set; }
+        public Uri Id { get; set; }
         public List<TransactionDto> ReversalList { get; set; } = new List<TransactionDto>();
         internal IReversalsListResponse Map()
         {
@@ -16,8 +16,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
                 list.Add(new TransactionResponse(Id, item));
             }
 
-            Uri id = new Uri(Id, UriKind.RelativeOrAbsolute);
-            return new ReversalsListResponse(id, list);
+            return new ReversalsListResponse(Id, list);
         }
     }
 }

@@ -5,6 +5,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
     internal class PricesListResponseDto
     {
+        public Uri Id { get; set; }
+
         public List<PriceDto> PriceList { get; set; } = new List<PriceDto>();
 
         internal IPricesListResponse Map()
@@ -24,7 +26,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
                     
                 priceList.Add(new Price(item.Amount, priceType, item.VatAmount));
             }
-            return new PricesListResponse(priceList);
+            return new PricesListResponse(Id, priceList);
         }
     }
 }

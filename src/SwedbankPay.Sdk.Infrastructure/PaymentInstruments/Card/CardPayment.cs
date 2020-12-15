@@ -30,7 +30,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             InitiatingSystemUserAgent = payment.InitiatingSystemUserAgent;
             Prices = payment.Prices.Map();
             State = payment.State;
-            Urls = new Urls(payment.Urls);
+            Urls = new UrlsResponse(payment.Urls);
             UserAgent = payment.UserAgent;
             Metadata = new MetadataResponse(payment.Metadata);
             RecurrenceToken = payment.RecurrenceToken;

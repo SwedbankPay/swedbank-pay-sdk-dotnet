@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
     internal class SaleListResponseDto
     {
+        public Uri Id { get; set; }
         public List<SaleListItemDto> Sales { get; set; } = new List<SaleListItemDto>();
 
         internal ISwishSaleListResponse Map()
@@ -19,7 +21,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
                                                item.SwishStatus,
                                                item.Transaction.Map()));
             }
-            return new SwishPaymentSaleListResponse(saleList);
+            return new SwishPaymentSaleListResponse(Id, saleList);
         }
     }
 }
