@@ -12,18 +12,15 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// </summary>
         /// <param name="amount">The amount of funds to capture.</param>
         /// <param name="vatAmount">The amount of funds to capture as value added taxes.</param>
-        /// <param name="orderItems"><seealso cref="OrderItem"/>s involved in the capture.</param>
         /// <param name="description">A textual description of the capture.</param>
         /// <param name="payeeReference">Transactionally unique reference from the merchant system.</param>
         protected internal PaymentOrderCaptureTransaction(Amount amount,
                                                 Amount vatAmount,
-                                                List<OrderItem> orderItems,
                                                 string description,
                                                 string payeeReference)
         {
             Amount = amount;
             VatAmount = vatAmount;
-            OrderItems = orderItems;
             Description = description;
             PayeeReference = payeeReference;
         }
@@ -44,7 +41,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// Used to print on invoices if the payer chooses to pay with invoice, among other things.
         /// It should only contain the items to be captured from the order.
         /// </summary>
-        public List<OrderItem> OrderItems { get; }
+        public List<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 
         /// <summary>
         /// A unique reference from the merchant system.
