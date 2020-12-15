@@ -21,9 +21,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         /// <param name="urls">Object describing relevant URLs for this payment.</param>
         /// <param name="payeeInfo">Information about the merchant performing this payment.</param>
         /// <param name="shopslogoUrl">Custom logo to use for the payment window.</param>
-        /// <param name="payerReference">Internal reference to the payer in the merchant system.</param>
-        /// <param name="metadata">Additional MetaData about the payment.</param>
-        /// <param name="prefillInfo">Known information about the payer that can be pre-filled in the payment window.</param>
         public MobilePayPaymentRequest(Operation operation,
                               PaymentIntent intent,
                               Currency currency,
@@ -33,13 +30,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
                               Language language,
                               IUrls urls,
                               PayeeInfo payeeInfo,
-                              Uri shopslogoUrl,
-                              string payerReference = null,
-                              MetadataResponse metadata = null,
-                              PrefillInfo prefillInfo = null)
+                              Uri shopslogoUrl)
 
         {
-            Payment = new MobilePayPaymentDetails(operation, intent, currency, prices, description, payerReference, userAgent, language, urls, payeeInfo, metadata, prefillInfo);
+            Payment = new MobilePayPaymentDetails(operation, intent, currency, prices, description, userAgent, language, urls, payeeInfo);
             MobilePay = new MobilePayPaymentRequestDetails(shopslogoUrl);
         }
 
