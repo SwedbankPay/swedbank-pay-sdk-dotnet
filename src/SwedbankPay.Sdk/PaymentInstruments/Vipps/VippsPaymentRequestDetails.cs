@@ -17,28 +17,20 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         /// <param name="prices">List of payment instrument prices.</param>
         /// <param name="description">Textual description of the payment.</param>
         /// <param name="payerReference">Merchant reference to the payer.</param>
-        /// <param name="generatePaymentToken">Set if you want a payment token to be generated for later use.</param>
-        /// <param name="generateRecurrenceToken">Set if you want a recurrence token to be generated for later use.</param>
         /// <param name="userAgent">The payers UserAgent string.</param>
         /// <param name="language">The payers prefered language.</param>
         /// <param name="urls">Object with relevant URLs for the payment.</param>
         /// <param name="payeeInfo">Object with information about the merchant.</param>
-        /// <param name="metadata">MetaData to be stored with the payment.</param>
-        /// <param name="paymentToken">A previously generated payment token. See <paramref name="generatePaymentToken"/>.</param>
         protected internal VippsPaymentRequestDetails(Operation operation,
                                                 PaymentIntent intent,
                                                 Currency currency,
                                                 List<IPrice> prices,
                                                 string description,
                                                 string payerReference,
-                                                bool generatePaymentToken,
-                                                bool generateRecurrenceToken,
                                                 string userAgent,
                                                 Language language,
                                                 IUrls urls,
-                                                PayeeInfo payeeInfo,
-                                                Dictionary<string, object> metadata = null,
-                                                string paymentToken = null)
+                                                PayeeInfo payeeInfo)
         {
             Operation = operation ?? throw new ArgumentNullException(nameof(operation));
             Intent = intent;
@@ -50,10 +42,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
             Language = language;
             Urls = urls;
             PayeeInfo = payeeInfo;
-            Metadata = metadata;
-            GeneratePaymentToken = generatePaymentToken;
-            GenerateRecurrenceToken = generateRecurrenceToken;
-            PaymentToken = paymentToken;
         }
 
         /// <summary>
