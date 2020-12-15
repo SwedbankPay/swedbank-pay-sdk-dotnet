@@ -5,27 +5,26 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
     internal class AddressDto
     {
         public AddressDto() { }
-
-        public AddressDto(Address address)
+        
+        public AddressDto(IAddress address)
         {
             City = address.City;
             CoAddress = address.CoAddress;
             CountryCode = address.CountryCode.Name;
+            StreetAddress = address.StreetAddress;
+        }
+
+        public AddressDto(Address address) : this(address as IAddress)
+        {
             Email = address.Email.ToString();
             FirstName = address.FirstName;
             LastName = address.LastName;
             Msisdn = address.Msisdn.ToString();
-            StreetAddress = address.StreetAddress;
             ZipCode = address.ZipCode;
         }
 
-        public AddressDto(PickUpAddress address)
+        public AddressDto(PickUpAddress address): this(address as IAddress)
         {
-            City = address.City;
-            CoAddress = address.CoAddress;
-            CountryCode = address.CountryCode.Name;
-            StreetAddress = address.StreetAddress;
-            ZipCode = address.ZipCode;
             Name = address.Name;
         }
 

@@ -1,40 +1,34 @@
 ﻿using System.Globalization;
 
-namespace SwedbankPay.Sdk.PaymentOrders
+namespace SwedbankPay.Sdk
 {
     /// <summary>
-    ///     If shipIndicator set, then prefil 
+    /// Holds shared information about a address.
     /// </summary>
-    /// 
-    public class PickUpAddress: IAddress
+    public interface IAddress
     {
         /// <summary>
-        /// Payers city of residence.
+        /// The payers city of residence.
         /// </summary>
         public string City { get; set; }
 
         /// <summary>
-        /// Payers C/O address (if applicable).
+        /// The C/O address of the payer, if applicable.
         /// </summary>
         public string CoAddress { get; set; }
 
         /// <summary>
-        /// Country code of the payer.
+        /// The country code of the payers country of residence.
         /// </summary>
         public RegionInfo CountryCode { get; set; }
 
         /// <summary>
-        /// Full name of the payer.
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Street address of the payers residence.
+        /// Payers street address in their city of residence.
         /// </summary>
         public string StreetAddress { get; set; }
 
         /// <summary>
-        /// Zip code of the payers residence.
+        /// Payers zip code of their country of residence.
         /// </summary>
         public string ZipCode { get; set; }
     }
