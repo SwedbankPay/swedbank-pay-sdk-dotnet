@@ -1,4 +1,4 @@
-﻿namespace SwedbankPay.Sdk.Extensions
+﻿namespace SwedbankPay.Sdk
 {
     internal class ProblemResponseItemDto
     {
