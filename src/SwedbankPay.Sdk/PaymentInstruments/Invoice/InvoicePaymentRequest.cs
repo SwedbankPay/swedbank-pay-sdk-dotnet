@@ -30,7 +30,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
                               InvoiceType invoiceType)
         {
             Payment = new InvoicePaymentRequestDetails(operation, intent, currency, description, userAgent, language, urls, payeeInfo);
-            Invoice = new InvoicePayment(invoiceType);
+            Invoice = new InvoicePaymentRequestData(invoiceType);
         }
 
         /// <summary>

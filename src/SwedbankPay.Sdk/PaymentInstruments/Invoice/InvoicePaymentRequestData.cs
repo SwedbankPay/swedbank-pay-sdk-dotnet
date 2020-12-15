@@ -3,13 +3,13 @@
     /// <summary>
     /// Wrapper for a <seealso cref="Invoice.InvoiceType"/>.
     /// </summary>
-    public class InvoicePayment : IInvoiceDetails
+    public class InvoicePaymentRequestData : IInvoiceDetails
     {
         /// <summary>
-        /// Instantiates a new <see cref="InvoicePayment"/> with the provided <paramref name="invoiceType"/>.
+        /// Instantiates a new <see cref="InvoicePaymentRequestData"/> with the provided <paramref name="invoiceType"/>.
         /// </summary>
         /// <param name="invoiceType">The type of invoice.</param>
-        public InvoicePayment(InvoiceType invoiceType)
+        public InvoicePaymentRequestData(InvoiceType invoiceType)
         {
             InvoiceType = invoiceType;
         }
