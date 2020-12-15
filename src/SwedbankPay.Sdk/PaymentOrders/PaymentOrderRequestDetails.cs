@@ -21,12 +21,6 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <param name="generateRecurrenceToken">Set if you want a recurrence token for recur payments.</param>
         /// <param name="urls">Object with URLs relevant for the payment.</param>
         /// <param name="payeeInfo">Object with information about the Merchant.</param>
-        /// <param name="payer">Detail information about the payer of the payment.</param>
-        /// <param name="orderItems">List of items involved in the payment.</param>
-        /// <param name="riskIndicator">Detailed information about the risk involved in this payment.</param>
-        /// <param name="metadata">MetaData to be stored on the payment.</param>
-        /// <param name="items">List of payment instrument details.</param>
-        /// <param name="disablePaymentMenu">Set if you want the payment menu to be disabled.</param>
         protected internal PaymentOrderRequestDetails(Operation operation,
                                                      Currency currency,
                                                      Amount amount,
@@ -36,13 +30,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                                      Language language,
                                                      bool generateRecurrenceToken,
                                                      IUrls urls,
-                                                     PayeeInfo payeeInfo,
-                                                     Payer payer = null,
-                                                     List<OrderItem> orderItems = null,
-                                                     IRiskIndicator riskIndicator = null,
-                                                     Dictionary<string, object> metadata = null,
-                                                     List<PaymentOrderPaymentOptionsItems> items = null,
-                                                     bool? disablePaymentMenu = null)
+                                                     PayeeInfo payeeInfo)
         {
             Operation = operation ?? throw new ArgumentNullException(nameof(operation));
             Currency = currency ?? throw new ArgumentNullException(nameof(currency));
@@ -54,12 +42,6 @@ namespace SwedbankPay.Sdk.PaymentOrders
             Urls = urls ?? throw new ArgumentNullException(nameof(urls));
             GenerateRecurrenceToken = generateRecurrenceToken;
             PayeeInfo = payeeInfo;
-            Payer = payer;
-            OrderItems = orderItems;
-            RiskIndicator = riskIndicator;
-            Metadata = metadata;
-            Items = items;
-            DisablePaymentMenu = disablePaymentMenu;
         }
 
 
@@ -88,7 +70,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <summary>
         ///     The array of items that will affect how the payment is performed.
         /// </summary>
-        public List<PaymentOrderPaymentOptionsItems> Items { get; }
+        public List<PaymentOrderPaymentOptionsItems> Items { get; set; }
 
         /// <summary>
         ///     The language of the payer.
@@ -99,7 +81,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         ///     The keys and values that should be associated with the payment order. Can be additional identifiers and data you
         ///     want to associate with the payment.
         /// </summary>
-        public Dictionary<string, object> Metadata { get; }
+        public Dictionary<string, object> Metadata { get; set; }
 
         /// <summary>
         ///     The operation that the payment order is supposed to perform.
@@ -110,7 +92,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         ///     The array of items being purchased with the order. Used to print on invoices if the payer chooses to pay with
         ///     invoice, among other things.
         /// </summary>
-        public List<OrderItem> OrderItems { get; }
+        public List<OrderItem> OrderItems { get; set; }
 
         /// <summary>
         ///     Information about the payee of the payment order
@@ -120,12 +102,12 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <summary>
         ///     Information about the payee of the payment order
         /// </summary>
-        public Payer Payer { get; }
+        public Payer Payer { get; set; }
 
         /// <summary>
         /// Information about risk indicator
         /// </summary>
-        public IRiskIndicator RiskIndicator { get; }
+        public IRiskIndicator RiskIndicator { get; set; }
 
         /// <summary>
         ///     The urls property of the paymentOrder contains the URIs related to a payment order, including where the consumer
@@ -149,6 +131,6 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <summary>
         /// If set to true, disables the frame around the payment menu. Usefull when only showing one payment instrument.
         /// </summary>
-        public bool? DisablePaymentMenu { get; }
+        public bool? DisablePaymentMenu { get; set; }
     }
 }

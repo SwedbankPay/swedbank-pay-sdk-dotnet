@@ -20,12 +20,6 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <param name="vatPercent">The VAT percentage, multiplied by 100.</param>
         /// <param name="amount">The amount to pay per order item.</param>
         /// <param name="vatAmount">The value added taxes to pay.</param>
-        /// <param name="itemUrl">HTTPS url to the item.</param>
-        /// <param name="imageUrl">HTTPS url to a image of the item.</param>
-        /// <param name="description">A textual description of the item.</param>
-        /// <param name="discountDescription">A description of the item if there one.</param>
-        /// <param name="discountPrice">If the order item is purchased at a discounted price.
-        /// This field should contain that price, including VAT.</param>
         public OrderItem(string reference,
                          string name,
                          OrderItemType type,
@@ -35,12 +29,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                          Amount unitPrice,
                          int vatPercent,
                          Amount amount,
-                         Amount vatAmount,
-                         string itemUrl = null,
-                         string imageUrl = null,
-                         string description = null,
-                         string discountDescription = null,
-                         Amount discountPrice = null)
+                         Amount vatAmount)
         {
             if (string.IsNullOrEmpty(reference))
             {
@@ -66,11 +55,6 @@ namespace SwedbankPay.Sdk.PaymentOrders
             Name = name;
             Type = type;
             Class = @class;
-            ItemUrl = itemUrl;
-            ImageUrl = imageUrl;
-            Description = description;
-            DiscountDescription = discountDescription;
-            DiscountPrice = discountPrice;
             Quantity = quantity;
             QuantityUnit = quantityUnit;
             UnitPrice = unitPrice ?? throw new ArgumentNullException(nameof(unitPrice));
@@ -95,27 +79,27 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <summary>
         ///     The human readable description of the order item.
         /// </summary>
-        public string Description { get; }
+        public string Description { get; set; }
 
         /// <summary>
         ///     The human readable description of the possible discount.
         /// </summary>
-        public string DiscountDescription { get; }
+        public string DiscountDescription { get; set; }
 
         /// <summary>
         ///     If the order item is purchased at a discounted price, this property should contain that price.
         /// </summary>
-        public Amount DiscountPrice { get; }
+        public Amount DiscountPrice { get; set; }
 
         /// <summary>
         ///     The URL to an image of the order item.
         /// </summary>
-        public string ImageUrl { get; }
+        public string ImageUrl { get; set; }
 
         /// <summary>
         ///     The URL to a page that can display the purchased item, such as a product page
         /// </summary>
-        public string ItemUrl { get; }
+        public string ItemUrl { get; set; }
 
         /// <summary>
         ///     The name of the order item.

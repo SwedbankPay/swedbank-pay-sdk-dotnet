@@ -20,12 +20,6 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <param name="generateRecurrenceToken">Set if you want a recurrence token for recur payments.</param>
         /// <param name="urls">Object with URLs relevant for the payment.</param>
         /// <param name="payeeInfo">Object with information about the Merchant.</param>
-        /// <param name="payer">Detail information about the payer of the payment.</param>
-        /// <param name="orderItems">List of items involved in the payment.</param>
-        /// <param name="riskIndicator">Detailed information about the risk involved in this payment.</param>
-        /// <param name="metadata">MetaData to be stored on the payment.</param>
-        /// <param name="items">List of payment instrument details.</param>
-        /// <param name="disablePaymentMenu">Set if you want the payment menu to be disabled.</param>
         public PaymentOrderRequest(Operation operation,
                                    Currency currency,
                                    Amount amount,
@@ -35,17 +29,10 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                    Language language,
                                    bool generateRecurrenceToken,
                                    IUrls urls,
-                                   PayeeInfo payeeInfo,
-                                   Payer payer = null,
-                                   List<OrderItem> orderItems = null,
-                                   IRiskIndicator riskIndicator = null,
-                                   Dictionary<string, object> metadata = null,
-                                   List<PaymentOrderPaymentOptionsItems> items = null,
-                                   bool? disablePaymentMenu = null)
+                                   PayeeInfo payeeInfo)
         {
             PaymentOrder = new PaymentOrderRequestDetails(operation, currency, amount, vatAmount, description, userAgent, language,
-                                                         generateRecurrenceToken, urls, payeeInfo, payer, orderItems, riskIndicator,
-                                                         metadata, items, disablePaymentMenu);
+                                                         generateRecurrenceToken, urls, payeeInfo);
         }
 
         /// <summary>
