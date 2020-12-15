@@ -6,8 +6,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
     internal class VippsPaymentAuthorizationListResponse : Identifiable, IVippsPaymentAuthorizationListResponse
     {
         public VippsPaymentAuthorizationListResponse(Uri id, List<IVippsPaymentAuthorization> authorizationList)
+            : base(id)
         {
-            Id = id;
             AuthorizationList = authorizationList;
         }
 

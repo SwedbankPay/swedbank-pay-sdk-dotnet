@@ -19,8 +19,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
                              string vippsTransactionId,
                              string mobileNumber,
                              AuthorizationTransaction transaction)
+            : base(id)
         {
-            Id = id;
             VippsTransactionId = vippsTransactionId;
             MobileNumber = mobileNumber;
             Transaction = transaction;

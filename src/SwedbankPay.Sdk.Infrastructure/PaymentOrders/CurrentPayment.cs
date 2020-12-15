@@ -6,6 +6,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
     internal class CurrentPayment : Identifiable, ICurrentPayment
     {
         public CurrentPayment(PaymentOrderPaymentDto payment)
+            : base(payment.Id)
         {
             Number = payment.Number;
             Instrument = Enum.Parse<PaymentInstrument>(payment.Instrument);

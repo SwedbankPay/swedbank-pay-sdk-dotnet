@@ -6,8 +6,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
     internal class TransactionListResponse : Identifiable, ITransactionListResponse
     {
         public TransactionListResponse(Uri id, List<ITransaction> transactionList)
+            : base(id)
         {
-            Id = id;
             TransactionList = transactionList;
         }
 

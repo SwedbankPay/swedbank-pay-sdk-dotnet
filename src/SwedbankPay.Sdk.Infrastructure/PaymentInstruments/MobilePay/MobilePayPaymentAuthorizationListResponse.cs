@@ -6,8 +6,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
     internal class MobilePayPaymentAuthorizationListResponse : Identifiable, IMobilePayPaymentAuthorizationListResponse
     {
         public MobilePayPaymentAuthorizationListResponse(Uri id, List<IMobilePayPaymentAuthorization> authorizationList)
+            : base(id)
         {
-            Id = id;
             AuthorizationList = authorizationList;
         }
 

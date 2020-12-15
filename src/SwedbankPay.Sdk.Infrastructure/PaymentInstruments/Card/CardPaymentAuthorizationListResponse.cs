@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
     internal class CardPaymentAuthorizationListResponse : Identifiable, ICardPaymentAuthorizationListResponse
     {
-        public CardPaymentAuthorizationListResponse(List<IPaymentAuthorization> authorizationList)
+        public CardPaymentAuthorizationListResponse(Uri id, List<IPaymentAuthorization> authorizationList) : base(id)
         {
             AuthorizationList = authorizationList;
         }

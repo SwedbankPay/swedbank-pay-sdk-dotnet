@@ -5,9 +5,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
     internal class CancellationsListResponse : Identifiable, ICancellationsListResponse
     {
-        public CancellationsListResponse(Uri id, List<ITransaction> cancellationList)
+        public CancellationsListResponse(Uri id, List<ITransaction> cancellationList) : base(id)
         {
-            Id = id;
             CancellationList = cancellationList;
         }
 

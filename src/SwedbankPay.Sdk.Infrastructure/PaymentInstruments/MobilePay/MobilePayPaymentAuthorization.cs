@@ -5,8 +5,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
     internal class MobilePayPaymentAuthorization : Identifiable, IMobilePayPaymentAuthorization
     {
         public MobilePayPaymentAuthorization(Uri id, MobilePayPaymentAuthorizationDto item)
+            : base(id)
         {
-            Id = id;
             MaskedPan = item.MaskedPan;
             ExpiryDate = item.ExpiryDate;
             PanToken = item.PanToken;

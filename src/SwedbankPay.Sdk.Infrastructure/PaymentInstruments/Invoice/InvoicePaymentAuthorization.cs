@@ -5,8 +5,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
     internal class InvoicePaymentAuthorization : Identifiable, IInvoicePaymentAuthorization
     {
         public InvoicePaymentAuthorization(Uri id, InvoicePaymentAuthorizationDto item)
+            : base(id)
         {
-            Id = id;
             Transaction = item.Map();
         }
 

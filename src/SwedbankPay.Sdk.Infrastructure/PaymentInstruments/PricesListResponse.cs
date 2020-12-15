@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
     internal class PricesListResponse : Identifiable, IPricesListResponse
     {
-        public PricesListResponse(List<IPrice> priceList)
+        public PricesListResponse(Uri id, List<IPrice> priceList) : base(id)
         {
             PriceList = priceList;
         }

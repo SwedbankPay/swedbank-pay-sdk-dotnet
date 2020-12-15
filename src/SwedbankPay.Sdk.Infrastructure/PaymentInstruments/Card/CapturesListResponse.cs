@@ -5,9 +5,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
     internal class CapturesListResponse : Identifiable, ICapturesListResponse
     {
-        public CapturesListResponse(Uri id, List<ITransaction> captureList)
+        public CapturesListResponse(Uri id, List<ITransaction> captureList) : base(id)
         {
-            Id = id;
             CaptureList = captureList;
         }
 

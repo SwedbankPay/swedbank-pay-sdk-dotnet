@@ -6,8 +6,8 @@ namespace SwedbankPay.Sdk
     public class Urls : Identifiable, IUrls
     {
         internal Urls(UrlsDto urls)
+            : base(urls.Id)
         {
-            Id = urls.Id;
             if (urls.HostUrls != null)
             {
                 HostUrls = urls.HostUrls;

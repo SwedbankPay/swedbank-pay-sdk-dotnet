@@ -5,8 +5,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
     internal class MobilePayPaymentAuthorizationTransaction : Identifiable
     {
         public MobilePayPaymentAuthorizationTransaction(MobilePayPaymentAuthorizationTransactionDto dto)
+            : base(dto.Id)
         {
-            Id = dto.Id;
             Created = dto.Created;
             Updated = dto.Updated;
             Type = dto.Type;

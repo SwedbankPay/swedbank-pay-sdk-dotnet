@@ -768,6 +768,12 @@
             Contains a <seealso cref="T:System.Uri"/> to a uniquely identifiable resource.
             </summary>
         </member>
+        <member name="M:SwedbankPay.Sdk.Identifiable.#ctor(System.Uri)">
+            <summary>
+            Instantiates and sets the <see cref="P:SwedbankPay.Sdk.Identifiable.Id"/> of the <see cref="T:SwedbankPay.Sdk.Identifiable"/>.
+            </summary>
+            <param name="id">The unique ID of this resource.</param>
+        </member>
         <member name="P:SwedbankPay.Sdk.Identifiable.Id">
             <summary>
                 Relative URL to the resource
@@ -1856,10 +1862,11 @@
             Holds transactional details about authorization a card payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorizationTransaction.#ctor(System.DateTime,System.DateTime,System.String,SwedbankPay.Sdk.State,System.Int64,SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,SwedbankPay.Sdk.IProblemResponse,SwedbankPay.Sdk.IOperationList)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentAuthorizationTransaction.#ctor(System.Uri,System.DateTime,System.DateTime,System.String,SwedbankPay.Sdk.State,System.Int64,SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,SwedbankPay.Sdk.IProblemResponse,SwedbankPay.Sdk.IOperationList)">
             <summary>
             Constructs a new card payment authorization request.
             </summary>
+            <param name="id">The unique ID of this transaction.</param>
             <param name="created">The <see cref="T:System.DateTime"/> the payment is created.</param>
             <param name="updated">The <see cref="T:System.DateTime"/> the payment was last updated.</param>
             <param name="type">The type of the transaction.</param>

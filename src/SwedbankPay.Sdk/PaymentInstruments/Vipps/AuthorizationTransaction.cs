@@ -42,8 +42,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
                                         string failedErrorDescription,
                                         bool isOperational,
                                         IOperationList operations)
+            : base(id)
         {
-            Id = id;
             Created = created;
             Updated = updated;
             Type = type;

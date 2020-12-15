@@ -1,10 +1,20 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrders
+﻿using System;
+
+namespace SwedbankPay.Sdk.PaymentOrders
 {
     /// <summary>
     /// Detailed information about a payer for a payment order.
     /// </summary>
     public class Payer : Identifiable
     {
+        /// <summary>
+        /// Instantaites a new <see cref="Payer"/> with a set ID.
+        /// </summary>
+        /// <param name="id">The unique ID of this <see cref="Payer"/> resource.</param>
+        public Payer(Uri id) : base(id)
+        {
+        }
+
         /// <summary>
         /// Account information about the payer if such is known by the merchant system.
         /// </summary>

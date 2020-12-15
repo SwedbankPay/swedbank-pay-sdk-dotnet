@@ -10,6 +10,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// <summary>
         /// Constructs a new card payment authorization request.
         /// </summary>
+        /// <param name="id">The unique ID of this transaction.</param>
         /// <param name="created">The <see cref="DateTime"/> the payment is created.</param>
         /// <param name="updated">The <see cref="DateTime"/> the payment was last updated.</param>
         /// <param name="type">The type of the transaction.</param>
@@ -26,7 +27,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// <param name="isOperational">Is this transaction operational?</param>
         /// <param name="problem">Any problems that may have occured.</param>
         /// <param name="operations">Available operations.</param>
-        public CardPaymentAuthorizationTransaction(DateTime created,
+        public CardPaymentAuthorizationTransaction(Uri id,
+                                        DateTime created,
                                         DateTime updated,
                                         string type,
                                         State state,
@@ -42,6 +44,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
                                         bool isOperational,
                                         IProblemResponse problem,
                                         IOperationList operations)
+            : base(id)
         {
             Created = created;
             Updated = updated;

@@ -11,9 +11,8 @@ namespace SwedbankPay.Sdk
         /// Constructs a <seealso cref="PayeeInfo"/> with only the <see cref="Identifiable.Id"/> set.
         /// </summary>
         /// <param name="id">The <seealso cref="Uri"/> used to access the resource.</param>
-        public PayeeInfo(Uri id)
+        public PayeeInfo(Uri id) : base(id)
         {
-            Id = id;
         }
 
         /// <summary>
@@ -23,6 +22,7 @@ namespace SwedbankPay.Sdk
         /// <param name="payeeReference"></param>
         public PayeeInfo(Guid payeeId,
                          string payeeReference)
+            : base(new Uri(payeeId.ToString()))
         {
             PayeeId = payeeId;
             PayeeReference = payeeReference;

@@ -12,10 +12,10 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// Instantiates a <see cref="OrderItems"/> with the provided parameters.
         /// </summary>
         /// <param name="id">Unique ID for this resource.</param>
-        public OrderItems(Uri id)
+        public OrderItems(Uri id): base(id)
         {
-            Id = id;
         }
+
         /// <summary>
         ///     The orderItems property of the paymentOrder is an array containing the items being purchased with the order. Used
         ///     to print on invoices if

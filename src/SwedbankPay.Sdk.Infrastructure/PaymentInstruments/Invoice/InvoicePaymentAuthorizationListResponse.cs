@@ -6,8 +6,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
     internal class InvoicePaymentAuthorizationListResponse : Identifiable, IInvoicePaymentAuthorizationListResponse
     {
         public InvoicePaymentAuthorizationListResponse(Uri id, List<IInvoicePaymentAuthorization> authorizationList)
+            : base(id)
         {
-            Id = id;
             AuthorizationList = authorizationList;
         }
 

@@ -53,7 +53,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
                              string externalSiteId,
                              string transactionInitiator,
                              ICardPaymentCardDetails transaction,
-                             Uri id)
+                             Uri id) : base(id)
         {
             Direct = direct;
             PaymentToken = paymentToken;
@@ -76,7 +76,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             ExternalSiteId = externalSiteId;
             TransactionInitiator = transactionInitiator;
             Transaction = transaction;
-            Id = id;
         }
 
         /// <summary>

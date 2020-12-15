@@ -3,8 +3,10 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
-    internal class PricesDto : Identifiable
+    internal class PricesDto
     {
+        public Uri Id { get; set; }
+
         public List<PriceListDto> PriceList { get; set; } = new List<PriceListDto>();
 
         internal IPricesListResponse Map()
@@ -14,10 +16,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
             {
                 listPrice.Add(new Price(item.Amount, Enum.Parse<PriceType>(item.Type), item.VatAmount));
             }
-            return new PricesListResponse(listPrice)
-            {
-                Id = Id
-            };
+            return new PricesListResponse(Id, listPrice);
         }
     }
 }

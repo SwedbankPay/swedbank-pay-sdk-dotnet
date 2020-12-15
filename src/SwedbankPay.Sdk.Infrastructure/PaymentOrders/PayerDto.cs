@@ -43,9 +43,8 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
         internal Payer Map()
         {
-            var payer = new Payer
+            var payer = new Payer(Id)
             {
-                Id = Id,
                 AccountInfo = AccountInfo,
                 BillingAddress = BillingAddress,
                 ConsumerProfileRef = ConsumerProfileRef,
