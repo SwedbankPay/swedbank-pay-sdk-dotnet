@@ -4893,12 +4893,6 @@
             Object containing custom information for the Mobile Pay payment window.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.MobilePay.MobilePayPaymentRequestDetails.#ctor(System.Uri)">
-            <summary>
-            Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.MobilePay.MobilePayPaymentRequestDetails"/> with the provided <paramref name="shoplogoUrl"/>.
-            </summary>
-            <param name="shoplogoUrl">A custom logo to use in the payment window, must use HTTPS.</param>
-        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.MobilePayPaymentRequestDetails.ShoplogoUrl">
             <summary>
                URI to logo that will be visible at MobilePay payment menu
