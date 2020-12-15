@@ -34,24 +34,39 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
 
         public CardPaymentRequest BuildCreditardPaymentRequest()
         {
-            return new CardPaymentRequest(this.operation, this.intent, this.currency, this.price, this.description, this.userAgent, this.language, this.urls, this.payeeInfo,
-                                          generatePaymentToken: this.generatePaymentToken, generateRecurrenceToken: false, payerReference: this.payerReference, riskIndicator: null, metadata: this.metadata);
+            var req = new CardPaymentRequest(this.operation, this.intent, this.currency, this.price, this.description, this.userAgent, this.language, this.urls, this.payeeInfo);
+            req.Payment.GeneratePaymentToken = this.generatePaymentToken;
+            req.Payment.PayerReference = this.payerReference;
+            req.Payment.Metadata = metadata;
+
+            return req;
         }
 
-        public SwishPaymentRequest BuildSwishPaymentRequest() => new SwishPaymentRequest(this.price, this.description, this.payerReference, this.userAgent, this.language, this.urls, this.payeeInfo, this.prefillInfo,
-                                                                                         metadata: this.metadata
-            );
+        public SwishPaymentRequest BuildSwishPaymentRequest()
+        {
+            var req = new SwishPaymentRequest(this.price, this.description, this.payerReference, this.userAgent, this.language, this.urls, this.payeeInfo, this.prefillInfo);
+            req.Payment.Metadata = this.metadata;
+
+            return req;
+        }
 
         public InvoicePaymentRequest BuildInvoiceRequest() => new InvoicePaymentRequest(this.operation, this.intent, this.currency, this.price, this.description, this.userAgent, this.language, this.urls, this.payeeInfo, this.invoiceType);
 
-        public VippsPaymentRequest BuildVippsRequest() => new VippsPaymentRequest(this.operation, this.intent, this.currency, this.price, this.description, this.userAgent, this.language, this.urls, this.payeeInfo, this.payerReference, this.generatePaymentToken,
-                                                                                  false, this.metadata);
+        public VippsPaymentRequest BuildVippsRequest()
+        {
+            var req = new VippsPaymentRequest(this.operation, this.intent, this.currency, this.price, this.description, this.userAgent, this.language, this.urls, this.payeeInfo, this.payerReference);
+            req.Payment.GeneratePaymentToken = this.generatePaymentToken;
+            req.Payment.Metadata = this.metadata;
+            return req;
+        }
 
         public MobilePayPaymentRequest BuildMobilePayRequest() => new MobilePayPaymentRequest(this.operation, this.intent, this.currency, this.price, this.description, this.userAgent, this.language, this.urls, this.payeeInfo, this.shopslogoUrl);
 
         public TrustlyPaymentRequest BuildTrustlyRequest()
         {
-            return new TrustlyPaymentRequest(this.currency, this.price, this.description, this.payerReference, this.userAgent, this.language, this.urls, this.payeeInfo, this.trustlyPrefillInfo);
+            var req = new TrustlyPaymentRequest(this.currency, this.price, this.description, this.payerReference, this.userAgent, this.language, this.urls, this.payeeInfo);
+            req.Payment.PrefillInfo = trustlyPrefillInfo;
+            return req;
         }
 
         public PaymentRequestBuilder WithCreditcardTestValues(Guid payeeId, Operation testOperation = null, PaymentIntent paymentIntent = PaymentIntent.Authorization)
@@ -157,7 +172,11 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.userAgent = "useragent";
             this.language = new Language("sv-SE");
             SetUrls();
-            this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString(), "payeeName", "productCategory");
+            this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString())
+            {
+                PayeeName = "payeeName",
+                ProductCategory = "productCategory"
+            };
             this.prefillInfo = new PrefillInfo(new Msisdn("+46701234567"));
             this.amount = new Amount(1600);
             this.vatAmount = new Amount(0);

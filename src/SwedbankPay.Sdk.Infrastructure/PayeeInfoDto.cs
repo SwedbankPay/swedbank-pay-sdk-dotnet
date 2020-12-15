@@ -32,7 +32,14 @@ namespace SwedbankPay.Sdk
 
         internal PayeeInfo Map()
         {
-            return new PayeeInfo(PayeeId, PayeeReference, PayeeName, ProductCategory, Subsite, OrderReference);
+            var payeeInfo = new PayeeInfo(PayeeId, PayeeReference)
+            {
+                PayeeName = PayeeName,
+                ProductCategory = ProductCategory,
+                Subsite = Subsite,
+                OrderReference = OrderReference
+            };
+            return payeeInfo;
         }
     }
 }

@@ -22,15 +22,21 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                        item.UnitPrice,
                                        item.VatPercent,
                                        item.Amount,
-                                       item.VatPercent,
-                                       item.ItemUrl,
-                                       item.ImageUrl,
-                                       item.Description,
-                                       item.DiscountDescription,
-                                       item.DiscountPrice));
+                                       item.VatAmount)
+                {
+                    ItemUrl = item.ItemUrl,
+                    ImageUrl = item.ImageUrl,
+                    Description = item.Description,
+                    DiscountDescription = item.DiscountDescription,
+                    DiscountPrice = item.DiscountPrice
+                });
             }
             var uri = new Uri(Id, UriKind.RelativeOrAbsolute);
-            return new OrderItems(uri, list);
+            var orderItems = new OrderItems(uri)
+            {
+                OrderItemList = list
+            };
+            return orderItems;
         }
     }
 }

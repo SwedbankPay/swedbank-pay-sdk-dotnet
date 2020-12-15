@@ -69,8 +69,10 @@ namespace Sample.AspNetCore.Controllers
                                                                   new Language("sv-SE"),
                                                                   false,
                                                                   new Urls(this.urls.HostUrls, this.urls.CompleteUrl, this.urls.TermsOfServiceUrl, this.urls.CancelUrl, this.urls.PaymentUrl, this.urls.CallbackUrl, this.urls.LogoUrl),
-                                                                  new PayeeInfo(this.payeeInfoOptions.PayeeId, this.payeeInfoOptions.PayeeReference), payer,
-                                                                  paymentOrderItems);
+                                                                  new PayeeInfo(this.payeeInfoOptions.PayeeId, this.payeeInfoOptions.PayeeReference));
+                paymentOrderRequest.PaymentOrder.OrderItems = paymentOrderItems;
+                paymentOrderRequest.PaymentOrder.Payer = payer;
+
                 var paymentOrder = await this.swedbankPayClient.PaymentOrders.Create(paymentOrderRequest);
 
                 this.cartService.PaymentOrderLink = paymentOrder.PaymentOrder.Id.OriginalString;
@@ -101,8 +103,10 @@ namespace Sample.AspNetCore.Controllers
                                                                                    "Test Purchase", this.payeeInfoOptions.PayeeReference,
                                                                                    new Language("sv-SE"),
                                                                                    new Urls(this.urls.HostUrls, this.urls.CompleteUrl, this.urls.TermsOfServiceUrl, this.urls.CancelUrl, this.urls.PaymentUrl, this.urls.CallbackUrl, this.urls.LogoUrl),
-                                                                                   new PayeeInfo(this.payeeInfoOptions.PayeeId, this.payeeInfoOptions.PayeeReference),
-                                                                                   generateRecurrenceToken: true);
+                                                                                   new PayeeInfo(this.payeeInfoOptions.PayeeId, this.payeeInfoOptions.PayeeReference)
+                                                                                   );
+
+                cardRequest.Payment.GenerateRecurrenceToken = true;
 
                 var cardPayment = await this.swedbankPayClient.Payments.CardPayments.Create(cardRequest);
                 this.cartService.PaymentLink = cardPayment.Payment.Id.OriginalString;

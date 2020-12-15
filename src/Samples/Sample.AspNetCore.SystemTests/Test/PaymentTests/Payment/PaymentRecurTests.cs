@@ -45,8 +45,8 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
                 cardPayment.Payment.UserAgent,
                 cardPayment.Payment.Language,
                 cardPayment.Payment.Urls,
-                payeeInfo,
-                cardPayment.Payment.Metadata);
+                payeeInfo);
+            recur.Payment.Metadata = cardPayment.Payment.Metadata;
 
             var result = await SwedbankPayClient.Payments.CardPayments.Create(recur);
 

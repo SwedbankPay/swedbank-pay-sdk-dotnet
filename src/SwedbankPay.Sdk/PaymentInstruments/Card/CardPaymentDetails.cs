@@ -102,7 +102,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// The reference to the payer in the merchant system,
         /// like e-mail address, mobile number, customer number etc.
         /// </summary>
-        public string PayerReference { get; }
+        public string PayerReference { get; set; }
 
         /// <summary>
         /// Set this to true if you want to create a paymentToken for future use as One Click.

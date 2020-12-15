@@ -33,7 +33,7 @@ namespace SwedbankPay.Sdk
             var state = string.IsNullOrEmpty(State) ? "Unknown" : State;
             var id = new Uri(Id, UriKind.RelativeOrAbsolute);
 
-            return new Transaction(id,
+            var transaction = new Transaction(id,
                                    Created,
                                    Updated,
                                    type,
@@ -45,8 +45,11 @@ namespace SwedbankPay.Sdk
                                    PayeeReference,
                                    IsOperational,
                                    operations,
-                                   Activity,
-                                   Problem);
+                                   Activity)
+            {
+                Problem = Problem
+            };
+            return transaction;
         }
     }
 }

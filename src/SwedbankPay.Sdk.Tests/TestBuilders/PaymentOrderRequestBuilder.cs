@@ -23,8 +23,11 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
 
         public PaymentOrderRequest Build()
         {
-            return new PaymentOrderRequest(this.operation, this.currency, this.amount, this.vatAmount, this.description, this.userAgent, this.language, this.generateRecurrenceToken, this.urls, this.payeeInfo,
-                                           orderItems: this.orderItems, metadata: this.metadata);
+            var req = new PaymentOrderRequest(this.operation, this.currency, this.amount, this.vatAmount, this.description, this.userAgent, this.language, this.generateRecurrenceToken, this.urls, this.payeeInfo);
+            req.PaymentOrder.OrderItems = orderItems;
+            req.PaymentOrder.Metadata = metadata;
+
+            return req;
         }
 
 
@@ -65,8 +68,11 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.orderItems = new List<OrderItem>
             {
                 new OrderItem("p1", "Product1", OrderItemType.Product, "ProductGroup1", 4, "pcs", new Amount(300), 0,
-                              new Amount(1200), new Amount(0), "https://example.com/products/123",
-                              "https://example.com/products/123.jpg"),
+                              new Amount(1200), new Amount(0))
+                {
+                    ItemUrl ="https://example.com/products/123",
+                    ImageUrl = "https://example.com/products/123.jpg"
+                },
                 new OrderItem("p2", "Product2", OrderItemType.Product, "ProductGroup1", 1, "pcs", new Amount(500), 0,
                               new Amount(500), new Amount(0))
             };

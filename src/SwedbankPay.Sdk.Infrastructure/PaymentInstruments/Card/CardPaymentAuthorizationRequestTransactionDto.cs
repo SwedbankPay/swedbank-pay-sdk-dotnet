@@ -13,10 +13,11 @@
             return new CardPaymentCardDetails(
                 CardNumber,
                 CardExpiryMonth,
-                CardExpiryYear,
-                CardVerificationCode,
-                CardHolderName
-                );
+                CardExpiryYear)
+            {
+                CardVerificationCode = CardVerificationCode,
+                CardHolderName = CardHolderName
+            };
         }
     }
 }

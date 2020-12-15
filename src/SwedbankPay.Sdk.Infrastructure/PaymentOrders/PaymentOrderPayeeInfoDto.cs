@@ -19,7 +19,12 @@ namespace SwedbankPay.Sdk.PaymentOrders
                 return new PayeeInfo(Id);
             }
 
-            return new PayeeInfo(Guid.Parse(PayeeId), PayeeReference, PayeeName, ProductCategory);
+            var payeeInfo = new PayeeInfo(Guid.Parse(PayeeId), PayeeReference)
+            {
+                PayeeName = PayeeName,
+                ProductCategory = ProductCategory
+            };
+            return payeeInfo;
         }
     }
 }
