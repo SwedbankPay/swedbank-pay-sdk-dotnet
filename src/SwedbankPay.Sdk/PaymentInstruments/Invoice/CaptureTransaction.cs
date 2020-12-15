@@ -26,9 +26,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
                                               Amount vatAmount,
                                               List<OrderItem> orderItems,
                                               string description,
-                                              string payeeReference,
-                                              List<ItemDescription> itemDescriptions,
-                                              List<VatSummary> vatSummary)
+                                              string payeeReference)
         {
             TransactionActivity = transactionActivity;
             Amount = amount;
@@ -36,8 +34,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
             OrderItems = orderItems;
             Description = description;
             PayeeReference = payeeReference;
-            ItemDescriptions = itemDescriptions;
-            VatSummary = vatSummary;
         }
 
         /// <summary>
@@ -73,11 +69,11 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
-        public List<ItemDescription> ItemDescriptions { get; set; }
+        public List<ItemDescription> ItemDescriptions { get; set; } = new List<ItemDescription>();
 
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
-        public List<VatSummary> VatSummary { get; set; }
+        public List<VatSummary> VatSummary { get; set; } = new List<VatSummary>();
     }
 }

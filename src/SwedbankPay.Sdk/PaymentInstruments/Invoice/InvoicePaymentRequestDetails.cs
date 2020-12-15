@@ -14,7 +14,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         /// <param name="operation">The initial API operation for this invoice request.</param>
         /// <param name="intent">The initial payment intent for this invoice.</param>
         /// <param name="currency">The <seealso cref="Currency"/> this payment will be paid in.</param>
-        /// <param name="prices">A list of objects detailing price differences between different payment instruments.</param>
         /// <param name="description">A textual description of what is being paid.</param>
         /// <param name="userAgent">The payers UserAgent string.</param>
         /// <param name="language">The payers prefered <seealso cref="Sdk.Language"/>.</param>
@@ -23,7 +22,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         public InvoicePaymentRequestDetails(Operation operation,
                                                     PaymentIntent intent,
                                                     Currency currency,
-                                                    List<IPrice> prices,
                                                     string description,
                                                     string userAgent,
                                                     Language language,
@@ -33,9 +31,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
             Operation = operation ?? throw new ArgumentNullException(nameof(operation));
             Intent = intent;
             Currency = currency;
-            Prices = prices;
             Description = description;
-            
             UserAgent = userAgent;
             Language = language;
             Urls = urls;
@@ -100,7 +96,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
-        public List<IPrice> Prices { get; set; }
+        public List<IPrice> Prices { get; set; } = new List<IPrice>();
 
         /// <summary>
         /// <inheritdoc/>
