@@ -1,6 +1,5 @@
 ﻿using SwedbankPay.Sdk.PaymentInstruments.Card;
 using SwedbankPay.Sdk.PaymentOrders;
-using System;
 
 namespace SwedbankPay.Sdk
 {

@@ -1,6 +1,4 @@
-﻿using SwedbankPay.Sdk.PaymentInstruments.Vipps;
-
-namespace SwedbankPay.Sdk.PaymentInstruments
+﻿namespace SwedbankPay.Sdk.PaymentInstruments
 {
     internal class CaptureTransactionDto
     {

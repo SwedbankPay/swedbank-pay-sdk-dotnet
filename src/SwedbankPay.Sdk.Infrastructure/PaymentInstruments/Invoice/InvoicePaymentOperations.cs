@@ -1,6 +1,5 @@
 ﻿using SwedbankPay.Sdk.Extensions;
 using SwedbankPay.Sdk.PaymentInstruments.Card;
-using SwedbankPay.Sdk.PaymentInstruments.Swish;
 using SwedbankPay.Sdk.PaymentOrders;
 using System;
 using System.Net.Http;

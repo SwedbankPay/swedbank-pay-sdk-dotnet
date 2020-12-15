@@ -1,6 +1,4 @@
-﻿using SwedbankPay.Sdk.PaymentInstruments.Card;
-
-namespace SwedbankPay.Sdk.PaymentOrders
+﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
     internal class ItemDto
     {

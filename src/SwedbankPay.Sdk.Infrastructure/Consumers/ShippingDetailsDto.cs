@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SwedbankPay.Sdk.Consumers
+﻿namespace SwedbankPay.Sdk.Consumers
 {
     internal class ShippingDetailsDto
     {
