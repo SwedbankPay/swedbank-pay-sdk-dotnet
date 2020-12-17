@@ -14,6 +14,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         /// <param name="operation">The initial API operation for this payment.</param>
         /// <param name="intent">The initial <seealso cref="PaymentIntent"/> for this payment.</param>
         /// <param name="currency">The wanted <seealso cref="Currency"/> for this payment.</param>
+        /// <param name="prices">Object describing the amount to pay in different payment instruments.</param>
         /// <param name="description">A textual description of this payment.</param>
         /// <param name="userAgent">The payers UserAgent string.</param>
         /// <param name="language">THe payers prefered <seealso cref="Language"/>.</param>
@@ -23,6 +24,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         public MobilePayPaymentRequest(Operation operation,
                               PaymentIntent intent,
                               Currency currency,
+                              List<IPrice> prices,
                               string description,
                               string userAgent,
                               Language language,
@@ -31,7 +33,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
                               Uri shopslogoUrl)
 
         {
-            Payment = new MobilePayPaymentDetails(operation, intent, currency, description, userAgent, language, urls, payeeInfo);
+            Payment = new MobilePayPaymentDetails(operation, intent, currency, prices, description, userAgent, language, urls, payeeInfo);
             MobilePay = new MobilePayRequestData
             {
                 ShoplogoUrl = shopslogoUrl
