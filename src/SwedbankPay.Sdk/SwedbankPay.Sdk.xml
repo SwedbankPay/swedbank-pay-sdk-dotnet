@@ -3784,13 +3784,14 @@
             Object containing data needed for creating a invoice payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoiceType)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.List{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoiceType)">
             <summary>
             Instantiates a <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentRequest"/> with the provided parameters.
             </summary>
             <param name="operation">The initial API operation for this invoice request.</param>
             <param name="intent">The initial payment intent for this invoice.</param>
             <param name="currency">The <seealso cref="T:SwedbankPay.Sdk.Currency"/> this payment will be paid in.</param>
+            <param name="prices">A list of objects detailing price differences between different payment instruments.</param>
             <param name="description">A textual description of what is being paid.</param>
             <param name="userAgent">The payers UserAgent string.</param>
             <param name="language">The payers prefered <seealso cref="T:SwedbankPay.Sdk.Language"/>.</param>
@@ -3829,13 +3830,14 @@
             Object containing detailed information about a invoice payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentRequestDetails.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentRequestDetails.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.List{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo)">
             <summary>
             Instantiates a <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentRequestDetails"/> with the provided parameters.
             </summary>
             <param name="operation">The initial API operation for this invoice request.</param>
             <param name="intent">The initial payment intent for this invoice.</param>
             <param name="currency">The <seealso cref="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentRequestDetails.Currency"/> this payment will be paid in.</param>
+            <param name="prices">A list of objects detailing price differences between different payment instruments.</param>
             <param name="description">A textual description of what is being paid.</param>
             <param name="userAgent">The payers UserAgent string.</param>
             <param name="language">The payers prefered <seealso cref="T:SwedbankPay.Sdk.Language"/>.</param>
@@ -4810,13 +4812,14 @@
             Object describing details needed for performaing a Mobile Pay payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.MobilePay.MobilePayPaymentDetails.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.MobilePay.MobilePayPaymentDetails.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.List{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo)">
             <summary>
             Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.MobilePay.MobilePayPaymentDetails"/> with the provided parameters.
             </summary>
             <param name="operation">API operation to perform for this request.</param>
             <param name="intent">The initial payment intent for this payment.</param>
             <param name="currency">The wanted <seealso cref="T:SwedbankPay.Sdk.Currency"/> for this payment to be paid in.</param>
+            <param name="prices">A list of objects detailing price differences between different payment instruments.</param>
             <param name="description">A textual description of the payment.</param>
             <param name="userAgent">The payers user agent string.</param>
             <param name="language">The payers prefered <see cref="T:SwedbankPay.Sdk.Language"/>.</param>
@@ -4888,13 +4891,14 @@
             Object describing a Mobile Pay payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.MobilePay.MobilePayPaymentRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,System.Uri)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.MobilePay.MobilePayPaymentRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.List{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,System.Uri)">
             <summary>
             Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.MobilePay.MobilePayPaymentRequest"/> with the provided parameters.
             </summary>
             <param name="operation">The initial API operation for this payment.</param>
             <param name="intent">The initial <seealso cref="T:SwedbankPay.Sdk.PaymentInstruments.PaymentIntent"/> for this payment.</param>
             <param name="currency">The wanted <seealso cref="T:SwedbankPay.Sdk.Currency"/> for this payment.</param>
+            <param name="prices">Object describing the amount to pay in different payment instruments.</param>
             <param name="description">A textual description of this payment.</param>
             <param name="userAgent">The payers UserAgent string.</param>
             <param name="language">THe payers prefered <seealso cref="T:SwedbankPay.Sdk.Language"/>.</param>
@@ -5572,10 +5576,11 @@
             Wrapper for creating a Swish payment request.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Swish.SwishPaymentRequest.#ctor(System.String,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,SwedbankPay.Sdk.PaymentInstruments.PrefillInfo)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Swish.SwishPaymentRequest.#ctor(System.Collections.Generic.List{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,SwedbankPay.Sdk.PaymentInstruments.PrefillInfo)">
             <summary>
             Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Swish.SwishPaymentRequest"/> with the provided parameters.
             </summary>
+            <param name="prices">List of prices object to give discounts.</param>
             <param name="description">Textual description of the payment.</param>
             <param name="payerReference">Refence to the payer in the merchant systems.</param>
             <param name="userAgent">The UserAgent string of the payers device.</param>
@@ -5595,10 +5600,11 @@
             Detailes needed for creating a Swish payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Swish.SwishPaymentRequestDetails.#ctor(System.String,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,SwedbankPay.Sdk.PaymentInstruments.PrefillInfo,SwedbankPay.Sdk.PaymentInstruments.Swish.SwishRequestData)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Swish.SwishPaymentRequestDetails.#ctor(System.Collections.Generic.List{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,SwedbankPay.Sdk.PaymentInstruments.PrefillInfo,SwedbankPay.Sdk.PaymentInstruments.Swish.SwishRequestData)">
             <summary>
             Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Swish.SwishPaymentRequestDetails"/> with the provided parameters.
             </summary>
+            <param name="prices">List of prices object to give discounts.</param>
             <param name="description">Textual description of the payment.</param>
             <param name="payerReference">Refence to the payer in the merchant systems.</param>
             <param name="userAgent">The UserAgent string of the payers device.</param>
@@ -6231,11 +6237,12 @@
             Request details for creating a Trustly payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Trustly.TrustlyPaymentDetails.#ctor(SwedbankPay.Sdk.Currency,System.String,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Trustly.TrustlyPaymentDetails.#ctor(SwedbankPay.Sdk.Currency,System.Collections.Generic.List{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo)">
             <summary>
             Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Trustly.TrustlyPaymentDetails"/> with the provided parameters.
             </summary>
             <param name="currency">The wanted currency of the payment.</param>
+            <param name="prices">Prices object describing the payment price with different payment methods.</param>
             <param name="description">Textual descroption of the payment.</param>
             <param name="payerReference">A reference to the payer in the merchant system.</param>
             <param name="userAgent">The payers UserAgent string.</param>
@@ -6303,11 +6310,12 @@
             Request details for creating a Trustly payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Trustly.TrustlyPaymentRequest.#ctor(SwedbankPay.Sdk.Currency,System.String,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Trustly.TrustlyPaymentRequest.#ctor(SwedbankPay.Sdk.Currency,System.Collections.Generic.List{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo)">
             <summary>
             Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Trustly.TrustlyPaymentRequest"/> with the provided parameters.
             </summary>
             <param name="currency">The wanted currency of the payment.</param>
+            <param name="prices">Prices object describing the payment price with different payment methods.</param>
             <param name="description">Textual descroption of the payment.</param>
             <param name="payerReference">A reference to the payer in the merchant system.</param>
             <param name="userAgent">The payers UserAgent string.</param>
@@ -6940,13 +6948,14 @@
             Object to create a payment for Vipps.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Vipps.VippsPaymentRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,System.String)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Vipps.VippsPaymentRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.List{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,System.String)">
             <summary>
             Instantiates a <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Vipps.VippsPaymentRequest"/> with the provided parameters.
             </summary>
             <param name="operation">The initial operation of this payment.</param>
             <param name="intent">The intent of this payment.</param>
             <param name="currency">The wanted currency of the payment.</param>
+            <param name="prices">List of payment instrument prices.</param>
             <param name="description">Textual description of the payment.</param>
             <param name="payerReference">Merchant reference to the payer.</param>
             <param name="userAgent">The payers UserAgent string.</param>
@@ -6964,13 +6973,14 @@
             Details needed to create a Vipps payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Vipps.VippsPaymentRequestDetails.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.String,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Vipps.VippsPaymentRequestDetails.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.List{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo)">
             <summary>
             Instantiates a <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Vipps.VippsPaymentRequestDetails"/> with the provided parameters.
             </summary>
             <param name="operation">The initial operation of this payment.</param>
             <param name="intent">The intent of this payment.</param>
             <param name="currency">The wanted currency of the payment.</param>
+            <param name="prices">List of payment instrument prices.</param>
             <param name="description">Textual description of the payment.</param>
             <param name="payerReference">Merchant reference to the payer.</param>
             <param name="userAgent">The payers UserAgent string.</param>

@@ -91,9 +91,10 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
             var vatAmount = new Amount(0);
             var phoneNumber = "+46739000001";
             var swishRequest = new SwishPaymentRequest(
+                new List<IPrice>(),
                 "Test Purchase", payeeRef, "GetUserAgent()", new Language("sv-SE"),
                 new Urls(
-                    TODO, new Uri("http://api.externalintegration.payex.com"),
+                    new List<Uri>(), new Uri("http://api.externalintegration.payex.com"),
                     new Uri("http://api.externalintegration.payex.com")),
                 new PayeeInfo(Guid.NewGuid(), payeeRef),
                 new PrefillInfo(new Msisdn(phoneNumber)));
