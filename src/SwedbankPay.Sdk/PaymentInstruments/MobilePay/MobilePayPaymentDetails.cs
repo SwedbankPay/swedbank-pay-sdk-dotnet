@@ -14,6 +14,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         /// <param name="operation">API operation to perform for this request.</param>
         /// <param name="intent">The initial payment intent for this payment.</param>
         /// <param name="currency">The wanted <seealso cref="Sdk.Currency"/> for this payment to be paid in.</param>
+        /// <param name="prices">A list of objects detailing price differences between different payment instruments.</param>
         /// <param name="description">A textual description of the payment.</param>
         /// <param name="userAgent">The payers user agent string.</param>
         /// <param name="language">The payers prefered <see cref="Sdk.Language"/>.</param>
@@ -22,6 +23,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         public MobilePayPaymentDetails(Operation operation,
                                                 PaymentIntent intent,
                                                 Currency currency,
+                                                List<IPrice> prices,
                                                 string description,
                                                 string userAgent,
                                                 Language language,
@@ -36,6 +38,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
             Language = language;
             Urls = urls;
             PayeeInfo = payeeInfo;
+            Prices = prices;
         }
 
         /// <summary>
@@ -76,7 +79,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
-        public List<IPrice> Prices { get; set; } = new List<IPrice>();
+        public List<IPrice> Prices { get; } = new List<IPrice>();
 
         /// <summary>
         /// <inheritdoc/>
