@@ -68,7 +68,7 @@ namespace Sample.AspNetCore.Controllers
                                                                   new Amount(0), "Test description", "useragent",
                                                                   new Language("sv-SE"),
                                                                   false,
-                                                                  new Urls(this.urls.CompleteUrl,
+                                                                  new Urls(this.urls.HostUrls.ToList(), this.urls.CompleteUrl,
                                                                            this.urls.TermsOfServiceUrl)
                                                                   {
                                                                       CancelUrl = this.urls.CancelUrl,
@@ -79,7 +79,6 @@ namespace Sample.AspNetCore.Controllers
                                                                   new PayeeInfo(this.payeeInfoOptions.PayeeId, this.payeeInfoOptions.PayeeReference));
                 paymentOrderRequest.PaymentOrder.OrderItems = paymentOrderItems;
                 paymentOrderRequest.PaymentOrder.Payer = payer;
-                paymentOrderRequest.PaymentOrder.Urls.HostUrls.AddRange(this.urls.HostUrls);
 
                 var paymentOrder = await this.swedbankPayClient.PaymentOrders.Create(paymentOrderRequest);
 
@@ -107,6 +106,7 @@ namespace Sample.AspNetCore.Controllers
                                                         "Test Purchase", this.payeeInfoOptions.PayeeReference,
                                                         new Language("sv-SE"),
                                                         new Urls(
+                                                                this.urls.HostUrls.ToList(),
                                                                 this.urls.CompleteUrl,
                                                                 this.urls.TermsOfServiceUrl)
                                                         {
@@ -147,7 +147,8 @@ namespace Sample.AspNetCore.Controllers
                 var trustlyPaymentRequest = new TrustlyPaymentRequest(
                                                                     new Currency("SEK"),
                                                                     "Test Purchase", this.payeeInfoOptions.PayeeReference, "useragent", new Language("sv-SE"),
-                                                                    new Urls(this.urls.CompleteUrl,
+                                                                    new Urls(this.urls.HostUrls.ToList(),
+                                                                             this.urls.CompleteUrl,
                                                                              this.urls.TermsOfServiceUrl)
                                                                     {
                                                                         CancelUrl = this.urls.CancelUrl,
@@ -186,11 +187,10 @@ namespace Sample.AspNetCore.Controllers
             try
             {
                 var swishRequest = new SwishPaymentRequest("Test Purchase",
-                                                            this.payeeInfoOptions.PayeeReference, "useragent", new Language("sv-SE"), new Urls(this.urls.CompleteUrl, this.urls.TermsOfServiceUrl) { CancelUrl = this.urls.CancelUrl, PaymentUrl = this.urls.PaymentUrl, CallbackUrl = this.urls.CallbackUrl, LogoUrl = this.urls.LogoUrl },
+                                                            this.payeeInfoOptions.PayeeReference, "useragent", new Language("sv-SE"), new Urls(this.urls.HostUrls.ToList(), this.urls.CompleteUrl, this.urls.TermsOfServiceUrl) { CancelUrl = this.urls.CancelUrl, PaymentUrl = this.urls.PaymentUrl, CallbackUrl = this.urls.CallbackUrl, LogoUrl = this.urls.LogoUrl },
                                                             new PayeeInfo(this.payeeInfoOptions.PayeeId, this.payeeInfoOptions.PayeeReference),
                                                             new PrefillInfo(new Msisdn("+46739000001")));
                 swishRequest.Payment.Prices.Add(new Price(new Amount(totalAmount), PriceType.Swish, vatAmount));
-                swishRequest.Payment.Urls.HostUrls.AddRange(this.urls.HostUrls);
 
                 var swishPayment = await this.swedbankPayClient.Payments.SwishPayments.Create(swishRequest);
                 this.cartService.PaymentLink = swishPayment.Payment.Id.OriginalString;

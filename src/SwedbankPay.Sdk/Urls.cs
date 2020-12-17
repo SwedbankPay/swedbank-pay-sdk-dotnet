@@ -11,11 +11,13 @@ namespace SwedbankPay.Sdk
         /// <summary>
         /// Instantiates a <see cref="Urls"/> with the provided parameters.
         /// </summary>
+        /// <param name="hostUrls"></param>
         /// <param name="completeUrl"><seealso cref="Uri"/> to redirect the payer at completion.</param>
         /// <param name="termsOfServiceUrl"><seealso cref="Uri"/> to view your terms of service.</param>
-        public Urls(Uri completeUrl,
-                    Uri termsOfServiceUrl)
+        public Urls(List<Uri> hostUrls,
+                    Uri completeUrl, Uri termsOfServiceUrl)
         {
+            HostUrls = hostUrls ?? throw new ArgumentNullException(nameof(hostUrls), $"{nameof(hostUrls)} is required.");
             CompleteUrl = completeUrl ?? throw new ArgumentNullException(nameof(completeUrl), $"{nameof(completeUrl)} is required.");
             TermsOfServiceUrl = termsOfServiceUrl
                                 ?? throw new ArgumentNullException(nameof(termsOfServiceUrl), $"{nameof(termsOfServiceUrl)} is required.");
@@ -39,7 +41,7 @@ namespace SwedbankPay.Sdk
         /// <summary>
         ///     The list of URIs valid for embedding of PayEx Hosted Views.
         /// </summary>
-        public List<Uri> HostUrls { get; set; } = new List<Uri>();
+        public List<Uri> HostUrls { get; } = new List<Uri>();
 
         /// <summary>
         ///     The URI to the logo that will be displayed on redirect pages.

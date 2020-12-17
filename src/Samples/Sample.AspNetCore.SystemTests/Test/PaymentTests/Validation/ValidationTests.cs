@@ -93,7 +93,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
             var swishRequest = new SwishPaymentRequest(
                 "Test Purchase", payeeRef, "GetUserAgent()", new Language("sv-SE"),
                 new Urls(
-                    new Uri("http://api.externalintegration.payex.com"),
+                    TODO, new Uri("http://api.externalintegration.payex.com"),
                     new Uri("http://api.externalintegration.payex.com")),
                 new PayeeInfo(Guid.NewGuid(), payeeRef),
                 new PrefillInfo(new Msisdn(phoneNumber)));

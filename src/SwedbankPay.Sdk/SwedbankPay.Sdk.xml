@@ -9219,10 +9219,11 @@
             Object for holding Urls needed for a payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.Urls.#ctor(System.Uri,System.Uri)">
+        <member name="M:SwedbankPay.Sdk.Urls.#ctor(System.Collections.Generic.List{System.Uri},System.Uri,System.Uri)">
             <summary>
             Instantiates a <see cref="T:SwedbankPay.Sdk.Urls"/> with the provided parameters.
             </summary>
+            <param name="hostUrls"></param>
             <param name="completeUrl"><seealso cref="T:System.Uri"/> to redirect the payer at completion.</param>
             <param name="termsOfServiceUrl"><seealso cref="T:System.Uri"/> to view your terms of service.</param>
         </member>
