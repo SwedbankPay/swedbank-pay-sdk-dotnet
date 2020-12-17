@@ -13,6 +13,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         /// <param name="operation">The initial operation of this payment.</param>
         /// <param name="intent">The intent of this payment.</param>
         /// <param name="currency">The wanted currency of the payment.</param>
+        /// <param name="prices">List of payment instrument prices.</param>
         /// <param name="description">Textual description of the payment.</param>
         /// <param name="payerReference">Merchant reference to the payer.</param>
         /// <param name="userAgent">The payers UserAgent string.</param>
@@ -22,6 +23,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         public VippsPaymentRequest(Operation operation,
                               PaymentIntent intent,
                               Currency currency,
+                              List<IPrice> prices,
                               string description,
                               string userAgent,
                               Language language,
@@ -30,7 +32,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
                               string payerReference)
 
         {
-            Payment = new VippsPaymentRequestDetails(operation, intent, currency, description, payerReference, 
+            Payment = new VippsPaymentRequestDetails(operation, intent, currency, prices, description, payerReference, 
                                                 userAgent, language, urls, payeeInfo);
         }
 

@@ -14,6 +14,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         /// <param name="operation">The initial operation of this payment.</param>
         /// <param name="intent">The intent of this payment.</param>
         /// <param name="currency">The wanted currency of the payment.</param>
+        /// <param name="prices">List of payment instrument prices.</param>
         /// <param name="description">Textual description of the payment.</param>
         /// <param name="payerReference">Merchant reference to the payer.</param>
         /// <param name="userAgent">The payers UserAgent string.</param>
@@ -23,6 +24,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         protected internal VippsPaymentRequestDetails(Operation operation,
                                                 PaymentIntent intent,
                                                 Currency currency,
+                                                List<IPrice> prices,
                                                 string description,
                                                 string payerReference,
                                                 string userAgent,
@@ -33,6 +35,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
             Operation = operation ?? throw new ArgumentNullException(nameof(operation));
             Intent = intent;
             Currency = currency;
+            Prices = prices;
             Description = description;
             PayerReference = payerReference;
             UserAgent = userAgent;
@@ -105,7 +108,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         /// <summary>
         /// The prices resource lists the prices related to this payment.
         /// </summary>
-        public List<IPrice> Prices { get; set; } = new List<IPrice>();
+        public List<IPrice> Prices { get; set; }
 
         /// <summary>
         /// The Urls resource lists the urls related to this payment.
