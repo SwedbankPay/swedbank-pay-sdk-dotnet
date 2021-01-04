@@ -10,7 +10,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         /// <summary>
         /// Instantiates a new <see cref="SwishPaymentRequestDetails"/> with the provided parameters.
         /// </summary>
-        /// <param name="price">Price object to give discounts.</param>
+        /// <param name="prices">List of prices object to give discounts.</param>
         /// <param name="description">Textual description of the payment.</param>
         /// <param name="payerReference">Refence to the payer in the merchant systems.</param>
         /// <param name="userAgent">The UserAgent string of the payers device.</param>
@@ -20,7 +20,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         /// <param name="prefillInfo">Known information about the payer than can be
         /// pre-filled in the payment window.</param>
         /// <param name="swishRequest">Sets Swish payment specific options.</param>
-        protected internal SwishPaymentRequestDetails(IPrice price,
+        protected internal SwishPaymentRequestDetails(List<IPrice> prices,
                                                 string description,
                                                 string payerReference,
                                                 string userAgent,
@@ -33,7 +33,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
             Operation = Operation.Purchase;
             Intent = PaymentIntent.Sale;
             Currency = new Currency("SEK");
-            Prices.Add(price);
+            Prices = prices;
             Description = description;
             PayerReference = payerReference;
             UserAgent = userAgent;
@@ -88,7 +88,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         /// <summary>
         /// Lists the prices related to a specific payment.
         /// </summary>
-        public List<IPrice> Prices { get; } = new List<IPrice>();
+        public List<IPrice> Prices { get; }
 
         /// <summary>
         /// An object that holds different scenarios for Swish payments.

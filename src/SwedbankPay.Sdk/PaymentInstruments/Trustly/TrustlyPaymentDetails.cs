@@ -11,7 +11,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
         /// Instantiates a new <see cref="TrustlyPaymentDetails"/> with the provided parameters.
         /// </summary>
         /// <param name="currency">The wanted currency of the payment.</param>
-        /// <param name="price">Object describing the payment price with different payment methods.</param>
+        /// <param name="prices">Prices object describing the payment price with different payment methods.</param>
         /// <param name="description">Textual descroption of the payment.</param>
         /// <param name="payerReference">A reference to the payer in the merchant system.</param>
         /// <param name="userAgent">The payers UserAgent string.</param>
@@ -19,7 +19,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
         /// <param name="urls">Object holding relevant URLs for this payment.</param>
         /// <param name="payeeInfo">Object with merchant information.</param>
         public TrustlyPaymentDetails(Currency currency,
-                                                IPrice price,
+                                                List<IPrice> prices,
                                                 string description,
                                                 string payerReference,
                                                 string userAgent,
@@ -30,7 +30,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
             Operation = Operation.Purchase;
             Intent = PaymentIntent.Sale;
             Currency = currency;
-            Prices.Add(price);
+            Prices = prices;
             Description = description;
             PayerReference = payerReference;
             UserAgent = userAgent;
@@ -77,7 +77,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
         /// <summary>
         /// The prices resource lists the prices related to a specific payment.
         /// </summary>
-        public List<IPrice> Prices { get; set; } = new List<IPrice>();
+        public List<IPrice> Prices { get; set; }
 
         /// <summary>
         /// The urls resource lists urls that redirects users to relevant sites.

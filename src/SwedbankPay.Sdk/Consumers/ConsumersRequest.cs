@@ -17,6 +17,7 @@ namespace SwedbankPay.Sdk.Consumers
         {
             Operation = Operation.Initiate;
             Language = language;
+            ShippingAddressRestrictedToCountryCodes = new List<RegionInfo>();
         }
 
 
@@ -36,7 +37,7 @@ namespace SwedbankPay.Sdk.Consumers
         public Msisdn Msisdn { get; set; }
 
         /// <summary>
-        /// The payers <seealso cref="PaymentOrders.NationalIdentifier"/>.
+        /// The payers <seealso cref="Sdk.PaymentOrders.NationalIdentifier"/>.
         /// </summary>
         public NationalIdentifier NationalIdentifier { get; set; }
 

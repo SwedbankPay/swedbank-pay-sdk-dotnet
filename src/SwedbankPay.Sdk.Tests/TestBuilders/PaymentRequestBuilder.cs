@@ -26,7 +26,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private Amount amount;
         private Amount vatAmount;
         private string payerReference;
-        private IPrice price;
+        private List<IPrice> price;
         private MetadataResponse metadata;
         private InvoiceType invoiceType;
         private Uri shopslogoUrl;
@@ -35,10 +35,10 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         public CardPaymentRequest BuildCreditardPaymentRequest()
         {
             var req = new CardPaymentRequest(this.operation, this.intent, this.currency, this.description, this.userAgent, this.language, this.urls, this.payeeInfo);
+            req.Payment.Prices.AddRange(this.price);
             req.Payment.GeneratePaymentToken = this.generatePaymentToken;
             req.Payment.PayerReference = this.payerReference;
             req.Payment.Metadata = metadata;
-            req.Payment.Prices.Add(price);
 
             return req;
         }
@@ -96,7 +96,10 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.amount = new Amount(1600);
             this.vatAmount = new Amount(0);
             this.metadata = new MetadataResponse { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
-            this.price =new Price(this.amount, PriceType.CreditCard, this.vatAmount);
+            this.price = new List<IPrice>
+            {
+                new Price(this.amount, PriceType.CreditCard, this.vatAmount)
+            };
 
             return this;
         }
@@ -118,7 +121,10 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.amount = new Amount(1600);
             this.vatAmount = new Amount(0);
             this.metadata = new MetadataResponse { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
-            this.price = new Price(this.amount, PriceType.Swish, this.vatAmount);
+            this.price = new List<IPrice>
+            {
+                new Price(this.amount, PriceType.Swish, this.vatAmount)
+            };
             return this;
         }
 
@@ -138,7 +144,10 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.vatAmount = new Amount(0);
             this.metadata = new MetadataResponse { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
             this.invoiceType = InvoiceType.PayExFinancingNO;
-            this.price = new Price(this.amount, PriceType.Invoice, this.vatAmount);
+            this.price = new List<IPrice>
+            {
+                new Price(this.amount, PriceType.Invoice, this.vatAmount)
+            };
             return this;
         }
 
@@ -157,7 +166,11 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.amount = new Amount(123.45M);
             this.vatAmount = new Amount(0);
             this.metadata = new MetadataResponse { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
-            this.price = new Price(this.amount, PriceType.Vipps, this.vatAmount);
+
+            this.price = new List<IPrice>
+            {
+                new Price(this.amount, PriceType.Vipps, this.vatAmount)
+            };
             return this;
         }
 
@@ -181,7 +194,10 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.vatAmount = new Amount(0);
             this.metadata = new MetadataResponse { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
             this.shopslogoUrl = new Uri("https://example.com");
-            this.price = new Price(this.amount, PriceType.Visa, this.vatAmount);
+            this.price = new List<IPrice>
+            {
+                new Price(this.amount, PriceType.Visa, this.vatAmount)
+            };
             return this;
         }
 
@@ -206,7 +222,10 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.amount = new Amount(1600);
             this.vatAmount = new Amount(0);
             this.metadata = new MetadataResponse { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
-            this.price = new Price(this.amount, PriceType.Trustly, this.vatAmount);
+            this.price = new List<IPrice>
+            {
+                new Price(this.amount, PriceType.Trustly, this.vatAmount)
+            };
             this.trustlyPrefillInfo = new TrustlyPrefillInfo("Ola", "Nordmann");
             return this;
         }

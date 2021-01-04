@@ -14,7 +14,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         /// <param name="operation">The initial API operation for this invoice request.</param>
         /// <param name="intent">The initial payment intent for this invoice.</param>
         /// <param name="currency">The <seealso cref="Currency"/> this payment will be paid in.</param>
-        /// <param name="price">Object detailing price differences between different payment instruments.</param>
+        /// <param name="prices">A list of objects detailing price differences between different payment instruments.</param>
         /// <param name="description">A textual description of what is being paid.</param>
         /// <param name="userAgent">The payers UserAgent string.</param>
         /// <param name="language">The payers prefered <seealso cref="Sdk.Language"/>.</param>
@@ -23,7 +23,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         public InvoicePaymentRequestDetails(Operation operation,
                                                     PaymentIntent intent,
                                                     Currency currency, 
-                                                    IPrice price,
+                                                    List<IPrice> prices,
                                                     string description,
                                                     string userAgent,
                                                     Language language,
@@ -38,7 +38,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
             Language = language;
             Urls = urls;
             PayeeInfo = payeeInfo;
-            Prices.Add(price);
+            Prices = prices;
         }
 
         /// <summary>
