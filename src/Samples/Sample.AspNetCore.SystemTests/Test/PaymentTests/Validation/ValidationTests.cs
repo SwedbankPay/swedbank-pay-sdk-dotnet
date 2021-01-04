@@ -34,11 +34,11 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
                 .ValidationIcons[x => x.CreditCardNumber].Should.BeVisible()
                 .ValidationIcons[x => x.ExpiryDate].Should.BeVisible()
                 .CreditCardNumber.Clear()
-                .CreditCardNumber.SetWithSpeed(TestDataService.CreditCardNumber, 0.1)
+                .CreditCardNumber.SetWithSpeed(TestDataService.CreditCardNumber, 0.08)
                 .ExpiryDate.Clear()
-                .ExpiryDate.SetWithSpeed(TestDataService.CreditCardExpirationDate, 0.1)
+                .ExpiryDate.SetWithSpeed(TestDataService.CreditCardExpirationDate, 0.08)
                 .Cvc.Clear()
-                .Cvc.SetWithSpeed(TestDataService.CreditCardCvc, 0.1)
+                .Cvc.SetWithSpeed(TestDataService.CreditCardCvc, 0.08)
                 .ValidationIcons[x => x.CreditCardNumber].Should.Not.BeVisible()
                 .ValidationIcons[x => x.ExpiryDate].Should.Not.BeVisible();
         }
