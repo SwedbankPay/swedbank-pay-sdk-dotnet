@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
+namespace SwedbankPay.Sdk.PaymentInstruments
 {
     internal class PricesListResponseDto
     {
@@ -23,7 +23,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
                 {
                     priceType = Enum.Parse<PriceType>(item.Type);
                 }
-                    
+
                 priceList.Add(new Price(item.Amount, priceType, item.VatAmount));
             }
             return new PricesListResponse(Id, priceList);

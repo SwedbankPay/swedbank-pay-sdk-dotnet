@@ -1,10 +1,10 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrders
+﻿namespace SwedbankPay.Sdk
 {
     internal class OrderItemDto
     {
         public OrderItemDto(OrderItem item)
         {
-            if(item == null)
+            if (item == null)
             {
                 return;
             }

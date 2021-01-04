@@ -1,7 +1,8 @@
-﻿using System;
+﻿using SwedbankPay.Sdk.PaymentInstruments;
+using System;
 using System.Collections.Generic;
 
-namespace SwedbankPay.Sdk.PaymentInstruments.Card
+namespace SwedbankPay.Sdk
 {
     internal class CapturesListResponse : Identifiable, ICapturesListResponse
     {

@@ -1,7 +1,6 @@
-﻿using SwedbankPay.Sdk.PaymentOrders;
-using System;
+﻿using System;
 
-namespace SwedbankPay.Sdk.PaymentInstruments.Card
+namespace SwedbankPay.Sdk.PaymentInstruments
 {
     internal class CancellationResponseDto
     {

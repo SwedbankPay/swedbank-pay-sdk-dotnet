@@ -1,7 +1,7 @@
 ﻿using SwedbankPay.Sdk.PaymentInstruments;
 using System;
 
-namespace SwedbankPay.Sdk.PaymentOrders
+namespace SwedbankPay.Sdk
 {
     internal class CaptureResponseDto
     {
