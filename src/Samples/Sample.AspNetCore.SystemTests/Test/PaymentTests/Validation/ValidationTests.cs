@@ -35,6 +35,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
                 .ValidationIcons[x => x.ExpiryDate].Should.BeVisible()
                 .CreditCardNumber.Clear()
                 .CreditCardNumber.SetWithSpeed(TestDataService.CreditCardNumber, 0.1)
+                .CardTypeSelector.Click()
                 .ExpiryDate.Clear()
                 .ExpiryDate.SetWithSpeed(TestDataService.CreditCardExpirationDate, 0.1)
                 .Cvc.Clear()
