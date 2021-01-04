@@ -20,7 +20,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
         /// <param name="payeeInfo">Object with merchant information.</param>
         public TrustlyPaymentRequest(
             Currency currency,
-            List<IPrice> prices,
+            IEnumerable<IPrice> prices,
             string description,
             string payerReference,
             string userAgent,

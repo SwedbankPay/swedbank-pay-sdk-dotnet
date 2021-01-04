@@ -23,7 +23,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         public InvoicePaymentRequest(Operation operation,
                               PaymentIntent intent,
                               Currency currency,
-                              List<IPrice> prices,
+                              IEnumerable<IPrice> prices,
                               string description,
                               string userAgent,
                               Language language,

@@ -4121,7 +4121,7 @@
             Object containing data needed for creating a invoice payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.List{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoiceType)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoiceType)">
             <summary>
             Instantiates a <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentRequest"/> with the provided parameters.
             </summary>
@@ -4167,7 +4167,7 @@
             Object containing detailed information about a invoice payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentRequestDetails.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.List{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentRequestDetails.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo)">
             <summary>
             Instantiates a <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentRequestDetails"/> with the provided parameters.
             </summary>
@@ -5149,7 +5149,7 @@
             Object describing details needed for performaing a Mobile Pay payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.MobilePay.MobilePayPaymentDetails.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.List{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.MobilePay.MobilePayPaymentDetails.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo)">
             <summary>
             Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.MobilePay.MobilePayPaymentDetails"/> with the provided parameters.
             </summary>
@@ -5228,7 +5228,7 @@
             Object describing a Mobile Pay payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.MobilePay.MobilePayPaymentRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.List{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,System.Uri)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.MobilePay.MobilePayPaymentRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,System.Uri)">
             <summary>
             Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.MobilePay.MobilePayPaymentRequest"/> with the provided parameters.
             </summary>
@@ -5937,7 +5937,7 @@
             Detailes needed for creating a Swish payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Swish.SwishPaymentRequestDetails.#ctor(System.Collections.Generic.List{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,SwedbankPay.Sdk.PaymentInstruments.PrefillInfo,SwedbankPay.Sdk.PaymentInstruments.Swish.SwishRequestData)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Swish.SwishPaymentRequestDetails.#ctor(System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,SwedbankPay.Sdk.PaymentInstruments.PrefillInfo,SwedbankPay.Sdk.PaymentInstruments.Swish.SwishRequestData)">
             <summary>
             Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Swish.SwishPaymentRequestDetails"/> with the provided parameters.
             </summary>
@@ -6574,7 +6574,7 @@
             Request details for creating a Trustly payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Trustly.TrustlyPaymentDetails.#ctor(SwedbankPay.Sdk.Currency,System.Collections.Generic.List{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Trustly.TrustlyPaymentDetails.#ctor(SwedbankPay.Sdk.Currency,System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo)">
             <summary>
             Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Trustly.TrustlyPaymentDetails"/> with the provided parameters.
             </summary>
@@ -6647,7 +6647,7 @@
             Request details for creating a Trustly payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Trustly.TrustlyPaymentRequest.#ctor(SwedbankPay.Sdk.Currency,System.Collections.Generic.List{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Trustly.TrustlyPaymentRequest.#ctor(SwedbankPay.Sdk.Currency,System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo)">
             <summary>
             Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Trustly.TrustlyPaymentRequest"/> with the provided parameters.
             </summary>
@@ -7285,7 +7285,7 @@
             Object to create a payment for Vipps.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Vipps.VippsPaymentRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.List{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,System.String)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Vipps.VippsPaymentRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,System.String)">
             <summary>
             Instantiates a <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Vipps.VippsPaymentRequest"/> with the provided parameters.
             </summary>
@@ -7310,7 +7310,7 @@
             Details needed to create a Vipps payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Vipps.VippsPaymentRequestDetails.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.List{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Vipps.VippsPaymentRequestDetails.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo)">
             <summary>
             Instantiates a <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Vipps.VippsPaymentRequestDetails"/> with the provided parameters.
             </summary>

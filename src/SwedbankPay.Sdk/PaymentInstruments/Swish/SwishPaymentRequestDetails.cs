@@ -20,7 +20,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         /// <param name="prefillInfo">Known information about the payer than can be
         /// pre-filled in the payment window.</param>
         /// <param name="swishRequest">Sets Swish payment specific options.</param>
-        protected internal SwishPaymentRequestDetails(List<IPrice> prices,
+        protected internal SwishPaymentRequestDetails(IEnumerable<IPrice> prices,
                                                 string description,
                                                 string payerReference,
                                                 string userAgent,
@@ -33,7 +33,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
             Operation = Operation.Purchase;
             Intent = PaymentIntent.Sale;
             Currency = new Currency("SEK");
-            Prices = prices;
+            Prices.AddRange(prices);
             Description = description;
             PayerReference = payerReference;
             UserAgent = userAgent;
@@ -88,7 +88,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         /// <summary>
         /// Lists the prices related to a specific payment.
         /// </summary>
-        public List<IPrice> Prices { get; }
+        public List<IPrice> Prices { get; } = new List<IPrice>();
 
         /// <summary>
         /// An object that holds different scenarios for Swish payments.

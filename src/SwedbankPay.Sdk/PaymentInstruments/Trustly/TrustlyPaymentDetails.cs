@@ -19,7 +19,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
         /// <param name="urls">Object holding relevant URLs for this payment.</param>
         /// <param name="payeeInfo">Object with merchant information.</param>
         public TrustlyPaymentDetails(Currency currency,
-                                                List<IPrice> prices,
+                                                IEnumerable<IPrice> prices,
                                                 string description,
                                                 string payerReference,
                                                 string userAgent,
@@ -30,7 +30,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
             Operation = Operation.Purchase;
             Intent = PaymentIntent.Sale;
             Currency = currency;
-            Prices = prices;
+            Prices.AddRange(prices);
             Description = description;
             PayerReference = payerReference;
             UserAgent = userAgent;
@@ -77,7 +77,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
         /// <summary>
         /// The prices resource lists the prices related to a specific payment.
         /// </summary>
-        public List<IPrice> Prices { get; set; }
+        public List<IPrice> Prices { get; set; } = new List<IPrice>();
 
         /// <summary>
         /// The urls resource lists urls that redirects users to relevant sites.

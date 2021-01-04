@@ -23,7 +23,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         public MobilePayPaymentDetails(Operation operation,
                                                 PaymentIntent intent,
                                                 Currency currency,
-                                                List<IPrice> prices,
+                                                IEnumerable<IPrice> prices,
                                                 string description,
                                                 string userAgent,
                                                 Language language,
@@ -38,7 +38,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
             Language = language;
             Urls = urls;
             PayeeInfo = payeeInfo;
-            Prices = prices;
+            Prices.AddRange(prices);
         }
 
         /// <summary>
