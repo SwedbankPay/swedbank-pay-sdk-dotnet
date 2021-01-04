@@ -1,9 +1,9 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrders
+﻿namespace SwedbankPay.Sdk
 {
     /// <summary>
     /// Transactional details about credit card involved in a payment order.
     /// </summary>
-    public class PaymentOrderCreditCardOptions
+    public class CreditCardOptions
     {
         /// <summary>
         ///     true if this is a MOTO payment; otherwise false. Default value is set on the contract.

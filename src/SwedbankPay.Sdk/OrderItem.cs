@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SwedbankPay.Sdk.PaymentOrders
+namespace SwedbankPay.Sdk
 {
     /// <summary>
     /// Object describing a item in a payment order.

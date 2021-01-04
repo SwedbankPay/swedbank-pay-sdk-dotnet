@@ -11,7 +11,7 @@
         /// <param name="creditCard">Credit card options.</param>
         /// <param name="invoice">Invoice options.</param>
         /// <param name="swish">Swish options.</param>
-        public PaymentOrderPaymentOptionsItems(PaymentOrderCreditCardOptions creditCard, Invoice invoice, Swish swish)
+        public PaymentOrderPaymentOptionsItems(CreditCardOptions creditCard, Invoice invoice, Swish swish)
         {
             CreditCard = creditCard;
             Invoice = invoice;
@@ -21,7 +21,7 @@
         /// <summary>
         /// Object holding credit card specific options.
         /// </summary>
-        public PaymentOrderCreditCardOptions CreditCard { get; }
+        public CreditCardOptions CreditCard { get; }
 
         /// <summary>
         /// Object holding invoice specific options.

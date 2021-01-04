@@ -1,4 +1,4 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrders
+﻿namespace SwedbankPay.Sdk
 {
     /// <summary>
     /// Detailed information about a Order Item in a payment order.

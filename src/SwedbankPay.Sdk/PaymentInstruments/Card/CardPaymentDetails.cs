@@ -1,5 +1,4 @@
-﻿using SwedbankPay.Sdk.PaymentOrders;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Card
@@ -48,7 +47,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// <summary>
         /// Holds information about the credit card used.
         /// </summary>
-        public PaymentOrderCreditCardOptions CreditCard { get; set; }
+        public CreditCardOptions CreditCard { get; set; }
 
         /// <summary>
         /// The currency used to pay the payment.

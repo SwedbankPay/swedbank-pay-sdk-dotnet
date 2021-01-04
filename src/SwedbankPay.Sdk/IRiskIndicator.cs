@@ -1,6 +1,7 @@
-﻿using System;
+﻿using SwedbankPay.Sdk.PaymentOrders;
+using System;
 
-namespace SwedbankPay.Sdk.PaymentOrders
+namespace SwedbankPay.Sdk
 {
     /// <summary>
     /// Risk indicator object for 3D Secure 2.0 risk assessment.
