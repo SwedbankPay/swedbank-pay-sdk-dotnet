@@ -33,8 +33,8 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Payment
         [FindById("px-submit")]
         public Button<ThankYouPage, _> Pay { get; set; }
 
-        [FindByCss("#pan-group > div.px-radiogroup-wrapper.px-cardtype-wrapper > div:nth-child(3) > label")]
-        public Clickable<_> CardTypeSelector { get; set; }
+        [FindById("creditSelector", Visibility = Visibility.Any)]
+        public RadioButton<_> CardTypeSelector { get; set; }
         
 
         public ValidationIconList<_> ValidationIcons { get; set; }
