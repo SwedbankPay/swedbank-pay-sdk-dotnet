@@ -52,7 +52,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
 
 
         [Test]
-        [Retry(5)]
+        [Retry(9)] //Retry several times because of the untreatable error: "Activity chain is broken."
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Swish })]
         public async Task Payment_Swish_Reversal(Product[] products, PayexInfo payexInfo)
         {
