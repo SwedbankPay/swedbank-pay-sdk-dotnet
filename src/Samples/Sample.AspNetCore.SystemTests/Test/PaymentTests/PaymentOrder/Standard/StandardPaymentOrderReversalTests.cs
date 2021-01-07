@@ -66,7 +66,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Standard
 
             while (order.PaymentOrder.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionType.Reversal).State != State.Completed && counter <= 15)
             {
-                Thread.Sleep(1000);
+                await Task.Delay(1000);
                 order = await SwedbankPayClient.PaymentOrders.Get(orderLink, PaymentOrderExpand.All);
                 counter++;
             }
