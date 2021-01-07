@@ -93,7 +93,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                         .PaymentMethods[x => x.Name == PaymentMethods.Card].IsVisible.WaitTo.BeTrue()
                         .PaymentMethods[x => x.Name == PaymentMethods.Card].Click()
                         .PaymentMethods[x => x.Name == PaymentMethods.Card].PaymentFrame.SwitchTo<PayexCardFramePage>();
-                    if (paymentframePage.CardTypeSelector.IsPresent && !paymentframePage.CardTypeSelector.IsChecked.Value)
+                    if (paymentframePage.CardTypeSelector.Exists())
                     {
                         paymentframePage.CardTypeSelector.Check();
                     }
