@@ -20,7 +20,7 @@ namespace SwedbankPay.Sdk
         /// <summary>
         /// The country code of the payers country of residence.
         /// </summary>
-        public RegionInfo CountryCode { get; set; }
+        public CountryCode CountryCode { get; set; }
 
         /// <summary>
         /// Payers street address in their city of residence.

@@ -22,7 +22,7 @@ namespace SwedbankPay.Sdk.Tests.Json
                 ReOrderPurchaseIndicator = ReOrderPurchaseIndicator.MerchandiseAvailable,
                 PickUpAddress = new PickUpAddress
                 {
-                    CountryCode = new RegionInfo("NO")
+                    CountryCode = new CountryCode("NO")
                 }
             };
             var dto = new RiskIndicatorDto(riskIndicator);

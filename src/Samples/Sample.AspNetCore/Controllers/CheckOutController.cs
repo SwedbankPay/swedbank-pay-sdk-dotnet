@@ -221,7 +221,7 @@ namespace Sample.AspNetCore.Controllers
         public async Task<IActionResult> InitiateConsumerSession()
         {
             var initiateConsumerRequest = new ConsumerRequest(new Language("sv-SE"));
-            initiateConsumerRequest.ShippingAddressRestrictedToCountryCodes.Add(new RegionInfo("SE"));
+            initiateConsumerRequest.ShippingAddressRestrictedToCountryCodes.Add(new CountryCode("SE"));
 
             var response = await this.swedbankPayClient.Consumers.InitiateSession(initiateConsumerRequest);
             var jsSource = response.Operations.ViewConsumerIdentification?.Href;

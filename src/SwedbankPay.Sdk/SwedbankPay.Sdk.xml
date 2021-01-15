@@ -647,6 +647,12 @@
             </summary>
             <returns><inheritdoc/></returns>
         </member>
+        <member name="M:SwedbankPay.Sdk.CountryCode.op_Implicit(SwedbankPay.Sdk.CountryCode)~System.String">
+            <summary>
+            Implicitly converts <paramref name="countryCode"/> to a <seealso cref="T:System.String"/>:
+            </summary>
+            <param name="countryCode"></param>
+        </member>
         <member name="T:SwedbankPay.Sdk.CreditCardOptions">
             <summary>
             Transactional details about credit card involved in a payment order.
@@ -7993,7 +7999,7 @@
             Identifies a consumer with country and social security number.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentOrders.NationalIdentifier.#ctor(System.Globalization.RegionInfo,System.String)">
+        <member name="M:SwedbankPay.Sdk.PaymentOrders.NationalIdentifier.#ctor(SwedbankPay.Sdk.CountryCode,System.String)">
             <summary>
             Instantiates a <see cref="T:SwedbankPay.Sdk.PaymentOrders.NationalIdentifier"/> with the provided parameters.
             </summary>

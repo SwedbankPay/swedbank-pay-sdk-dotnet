@@ -28,7 +28,7 @@ namespace SwedbankPay.Sdk.Consumers
             ShippingAddressRestrictedToCountryCodes = new List<string>();
             foreach (var item in consumersRequest.ShippingAddressRestrictedToCountryCodes)
             {
-                ShippingAddressRestrictedToCountryCodes.Add(item.Name);
+                ShippingAddressRestrictedToCountryCodes.Add(item);
             }
         }
 

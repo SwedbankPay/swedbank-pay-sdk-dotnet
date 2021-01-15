@@ -17,7 +17,6 @@ namespace SwedbankPay.Sdk.Consumers
         {
             Operation = Operation.Initiate;
             Language = language;
-            ShippingAddressRestrictedToCountryCodes = new List<RegionInfo>();
         }
 
 
@@ -49,6 +48,6 @@ namespace SwedbankPay.Sdk.Consumers
         /// <summary>
         ///     List of supported shipping countries for merchant. Using ISO-3166 standard.
         /// </summary>
-        public List<RegionInfo> ShippingAddressRestrictedToCountryCodes { get; } = new List<RegionInfo>();
+        public List<CountryCode> ShippingAddressRestrictedToCountryCodes { get; } = new List<CountryCode>();
     }
 }

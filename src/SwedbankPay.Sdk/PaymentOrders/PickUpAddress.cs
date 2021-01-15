@@ -21,7 +21,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <summary>
         /// Country code of the payer.
         /// </summary>
-        public RegionInfo CountryCode { get; set; }
+        public CountryCode CountryCode { get; set; }
 
         /// <summary>
         /// Full name of the payer.

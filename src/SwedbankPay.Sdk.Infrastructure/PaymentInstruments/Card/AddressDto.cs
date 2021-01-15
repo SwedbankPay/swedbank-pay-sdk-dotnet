@@ -10,7 +10,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         {
             City = address.City;
             CoAddress = address.CoAddress;
-            CountryCode = address.CountryCode.Name;
+            CountryCode = address.CountryCode;
             StreetAddress = address.StreetAddress;
         }
 

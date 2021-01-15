@@ -65,7 +65,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
             if (NationalIdentifier != null)
             {
-                payer.NationalIdentifier = new NationalIdentifier(new RegionInfo(NationalIdentifier.CountryCode), NationalIdentifier.SocialSecurityNumber);
+                payer.NationalIdentifier = new NationalIdentifier(new CountryCode(NationalIdentifier.CountryCode), NationalIdentifier.SocialSecurityNumber);
             }
 
             return payer;

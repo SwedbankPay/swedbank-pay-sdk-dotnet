@@ -36,5 +36,11 @@ namespace SwedbankPay.Sdk
         {
             return Value;
         }
+
+        /// <summary>
+        /// Implicitly converts <paramref name="countryCode"/> to a <seealso cref="string"/>:
+        /// </summary>
+        /// <param name="countryCode"></param>
+        public static implicit operator string(CountryCode countryCode) => countryCode.ToString();
     }
 }

@@ -10,7 +10,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private Language language;
         private NationalIdentifier nationalIdentifier;
         private Operation operation;
-        private IEnumerable<RegionInfo> shippingAddressRestrictedToCountryCodes;
+        private IEnumerable<CountryCode> shippingAddressRestrictedToCountryCodes;
 
 
         public ConsumerRequest Build()
@@ -39,7 +39,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
 
         public ConsumerRequestContainerBuilder WithNationalIdentifier()
         {
-            this.nationalIdentifier = new NationalIdentifier(new RegionInfo("sv-SE"), "19891010292");
+            this.nationalIdentifier = new NationalIdentifier(new CountryCode("sv-SE"), "19891010292");
             return this;
         }
 
@@ -48,8 +48,8 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         {
             this.operation = Operation.Initiate;
             this.language = new Language("sv-SE");
-            this.shippingAddressRestrictedToCountryCodes = new List<RegionInfo>
-                { new RegionInfo("SE"), new RegionInfo("NO"), new RegionInfo("DK") };
+            this.shippingAddressRestrictedToCountryCodes = new List<CountryCode>
+                { new CountryCode("SE"), new CountryCode("NO"), new CountryCode("DK") };
             return this;
         }
     }
