@@ -11,7 +11,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             Number = dto.Number;
             Created = dto.Created;
             Updated = dto.Updated;
-            Instrument = Enum.Parse<PaymentInstrument>(dto.Instrument);
+            Instrument = Enum.Parse<Sdk.PaymentInstrument>(dto.Instrument);
             Operation = dto.Operation;
             State = dto.State;
             Currency = new Currency(dto.Currency);
@@ -39,7 +39,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 
         public DateTime Updated { get; }
 
-        public PaymentInstrument Instrument { get; }
+        public Sdk.PaymentInstrument Instrument { get; }
 
         public Operation Operation { get; }
 

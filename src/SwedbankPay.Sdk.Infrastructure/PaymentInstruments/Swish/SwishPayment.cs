@@ -9,7 +9,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
             Number = payment.Number;
             Created = payment.Created;
             Updated = payment.Updated;
-            Instrument = Enum.Parse<PaymentInstrument>(payment.Instrument);
+            Instrument = Enum.Parse<Sdk.PaymentInstrument>(payment.Instrument);
             Operation = payment.Operation;
             Intent = Enum.Parse<PaymentIntent>(payment.Intent);
             State = payment.State;
@@ -35,7 +35,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         public long Number { get; }
         public DateTime Created { get; }
         public DateTime Updated { get; }
-        public PaymentInstrument Instrument { get; }
+        public Sdk.PaymentInstrument Instrument { get; }
         public Operation Operation { get; }
         public PaymentIntent Intent { get; }
         public State State { get; }

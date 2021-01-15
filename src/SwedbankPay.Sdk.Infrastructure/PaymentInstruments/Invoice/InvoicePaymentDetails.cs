@@ -19,7 +19,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
             Currency = new Currency(payment.Currency);
             Description = payment.Description;
             Id = payment.Id;
-            Instrument = Enum.Parse<PaymentInstrument>(payment.Instrument);
+            Instrument = Enum.Parse<Sdk.PaymentInstrument>(payment.Instrument);
             Intent = Enum.Parse<PaymentIntent>(payment.Intent);
             Language = new Language(payment.Language);
             Number = payment.Number;
@@ -60,7 +60,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 
         public Uri Id { get; }
 
-        public PaymentInstrument Instrument { get; }
+        public Sdk.PaymentInstrument Instrument { get; }
 
         public PaymentIntent Intent { get; }
 

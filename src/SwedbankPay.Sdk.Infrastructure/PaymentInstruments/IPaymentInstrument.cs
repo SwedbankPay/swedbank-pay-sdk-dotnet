@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
-    internal interface IPaymentInstrumentBase
+    internal interface IPaymentInstrument
     {
         Amount Amount { get; }
         ICancellationsListResponse Cancellations { get; }
@@ -12,7 +12,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         string Description { get; }
         Uri Id { get; }
         string InitiatingSystemUserAgent { get; }
-        PaymentInstrument Instrument { get; }
+        Sdk.PaymentInstrument Instrument { get; }
         PaymentIntent Intent { get; }
         Language Language { get; }
         MetadataResponse Metadata { get; }

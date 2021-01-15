@@ -2,9 +2,9 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
-    internal class PaymentInstrumentBase : IPaymentInstrumentBase
+    internal abstract class PaymentInstrument: IPaymentInstrument
     {
-        public PaymentInstrumentBase(IPaymentInstrumentBase payment)
+        public PaymentInstrument(IPaymentInstrument payment)
         {
             Amount = payment.Amount;
             VatAmount = payment.VatAmount;
@@ -57,7 +57,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
 
         public Uri Id { get; }
 
-        public PaymentInstrument Instrument { get; }
+        public Sdk.PaymentInstrument Instrument { get; }
 
         public PaymentIntent Intent { get; }
 
