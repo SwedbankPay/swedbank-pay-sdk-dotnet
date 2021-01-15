@@ -5,7 +5,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
     /// <summary>
     /// Holds transactional details about authorization a card payment.
     /// </summary>
-    public class CardPaymentAuthorizationTransaction : Identifiable
+    public class CardPaymentAuthorizationTransaction : Identifiable, ICardPaymentAuthorizationTransaction
     {
         /// <summary>
         /// Constructs a new card payment authorization request.
