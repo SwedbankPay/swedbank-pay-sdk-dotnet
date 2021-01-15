@@ -11,7 +11,7 @@ namespace SwedbankPay.Sdk.Tests
 {
     public class ConsumerResourceTests : ResourceTestsBase
     {
-        private readonly ConsumersRequestContainerBuilder consumerResourceRequestContainer = new ConsumersRequestContainerBuilder();
+        private readonly ConsumerRequestContainerBuilder consumerResourceRequestContainer = new ConsumerRequestContainerBuilder();
 
         [Fact]
         public async Task GetBillingDetails_ThrowsArgumentNullException_IfUriIsNull()

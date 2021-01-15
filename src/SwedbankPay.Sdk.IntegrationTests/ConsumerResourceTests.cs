@@ -7,7 +7,7 @@ namespace SwedbankPay.Sdk.IntegrationTests
 {
     public class ConsumerResourceTests: ResourceTestsBase
     {
-        private readonly ConsumersRequestContainerBuilder consumerResourceRequestContainer = new ConsumersRequestContainerBuilder();
+        private readonly ConsumerRequestContainerBuilder consumerResourceRequestContainer = new ConsumerRequestContainerBuilder();
 
         [Fact]
         public async Task InitializeConsumer_ReturnsNonEmptyOperationsCollection()
