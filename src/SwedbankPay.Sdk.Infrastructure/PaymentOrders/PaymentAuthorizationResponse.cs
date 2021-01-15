@@ -5,7 +5,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
 {
     internal class PaymentAuthorizationResponse : IPaymentAuthorizationResponse
     {
-        public PaymentAuthorizationResponse(PaymentOrderAuthorizationsDto dto)
+        public PaymentAuthorizationResponse(PaymentOrderAuthorizationDto dto)
         {
             Id = new Uri(dto.Id, UriKind.RelativeOrAbsolute);
             Created = dto.Created;
