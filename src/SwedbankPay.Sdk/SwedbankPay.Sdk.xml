@@ -630,6 +630,23 @@
             The payers shipping address
             </summary>
         </member>
+        <member name="T:SwedbankPay.Sdk.CountryCode">
+            <summary>
+            Object to hold a valid ISO 3166-1 alpha-2 country code.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.CountryCode.#ctor(System.String)">
+            <summary>
+            Instantiates a new <see cref="T:SwedbankPay.Sdk.CountryCode"/> with the provided <paramref name="countryCode"/>.
+            </summary>
+            <param name="countryCode">A country code following ISO 3166-1 alpha-2.</param>
+        </member>
+        <member name="M:SwedbankPay.Sdk.CountryCode.ToString">
+            <summary>
+            <inheritdoc/>
+            </summary>
+            <returns><inheritdoc/></returns>
+        </member>
         <member name="T:SwedbankPay.Sdk.CreditCardOptions">
             <summary>
             Transactional details about credit card involved in a payment order.
