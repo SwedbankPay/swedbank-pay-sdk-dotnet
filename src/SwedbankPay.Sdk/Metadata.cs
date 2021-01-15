@@ -23,9 +23,9 @@ namespace SwedbankPay.Sdk
         public Metadata(Dictionary<string, object> dictionary)
             : base(dictionary)
         {
-            Id = dictionary[ForbiddenKey]?.ToString();
             if (this.ContainsKey(ForbiddenKey))
             {
+                Id = dictionary[ForbiddenKey].ToString();
                 Remove(ForbiddenKey);
             }
         }
