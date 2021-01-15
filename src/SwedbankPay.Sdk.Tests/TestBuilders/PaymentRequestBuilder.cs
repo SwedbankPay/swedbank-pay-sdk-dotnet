@@ -27,7 +27,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private Amount vatAmount;
         private string payerReference;
         private List<IPrice> price;
-        private MetadataResponse metadata;
+        private Metadata metadata;
         private InvoiceType invoiceType;
         private Uri shopslogoUrl;
 
@@ -95,7 +95,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.generatePaymentToken = false;
             this.amount = new Amount(1600);
             this.vatAmount = new Amount(0);
-            this.metadata = new MetadataResponse { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
+            this.metadata = new Metadata { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
             this.price = new List<IPrice>
             {
                 new Price(this.amount, PriceType.CreditCard, this.vatAmount)
@@ -120,7 +120,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.generatePaymentToken = false;
             this.amount = new Amount(1600);
             this.vatAmount = new Amount(0);
-            this.metadata = new MetadataResponse { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
+            this.metadata = new Metadata { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
             this.price = new List<IPrice>
             {
                 new Price(this.amount, PriceType.Swish, this.vatAmount)
@@ -142,7 +142,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.generatePaymentToken = false;
             this.amount = new Amount(1600);
             this.vatAmount = new Amount(0);
-            this.metadata = new MetadataResponse { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
+            this.metadata = new Metadata { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
             this.invoiceType = InvoiceType.PayExFinancingNO;
             this.price = new List<IPrice>
             {
@@ -165,7 +165,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.generatePaymentToken = false;
             this.amount = new Amount(123.45M);
             this.vatAmount = new Amount(0);
-            this.metadata = new MetadataResponse { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
+            this.metadata = new Metadata { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
 
             this.price = new List<IPrice>
             {
@@ -192,7 +192,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.prefillInfo = new PrefillInfo(new Msisdn("+46701234567"));
             this.amount = new Amount(1600);
             this.vatAmount = new Amount(0);
-            this.metadata = new MetadataResponse { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
+            this.metadata = new Metadata { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
             this.shopslogoUrl = new Uri("https://example.com");
             this.price = new List<IPrice>
             {
@@ -221,7 +221,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
             this.amount = new Amount(1600);
             this.vatAmount = new Amount(0);
-            this.metadata = new MetadataResponse { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
+            this.metadata = new Metadata { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
             this.price = new List<IPrice>
             {
                 new Price(this.amount, PriceType.Trustly, this.vatAmount)

@@ -13,7 +13,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
             CurrentPayment = paymentOrder.CurrentPayment.Map();
             Description = paymentOrder.Description;
             Language = new Language(paymentOrder.Language);
-            Metadata = paymentOrder.Metadata;
+            Metadata = paymentOrder.Metadata?.Map();
             Operation = paymentOrder.Operation;
             PayeeInfo = paymentOrder.PayeeInfo.Map();
             RemainingCancelAmount = paymentOrder.RemainingCancelAmount;
@@ -41,7 +41,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public ICurrentPaymentResponse CurrentPayment { get; }
         public string Description { get; }
         public Language Language { get; }
-        public MetadataResponse Metadata { get; }
+        public Metadata Metadata { get; }
         public string Operation { get; }
         public OrderItems OrderItems { get; }
         public PayeeInfo PayeeInfo { get; }

@@ -85,7 +85,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
 
         public string UserAgent { get; }
 
-        public MetadataResponse Metadata { get; }
+        public Metadata Metadata { get; }
 
         public Amount VatAmount { get; }
     }

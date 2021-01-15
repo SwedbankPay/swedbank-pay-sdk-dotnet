@@ -99,6 +99,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
-        public MetadataResponse Metadata { get; set; }
+        public Metadata Metadata { get; set; }
     }
 }

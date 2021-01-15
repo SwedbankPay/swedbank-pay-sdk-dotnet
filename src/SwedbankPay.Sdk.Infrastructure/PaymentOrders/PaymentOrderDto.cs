@@ -11,7 +11,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public string Currency { get; set; }
         public string Description { get; set; }
         public string Language { get; set; }
-        public MetadataResponse Metadata { get; set; }
+        public MetadataDto Metadata { get; set; }
         public string Operation { get; set; }
         public OrderItemsDto OrderItems { get; set; }
         public int RemainingCancelAmount { get; set; }

@@ -29,7 +29,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
             Transactions = payment.Transactions.Map();
             Urls = payment.Urls.Map();
             UserAgent = payment.UserAgent;
-            Metadata = payment.Metadata;
+            Metadata = payment.Metadata?.Map();
         }
 
         public Amount Amount { get; }
@@ -55,6 +55,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         public ITransactionListResponse Transactions { get; }
         public IUrls Urls { get; }
         public string UserAgent { get; }
-        public MetadataResponse Metadata { get; }
+        public Metadata Metadata { get; }
     }
 }

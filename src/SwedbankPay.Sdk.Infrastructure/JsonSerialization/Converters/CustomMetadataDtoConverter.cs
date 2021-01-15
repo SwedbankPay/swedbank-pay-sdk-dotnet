@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace SwedbankPay.Sdk.JsonSerialization.Converters
 {
-    internal class CustomMetaDataConverter : JsonConverter<Metadata>
+    internal class CustomMetadataDtoConverter : JsonConverter<MetadataDto>
     {
-        public override Metadata Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        public override MetadataDto Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             if (reader.TokenType != JsonTokenType.StartObject)
             {
                 throw new JsonException();
             }
 
-            var metadata = new Metadata();
+            var metadata = new MetadataDto();
 
             while (reader.Read())
             {
@@ -64,7 +65,7 @@ namespace SwedbankPay.Sdk.JsonSerialization.Converters
             throw new JsonException("Error Occured in reading MetaData");
         }
 
-        public override void Write(Utf8JsonWriter writer, Metadata value, JsonSerializerOptions options)
+        public override void Write(Utf8JsonWriter writer, MetadataDto value, JsonSerializerOptions options)
         {
             writer.WriteStartObject();
 

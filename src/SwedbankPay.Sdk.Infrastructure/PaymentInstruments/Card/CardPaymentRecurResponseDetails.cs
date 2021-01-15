@@ -21,7 +21,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             Description = dto.Description;
             InitiatingSystemUserAgent = dto.InitiatingSystemUserAgent;
             UserAgent = dto.UserAgent;
-            MetaData = dto.MetaData;
+            MetaData = dto.MetaData?.Map();
             Authorizations = dto.Authorizations?.MapToCard();
             Transactions = dto.Transactions?.Map();
             Urls = dto.Urls?.Map();
@@ -69,6 +69,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 
         public PayeeInfo PayeeInfo { get; }
 
-        public MetadataResponse MetaData { get; }
+        public Metadata MetaData { get; }
     }
 }

@@ -44,6 +44,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 
         public PayeeInfoDto PayeeInfo { get; set; }
 
-        public MetadataResponse MetaData { get; set; }
+        public MetadataDto MetaData { get; set; }
     }
 }

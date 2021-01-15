@@ -23,6 +23,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
         public string State { get; set; }
         public UrlsDto Urls { get; set; }
         public string UserAgent { get; set; }
-        public MetadataResponse Metadata { get; set; }
+        public MetadataDto Metadata { get; set; }
     }
 }

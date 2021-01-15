@@ -19,6 +19,7 @@ namespace SwedbankPay.Sdk.JsonSerialization
 
             Settings.Converters.Add(new CustomDateTimeConverter());
             Settings.Converters.Add(new CustomMetaDataConverter());
+            Settings.Converters.Add(new CustomMetadataDtoConverter());
             Settings.Converters.Add(new CustomHttpResponseExceptionConverter());
         }
 

@@ -113,6 +113,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// the data can be stored in metadata on the payment so the internal
         /// systems do not need to communicate with each other directly.
         /// </summary>
-        public MetadataResponse Metadata { get; set; }
+        public Metadata Metadata { get; set; }
     }
 }

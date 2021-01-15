@@ -24,7 +24,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
             State = payment.State;
             Urls = payment.Urls.Map();
             UserAgent = payment.UserAgent;
-            Metadata = payment.Metadata;
+            Metadata = payment.Metadata?.Map();
             Transactions = payment.Transactions?.Map();
         }
 
@@ -47,6 +47,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
         public State State { get; }
         public IUrls Urls { get; }
         public string UserAgent { get; }
-        public MetadataResponse Metadata { get; }
+        public Metadata Metadata { get; }
     }
 }

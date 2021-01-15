@@ -151,7 +151,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// <summary>
         /// Metadata set for this payment.
         /// </summary>
-        MetadataResponse Metadata { get; }
+        Metadata Metadata { get; }
 
         /// <summary>
         /// The created recurrenceToken, if <seealso cref="Operation.Verify"/>, <seealso cref="Operation.Recur"/> generateRecurrenceToken: true was used.

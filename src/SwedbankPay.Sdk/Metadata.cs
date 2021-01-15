@@ -5,22 +5,22 @@ namespace SwedbankPay.Sdk
     /// <summary>
     /// Contains the MetaData for a Payment/PaymentOrder.
     /// </summary>
-    public class MetadataResponse : Dictionary<string, object>
+    public class Metadata : Dictionary<string, object>
     {
         private const string ForbiddenKey = "id";
 
         /// <summary>
-        /// Instantiates a new empty <seealso cref="MetadataResponse"/>.
+        /// Instantiates a new empty <seealso cref="Metadata"/>.
         /// </summary>
-        public MetadataResponse()
+        public Metadata()
         {
         }
 
         /// <summary>
-        /// Instantiates a new <seealso cref="MetadataResponse"/> using the provided <seealso cref="Dictionary{TKey, TValue}"/>.
+        /// Instantiates a new <seealso cref="Metadata"/> using the provided <seealso cref="Dictionary{TKey, TValue}"/>.
         /// </summary>
         /// <param name="dictionary">A <seealso cref="Dictionary{TKey, TValue}"/> with values to be added.</param>
-        public MetadataResponse(Dictionary<string, object> dictionary)
+        public Metadata(Dictionary<string, object> dictionary)
             : base(dictionary)
         {
             Id = dictionary[ForbiddenKey]?.ToString();

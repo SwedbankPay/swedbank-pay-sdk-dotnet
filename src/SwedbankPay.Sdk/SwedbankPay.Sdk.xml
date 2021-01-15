@@ -1442,23 +1442,23 @@
             <param name="name">The name of the <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/>.</param>
             <param name="value">The value of the <seealso cref="T:SwedbankPay.Sdk.LinkRelation"/>.</param>
         </member>
-        <member name="T:SwedbankPay.Sdk.MetadataResponse">
+        <member name="T:SwedbankPay.Sdk.Metadata">
             <summary>
             Contains the MetaData for a Payment/PaymentOrder.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.MetadataResponse.#ctor">
+        <member name="M:SwedbankPay.Sdk.Metadata.#ctor">
             <summary>
-            Instantiates a new empty <seealso cref="T:SwedbankPay.Sdk.MetadataResponse"/>.
+            Instantiates a new empty <seealso cref="T:SwedbankPay.Sdk.Metadata"/>.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.MetadataResponse.#ctor(System.Collections.Generic.Dictionary{System.String,System.Object})">
+        <member name="M:SwedbankPay.Sdk.Metadata.#ctor(System.Collections.Generic.Dictionary{System.String,System.Object})">
             <summary>
-            Instantiates a new <seealso cref="T:SwedbankPay.Sdk.MetadataResponse"/> using the provided <seealso cref="T:System.Collections.Generic.Dictionary`2"/>.
+            Instantiates a new <seealso cref="T:SwedbankPay.Sdk.Metadata"/> using the provided <seealso cref="T:System.Collections.Generic.Dictionary`2"/>.
             </summary>
             <param name="dictionary">A <seealso cref="T:System.Collections.Generic.Dictionary`2"/> with values to be added.</param>
         </member>
-        <member name="P:SwedbankPay.Sdk.MetadataResponse.Id">
+        <member name="P:SwedbankPay.Sdk.Metadata.Id">
             <summary>
             Unique ID that references this resource, available if set.
             </summary>

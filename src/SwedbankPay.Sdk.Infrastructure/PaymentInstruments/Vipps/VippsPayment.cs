@@ -25,7 +25,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
             State = payment.State;
             Urls = payment.Urls.Map();
             UserAgent = payment.UserAgent;
-            Metadata = payment.Metadata;
+            Metadata = payment.Metadata?.Map();
             Authorizations = payment.Authorizations?.Map();
             Cancellations = payment.Cancellations?.Map();
             Captures = payment.Captures?.Map();
@@ -56,6 +56,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         public ITransactionListResponse Transactions { get; }
         public IUrls Urls { get; }
         public string UserAgent { get; }
-        public MetadataResponse Metadata { get; }
+        public Metadata Metadata { get; }
     }
 }

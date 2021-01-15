@@ -15,7 +15,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         Sdk.PaymentInstrument Instrument { get; }
         PaymentIntent Intent { get; }
         Language Language { get; }
-        MetadataResponse Metadata { get; }
+        Metadata Metadata { get; }
         long Number { get; }
         Operation Operation { get; }
         PayeeInfo PayeeInfo { get; }

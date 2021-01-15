@@ -60,6 +60,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments
 
         public string RecurrenceToken { get; set; }
 
-        public MetadataResponse Metadata { get; set; }
+        public Metadata Metadata { get; set; }
     }
 }

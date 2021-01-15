@@ -46,7 +46,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// In order to transmit data between these two internal systems,
         /// the data can be stored in metadata on the payment order so the internal systems do not need to communicate with each other directly.
         /// </summary>
-        public MetadataResponse Metadata { get; }
+        public Metadata Metadata { get; }
 
         /// <summary>
         /// The <see cref="Operation"/> used to initate this payment order.
