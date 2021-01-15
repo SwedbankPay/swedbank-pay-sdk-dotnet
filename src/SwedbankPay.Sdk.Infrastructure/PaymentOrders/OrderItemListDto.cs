@@ -1,4 +1,6 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrders
+﻿using System;
+
+namespace SwedbankPay.Sdk.PaymentOrders
 {
     internal class OrderItemListDto
     {
@@ -17,5 +19,28 @@
         public int VatPercent { get; set; }
         public int Amount { get; set; }
         public int VatAmount { get; set; }
+
+        internal OrderItem Map()
+        {
+            var item = new OrderItem(Reference,
+                                       Name,
+                                       Type,
+                                       Class,
+                                       Quantity,
+                                       QuantityUnit,
+                                       UnitPrice,
+                                       VatPercent,
+                                       Amount,
+                                       VatAmount)
+            {
+                ItemUrl = ItemUrl,
+                ImageUrl = ImageUrl,
+                Description = Description,
+                DiscountDescription = DiscountDescription,
+                DiscountPrice = DiscountPrice
+            };
+
+            return item;
+        }
     }
 }

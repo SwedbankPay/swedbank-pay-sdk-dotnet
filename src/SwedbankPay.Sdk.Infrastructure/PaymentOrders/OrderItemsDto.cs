@@ -13,23 +13,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
             var list = new List<OrderItem>();
             foreach (var item in OrderItemList)
             {
-                list.Add(new OrderItem(item.Reference,
-                                       item.Name,
-                                       item.Type,
-                                       item.Class,
-                                       item.Quantity,
-                                       item.QuantityUnit,
-                                       item.UnitPrice,
-                                       item.VatPercent,
-                                       item.Amount,
-                                       item.VatAmount)
-                {
-                    ItemUrl = item.ItemUrl,
-                    ImageUrl = item.ImageUrl,
-                    Description = item.Description,
-                    DiscountDescription = item.DiscountDescription,
-                    DiscountPrice = item.DiscountPrice
-                });
+                list.Add(item.Map());
             }
             var uri = new Uri(Id, UriKind.RelativeOrAbsolute);
             var orderItems = new OrderItems(uri)
