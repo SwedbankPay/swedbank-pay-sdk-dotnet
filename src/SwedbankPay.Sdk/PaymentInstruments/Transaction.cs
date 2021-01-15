@@ -5,7 +5,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
     /// <summary>
     /// Low level information about a payment transaction.
     /// </summary>
-    public class Transaction : ITransaction
+    public class Transaction : Identifiable, ITransaction
     {
         /// <summary>
         /// Instantiates a new <see cref="Transaction"/> with the provided parameters.
@@ -36,8 +36,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments
                            bool isOperational,
                            IOperationList operations,
                            string activity)
+            : base(id)
         {
-            Id = id;
             Created = created;
             Updated = updated;
             Type = type;
@@ -66,11 +66,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         /// <inheritdoc/>
         /// </summary>
         public string Description { get; }
-
-        /// <summary>
-        /// <inheritdoc/>
-        /// </summary>
-        public Uri Id { get; }
 
         /// <summary>
         /// <inheritdoc/>
