@@ -22,7 +22,7 @@ namespace SwedbankPay.Sdk
         /// <param name="payeeReference"></param>
         public PayeeInfo(Guid payeeId,
                          string payeeReference)
-            : base(new Uri(payeeId.ToString(), UriKind.RelativeOrAbsolute))
+            : base(new Uri("about:blank"))
         {
             PayeeId = payeeId;
             PayeeReference = payeeReference;
