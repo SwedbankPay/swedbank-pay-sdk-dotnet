@@ -5,10 +5,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
     /// <summary>
     /// Details on initiating a recurring payment for credit card.
     /// </summary>
-    public class CardPaymentRecurPayment
+    public class CardPaymentRecurDetails
     {
         /// <summary>
-        /// Instantiates a new <see cref="CardPaymentRecurPayment"/> with the provided parameters.
+        /// Instantiates a new <see cref="CardPaymentRecurDetails"/> with the provided parameters.
         /// </summary>
         /// <param name="operation">The initial <see cref="Sdk.Operation"/> of the payment.</param>
         /// <param name="intent">The initial intent of the payment.</param>
@@ -21,7 +21,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// <param name="language">The payers prefered <seealso cref="Sdk.Language"/>.</param>
         /// <param name="urls">Relevant URLs for the payment.</param>
         /// <param name="payeeInfo">Merchant payee information.</param>
-        public CardPaymentRecurPayment(Operation operation,
+        public CardPaymentRecurDetails(Operation operation,
                                        PaymentIntent intent,
                                        string recurrenceToken,
                                        Currency currency,

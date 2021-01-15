@@ -33,7 +33,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
                                        IUrls urls,
                                        PayeeInfo payeeInfo)
         {
-            Payment = new CardPaymentRecurPayment(operation,
+            Payment = new CardPaymentRecurDetails(operation,
                                                       intent,
                                                       recurrenceToken,
                                                       currency,
@@ -49,6 +49,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// <summary>
         /// Hold detailed information about this payment.
         /// </summary>
-        public CardPaymentRecurPayment Payment { get; }
+        public CardPaymentRecurDetails Payment { get; }
     }
 }

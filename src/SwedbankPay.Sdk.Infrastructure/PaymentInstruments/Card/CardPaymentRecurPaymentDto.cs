@@ -4,7 +4,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
     internal class CardPaymentRecurPaymentDto
     {
-        public CardPaymentRecurPaymentDto(CardPaymentRecurPayment payment)
+        public CardPaymentRecurPaymentDto(CardPaymentRecurDetails payment)
         {
             Operation = payment.Operation.Value;
             Intent = payment.Intent.ToString();
