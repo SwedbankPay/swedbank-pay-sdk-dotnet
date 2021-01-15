@@ -5,7 +5,7 @@ using System.Globalization;
 
 namespace SwedbankPay.Sdk.Tests.TestBuilders
 {
-    public class ConsumersRequestContainerBuilder
+    public class ConsumerRequestContainerBuilder
     {
         private Language language;
         private NationalIdentifier nationalIdentifier;
@@ -13,9 +13,9 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private IEnumerable<RegionInfo> shippingAddressRestrictedToCountryCodes;
 
 
-        public ConsumersRequest Build()
+        public ConsumerRequest Build()
         {
-            var req = new ConsumersRequest(this.language)
+            var req = new ConsumerRequest(this.language)
             {
                 Operation = operation,
                 NationalIdentifier = nationalIdentifier
@@ -30,21 +30,21 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         }
 
 
-        public ConsumersRequestContainerBuilder WithEmptyShippingAddressCountryCodes()
+        public ConsumerRequestContainerBuilder WithEmptyShippingAddressCountryCodes()
         {
             this.shippingAddressRestrictedToCountryCodes = null;
             return this;
         }
 
 
-        public ConsumersRequestContainerBuilder WithNationalIdentifier()
+        public ConsumerRequestContainerBuilder WithNationalIdentifier()
         {
             this.nationalIdentifier = new NationalIdentifier(new RegionInfo("sv-SE"), "19891010292");
             return this;
         }
 
 
-        public ConsumersRequestContainerBuilder WithTestValues()
+        public ConsumerRequestContainerBuilder WithTestValues()
         {
             this.operation = Operation.Initiate;
             this.language = new Language("sv-SE");

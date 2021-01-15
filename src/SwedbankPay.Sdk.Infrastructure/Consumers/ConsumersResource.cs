@@ -33,11 +33,11 @@ namespace SwedbankPay.Sdk.Consumers
             return details.Map();
         }
 
-        public async Task<IConsumersResponse> InitiateSession(ConsumersRequest consumersRequest)
+        public async Task<IConsumersResponse> InitiateSession(ConsumerRequest consumersRequest)
         {
             var url = new Uri("/psp/consumers", UriKind.Relative);
 
-            var requestDto = new ConsumersRequestDto(consumersRequest);
+            var requestDto = new ConsumerRequestDto(consumersRequest);
 
             var consumersResponse = await HttpClient.PostAsJsonAsync<ConsumersResponseDto>(url, requestDto);
 

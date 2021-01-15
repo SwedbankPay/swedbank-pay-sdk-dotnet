@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.Consumers
 {
-    internal class ConsumersRequestDto
+    internal class ConsumerRequestDto
     {
-        public ConsumersRequestDto()
+        public ConsumerRequestDto()
         {
         }
 
-        public ConsumersRequestDto(ConsumersRequest consumersRequest)
+        public ConsumerRequestDto(ConsumerRequest consumersRequest)
         {
             if(consumersRequest == null)
             {

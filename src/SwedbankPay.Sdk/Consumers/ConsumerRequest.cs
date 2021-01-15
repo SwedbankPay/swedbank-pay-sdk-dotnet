@@ -7,13 +7,13 @@ namespace SwedbankPay.Sdk.Consumers
     /// <summary>
     /// Holds details to identify a consumer when initiating a payment.
     /// </summary>
-    public class ConsumersRequest
+    public class ConsumerRequest
     {
         /// <summary>
         /// Constructs a new request to the Consumers API resource.
         /// </summary>
         /// <param name="language">The prefered langauge for the consumer.</param>
-        public ConsumersRequest(Language language)
+        public ConsumerRequest(Language language)
         {
             Operation = Operation.Initiate;
             Language = language;

@@ -220,7 +220,7 @@ namespace Sample.AspNetCore.Controllers
 
         public async Task<IActionResult> InitiateConsumerSession()
         {
-            var initiateConsumerRequest = new ConsumersRequest(new Language("sv-SE"));
+            var initiateConsumerRequest = new ConsumerRequest(new Language("sv-SE"));
             initiateConsumerRequest.ShippingAddressRestrictedToCountryCodes.Add(new RegionInfo("SE"));
 
             var response = await this.swedbankPayClient.Consumers.InitiateSession(initiateConsumerRequest);
