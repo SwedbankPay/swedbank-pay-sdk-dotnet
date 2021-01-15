@@ -14,9 +14,9 @@ namespace SwedbankPay.Sdk.PaymentOrders
         {
             var list = new List<ITransaction>();
 
-            foreach (var c in CaptureList)
+            foreach (var captures in CaptureList)
             {
-                list.Add(c.Map());
+                list.Add(captures.Map());
             }
 
             Uri id = new Uri(Id, UriKind.RelativeOrAbsolute);
