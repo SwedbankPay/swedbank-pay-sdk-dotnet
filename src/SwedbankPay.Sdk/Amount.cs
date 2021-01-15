@@ -10,7 +10,7 @@ namespace SwedbankPay.Sdk
     public class Amount : IEquatable<Amount>, IComparable<Amount>, IComparable
     {
         private readonly decimal amount;
-        private long inLowestMonetaryUnit;
+        private readonly long inLowestMonetaryUnit;
 
         /// <summary>
         /// Creates a new <seealso cref="Amount"/> using the passed in value.
@@ -20,7 +20,7 @@ namespace SwedbankPay.Sdk
         {
             this.amount = decimalAmount;
 
-            RoundAndSetMonetaryUnit();
+            inLowestMonetaryUnit = RoundAndGetMonetaryUnit();
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace SwedbankPay.Sdk
         {
             var convertedAmount = Convert.ToDecimal(intAmount);
             amount = convertedAmount;
-            RoundAndSetMonetaryUnit();
+            inLowestMonetaryUnit = RoundAndGetMonetaryUnit();
         }
 
         /// <summary>
@@ -309,13 +309,13 @@ namespace SwedbankPay.Sdk
             return left is null ? right is null : left.CompareTo(right) >= 0;
         }
 
-        private void RoundAndSetMonetaryUnit()
+        private long RoundAndGetMonetaryUnit()
         {
             // Use "Banker's Rounding" by default.
             const MidpointRounding roundingMode = MidpointRounding.ToEven;
             var roundedAmount = Math.Round(this.amount, 2, roundingMode);
             var longAmount = Convert.ToInt64(roundedAmount);
-            inLowestMonetaryUnit = longAmount * 100;
+            return longAmount * 100;
         }
     }
 }
