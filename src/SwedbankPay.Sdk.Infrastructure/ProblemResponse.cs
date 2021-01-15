@@ -5,12 +5,11 @@ namespace SwedbankPay.Sdk
 {
     internal class ProblemResponse : IProblemResponse
     {
-        public ProblemResponse(string action, string detail, string instance, List<IProblemResponseItem> problems, int status, string title, string type)
+        public ProblemResponse(string action, string detail, string instance, int status, string title, string type)
         {
             Action = action;
             Detail = detail;
             Instance = instance;
-            Problems = problems;
             Status = status;
             Title = title;
             Type = type;
@@ -19,7 +18,7 @@ namespace SwedbankPay.Sdk
         public string Action { get; set; }
         public string Detail { get; set; }
         public string Instance { get; set; }
-        public List<IProblemResponseItem> Problems { get; set;}
+        public List<IProblemResponseItem> Problems { get; } = new List<IProblemResponseItem>();
         public int Status { get; set; }
         public string Title { get; set; }
         public string Type { get; set; }

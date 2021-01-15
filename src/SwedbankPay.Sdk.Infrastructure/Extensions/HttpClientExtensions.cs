@@ -63,7 +63,6 @@ namespace SwedbankPay.Sdk.Extensions
                         var problem = new ProblemResponse(httpResponseContent,
                                                           httpResponseContent,
                                                           httpResponseContent,
-                                                          new List<IProblemResponseItem>(),
                                                           httpStatusCode,
                                                           httpResponseContent,
                                                           httpResponseContent);

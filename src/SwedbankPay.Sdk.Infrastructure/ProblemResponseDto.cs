@@ -14,12 +14,13 @@ namespace SwedbankPay.Sdk
 
         internal IProblemResponse Map()
         {
-            var list = new List<IProblemResponseItem>();
+            var response = new ProblemResponse(Action, Detail, Instance, Status, Title, Type);
             foreach (var item in Problems)
             {
-                list.Add(item.Map());
+                response.Problems.Add(item.Map());
             }
-            return new ProblemResponse(Action, Detail, Instance, list, Status, Title, Type);
+
+            return response;
         }
     }
 }
