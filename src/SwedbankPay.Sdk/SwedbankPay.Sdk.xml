@@ -6231,11 +6231,6 @@
             <inheritdoc/>
             </summary>
         </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Transaction.Id">
-            <summary>
-            <inheritdoc/>
-            </summary>
-        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Transaction.IsOperational">
             <summary>
             <inheritdoc/>
