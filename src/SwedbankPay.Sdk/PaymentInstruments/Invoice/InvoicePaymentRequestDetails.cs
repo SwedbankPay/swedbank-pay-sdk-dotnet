@@ -74,7 +74,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
-        public Dictionary<string, object> Metadata { get; set; }
+        public Metadata Metadata { get; set; }
 
         /// <summary>
         /// <inheritdoc/>

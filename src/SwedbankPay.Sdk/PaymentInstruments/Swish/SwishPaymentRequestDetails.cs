@@ -113,6 +113,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         /// In order to transmit data between these two internal systems,
         /// the data can be stored in metadata on the payment so the internal systems do not need to communicate with each other directly. 
         /// </summary>
-        public Dictionary<string, object> Metadata { get; set; }
+        public Metadata Metadata { get; set; }
     }
 }

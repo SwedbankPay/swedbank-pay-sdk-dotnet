@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
@@ -33,7 +32,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
             Transactions = payment.Transactions.Map();
             Urls = payment.Urls.Map();
             UserAgent = payment.UserAgent;
-            Metadata = payment.Metadata;
+            Metadata = payment.Metadata.Map();
         }
 
         public Amount Amount { get; }
@@ -88,6 +87,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 
         public string UserAgent { get; }
 
-        public Dictionary<string, object> Metadata { get; }
+        public Metadata Metadata { get; }
     }
 }

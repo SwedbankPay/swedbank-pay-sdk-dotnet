@@ -31,6 +31,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         public TransactionListResponseDto Transactions { get; set; }
         public UrlsDto Urls { get; set; }
         public string UserAgent { get; set; }
-        public Dictionary<string, object> Metadata { get; set; }
+        public MetadataDto Metadata { get; set; }
     }
 }

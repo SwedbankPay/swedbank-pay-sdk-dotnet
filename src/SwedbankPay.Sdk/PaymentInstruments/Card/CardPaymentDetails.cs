@@ -132,6 +132,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// <seealso cref="Dictionary{TKey, TValue}"/> with arbitrary data provided
         /// by the merchant.
         /// </summary>
-        public Dictionary<string, object> Metadata { get; set; }
+        public Metadata Metadata { get; set; }
     }
 }

@@ -81,7 +81,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         ///     The keys and values that should be associated with the payment order. Can be additional identifiers and data you
         ///     want to associate with the payment.
         /// </summary>
-        public Dictionary<string, object> Metadata { get; set; }
+        public Metadata Metadata { get; set; }
 
         /// <summary>
         ///     The operation that the payment order is supposed to perform.

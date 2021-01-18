@@ -146,6 +146,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         /// <summary>
         /// Metadata sent in by the merchant for this payment.
         /// </summary>
-        Dictionary<string, object> Metadata { get; }
+        Metadata Metadata { get; }
     }
 }

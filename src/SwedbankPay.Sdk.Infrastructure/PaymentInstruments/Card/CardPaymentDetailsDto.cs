@@ -21,7 +21,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             RiskIndicator = new RiskIndicatorDto(payment.RiskIndicator);
             Urls = new UrlsDto(payment.Urls);
             UserAgent = payment.UserAgent;
-            Metadata = payment.Metadata;
+            Metadata = new MetadataDto(payment.Metadata);
 
             Prices = new List<PriceDto>();
             foreach (var item in payment.Prices)
@@ -62,6 +62,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 
         public string UserAgent { get; set; }
 
-        public Dictionary<string, object> Metadata { get; set; }
+        public MetadataDto Metadata { get; set; }
     }
 }

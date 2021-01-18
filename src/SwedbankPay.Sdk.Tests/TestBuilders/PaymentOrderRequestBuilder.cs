@@ -12,7 +12,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private string description;
         private bool generateRecurrenceToken;
         private Language language;
-        private Dictionary<string, object> metadata;
+        private Metadata metadata;
         private Operation operation;
         private List<OrderItem> orderItems;
         private PayeeInfo payeeInfo;
@@ -54,7 +54,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
 
         public PaymentOrderRequestBuilder WithMetadata()
         {
-            this.metadata = new Dictionary<string, object>
+            this.metadata = new Metadata
             {
                 ["testvalue"] = 3,
                 ["testvalue2"] = "test"
@@ -101,7 +101,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.userAgent = "useragent";
             this.language = new Language("sv-SE");
             this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
-            this.metadata = new Dictionary<string, object> { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
+            this.metadata = new Metadata { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
             return this;
         }
     }
