@@ -22,7 +22,11 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
             Swish = new SwishPaymentOptionsDto(payment.Swish);
             Urls = new UrlsDto(payment.Urls);
             UserAgent = payment.UserAgent;
-            Metadata = new MetadataDto(payment.Metadata);
+
+            if(payment.Metadata != null)
+            {
+                Metadata = new MetadataDto(payment.Metadata);
+            }
         }
 
         public string Currency { get; set; }

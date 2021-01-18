@@ -17,7 +17,11 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             Language = payment.Language.ToString();
             Urls = new UrlsDto(payment.Urls);
             PayeeInfo = new PayeeInfoDto(payment.PayeeInfo);
-            Metadata = new MetadataDto(payment.Metadata);
+
+            if (payment.Metadata != null)
+            {
+                Metadata = new MetadataDto(payment.Metadata);
+            }
         }
 
         public string Operation { get; }
