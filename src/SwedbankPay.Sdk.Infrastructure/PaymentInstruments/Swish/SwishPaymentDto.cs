@@ -26,6 +26,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         public UrlsDto Urls { get; set; }
         public PayeeInfoDto PayeeInfo { get; set; }
         public Uri Id { get; set; }
-        public Metadata Metadata { get; set; }
+        public MetadataDto Metadata { get; set; }
     }
 }

@@ -25,7 +25,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
             Urls = payment.Urls.Map();
             PayeeInfo = payment.PayeeInfo.Map();
             Id = payment.Id;
-            Metadata = payment.Metadata;
+            Metadata = payment.Metadata?.Map();
 
             Transactions = payment.Transactions?.Map();
             Sales = payment.Sales?.Map();
