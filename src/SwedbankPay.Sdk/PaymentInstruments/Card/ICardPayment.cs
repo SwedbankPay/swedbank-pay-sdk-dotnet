@@ -5,7 +5,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
     /// <summary>
     /// Describes a credt card payment.
     /// </summary>
-    public interface ICardPayment
+    public interface ICardPayment : IIdentifiable
     {
         /// <summary>
         /// The amount (including VAT, if any) to charge the payer,
@@ -70,11 +70,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// Your description of this payment.
         /// </summary>
         string Description { get; }
-
-        /// <summary>
-        /// A unique ID for this payment.
-        /// </summary>
-        Uri Id { get; }
 
         /// <summary>
         /// The payment instrument used for this payment.

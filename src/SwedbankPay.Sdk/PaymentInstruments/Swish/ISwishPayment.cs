@@ -5,13 +5,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
     /// <summary>
     /// Describes how a Swish payment returned from the api look like.
     /// </summary>
-    public interface ISwishPayment
+    public interface ISwishPayment : IIdentifiable
     {
-        /// <summary>
-        /// The <seealso cref="Uri"/> to access details on this payment.
-        /// </summary>
-        Uri Id { get; }
-
         /// <summary>
         /// The payment number , useful when there’s need to reference the payment in human communication.
         /// Not usable for programmatic identification of the payment, for that id should be used instead.

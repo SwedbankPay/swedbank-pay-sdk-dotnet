@@ -6,7 +6,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
     /// <summary>
     /// Transactional details about a invoice payment.
     /// </summary>
-    public interface IInvoicePaymentDetails
+    public interface IInvoicePaymentDetails : IIdentifiable
     {
         /// <summary>
         /// The amount (including VAT, if any) to charge the payer,
@@ -64,11 +64,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         /// as sent by merchant to Swedbank Pay.
         /// </summary>
         string Description { get; }
-
-        /// <summary>
-        /// The relative URI and unique identifier of the Invoice
-        /// </summary>
-        Uri Id { get; }
 
         /// <summary>
         /// The payment instrument used to initiate or pay this invoice.

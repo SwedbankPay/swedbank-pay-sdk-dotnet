@@ -5,13 +5,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
     /// <summary>
     /// Object describing a payment for the Mobile Pay payment instrument.
     /// </summary>
-    public interface IMobilePayPayment
+    public interface IMobilePayPayment : IIdentifiable
     {
-        /// <summary>
-        /// The relative URI and unique identifier of the capture resource this capture belongs to.
-        /// </summary>
-        Uri Id { get; }
-
         /// <summary>
         /// The <seealso cref="Sdk.Amount"/> to be paid.
         /// </summary>

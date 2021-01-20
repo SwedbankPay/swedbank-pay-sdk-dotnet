@@ -5,13 +5,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
     /// <summary>
     /// Object describing a Swish sale item.
     /// </summary>
-    public interface ISwishSaleListItem
+    public interface ISwishSaleListItem : IIdentifiable
     {
-        /// <summary>
-        /// The relative URI and unique identifier of the sales resource this sales payment belongs to.
-        /// </summary>
-        public Uri Id { get; }
-
         /// <summary>
         /// Shows the <seealso cref="DateTime"/> this sale object was created.
         /// </summary>

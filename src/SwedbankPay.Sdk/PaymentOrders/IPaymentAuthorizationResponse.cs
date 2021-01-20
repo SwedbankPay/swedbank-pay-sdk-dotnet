@@ -6,13 +6,8 @@ namespace SwedbankPay.Sdk.PaymentOrders
     /// <summary>
     /// Transactional details for a authorization in payment order.
     /// </summary>
-    public interface IPaymentAuthorizationResponse
+    public interface IPaymentAuthorizationResponse : IIdentifiable
     {
-        /// <summary>
-        /// A unique <seealso cref="Uri"/> to access this authorization.
-        /// </summary>
-        public Uri Id { get; }
-
         /// <summary>
         /// The <seealso cref="DateTime"/> this authorization was created.
         /// </summary>
@@ -36,7 +31,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
         /// <summary>
         /// The transaction number, useful when there’s need to reference the transaction in human communication.
-        /// Not usable for programmatic identification of the transaction, where <see cref="Id"/> should be used instead.
+        /// Not usable for programmatic identification of the transaction, where <see cref="IIdentifiable.Id"/> should be used instead.
         /// </summary>
         public long Number { get; }
 

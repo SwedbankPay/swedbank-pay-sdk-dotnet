@@ -5,13 +5,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
     /// <summary>
     /// Describes a Swish payment response using the Sale operation.
     /// </summary>
-    public interface ISwishPaymentSale
+    public interface ISwishPaymentSale : IIdentifiable
     {
-        /// <summary>
-        /// The <seealso cref="Uri"/> to access this payment
-        /// </summary>
-        Uri Id { get; }
-
         /// <summary>
         /// Shows when the payment was created.
         /// </summary>

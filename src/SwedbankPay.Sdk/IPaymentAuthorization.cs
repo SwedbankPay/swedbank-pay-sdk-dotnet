@@ -6,13 +6,8 @@ namespace SwedbankPay.Sdk
     /// <summary>
     /// Contains information about a Card payment authorization.
     /// </summary>
-    public interface IPaymentAuthorization
+    public interface IPaymentAuthorization : IIdentifiable
     {
-        /// <summary>
-        /// A unique relative <seealso cref="Uri"/> to access this payment authorization.
-        /// </summary>
-        public Uri Id { get; }
-
         /// <summary>
         /// The System Trace Audit Number assigned by the acquirer to uniquely identify the transaction.
         /// </summary>

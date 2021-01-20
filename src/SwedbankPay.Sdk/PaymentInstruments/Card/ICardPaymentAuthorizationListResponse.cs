@@ -5,15 +5,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
     /// <summary>
     /// Holds a list of <seealso cref="IPaymentAuthorization"/> if available when
-    /// doing a GET on the <see cref="Id"/>.
+    /// doing a GET on the <see cref="IIdentifiable.Id"/>.
     /// </summary>
-    public interface ICardPaymentAuthorizationListResponse
+    public interface ICardPaymentAuthorizationListResponse : IIdentifiable
     {
-        /// <summary>
-        /// The ID of this authorization list.
-        /// </summary>
-        public Uri Id { get; }
-
         /// <summary>
         /// List of avaialbe <see cref="IPaymentAuthorization"/> on the current payment.
         /// </summary>

@@ -5,13 +5,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments
     /// <summary>
     /// Object holding details about a transaction.
     /// </summary>
-    public interface ITransaction
+    public interface ITransaction : IIdentifiable
     {
-        /// <summary>
-        /// A unique <seealso cref="Uri"/> to access this transaction.
-        /// </summary>
-        Uri Id { get; }
-
         /// <summary>
         /// The <seealso cref="DateTime"/> this transaction was created.
         /// </summary>

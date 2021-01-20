@@ -5,13 +5,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
     /// <summary>
     /// Transactional details about a recurring credit card payment.
     /// </summary>
-    public interface ICardPaymentRecurResponseDetails
+    public interface ICardPaymentRecurResponseDetails: IIdentifiable
     {
-        /// <summary>
-        /// The relative URI and unique identifier of the payment resource .
-        /// </summary>
-        Uri Id { get; }
-
         /// <summary>
         /// The created recurrenceToken.
         /// </summary>
@@ -19,7 +14,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 
         /// <summary>
         /// The transaction number, useful when there’s need to reference the transaction in human communication.
-        /// Not usable for programmatic identification of the transaction, where <see cref="Id"/> should be used instead.
+        /// Not usable for programmatic identification of the transaction, where <see cref="IIdentifiable.Id"/> should be used instead.
         /// </summary>
         long Number { get; }
 

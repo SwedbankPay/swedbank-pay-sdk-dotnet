@@ -5,7 +5,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
     /// <summary>
     /// Transactional details about a Vipps payment.
     /// </summary>
-    public interface IVippsPayment
+    public interface IVippsPayment : IIdentifiable
     {
         /// <summary>
         /// The <seealso cref="Sdk.Amount"/> set for this payment.
@@ -48,11 +48,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         public string Description { get; }
 
         /// <summary>
-        /// A unique <seealso cref="Uri"/> to access this payment.
-        /// </summary>
-        public Uri Id { get; }
-
-        /// <summary>
         /// The <seealso cref="PaymentInstrument"/> this payment is set to.
         /// <seealso cref="PaymentInstrument.Vipps"/> for Vipps payments.
         /// </summary>
@@ -70,7 +65,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 
         /// <summary>
         /// The transaction number, useful when there’s need to reference the transaction in human communication.
-        /// Not usable for programmatic identification of the transaction, where <see cref="Id"/> should be used instead.
+        /// Not usable for programmatic identification of the transaction, where <see cref="IIdentifiable.Id"/> should be used instead.
         /// </summary>
         public long Number { get; }
 

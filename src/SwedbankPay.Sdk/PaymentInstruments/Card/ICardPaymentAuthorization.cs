@@ -5,7 +5,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
     /// <summary>
     /// Transactional details about a credit card authorization.
     /// </summary>
-    public interface ICardPaymentAuthorization
+    public interface ICardPaymentAuthorization : IIdentifiable
     {
         /// <summary>
         /// The System Trace Audit Number assigned by the acquirer to uniquely identify the transaction
@@ -120,10 +120,5 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// Hints to who initiated the transaction.
         /// </summary>
         string TransactionInitiator { get; }
-
-        /// <summary>
-        /// A unique relative <seealso cref="Uri"/> to access this authorization.
-        /// </summary>
-        Uri Id { get; }
     }
 }

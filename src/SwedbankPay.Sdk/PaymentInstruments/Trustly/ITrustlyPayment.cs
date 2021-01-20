@@ -5,13 +5,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
     /// <summary>
     /// Transacational details for a Trustly payment.
     /// </summary>
-    public interface ITrustlyPayment
+    public interface ITrustlyPayment : IIdentifiable
     {
-        /// <summary>
-        /// A unique <seealso cref="Uri"/> to access this payment.
-        /// </summary>
-        public Uri Id { get; }
-        
         /// <summary>
         /// The amount (including VAT, if any) to charge the payer, entered in the selected currency.
         /// </summary>

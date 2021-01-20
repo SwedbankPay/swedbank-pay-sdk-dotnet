@@ -5,7 +5,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
     /// <summary>
     /// Detailed information about a payment order.
     /// </summary>
-    public interface IPaymentOrder
+    public interface IPaymentOrder : IIdentifiable
     {
         /// <summary>
         /// The amount (including VAT, if any) to charge the payer,
@@ -122,10 +122,5 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// Set to 0 (zero) if there is no VAT amount charged.
         /// </summary>
         public Amount VatAmount { get; }
-
-        /// <summary>
-        /// The relative URI and unique identifier of the paymentorder resource.
-        /// </summary>
-        public Uri Id { get; }
     }
 }
