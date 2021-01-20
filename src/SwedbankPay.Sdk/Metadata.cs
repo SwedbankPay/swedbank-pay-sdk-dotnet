@@ -33,6 +33,6 @@ namespace SwedbankPay.Sdk
         /// <summary>
         /// Unique ID that references this resource, available if set.
         /// </summary>
-        public string Id { get; set; }
+        public string Id { get; }
     }
 }
