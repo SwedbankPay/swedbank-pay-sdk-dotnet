@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
-    internal class MobilePayPaymentDto
+    class MobilePayPaymentDto
     {
         public int Amount { get; set; }
         public MobilePayPaymentAuthorizationListResponseDto Authorizations { get; set; }
@@ -28,5 +28,9 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         public UrlsDto Urls { get; set; }
         public string UserAgent { get; set; }
         public MetadataDto Metadata { get; set; }
+        public int VatAmount { get; set; }
+        public int RemainingCancellationAmount { get; set; }
+        public int RemainingCaptureAmount { get; set; }
+        public int RemainingReversalAmount { get; set; }
     }
 }

@@ -7,6 +7,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         public MobilePayPayment(MobilePayPaymentDto payment)
         {
             Amount = payment.Amount;
+            VatAmount = payment.VatAmount;
+            RemainingCancellationAmount = payment.RemainingCancellationAmount;
+            RemainingCaptureAmount = payment.RemainingCaptureAmount;
+            RemainingReversalAmount = payment.RemainingReversalAmount;
             Authorizations = payment.Authorizations.Map();
             Cancellations = payment.Cancellations.Map();
             Captures = payment.Captures.Map();
@@ -56,5 +60,9 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         public IUrls Urls { get; }
         public string UserAgent { get; }
         public Metadata Metadata { get; }
+        public Amount RemainingCancellationAmount { get; }
+        public Amount RemainingCaptureAmount { get; }
+        public Amount RemainingReversalAmount { get; }
+        public Amount VatAmount { get; }
     }
 }

@@ -4424,6 +4424,152 @@
             <inheritdoc/>
             </summary>
         </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.IPaymentInstrument">
+            <summary>
+            Base interface for payment instruments
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IPaymentInstrument.Amount">
+            <summary>
+            The <seealso cref="T:SwedbankPay.Sdk.Amount"/> to be paid.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IPaymentInstrument.Cancellations">
+            <summary>
+            Currently available list of cancellations.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IPaymentInstrument.Captures">
+            <summary>
+            Currently available list of captures.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IPaymentInstrument.Created">
+            <summary>
+            The <seealso cref="T:System.DateTime"/> the payment was created.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IPaymentInstrument.Updated">
+            <summary>
+            The <seealso cref="T:System.DateTime"/> this payment was last updated.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IPaymentInstrument.Currency">
+            <summary>
+            The currency this payment is to be paid in.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IPaymentInstrument.Description">
+            <summary>
+            A textual description of what this payment is for.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IPaymentInstrument.Instrument">
+            <summary>
+            The payment instrument used by the payer.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IPaymentInstrument.Intent">
+            <summary>
+            The <seealso cref="T:SwedbankPay.Sdk.PaymentInstruments.PaymentIntent"/> of this payment.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IPaymentInstrument.Language">
+            <summary>
+            The prefered <seealso cref="T:SwedbankPay.Sdk.Language"/> for this payment.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IPaymentInstrument.Number">
+            <summary>
+            The payment number , useful when there’s need to reference the payment in human communication.
+            Not usable for programmatic identification of the payment, for that id should be used instead.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IPaymentInstrument.Operation">
+            <summary>
+            The operation used to initiate this payment.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IPaymentInstrument.PayeeInfo">
+            <summary>
+            Identifies the merchant that initiated the payment.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IPaymentInstrument.PayerReference">
+            <summary>
+            The reference to the payer from the merchant system, like e-mail address, mobile number, customer number etc.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IPaymentInstrument.InitiatingSystemUserAgent">
+            <summary>
+            The system user agent used
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IPaymentInstrument.Prices">
+            <summary>
+            Gives access to <seealso cref="T:SwedbankPay.Sdk.PaymentInstruments.IPrice"/> resource if available.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IPaymentInstrument.RemainingCancellationAmount">
+            <summary>
+            The <seealso cref="T:SwedbankPay.Sdk.Amount"/> available for cancelling on this payment.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IPaymentInstrument.RemainingCaptureAmount">
+            <summary>
+            The <seealso cref="T:SwedbankPay.Sdk.Amount"/> available for capturing on this payment.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IPaymentInstrument.RemainingReversalAmount">
+            <summary>
+            The <seealso cref="T:SwedbankPay.Sdk.Amount"/> available for reversing on this payment.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IPaymentInstrument.State">
+            <summary>
+            Currently available list of reversals.
+            </summary>
+            <summary>
+            The current <seealso cref="T:SwedbankPay.Sdk.State"/> of the payment.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IPaymentInstrument.Transactions">
+            <summary>
+            Currently available list of transactions.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IPaymentInstrument.Urls">
+            <summary>
+            The <seealso cref="T:SwedbankPay.Sdk.IUrls"/> used to iniate this payment.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IPaymentInstrument.UserAgent">
+            <summary>
+            The user agent string of the payer’s browser.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IPaymentInstrument.VatAmount">
+            <summary>
+            The payments VAT (Value Added Tax) amount, entered in the lowest monetary unit of the selected currency.
+            The vatAmount entered will not affect the amount shown on the payment page, which only shows the total amount.
+            This field is used to specify how much of the total amount the VAT will be. Set to 0 (zero) if there is no VAT amount charged.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IPaymentInstrument.Reversals">
+            <summary>
+            The reversal resource contains information about the reversal transaction made
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IPaymentInstrument.Metadata">
+            <summary>
+            Metadata can be used to store data associated to a payment that can be retrieved later by performing a GET on the payment. 
+            Swedbank Pay does not use or process metadata, it is only stored on the payment so it can be retrieved later alongside the payment. 
+            An example where metadata might be useful is when several internal systems are involved in the payment process 
+            and the payment creation is done in one system and post-purchases take place in another. 
+            In order to transmit data between these two internal systems, 
+            the data can be stored in metadata on the payment so the internal systems do not need to communicate with each other directly.
+            </summary>
+        </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.IPaymentInstrumentsResource">
             <summary>
             The entry point for specifying what payment instrument to use for a payment.
@@ -4722,125 +4868,9 @@
             Object describing a payment for the Mobile Pay payment instrument.
             </summary>
         </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.IMobilePayPayment.Amount">
-            <summary>
-            The <seealso cref="T:SwedbankPay.Sdk.Amount"/> to be paid.
-            </summary>
-        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.IMobilePayPayment.Authorizations">
             <summary>
             Currently available list of authorizations.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.IMobilePayPayment.Cancellations">
-            <summary>
-            Currently available list of cancellations.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.IMobilePayPayment.Captures">
-            <summary>
-            Currently available list of captures.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.IMobilePayPayment.Created">
-            <summary>
-            The <seealso cref="T:System.DateTime"/> the payment was created.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.IMobilePayPayment.Updated">
-            <summary>
-            The <seealso cref="T:System.DateTime"/> this payment was last updated.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.IMobilePayPayment.Currency">
-            <summary>
-            The currency this payment is to be paid in.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.IMobilePayPayment.Description">
-            <summary>
-            A textual description of what this payment is for.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.IMobilePayPayment.Instrument">
-            <summary>
-            The payment instrument used by the payer.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.IMobilePayPayment.Intent">
-            <summary>
-            The <seealso cref="T:SwedbankPay.Sdk.PaymentInstruments.PaymentIntent"/> of this payment.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.IMobilePayPayment.Language">
-            <summary>
-            The prefered <seealso cref="T:SwedbankPay.Sdk.Language"/> for this payment.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.IMobilePayPayment.Number">
-            <summary>
-            The payment number , useful when there’s need to reference the payment in human communication.
-            Not usable for programmatic identification of the payment, for that id should be used instead.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.IMobilePayPayment.Operation">
-            <summary>
-            The operation used to initiate this payment.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.IMobilePayPayment.PayeeInfo">
-            <summary>
-            Identifies the merchant that initiated the payment.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.IMobilePayPayment.PayerReference">
-            <summary>
-            The reference to the payer from the merchant system, like e-mail address, mobile number, customer number etc.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.IMobilePayPayment.InitiatingSystemUserAgent">
-            <summary>
-            The system user agent used
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.IMobilePayPayment.Prices">
-            <summary>
-            Gives access to <seealso cref="T:SwedbankPay.Sdk.PaymentInstruments.IPrice"/> resource if available.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.IMobilePayPayment.Reversals">
-            <summary>
-            Currently available list of reversals.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.IMobilePayPayment.State">
-            <summary>
-            The current <seealso cref="T:SwedbankPay.Sdk.State"/> of the payment.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.IMobilePayPayment.Transactions">
-            <summary>
-            Currently available list of transactions.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.IMobilePayPayment.Urls">
-            <summary>
-            The <seealso cref="T:SwedbankPay.Sdk.IUrls"/> used to iniate this payment.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.IMobilePayPayment.UserAgent">
-            <summary>
-            The user agent string of the payer’s browser.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.IMobilePayPayment.Metadata">
-            <summary>
-            Metadata can be used to store data associated to a payment that can be retrieved later by performing a GET on the payment. 
-            Swedbank Pay does not use or process metadata, it is only stored on the payment so it can be retrieved later alongside the payment. 
-            An example where metadata might be useful is when several internal systems are involved in the payment process 
-            and the payment creation is done in one system and post-purchases take place in another. 
-            In order to transmit data between these two internal systems, 
-            the data can be stored in metadata on the payment so the internal systems do not need to communicate with each other directly.
             </summary>
         </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.MobilePay.IMobilePayPaymentAuthorization">
