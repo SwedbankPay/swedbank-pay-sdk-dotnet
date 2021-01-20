@@ -8,7 +8,7 @@ namespace SwedbankPay.Sdk
     /// </summary>
     public class CountryCode
     {
-        private string Value { get; }
+        private readonly string value;
 
         /// <summary>
         /// Instantiates a new <see cref="CountryCode"/> with the provided <paramref name="countryCode"/>.
@@ -25,7 +25,7 @@ namespace SwedbankPay.Sdk
                 throw new ArgumentException($"Invalid country code: {countryCode}", nameof(countryCode));
             }
 
-            Value = countryCode;
+            value = countryCode;
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace SwedbankPay.Sdk
         /// <returns><inheritdoc/></returns>
         public override string ToString()
         {
-            return Value;
+            return value;
         }
 
         /// <summary>
