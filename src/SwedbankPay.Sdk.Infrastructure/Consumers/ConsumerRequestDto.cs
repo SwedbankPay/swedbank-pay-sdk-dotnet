@@ -9,24 +9,24 @@ namespace SwedbankPay.Sdk.Consumers
         {
         }
 
-        public ConsumerRequestDto(ConsumerRequest consumersRequest)
+        public ConsumerRequestDto(ConsumerRequest consumerRequest)
         {
-            if(consumersRequest == null)
+            if(consumerRequest == null)
             {
                 return;
             }
 
-            if (consumersRequest.NationalIdentifier != null)
+            if (consumerRequest.NationalIdentifier != null)
             {
-                NationalIdentifier = new NationalIdentifierDto(consumersRequest.NationalIdentifier);
+                NationalIdentifier = new NationalIdentifierDto(consumerRequest.NationalIdentifier);
             }
 
-            Email = consumersRequest.Email?.ToString();
-            Language = consumersRequest.Language?.ToString();
-            Msisdn = consumersRequest.Msisdn?.ToString();
-            Operation = consumersRequest.Operation.Value;
+            Email = consumerRequest.Email?.ToString();
+            Language = consumerRequest.Language?.ToString();
+            Msisdn = consumerRequest.Msisdn?.ToString();
+            Operation = consumerRequest.Operation.Value;
             ShippingAddressRestrictedToCountryCodes = new List<string>();
-            foreach (var item in consumersRequest.ShippingAddressRestrictedToCountryCodes)
+            foreach (var item in consumerRequest.ShippingAddressRestrictedToCountryCodes)
             {
                 ShippingAddressRestrictedToCountryCodes.Add(item);
             }
