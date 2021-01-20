@@ -7,6 +7,8 @@ namespace SwedbankPay.Sdk
     /// </summary>
     public class Msisdn
     {
+        private readonly string value;
+
         /// <summary>
         /// Creates a new <seealso cref="Msisdn"/>
         /// </summary>
@@ -18,11 +20,8 @@ namespace SwedbankPay.Sdk
                 throw new ArgumentException($"Invalid msisdn: {msisdn}", nameof(msisdn));
             }
 
-            Value = msisdn;
+            value = msisdn;
         }
-
-
-        private string Value { get; }
 
         /// <summary>
         /// Method to validate a provided <seealso cref="string"/>.
@@ -48,7 +47,7 @@ namespace SwedbankPay.Sdk
         /// <returns><inheritdoc/></returns>
         public override string ToString()
         {
-            return Value;
+            return value;
         }
     }
 }
