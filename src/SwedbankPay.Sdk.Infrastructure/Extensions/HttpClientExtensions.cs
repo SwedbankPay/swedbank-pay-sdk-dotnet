@@ -1,6 +1,5 @@
 ﻿using SwedbankPay.Sdk.Exceptions;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -24,10 +23,11 @@ namespace SwedbankPay.Sdk.Extensions
                     problemResponseDto = JsonSerializer.Deserialize<ProblemResponseDto>(responseString).Map();
                 }
 
+                var errorMessage = BuildErrorMessage(responseString, uri, apiResponse);
                 throw new HttpResponseException(
                     apiResponse,
                     problemResponseDto,
-                    BuildErrorMessage(responseString, uri, apiResponse));
+                    errorMessage);
             }
 
             return JsonSerializer.Deserialize<T>(responseString, JsonSerialization.JsonSerialization.Settings);
@@ -57,6 +57,7 @@ namespace SwedbankPay.Sdk.Extensions
                 httpResponseContent = await httpResponseMessage.Content.ReadAsStringAsync();
                 if (!httpResponseMessage.IsSuccessStatusCode)
                 {
+                    string errorMessage;
                     if (string.IsNullOrEmpty(httpResponseContent))
                     {
                         var httpStatusCode = (int)httpResponseMessage.StatusCode;
@@ -66,14 +67,18 @@ namespace SwedbankPay.Sdk.Extensions
                                                           httpStatusCode,
                                                           httpResponseContent,
                                                           httpResponseContent);
-                        throw new HttpResponseException(httpResponseMessage, problem, BuildErrorMessage(httpResponseContent));
+                        errorMessage = BuildErrorMessage(httpResponseContent);
+                        throw new HttpResponseException(httpResponseMessage, problem, errorMessage);
                     }
 
-                    var problemResponseDto = JsonSerializer.Deserialize<ProblemResponseDto>(httpResponseContent, JsonSerialization.JsonSerialization.Settings).Map();
+                    var problemResponseDto = JsonSerializer.Deserialize<ProblemResponseDto>(httpResponseContent, JsonSerialization.JsonSerialization.Settings);
+                    var problemResponse = problemResponseDto.Map();
+                    errorMessage = BuildErrorMessage(httpResponseContent);
+
                     throw new HttpResponseException(
                         httpResponseMessage,
-                        problemResponseDto,
-                        BuildErrorMessage(httpResponseContent));
+                        problemResponse,
+                        errorMessage);
                 }
 
                 return JsonSerializer.Deserialize<T>(httpResponseContent, JsonSerialization.JsonSerialization.Settings);
