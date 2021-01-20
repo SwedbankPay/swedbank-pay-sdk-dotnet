@@ -4,9 +4,9 @@ using System.Text.Json;
 
 namespace SwedbankPay.Sdk
 {
-    internal class ProblemResponse : IProblemResponse
+    internal class Problem : IProblem
     {
-        public ProblemResponse(string action, string detail, string instance, int status, string title, string type)
+        public Problem(string action, string detail, string instance, int status, string title, string type)
         {
             Action = action;
             Detail = detail;
