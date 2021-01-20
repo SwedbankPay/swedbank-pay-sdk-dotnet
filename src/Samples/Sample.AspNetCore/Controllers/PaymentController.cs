@@ -151,7 +151,11 @@ namespace Sample.AspNetCore.Controllers
                                                                                                                    new Amount(0),
                                                                                                                    description,
                                                                                                                    DateTime.Now.Ticks.ToString());
-                        captureRequest.Transaction.OrderItems.AddRange(orderItems);
+                        foreach (var item in orderItems)
+                        {
+                            captureRequest.Transaction.OrderItems.Add(item);
+                        }
+
                         var response = await cardPayment.Operations.Capture(captureRequest);
                         TempData["CaptureMessage"] = $"{response.Capture.Id}, {response.Capture.State}, {response.Capture.Type}";
                         break;
@@ -254,7 +258,10 @@ namespace Sample.AspNetCore.Controllers
 
             var request = new SwedbankPay.Sdk.PaymentOrders.PaymentOrderCaptureRequest(new Amount(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
                                                                   new Amount(0), description, DateTime.Now.Ticks.ToString());
-            request.Transaction.OrderItems.AddRange(orderItems);
+            foreach (var item in orderItems)
+            {
+                request.Transaction.OrderItems.Add(item);
+            }
 
             return request;
         }
@@ -268,7 +275,10 @@ namespace Sample.AspNetCore.Controllers
                                                                                  new Amount(0),
                                                                                  description,
                                                                                  DateTime.Now.Ticks.ToString());
-            request.Transaction.OrderItems.AddRange(orderItems);
+            foreach (var item in orderItems)
+            {
+                request.Transaction.OrderItems.Add(item);
+            }
 
             return request;
         }

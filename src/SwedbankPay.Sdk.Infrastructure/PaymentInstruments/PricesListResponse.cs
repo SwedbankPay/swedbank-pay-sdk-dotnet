@@ -11,6 +11,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         }
 
 
-        public List<IPrice> PriceList { get; }
+        public IList<IPrice> PriceList { get; }
     }
 }

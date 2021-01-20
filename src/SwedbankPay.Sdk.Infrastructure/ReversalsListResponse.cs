@@ -12,6 +12,6 @@ namespace SwedbankPay.Sdk
             ReversalList = reversalList;
         }
 
-        public List<ITransactionResponse> ReversalList { get; }
+        public IList<ITransactionResponse> ReversalList { get; }
     }
 }

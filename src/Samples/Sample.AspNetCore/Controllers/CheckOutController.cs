@@ -118,7 +118,11 @@ namespace Sample.AspNetCore.Controllers
                                                         new PayeeInfo(this.payeeInfoOptions.PayeeId,
                                                                       this.payeeInfoOptions.PayeeReference)
                                                         );
-                cardRequest.Payment.Urls.HostUrls.AddRange(this.urls.HostUrls);
+                foreach (var url in urls.HostUrls)
+                {
+                    cardRequest.Payment.Urls.HostUrls.Add(url);
+                }
+
                 cardRequest.Payment.GenerateRecurrenceToken = true;
                 cardRequest.Payment.Prices.Add(new Price(new Amount(totalAmount), PriceType.CreditCard, vatAmount));
 
@@ -163,7 +167,10 @@ namespace Sample.AspNetCore.Controllers
                 trustlyPaymentRequest.Payment.Prices.Add(new Price(new Amount(totalAmount),
                                                                                 PriceType.Trustly,
                                                                                 vatAmount));
-                trustlyPaymentRequest.Payment.Urls.HostUrls.AddRange(this.urls.HostUrls);
+                foreach (var url in urls.HostUrls)
+                {
+                    trustlyPaymentRequest.Payment.Urls.HostUrls.Add(url);
+                }
 
                 var trustlyPayment = await this.swedbankPayClient.Payments.TrustlyPayments.Create(trustlyPaymentRequest);
                 

@@ -23,7 +23,10 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
 
             if(shippingAddressRestrictedToCountryCodes != null)
             {
-                req.ShippingAddressRestrictedToCountryCodes.AddRange(this.shippingAddressRestrictedToCountryCodes);
+                foreach (var countryCode in shippingAddressRestrictedToCountryCodes)
+                {
+                    req.ShippingAddressRestrictedToCountryCodes.Add(countryCode);
+                }
             }
 
             return req;

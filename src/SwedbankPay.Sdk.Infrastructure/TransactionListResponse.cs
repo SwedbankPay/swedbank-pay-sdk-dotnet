@@ -13,6 +13,6 @@ namespace SwedbankPay.Sdk
         }
 
 
-        public List<ITransaction> TransactionList { get; }
+        public IList<ITransaction> TransactionList { get; }
     }
 }

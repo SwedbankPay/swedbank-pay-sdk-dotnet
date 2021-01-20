@@ -26,7 +26,7 @@ namespace SwedbankPay.Sdk
 
         public Uri CompleteUrl { get; set; }
 
-        public List<Uri> HostUrls { get; set; }
+        public IList<Uri> HostUrls { get; set; }
 
         public Uri LogoUrl { get; set; }
 

@@ -26,7 +26,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private Amount amount;
         private Amount vatAmount;
         private string payerReference;
-        private List<IPrice> price;
+        private List<IPrice> prices;
         private Metadata metadata;
         private InvoiceType invoiceType;
         private Uri shopslogoUrl;
@@ -35,7 +35,12 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         public CardPaymentRequest BuildCreditardPaymentRequest()
         {
             var req = new CardPaymentRequest(this.operation, this.intent, this.currency, this.description, this.userAgent, this.language, this.urls, this.payeeInfo);
-            req.Payment.Prices.AddRange(this.price);
+
+            foreach (var price in prices)
+            {
+                req.Payment.Prices.Add(price);
+            }
+
             req.Payment.GeneratePaymentToken = this.generatePaymentToken;
             req.Payment.PayerReference = this.payerReference;
             req.Payment.Metadata = metadata;
@@ -45,7 +50,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
 
         public SwishPaymentRequest BuildSwishPaymentRequest()
         {
-            var req = new SwishPaymentRequest(this.price, this.description, this.payerReference, this.userAgent, this.language, this.urls, this.payeeInfo, this.prefillInfo);
+            var req = new SwishPaymentRequest(this.prices, this.description, this.payerReference, this.userAgent, this.language, this.urls, this.payeeInfo, this.prefillInfo);
             req.Payment.Metadata = this.metadata;
 
             return req;
@@ -53,7 +58,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
 
         public InvoicePaymentRequest BuildInvoiceRequest()
         {
-            var req = new InvoicePaymentRequest(this.operation, this.intent, this.currency, this.price, this.description, this.userAgent, this.language, this.urls, this.payeeInfo, this.invoiceType);
+            var req = new InvoicePaymentRequest(this.operation, this.intent, this.currency, this.prices, this.description, this.userAgent, this.language, this.urls, this.payeeInfo, this.invoiceType);
             req.Payment.Metadata = this.metadata;
 
             return req;
@@ -61,7 +66,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
 
         public VippsPaymentRequest BuildVippsRequest()
         {
-            var req = new VippsPaymentRequest(this.operation, this.intent, this.currency, this.price, this.description, this.userAgent, this.language, this.urls, this.payeeInfo, this.payerReference);
+            var req = new VippsPaymentRequest(this.operation, this.intent, this.currency, this.prices, this.description, this.userAgent, this.language, this.urls, this.payeeInfo, this.payerReference);
             req.Payment.GeneratePaymentToken = this.generatePaymentToken;
             req.Payment.Metadata = this.metadata;
             return req;
@@ -69,14 +74,14 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
 
         public MobilePayPaymentRequest BuildMobilePayRequest()
         {
-            var req = new MobilePayPaymentRequest(this.operation, this.intent, this.currency, this.price, this.description, this.userAgent, this.language, this.urls, this.payeeInfo, this.shopslogoUrl);
+            var req = new MobilePayPaymentRequest(this.operation, this.intent, this.currency, this.prices, this.description, this.userAgent, this.language, this.urls, this.payeeInfo, this.shopslogoUrl);
 
             return req;
         }
 
         public TrustlyPaymentRequest BuildTrustlyRequest()
         {
-            var req = new TrustlyPaymentRequest(this.currency, this.price,this.description, this.payerReference, this.userAgent, this.language, this.urls, this.payeeInfo);
+            var req = new TrustlyPaymentRequest(this.currency, this.prices,this.description, this.payerReference, this.userAgent, this.language, this.urls, this.payeeInfo);
             req.Payment.PrefillInfo = trustlyPrefillInfo;
             return req;
         }
@@ -96,7 +101,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.amount = new Amount(1600);
             this.vatAmount = new Amount(0);
             this.metadata = new Metadata { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
-            this.price = new List<IPrice>
+            this.prices = new List<IPrice>
             {
                 new Price(this.amount, PriceType.CreditCard, this.vatAmount)
             };
@@ -121,7 +126,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.amount = new Amount(1600);
             this.vatAmount = new Amount(0);
             this.metadata = new Metadata { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
-            this.price = new List<IPrice>
+            this.prices = new List<IPrice>
             {
                 new Price(this.amount, PriceType.Swish, this.vatAmount)
             };
@@ -144,7 +149,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.vatAmount = new Amount(0);
             this.metadata = new Metadata { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
             this.invoiceType = InvoiceType.PayExFinancingNO;
-            this.price = new List<IPrice>
+            this.prices = new List<IPrice>
             {
                 new Price(this.amount, PriceType.Invoice, this.vatAmount)
             };
@@ -167,7 +172,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.vatAmount = new Amount(0);
             this.metadata = new Metadata { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
 
-            this.price = new List<IPrice>
+            this.prices = new List<IPrice>
             {
                 new Price(this.amount, PriceType.Vipps, this.vatAmount)
             };
@@ -194,7 +199,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.vatAmount = new Amount(0);
             this.metadata = new Metadata { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
             this.shopslogoUrl = new Uri("https://example.com");
-            this.price = new List<IPrice>
+            this.prices = new List<IPrice>
             {
                 new Price(this.amount, PriceType.Visa, this.vatAmount)
             };
@@ -222,7 +227,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.amount = new Amount(1600);
             this.vatAmount = new Amount(0);
             this.metadata = new Metadata { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
-            this.price = new List<IPrice>
+            this.prices = new List<IPrice>
             {
                 new Price(this.amount, PriceType.Trustly, this.vatAmount)
             };

@@ -13,6 +13,6 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
         public Uri Id { get; }
 
-        public List<IPaymentAuthorization> AuthorizationList { get; }
+        public IList<IPaymentAuthorization> AuthorizationList { get; }
     }
 }
