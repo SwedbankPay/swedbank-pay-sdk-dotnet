@@ -16,6 +16,9 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
             Currency = new Currency(payment.Currency);
             Prices = payment.Prices.Map();
             Amount = payment.Amount;
+            VatAmount = payment.VatAmount;
+            RemainingCancellationAmount = payment.RemainingCancellationAmount;
+            RemainingCaptureAmount = payment.RemainingCaptureAmount;
             RemainingReversalAmount = payment.RemainingReversalAmount;
             Description = payment.Description;
             PayerReference = payment.PayerReference;
@@ -30,6 +33,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
             Transactions = payment.Transactions?.Map();
             Sales = payment.Sales?.Map();
             Reversals = payment.Reversals?.Map();
+            Cancellations = payment.Cancellations?.Map();
+            Captures = payment.Captures?.Map();
         }
 
         public long Number { get; }
@@ -55,5 +60,15 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         public PayeeInfo PayeeInfo { get; }
         public Uri Id { get; }
         public Metadata Metadata { get; }
+
+        public ICancellationsListResponse Cancellations { get; }
+
+        public ICapturesListResponse Captures { get; }
+
+        public Amount RemainingCancellationAmount { get; }
+
+        public Amount RemainingCaptureAmount { get; }
+
+        public Amount VatAmount { get; }
     }
 }

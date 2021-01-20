@@ -27,5 +27,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         public PayeeInfoDto PayeeInfo { get; set; }
         public Uri Id { get; set; }
         public MetadataDto Metadata { get; set; }
+        public int VatAmount { get; set; }
+        public int RemainingCancellationAmount { get; set; }
+        public int RemainingCaptureAmount { get; set; }
+        public CancellationsListResponseDto Cancellations { get; set; }
+        public CaptureListTransactionDto Captures { get; set; }
     }
 }
