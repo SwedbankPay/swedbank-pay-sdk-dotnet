@@ -292,3 +292,6 @@ tools/**
 *.xsd.cs
 
 /output
+
+*.local.json
+
