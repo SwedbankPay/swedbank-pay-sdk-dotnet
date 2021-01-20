@@ -3415,7 +3415,7 @@
             Object for specifying what to capture on a payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Invoice.CaptureTransaction.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.Collections.Generic.List{SwedbankPay.Sdk.OrderItem},System.String,System.String)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Invoice.CaptureTransaction.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.OrderItem},System.String,System.String)">
             <summary>
             Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.CaptureTransaction"/> using the provided parameters.
             </summary>
@@ -5508,7 +5508,7 @@
             Wrapper for creating a Swish payment request.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Swish.SwishPaymentRequest.#ctor(System.Collections.Generic.List{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,SwedbankPay.Sdk.PaymentInstruments.PrefillInfo)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Swish.SwishPaymentRequest.#ctor(System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,SwedbankPay.Sdk.PaymentInstruments.PrefillInfo)">
             <summary>
             Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Swish.SwishPaymentRequest"/> with the provided parameters.
             </summary>
@@ -8570,7 +8570,7 @@
             Object for holding Urls needed for a payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.Urls.#ctor(System.Collections.Generic.List{System.Uri},System.Uri,System.Uri)">
+        <member name="M:SwedbankPay.Sdk.Urls.#ctor(System.Collections.Generic.IEnumerable{System.Uri},System.Uri,System.Uri)">
             <summary>
             Instantiates a <see cref="T:SwedbankPay.Sdk.Urls"/> with the provided parameters.
             </summary>

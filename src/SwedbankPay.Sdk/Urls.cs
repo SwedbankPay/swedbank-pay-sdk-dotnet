@@ -14,10 +14,19 @@ namespace SwedbankPay.Sdk
         /// <param name="hostUrls"></param>
         /// <param name="completeUrl"><seealso cref="Uri"/> to redirect the payer at completion.</param>
         /// <param name="termsOfServiceUrl"><seealso cref="Uri"/> to view your terms of service.</param>
-        public Urls(List<Uri> hostUrls,
+        public Urls(IEnumerable<Uri> hostUrls,
                     Uri completeUrl, Uri termsOfServiceUrl)
         {
-            HostUrls = hostUrls ?? throw new ArgumentNullException(nameof(hostUrls), $"{nameof(hostUrls)} is required.");
+            if(hostUrls == null)
+            {
+                throw new ArgumentNullException(nameof(hostUrls), $"{nameof(hostUrls)} is required.");
+            }
+
+            foreach (var url in hostUrls)
+            {
+                HostUrls.Add(url);
+            }
+
             CompleteUrl = completeUrl ?? throw new ArgumentNullException(nameof(completeUrl), $"{nameof(completeUrl)} is required.");
             TermsOfServiceUrl = termsOfServiceUrl
                                 ?? throw new ArgumentNullException(nameof(termsOfServiceUrl), $"{nameof(termsOfServiceUrl)} is required.");

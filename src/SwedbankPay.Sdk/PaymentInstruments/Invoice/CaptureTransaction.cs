@@ -19,16 +19,20 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         public CaptureTransaction(Operation transactionActivity,
                                               Amount amount,
                                               Amount vatAmount,
-                                              List<OrderItem> orderItems,
+                                              IEnumerable<OrderItem> orderItems,
                                               string description,
                                               string payeeReference)
         {
             TransactionActivity = transactionActivity;
             Amount = amount;
             VatAmount = vatAmount;
-            OrderItems = orderItems;
             Description = description;
             PayeeReference = payeeReference;
+
+            foreach (var item in orderItems)
+            {
+                OrderItems.Add(item);
+            }
         }
 
         /// <summary>

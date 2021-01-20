@@ -19,7 +19,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         /// <param name="payeeInfo">Object holding information about the merchant-</param>
         /// <param name="prefillInfo">Known information about the payer than can be
         /// pre-filled in the payment window.</param>
-        public SwishPaymentRequest(List<IPrice> prices,
+        public SwishPaymentRequest(IEnumerable<IPrice> prices,
                               string description,
                               string payerReference,
                               string userAgent,
