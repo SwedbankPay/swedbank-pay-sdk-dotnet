@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 
 namespace SwedbankPay.Sdk
 {
@@ -25,7 +26,8 @@ namespace SwedbankPay.Sdk
 
         public override string ToString()
         {
-            return Problems.Select(p => p.ToString()).Aggregate((x, y) => x + "|" + y);
+            var problems = JsonSerializer.Serialize(Problems, JsonSerialization.JsonSerialization.Settings);
+            return problems;
         }
     }
 }
