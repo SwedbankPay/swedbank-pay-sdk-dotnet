@@ -6,6 +6,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
     internal class InvoicePaymentDto
     {
         public int Amount { get; set; }
+        public int VatAmount { get; set; }
         public int RemainingCaptureAmount { get; set; }
         public int RemainingCancellationAmount { get; set; }
         public int RemainingReversalAmount { get; set; }

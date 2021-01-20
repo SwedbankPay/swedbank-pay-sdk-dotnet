@@ -7,6 +7,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         public InvoicePaymentDetails(InvoicePaymentDto payment)
         {
             Amount = payment.Amount;
+            VatAmount = payment.VatAmount;
             RemainingCaptureAmount = payment.RemainingCaptureAmount;
             RemainingCancellationAmount = payment.RemainingCancellationAmount;
             RemainingReversalAmount = payment.RemainingReversalAmount;
@@ -88,5 +89,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         public string UserAgent { get; }
 
         public Metadata Metadata { get; }
+
+        public Amount VatAmount { get; }
     }
 }
