@@ -28,5 +28,9 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         public UrlsDto Urls { get; set; }
         public string UserAgent { get; set; }
         public MetadataDto Metadata { get; set; }
+        public int VatAmount { get; internal set; }
+        public int RemainingReversalAmount { get; set; }
+        public int RemainingCaptureAmount { get; set; }
+        public int RemainingCancellationAmount { get; set; }
     }
 }

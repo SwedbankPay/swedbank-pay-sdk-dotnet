@@ -8,6 +8,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         public VippsPayment(VippsPaymentDto payment)
         {
             Amount = payment.Amount;
+            VatAmount = payment.VatAmount;
+            RemainingReversalAmount = payment.RemainingReversalAmount;
+            RemainingCaptureAmount = payment.RemainingCaptureAmount;
+            RemainingCancellationAmount = payment.RemainingCancellationAmount;
             Created = payment.Created;
             Updated = payment.Updated;
             Currency = new Currency(payment.Currency);
@@ -57,5 +61,9 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         public IUrls Urls { get; }
         public string UserAgent { get; }
         public Metadata Metadata { get; }
+        public Amount RemainingCancellationAmount { get; }
+        public Amount RemainingCaptureAmount { get; }
+        public Amount RemainingReversalAmount { get; }
+        public Amount VatAmount { get; }
     }
 }
