@@ -7,6 +7,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
         public TrustlyPayment(TrustlyPaymentDto payment)
         {
             Amount = payment.Amount;
+            VatAmount = payment.VatAmount;
+            RemainingCancellationAmount = payment.RemainingCancellationAmount;
+            RemainingCaptureAmount = payment.RemainingCaptureAmount;
+            RemainingReversalAmount = payment.RemainingReversalAmount;
             Created = payment.Created;
             Updated = payment.Updated;
             Currency = new Currency(payment.Currency);
@@ -26,6 +30,9 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
             UserAgent = payment.UserAgent;
             Metadata = payment.Metadata?.Map();
             Transactions = payment.Transactions?.Map();
+            Cancellations = payment.Cancellations?.Map();
+            Captures = payment.Captures?.Map();
+            Reversals = payment.Reversals?.Map();
         }
 
         public Amount Amount { get; }
@@ -48,5 +55,19 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
         public IUrls Urls { get; }
         public string UserAgent { get; }
         public Metadata Metadata { get; }
+
+        public ICancellationsListResponse Cancellations { get; }
+
+        public ICapturesListResponse Captures { get; }
+
+        public Amount RemainingCancellationAmount { get; }
+
+        public Amount RemainingCaptureAmount { get; }
+
+        public Amount RemainingReversalAmount { get; }
+
+        public Amount VatAmount { get; }
+
+        public IReversalsListResponse Reversals { get; }
     }
 }
