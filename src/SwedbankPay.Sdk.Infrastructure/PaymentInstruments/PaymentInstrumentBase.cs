@@ -57,7 +57,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
 
         public Uri Id { get; }
 
-        public Sdk.PaymentInstrument Instrument { get; }
+        public PaymentInstrument Instrument { get; }
 
         public PaymentIntent Intent { get; }
 

@@ -58,7 +58,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         public long Number { get; }
         public DateTime Created { get; }
         public DateTime Updated { get; }
-        public Sdk.PaymentInstrument Instrument { get; }
+        public PaymentInstrument Instrument { get; }
         public Operation Operation { get; }
         public PaymentIntent Intent { get; }
         public State State { get; }

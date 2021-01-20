@@ -45,7 +45,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         /// <summary>
         /// The payment instrument used by the payer.
         /// </summary>
-        Sdk.PaymentInstrument Instrument { get; }
+        PaymentInstrument Instrument { get; }
 
         /// <summary>
         /// The <seealso cref="PaymentIntent"/> of this payment.

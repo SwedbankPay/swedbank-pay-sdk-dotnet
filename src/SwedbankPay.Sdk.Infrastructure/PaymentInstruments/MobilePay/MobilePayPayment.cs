@@ -45,7 +45,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         public Currency Currency { get; }
         public string Description { get; }
         public Uri Id { get; }
-        public Sdk.PaymentInstrument Instrument { get; }
+        public PaymentInstrument Instrument { get; }
         public PaymentIntent Intent { get; }
         public Language Language { get; }
         public long Number { get; }

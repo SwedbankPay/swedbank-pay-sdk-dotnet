@@ -39,7 +39,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 
         public DateTime Updated { get; }
 
-        public Sdk.PaymentInstrument Instrument { get; }
+        public PaymentInstrument Instrument { get; }
 
         public Operation Operation { get; }
 

@@ -70,7 +70,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 
         public Uri Id { get; }
 
-        public Sdk.PaymentInstrument Instrument { get; }
+        public PaymentInstrument Instrument { get; }
 
         public PaymentIntent Intent { get; }
 
