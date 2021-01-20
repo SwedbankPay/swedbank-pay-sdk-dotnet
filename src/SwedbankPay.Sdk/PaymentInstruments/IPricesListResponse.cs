@@ -11,6 +11,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         /// <summary>
         /// A list of <see cref="IPrice"/> giving details about amounts and types.
         /// </summary>
-        List<IPrice> PriceList { get; }
+        IList<IPrice> PriceList { get; }
     }
 }

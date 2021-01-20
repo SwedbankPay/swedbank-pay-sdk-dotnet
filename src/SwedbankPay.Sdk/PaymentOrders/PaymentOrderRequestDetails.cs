@@ -70,7 +70,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <summary>
         ///     The array of items that will affect how the payment is performed.
         /// </summary>
-        public List<PaymentOrderPaymentOptionsItems> Items { get; set; }
+        public IList<PaymentOrderPaymentOptionsItems> Items { get; set; }
 
         /// <summary>
         ///     The language of the payer.
@@ -92,7 +92,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         ///     The array of items being purchased with the order. Used to print on invoices if the payer chooses to pay with
         ///     invoice, among other things.
         /// </summary>
-        public List<OrderItem> OrderItems { get; set; }
+        public IList<OrderItem> OrderItems { get; set; }
 
         /// <summary>
         ///     Information about the payee of the payment order

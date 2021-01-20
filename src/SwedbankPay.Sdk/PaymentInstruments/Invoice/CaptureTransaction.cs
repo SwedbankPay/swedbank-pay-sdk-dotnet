@@ -49,7 +49,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
-        public List<OrderItem> OrderItems { get; }
+        public IList<OrderItem> OrderItems { get; }
 
         /// <summary>
         /// <inheritdoc/>
@@ -64,11 +64,11 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
-        public List<ItemDescription> ItemDescriptions { get; set; } = new List<ItemDescription>();
+        public IList<ItemDescription> ItemDescriptions { get; set; } = new List<ItemDescription>();
 
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
-        public List<VatSummary> VatSummary { get; set; } = new List<VatSummary>();
+        public IList<VatSummary> VatSummary { get; set; } = new List<VatSummary>();
     }
 }

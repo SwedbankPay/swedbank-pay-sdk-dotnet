@@ -12,6 +12,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// <summary>
         /// List of avaialbe <see cref="IPaymentAuthorization"/> on the current payment.
         /// </summary>
-        List<IPaymentAuthorization> AuthorizationList { get; }
+        IList<IPaymentAuthorization> AuthorizationList { get; }
     }
 }

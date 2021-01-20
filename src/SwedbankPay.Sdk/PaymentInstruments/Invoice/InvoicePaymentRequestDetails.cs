@@ -38,7 +38,11 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
             Language = language;
             Urls = urls;
             PayeeInfo = payeeInfo;
-            Prices.AddRange(prices);
+
+            foreach (var price in prices)
+            {
+                Prices.Add(price);
+            }
         }
 
         /// <summary>
@@ -99,7 +103,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
-        public List<IPrice> Prices { get; set; } = new List<IPrice>();
+        public IList<IPrice> Prices { get; set; } = new List<IPrice>();
 
         /// <summary>
         /// <inheritdoc/>

@@ -108,7 +108,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// <summary>
         /// A list of <see cref="IPrice"/> objects.
         /// </summary>
-        public List<IPrice> Prices { get; } = new List<IPrice>();
+        public IList<IPrice> Prices { get; } = new List<IPrice>();
 
         /// <summary>
         /// This optional object consist of information that helps verifying the payer.

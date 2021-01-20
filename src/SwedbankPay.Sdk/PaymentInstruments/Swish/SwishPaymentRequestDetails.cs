@@ -33,7 +33,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
             Operation = Operation.Purchase;
             Intent = PaymentIntent.Sale;
             Currency = new Currency("SEK");
-            Prices.AddRange(prices);
             Description = description;
             PayerReference = payerReference;
             UserAgent = userAgent;
@@ -42,6 +41,11 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
             PayeeInfo = payeeInfo;
             PrefillInfo = prefillInfo;
             Swish = swishRequest;
+
+            foreach (var price in prices)
+            {
+                Prices.Add(price);
+            }
         }
 
         /// <summary>
@@ -88,7 +92,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         /// <summary>
         /// Lists the prices related to a specific payment.
         /// </summary>
-        public List<IPrice> Prices { get; } = new List<IPrice>();
+        public IList<IPrice> Prices { get; } = new List<IPrice>();
 
         /// <summary>
         /// An object that holds different scenarios for Swish payments.

@@ -35,13 +35,17 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
             Operation = operation ?? throw new ArgumentNullException(nameof(operation));
             Intent = intent;
             Currency = currency;
-            Prices.AddRange(prices);
             Description = description;
             PayerReference = payerReference;
             UserAgent = userAgent;
             Language = language;
             Urls = urls;
             PayeeInfo = payeeInfo;
+
+            foreach (var price in prices)
+            {
+                Prices.Add(price);
+            }
         }
 
         /// <summary>
@@ -108,7 +112,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         /// <summary>
         /// The prices resource lists the prices related to this payment.
         /// </summary>
-        public List<IPrice> Prices { get; set; } = new List<IPrice>();
+        public IList<IPrice> Prices { get; set; } = new List<IPrice>();
 
         /// <summary>
         /// The Urls resource lists the urls related to this payment.

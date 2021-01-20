@@ -10,6 +10,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             AuthorizationList = authorizationList;
         }
 
-        public List<IPaymentAuthorization> AuthorizationList { get; }
+        public IList<IPaymentAuthorization> AuthorizationList { get; }
     }
 }

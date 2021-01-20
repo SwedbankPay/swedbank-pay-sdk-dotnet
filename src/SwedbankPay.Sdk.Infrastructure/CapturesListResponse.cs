@@ -12,6 +12,6 @@ namespace SwedbankPay.Sdk
         }
 
 
-        public List<ITransaction> CaptureList { get; }
+        public IList<ITransaction> CaptureList { get; }
     }
 }

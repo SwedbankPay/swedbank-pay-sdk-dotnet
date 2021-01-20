@@ -38,7 +38,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <summary>
         /// The <seealso cref="OrderItem"/>s involved in the reversal.
         /// </summary>
-        public List<OrderItem> OrderItems { get; } = new List<OrderItem>();
+        public IList<OrderItem> OrderItems { get; } = new List<OrderItem>();
 
         /// <summary>
         /// A unique reference from the merchant system.

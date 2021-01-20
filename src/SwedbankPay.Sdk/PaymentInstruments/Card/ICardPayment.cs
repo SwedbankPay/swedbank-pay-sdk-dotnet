@@ -88,7 +88,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 
         /// <summary>
         /// The payment number, useful when there’s need to reference the payment in human communication.
-        /// Not usable for programmatic identification of the payment, for that <see cref="Id"/> should be used instead.
+        /// Not usable for programmatic identification of the payment, for that <see cref="IIdentifiable.Id"/> should be used instead.
         /// </summary>
         long Number { get; }
 

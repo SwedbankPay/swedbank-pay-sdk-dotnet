@@ -68,7 +68,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         /// <summary>
         /// List of <seealso cref="IPrice"/> objects showing the amount to be paid with each payment instrument.
         /// </summary>
-        List<IPrice> Prices { get; }
+        IList<IPrice> Prices { get; }
 
         /// <summary>
         /// The <seealso cref="IUrls"/> this payment supports.

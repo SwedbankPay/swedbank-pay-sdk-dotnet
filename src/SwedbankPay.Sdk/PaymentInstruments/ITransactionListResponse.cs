@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
@@ -11,6 +10,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         /// <summary>
         /// List of available transactions for the current payment.
         /// </summary>
-        List<ITransaction> TransactionList { get; }
+        IList<ITransaction> TransactionList { get; }
     }
 }

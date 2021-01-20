@@ -30,13 +30,17 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
             Operation = Operation.Purchase;
             Intent = PaymentIntent.Sale;
             Currency = currency;
-            Prices.AddRange(prices);
             Description = description;
             PayerReference = payerReference;
             UserAgent = userAgent;
             Language = language;
             Urls = urls;
             PayeeInfo = payeeInfo;
+
+            foreach (var price in prices)
+            {
+                Prices.Add(price);
+            }
         }
 
         /// <summary>
@@ -77,7 +81,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
         /// <summary>
         /// The prices resource lists the prices related to a specific payment.
         /// </summary>
-        public List<IPrice> Prices { get; set; } = new List<IPrice>();
+        public IList<IPrice> Prices { get; set; } = new List<IPrice>();
 
         /// <summary>
         /// The urls resource lists urls that redirects users to relevant sites.

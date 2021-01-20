@@ -10,6 +10,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         /// <summary>
         /// List of transactional cancellations.
         /// </summary>
-        List<ITransaction> CancellationList { get; }
+        IList<ITransaction> CancellationList { get; }
     }
 }

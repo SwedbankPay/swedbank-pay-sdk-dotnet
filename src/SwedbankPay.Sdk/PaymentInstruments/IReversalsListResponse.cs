@@ -10,6 +10,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         /// <summary>
         /// Contains a list of available reversal transactions.
         /// </summary>
-        List<ITransactionResponse> ReversalList { get; }
+        IList<ITransactionResponse> ReversalList { get; }
     }
 }

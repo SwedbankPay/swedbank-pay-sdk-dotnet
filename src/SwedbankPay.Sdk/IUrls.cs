@@ -29,7 +29,7 @@ namespace SwedbankPay.Sdk
         /// <summary>
         /// The array of URIs valid for embedding of Swedbank Pay Hosted Views.
         /// </summary>
-        List<Uri> HostUrls { get; }
+        IList<Uri> HostUrls { get; }
 
         /// <summary>
         /// The URL that will be used for showing the customer logo.

@@ -20,12 +20,12 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         /// <summary>
         /// A list describing each item being captured in this request.
         /// </summary>
-        List<ItemDescription> ItemDescriptions { get; set; }
+        IList<ItemDescription> ItemDescriptions { get; set; }
 
         /// <summary>
         /// List of <seealso cref="OrderItem"/> to be captured in this transaction.
         /// </summary>
-        List<OrderItem> OrderItems { get; }
+        IList<OrderItem> OrderItems { get; }
 
         /// <summary>
         /// The payeeReference is the receipt/invoice number if receiptReference is not defined,
@@ -47,6 +47,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         /// <summary>
         /// A list describing each items vat summary.
         /// </summary>
-        List<VatSummary> VatSummary { get; set; }
+        IList<VatSummary> VatSummary { get; set; }
     }
 }

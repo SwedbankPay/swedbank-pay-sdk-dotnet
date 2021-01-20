@@ -13,6 +13,6 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <summary>
         /// Contains all currently available payment authorizations.
         /// </summary>
-        public List<IPaymentAuthorization> AuthorizationList { get; }
+        public IList<IPaymentAuthorization> AuthorizationList { get; }
     }
 }

@@ -14,6 +14,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         /// <summary>
         /// A list of authorizations available on the current payment.
         /// </summary>
-        public List<IMobilePayPaymentAuthorization> AuthorizationList { get; }
+        public IList<IMobilePayPaymentAuthorization> AuthorizationList { get; }
     }
 }

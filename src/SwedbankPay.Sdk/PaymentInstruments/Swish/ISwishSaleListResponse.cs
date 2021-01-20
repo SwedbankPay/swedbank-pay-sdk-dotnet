@@ -11,6 +11,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         /// <summary>
         /// A list of Swish sale list items.
         /// </summary>
-        public List<ISwishSaleListItem> SaleList { get; }
+        public IList<ISwishSaleListItem> SaleList { get; }
     }
 }

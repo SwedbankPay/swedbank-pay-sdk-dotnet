@@ -16,6 +16,6 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <summary>
         /// Contains all currently available sale list items for this payment order.
         /// </summary>
-        public List<ISaleListItem> SaleList { get; }
+        public IList<ISaleListItem> SaleList { get; }
     }
 }

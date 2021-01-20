@@ -12,6 +12,6 @@ namespace SwedbankPay.Sdk
         }
 
 
-        public List<ITransaction> CancellationList { get; }
+        public IList<ITransaction> CancellationList { get; }
     }
 }

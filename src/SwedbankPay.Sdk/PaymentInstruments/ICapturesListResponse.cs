@@ -10,6 +10,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         /// <summary>
         /// List of transactional information about capture(s).
         /// </summary>
-        List<ITransaction> CaptureList { get; }
+        IList<ITransaction> CaptureList { get; }
     }
 }

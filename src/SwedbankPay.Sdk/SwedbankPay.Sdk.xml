@@ -880,6 +880,16 @@
                 Relative URL to the resource
             </summary>
         </member>
+        <member name="T:SwedbankPay.Sdk.IIdentifiable">
+            <summary>
+            Contains a <seealso cref="T:System.Uri"/> to a uniquely identifiable resource.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.IIdentifiable.Id">
+            <summary>
+            The relative URI and unique identifier of the payment resource .
+            </summary>
+        </member>
         <member name="T:SwedbankPay.Sdk.IOperationList">
             <summary>
             Holds a list of <seealso cref="T:SwedbankPay.Sdk.HttpOperation"/>s.
@@ -985,11 +995,6 @@
         <member name="T:SwedbankPay.Sdk.IPaymentAuthorization">
             <summary>
             Contains information about a Card payment authorization.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.IPaymentAuthorization.Id">
-            <summary>
-            A unique relative <seealso cref="T:System.Uri"/> to access this payment authorization.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.IPaymentAuthorization.AcquirerStan">
@@ -2819,11 +2824,6 @@
             Your description of this payment.
             </summary>
         </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPayment.Id">
-            <summary>
-            A unique ID for this payment.
-            </summary>
-        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPayment.Instrument">
             <summary>
             The payment instrument used for this payment.
@@ -2842,7 +2842,7 @@
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPayment.Number">
             <summary>
             The payment number, useful when there’s need to reference the payment in human communication.
-            Not usable for programmatic identification of the payment, for that <see cref="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPayment.Id"/> should be used instead.
+            Not usable for programmatic identification of the payment, for that <see cref="P:SwedbankPay.Sdk.IIdentifiable.Id"/> should be used instead.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPayment.Operation">
@@ -3035,20 +3035,10 @@
             Hints to who initiated the transaction.
             </summary>
         </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentAuthorization.Id">
-            <summary>
-            A unique relative <seealso cref="T:System.Uri"/> to access this authorization.
-            </summary>
-        </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentAuthorizationListResponse">
             <summary>
             Holds a list of <seealso cref="T:SwedbankPay.Sdk.IPaymentAuthorization"/> if available when
-            doing a GET on the <see cref="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentAuthorizationListResponse.Id"/>.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentAuthorizationListResponse.Id">
-            <summary>
-            The ID of this authorization list.
+            doing a GET on the <see cref="P:SwedbankPay.Sdk.IIdentifiable.Id"/>.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentAuthorizationListResponse.AuthorizationList">
@@ -3274,11 +3264,6 @@
             Transactional details about a recurring credit card payment.
             </summary>
         </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentRecurResponseDetails.Id">
-            <summary>
-            The relative URI and unique identifier of the payment resource .
-            </summary>
-        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentRecurResponseDetails.RecurrenceToken">
             <summary>
             The created recurrenceToken.
@@ -3287,7 +3272,7 @@
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentRecurResponseDetails.Number">
             <summary>
             The transaction number, useful when there’s need to reference the transaction in human communication.
-            Not usable for programmatic identification of the transaction, where <see cref="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentRecurResponseDetails.Id"/> should be used instead.
+            Not usable for programmatic identification of the transaction, where <see cref="P:SwedbankPay.Sdk.IIdentifiable.Id"/> should be used instead.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentRecurResponseDetails.Created">
@@ -3857,11 +3842,6 @@
             <summary>
             A textual description of the transaction,
             as sent by merchant to Swedbank Pay.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.IInvoicePaymentDetails.Id">
-            <summary>
-            The relative URI and unique identifier of the Invoice
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.IInvoicePaymentDetails.Instrument">
@@ -4510,11 +4490,6 @@
             Resource for getting the list of <seealso cref="T:SwedbankPay.Sdk.PaymentInstruments.IPrice"/> available on a payment.
             </summary>
         </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IPricesListResponse.Id">
-            <summary>
-            The unique id for this price resource.
-            </summary>
-        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.IPricesListResponse.PriceList">
             <summary>
             A list of <see cref="T:SwedbankPay.Sdk.PaymentInstruments.IPrice"/> giving details about amounts and types.
@@ -4570,11 +4545,6 @@
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.ITransaction">
             <summary>
             Object holding details about a transaction.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.ITransaction.Id">
-            <summary>
-            A unique <seealso cref="T:System.Uri"/> to access this transaction.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.ITransaction.Created">
@@ -4655,11 +4625,6 @@
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.ITransactionListResponse">
             <summary>
             Object holding available a transaction list.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.ITransactionListResponse.Id">
-            <summary>
-            A unique <seealso cref="T:System.Uri"/> to access this transaction list.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.ITransactionListResponse.TransactionList">
@@ -4755,11 +4720,6 @@
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.MobilePay.IMobilePayPayment">
             <summary>
             Object describing a payment for the Mobile Pay payment instrument.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.IMobilePayPayment.Id">
-            <summary>
-            The relative URI and unique identifier of the capture resource this capture belongs to.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.IMobilePayPayment.Amount">
@@ -5614,11 +5574,6 @@
             Describes how a Swish payment returned from the api look like.
             </summary>
         </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Swish.ISwishPayment.Id">
-            <summary>
-            The <seealso cref="T:System.Uri"/> to access details on this payment.
-            </summary>
-        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Swish.ISwishPayment.Number">
             <summary>
             The payment number , useful when there’s need to reference the payment in human communication.
@@ -5791,11 +5746,6 @@
             Describes a Swish payment response using the Sale operation.
             </summary>
         </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Swish.ISwishPaymentSale.Id">
-            <summary>
-            The <seealso cref="T:System.Uri"/> to access this payment
-            </summary>
-        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Swish.ISwishPaymentSale.Created">
             <summary>
             Shows when the payment was created.
@@ -5859,11 +5809,6 @@
             Object describing a Swish sale item.
             </summary>
         </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Swish.ISwishSaleListItem.Id">
-            <summary>
-            The relative URI and unique identifier of the sales resource this sales payment belongs to.
-            </summary>
-        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Swish.ISwishSaleListItem.Date">
             <summary>
             Shows the <seealso cref="T:System.DateTime"/> this sale object was created.
@@ -5898,11 +5843,6 @@
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.Swish.ISwishSaleListResponse">
             <summary>
             Resource to retreive and inspect sale items for Swish.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Swish.ISwishSaleListResponse.Id">
-            <summary>
-            A URI to get details about this sale list item.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Swish.ISwishSaleListResponse.SaleList">
@@ -6347,11 +6287,6 @@
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.Trustly.ITrustlyPayment">
             <summary>
             Transacational details for a Trustly payment.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Trustly.ITrustlyPayment.Id">
-            <summary>
-            A unique <seealso cref="T:System.Uri"/> to access this payment.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Trustly.ITrustlyPayment.Amount">
@@ -6964,11 +6899,6 @@
             A textual description of what is being paid for.
             </summary>
         </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Vipps.IVippsPayment.Id">
-            <summary>
-            A unique <seealso cref="T:System.Uri"/> to access this payment.
-            </summary>
-        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Vipps.IVippsPayment.Instrument">
             <summary>
             The <seealso cref="T:SwedbankPay.Sdk.PaymentInstrument"/> this payment is set to.
@@ -6988,7 +6918,7 @@
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Vipps.IVippsPayment.Number">
             <summary>
             The transaction number, useful when there’s need to reference the transaction in human communication.
-            Not usable for programmatic identification of the transaction, where <see cref="P:SwedbankPay.Sdk.PaymentInstruments.Vipps.IVippsPayment.Id"/> should be used instead.
+            Not usable for programmatic identification of the transaction, where <see cref="P:SwedbankPay.Sdk.IIdentifiable.Id"/> should be used instead.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Vipps.IVippsPayment.Operation">
@@ -7075,11 +7005,6 @@
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.Vipps.IVippsPaymentAuthorizationListResponse">
             <summary>
             Resource for getting list of all available authorizations on a Vipps payment.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Vipps.IVippsPaymentAuthorizationListResponse.Id">
-            <summary>
-            The unique <seealso cref="T:System.Uri"/> or this authorization list.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Vipps.IVippsPaymentAuthorizationListResponse.AuthorizationList">
@@ -7654,11 +7579,6 @@
             Transactional details for a authorization in payment order.
             </summary>
         </member>
-        <member name="P:SwedbankPay.Sdk.PaymentOrders.IPaymentAuthorizationResponse.Id">
-            <summary>
-            A unique <seealso cref="T:System.Uri"/> to access this authorization.
-            </summary>
-        </member>
         <member name="P:SwedbankPay.Sdk.PaymentOrders.IPaymentAuthorizationResponse.Created">
             <summary>
             The <seealso cref="T:System.DateTime"/> this authorization was created.
@@ -7683,7 +7603,7 @@
         <member name="P:SwedbankPay.Sdk.PaymentOrders.IPaymentAuthorizationResponse.Number">
             <summary>
             The transaction number, useful when there’s need to reference the transaction in human communication.
-            Not usable for programmatic identification of the transaction, where <see cref="P:SwedbankPay.Sdk.PaymentOrders.IPaymentAuthorizationResponse.Id"/> should be used instead.
+            Not usable for programmatic identification of the transaction, where <see cref="P:SwedbankPay.Sdk.IIdentifiable.Id"/> should be used instead.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentOrders.IPaymentAuthorizationResponse.Amount">
@@ -7831,11 +7751,6 @@
             The vatAmount entered will not affect the amount shown on the payment page, which only shows the total amount.
             This field is used to specify how much ofthe total amount the VAT will be.
             Set to 0 (zero) if there is no VAT amount charged.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentOrders.IPaymentOrder.Id">
-            <summary>
-            The relative URI and unique identifier of the paymentorder resource.
             </summary>
         </member>
         <member name="T:SwedbankPay.Sdk.PaymentOrders.IPaymentOrderOperations">

@@ -50,7 +50,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         /// <summary>
         /// Lists the prices related to a specific payment.
         /// </summary>
-        List<IPrice> Prices { get; }
+        IList<IPrice> Prices { get; }
 
         /// <summary>
         /// The URI to the urls resource where all URIs related to the payment can be retrieved.

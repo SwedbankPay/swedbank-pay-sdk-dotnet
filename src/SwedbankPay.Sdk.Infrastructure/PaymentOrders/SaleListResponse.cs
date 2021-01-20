@@ -18,6 +18,6 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
         public Uri Id { get; }
         public string Payment { get; }
-        public List<ISaleListItem> SaleList { get; }
+        public IList<ISaleListItem> SaleList { get; }
     }
 }

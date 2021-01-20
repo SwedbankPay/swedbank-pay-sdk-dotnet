@@ -10,6 +10,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         /// <summary>
         /// A list of authorizations done on this invoice payment.
         /// </summary>
-        List<IInvoicePaymentAuthorization> AuthorizationList { get; }
+        IList<IInvoicePaymentAuthorization> AuthorizationList { get; }
     }
 }

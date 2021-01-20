@@ -11,6 +11,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         /// <summary>
         /// List of all available authorizations on this payment.s
         /// </summary>
-        public List<IVippsPaymentAuthorization> AuthorizationList { get; }
+        IList<IVippsPaymentAuthorization> AuthorizationList { get; }
     }
 }
