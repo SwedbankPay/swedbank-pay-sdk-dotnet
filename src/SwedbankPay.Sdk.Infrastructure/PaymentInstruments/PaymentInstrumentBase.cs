@@ -2,7 +2,7 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
-    internal abstract class PaymentInstrumentBase: IPaymentInstrument
+    internal abstract class PaymentInstrumentBase : IPaymentInstrument
     {
         protected PaymentInstrumentBase(IPaymentInstrument payment)
         {
