@@ -20,7 +20,7 @@ namespace SwedbankPay.Sdk.Extensions
                 IProblem problemResponseDto = null;
                 if (!string.IsNullOrEmpty(responseString))
                 {
-                    problemResponseDto = JsonSerializer.Deserialize<ProblemDto>(responseString).Map();
+                    problemResponseDto = JsonSerializer.Deserialize<ProblemResponseDto>(responseString).Map();
                 }
 
                 var errorMessage = BuildErrorMessage(responseString, uri, apiResponse);
@@ -71,7 +71,7 @@ namespace SwedbankPay.Sdk.Extensions
                         throw new HttpResponseException(httpResponseMessage, problem, errorMessage);
                     }
 
-                    var problemResponseDto = JsonSerializer.Deserialize<ProblemDto>(httpResponseContent, JsonSerialization.JsonSerialization.Settings);
+                    var problemResponseDto = JsonSerializer.Deserialize<ProblemResponseDto>(httpResponseContent, JsonSerialization.JsonSerialization.Settings);
                     var problemResponse = problemResponseDto.Map();
                     errorMessage = BuildErrorMessage(httpResponseContent);
 
