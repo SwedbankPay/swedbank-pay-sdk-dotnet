@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    internal class CancellationTransactionDto
+    internal class CancellationTransactionResponseDto
     {
         public Uri Id { get; set; }
         public List<TransactionDto> Cancellations { get; set; }

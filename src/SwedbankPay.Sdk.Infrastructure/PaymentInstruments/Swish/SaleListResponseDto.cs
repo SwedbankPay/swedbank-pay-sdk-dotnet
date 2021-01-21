@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
-    internal class SaleListDto
+    internal class SaleListResponseDto
     {
         public Uri Id { get; set; }
         public List<SaleListItemDto> Sales { get; set; } = new List<SaleListItemDto>();

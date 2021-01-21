@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    internal interface IPaymentAuthorizationList
+    internal interface IPaymentAuthorizationListResponse
     {
         /// <summary>
         /// A unique <seealso cref="Uri"/> to access this authorization list.
