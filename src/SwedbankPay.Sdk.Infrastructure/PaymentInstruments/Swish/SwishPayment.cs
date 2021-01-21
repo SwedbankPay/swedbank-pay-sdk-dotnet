@@ -9,7 +9,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
             Number = payment.Number;
             Created = payment.Created;
             Updated = payment.Updated;
-            Instrument = Enum.Parse<PaymentInstrument>(payment.Instrument);
+            Instrument = Enum.Parse<Sdk.PaymentInstrument>(payment.Instrument);
             Operation = payment.Operation;
             Intent = Enum.Parse<PaymentIntent>(payment.Intent);
             State = payment.State;

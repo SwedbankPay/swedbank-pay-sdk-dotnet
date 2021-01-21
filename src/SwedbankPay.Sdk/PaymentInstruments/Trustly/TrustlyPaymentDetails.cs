@@ -44,7 +44,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
         }
 
         /// <summary>
-        /// SEK, EUR. The currency of the provided <seealso cref="Amount"/>.
+        /// SEK, EUR. The currency of the provided <seealso cref="Sdk.Amount"/>.
         /// </summary>
         public Currency Currency { get; set; }
 

@@ -9,7 +9,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
                                long number,
                                DateTime created,
                                DateTime updated,
-                               PaymentInstrument instrument,
+                               Sdk.PaymentInstrument instrument,
                                Operation operation,
                                PaymentIntent intent,
                                State state,
