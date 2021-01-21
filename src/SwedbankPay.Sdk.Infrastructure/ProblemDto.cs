@@ -2,12 +2,12 @@
 
 namespace SwedbankPay.Sdk
 {
-    internal class ProblemResponseDto
+    internal class ProblemDto
     {
         public string Action { get; set; }
         public string Detail { get; set; }
         public string Instance { get; set; }
-        public List<ProblemResponseItemDto> Problems { get; set; } = new List<ProblemResponseItemDto>();
+        public List<ProblemtemDto> Problems { get; set; } = new List<ProblemtemDto>();
         public int Status { get; set; }
         public string Title { get; set; }
         public string Type { get; set; }
