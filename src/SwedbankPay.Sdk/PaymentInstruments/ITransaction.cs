@@ -80,6 +80,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         /// <summary>
         /// Indicates any problems with the transaction.
         /// </summary>
-        IProblem Problem { get; }
+        IProblemResponse Problem { get; }
     }
 }

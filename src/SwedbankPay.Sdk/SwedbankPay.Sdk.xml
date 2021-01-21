@@ -756,7 +756,7 @@
             Contains detailed information about an <seealso cref="T:System.Exception"/> made during a HTTP request.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.Exceptions.HttpResponseException.#ctor(System.Net.Http.HttpResponseMessage,SwedbankPay.Sdk.IProblem,System.String,System.Exception)">
+        <member name="M:SwedbankPay.Sdk.Exceptions.HttpResponseException.#ctor(System.Net.Http.HttpResponseMessage,SwedbankPay.Sdk.IProblemResponse,System.String,System.Exception)">
             <summary>
             Instantiates a new <seealso cref="T:SwedbankPay.Sdk.Exceptions.HttpResponseException"/> with the parameters passed in.
             </summary>
@@ -772,7 +772,7 @@
         </member>
         <member name="P:SwedbankPay.Sdk.Exceptions.HttpResponseException.ProblemResponse">
             <summary>
-            The <seealso cref="T:SwedbankPay.Sdk.IProblem"/> in the <seealso cref="T:SwedbankPay.Sdk.Exceptions.HttpResponseException"/>.
+            The <seealso cref="T:SwedbankPay.Sdk.IProblemResponse"/> in the <seealso cref="T:SwedbankPay.Sdk.Exceptions.HttpResponseException"/>.
             </summary>
         </member>
         <member name="M:SwedbankPay.Sdk.Exceptions.HttpResponseException.#ctor">
@@ -1107,43 +1107,43 @@
             
             </summary>
         </member>
-        <member name="T:SwedbankPay.Sdk.IProblem">
+        <member name="T:SwedbankPay.Sdk.IProblemResponse">
             <summary>
             Holds details about a problem response from the API.
             </summary>
         </member>
-        <member name="P:SwedbankPay.Sdk.IProblem.Action">
+        <member name="P:SwedbankPay.Sdk.IProblemResponse.Action">
             <summary>
             The action indicates how the error can be recovered from.
             </summary>
         </member>
-        <member name="P:SwedbankPay.Sdk.IProblem.Detail">
+        <member name="P:SwedbankPay.Sdk.IProblemResponse.Detail">
             <summary>
             A detailed, human readable description of the error and how you can recover from it.
             </summary>
         </member>
-        <member name="P:SwedbankPay.Sdk.IProblem.Instance">
+        <member name="P:SwedbankPay.Sdk.IProblemResponse.Instance">
             <summary>
             The identifier of the error instance.
             This might be of use to Swedbank Pay support personnel in order to find the exact error and the context it occurred in.
             </summary>
         </member>
-        <member name="P:SwedbankPay.Sdk.IProblem.Problems">
+        <member name="P:SwedbankPay.Sdk.IProblemResponse.Problems">
             <summary>
             Array of problem detail objects.
             </summary>
         </member>
-        <member name="P:SwedbankPay.Sdk.IProblem.Status">
+        <member name="P:SwedbankPay.Sdk.IProblemResponse.Status">
             <summary>
             The HTTP status code that the problem was served with.
             </summary>
         </member>
-        <member name="P:SwedbankPay.Sdk.IProblem.Title">
+        <member name="P:SwedbankPay.Sdk.IProblemResponse.Title">
             <summary>
             The title contains a human readable description of the error.
             </summary>
         </member>
-        <member name="P:SwedbankPay.Sdk.IProblem.Type">
+        <member name="P:SwedbankPay.Sdk.IProblemResponse.Type">
             <summary>
             The URI that identifies the error type.
             This is the only field usable for programmatic identification of the type of error.

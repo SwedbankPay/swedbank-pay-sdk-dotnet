@@ -17,7 +17,7 @@ namespace SwedbankPay.Sdk.Exceptions
         /// <param name="message"></param>
         /// <param name="innerException"></param>
         public HttpResponseException(HttpResponseMessage httpResponse,
-                                     IProblem problemResponse = null,
+                                     IProblemResponse problemResponse = null,
                                      string message = null,
                                      Exception innerException = null)
             : base(message, innerException)
@@ -32,9 +32,9 @@ namespace SwedbankPay.Sdk.Exceptions
         public HttpResponseMessage HttpResponse { get; set; }
 
         /// <summary>
-        /// The <seealso cref="IProblem"/> in the <seealso cref="HttpResponseException"/>.
+        /// The <seealso cref="IProblemResponse"/> in the <seealso cref="HttpResponseException"/>.
         /// </summary>
-        public IProblem ProblemResponse { get; set; }
+        public IProblemResponse ProblemResponse { get; set; }
 
         /// <summary>
         /// Instantiates a new empty <seealso cref="HttpResponseException"/>.

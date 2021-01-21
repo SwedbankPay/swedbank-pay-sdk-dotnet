@@ -12,9 +12,9 @@ namespace SwedbankPay.Sdk
         public string Title { get; set; }
         public string Type { get; set; }
 
-        internal IProblem Map()
+        internal IProblemResponse Map()
         {
-            var response = new Problem(Action, Detail, Instance, Status, Title, Type);
+            var response = new ProblemResponse(Action, Detail, Instance, Status, Title, Type);
             foreach (var item in Problems)
             {
                 response.Problems.Add(item.Map());

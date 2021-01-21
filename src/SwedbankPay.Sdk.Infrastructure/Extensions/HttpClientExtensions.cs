@@ -17,7 +17,7 @@ namespace SwedbankPay.Sdk.Extensions
 
             if (!apiResponse.IsSuccessStatusCode)
             {
-                IProblem problemResponseDto = null;
+                IProblemResponse problemResponseDto = null;
                 if (!string.IsNullOrEmpty(responseString))
                 {
                     problemResponseDto = JsonSerializer.Deserialize<ProblemResponseDto>(responseString).Map();
@@ -61,7 +61,7 @@ namespace SwedbankPay.Sdk.Extensions
                     if (string.IsNullOrEmpty(httpResponseContent))
                     {
                         var httpStatusCode = (int)httpResponseMessage.StatusCode;
-                        var problem = new Problem(httpResponseContent,
+                        var problem = new ProblemResponse(httpResponseContent,
                                                           httpResponseContent,
                                                           httpResponseContent,
                                                           httpStatusCode,

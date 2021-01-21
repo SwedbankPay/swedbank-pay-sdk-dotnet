@@ -98,7 +98,7 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
             var uri = new Uri("http://api.externalintegration.payex.com");
             var sut = new HttpClient(handler);
 
-            var error = await Assert.ThrowsAsync<HttpResponseException>(() => sut.SendAndProcessAsync<Problem>(HttpMethod.Get, uri, null));
+            var error = await Assert.ThrowsAsync<HttpResponseException>(() => sut.SendAndProcessAsync<ProblemResponse>(HttpMethod.Get, uri, null));
 
             Assert.Equal(1, error.Data.Count);
         }
@@ -115,7 +115,7 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
             var uri = new Uri("http://api.externalintegration.payex.com");
             var sut = new HttpClient(handler);
 
-            var error = await Assert.ThrowsAsync<HttpResponseException>(() => sut.SendAndProcessAsync<Problem>(HttpMethod.Get, uri, null));
+            var error = await Assert.ThrowsAsync<HttpResponseException>(() => sut.SendAndProcessAsync<ProblemResponse>(HttpMethod.Get, uri, null));
 
             JsonSerializer.Serialize(error, JsonSerialization.JsonSerialization.Settings);
         }
@@ -135,7 +135,7 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
             var resultDto = await sut.SendAndProcessAsync<ProblemResponseDto>(HttpMethod.Get, uri, null);
             var result = resultDto.Map();
 
-            Assert.IsType<Problem>(result);
+            Assert.IsType<ProblemResponse>(result);
         }
 
         [Fact]

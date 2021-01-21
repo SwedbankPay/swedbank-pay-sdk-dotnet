@@ -34,7 +34,7 @@ namespace SwedbankPay.Sdk.JsonSerialization.Converters
                             httpException.HttpResponse = JsonSerializer.Deserialize<HttpResponseMessage>(reader.GetString(), options);
                             break;
                         case "ProblemResponse":
-                            httpException.ProblemResponse = JsonSerializer.Deserialize<Problem>(reader.GetString(), options);
+                            httpException.ProblemResponse = JsonSerializer.Deserialize<ProblemResponse>(reader.GetString(), options);
                             break;
                         case "HelpLink":
                             httpException.HelpLink = reader.GetString();
