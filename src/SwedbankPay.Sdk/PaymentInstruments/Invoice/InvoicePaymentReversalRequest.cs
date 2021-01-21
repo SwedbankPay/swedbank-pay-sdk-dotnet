@@ -8,8 +8,8 @@
         /// <summary>
         /// Instantiates a new <see cref="InvoicePaymentReversalRequest"/> with the provided parameters.
         /// </summary>
-        /// <param name="amount">The <seealso cref="Sdk.Amount"/> to return to the payer.</param>
-        /// <param name="vatAmount">The <seealso cref="Sdk.Amount"/> to return from the VAT amount.</param>
+        /// <param name="amount">The <seealso cref="Amount"/> to return to the payer.</param>
+        /// <param name="vatAmount">The <seealso cref="Amount"/> to return from the VAT amount.</param>
         /// <param name="description">A textual description of the reversal.</param>
         /// <param name="payeeReference">The payeeReference is the receipt/invoice number if receiptReference is not defined,
         /// which is a unique reference with max 50 characters set by the merchant system.

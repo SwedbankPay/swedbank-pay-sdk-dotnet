@@ -9,7 +9,7 @@
         /// Instantiates a <see cref="TrustlyPaymentReversalRequest"/> with the provided parameters.
         /// </summary>
         /// <param name="operation">The API operation to perform.</param>
-        /// <param name="amount">The <seealso cref="Sdk.Amount"/> to be reversed.</param>
+        /// <param name="amount">The <seealso cref="Amount"/> to be reversed.</param>
         /// <param name="description">A textual description of the reversal.</param>
         /// <param name="payeeReference">A transactionally unique payee reference from the merchant system.</param>
         /// <param name="receiptReference">The receiptReference is a reference from the merchant system.

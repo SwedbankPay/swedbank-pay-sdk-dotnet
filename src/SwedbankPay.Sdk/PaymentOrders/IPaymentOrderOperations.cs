@@ -22,12 +22,12 @@ namespace SwedbankPay.Sdk.PaymentOrders
         Func<PaymentOrderCancelRequest, Task<CancellationResponse>> Cancel { get; }
 
         /// <summary>
-        /// Captures the authorized <seealso cref="Sdk.Amount"/> on the payment order, if available.
+        /// Captures the authorized <seealso cref="Amount"/> on the payment order, if available.
         /// </summary>
         Func<PaymentOrderCaptureRequest, Task<CaptureResponse>> Capture { get; }
 
         /// <summary>
-        /// Reverses previously captured <seealso cref="Sdk.Amount"/> on the payment order, if available.
+        /// Reverses previously captured <seealso cref="Amount"/> on the payment order, if available.
         /// </summary>
         Func<PaymentOrderReversalRequest, Task<IReversalResponse>> Reverse { get; }
 

@@ -10,7 +10,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// <summary>
         /// Instantiates a new <see cref="CardPaymentRecurRequest"/> with the provided parameters.
         /// </summary>
-        /// <param name="operation">The wanted <seealso cref="Sdk.Operation"/> to perform.</param>
+        /// <param name="operation">The wanted <seealso cref="Operation"/> to perform.</param>
         /// <param name="intent">The current <seealso cref="PaymentIntent"/> for this payment.</param>
         /// <param name="recurrenceToken">A previously authorizied reucrrence token.</param>
         /// <param name="currency">The <seealso cref="Currency"/> the payment is being paid in.</param>

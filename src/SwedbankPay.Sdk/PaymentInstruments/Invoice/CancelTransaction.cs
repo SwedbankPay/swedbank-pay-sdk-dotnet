@@ -8,7 +8,7 @@
         /// <summary>
         /// Instantiates a new <see cref="CancelTransaction"/> with the provided parameters.
         /// </summary>
-        /// <param name="transactionActivity">The <see cref="Sdk.Operation"/> for this cancel.</param>
+        /// <param name="transactionActivity">The <see cref="Operation"/> for this cancel.</param>
         /// <param name="payeeReference">A transactionally unique reference from the merchant system.</param>
         /// <param name="description">A textual description of the cancellation.</param>
         protected internal CancelTransaction(Operation transactionActivity, string payeeReference, string description)

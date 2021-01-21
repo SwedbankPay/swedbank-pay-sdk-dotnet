@@ -88,20 +88,20 @@ namespace SwedbankPay.Sdk
         }
 
         /// <summary>
-        /// Adds the amounts in two <seealso cref="Sdk.Amount"/> instances together.
+        /// Adds the amounts in two <seealso cref="Amount"/> instances together.
         /// </summary>
-        /// <returns>A new <seealso cref="Sdk.Amount"/> with the amounts added together.</returns>
+        /// <returns>A new <seealso cref="Amount"/> with the amounts added together.</returns>
         public static Amount operator +(Amount a, Amount b)
         {
             return new Amount(a.amount + b.amount);
         }
 
         /// <summary>
-        /// Subtracts two amounts in <seealso cref="Sdk.Amount"/> from eachother.
+        /// Subtracts two amounts in <seealso cref="Amount"/> from eachother.
         /// </summary>
         /// <param name="a">The left side parameter of the - operator.</param>
         /// <param name="b">The right side parameter of the - operatior.</param>
-        /// <returns>A new <seealso cref="Sdk.Amount"/> with the new sum.</returns>
+        /// <returns>A new <seealso cref="Amount"/> with the new sum.</returns>
         public static Amount operator -(Amount a, Amount b)
         {
             return new Amount(a.amount - b.amount);
@@ -238,7 +238,7 @@ namespace SwedbankPay.Sdk
         }
 
         /// <summary>
-        /// Checks that two <seealso cref="Sdk.Amount"/> are equal.
+        /// Checks that two <seealso cref="Amount"/> are equal.
         /// </summary>
         /// <returns>true if equal, false otherwise.</returns>
         public static bool operator ==(Amount left, Amount right)
@@ -252,7 +252,7 @@ namespace SwedbankPay.Sdk
         }
 
         /// <summary>
-        /// Checks that two <seealso cref="Sdk.Amount"/> are not equal.
+        /// Checks that two <seealso cref="Amount"/> are not equal.
         /// </summary>
         /// <returns>true if not equal, false otherwise.</returns>
         public static bool operator !=(Amount left, Amount right)
@@ -266,10 +266,10 @@ namespace SwedbankPay.Sdk
         }
 
         /// <summary>
-        /// Checks if the first <seealso cref="Sdk.Amount"/> is smaler than the second.
+        /// Checks if the first <seealso cref="Amount"/> is smaler than the second.
         /// </summary>
-        /// <param name="left">The first <seealso cref="Sdk.Amount"/> to check.</param>
-        /// <param name="right">The second <seealso cref="Sdk.Amount"/> to check.</param>
+        /// <param name="left">The first <seealso cref="Amount"/> to check.</param>
+        /// <param name="right">The second <seealso cref="Amount"/> to check.</param>
         /// <returns>true if <paramref name="left"/> is smaler, false otherwise.</returns>
         public static bool operator <(Amount left, Amount right)
         {
@@ -279,8 +279,8 @@ namespace SwedbankPay.Sdk
         /// <summary>
         /// Checks if the <paramref name="left"/> is smaler or equal to <paramref name="right"/>.
         /// </summary>
-        /// <param name="left">The first <seealso cref="Sdk.Amount"/> to check.</param>
-        /// <param name="right">The second <seealso cref="Sdk.Amount"/> to check.</param>
+        /// <param name="left">The first <seealso cref="Amount"/> to check.</param>
+        /// <param name="right">The second <seealso cref="Amount"/> to check.</param>
         /// <returns>true if <paramref name="left"/> is smaller or equal to <paramref name="right"/>.</returns>
         public static bool operator <=(Amount left, Amount right)
         {
