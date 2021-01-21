@@ -15,7 +15,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         /// <summary>
         /// Currently available list of cancellations.
         /// </summary>
-        ICancellationsList Cancellations { get; }
+        ICancellationsListResponse Cancellations { get; }
 
         /// <summary>
         /// Currently available list of captures.

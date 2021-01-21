@@ -21,7 +21,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <summary>
         /// Resource to get available cancellation transactions.
         /// </summary>
-        ICancellationsList Cancellations { get; }
+        ICancellationsListResponse Cancellations { get; }
 
         /// <summary>
         /// Resource to get available capture transactions.

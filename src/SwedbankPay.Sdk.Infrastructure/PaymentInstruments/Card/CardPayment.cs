@@ -56,7 +56,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 
         public ICardPaymentAuthorizationListResponse Authorizations { get; }
 
-        public ICancellationsList Cancellations { get; }
+        public ICancellationsListResponse Cancellations { get; }
 
         public ICapturesListResponse Captures { get; }
 

@@ -39,7 +39,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 
         public Amount Amount { get; }
         public IVippsPaymentAuthorizationListResponse Authorizations { get; }
-        public ICancellationsList Cancellations { get; }
+        public ICancellationsListResponse Cancellations { get; }
         public ICapturesListResponse Captures { get; }
         public DateTime Created { get; }
         public DateTime Updated { get; }

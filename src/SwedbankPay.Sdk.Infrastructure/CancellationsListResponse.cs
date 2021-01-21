@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk
 {
-    internal class CancellationsList : Identifiable, ICancellationsList
+    internal class CancellationsListResponse : Identifiable, ICancellationsListResponse
     {
-        public CancellationsList(Uri id, IList<ITransaction> cancellationList) : base(id)
+        public CancellationsListResponse(Uri id, IList<ITransaction> cancellationList) : base(id)
         {
             CancellationList = cancellationList;
         }

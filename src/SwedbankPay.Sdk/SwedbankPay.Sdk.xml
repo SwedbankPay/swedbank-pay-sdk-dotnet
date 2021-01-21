@@ -3325,12 +3325,12 @@
             Transactional information about this cancellation.
             </summary>
         </member>
-        <member name="T:SwedbankPay.Sdk.PaymentInstruments.ICancellationsList">
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.ICancellationsListResponse">
             <summary>
             List of transactional details on a cancelled payment.
             </summary>
         </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.ICancellationsList.CancellationList">
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.ICancellationsListResponse.CancellationList">
             <summary>
             List of transactional cancellations.
             </summary>

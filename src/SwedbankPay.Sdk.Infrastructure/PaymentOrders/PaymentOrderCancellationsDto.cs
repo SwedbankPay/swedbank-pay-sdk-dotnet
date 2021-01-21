@@ -10,7 +10,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public string Id { get; set; }
         public TransactionDto Cancellation { get; set; }
 
-        internal ICancellationsList Map()
+        internal ICancellationsListResponse Map()
         {
             var list = new List<ITransaction>();
 
@@ -19,7 +19,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                 list.Add(Cancellation.Map());
             }
 
-            return new CancellationsList(new Uri(Id, UriKind.RelativeOrAbsolute), list);
+            return new CancellationsListResponse(new Uri(Id, UriKind.RelativeOrAbsolute), list);
         }
     }
 }

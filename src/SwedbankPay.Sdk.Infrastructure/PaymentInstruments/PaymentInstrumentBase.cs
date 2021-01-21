@@ -43,7 +43,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
 
         public Amount RemainingReversalAmount { get; }
 
-        public ICancellationsList Cancellations { get; }
+        public ICancellationsListResponse Cancellations { get; }
 
         public ICapturesListResponse Captures { get; }
 
