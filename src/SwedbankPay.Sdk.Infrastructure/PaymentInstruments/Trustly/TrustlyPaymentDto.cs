@@ -28,7 +28,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
         public UrlsDto Urls { get; set; }
         public string UserAgent { get; set; }
         public MetadataDto Metadata { get; set; }
-        public CancellationsListResponseDto Cancellations { get; set; }
+        public CancellationsListDto Cancellations { get; set; }
         public CaptureListTransactionDto Captures { get; set; }
         public ReversalsListResponseDto Reversals { get; set; }
     }

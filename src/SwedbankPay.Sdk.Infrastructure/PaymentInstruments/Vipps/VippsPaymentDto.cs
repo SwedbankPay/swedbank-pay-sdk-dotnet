@@ -6,7 +6,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
     {
         public long Amount { get; set; }
         public VippsPaymentAuthorizationListResponseDto Authorizations { get; set; }
-        public CancellationsListResponseDto Cancellations { get; set; }
+        public CancellationsListDto Cancellations { get; set; }
         public CaptureTransactionResponseDto Captures { get; set; }
         public DateTime Created { get; set; }
         public DateTime Updated { get; set; }

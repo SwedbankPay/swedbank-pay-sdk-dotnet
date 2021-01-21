@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SwedbankPay.Sdk.PaymentInstruments.Card
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
     /// <summary>
     /// Describes a credt card payment.

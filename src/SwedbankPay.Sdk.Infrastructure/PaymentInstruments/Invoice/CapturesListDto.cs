@@ -1,10 +1,9 @@
-﻿using SwedbankPay.Sdk.PaymentInstruments.Card;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
-    internal class CapturesListResponseDto
+    internal class CapturesListDto
     {
         public Uri Id { get; set; }
         public List<TransactionDto> CaptureList { get; set; } = new List<TransactionDto>();

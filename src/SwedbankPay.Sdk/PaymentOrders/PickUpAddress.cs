@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-namespace SwedbankPay.Sdk.PaymentOrders
+﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
     /// <summary>
     ///     If shipIndicator set, then prefil 

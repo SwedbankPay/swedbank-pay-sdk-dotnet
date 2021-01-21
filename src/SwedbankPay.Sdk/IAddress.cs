@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-namespace SwedbankPay.Sdk
+﻿namespace SwedbankPay.Sdk
 {
     /// <summary>
     /// Holds shared information about a address.

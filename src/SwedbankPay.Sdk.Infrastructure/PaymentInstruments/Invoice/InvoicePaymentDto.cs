@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
@@ -11,8 +10,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         public int RemainingCancellationAmount { get; set; }
         public int RemainingReversalAmount { get; set; }
         public InvoicePaymentAuthorizationListDto Authorizations { get; set; }
-        public CancellationsListResponseDto Cancellations { get; set; }
-        public CapturesListResponseDto Captures { get; set; }
+        public CancellationsListDto Cancellations { get; set; }
+        public CapturesListDto Captures { get; set; }
         public DateTime Created { get; set; }
         public DateTime Updated { get; set; }
         public string Currency { get; set; }
