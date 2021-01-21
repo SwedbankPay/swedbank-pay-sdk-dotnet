@@ -1151,18 +1151,18 @@
             it might lead you to a human readable description of the error and how it can be recovered from.
             </summary>
         </member>
-        <member name="T:SwedbankPay.Sdk.IProblemItem">
+        <member name="T:SwedbankPay.Sdk.IProblemResponseItem">
             <summary>
             Class to describe problem responses in certain api responses.
             </summary>
         </member>
-        <member name="P:SwedbankPay.Sdk.IProblemItem.Description">
+        <member name="P:SwedbankPay.Sdk.IProblemResponseItem.Description">
             <summary>
             The human readable description of what was wrong with the field,
-            header, object, entity or likewise identified by <see cref="P:SwedbankPay.Sdk.IProblemItem.Name"/>.
+            header, object, entity or likewise identified by <see cref="P:SwedbankPay.Sdk.IProblemResponseItem.Name"/>.
             </summary>
         </member>
-        <member name="P:SwedbankPay.Sdk.IProblemItem.Name">
+        <member name="P:SwedbankPay.Sdk.IProblemResponseItem.Name">
             <summary>
             The name of the field, header, object, entity or likewise that was erroneous.
             </summary>

@@ -26,7 +26,7 @@ namespace SwedbankPay.Sdk
         /// <summary>
         /// Array of problem detail objects.
         /// </summary>
-        IList<IProblemItem> Problems { get; }
+        IList<IProblemResponseItem> Problems { get; }
 
         /// <summary>
         /// The HTTP status code that the problem was served with.
