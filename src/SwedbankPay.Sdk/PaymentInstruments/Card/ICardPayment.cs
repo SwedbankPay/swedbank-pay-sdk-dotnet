@@ -10,7 +10,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// <summary>
         /// The available authorization transactions for this payment.
         /// </summary>
-        ICardPaymentAuthorizationList Authorizations { get; }
+        ICardPaymentAuthorizationListResponse Authorizations { get; }
 
         /// <summary>
         /// The created recurrenceToken, if <seealso cref="Operation.Verify"/>, <seealso cref="Operation.Recur"/> generateRecurrenceToken: true was used.

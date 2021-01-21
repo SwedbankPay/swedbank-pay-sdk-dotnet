@@ -2899,13 +2899,13 @@
             Hints to who initiated the transaction.
             </summary>
         </member>
-        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentAuthorizationList">
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentAuthorizationListResponse">
             <summary>
             Holds a list of <seealso cref="T:SwedbankPay.Sdk.IPaymentAuthorization"/> if available when
             doing a GET on the <see cref="P:SwedbankPay.Sdk.IIdentifiable.Id"/>.
             </summary>
         </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentAuthorizationList.AuthorizationList">
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentAuthorizationListResponse.AuthorizationList">
             <summary>
             List of avaialbe <see cref="T:SwedbankPay.Sdk.IPaymentAuthorization"/> on the current payment.
             </summary>
