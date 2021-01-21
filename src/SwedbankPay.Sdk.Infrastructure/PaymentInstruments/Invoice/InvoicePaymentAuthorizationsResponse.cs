@@ -4,7 +4,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
     internal class InvoicePaymentAuthorizationsResponse
     {
-        public InvoicePaymentAuthorizationsResponse(Uri payment, IInvoicePaymentAuthorizationList authorizationList)
+        public InvoicePaymentAuthorizationsResponse(Uri payment, IInvoicePaymentAuthorizationListResponse authorizationList)
         {
             Payment = payment;
             AuthorizationList = authorizationList;
@@ -13,7 +13,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         /// <summary>
         /// The current list of authorizations for this invoice if available.
         /// </summary>
-        public IInvoicePaymentAuthorizationList AuthorizationList { get; }
+        public IInvoicePaymentAuthorizationListResponse AuthorizationList { get; }
 
         /// <summary>
         /// A <seealso cref="Uri"/> to get authorization details about the current payment.
