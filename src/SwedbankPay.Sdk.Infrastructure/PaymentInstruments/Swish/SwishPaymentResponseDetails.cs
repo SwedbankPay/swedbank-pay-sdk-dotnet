@@ -3,9 +3,9 @@ using System.Globalization;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
-    internal class SwishPaymentDetails
+    internal class SwishPaymentResponseDetails
     {
-        public SwishPaymentDetails(Uri id,
+        public SwishPaymentResponseDetails(Uri id,
                                long number,
                                DateTime created,
                                DateTime updated,
