@@ -6993,12 +6993,12 @@
                 The fee amount in the lowest monetary unit to apply if the consumer chooses to pay with invoice.
             </summary>
         </member>
-        <member name="P:SwedbankPay.Sdk.PaymentOrders.IPaymentAuthorizationListResponse.Id">
+        <member name="P:SwedbankPay.Sdk.PaymentOrders.IPaymentAuthorizationList.Id">
             <summary>
             A unique <seealso cref="T:System.Uri"/> to access this authorization list.
             </summary>
         </member>
-        <member name="P:SwedbankPay.Sdk.PaymentOrders.IPaymentAuthorizationListResponse.AuthorizationList">
+        <member name="P:SwedbankPay.Sdk.PaymentOrders.IPaymentAuthorizationList.AuthorizationList">
             <summary>
             Contains all currently available payment authorizations.
             </summary>
