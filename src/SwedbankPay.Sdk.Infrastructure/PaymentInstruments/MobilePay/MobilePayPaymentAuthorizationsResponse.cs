@@ -4,7 +4,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
     internal class MobilePayPaymentAuthorizationsResponse
     {
-        public MobilePayPaymentAuthorizationsResponse(Uri payment, MobilePayPaymentAuthorizationListResponse authorizationList)
+        public MobilePayPaymentAuthorizationsResponse(Uri payment, MobilePayPaymentAuthorizationList authorizationList)
         {
             Payment = payment;
             AuthorizationList = authorizationList;
@@ -18,6 +18,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         /// <summary>
         /// A list of currently available authorizations on this payment.
         /// </summary>
-        public MobilePayPaymentAuthorizationListResponse AuthorizationList { get; }
+        public MobilePayPaymentAuthorizationList AuthorizationList { get; }
     }
 }

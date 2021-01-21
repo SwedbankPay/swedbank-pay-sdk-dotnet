@@ -30,6 +30,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
         public MetadataDto Metadata { get; set; }
         public CancellationsListDto Cancellations { get; set; }
         public CaptureListTransactionDto Captures { get; set; }
-        public ReversalsListResponseDto Reversals { get; set; }
+        public ReversalsListDto Reversals { get; set; }
     }
 }

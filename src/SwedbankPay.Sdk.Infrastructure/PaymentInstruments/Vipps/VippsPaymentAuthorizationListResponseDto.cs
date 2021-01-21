@@ -8,14 +8,14 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         public Uri Id { get; set; }
         public List<VippsPaymentAuthorizationDto> AuthorizationList { get; set; }
 
-        internal IVippsPaymentAuthorizationListResponse Map()
+        internal IVippsPaymentAuthorizationList Map()
         {
             var list = new List<IVippsPaymentAuthorization>();
             foreach (var item in AuthorizationList)
             {
                 list.Add(item.Map());
             }
-            return new VippsPaymentAuthorizationListResponse(Id, list);
+            return new VippsPaymentAuthorizationList(Id, list);
         }
     }
 }

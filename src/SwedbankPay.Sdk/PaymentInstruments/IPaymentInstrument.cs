@@ -137,7 +137,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         /// <summary>
         /// The reversal resource contains information about the reversal transaction made
         /// </summary>
-        IReversalsListResponse Reversals { get; }
+        IReversalsList Reversals { get; }
 
         /// <summary>
         /// Metadata can be used to store data associated to a payment that can be retrieved later by performing a GET on the payment. 

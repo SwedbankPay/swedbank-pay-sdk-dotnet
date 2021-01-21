@@ -8,6 +8,6 @@
         /// <summary>
         /// Gives access to available sales transactions on this payment.
         /// </summary>
-        ISwishSaleListResponse Sales { get; }
+        ISwishSaleList Sales { get; }
     }
 }

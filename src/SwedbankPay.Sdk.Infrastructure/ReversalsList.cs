@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk
 {
-    internal class ReversalsListResponse : Identifiable, IReversalsListResponse
+    internal class ReversalsList : Identifiable, IReversalsList
     {
-        public ReversalsListResponse(Uri id, List<ITransactionResponse> reversalList)
+        public ReversalsList(Uri id, List<ITransactionResponse> reversalList)
             : base(id)
         {
             ReversalList = reversalList;

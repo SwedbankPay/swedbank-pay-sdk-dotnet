@@ -23,8 +23,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
                                string userAgent,
                                CultureInfo language,
                                ITransactionListResponse transactions,
-                               ISwishSaleListResponse sales,
-                               IReversalsListResponse reversals,
+                               ISwishSaleList sales,
+                               IReversalsList reversals,
                                IUrls urls,
                                PayeeInfo payeeInfo,
                                Metadata metadata)
@@ -72,8 +72,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         public string UserAgent { get; }
         public CultureInfo Language { get; }
         public ITransactionListResponse Transactions { get; }
-        public ISwishSaleListResponse Sales { get; }
-        public IReversalsListResponse Reversals { get; }
+        public ISwishSaleList Sales { get; }
+        public IReversalsList Reversals { get; }
         public IUrls Urls { get; }
         public PayeeInfo PayeeInfo { get; }
         public Uri Id { get; }

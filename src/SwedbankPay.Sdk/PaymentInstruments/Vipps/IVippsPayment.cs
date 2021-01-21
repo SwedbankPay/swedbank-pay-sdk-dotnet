@@ -8,6 +8,6 @@
         /// <summary>
         /// Resrouce to get available authorizations on this payment.
         /// </summary>
-        public IVippsPaymentAuthorizationListResponse Authorizations { get; }
+        public IVippsPaymentAuthorizationList Authorizations { get; }
     }
 }

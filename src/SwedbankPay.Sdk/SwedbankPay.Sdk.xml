@@ -4390,12 +4390,12 @@
             Transactional reversal information.
             </summary>
         </member>
-        <member name="T:SwedbankPay.Sdk.PaymentInstruments.IReversalsListResponse">
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.IReversalsList">
             <summary>
             Object holding a list of available reversals on a payment.
             </summary>
         </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IReversalsListResponse.ReversalList">
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IReversalsList.ReversalList">
             <summary>
             Contains a list of available reversal transactions.
             </summary>
@@ -4668,12 +4668,12 @@
             Available information about the payment card that authorized this transaction.
             </summary>
         </member>
-        <member name="T:SwedbankPay.Sdk.PaymentInstruments.MobilePay.IMobilePayPaymentAuthorizationListResponse">
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.MobilePay.IMobilePayPaymentAuthorizationList">
             <summary>
             Object holding currently available authorizations for a payment.
             </summary>
         </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.IMobilePayPaymentAuthorizationListResponse.AuthorizationList">
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.IMobilePayPaymentAuthorizationList.AuthorizationList">
             <summary>
             The currently available list of authorizations.
             </summary>
@@ -5457,6 +5457,16 @@
             <param name="paymentExpand"></param>
             <returns></returns>
         </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Swish.ISwishSaleList">
+            <summary>
+            Resource to retreive and inspect sale items for Swish.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Swish.ISwishSaleList.SaleList">
+            <summary>
+            A list of Swish sale list items.
+            </summary>
+        </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.Swish.ISwishSaleListItem">
             <summary>
             Object describing a Swish sale item.
@@ -5491,16 +5501,6 @@
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Swish.ISwishSaleListItem.Transaction">
             <summary>
             The current sales transaction for this sale item.
-            </summary>
-        </member>
-        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Swish.ISwishSaleListResponse">
-            <summary>
-            Resource to retreive and inspect sale items for Swish.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Swish.ISwishSaleListResponse.SaleList">
-            <summary>
-            A list of Swish sale list items.
             </summary>
         </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.Swish.SwishPaymentRequest">
@@ -6431,12 +6431,12 @@
             ID to find this transaction in Vipps systems.
             </summary>
         </member>
-        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Vipps.IVippsPaymentAuthorizationListResponse">
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Vipps.IVippsPaymentAuthorizationList">
             <summary>
             Resource for getting list of all available authorizations on a Vipps payment.
             </summary>
         </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Vipps.IVippsPaymentAuthorizationListResponse.AuthorizationList">
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Vipps.IVippsPaymentAuthorizationList.AuthorizationList">
             <summary>
             List of all available authorizations on this payment.s
             </summary>

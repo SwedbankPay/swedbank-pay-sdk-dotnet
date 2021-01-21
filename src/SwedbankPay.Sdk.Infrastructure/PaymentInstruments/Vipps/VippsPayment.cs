@@ -38,7 +38,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         }
 
         public Amount Amount { get; }
-        public IVippsPaymentAuthorizationListResponse Authorizations { get; }
+        public IVippsPaymentAuthorizationList Authorizations { get; }
         public ICancellationsList Cancellations { get; }
         public ICapturesList Captures { get; }
         public DateTime Created { get; }
@@ -55,7 +55,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         public string PayerReference { get; }
         public string InitiatingSystemUserAgent { get; }
         public IPricesListResponse Prices { get; }
-        public IReversalsListResponse Reversals { get; }
+        public IReversalsList Reversals { get; }
         public State State { get; }
         public ITransactionListResponse Transactions { get; }
         public IUrls Urls { get; }
