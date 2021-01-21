@@ -10,14 +10,14 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public Uri Id { get; set; }
         public List<TransactionDto> Cancellations { get; set; }
 
-        internal ICancellationsListResponse Map()
+        internal ICancellationsList Map()
         {
             var list = new List<ITransaction>();
             foreach (var c in Cancellations)
             {
                 list.Add(c.Map());
             }
-            return new CancellationsListResponse(Id, list);
+            return new CancellationsList(Id, list);
         }
     }
 
