@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
-    internal class MobilePayPaymentAuthorizationListResponseDto
+    internal class MobilePayPaymentAuthorizationListDto
     {
         public Uri Id { get; set; }
         public List<MobilePayPaymentAuthorizationDto> AuthorizationList { get; set; }
