@@ -1,4 +1,7 @@
-﻿using System.Text.Json;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Text.Json;
 using Xunit;
 
 namespace SwedbankPay.Sdk.Tests.Json

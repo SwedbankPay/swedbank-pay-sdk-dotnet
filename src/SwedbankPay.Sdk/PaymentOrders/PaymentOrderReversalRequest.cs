@@ -1,4 +1,6 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrders
+﻿using System.Collections.Generic;
+
+namespace SwedbankPay.Sdk.PaymentOrders
 {
     /// <summary>
     /// API request to reverse captured funds.

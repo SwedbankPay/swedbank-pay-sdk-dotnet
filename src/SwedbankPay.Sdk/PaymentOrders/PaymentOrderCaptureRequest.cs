@@ -1,4 +1,6 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrders
+﻿using System.Collections.Generic;
+
+namespace SwedbankPay.Sdk.PaymentOrders
 {
     /// <summary>
     /// API request object for capturing funds for a payment order.

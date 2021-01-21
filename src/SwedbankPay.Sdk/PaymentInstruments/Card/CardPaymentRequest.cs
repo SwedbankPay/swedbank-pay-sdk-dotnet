@@ -1,4 +1,7 @@
-﻿namespace SwedbankPay.Sdk.PaymentInstruments.Card
+﻿using SwedbankPay.Sdk.PaymentOrders;
+using System.Collections.Generic;
+
+namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
     /// <summary>
     /// Class to hold details about a card payment request.

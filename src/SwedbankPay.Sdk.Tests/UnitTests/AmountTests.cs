@@ -1,4 +1,7 @@
-﻿using Xunit;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using Xunit;
 
 namespace SwedbankPay.Sdk.Tests.UnitTests
 {

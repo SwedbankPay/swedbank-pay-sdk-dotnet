@@ -1,4 +1,6 @@
-﻿namespace SwedbankPay.Sdk.PaymentInstruments.Card
+﻿using System.Collections.Generic;
+
+namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
     /// <summary>
     /// Used to pay a credit card recurring payment.

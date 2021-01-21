@@ -1,4 +1,6 @@
-﻿namespace SwedbankPay.Sdk.Consumers
+﻿using System.Globalization;
+
+namespace SwedbankPay.Sdk.Consumers
 {
     /// <summary>
     /// Holds details about a consumers addres.

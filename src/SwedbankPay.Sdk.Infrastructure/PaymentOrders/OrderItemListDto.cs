@@ -1,4 +1,6 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrders
+﻿using System;
+
+namespace SwedbankPay.Sdk.PaymentOrders
 {
     internal class OrderItemListDto
     {

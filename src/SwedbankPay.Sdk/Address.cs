@@ -1,4 +1,6 @@
-﻿namespace SwedbankPay.Sdk
+﻿using System.Globalization;
+
+namespace SwedbankPay.Sdk
 {
     /// <summary>
     /// Holds details about a users current address.

@@ -1,4 +1,6 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrders
+﻿using System;
+
+namespace SwedbankPay.Sdk.PaymentOrders
 {
     /// <summary>
     /// Detailed information about a payer for a payment order.
