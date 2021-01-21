@@ -11,7 +11,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             Number = dto.Number;
             Created = dto.Created;
             Updated = dto.Updated;
-            Instrument = Enum.Parse<Sdk.PaymentInstrument>(dto.Instrument);
+            Instrument = Enum.Parse<PaymentInstrument>(dto.Instrument);
             Operation = dto.Operation;
             State = dto.State;
             Currency = new Currency(dto.Currency);

@@ -52,7 +52,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         public Operation Operation { get; }
 
         /// <summary>
-        /// The initial <seealso cref="Sdk.PaymentInstruments.PaymentIntent"/> of the payment.
+        /// The initial <seealso cref="PaymentIntent"/> of the payment.
         /// </summary>
         public PaymentIntent Intent { get; }
 
