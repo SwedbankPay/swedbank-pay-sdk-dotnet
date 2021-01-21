@@ -3350,12 +3350,12 @@
             Transactional information about this capture.
             </summary>
         </member>
-        <member name="T:SwedbankPay.Sdk.PaymentInstruments.ICapturesListResponse">
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.ICapturesList">
             <summary>
             List of transactional details of a captured payment.
             </summary>
         </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.ICapturesListResponse.CaptureList">
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.ICapturesList.CaptureList">
             <summary>
             List of transactional information about capture(s).
             </summary>

@@ -20,7 +20,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         /// <summary>
         /// Currently available list of captures.
         /// </summary>
-        ICapturesListResponse Captures { get; }
+        ICapturesList Captures { get; }
 
         /// <summary>
         /// The <seealso cref="DateTime"/> the payment was created.

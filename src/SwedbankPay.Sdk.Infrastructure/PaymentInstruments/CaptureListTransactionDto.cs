@@ -10,14 +10,14 @@ namespace SwedbankPay.Sdk.PaymentInstruments
 
         public List<TransactionDto> CaptureList { get; set; } = new List<TransactionDto>();
 
-        internal ICapturesListResponse Map()
+        internal ICapturesList Map()
         {
             var list = new List<ITransaction>();
             foreach (var c in CaptureList)
             {
                 list.Add(c.Map());
             }
-            return new CapturesListResponse(Id, list);
+            return new CapturesList(Id, list);
         }
     }
 }

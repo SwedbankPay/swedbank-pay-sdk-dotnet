@@ -26,7 +26,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <summary>
         /// Resource to get available capture transactions.
         /// </summary>
-        ICapturesListResponse Captures { get; }
+        ICapturesList Captures { get; }
 
         /// <summary>
         /// The <seealso cref="DateTime"/> the current payment was created.
