@@ -5,7 +5,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
     /// <summary>
     /// List of transactional details of a captured payment.
     /// </summary>
-    public interface ICapturesList
+    public interface ICapturesListResponse
     {
         /// <summary>
         /// List of transactional information about capture(s).

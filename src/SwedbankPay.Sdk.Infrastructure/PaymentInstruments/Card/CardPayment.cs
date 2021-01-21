@@ -58,7 +58,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 
         public ICancellationsList Cancellations { get; }
 
-        public ICapturesList Captures { get; }
+        public ICapturesListResponse Captures { get; }
 
         public DateTime Created { get; }
 

@@ -63,7 +63,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 
         public ICancellationsList Cancellations { get; }
 
-        public ICapturesList Captures { get; }
+        public ICapturesListResponse Captures { get; }
 
         public Amount RemainingCancellationAmount { get; }
 

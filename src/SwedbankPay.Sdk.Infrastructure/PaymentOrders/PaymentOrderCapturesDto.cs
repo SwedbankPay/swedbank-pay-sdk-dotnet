@@ -10,7 +10,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public string Id { get; set; }
         public List<TransactionDto> CaptureList { get; set; } = new List<TransactionDto>();
 
-        internal ICapturesList Map()
+        internal ICapturesListResponse Map()
         {
             var list = new List<ITransaction>();
 
@@ -20,7 +20,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
             }
 
             Uri id = new Uri(Id, UriKind.RelativeOrAbsolute);
-            return new CapturesList(id, list);
+            return new CapturesListResponse(id, list);
         }
     }
 }
