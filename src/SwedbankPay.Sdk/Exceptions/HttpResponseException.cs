@@ -13,17 +13,17 @@ namespace SwedbankPay.Sdk.Exceptions
         /// Instantiates a new <seealso cref="HttpResponseException"/> with the parameters passed in.
         /// </summary>
         /// <param name="httpResponse"></param>
-        /// <param name="problem"></param>
+        /// <param name="problemResponse"></param>
         /// <param name="message"></param>
         /// <param name="innerException"></param>
         public HttpResponseException(HttpResponseMessage httpResponse,
-                                     IProblem problem = null,
+                                     IProblem problemResponse = null,
                                      string message = null,
                                      Exception innerException = null)
             : base(message, innerException)
         {
             HttpResponse = httpResponse ?? throw new ArgumentNullException(nameof(httpResponse));
-            ProblemResponse = problem;
+            ProblemResponse = problemResponse;
         }
 
         /// <summary>

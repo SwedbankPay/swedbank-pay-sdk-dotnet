@@ -761,7 +761,7 @@
             Instantiates a new <seealso cref="T:SwedbankPay.Sdk.Exceptions.HttpResponseException"/> with the parameters passed in.
             </summary>
             <param name="httpResponse"></param>
-            <param name="problem"></param>
+            <param name="problemResponse"></param>
             <param name="message"></param>
             <param name="innerException"></param>
         </member>
