@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
-    internal class CardPaymentAuthorizationListResponse : Identifiable, ICardPaymentAuthorizationListResponse
+    internal class CardPaymentAuthorizationList : Identifiable, ICardPaymentAuthorizationList
     {
-        public CardPaymentAuthorizationListResponse(Uri id, List<IPaymentAuthorization> authorizationList) : base(id)
+        public CardPaymentAuthorizationList(Uri id, List<IPaymentAuthorization> authorizationList) : base(id)
         {
             AuthorizationList = authorizationList;
         }

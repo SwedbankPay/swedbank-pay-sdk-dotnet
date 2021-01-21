@@ -7,7 +7,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
     /// Holds a list of <seealso cref="IPaymentAuthorization"/> if available when
     /// doing a GET on the <see cref="IIdentifiable.Id"/>.
     /// </summary>
-    public interface ICardPaymentAuthorizationListResponse : IIdentifiable
+    public interface ICardPaymentAuthorizationList : IIdentifiable
     {
         /// <summary>
         /// List of avaialbe <see cref="IPaymentAuthorization"/> on the current payment.
