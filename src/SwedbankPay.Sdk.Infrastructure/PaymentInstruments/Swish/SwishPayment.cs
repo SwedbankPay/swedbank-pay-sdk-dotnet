@@ -54,8 +54,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         public string UserAgent { get; }
         public Language Language { get; }
         public ITransactionListResponse Transactions { get; }
-        public ISwishSaleList Sales { get; }
-        public IReversalsList Reversals { get; }
+        public ISwishSaleListResponse Sales { get; }
+        public IReversalsListResponse Reversals { get; }
         public IUrls Urls { get; }
         public PayeeInfo PayeeInfo { get; }
         public Uri Id { get; }

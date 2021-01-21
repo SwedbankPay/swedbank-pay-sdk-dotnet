@@ -92,7 +92,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <summary>
         /// Resource to get available reversal transactions.
         /// </summary>
-        IReversalsList Reversals { get; }
+        IReversalsListResponse Reversals { get; }
 
         /// <summary>
         /// Resource to get available sales transactions.

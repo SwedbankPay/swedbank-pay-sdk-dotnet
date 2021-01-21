@@ -8,14 +8,14 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         public Uri Id { get; set; }
         public List<MobilePayPaymentAuthorizationDto> AuthorizationList { get; set; }
 
-        internal IMobilePayPaymentAuthorizationList Map()
+        internal IMobilePayPaymentAuthorizationListResponse Map()
         {
             var list = new List<IMobilePayPaymentAuthorization>();
             foreach (var item in AuthorizationList)
             {
                 list.Add(new MobilePayPaymentAuthorization(Id, item));
             }
-            return new MobilePayPaymentAuthorizationList(Id, list);
+            return new MobilePayPaymentAuthorizationListResponse(Id, list);
         }
     }
 }

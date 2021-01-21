@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
-    internal class ReversalsListDto
+    internal class ReversalsListResponseDto
     {
         public Uri Id { get; set; }
         public List<TransactionDto> ReversalList { get; set; } = new List<TransactionDto>();
 
-        internal IReversalsList Map()
+        internal IReversalsListResponse Map()
         {
             var list = new List<ITransactionResponse>();
             foreach (var item in ReversalList)
@@ -16,7 +16,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
                 list.Add(new TransactionResponse(Id, item));
             }
 
-            return new ReversalsList(Id, list);
+            return new ReversalsListResponse(Id, list);
         }
     }
 }

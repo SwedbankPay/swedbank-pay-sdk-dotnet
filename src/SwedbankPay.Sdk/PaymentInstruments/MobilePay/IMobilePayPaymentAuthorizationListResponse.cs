@@ -5,7 +5,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
     /// <summary>
     /// Object holding currently available authorizations for a payment.
     /// </summary>
-    public interface IMobilePayPaymentAuthorizationList
+    public interface IMobilePayPaymentAuthorizationListResponse
     {
         /// <summary>
         /// The currently available list of authorizations.

@@ -4,7 +4,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
     internal class SwishSaleResponse
     {
-        public SwishSaleResponse(Uri payment, ISwishSaleList sales)
+        public SwishSaleResponse(Uri payment, ISwishSaleListResponse sales)
         {
             Payment = payment;
             Sales = sales;
@@ -18,6 +18,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         /// <summary>
         /// The current sales resource.
         /// </summary>
-        public ISwishSaleList Sales { get; }
+        public ISwishSaleListResponse Sales { get; }
     }
 }

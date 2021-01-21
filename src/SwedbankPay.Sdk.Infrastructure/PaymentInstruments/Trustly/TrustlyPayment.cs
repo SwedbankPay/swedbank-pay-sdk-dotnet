@@ -68,6 +68,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
 
         public Amount VatAmount { get; }
 
-        public IReversalsList Reversals { get; }
+        public IReversalsListResponse Reversals { get; }
     }
 }

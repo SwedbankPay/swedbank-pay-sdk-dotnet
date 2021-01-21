@@ -51,7 +51,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public string PayerReference { get; }
         public string PaymentToken { get; }
         public IPricesListResponse Prices { get; }
-        public IReversalsList Reversals { get; }
+        public IReversalsListResponse Reversals { get; }
         public State State { get; }
         public ITransactionListResponse Transactions { get; }
         public IUrls Urls { get; }

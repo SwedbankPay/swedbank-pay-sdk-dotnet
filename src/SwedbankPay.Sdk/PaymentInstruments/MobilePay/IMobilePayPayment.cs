@@ -8,6 +8,6 @@
         /// <summary>
         /// Currently available list of authorizations.
         /// </summary>
-        IMobilePayPaymentAuthorizationList Authorizations { get; }
+        IMobilePayPaymentAuthorizationListResponse Authorizations { get; }
     }
 }

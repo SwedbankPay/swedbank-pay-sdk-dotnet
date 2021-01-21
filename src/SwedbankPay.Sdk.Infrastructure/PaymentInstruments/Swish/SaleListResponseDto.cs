@@ -8,7 +8,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         public Uri Id { get; set; }
         public List<SaleListItemDto> Sales { get; set; } = new List<SaleListItemDto>();
 
-        internal ISwishSaleList Map()
+        internal ISwishSaleListResponse Map()
         {
             var saleList = new List<ISwishSaleListItem>();
             foreach (var item in Sales)
@@ -21,7 +21,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
                                                item.SwishStatus,
                                                item.Transaction.Map()));
             }
-            return new SwishPaymentSaleList(Id, saleList);
+            return new SwishPaymentSaleListResponse(Id, saleList);
         }
     }
 }
