@@ -3621,12 +3621,12 @@
             Transactional details about this authorization.
             </summary>
         </member>
-        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.IInvoicePaymentAuthorizationListResponse">
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.IInvoicePaymentAuthorizationList">
             <summary>
             Wrapper for a list of invoice authorizations.
             </summary>
         </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.IInvoicePaymentAuthorizationListResponse.AuthorizationList">
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.IInvoicePaymentAuthorizationList.AuthorizationList">
             <summary>
             A list of authorizations done on this invoice payment.
             </summary>

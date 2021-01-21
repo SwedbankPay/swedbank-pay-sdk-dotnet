@@ -8,6 +8,6 @@
         /// <summary>
         /// Gets the available authorizations on this invoice.
         /// </summary>
-        IInvoicePaymentAuthorizationListResponse Authorizations { get; }
+        IInvoicePaymentAuthorizationList Authorizations { get; }
     }
 }
