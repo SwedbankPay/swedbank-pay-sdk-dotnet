@@ -45,5 +45,29 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
                         Is.EqualTo(State.Completed));
         }
 
+        [Test]
+        [Retry(3)]
+        [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Invoice })]
+        public async Task Payment_Invoice_Cancellation(Product[] products, PayexInfo payexInfo)
+        {
+            GoToOrdersPage(products, payexInfo, Checkout.Option.LocalPaymentMenu)
+                .PaymentLink.StoreValue(out var paymentLink)
+                .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCancellation)].ExecuteAction.ClickAndGo();
+
+            var invoicePayment = await SwedbankPayClient.Payments.InvoicePayments.Get(paymentLink, PaymentExpand.All);
+
+            // Operations
+            Assert.That(invoicePayment.Operations[LinkRelation.CreateCancellation], Is.Null);
+            Assert.That(invoicePayment.Operations[LinkRelation.CreateCapture], Is.Null);
+            Assert.That(invoicePayment.Operations[LinkRelation.CreateReversal], Is.Null);
+            Assert.That(invoicePayment.Operations[LinkRelation.PaidPayment], Is.Not.Null);
+
+            // Transactions
+            Assert.That(invoicePayment.Payment.Transactions.TransactionList.Count, Is.EqualTo(2));
+            Assert.That(invoicePayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionType.Authorization).State,
+                        Is.EqualTo(State.Completed));
+            Assert.That(invoicePayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionType.Cancellation).State,
+                        Is.EqualTo(State.Completed));
+        }
     }
 }
