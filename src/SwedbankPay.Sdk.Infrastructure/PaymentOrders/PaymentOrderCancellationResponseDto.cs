@@ -1,11 +1,10 @@
 ﻿using SwedbankPay.Sdk.PaymentInstruments;
-using SwedbankPay.Sdk.PaymentInstruments.Card;
 using System;
 using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    internal class PaymentOrderCancellationsDto
+    internal class PaymentOrderCancellationResponseDto
     {
         public string Id { get; set; }
         public TransactionDto Cancellation { get; set; }
