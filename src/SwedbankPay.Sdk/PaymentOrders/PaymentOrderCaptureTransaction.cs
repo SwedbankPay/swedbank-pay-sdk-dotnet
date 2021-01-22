@@ -41,7 +41,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// Used to print on invoices if the payer chooses to pay with invoice, among other things.
         /// It should only contain the items to be captured from the order.
         /// </summary>
-        public IList<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+        public IList<IOrderItem> OrderItems { get; set; } = new List<IOrderItem>();
 
         /// <summary>
         /// A unique reference from the merchant system.

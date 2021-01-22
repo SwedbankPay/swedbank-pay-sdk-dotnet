@@ -2,7 +2,7 @@
 {
     internal class OrderItemDto
     {
-        public OrderItemDto(OrderItem item)
+        public OrderItemDto(IOrderItem item)
         {
             if (item == null)
             {

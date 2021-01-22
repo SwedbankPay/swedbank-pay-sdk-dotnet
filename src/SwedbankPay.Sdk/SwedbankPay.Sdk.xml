@@ -1654,104 +1654,6 @@
             Gets a <paramref name="rel"/> if the dictionary contains it, otherwise null.
             </summary>
         </member>
-        <member name="T:SwedbankPay.Sdk.OrderItem">
-            <summary>
-            Object describing a item in a payment order.
-            </summary>
-        </member>
-        <member name="M:SwedbankPay.Sdk.OrderItem.#ctor(System.String,System.String,SwedbankPay.Sdk.OrderItemType,System.String,System.Decimal,System.String,SwedbankPay.Sdk.Amount,System.Int32,SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount)">
-            <summary>
-            Instantiates a <see cref="T:SwedbankPay.Sdk.OrderItem"/> with the provided parameters.
-            </summary>
-            <param name="reference">Merchant reference to this order item.</param>
-            <param name="name">The name of the order item.</param>
-            <param name="type">PRODUCT, SERVICE, SHIPPING_FEE, PAYMENT_FEE DISCOUNT, VALUE_CODE or OTHER.</param>
-            <param name="class">Order item classification.</param>
-            <param name="quantity">The amount of this product being bought.</param>
-            <param name="quantityUnit">Quantity identificator. pcs, grams, etc.</param>
-            <param name="unitPrice">Price per full <paramref name="quantityUnit"/>.</param>
-            <param name="vatPercent">The VAT percentage, multiplied by 100.</param>
-            <param name="amount">The amount to pay per order item.</param>
-            <param name="vatAmount">The value added taxes to pay.</param>
-        </member>
-        <member name="P:SwedbankPay.Sdk.OrderItem.Amount">
-            <summary>
-                The total amount including VAT to be paid for the specified quantity of this order item, in the lowest monetary
-                unit of the currency. E.g. 10000 equals 100.00 NOK and 5000 equals 50.00 NOK.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.OrderItem.Class">
-            <summary>
-                The classification of the order item. Can be used for assigning the order item to a specific product category, for
-                instance. PayEx has no use for this value itself, but it's useful for some payment instruments and integrations.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.OrderItem.Description">
-            <summary>
-                The human readable description of the order item.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.OrderItem.DiscountDescription">
-            <summary>
-                The human readable description of the possible discount.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.OrderItem.DiscountPrice">
-            <summary>
-                If the order item is purchased at a discounted price, this property should contain that price.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.OrderItem.ImageUrl">
-            <summary>
-                The URL to an image of the order item.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.OrderItem.ItemUrl">
-            <summary>
-                The URL to a page that can display the purchased item, such as a product page
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.OrderItem.Name">
-            <summary>
-                The name of the order item.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.OrderItem.Quantity">
-            <summary>
-                The quantity of order items being purchased.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.OrderItem.QuantityUnit">
-            <summary>
-                The unit of the quantity, such as pcs, grams, or similar.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.OrderItem.Reference">
-            <summary>
-                A reference that identifies the order item.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.OrderItem.Type">
-            <summary>
-                PRODUCT, SERVICE, SHIPPING_FEE, DISCOUNT, VALUE_CODE or OTHER. The type of the order item.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.OrderItem.UnitPrice">
-            <summary>
-                The price per unit of order item.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.OrderItem.VatAmount">
-            <summary>
-                The total amount of VAT to be paid for the specified quantity of this order item, in the lowest monetary unit of
-                the currency. E.g. 10000 equals 100.00 NOK and 5000 equals 50.00 NOK.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.OrderItem.VatPercent">
-            <summary>
-                The percent value of the VAT multiplied by 100, so 25% becomes 2500.
-            </summary>
-        </member>
         <member name="T:SwedbankPay.Sdk.OrderItemType">
             <summary>
                 PRODUCT, SERVICE, SHIPPING_FEE, PAYMENT_FEE, DISCOUNT, VALUE_CODE or OTHER. The type of the order item.
@@ -2338,7 +2240,7 @@
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentCaptureTransaction.OrderItems">
             <summary>
-            List of <seealso cref="T:SwedbankPay.Sdk.OrderItem"/> that is being captured.
+            List of <seealso cref="T:SwedbankPay.Sdk.IOrderItem"/> that is being captured.
             Only required if payment was authorizied with the OrderItems field.
             </summary>
         </member>
@@ -3325,14 +3227,14 @@
             Object for specifying what to capture on a payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Invoice.CaptureTransaction.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.OrderItem},System.String,System.String)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Invoice.CaptureTransaction.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.IOrderItem},System.String,System.String)">
             <summary>
             Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.CaptureTransaction"/> using the provided parameters.
             </summary>
             <param name="transactionActivity">The API operation to perform.</param>
             <param name="amount">The amount to capture in this transaction.</param>
             <param name="vatAmount">The VAT amount to capture in this transaction.</param>
-            <param name="orderItems">List of <seealso cref="T:SwedbankPay.Sdk.OrderItem"/> to be captured in this transaction.</param>
+            <param name="orderItems">List of <seealso cref="T:SwedbankPay.Sdk.IOrderItem"/> to be captured in this transaction.</param>
             <param name="description">A textual description of the capture.</param>
             <param name="payeeReference">Transactionally unique reference from the merchant system.</param>
         </member>
@@ -3486,7 +3388,7 @@
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.ICaptureTransaction.OrderItems">
             <summary>
-            List of <seealso cref="T:SwedbankPay.Sdk.OrderItem"/> to be captured in this transaction.
+            List of <seealso cref="T:SwedbankPay.Sdk.IOrderItem"/> to be captured in this transaction.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.ICaptureTransaction.PayeeReference">
@@ -6972,7 +6874,7 @@
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentOrders.IPaymentOrder.OrderItems">
             <summary>
-            Resource that gives access to the <seealso cref="T:SwedbankPay.Sdk.OrderItem"/>s this payment order contains.
+            Resource that gives access to the <seealso cref="!:OrderItem"/>s this payment order contains.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentOrders.IPaymentOrder.PayeeInfo">
@@ -7855,7 +7757,7 @@
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentOrders.PaymentOrderReversalTransaction.OrderItems">
             <summary>
-            The <seealso cref="T:SwedbankPay.Sdk.OrderItem"/>s involved in the reversal.
+            The <seealso cref="T:SwedbankPay.Sdk.IOrderItem"/>s involved in the reversal.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentOrders.PaymentOrderReversalTransaction.PayeeReference">

@@ -37,10 +37,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         public string Description { get; }
 
         /// <summary>
-        /// List of <seealso cref="OrderItem"/> that is being captured.
+        /// List of <seealso cref="IOrderItem"/> that is being captured.
         /// Only required if payment was authorizied with the OrderItems field.
         /// </summary>
-        public IList<OrderItem> OrderItems { get; } = new List<OrderItem>();
+        public IList<IOrderItem> OrderItems { get; } = new List<IOrderItem>();
 
         /// <summary>
         /// A unique reference from the merchant system.

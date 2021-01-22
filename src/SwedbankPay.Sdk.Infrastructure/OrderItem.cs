@@ -7,6 +7,26 @@ namespace SwedbankPay.Sdk
     /// </summary>
     public class OrderItem : IOrderItem
     {
+
+        internal OrderItem(PaymentOrders.OrderItemDto dto)
+        {
+            Reference = dto.Reference;
+            Name = dto.Name;
+            Type = dto.Type;
+            Class = dto.Class;
+            Quantity = dto.Quantity;
+            QuantityUnit = dto.QuantityUnit;
+            UnitPrice = dto.UnitPrice;
+            VatPercent = dto.VatPercent;
+            Amount = dto.Amount;
+            VatAmount = dto.VatAmount;
+            ItemUrl = dto.ItemUrl;
+            ImageUrl = dto.ImageUrl;
+            Description = dto.Description;
+            DiscountDescription = dto.DiscountDescription;
+            DiscountPrice = dto.DiscountPrice;
+        }
+
         /// <summary>
         /// Instantiates a <see cref="OrderItem"/> with the provided parameters.
         /// </summary>

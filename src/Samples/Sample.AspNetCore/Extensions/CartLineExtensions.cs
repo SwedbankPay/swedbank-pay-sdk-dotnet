@@ -7,7 +7,7 @@ namespace Sample.AspNetCore.Extensions
 {
     public static class CartLineExtensions
     {
-        public static IEnumerable<OrderItem> ToOrderItems(this IEnumerable<CartLine> lines)
+        public static IEnumerable<IOrderItem> ToOrderItems(this IEnumerable<CartLine> lines)
         {
             foreach (var line in lines)
             {

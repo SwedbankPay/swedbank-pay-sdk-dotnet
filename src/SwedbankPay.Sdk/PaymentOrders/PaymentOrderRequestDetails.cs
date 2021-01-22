@@ -92,7 +92,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         ///     The array of items being purchased with the order. Used to print on invoices if the payer chooses to pay with
         ///     invoice, among other things.
         /// </summary>
-        public IList<OrderItem> OrderItems { get; set; }
+        public IList<IOrderItem> OrderItems { get; set; } = new List<IOrderItem>();
 
         /// <summary>
         ///     Information about the payee of the payment order

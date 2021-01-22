@@ -14,7 +14,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private Language language;
         private Metadata metadata;
         private Operation operation;
-        private List<OrderItem> orderItems;
+        private List<IOrderItem> orderItems;
         private PayeeInfo payeeInfo;
         private IUrls urls;
         private string userAgent;
@@ -65,7 +65,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
 
         public PaymentOrderRequestBuilder WithOrderItems()
         {
-            this.orderItems = new List<OrderItem>
+            this.orderItems = new List<IOrderItem>
             {
                 new OrderItem("p1", "Product1", OrderItemType.Product, "ProductGroup1", 4, "pcs", new Amount(300), 0,
                               new Amount(1200), new Amount(0))

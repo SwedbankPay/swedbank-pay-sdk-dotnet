@@ -20,25 +20,7 @@
 
         internal IOrderItem Map()
         {
-            var item = new OrderItem(Reference,
-                                       Name,
-                                       Type,
-                                       Class,
-                                       Quantity,
-                                       QuantityUnit,
-                                       UnitPrice,
-                                       VatPercent,
-                                       Amount,
-                                       VatAmount)
-            {
-                ItemUrl = ItemUrl,
-                ImageUrl = ImageUrl,
-                Description = Description,
-                DiscountDescription = DiscountDescription,
-                DiscountPrice = DiscountPrice
-            };
-
-            return item;
+            return new OrderItem(this);
         }
     }
 }

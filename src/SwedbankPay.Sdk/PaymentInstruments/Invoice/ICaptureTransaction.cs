@@ -23,9 +23,9 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         IList<ItemDescription> ItemDescriptions { get; set; }
 
         /// <summary>
-        /// List of <seealso cref="OrderItem"/> to be captured in this transaction.
+        /// List of <seealso cref="IOrderItem"/> to be captured in this transaction.
         /// </summary>
-        IList<OrderItem> OrderItems { get; }
+        IList<IOrderItem> OrderItems { get; }
 
         /// <summary>
         /// The payeeReference is the receipt/invoice number if receiptReference is not defined,

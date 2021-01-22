@@ -13,13 +13,13 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         /// <param name="transactionActivity">The API operation to perform.</param>
         /// <param name="amount">The amount to capture in this transaction.</param>
         /// <param name="vatAmount">The VAT amount to capture in this transaction.</param>
-        /// <param name="orderItems">List of <seealso cref="OrderItem"/> to be captured in this transaction.</param>
+        /// <param name="orderItems">List of <seealso cref="IOrderItem"/> to be captured in this transaction.</param>
         /// <param name="description">A textual description of the capture.</param>
         /// <param name="payeeReference">Transactionally unique reference from the merchant system.</param>
         public CaptureTransaction(Operation transactionActivity,
                                               Amount amount,
                                               Amount vatAmount,
-                                              IEnumerable<OrderItem> orderItems,
+                                              IEnumerable<IOrderItem> orderItems,
                                               string description,
                                               string payeeReference)
         {
@@ -53,7 +53,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
-        public IList<OrderItem> OrderItems { get; }
+        public IList<IOrderItem> OrderItems { get; }
 
         /// <summary>
         /// <inheritdoc/>
