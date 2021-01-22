@@ -56,17 +56,13 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
             var invoicePayment = await SwedbankPayClient.Payments.InvoicePayments.Get(paymentLink, PaymentExpand.All);
 
             // Operations
-            Assert.That(invoicePayment.Operations[LinkRelation.CreateCancellation], Is.Null);
-            Assert.That(invoicePayment.Operations[LinkRelation.CreateCapture], Is.Null);
+            Assert.That(invoicePayment.Operations[LinkRelation.CreateCancellation], Is.Not.Null);
+            Assert.That(invoicePayment.Operations[LinkRelation.CreateCapture], Is.Not.Null);
             Assert.That(invoicePayment.Operations[LinkRelation.CreateReversal], Is.Null);
             Assert.That(invoicePayment.Operations[LinkRelation.PaidPayment], Is.Not.Null);
 
             // Transactions
             Assert.That(invoicePayment.Payment.Transactions.TransactionList.Count, Is.EqualTo(2));
-            Assert.That(invoicePayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionType.Authorization).State,
-                        Is.EqualTo(State.Completed));
-            Assert.That(invoicePayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionType.Cancellation).State,
-                        Is.EqualTo(State.Completed));
         }
     }
 }

@@ -4,6 +4,7 @@ using Sample.AspNetCore.Models;
 
 using SwedbankPay.Sdk;
 using SwedbankPay.Sdk.PaymentInstruments;
+using SwedbankPay.Sdk.PaymentInstruments.Invoice;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,6 +24,28 @@ namespace Sample.AspNetCore
             {
                 var cancelRequest = new SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentCancelRequest(DateTime.Now.Ticks.ToString(), "Cancelling parts of the total amount");
                 var response = await payment.Operations.Cancel(cancelRequest);
+                tempData["CancelMessage"] = $"Payment has been cancelled: {response.Cancellation.Transaction.Id}";
+                cartService.PaymentOrderLink = null;
+            }
+            else
+            {
+                tempData["ErrorMessage"] = "Operation not available";
+            }
+        }
+
+        public static async Task CancelInvoicePayment(string paymentId,
+                                                        string payeeReference,
+                                                                            ISwedbankPayClient swedbankPayClient,
+                                                                            ITempDataDictionary tempData,
+                                                                            Cart cartService)
+        {
+            var payment = await swedbankPayClient.Payments.InvoicePayments.Get(new Uri(paymentId, UriKind.RelativeOrAbsolute));
+
+            if (payment.Operations.Cancel != null)
+            {
+                var transaction = new CancelTransaction(Operation.FinancingConsumer, payeeReference,
+                    "Cancelling parts of the total amount");
+                var response = await payment.Operations.Cancel(new InvoicePaymentCancelRequest(transaction));
                 tempData["CancelMessage"] = $"Payment has been cancelled: {response.Cancellation.Transaction.Id}";
                 cartService.PaymentOrderLink = null;
             }

@@ -148,7 +148,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             this.amount = new Amount(1600);
             this.vatAmount = new Amount(0);
             this.metadata = new Metadata { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };
-            this.invoiceType = InvoiceType.PayExFinancingNO;
+            this.invoiceType = InvoiceType.PayExFinancingNo;
             this.prices = new List<IPrice>
             {
                 new Price(this.amount, PriceType.Invoice, this.vatAmount)

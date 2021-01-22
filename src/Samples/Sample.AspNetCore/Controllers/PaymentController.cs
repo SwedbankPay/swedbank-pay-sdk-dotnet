@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.Extensions.Options;
 using Sample.AspNetCore.Data;
 using Sample.AspNetCore.Extensions;
 using Sample.AspNetCore.Models;
@@ -17,11 +17,13 @@ namespace Sample.AspNetCore.Controllers
     {
         private readonly Cart cartService;
         private readonly StoreDbContext context;
+        private readonly PayeeInfoConfig payeeInfoOptions;
         private readonly ISwedbankPayClient swedbankPayClient;
 
 
-        public PaymentController(Cart cart, StoreDbContext dbContext, ISwedbankPayClient payClient)
+        public PaymentController(IOptionsSnapshot<PayeeInfoConfig> payeeInfoOptionsAccessor, Cart cart, StoreDbContext dbContext, ISwedbankPayClient payClient)
         {
+            this.payeeInfoOptions = payeeInfoOptionsAccessor.Value;
             this.cartService = cart;
             this.context = dbContext;
             this.swedbankPayClient = payClient;
@@ -93,6 +95,9 @@ namespace Sample.AspNetCore.Controllers
                         break;
                     case PaymentInstrument.Trustly:
                         await PaymentHelper.CancelTrustlyPayment(paymentId, this.swedbankPayClient, TempData, this.cartService);
+                        break;
+                    case PaymentInstrument.Invoice:
+                        await PaymentHelper.CancelInvoicePayment(paymentId, this.payeeInfoOptions.PayeeReference, this.swedbankPayClient, TempData, this.cartService);
                         break;
                 }
 

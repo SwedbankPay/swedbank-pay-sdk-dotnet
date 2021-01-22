@@ -11,7 +11,7 @@
         /// <param name="transactionActivity">The <see cref="Operation"/> for this cancel.</param>
         /// <param name="payeeReference">A transactionally unique reference from the merchant system.</param>
         /// <param name="description">A textual description of the cancellation.</param>
-        protected internal CancelTransaction(Operation transactionActivity, string payeeReference, string description)
+        public CancelTransaction(Operation transactionActivity, string payeeReference, string description)
         {
             TransactionActivity = transactionActivity;
             PayeeReference = payeeReference;

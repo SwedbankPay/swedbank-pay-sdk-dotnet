@@ -13,16 +13,16 @@
         /// <summary>
         /// <see cref="InvoiceType"/> used for norwegian invoices.
         /// </summary>
-        PayExFinancingNO,
+        PayExFinancingNo,
         
         /// <summary>
         /// <see cref="InvoiceType"/> used for finish invoices.
         /// </summary>
-        PayExFinancingFI,
+        PayExFinancingFi,
         
         /// <summary>
         /// <see cref="InvoiceType"/> used for swedish invoices.
         /// </summary>
-        PayExFinancingSE
+        PayExFinancingSe
     }
 }

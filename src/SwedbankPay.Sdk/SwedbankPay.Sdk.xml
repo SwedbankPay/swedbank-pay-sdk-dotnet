@@ -3629,17 +3629,17 @@
             The invoice type is unknown.
             </summary>
         </member>
-        <member name="F:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoiceType.PayExFinancingNO">
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoiceType.PayExFinancingNo">
             <summary>
             <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoiceType"/> used for norwegian invoices.
             </summary>
         </member>
-        <member name="F:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoiceType.PayExFinancingFI">
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoiceType.PayExFinancingFi">
             <summary>
             <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoiceType"/> used for finish invoices.
             </summary>
         </member>
-        <member name="F:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoiceType.PayExFinancingSE">
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoiceType.PayExFinancingSe">
             <summary>
             <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoiceType"/> used for swedish invoices.
             </summary>
@@ -6874,7 +6874,7 @@
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentOrders.IPaymentOrder.OrderItems">
             <summary>
-            Resource that gives access to the <seealso cref="!:OrderItem"/>s this payment order contains.
+            Resource that gives access to the <seealso cref="T:SwedbankPay.Sdk.IOrderItem"/>s this payment order contains.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentOrders.IPaymentOrder.PayeeInfo">

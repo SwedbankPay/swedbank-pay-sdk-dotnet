@@ -54,7 +54,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public string Operation { get; }
 
         /// <summary>
-        /// Resource that gives access to the <seealso cref="OrderItem"/>s this payment order contains.
+        /// Resource that gives access to the <seealso cref="IOrderItem"/>s this payment order contains.
         /// </summary>
         public OrderItems OrderItems { get; }
 

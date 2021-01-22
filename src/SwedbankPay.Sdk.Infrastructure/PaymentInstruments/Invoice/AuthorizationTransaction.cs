@@ -8,14 +8,22 @@
             City = item.City;
             CoAddress = item.CoAddress;
             CountryCode = item.CountryCode;
-            CustomerNumber = item.CustomerNumber;
-            Email = new EmailAddress(item.Email);
+            CustomerNumber = item.CustomerNumber;            
             Ip = item.Ip;
             Msisdn = item.Msisdn;
             SocialSecurityNumber = item.SocialSecurityNumber;
             StreetAddress = item.StreetAddress;
-            TransactionActivity = item.TransactionActivity;
             ZipCode = item.ZipCode;
+
+            if (item.Email != null)
+            {
+                Email = new EmailAddress(item.Email);
+            }
+
+            if (item.TransactionActivity != null)
+            {
+                TransactionActivity = item.TransactionActivity;
+            }
         }
 
         public int SocialSecurityNumber { get; }

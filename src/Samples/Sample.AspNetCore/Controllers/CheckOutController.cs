@@ -232,7 +232,7 @@ namespace Sample.AspNetCore.Controllers
                                                                new Language("sv-SE"),
                                                                new Urls(this.urls.HostUrls.ToList(), this.urls.CompleteUrl, this.urls.TermsOfServiceUrl) { CancelUrl = this.urls.CancelUrl, PaymentUrl = this.urls.PaymentUrl, CallbackUrl = this.urls.CallbackUrl, LogoUrl = this.urls.LogoUrl },
                                                                new PayeeInfo(this.payeeInfoOptions.PayeeId, this.payeeInfoOptions.PayeeReference),
-                                                               InvoiceType.PayExFinancingSE);
+                                                               InvoiceType.PayExFinancingSe);
                 invoiceRequest.Payment.Prices.Add(new Price(new Amount(totalAmount), PriceType.Invoice, vatAmount));
 
                 var invoicePayment = await this.swedbankPayClient.Payments.InvoicePayments.Create(invoiceRequest);
