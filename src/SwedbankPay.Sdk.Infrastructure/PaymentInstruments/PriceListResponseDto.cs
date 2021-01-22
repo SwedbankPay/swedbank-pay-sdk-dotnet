@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
-    internal class PricesListResponseDto
+    internal class PriceListResponseDto
     {
         public Uri Id { get; set; }
 

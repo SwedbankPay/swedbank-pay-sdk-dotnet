@@ -21,7 +21,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         public PayeeInfoDto PayeeInfo { get; set; }
         public string PayerReference { get; set; }
         public string InitiatingSystemUserAgent { get; set; }
-        public PricesListResponseDto Prices { get; set; }
+        public PriceListResponseDto Prices { get; set; }
         public ReversalListResponseDto Reversals { get; set; }
         public string State { get; set; }
         public TransactionListResponseDto Transactions { get; set; }

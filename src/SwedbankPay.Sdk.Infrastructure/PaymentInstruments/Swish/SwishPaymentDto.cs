@@ -12,7 +12,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         public string Intent { get; set; }
         public string State { get; set; }
         public string Currency { get; set; }
-        public PricesListResponseDto Prices { get; set; }
+        public PriceListResponseDto Prices { get; set; }
         public int Amount { get; set; }
         public int RemainingReversalAmount { get; set; }
         public string Description { get; set; }

@@ -23,7 +23,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
         public TransactionListResponseDto Transactions { get; set; }
         public string PayerReference { get; set; }
         public string InitiatingSystemUserAgent { get; set; }
-        public PricesListResponseDto Prices { get; set; }
+        public PriceListResponseDto Prices { get; set; }
         public string State { get; set; }
         public UrlsDto Urls { get; set; }
         public string UserAgent { get; set; }
