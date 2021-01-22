@@ -22,7 +22,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         public string PayerReference { get; set; }
         public string InitiatingSystemUserAgent { get; set; }
         public PricesListResponseDto Prices { get; set; }
-        public ReversalsListResponseDto Reversals { get; set; }
+        public ReversalListResponseDto Reversals { get; set; }
         public State State { get; set; }
         public TransactionListResponseDto Transactions { get; set; }
         public UrlsDto Urls { get; set; }

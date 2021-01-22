@@ -27,7 +27,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         public string PayerReference { get; set; }
         public string InitiatingSystemUserAgent { get; set; }
         public PricesDto Prices { get; set; }
-        public ReversalsListResponseDto Reversals { get; set; }
+        public ReversalListResponseDto Reversals { get; set; }
         public string State { get; set; }
         public TransactionListResponseDto Transactions { get; set; }
         public UrlsDto Urls { get; set; }

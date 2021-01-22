@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
-    internal class ReversalsListResponseDto
+    internal class ReversalListResponseDto
     {
         public Uri Id { get; set; }
         public List<TransactionDto> ReversalList { get; set; } = new List<TransactionDto>();

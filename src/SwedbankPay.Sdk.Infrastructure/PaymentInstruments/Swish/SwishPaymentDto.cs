@@ -22,7 +22,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         public string Language { get; set; }
         public TransactionListResponseDto Transactions { get; set; }
         public SaleListResponseDto Sales { get; set; }
-        public ReversalsListResponseDto Reversals { get; set; }
+        public ReversalListResponseDto Reversals { get; set; }
         public UrlsDto Urls { get; set; }
         public PayeeInfoDto PayeeInfo { get; set; }
         public Uri Id { get; set; }

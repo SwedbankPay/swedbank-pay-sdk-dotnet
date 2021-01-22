@@ -48,7 +48,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
 
         public PricesDto Prices { get; set; }
 
-        public ReversalsListResponseDto Reversals { get; set; }
+        public ReversalListResponseDto Reversals { get; set; }
 
         public string State { get; set; }
 
