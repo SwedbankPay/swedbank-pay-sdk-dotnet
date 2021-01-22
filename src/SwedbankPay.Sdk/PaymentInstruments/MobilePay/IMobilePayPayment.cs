@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
     /// <summary>
     /// Object describing a payment for the Mobile Pay payment instrument.

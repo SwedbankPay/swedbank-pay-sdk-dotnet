@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SwedbankPay.Sdk.PaymentInstruments.Swish
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
     /// <summary>
     /// Describes how a Swish payment returned from the api look like.

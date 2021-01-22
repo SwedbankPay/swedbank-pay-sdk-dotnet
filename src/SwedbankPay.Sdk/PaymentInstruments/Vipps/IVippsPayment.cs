@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {
     /// <summary>
     /// Transactional details about a Vipps payment.
