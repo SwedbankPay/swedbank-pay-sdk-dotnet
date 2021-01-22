@@ -45,7 +45,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         public PaymentIntent Intent { get; }
         public State State { get; }
         public Currency Currency { get; }
-        public IPricesListResponse Prices { get; }
+        public IPriceListResponse Prices { get; }
         public Amount Amount { get; }
         public Amount RemainingReversalAmount { get; set; }
         public string Description { get; }

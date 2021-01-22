@@ -87,7 +87,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <summary>
         /// The prices resource lists the prices related to a specific payment.
         /// </summary>
-        IPricesListResponse Prices { get; }
+        IPriceListResponse Prices { get; }
 
         /// <summary>
         /// Resource to get available reversal transactions.

@@ -9,14 +9,14 @@ namespace SwedbankPay.Sdk.PaymentInstruments
 
         public List<PriceListDto> PriceList { get; set; } = new List<PriceListDto>();
 
-        internal IPricesListResponse Map()
+        internal IPriceListResponse Map()
         {
             var listPrice = new List<IPrice>();
             foreach (var item in PriceList)
             {
                 listPrice.Add(new Price(item.Amount, Enum.Parse<PriceType>(item.Type), item.VatAmount));
             }
-            return new PricesListResponse(Id, listPrice);
+            return new PriceListResponse(Id, listPrice);
         }
     }
 }

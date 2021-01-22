@@ -51,7 +51,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// <summary>
         /// A resource to get <seealso cref="IPrice"/> for this recur payment.
         /// </summary>
-        IPricesListResponse Prices { get; }
+        IPriceListResponse Prices { get; }
 
         /// <summary>
         /// The <seealso cref="Sdk.Amount"/> (including VAT, if any) to charge the payer,

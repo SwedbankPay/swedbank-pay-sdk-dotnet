@@ -47,7 +47,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 
         public Currency Currency { get; }
 
-        public IPricesListResponse Prices { get; }
+        public IPriceListResponse Prices { get; }
 
         public Amount Amount { get; }
 

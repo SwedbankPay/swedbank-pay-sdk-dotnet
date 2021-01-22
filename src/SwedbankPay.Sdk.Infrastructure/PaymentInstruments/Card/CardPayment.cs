@@ -86,7 +86,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 
         public string InitiatingSystemUserAgent { get; }
 
-        public IPricesListResponse Prices { get; }
+        public IPriceListResponse Prices { get; }
 
         public IReversalsListResponse Reversals { get; }
 

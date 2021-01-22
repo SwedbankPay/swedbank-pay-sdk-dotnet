@@ -86,7 +86,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         /// <summary>
         /// Gives access to <seealso cref="IPrice"/> resource if available.
         /// </summary>
-        IPricesListResponse Prices { get; }
+        IPriceListResponse Prices { get; }
 
         /// <summary>
         /// The <seealso cref="Sdk.Amount"/> available for cancelling on this payment.

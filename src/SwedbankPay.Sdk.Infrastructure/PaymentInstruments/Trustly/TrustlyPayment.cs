@@ -50,7 +50,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
         public ITransactionListResponse Transactions { get; }
         public string PayerReference { get; }
         public string InitiatingSystemUserAgent { get; }
-        public IPricesListResponse Prices { get; }
+        public IPriceListResponse Prices { get; }
         public State State { get; }
         public IUrls Urls { get; }
         public string UserAgent { get; }

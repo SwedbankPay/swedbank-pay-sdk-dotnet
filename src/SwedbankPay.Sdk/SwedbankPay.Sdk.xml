@@ -4365,12 +4365,12 @@
             Set to 0 (zero) if there is no VAT amount charged.
             </summary>
         </member>
-        <member name="T:SwedbankPay.Sdk.PaymentInstruments.IPricesListResponse">
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.IPriceListResponse">
             <summary>
             Resource for getting the list of <seealso cref="T:SwedbankPay.Sdk.PaymentInstruments.IPrice"/> available on a payment.
             </summary>
         </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IPricesListResponse.PriceList">
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IPriceListResponse.PriceList">
             <summary>
             A list of <see cref="T:SwedbankPay.Sdk.PaymentInstruments.IPrice"/> giving details about amounts and types.
             </summary>
