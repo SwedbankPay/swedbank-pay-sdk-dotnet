@@ -6,7 +6,7 @@ namespace SwedbankPay.Sdk
 {
     internal class CancelTransactionDto
     {
-        public CancelTransactionDto(ICancelTransaction transaction)
+        public CancelTransactionDto(CancelTransaction transaction)
         {
             Description = transaction.Description;
             PayeeReference = transaction.PayeeReference;
