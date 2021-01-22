@@ -30,7 +30,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         public int VatAmount { get; set; }
         public int RemainingCancellationAmount { get; set; }
         public int RemainingCaptureAmount { get; set; }
-        public CancellationsListResponseDto Cancellations { get; set; }
+        public CancellationListResponseDto Cancellations { get; set; }
         public CaptureListTransactionDto Captures { get; set; }
     }
 }

@@ -1,10 +1,9 @@
-﻿using SwedbankPay.Sdk.PaymentInstruments.Card;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
-    internal class CancellationsListResponseDto
+    internal class CancellationListResponseDto
     {
         public List<TransactionDto> CancellationList { get; set; }
         public Uri Id { get; set; }
