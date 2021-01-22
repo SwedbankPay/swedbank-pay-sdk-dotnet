@@ -3345,27 +3345,6 @@
             The postal code (ZIP code) of the consumer.
             </summary>
         </member>
-        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.ICancelTransaction">
-            <summary>
-            Perform the create-cancellation operation to cancel a previously authorized or partially captured invoice payment.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.ICancelTransaction.Description">
-            <summary>
-            The reason for the cancellation.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.ICancelTransaction.PayeeReference">
-            <summary>
-            The payeeReference is the receipt/invoice number, which is a unique reference with max 50 characters set by the merchant system.
-            This must be unique for each operation and must follow the regex pattern [\w-]*.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.ICancelTransaction.TransactionActivity">
-            <summary>
-            FinancingConsumer
-            </summary>
-        </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.ICaptureTransaction">
             <summary>
             Transactional details for capturing a invoice payment.
@@ -3589,7 +3568,7 @@
             Object for storing transactional details cancelling a invoice payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentCancelRequest.#ctor(SwedbankPay.Sdk.PaymentInstruments.Invoice.ICancelTransaction)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentCancelRequest.#ctor(SwedbankPay.Sdk.PaymentInstruments.Invoice.CancelTransaction)">
             <summary>
             Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentCancelRequest"/>
             with the provided <paramref name="transaction"/>.

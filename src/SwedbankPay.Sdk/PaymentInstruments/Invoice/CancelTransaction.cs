@@ -3,7 +3,7 @@
     /// <summary>
     /// Transactional details for cancelling a transaction.
     /// </summary>
-    public class CancelTransaction : ICancelTransaction
+    public class CancelTransaction
     {
         /// <summary>
         /// Instantiates a new <see cref="CancelTransaction"/> with the provided parameters.

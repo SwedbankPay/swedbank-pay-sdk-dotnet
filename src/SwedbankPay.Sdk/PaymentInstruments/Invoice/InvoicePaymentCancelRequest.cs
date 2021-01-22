@@ -11,7 +11,7 @@
         /// </summary>
         /// <param name="transaction">Transactional details about a
         /// invoice cancellation.</param>
-        public InvoicePaymentCancelRequest(ICancelTransaction transaction)
+        public InvoicePaymentCancelRequest(CancelTransaction transaction)
         {
             Transaction = transaction;
         }
@@ -19,7 +19,7 @@
         /// <summary>
         /// Details needed to cancel the current invoice payment.
         /// </summary>
-        public ICancelTransaction Transaction { get; }
+        public CancelTransaction Transaction { get; }
 
     }
 }
