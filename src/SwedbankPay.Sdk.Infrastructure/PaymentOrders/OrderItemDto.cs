@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace SwedbankPay.Sdk.PaymentOrders
+﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
-    internal class OrderItemListDto
+    internal class OrderItemDto
     {
         public string Reference { get; set; }
         public string Name { get; set; }

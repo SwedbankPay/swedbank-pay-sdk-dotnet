@@ -6,7 +6,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
     internal class OrderItemsDto
     {
         public string Id { get; set; }
-        public List<OrderItemListDto> OrderItemList { get; set; } = new List<OrderItemListDto>();
+        public List<OrderItemDto> OrderItemList { get; set; } = new List<OrderItemDto>();
 
         internal OrderItems Map()
         {
