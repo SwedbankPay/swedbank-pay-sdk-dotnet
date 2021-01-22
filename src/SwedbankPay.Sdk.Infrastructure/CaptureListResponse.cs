@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk
 {
-    internal class CapturesListResponse : Identifiable, ICapturesListResponse
+    internal class CaptureListResponse : Identifiable, ICaptureListResponse
     {
-        public CapturesListResponse(Uri id, IList<ITransaction> captureList) : base(id)
+        public CaptureListResponse(Uri id, IList<ITransaction> captureList) : base(id)
         {
             CaptureList = captureList;
         }

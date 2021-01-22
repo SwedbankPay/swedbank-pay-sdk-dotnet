@@ -41,7 +41,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public Amount Amount { get; }
         public IPaymentAuthorizationResponse Authorizations { get; }
         public ICancellationListResponse Cancellations { get; }
-        public ICapturesListResponse Captures { get; }
+        public ICaptureListResponse Captures { get; }
         public Currency Currency { get; }
         public string Description { get; }
         public PaymentIntent Intent { get; }

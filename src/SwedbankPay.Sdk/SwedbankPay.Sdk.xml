@@ -3335,6 +3335,16 @@
             Transactional information about this cancellation.
             </summary>
         </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.ICaptureListResponse">
+            <summary>
+            List of transactional details of a captured payment.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.ICaptureListResponse.CaptureList">
+            <summary>
+            List of transactional information about capture(s).
+            </summary>
+        </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.ICaptureResponse">
             <summary>
             Transactional details about a captured payment.
@@ -3348,16 +3358,6 @@
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.ICaptureResponse.Capture">
             <summary>
             Transactional information about this capture.
-            </summary>
-        </member>
-        <member name="T:SwedbankPay.Sdk.PaymentInstruments.ICapturesListResponse">
-            <summary>
-            List of transactional details of a captured payment.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.ICapturesListResponse.CaptureList">
-            <summary>
-            List of transactional information about capture(s).
             </summary>
         </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.ApprovedLegalAddressRequest">

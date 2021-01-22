@@ -58,7 +58,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
 
         public ICancellationListResponse Cancellations { get; }
 
-        public ICapturesListResponse Captures { get; }
+        public ICaptureListResponse Captures { get; }
 
         public Amount RemainingCancellationAmount { get; }
 
