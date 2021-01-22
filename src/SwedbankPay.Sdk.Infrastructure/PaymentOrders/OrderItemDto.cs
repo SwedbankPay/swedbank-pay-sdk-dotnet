@@ -18,7 +18,7 @@
         public int Amount { get; set; }
         public int VatAmount { get; set; }
 
-        internal OrderItem Map()
+        internal IOrderItem Map()
         {
             var item = new OrderItem(Reference,
                                        Name,

@@ -10,7 +10,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
         internal OrderItems Map()
         {
-            var list = new List<OrderItem>();
+            var list = new List<IOrderItem>();
             foreach (var item in OrderItemList)
             {
                 list.Add(item.Map());

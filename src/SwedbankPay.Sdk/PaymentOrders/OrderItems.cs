@@ -22,6 +22,6 @@ namespace SwedbankPay.Sdk.PaymentOrders
         ///     the payer chooses to pay with invoice, among other things. Order items can be specified on both payment order
         ///     creation as well as on Capture.
         /// </summary>
-        public IEnumerable<OrderItem> OrderItemList { get; set; }
+        public IEnumerable<IOrderItem> OrderItemList { get; set; }
     }
 }
