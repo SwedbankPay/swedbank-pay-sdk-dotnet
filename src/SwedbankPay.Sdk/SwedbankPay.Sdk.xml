@@ -4375,6 +4375,16 @@
             A list of <see cref="T:SwedbankPay.Sdk.PaymentInstruments.IPrice"/> giving details about amounts and types.
             </summary>
         </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.IReversalListResponse">
+            <summary>
+            Object holding a list of available reversals on a payment.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IReversalListResponse.ReversalList">
+            <summary>
+            Contains a list of available reversal transactions.
+            </summary>
+        </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.IReversalResponse">
             <summary>
             Object holding possible reversals on a payment.
@@ -4388,16 +4398,6 @@
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.IReversalResponse.Reversal">
             <summary>
             Transactional reversal information.
-            </summary>
-        </member>
-        <member name="T:SwedbankPay.Sdk.PaymentInstruments.IReversalsListResponse">
-            <summary>
-            Object holding a list of available reversals on a payment.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IReversalsListResponse.ReversalList">
-            <summary>
-            Contains a list of available reversal transactions.
             </summary>
         </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.ItemDescription">
