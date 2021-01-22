@@ -30,7 +30,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public MetadataDto Metadata { get; set; }
         public string PayerReference { get; set; }
         public string PaymentToken { get; set; }
-        public PaymentOrderReversalsDto Reversals { get; set; }
+        public ReversalListResponseDto Reversals { get; set; }
         public SalesTransactionListResponseDto Sales { get; set; }
     }
 }
