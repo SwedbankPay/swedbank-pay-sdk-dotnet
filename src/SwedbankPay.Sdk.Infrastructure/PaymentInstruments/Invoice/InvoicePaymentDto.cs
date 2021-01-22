@@ -12,7 +12,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         public int RemainingReversalAmount { get; set; }
         public InvoicePaymentAuthorizationListDto Authorizations { get; set; }
         public CancellationListResponseDto Cancellations { get; set; }
-        public CapturesListResponseDto Captures { get; set; }
+        public CaptureListResponseDto Captures { get; set; }
         public DateTime Created { get; set; }
         public DateTime Updated { get; set; }
         public string Currency { get; set; }
