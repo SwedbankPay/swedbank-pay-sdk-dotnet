@@ -21,7 +21,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public string Description { get; set; }
         public string UserAgent { get; set; }
         public string Language { get; set; }
-        public PaymentOrderTransactionsDto Transactions { get; set; }
+        public TransactionListResponseDto Transactions { get; set; }
         public PaymentOrderAuthorizationDto Authorizations { get; set; }
         public PaymentOrderCaptureListDto Captures { get; set; }
         public PaymentOrderCancellationResponseDto Cancellations { get; set; }

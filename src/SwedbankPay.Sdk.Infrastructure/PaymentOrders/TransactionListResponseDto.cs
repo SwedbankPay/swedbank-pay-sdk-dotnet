@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    internal class PaymentOrderTransactionsDto
+    internal class TransactionListResponseDto
     {
         public string Id { get; set; }
         public List<TransactionDto> TransactionList { get; set; }
