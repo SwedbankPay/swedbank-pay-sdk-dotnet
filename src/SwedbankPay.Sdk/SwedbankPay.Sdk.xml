@@ -3310,6 +3310,16 @@
             <param name="paymentExpand"></param>
             <returns></returns>
         </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.ICancellationListResponse">
+            <summary>
+            List of transactional details on a cancelled payment.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.ICancellationListResponse.CancellationList">
+            <summary>
+            List of transactional cancellations.
+            </summary>
+        </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.ICancellationResponse">
             <summary>
             Transactional details about a cancelled payment.
@@ -3323,16 +3333,6 @@
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.ICancellationResponse.Cancellation">
             <summary>
             Transactional information about this cancellation.
-            </summary>
-        </member>
-        <member name="T:SwedbankPay.Sdk.PaymentInstruments.ICancellationsListResponse">
-            <summary>
-            List of transactional details on a cancelled payment.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.ICancellationsListResponse.CancellationList">
-            <summary>
-            List of transactional cancellations.
             </summary>
         </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.ICaptureResponse">

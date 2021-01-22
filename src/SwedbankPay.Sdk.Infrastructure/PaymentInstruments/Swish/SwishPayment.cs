@@ -61,7 +61,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         public Uri Id { get; }
         public Metadata Metadata { get; }
 
-        public ICancellationsListResponse Cancellations { get; }
+        public ICancellationListResponse Cancellations { get; }
 
         public ICapturesListResponse Captures { get; }
 

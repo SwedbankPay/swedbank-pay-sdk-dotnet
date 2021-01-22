@@ -46,7 +46,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 
         public IInvoicePaymentAuthorizationListResponse Authorizations { get; }
 
-        public ICancellationsListResponse Cancellations { get; }
+        public ICancellationListResponse Cancellations { get; }
 
         public ICapturesListResponse Captures { get; }
 
