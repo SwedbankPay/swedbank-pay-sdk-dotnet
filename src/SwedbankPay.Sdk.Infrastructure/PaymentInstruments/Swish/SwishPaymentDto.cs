@@ -31,6 +31,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         public int RemainingCancellationAmount { get; set; }
         public int RemainingCaptureAmount { get; set; }
         public CancellationListResponseDto Cancellations { get; set; }
-        public CaptureListTransactionDto Captures { get; set; }
+        public CaptureListDto Captures { get; set; }
     }
 }
