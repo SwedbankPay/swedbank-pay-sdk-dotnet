@@ -67,7 +67,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// <summary>
         /// Any problems will be listed here.
         /// </summary>
-        IProblemResponse Problem { get; }
+        IProblem Problem { get; }
 
         /// <summary>
         /// Indicates the state of the payment, not the state of any transactions performed on the payment.

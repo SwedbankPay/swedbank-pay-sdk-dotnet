@@ -42,7 +42,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
                                         string failedErrorCode,
                                         string failedErrorDescription,
                                         bool isOperational,
-                                        IProblemResponse problem,
+                                        IProblem problem,
                                         IOperationList operations)
             : base(id)
         {
@@ -124,7 +124,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// <summary>
         /// Any problems will be listed here.
         /// </summary>
-        public IProblemResponse Problem { get; }
+        public IProblem Problem { get; }
 
         /// <summary>
         /// Indicates the state of the payment, not the state of any transactions performed on the payment.

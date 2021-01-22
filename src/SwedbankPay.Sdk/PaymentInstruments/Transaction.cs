@@ -115,6 +115,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
-        public IProblemResponse Problem { get; set; }
+        public IProblem Problem { get; set; }
     }
 }
