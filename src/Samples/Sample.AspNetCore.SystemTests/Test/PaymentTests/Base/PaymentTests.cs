@@ -105,10 +105,17 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
 
         protected PayexInvoiceFramePage GoToPayexInvoicePaymentFrame(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
-            return GoToPaymentFramePage(products, checkout)
+            return checkout switch
+            {
+                Checkout.Option.LocalPaymentMenu => GoToLocalPaymentPage(products)
+                                            .Invoice.IsVisible.WaitTo.BeTrue()
+                                            .Invoice.Click()
+                                            .PaymentFrame.SwitchTo<PayexInvoiceFramePage>(),
+                _ => GoToPaymentFramePage(products, checkout)
                 .PaymentMethods[x => x.Name == PaymentMethods.Invoice].IsVisible.WaitTo.BeTrue()
                 .PaymentMethods[x => x.Name == PaymentMethods.Invoice].Click()
-                .PaymentMethods[x => x.Name == PaymentMethods.Invoice].PaymentFrame.SwitchTo<PayexInvoiceFramePage>();
+                .PaymentMethods[x => x.Name == PaymentMethods.Invoice].PaymentFrame.SwitchTo<PayexInvoiceFramePage>()
+            };
         }
 
 
