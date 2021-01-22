@@ -26,7 +26,6 @@ namespace Sample.AspNetCore.SystemTests.Services
                         "--whitelisted-ips=\"\"",
                         "--disable-dev-shm-usage",
                         "--no-sandbox",
-                        "--headless",
                         "--window-size=1200,1000"
                         );
 

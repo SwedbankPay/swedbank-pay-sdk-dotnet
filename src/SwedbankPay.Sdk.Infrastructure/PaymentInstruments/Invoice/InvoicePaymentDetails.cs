@@ -11,9 +11,9 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
             RemainingCaptureAmount = payment.RemainingCaptureAmount;
             RemainingCancellationAmount = payment.RemainingCancellationAmount;
             RemainingReversalAmount = payment.RemainingReversalAmount;
-            Authorizations = payment.Authorizations.Map();
-            Cancellations = payment.Cancellations.Map();
-            Captures = payment.Captures.Map();
+            Authorizations = payment.Authorizations?.Map();
+            Cancellations = payment.Cancellations?.Map();
+            Captures = payment.Captures?.Map();
             Created = payment.Created;
             Updated = payment.Updated;
             Currency = new Currency(payment.Currency);
@@ -27,13 +27,13 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
             PayeeInfo = payment.PayeeInfo.Map();
             PayerReference = payment.PayerReference;
             InitiatingSystemUserAgent = payment.InitiatingSystemUserAgent;
-            Prices = payment.Prices.Map();
-            Reversals = payment.Reversals.Map();
+            Prices = payment.Prices?.Map();
+            Reversals = payment.Reversals?.Map();
             State = payment.State;
-            Transactions = payment.Transactions.Map();
-            Urls = payment.Urls.Map();
+            Transactions = payment.Transactions?.Map();
+            Urls = payment.Urls?.Map();
             UserAgent = payment.UserAgent;
-            Metadata = payment.Metadata.Map();
+            Metadata = payment.Metadata?.Map();
         }
 
         public Amount Amount { get; }

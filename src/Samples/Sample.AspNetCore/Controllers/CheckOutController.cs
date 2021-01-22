@@ -20,6 +20,7 @@ using SwedbankPay.Sdk.PaymentInstruments.Card;
 using SwedbankPay.Sdk.PaymentInstruments;
 using SwedbankPay.Sdk.PaymentInstruments.Trustly;
 using SwedbankPay.Sdk.PaymentInstruments.Swish;
+using SwedbankPay.Sdk.PaymentInstruments.Invoice;
 
 namespace Sample.AspNetCore.Controllers
 {
@@ -216,6 +217,39 @@ namespace Sample.AspNetCore.Controllers
             }
         }
 
+        public async Task<IInvoicePaymentResponse> CreateInvoicePayment()
+        {
+            var totalAmount = this.cartService.CalculateTotal();
+            var vatAmount = new Amount(0);
+            try
+            {
+                var invoiceRequest = new InvoicePaymentRequest(Operation.FinancingConsumer,
+                                                               PaymentIntent.Authorization,
+                                                               new Currency("SEK"),
+                                                               new List<IPrice>(),
+                                                               "Test Purchase",
+                                                               "useragent",
+                                                               new Language("sv-SE"),
+                                                               new Urls(this.urls.HostUrls.ToList(), this.urls.CompleteUrl, this.urls.TermsOfServiceUrl) { CancelUrl = this.urls.CancelUrl, PaymentUrl = this.urls.PaymentUrl, CallbackUrl = this.urls.CallbackUrl, LogoUrl = this.urls.LogoUrl },
+                                                               new PayeeInfo(this.payeeInfoOptions.PayeeId, this.payeeInfoOptions.PayeeReference),
+                                                               InvoiceType.PayExFinancingSE);
+                invoiceRequest.Payment.Prices.Add(new Price(new Amount(totalAmount), PriceType.Invoice, vatAmount));
+
+                var invoicePayment = await this.swedbankPayClient.Payments.InvoicePayments.Create(invoiceRequest);
+                this.cartService.PaymentLink = invoicePayment.Payment.Id.OriginalString;
+                this.cartService.Instrument = PaymentInstrument.Swish;
+                this.cartService.PaymentOrderLink = null;
+                this.cartService.Update();
+
+                return invoicePayment;
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.Message);
+                return null;
+            }
+        }
+
         [HttpPost]
         public async Task<JsonResult> GetViewPaymentOrderHref(string consumerProfileRef = null)
         {
@@ -318,6 +352,9 @@ namespace Sample.AspNetCore.Controllers
                 case PaymentInstrument.Trustly:
                     var trustlyPayment = await CreateTrustlyPayment().ConfigureAwait(false);
                     return new JsonResult(trustlyPayment.Operations.ViewSale.Href);
+                case PaymentInstrument.Invoice:
+                    var invoicePayment = await CreateInvoicePayment().ConfigureAwait(false);
+                    return new JsonResult(invoicePayment.Operations.ViewAuthorization.Href);
                 default :
                     return null;
             }
