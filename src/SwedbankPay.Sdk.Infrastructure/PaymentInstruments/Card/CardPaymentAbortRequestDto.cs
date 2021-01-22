@@ -4,9 +4,9 @@
     {
         public CardPaymentAbortRequestDto(CardPaymentAbortRequest payload)
         {
-            Payment = new CardPaymentAbortPaymentDto(payload.Payment);
+            Payment = new CardPaymentAbortDto(payload.Payment);
         }
 
-        public CardPaymentAbortPaymentDto Payment { get; }
+        public CardPaymentAbortDto Payment { get; }
     }
 }

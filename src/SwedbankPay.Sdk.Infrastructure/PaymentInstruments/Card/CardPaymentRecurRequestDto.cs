@@ -4,9 +4,9 @@
     {
         public CardPaymentRecurRequestDto(CardPaymentRecurRequest paymentRequest)
         {
-            Payment = new CardPaymentRecurPaymentDto(paymentRequest.Payment);
+            Payment = new CardPaymentRecurDto(paymentRequest.Payment);
         }
 
-        public CardPaymentRecurPaymentDto Payment { get; }
+        public CardPaymentRecurDto Payment { get; }
     }
 }
