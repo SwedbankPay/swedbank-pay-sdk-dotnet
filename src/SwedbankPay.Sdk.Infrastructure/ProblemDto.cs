@@ -14,7 +14,7 @@ namespace SwedbankPay.Sdk
 
         internal IProblem Map()
         {
-            var response = new Problem(Action, Detail, Instance, Status, Title, Type);
+            var response = new Problem(this);
             foreach (var item in Problems)
             {
                 response.Problems.Add(item.Map());

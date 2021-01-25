@@ -5,6 +5,16 @@ namespace SwedbankPay.Sdk
 {
     internal class Problem : IProblem
     {
+        public Problem(ProblemDto dto)
+        {
+            Action = dto.Action;
+            Detail = dto.Detail;
+            Instance = dto.Instance;
+            Status = dto.Status;
+            Title = dto.Title;
+            Type = dto.Type;
+        }
+
         public Problem(string action, string detail, string instance, int status, string title, string type)
         {
             Action = action;
