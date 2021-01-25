@@ -33,7 +33,7 @@ namespace SwedbankPay.Sdk.JsonSerialization.Converters
                         case "HttpResponse":
                             httpException.HttpResponse = JsonSerializer.Deserialize<HttpResponseMessage>(reader.GetString(), options);
                             break;
-                        case "ProblemResponse":
+                        case "Problem":
                             var dto = JsonSerializer.Deserialize<ProblemDto>(reader.GetString(), options);
                             httpException.ProblemResponse = dto.Map();
                             break;
