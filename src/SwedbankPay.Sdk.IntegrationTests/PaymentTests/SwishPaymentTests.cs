@@ -21,7 +21,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             Assert.NotNull(payment);
             Assert.NotNull(payment.Operations.Abort);
 
-            var paymentResponseContainer = await payment.Operations.Abort(new PaymentAbortRequest(new PaymentAbortRequestDetails()));
+            var paymentResponseContainer = await payment.Operations.Abort(new PaymentAbortRequest());
 
             Assert.NotNull(paymentResponseContainer);
         }

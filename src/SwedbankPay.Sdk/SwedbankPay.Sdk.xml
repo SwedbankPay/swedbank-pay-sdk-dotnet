@@ -4851,11 +4851,11 @@
             Object describing a abort request for a payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.PaymentAbortRequest.#ctor(SwedbankPay.Sdk.PaymentInstruments.PaymentAbortRequestDetails)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.PaymentAbortRequest.#ctor(System.String)">
             <summary>
-            Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.PaymentAbortRequest"/> with the provided <paramref name="payment"/>.
+            Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.PaymentAbortRequest"/> with the provided <paramref name="abortReason"/>.
             </summary>
-            <param name="payment">Details of why the payment is being aborted.</param>
+            <param name="abortReason">Sets the reason for the abort request.</param>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.PaymentAbortRequest.Payment">
             <summary>

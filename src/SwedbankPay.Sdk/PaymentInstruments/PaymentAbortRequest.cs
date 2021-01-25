@@ -6,12 +6,15 @@
     public class PaymentAbortRequest
     {
         /// <summary>
-        /// Instantiates a new <see cref="PaymentAbortRequest"/> with the provided <paramref name="payment"/>.
+        /// Instantiates a new <see cref="PaymentAbortRequest"/> with the provided <paramref name="abortReason"/>.
         /// </summary>
-        /// <param name="payment">Details of why the payment is being aborted.</param>
-        public PaymentAbortRequest(PaymentAbortRequestDetails payment)
+        /// <param name="abortReason">Sets the reason for the abort request.</param>
+        public PaymentAbortRequest(string abortReason = "CancelledByConsumer")
         {
-            Payment = payment;
+            Payment = new PaymentAbortRequestDetails()
+            {
+                AbortReason = abortReason
+            };
         }
 
         /// <summary>
