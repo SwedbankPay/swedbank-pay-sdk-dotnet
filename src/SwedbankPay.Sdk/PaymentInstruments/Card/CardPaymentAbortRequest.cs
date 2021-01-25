@@ -3,7 +3,7 @@
     /// <summary>
     /// Holds transactional details about a payment being aborted.
     /// </summary>
-    public class CardPaymentAbortRequest : ICardPaymentAbortRequest
+    public class CardPaymentAbortRequest
     {
         /// <summary>
         /// Instantiates a new <see cref="CardPaymentAbortRequest"/> with the provided <paramref name="abortReason"/>.

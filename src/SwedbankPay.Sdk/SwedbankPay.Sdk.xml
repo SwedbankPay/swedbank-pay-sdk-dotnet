@@ -2672,16 +2672,6 @@
             The created recurrenceToken, if <seealso cref="F:SwedbankPay.Sdk.Operation.Verify"/>, <seealso cref="F:SwedbankPay.Sdk.Operation.Recur"/> generateRecurrenceToken: true was used.
             </summary>
         </member>
-        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentAbortRequest">
-            <summary>
-            Holds details on aborting a credit card payment.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentAbortRequest.Payment">
-            <summary>
-            Details about the abort.
-            </summary>
-        </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentAuthorization">
             <summary>
             Transactional details about a credit card authorization.
@@ -3551,16 +3541,29 @@
             Object for storing a authorization request to the invoice API.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentAuthorizationRequest.#ctor(SwedbankPay.Sdk.PaymentInstruments.Invoice.IAuthorizationTransaction)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentAuthorizationRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoiceType)">
             <summary>
-            Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentAuthorizationRequest"/>
-            with the provided <paramref name="transaction"/>.
+            Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentAuthorizationRequest"/>.
             </summary>
-            <param name="transaction">Transactional details about a invoice authorization.</param>
+            <param name="operation">The initial API operation for this invoice request.</param>
+            <param name="intent">The initial payment intent for this invoice.</param>
+            <param name="currency">The <seealso cref="T:SwedbankPay.Sdk.Currency"/> this payment will be paid in.</param>
+            <param name="prices">A list of objects detailing price differences between different payment instruments.</param>
+            <param name="description">A textual description of what is being paid.</param>
+            <param name="userAgent">The payers UserAgent string.</param>
+            <param name="language">The payers prefered <seealso cref="T:SwedbankPay.Sdk.Language"/>.</param>
+            <param name="urls">Object containing relevant URLs for this payment.</param>
+            <param name="payeeInfo">Object with merchant information.</param>
+            <param name="invoiceType">Specifies the invoice type, country, of the invoice.</param>
         </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentAuthorizationRequest.Transaction">
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentAuthorizationRequest.Payment">
             <summary>
             Details needed to authorize this payment.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentAuthorizationRequest.Invoice">
+            <summary>
+            Request details about the invoice type.
             </summary>
         </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentCancelRequest">
@@ -3568,13 +3571,14 @@
             Object for storing transactional details cancelling a invoice payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentCancelRequest.#ctor(SwedbankPay.Sdk.PaymentInstruments.Invoice.CancelTransaction)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentCancelRequest.#ctor(SwedbankPay.Sdk.Operation,System.String,System.String)">
             <summary>
             Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentCancelRequest"/>
-            with the provided <paramref name="transaction"/>.
+            with the provided parameters.
             </summary>
-            <param name="transaction">Transactional details about a
-            invoice cancellation.</param>
+            <param name="transactionActivity">The <see cref="T:SwedbankPay.Sdk.Operation"/> for this cancel.</param>
+            <param name="payeeReference">A transactionally unique reference from the merchant system.</param>
+            <param name="description">A textual description of the cancellation.</param>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentCancelRequest.Transaction">
             <summary>
@@ -3586,12 +3590,17 @@
             Object holding the details needed to capture a invoice payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentCaptureRequest.#ctor(SwedbankPay.Sdk.PaymentInstruments.Invoice.ICaptureTransaction)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentCaptureRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.IOrderItem},System.String,System.String)">
             <summary>
             Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentCaptureRequest"/> with
-            the provided <paramref name="transaction"/>.
+            the provided parameter.
             </summary>
-            <param name="transaction">Transactional details needed to capture a invoice payment.</param>
+            <param name="transactionActivity">The API operation to perform.</param>
+            <param name="amount">The amount to capture in this transaction.</param>
+            <param name="vatAmount">The VAT amount to capture in this transaction.</param>
+            <param name="orderItems">List of <seealso cref="T:SwedbankPay.Sdk.IOrderItem"/> to be captured in this transaction.</param>
+            <param name="description">A textual description of the capture.</param>
+            <param name="payeeReference">Transactionally unique reference from the merchant system.</param>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentCaptureRequest.Transaction">
             <summary>

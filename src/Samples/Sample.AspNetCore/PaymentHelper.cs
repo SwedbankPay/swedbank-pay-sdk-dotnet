@@ -43,9 +43,7 @@ namespace Sample.AspNetCore
 
             if (payment.Operations.Cancel != null)
             {
-                var transaction = new CancelTransaction(Operation.FinancingConsumer, payeeReference,
-                    "Cancelling parts of the total amount");
-                var response = await payment.Operations.Cancel(new InvoicePaymentCancelRequest(transaction));
+                var response = await payment.Operations.Cancel(new InvoicePaymentCancelRequest(Operation.FinancingConsumer, payeeReference, "Cancelling parts of the total amount"));
                 tempData["CancelMessage"] = $"Payment has been cancelled: {response.Cancellation.Transaction.Id}";
                 cartService.PaymentOrderLink = null;
             }

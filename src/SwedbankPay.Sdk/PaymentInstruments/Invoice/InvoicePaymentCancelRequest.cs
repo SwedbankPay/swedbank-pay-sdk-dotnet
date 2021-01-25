@@ -7,13 +7,14 @@
     {
         /// <summary>
         /// Instantiates a new <see cref="InvoicePaymentCancelRequest"/>
-        /// with the provided <paramref name="transaction"/>.
+        /// with the provided parameters.
         /// </summary>
-        /// <param name="transaction">Transactional details about a
-        /// invoice cancellation.</param>
-        public InvoicePaymentCancelRequest(CancelTransaction transaction)
+        /// <param name="transactionActivity">The <see cref="Operation"/> for this cancel.</param>
+        /// <param name="payeeReference">A transactionally unique reference from the merchant system.</param>
+        /// <param name="description">A textual description of the cancellation.</param>
+        public InvoicePaymentCancelRequest(Operation transactionActivity, string payeeReference, string description)
         {
-            Transaction = transaction;
+            Transaction = new CancelTransaction(transactionActivity, payeeReference, description);
         }
 
         /// <summary>
