@@ -8,7 +8,7 @@
 
         internal IProblemItem Map()
         {
-            return new ProblemItem(Description, Name);
+            return new ProblemItem(this);
         }
     }
 }

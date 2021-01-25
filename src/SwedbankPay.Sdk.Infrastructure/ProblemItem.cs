@@ -2,6 +2,12 @@
 {
     internal class ProblemItem : IProblemItem
     {
+        public ProblemItem(ProblemItemDto dto)
+        {
+            Description = dto.Description;
+            Name = dto.Name;
+        }
+
         public ProblemItem(string description, string name)
         {
             Description = description;
