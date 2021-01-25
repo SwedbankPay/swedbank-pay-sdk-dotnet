@@ -169,5 +169,14 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
 
             Assert.Equal(1, result.Data.Count);
         }
+
+        [Fact]
+        public void ProblemResponse_CorrectlyDeserializes_ResponseField()
+        {
+            var dto = JsonSerializer.Deserialize<ProblemDto>(PaymentOrderInputValidationFailedReponse, JsonSerialization.JsonSerialization.Settings);
+
+            Assert.NotNull(dto.Problems);
+            Assert.Equal("Some description here", dto.Problems[0].Description);
+        }
     }
 }
