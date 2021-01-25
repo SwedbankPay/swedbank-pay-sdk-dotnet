@@ -11,7 +11,7 @@
         /// <param name="abortReason">Sets the reason for the abort request.</param>
         public PaymentAbortRequest(string abortReason = "CancelledByConsumer")
         {
-            Payment = new PaymentAbortRequestDetails()
+            Payment = new PaymentAbortRequestDetails
             {
                 AbortReason = abortReason
             };
