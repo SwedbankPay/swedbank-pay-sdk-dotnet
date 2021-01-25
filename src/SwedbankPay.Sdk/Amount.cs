@@ -42,7 +42,7 @@ namespace SwedbankPay.Sdk
         public Amount(long longAmount)
         {
             var am = Convert.ToDecimal(longAmount);
-            this.amount = am;
+            this.amount = am / 100;
             this.inLowestMonetaryUnit = longAmount;
         }
 
