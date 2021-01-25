@@ -16,7 +16,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public string State { get; set; }
         public string Currency { get; set; }
         public PricesDto Prices { get; set; }
-        public int Amount { get; set; }
+        public long Amount { get; set; }
         public int RemainingReversalAmount { get; set; }
         public string Description { get; set; }
         public string UserAgent { get; set; }

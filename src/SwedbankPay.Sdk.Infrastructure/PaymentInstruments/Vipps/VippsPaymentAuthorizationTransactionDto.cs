@@ -5,7 +5,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
     internal class VippsPaymentAuthorizationTransactionDto
     {
         public Uri Id { get; set; }
-        public int Amount { get; set; }
+        public long Amount { get; set; }
         public DateTime Created { get; set; }
         public string Description { get; set; }
         public string FailedActivityName { get; set; }
@@ -19,7 +19,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         public string State { get; set; }
         public string Type { get; set; }
         public DateTime Updated { get; set; }
-        public int VatAmount { get; set; }
+        public long VatAmount { get; set; }
 
         internal AuthorizationTransaction Map()
         {

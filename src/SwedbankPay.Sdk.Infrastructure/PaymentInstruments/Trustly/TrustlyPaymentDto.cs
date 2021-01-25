@@ -4,11 +4,11 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
 {
     internal class TrustlyPaymentDto
     {
-        public int Amount { get; set; }
-        public int VatAmount { get; set; }
-        public int RemainingCancellationAmount { get; set; }
-        public int RemainingCaptureAmount { get; set; }
-        public int RemainingReversalAmount { get; set; }
+        public long Amount { get; set; }
+        public long VatAmount { get; set; }
+        public long RemainingCancellationAmount { get; set; }
+        public long RemainingCaptureAmount { get; set; }
+        public long RemainingReversalAmount { get; set; }
         public DateTime Created { get; set; }
         public DateTime Updated { get; set; }
         public string Currency { get; set; }

@@ -5,7 +5,7 @@ namespace SwedbankPay.Sdk
 {
     internal class TransactionDto
     {
-        public int Amount { get; set; }
+        public long Amount { get; set; }
         public DateTime Created { get; set; }
         public string Description { get; set; }
         public string Id { get; set; }
@@ -16,7 +16,7 @@ namespace SwedbankPay.Sdk
         public string State { get; set; }
         public string Type { get; set; }
         public DateTime Updated { get; set; }
-        public int VatAmount { get; set; }
+        public long VatAmount { get; set; }
         public string Activity { get; set; }
         public Problem Problem { get; set; }
 

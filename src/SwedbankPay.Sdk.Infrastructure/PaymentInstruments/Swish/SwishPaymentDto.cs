@@ -13,8 +13,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         public string State { get; set; }
         public string Currency { get; set; }
         public PriceListResponseDto Prices { get; set; }
-        public int Amount { get; set; }
-        public int RemainingReversalAmount { get; set; }
+        public long Amount { get; set; }
+        public long RemainingReversalAmount { get; set; }
         public string Description { get; set; }
         public string PayerReference { get; set; }
         public string InitiatingSystemUserAgent { get; set; }
@@ -27,9 +27,9 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         public PayeeInfoDto PayeeInfo { get; set; }
         public Uri Id { get; set; }
         public MetadataDto Metadata { get; set; }
-        public int VatAmount { get; set; }
-        public int RemainingCancellationAmount { get; set; }
-        public int RemainingCaptureAmount { get; set; }
+        public long VatAmount { get; set; }
+        public long RemainingCancellationAmount { get; set; }
+        public long RemainingCaptureAmount { get; set; }
         public CancellationListResponseDto Cancellations { get; set; }
         public CaptureListDto Captures { get; set; }
     }

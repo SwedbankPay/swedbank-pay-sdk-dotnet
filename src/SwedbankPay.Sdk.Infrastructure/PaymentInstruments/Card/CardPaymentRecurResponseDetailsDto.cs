@@ -24,11 +24,11 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 
         public PricesDto Prices { get; set; }
 
-        public int Amount { get; set; }
+        public long Amount { get; set; }
 
-        public int ReminaingCaptureAmount { get; set; }
+        public long ReminaingCaptureAmount { get; set; }
 
-        public int RemainingCancellationAmount { get; set; }
+        public long RemainingCancellationAmount { get; set; }
 
         public string Description { get; set; }
 

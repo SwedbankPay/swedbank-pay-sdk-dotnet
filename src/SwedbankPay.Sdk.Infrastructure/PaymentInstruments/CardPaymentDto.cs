@@ -4,15 +4,15 @@ namespace SwedbankPay.Sdk.PaymentInstruments
 {
     internal class CardPaymentDto
     {
-        public int Amount { get; set; }
+        public long Amount { get; set; }
 
-        public int VatAmount { get; set; }
+        public long VatAmount { get; set; }
 
-        public int RemainingCaptureAmount { get; set; }
+        public long RemainingCaptureAmount { get; set; }
 
-        public int RemainingCancellationAmount { get; set; }
+        public long RemainingCancellationAmount { get; set; }
 
-        public int RemainingReversalAmount { get; set; }
+        public long RemainingReversalAmount { get; set; }
 
         public AuthorizationTransactionDto Authorizations { get; set; }
 

@@ -4,7 +4,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
     internal class MobilePayPaymentAuthorizationTransactionDto
     {
-        public int Amount { get; }
+        public long Amount { get; }
+        public long VatAmount { get; }
         public DateTime Created { get; }
         public string Description { get; }
         public string FailedActivityName { get; }
@@ -18,7 +19,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         public string State { get; }
         public string Type { get; }
         public DateTime Updated { get; }
-        public int VatAmount { get; }
         public Uri Id { get; set; }
 
         internal IMobilePayPaymentAuthorization Map()

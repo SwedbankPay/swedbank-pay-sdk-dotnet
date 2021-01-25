@@ -10,8 +10,8 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public string Type { get; set; }
         public string State { get; set; }
         public long Number { get; set; }
-        public int Amount { get; set; }
-        public int VatAmount { get; set; }
+        public long Amount { get; set; }
+        public long VatAmount { get; set; }
         public string Description { get; set; }
         public string PayeeReference { get; set; }
 
