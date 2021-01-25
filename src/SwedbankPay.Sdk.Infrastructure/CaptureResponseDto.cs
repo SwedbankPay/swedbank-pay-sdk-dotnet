@@ -5,7 +5,7 @@ namespace SwedbankPay.Sdk
 {
     internal class CaptureResponseDto
     {
-        public Uri Payment { get; set; }
+        public string Payment { get; set; }
 
         public TransactionDto Capture { get; set; }
 

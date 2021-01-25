@@ -16,7 +16,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
                     case PaymentResourceOperations.UpdatePaymentAbort:
                         Abort = async payload => {
                             var requestDto = new PaymentAbortRequestDto(payload);
-                            return await client.SendAsJsonAsync<MobilePayPaymentResponse>(httpOperation.Method, httpOperation.Href, requestDto);
+                            var responseDto = await client.SendAsJsonAsync<MobilePayPaymentResponseDto>(httpOperation.Method, httpOperation.Href, requestDto);
+                            return new MobilePayPaymentResponse(responseDto, client);
                         };
                         break;
 
@@ -31,7 +32,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
                     case PaymentResourceOperations.CreateCapture:
                         Capture = async payload => {
                             var requestDto = new MobilePayPaymentCaptureRequestDto(payload);
-                            return await client.SendAsJsonAsync<CaptureResponse>(httpOperation.Method, httpOperation.Href, requestDto);
+                            var responseDto = await client.SendAsJsonAsync<CaptureResponseDto>(httpOperation.Method, httpOperation.Href, requestDto);
+                            return new CaptureResponse(responseDto);
                         };
                         break;
 

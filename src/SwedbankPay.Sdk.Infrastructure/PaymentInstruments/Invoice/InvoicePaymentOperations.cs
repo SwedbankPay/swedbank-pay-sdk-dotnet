@@ -33,7 +33,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
                         Capture = async payload => {
                             var requestDto = new InvoicePaymentCaptureRequestDto(payload);
                             var dto = await client.SendAsJsonAsync<CaptureResponseDto>(httpOperation.Method, httpOperation.Href, requestDto);
-                            return new CaptureResponse(dto.Payment, dto.Capture.Map());
+                            return new CaptureResponse(dto);
                         };
                         break;
 

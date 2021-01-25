@@ -40,7 +40,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
                         Capture = async payload => {
                             var requestDto = new CardPaymentCaptureRequestDto(payload);
                             var dto = await client.SendAsJsonAsync<CaptureResponseDto>(httpOperation.Method, httpOperation.Href, requestDto);
-                            return new CaptureResponse(dto.Payment, dto.Capture.Map());
+                            return new CaptureResponse(dto);
                         };
                         break;
 

@@ -29,7 +29,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
                         Capture = async payload => {
                             var requestDto = new VippsPaymentCaptureRequestDto(payload);
                             var dto = await client.SendAsJsonAsync<CaptureResponseDto>(httpOperation.Method, httpOperation.Href, requestDto);
-                            return new CaptureResponse(dto.Payment, dto.Capture.Map());
+                            return new CaptureResponse(dto);
                         };
                         break;
 
@@ -54,7 +54,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         }
 
         public Func<VippsPaymentCancelRequest, Task<CancellationResponse>> Cancel { get; }
-        public Func<VippsPaymentCaptureRequest, Task<CaptureResponse>> Capture { get; }
+        public Func<VippsPaymentCaptureRequest, Task<ICaptureResponse>> Capture { get; }
         public Func<VippsPaymentAuthorizationRequest, Task<IVippsPaymentAuthorizationResponse>> DirectAuthorization { get; }
         public Func<VippsPaymentReversalRequest, Task<IReversalResponse>> Reversal { get; }
         public HttpOperation RedirectAuthorization { get; }

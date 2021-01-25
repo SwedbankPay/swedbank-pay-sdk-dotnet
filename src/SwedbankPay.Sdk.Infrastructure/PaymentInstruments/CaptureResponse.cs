@@ -5,8 +5,14 @@ namespace SwedbankPay.Sdk.PaymentInstruments
     /// <summary>
     /// Holds information about a captured payment.
     /// </summary>
-    public class CaptureResponse : ICaptureResponse
+    internal class CaptureResponse : ICaptureResponse
     {
+        public CaptureResponse(CaptureResponseDto dto)
+        {
+            Payment = new Uri(dto.Payment, UriKind.RelativeOrAbsolute);
+            Capture = dto.Capture.Map();
+        }
+
         /// <summary>
         /// Instantiates a new <seealso cref="CaptureResponse"/> with the provided parameters.
         /// </summary>

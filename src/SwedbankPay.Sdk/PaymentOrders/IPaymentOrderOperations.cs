@@ -24,7 +24,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <summary>
         /// Captures the authorized <seealso cref="Amount"/> on the payment order, if available.
         /// </summary>
-        Func<PaymentOrderCaptureRequest, Task<CaptureResponse>> Capture { get; }
+        Func<PaymentOrderCaptureRequest, Task<ICaptureResponse>> Capture { get; }
 
         /// <summary>
         /// Reverses previously captured <seealso cref="Amount"/> on the payment order, if available.

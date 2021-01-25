@@ -30,7 +30,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                         {
                             var requestDto = new PaymentOrderCaptureRequestDto(payload);
                             var dto = await client.SendAsJsonAsync<CaptureResponseDto>(httpOperation.Method, httpOperation.Href, requestDto);
-                            return new CaptureResponse(dto.Payment, dto.Capture.Map());
+                            return new CaptureResponse(dto);
                         };
                         break;
                     case PaymentOrderResourceOperations.CreatePaymentOrderCancel:
@@ -77,7 +77,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
         public Func<PaymentOrderAbortRequest, Task<IPaymentOrderResponse>> Abort { get; }
         public Func<PaymentOrderCancelRequest, Task<CancellationResponse>> Cancel { get; }
-        public Func<PaymentOrderCaptureRequest, Task<CaptureResponse>> Capture { get; }
+        public Func<PaymentOrderCaptureRequest, Task<ICaptureResponse>> Capture { get; }
         public Func<PaymentOrderReversalRequest, Task<IReversalResponse>> Reverse { get; }
         public Func<PaymentOrderUpdateRequest, Task<IPaymentOrderResponse>> Update { get; }
         public HttpOperation View { get; }

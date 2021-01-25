@@ -17,5 +17,16 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             var mobilePayPayment = await this.SutMobilePay.Payments.MobilePayPayments.Create(paymentRequest, PaymentExpand.All);
             Assert.NotNull(mobilePayPayment);
         }
+
+        [Fact]
+        public async Task CreateAndAbortMobilePay_DoesNotThrowError()
+        {
+            var paymentRequest = this.paymentRequestBuilder.WithMobilePayTestValues(this.payeeId).BuildMobilePayRequest();
+            var mobilePayPayment = await this.SutMobilePay.Payments.MobilePayPayments.Create(paymentRequest, PaymentExpand.All);
+
+            var result = await mobilePayPayment.Operations.Abort(new PaymentAbortRequest());
+
+            Assert.NotNull(result);
+        }
     }
 }

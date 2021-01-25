@@ -18,7 +18,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         /// <summary>
         /// Performs a capture on the current payment, if available.
         /// </summary>
-        Func<VippsPaymentCaptureRequest, Task<CaptureResponse>> Capture { get; }
+        Func<VippsPaymentCaptureRequest, Task<ICaptureResponse>> Capture { get; }
 
         /// <summary>
         /// Does a direct authorization with no user input, if available.

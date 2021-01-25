@@ -1858,28 +1858,6 @@
             Holds transactional information about this cancellation.
             </summary>
         </member>
-        <member name="T:SwedbankPay.Sdk.PaymentInstruments.CaptureResponse">
-            <summary>
-            Holds information about a captured payment.
-            </summary>
-        </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.CaptureResponse.#ctor(System.Uri,SwedbankPay.Sdk.PaymentInstruments.ITransaction)">
-            <summary>
-            Instantiates a new <seealso cref="T:SwedbankPay.Sdk.PaymentInstruments.CaptureResponse"/> with the provided parameters.
-            </summary>
-            <param name="payment"><seealso cref="T:System.Uri"/> of the payment.</param>
-            <param name="capture">Transactional details about the capture.</param>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.CaptureResponse.Payment">
-            <summary>
-            A unique <seealso cref="T:System.Uri"/> to access this resource.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.CaptureResponse.Capture">
-            <summary>
-            Holds transactional information about this capture.
-            </summary>
-        </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.CaptureTransaction">
             <summary>
             Object holding details for capturing a authorized Mobile Pay payment.
