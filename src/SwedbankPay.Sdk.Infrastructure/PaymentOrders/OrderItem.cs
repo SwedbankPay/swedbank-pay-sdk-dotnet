@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SwedbankPay.Sdk
+namespace SwedbankPay.Sdk.PaymentOrders
 {
     /// <summary>
     /// Object describing a item in a payment order.
@@ -8,7 +8,7 @@ namespace SwedbankPay.Sdk
     public class OrderItem : IOrderItem
     {
 
-        internal OrderItem(PaymentOrders.OrderItemDto dto)
+        internal OrderItem(OrderItemDto dto)
         {
             Reference = dto.Reference;
             Name = dto.Name;

@@ -36,10 +36,10 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
             if (paymentOrder.OrderItems != null)
             {
-                OrderItems = new List<Sdk.OrderItemDto>();
+                OrderItems = new List<OrderItemDto>();
                 foreach (var item in paymentOrder.OrderItems)
                 {
-                    OrderItems.Add(new Sdk.OrderItemDto(item));
+                    OrderItems.Add(new OrderItemDto(item));
                 }
             }
         }
@@ -58,7 +58,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
         public string Operation { get; }
 
-        public List<Sdk.OrderItemDto> OrderItems { get; }
+        public List<OrderItemDto> OrderItems { get; }
 
         public PayeeInfoDto PayeeInfo { get; }
 

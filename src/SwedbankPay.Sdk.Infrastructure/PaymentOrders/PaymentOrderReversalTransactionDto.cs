@@ -11,10 +11,10 @@ namespace SwedbankPay.Sdk.PaymentOrders
             Description = transaction.Description;
             if (transaction.OrderItems != null && transaction.OrderItems.Any())
             {
-                OrderItems = new List<Sdk.OrderItemDto>();
+                OrderItems = new List<OrderItemDto>();
                 foreach (var item in transaction.OrderItems)
                 {
-                    OrderItems.Add(new Sdk.OrderItemDto(item));
+                    OrderItems.Add(new OrderItemDto(item));
                 }
             }
             PayeeReference = transaction.PayeeReference;
@@ -25,7 +25,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
         public string Description { get; }
 
-        public List<Sdk.OrderItemDto> OrderItems { get; }
+        public List<OrderItemDto> OrderItems { get; }
 
         public string PayeeReference { get; }
 
