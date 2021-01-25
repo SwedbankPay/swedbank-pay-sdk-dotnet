@@ -15,7 +15,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         public string Id { get; set; }
         public string Instrument { get; set; }
         public string Intent { get; set; }
-        public Language Language { get; set; }
+        public string Language { get; set; }
         public long Number { get; set; }
         public string Operation { get; set; }
         public PayeeInfoDto PayeeInfo { get; set; }
@@ -23,7 +23,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         public string InitiatingSystemUserAgent { get; set; }
         public PriceListResponseDto Prices { get; set; }
         public ReversalListResponseDto Reversals { get; set; }
-        public State State { get; set; }
+        public string State { get; set; }
         public TransactionListResponseDto Transactions { get; set; }
         public UrlsDto Urls { get; set; }
         public string UserAgent { get; set; }

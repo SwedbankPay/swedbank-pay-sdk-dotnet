@@ -21,7 +21,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
             Id = new Uri(payment.Id, UriKind.RelativeOrAbsolute);
             Instrument = Enum.Parse<PaymentInstrument>(payment.Instrument);
             Intent = Enum.Parse<PaymentIntent>(payment.Intent);
-            Language = payment.Language;
+            Language = new Language(payment.Language);
             Number = payment.Number;
             Operation = payment.Operation;
             PayeeInfo = payment.PayeeInfo.Map();
