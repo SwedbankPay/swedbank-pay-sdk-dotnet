@@ -5,7 +5,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
     internal class CaptureListResponseDto
     {
-        public Uri Id { get; set; }
+        public string Id { get; set; }
         public List<TransactionDto> CaptureList { get; set; } = new List<TransactionDto>();
 
         internal ICaptureListResponse Map()
@@ -15,7 +15,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
             {
                 transactionList.Add(t.Map());
             }
-            return new CaptureListResponse(Id, transactionList);
+            var uri = new Uri(Id, UriKind.RelativeOrAbsolute);
+            return new CaptureListResponse(uri, transactionList);
         }
     }
 }

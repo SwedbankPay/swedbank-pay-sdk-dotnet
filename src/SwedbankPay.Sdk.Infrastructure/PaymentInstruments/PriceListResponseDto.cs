@@ -5,7 +5,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
 {
     internal class PriceListResponseDto
     {
-        public Uri Id { get; set; }
+        public string Id { get; set; }
 
         public List<PriceDto> PriceList { get; set; } = new List<PriceDto>();
 
@@ -26,7 +26,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments
 
                 priceList.Add(new Price(item.Amount, priceType, item.VatAmount));
             }
-            return new PriceListResponse(Id, priceList);
+            var uri = new Uri(Id, UriKind.RelativeOrAbsolute);
+            return new PriceListResponse(uri, priceList);
         }
     }
 }

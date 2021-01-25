@@ -7,7 +7,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
     {
         public SaleListResponse(SalesTransactionListResponseDto dto)
         {
-            Id = dto.Id;
+            Id = new Uri(dto.Id, UriKind.RelativeOrAbsolute);
             Payment = dto.Payment;
             SaleList = new List<ISaleListItem>();
             foreach (var item in dto.Sale)

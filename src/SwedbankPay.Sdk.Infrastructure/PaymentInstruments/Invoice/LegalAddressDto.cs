@@ -4,7 +4,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 {
     internal class LegalAddressDto
     {
-        public Uri Id { get; set; }
+        public string Id { get; set; }
         public string Addressee { get; set; }
         public string CoAddress { get; set; }
         public string StreetAddress { get; set; }
@@ -14,7 +14,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 
         internal LegalAddress Map()
         {
-            return new LegalAddress(Id,
+            var uri = new Uri(Id, UriKind.RelativeOrAbsolute);
+            return new LegalAddress(uri,
                                     Addressee,
                                     CoAddress,
                                     StreetAddress,

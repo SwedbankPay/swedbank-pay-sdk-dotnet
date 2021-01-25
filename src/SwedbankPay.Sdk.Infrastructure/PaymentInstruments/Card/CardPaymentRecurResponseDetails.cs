@@ -6,7 +6,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
     {
         public CardPaymentRecurResponseDetails(CardPaymentRecurResponseDetailsDto dto)
         {
-            Id = dto.Id;
+            Id = new Uri(dto.Id, UriKind.RelativeOrAbsolute);
             RecurrenceToken = dto.RecurrenceToken;
             Number = dto.Number;
             Created = dto.Created;

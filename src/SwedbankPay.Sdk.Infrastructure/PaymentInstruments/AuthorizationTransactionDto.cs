@@ -6,7 +6,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
 {
     internal class AuthorizationTransactionDto
     {
-        public Uri Id { get; set; }
+        public string Id { get; set; }
         public List<PaymentAuthorizationDto> AuthorizationList { get; set; } = new List<PaymentAuthorizationDto>();
         internal ICardPaymentAuthorizationListResponse Map()
         {
@@ -15,7 +15,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments
             {
                 list.Add(new PaymentAuthorization(item));
             }
-            return new CardPaymentAuthorizationListResponse(Id, list);
+            var uri = new Uri(Id, UriKind.RelativeOrAbsolute);
+            return new CardPaymentAuthorizationListResponse(uri, list);
         }
     }
 }

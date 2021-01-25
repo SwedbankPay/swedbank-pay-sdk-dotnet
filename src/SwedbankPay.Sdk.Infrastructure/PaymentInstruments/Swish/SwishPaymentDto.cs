@@ -25,7 +25,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         public ReversalListResponseDto Reversals { get; set; }
         public UrlsDto Urls { get; set; }
         public PayeeInfoDto PayeeInfo { get; set; }
-        public Uri Id { get; set; }
+        public string Id { get; set; }
         public MetadataDto Metadata { get; set; }
         public long VatAmount { get; set; }
         public long RemainingCancellationAmount { get; set; }

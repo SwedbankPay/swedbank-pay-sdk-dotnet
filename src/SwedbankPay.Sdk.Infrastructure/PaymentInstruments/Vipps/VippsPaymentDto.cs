@@ -12,7 +12,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         public DateTime Updated { get; set; }
         public string Currency { get; set; }
         public string Description { get; set; }
-        public Uri Id { get; set; }
+        public string Id { get; set; }
         public string Instrument { get; set; }
         public string Intent { get; set; }
         public string Language { get; set; }

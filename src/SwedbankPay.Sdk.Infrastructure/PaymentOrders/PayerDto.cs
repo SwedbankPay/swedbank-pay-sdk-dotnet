@@ -26,7 +26,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
             WorkPhoneNumber = payer.WorkPhoneNumber;
         }
 
-        public Uri Id { get; set; }
+        public string Id { get; set; }
         public AccountInfo AccountInfo { get; set; }
         public Address BillingAddress { get; set; }
         public string ConsumerProfileRef { get; set; }
@@ -41,7 +41,8 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
         internal PayerResponse Map()
         {
-            var payer = new PayerResponse(Id)
+            var uri = new Uri(Id, UriKind.RelativeOrAbsolute);
+            var payer = new PayerResponse(uri)
             {
                 AccountInfo = AccountInfo,
                 BillingAddress = BillingAddress,

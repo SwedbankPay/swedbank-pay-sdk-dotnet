@@ -17,6 +17,18 @@ namespace SwedbankPay.Sdk
         }
 
         /// <summary>
+        /// Instantiates and sets the <see cref="Id"/> of the <see cref="Identifiable"/>.
+        /// </summary>
+        /// <param name="id">The unique ID of this resource.</param>
+        public Identifiable(string id)
+        {
+            if(string.IsNullOrEmpty(id) == false)
+            {
+                Id = new Uri(id, UriKind.RelativeOrAbsolute);
+            }
+        }
+
+        /// <summary>
         ///     Relative URL to the resource
         /// </summary>
         public Uri Id { get; }

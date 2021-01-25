@@ -875,6 +875,12 @@
             </summary>
             <param name="id">The unique ID of this resource.</param>
         </member>
+        <member name="M:SwedbankPay.Sdk.Identifiable.#ctor(System.String)">
+            <summary>
+            Instantiates and sets the <see cref="P:SwedbankPay.Sdk.Identifiable.Id"/> of the <see cref="T:SwedbankPay.Sdk.Identifiable"/>.
+            </summary>
+            <param name="id">The unique ID of this resource.</param>
+        </member>
         <member name="P:SwedbankPay.Sdk.Identifiable.Id">
             <summary>
                 Relative URL to the resource

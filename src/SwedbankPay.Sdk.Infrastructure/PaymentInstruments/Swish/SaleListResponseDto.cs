@@ -5,7 +5,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
     internal class SaleListResponseDto
     {
-        public Uri Id { get; set; }
+        public string Id { get; set; }
         public List<SaleListItemDto> Sales { get; set; } = new List<SaleListItemDto>();
 
         internal ISwishSaleListResponse Map()
@@ -16,7 +16,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
                 var saleItem = new SwishSaleListItem(item);
                 saleList.Add(saleItem);
             }
-            return new SwishPaymentSaleListResponse(Id, saleList);
+            var uri = new Uri(Id, UriKind.RelativeOrAbsolute);
+            return new SwishPaymentSaleListResponse(uri, saleList);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
             Updated = payment.Updated;
             Currency = new Currency(payment.Currency);
             Description = payment.Description;
-            Id = payment.Id;
+            Id = new Uri(payment.Id, UriKind.RelativeOrAbsolute);
             Instrument = Enum.Parse<PaymentInstrument>(payment.Instrument);
             Intent = Enum.Parse<PaymentIntent>(payment.Intent);
             Language = new Language(payment.Language);

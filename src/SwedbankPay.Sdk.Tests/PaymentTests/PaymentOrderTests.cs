@@ -206,7 +206,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             false,
             new UrlsResponse(new UrlsDto
             {
-                Id = UriForTesting(),
+                Id = UriForTesting().OriginalString,
                 HostUrls = new List<Uri> { UriForTesting() },
                 CallbackUrl = UriForTesting(),
                 CompleteUrl = UriForTesting(),

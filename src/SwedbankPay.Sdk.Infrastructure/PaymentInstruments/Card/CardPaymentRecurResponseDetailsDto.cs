@@ -4,7 +4,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
     internal class CardPaymentRecurResponseDetailsDto
     {
-        public Uri Id { get; set; }
+        public string Id { get; set; }
 
         public string RecurrenceToken { get; set; }
 

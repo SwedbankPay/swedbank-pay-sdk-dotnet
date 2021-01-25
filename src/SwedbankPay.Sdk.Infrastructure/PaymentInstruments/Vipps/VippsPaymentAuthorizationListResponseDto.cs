@@ -5,7 +5,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {
     internal class VippsPaymentAuthorizationListResponseDto
     {
-        public Uri Id { get; set; }
+        public string Id { get; set; }
         public List<VippsPaymentAuthorizationDto> AuthorizationList { get; set; }
 
         internal IVippsPaymentAuthorizationListResponse Map()
@@ -15,7 +15,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
             {
                 list.Add(item.Map());
             }
-            return new VippsPaymentAuthorizationListResponse(Id, list);
+            var uri = new Uri(Id, UriKind.RelativeOrAbsolute);
+            return new VippsPaymentAuthorizationListResponse(uri, list);
         }
     }
 }

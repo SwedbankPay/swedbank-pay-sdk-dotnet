@@ -19,7 +19,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         public string State { get; }
         public string Type { get; }
         public DateTime Updated { get; }
-        public Uri Id { get; set; }
+        public string Id { get; set; }
 
         internal IMobilePayPaymentAuthorization Map()
         {

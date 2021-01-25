@@ -28,7 +28,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
             RecurrenceToken = dto.RecurrenceToken;
             Transaction = dto.Transaction.Map();
             TransactionInitiator = dto.TransactionInitiator;
-            Id = dto.Id;
+            Id = new Uri(dto.Id, UriKind.RelativeOrAbsolute);
         }
 
         public string AcquirerStan { get; }

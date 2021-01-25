@@ -18,7 +18,7 @@ namespace SwedbankPay.Sdk
             HostUrls = urls.HostUrls;
         }
 
-        public Uri Id { get; set; }
+        public string Id { get; set; }
 
         public Uri CallbackUrl { get; set; }
 
@@ -38,7 +38,8 @@ namespace SwedbankPay.Sdk
         {
             if (HostUrls == null)
             {
-                return new Identifiable(Id) as IUrls;
+                var uri = new Uri(Id, UriKind.RelativeOrAbsolute);
+                return new Identifiable(uri) as IUrls;
             }
 
             return new UrlsResponse(this);

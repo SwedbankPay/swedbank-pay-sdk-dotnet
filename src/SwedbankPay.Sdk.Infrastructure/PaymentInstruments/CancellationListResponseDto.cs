@@ -6,7 +6,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
     internal class CancellationListResponseDto
     {
         public List<TransactionDto> CancellationList { get; set; }
-        public Uri Id { get; set; }
+        public string Id { get; set; }
 
         internal ICancellationListResponse Map()
         {
@@ -15,7 +15,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments
             {
                 transactionList.Add(t.Map());
             }
-            return new CancellationListResponse(Id, transactionList);
+            var uri = new Uri(Id, UriKind.RelativeOrAbsolute);
+            return new CancellationListResponse(uri, transactionList);
         }
     }
 }

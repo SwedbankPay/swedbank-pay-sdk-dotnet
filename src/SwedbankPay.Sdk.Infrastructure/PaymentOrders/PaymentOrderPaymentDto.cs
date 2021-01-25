@@ -6,7 +6,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
     internal class PaymentOrderPaymentDto
     {
         public string CorporationId { get; set; }
-        public Uri Id { get; set; }
+        public string Id { get; set; }
         public long Number { get; set; }
         public DateTime Created { get; set; }
         public DateTime Updated { get; set; }

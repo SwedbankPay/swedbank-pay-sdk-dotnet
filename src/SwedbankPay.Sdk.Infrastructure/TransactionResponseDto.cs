@@ -5,12 +5,13 @@ namespace SwedbankPay.Sdk
 {
     internal class TransactionResponseDto
     {
-        public Uri Id { get; set; }
+        public string Id { get; set; }
         public TransactionDto Transaction { get; set; }
 
         internal ITransactionResponse Map()
         {
-            return new TransactionResponse(Id, Transaction);
+            var uri = new Uri(Id, UriKind.RelativeOrAbsolute);
+            return new TransactionResponse(uri, Transaction);
         }
     }
 }

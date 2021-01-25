@@ -4,7 +4,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
 {
     internal class PaymentOrderPayeeInfoDto
     {
-        public Uri Id { get; set; }
+        public string Id { get; set; }
         public string PayeeId { get; set; }
         public string PayeeReference { get; set; }
         public string PayeeName { get; set; }
@@ -14,9 +14,10 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
         internal PayeeInfo Map()
         {
+            var uri = new Uri(Id, UriKind.RelativeOrAbsolute);
             if (string.IsNullOrEmpty(PayeeId))
             {
-                return new PayeeInfo(Id);
+                return new PayeeInfo(uri);
             }
 
             var payeeInfo = new PayeeInfo(Guid.Parse(PayeeId), PayeeReference)

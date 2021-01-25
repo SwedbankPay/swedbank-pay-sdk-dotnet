@@ -5,7 +5,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
 {
     internal class TransactionListResponseDto
     {
-        public Uri Id { get; set; }
+        public string Id { get; set; }
 
         public List<TransactionDto> TransactionList { get; set; } = new List<TransactionDto>();
 
@@ -16,7 +16,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments
             {
                 transactionList.Add(t.Map());
             }
-            return new TransactionListResponse(Id, transactionList);
+            var uri = new Uri(Id, UriKind.RelativeOrAbsolute);
+            return new TransactionListResponse(uri, transactionList);
         }
     }
 }
