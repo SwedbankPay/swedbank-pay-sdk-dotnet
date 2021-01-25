@@ -6,13 +6,13 @@ namespace SwedbankPay.Sdk.PaymentOrders
     /// <summary>
     /// API resource to access order items on a payment order.
     /// </summary>
-    public class OrderItems : Identifiable
+    public class OrderItemListResponse : Identifiable
     {
         /// <summary>
-        /// Instantiates a <see cref="OrderItems"/> with the provided parameters.
+        /// Instantiates a <see cref="OrderItemListResponse"/> with the provided parameters.
         /// </summary>
         /// <param name="id">Unique ID for this resource.</param>
-        public OrderItems(Uri id): base(id)
+        public OrderItemListResponse(Uri id): base(id)
         {
         }
 

@@ -56,7 +56,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <summary>
         /// Resource that gives access to the <seealso cref="IOrderItem"/>s this payment order contains.
         /// </summary>
-        public OrderItems OrderItems { get; }
+        public OrderItemListResponse OrderItems { get; }
 
         /// <summary>
         /// Identifies the merchant that initiated the payment.

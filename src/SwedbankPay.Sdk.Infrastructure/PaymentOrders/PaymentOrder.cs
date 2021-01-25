@@ -43,7 +43,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public Language Language { get; }
         public Metadata Metadata { get; }
         public string Operation { get; }
-        public OrderItems OrderItems { get; }
+        public OrderItemListResponse OrderItems { get; }
         public PayeeInfo PayeeInfo { get; }
         public PayerResponse Payers { get; }
         public Identifiable Payments { get; }

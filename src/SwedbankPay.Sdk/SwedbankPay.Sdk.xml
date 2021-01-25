@@ -7100,18 +7100,18 @@
                 The social security number of the payer. Format: Norway DDMMYYXXXXX, Sweden: YYYYMMDDXXXX.
             </summary>
         </member>
-        <member name="T:SwedbankPay.Sdk.PaymentOrders.OrderItems">
+        <member name="T:SwedbankPay.Sdk.PaymentOrders.OrderItemListResponse">
             <summary>
             API resource to access order items on a payment order.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentOrders.OrderItems.#ctor(System.Uri)">
+        <member name="M:SwedbankPay.Sdk.PaymentOrders.OrderItemListResponse.#ctor(System.Uri)">
             <summary>
-            Instantiates a <see cref="T:SwedbankPay.Sdk.PaymentOrders.OrderItems"/> with the provided parameters.
+            Instantiates a <see cref="T:SwedbankPay.Sdk.PaymentOrders.OrderItemListResponse"/> with the provided parameters.
             </summary>
             <param name="id">Unique ID for this resource.</param>
         </member>
-        <member name="P:SwedbankPay.Sdk.PaymentOrders.OrderItems.OrderItemList">
+        <member name="P:SwedbankPay.Sdk.PaymentOrders.OrderItemListResponse.OrderItemList">
             <summary>
                 The orderItems property of the paymentOrder is an array containing the items being purchased with the order. Used
                 to print on invoices if

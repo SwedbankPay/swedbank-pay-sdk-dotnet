@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
-    internal class OrderItemsDto
+    internal class OrderItemListResponseDto
     {
         public string Id { get; set; }
         public List<OrderItemDto> OrderItemList { get; set; } = new List<OrderItemDto>();
 
-        internal OrderItems Map()
+        internal OrderItemListResponse Map()
         {
             var list = new List<IOrderItem>();
             foreach (var item in OrderItemList)
@@ -16,7 +16,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                 list.Add(item.Map());
             }
             var uri = new Uri(Id, UriKind.RelativeOrAbsolute);
-            var orderItems = new OrderItems(uri)
+            var orderItems = new OrderItemListResponse(uri)
             {
                 OrderItemList = list
             };
