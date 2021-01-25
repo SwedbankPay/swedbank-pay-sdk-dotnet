@@ -1,11 +1,10 @@
-﻿using SwedbankPay.Sdk.PaymentInstruments.MobilePay;
-using System;
+﻿using System;
 
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
     internal class AuthorizationTransaction : Identifiable, IAuthorizationTransaction
     {
-        public AuthorizationTransaction(MobilePayPaymentAuthorizationTransactionDto dto)
+        public AuthorizationTransaction(AuthorizationTransactionDto dto)
             :base(dto.Id)
         {
             Created = dto.Created;

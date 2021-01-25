@@ -20,7 +20,7 @@ namespace SwedbankPay.Sdk
         /// Instantiates and sets the <see cref="Id"/> of the <see cref="Identifiable"/>.
         /// </summary>
         /// <param name="id">The unique ID of this resource.</param>
-        public Identifiable(string id)
+        internal Identifiable(string id)
         {
             if(string.IsNullOrEmpty(id) == false)
             {

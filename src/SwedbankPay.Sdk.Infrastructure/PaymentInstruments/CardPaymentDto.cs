@@ -14,7 +14,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
 
         public long RemainingReversalAmount { get; set; }
 
-        public AuthorizationTransactionDto Authorizations { get; set; }
+        public AuthorizationListDto Authorizations { get; set; }
 
         public CancellationTransactionDto Cancellations { get; set; }
 

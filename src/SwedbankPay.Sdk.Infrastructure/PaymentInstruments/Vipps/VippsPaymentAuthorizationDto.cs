@@ -7,7 +7,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         public string Id { get; set; }
         public string VippsTransactionId { get; set; }
         public string MobileNumber { get; set; }
-        public VippsPaymentAuthorizationTransactionDto Transaction { get; set; }
+        public AuthorizationTransactionDto Transaction { get; set; }
 
         internal IVippsPaymentAuthorization Map()
         {
