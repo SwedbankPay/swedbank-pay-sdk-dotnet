@@ -4,22 +4,21 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
     internal class MobilePayPaymentAuthorization : Identifiable, IMobilePayPaymentAuthorization
     {
-        public MobilePayPaymentAuthorization(Uri id, MobilePayPaymentAuthorizationDto item)
+        public MobilePayPaymentAuthorization(Uri id, MobilePayPaymentAuthorizationDto dto)
             : base(id)
         {
-            MaskedPan = item.MaskedPan;
-            ExpiryDate = item.ExpiryDate;
-            PanToken = item.PanToken;
-            CardBrand = item.CardBrand;
-            CardType = item.CardType;
-            CountryCode = item.CountryCode;
-            AcquirerTransactionType = item.AcquirerTransactionType;
-            AcquirerStan = item.AcquirerStan;
-            AcquirerTerminalId = item.AcquirerTerminalId;
-            AcquirerTransactionTime = item.AcquirerTransactionTime;
-            Transaction = item.Transaction.Map();
+            MaskedPan = dto.MaskedPan;
+            ExpiryDate = dto.ExpiryDate;
+            PanToken = dto.PanToken;
+            CardBrand = dto.CardBrand;
+            CardType = dto.CardType;
+            CountryCode = dto.CountryCode;
+            AcquirerTransactionType = dto.AcquirerTransactionType;
+            AcquirerStan = dto.AcquirerStan;
+            AcquirerTerminalId = dto.AcquirerTerminalId;
+            AcquirerTransactionTime = dto.AcquirerTransactionTime;
+            Transaction = dto.Transaction.Map();
         }
-
 
         public string AcquirerStan { get; }
         public string AcquirerTerminalId { get; }
@@ -31,6 +30,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         public string ExpiryDate { get; }
         public string MaskedPan { get; }
         public string PanToken { get; }
-        public IMobilePayPaymentAuthorization Transaction { get; }
+        public IAuthorizationTransaction Transaction { get; }
     }
 }

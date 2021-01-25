@@ -13,7 +13,7 @@
         /// <summary>
         /// Details on the current authorization transaction.
         /// </summary>
-        AuthorizationTransaction Transaction { get; }
+        IAuthorizationTransaction Transaction { get; }
 
         /// <summary>
         /// ID to find this transaction in Vipps systems.

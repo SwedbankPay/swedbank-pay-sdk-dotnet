@@ -21,9 +21,9 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         public DateTime Updated { get; }
         public string Id { get; set; }
 
-        internal IMobilePayPaymentAuthorization Map()
+        internal IAuthorizationTransaction Map()
         {
-            throw new NotImplementedException();
+            return new AuthorizationTransaction(this);
         }
     }
 }

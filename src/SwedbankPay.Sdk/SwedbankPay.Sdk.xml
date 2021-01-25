@@ -3118,6 +3118,94 @@
             <param name="paymentExpand"></param>
             <returns></returns>
         </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.IAuthorizationTransaction">
+            <summary>
+            Object describing a authorization transaction.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IAuthorizationTransaction.Amount">
+            <summary>
+            The <seealso cref="T:SwedbankPay.Sdk.Amount"/> to charge the payer in the selected currency.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IAuthorizationTransaction.Created">
+            <summary>
+            The <seealso cref="T:System.DateTime"/> the payment was created.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IAuthorizationTransaction.Description">
+            <summary>
+            A textual description of the payment.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IAuthorizationTransaction.FailedActivityName">
+            <summary>
+            If the authorization failed this gives the name of the failure code.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IAuthorizationTransaction.FailedErrorCode">
+            <summary>
+            If the authorization failed this gives the failure code.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IAuthorizationTransaction.FailedErrorDescription">
+            <summary>
+            If the authorization failed this gives the description of the failure code.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IAuthorizationTransaction.FailedReason">
+            <summary>
+            The human readable explanation of why the payment failed.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IAuthorizationTransaction.IsOperational">
+            <summary>
+            true if the transaction is operational; otherwise false.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IAuthorizationTransaction.Number">
+            <summary>
+            The transaction number, useful when there’s need to reference the transaction in human communication.
+            Not usable for programmatic identification of the transaction, where the ID should be used instead.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IAuthorizationTransaction.Operations">
+            <summary>
+            Available operations on this payment.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IAuthorizationTransaction.PayeeReference">
+            <summary>
+            A unique reference from the merchant system.
+            It is set per operation to ensure an exactly-once delivery of a transactional operation.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IAuthorizationTransaction.State">
+            <summary>
+            Indicates the state of the transaction, usually initialized, completed orfailed.
+            If a partial transaction has been done and further transactionsare possible,
+            the state will be awaitingActivity.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IAuthorizationTransaction.Type">
+            <summary>
+            Indicates the transaction type.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IAuthorizationTransaction.Updated">
+            <summary>
+            The <seealso cref="T:System.DateTime"/> the payment was last updated.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.IAuthorizationTransaction.VatAmount">
+            <summary>
+            The payment’s VAT (Value Added Tax) <seealso cref="T:SwedbankPay.Sdk.Amount"/>, entered in the selected currency.
+            The vatAmount entered will not affect the amount shown on the payment page,
+            which only shows the total amount.
+            This field is used to specify how much of the total amount the VAT will be.
+            Set to 0 (zero) if there is no VAT amount charged.
+            </summary>
+        </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.ICancellationListResponse">
             <summary>
             List of transactional details on a cancelled payment.
@@ -6023,115 +6111,6 @@
             VAT Amount entered in the lowest momentary units of the selected currency.
             </summary>
         </member>
-        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Vipps.AuthorizationTransaction">
-            <summary>
-            Object describing a authorization transaction for Vipps.
-            </summary>
-        </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Vipps.AuthorizationTransaction.#ctor(System.Uri,System.DateTime,System.DateTime,System.String,SwedbankPay.Sdk.State,System.Int64,SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,SwedbankPay.Sdk.IOperationList)">
-            <summary>
-            Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Vipps.AuthorizationTransaction"/> with the provided parameters.
-            </summary>
-            <param name="id">A unique reference to this transaction.</param>
-            <param name="created">The <seealso cref="T:System.DateTime"/> the transaction was created.</param>
-            <param name="updated">The <seealso cref="T:System.DateTime"/> the transaction was last updated.</param>
-            <param name="type">The transaction type.</param>
-            <param name="state">The last known state of this transaction.</param>
-            <param name="number">Unique number of this transaction.</param>
-            <param name="amount">Amount to charge the payer.</param>
-            <param name="vatAmount">Amount to charge the payer as value added taxes.</param>
-            <param name="description">A textual description of the payment.</param>
-            <param name="payeeReference">Unique reference to this transaction in the merchant system.</param>
-            <param name="failedActivityName">If failed showes what activity failed.</param>
-            <param name="failedErrorCode">If failed shows the error code.</param>
-            <param name="failedReason">If failed gives the reason for the failure.</param>
-            <param name="failedErrorDescription">If failed describes the failure.</param>
-            <param name="isOperational">Indicates if this transaction was operational.</param>
-            <param name="operations">Available operations for this transaction.</param>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Vipps.AuthorizationTransaction.Amount">
-            <summary>
-            The <seealso cref="T:SwedbankPay.Sdk.Amount"/> to charge the payer in the selected currency.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Vipps.AuthorizationTransaction.Created">
-            <summary>
-            The <seealso cref="T:System.DateTime"/> the payment was created.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Vipps.AuthorizationTransaction.Description">
-            <summary>
-            A textual description of the payment.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Vipps.AuthorizationTransaction.FailedActivityName">
-            <summary>
-            If the authorization failed this gives the name of the failure code.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Vipps.AuthorizationTransaction.FailedErrorCode">
-            <summary>
-            If the authorization failed this gives the failure code.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Vipps.AuthorizationTransaction.FailedErrorDescription">
-            <summary>
-            If the authorization failed this gives the description of the failure code.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Vipps.AuthorizationTransaction.FailedReason">
-            <summary>
-            The human readable explanation of why the payment failed.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Vipps.AuthorizationTransaction.IsOperational">
-            <summary>
-            true if the transaction is operational; otherwise false.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Vipps.AuthorizationTransaction.Number">
-            <summary>
-            The transaction number, useful when there’s need to reference the transaction in human communication.
-            Not usable for programmatic identification of the transaction, where the ID should be used instead.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Vipps.AuthorizationTransaction.Operations">
-            <summary>
-            Available operations on this payment.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Vipps.AuthorizationTransaction.PayeeReference">
-            <summary>
-            A unique reference from the merchant system.
-            It is set per operation to ensure an exactly-once delivery of a transactional operation.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Vipps.AuthorizationTransaction.State">
-            <summary>
-            Indicates the state of the transaction, usually initialized, completed orfailed.
-            If a partial transaction has been done and further transactionsare possible,
-            the state will be awaitingActivity.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Vipps.AuthorizationTransaction.Type">
-            <summary>
-            Indicates the transaction type.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Vipps.AuthorizationTransaction.Updated">
-            <summary>
-            The <seealso cref="T:System.DateTime"/> the payment was last updated.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Vipps.AuthorizationTransaction.VatAmount">
-            <summary>
-            The payment’s VAT (Value Added Tax) <seealso cref="T:SwedbankPay.Sdk.Amount"/>, entered in the selected currency.
-            The vatAmount entered will not affect the amount shown on the payment page,
-            which only shows the total amount.
-            This field is used to specify how much of the total amount the VAT will be.
-            Set to 0 (zero) if there is no VAT amount charged.
-            </summary>
-        </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.Vipps.CancelTransaction">
             <summary>
             Transactional details to cancel a Vipps payment.
@@ -6308,7 +6287,7 @@
             Object describing a Vipps authorization for a payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Vipps.VippsPaymentAuthorization.#ctor(System.Uri,System.String,System.String,SwedbankPay.Sdk.PaymentInstruments.Vipps.AuthorizationTransaction)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Vipps.VippsPaymentAuthorization.#ctor(System.Uri,System.String,System.String,SwedbankPay.Sdk.PaymentInstruments.IAuthorizationTransaction)">
             <summary>
             Instantiates a <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Vipps.VippsPaymentAuthorization"/> with the provided parameters.
             </summary>

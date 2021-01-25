@@ -61,6 +61,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         /// <summary>
         /// Available information about the payment card that authorized this transaction.
         /// </summary>
-        IMobilePayPaymentAuthorization Transaction { get; }
+        IAuthorizationTransaction Transaction { get; }
     }
 }

@@ -9,6 +9,8 @@ namespace SwedbankPay.Sdk.Tests
     {
         protected ISwedbankPayClient Sut;
 
+        protected ISwedbankPayClient SutMobilePay;
+
         protected readonly IUrls urls;
 
         protected readonly Guid payeeId;
@@ -24,6 +26,12 @@ namespace SwedbankPay.Sdk.Tests
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this.connectionSettings.Token);
 
             this.Sut = new SwedbankPayClient(httpClient);
+
+
+            var httpClientMobilePay = new HttpClient { BaseAddress = this.connectionSettings.ApiBaseUrl };
+            httpClientMobilePay.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this.connectionSettings.TokenMobilePay);
+
+            this.SutMobilePay = new SwedbankPayClient(httpClientMobilePay);
         }
     }
 }
