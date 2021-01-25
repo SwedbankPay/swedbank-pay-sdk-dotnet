@@ -3,7 +3,7 @@
     /// <summary>
     /// Class to describe problem responses in certain api responses.
     /// </summary>
-    public interface IProblemResponseItem
+    public interface IProblemItem
     {
         /// <summary>
         /// The human readable description of what was wrong with the field,

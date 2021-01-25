@@ -6,9 +6,9 @@
 
         public string Name { get; set; }
 
-        internal IProblemResponseItem Map()
+        internal IProblemItem Map()
         {
-            return new ProblemResponseItem(Description, Name);
+            return new ProblemItem(Description, Name);
         }
     }
 }
