@@ -14,14 +14,9 @@ namespace SwedbankPay.Sdk.PaymentInstruments
             var priceList = new List<IPrice>();
             foreach (var item in PriceList)
             {
-                PriceType priceType;
-                if (string.IsNullOrEmpty(item.Type))
+                if (!Enum.TryParse(item.Type, out PriceType priceType))
                 {
                     priceType = PriceType.Unknown;
-                }
-                else
-                {
-                    priceType = Enum.Parse<PriceType>(item.Type);
                 }
 
                 priceList.Add(new Price(item.Amount, priceType, item.VatAmount));
