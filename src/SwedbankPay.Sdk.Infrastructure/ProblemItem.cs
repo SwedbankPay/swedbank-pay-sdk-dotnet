@@ -8,12 +8,6 @@
             Name = dto.Name;
         }
 
-        public ProblemItem(string description, string name)
-        {
-            Description = description;
-            Name = name;
-        }
-
         public string Description { get; }
 
         public string Name { get; }
