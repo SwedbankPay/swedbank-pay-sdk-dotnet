@@ -28,7 +28,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
                                                     string userAgent,
                                                     Language language,
                                                     IUrls urls,
-                                                    PayeeInfo payeeInfo)
+                                                    IPayeeInfo payeeInfo)
         {
             Operation = operation ?? throw new ArgumentNullException(nameof(operation));
             Intent = intent;
@@ -88,7 +88,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
-        public PayeeInfo PayeeInfo { get; set; }
+        public IPayeeInfo PayeeInfo { get; set; }
 
         /// <summary>
         /// <inheritdoc/>

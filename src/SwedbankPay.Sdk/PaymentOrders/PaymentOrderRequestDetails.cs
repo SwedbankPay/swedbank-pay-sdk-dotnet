@@ -30,7 +30,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                                      Language language,
                                                      bool generateRecurrenceToken,
                                                      IUrls urls,
-                                                     PayeeInfo payeeInfo)
+                                                     IPayeeInfo payeeInfo)
         {
             Operation = operation ?? throw new ArgumentNullException(nameof(operation));
             Currency = currency ?? throw new ArgumentNullException(nameof(currency));
@@ -97,7 +97,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <summary>
         ///     Information about the payee of the payment order
         /// </summary>
-        public PayeeInfo PayeeInfo { get; }
+        public IPayeeInfo PayeeInfo { get; }
 
         /// <summary>
         ///     Information about the payee of the payment order

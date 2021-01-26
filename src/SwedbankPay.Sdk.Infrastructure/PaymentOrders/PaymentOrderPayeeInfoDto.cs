@@ -11,21 +11,19 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public string CorporationId { get; set; }
         public string CorporationName { get; set; }
         public string ProductCategory { get; set; }
+        public string Subsite { get; set; }
+        public string OrderReference { get; set; }
 
-        internal PayeeInfo Map()
+        internal PayeeInfoResponse Map()
         {
             var uri = new Uri(Id, UriKind.RelativeOrAbsolute);
+
             if (string.IsNullOrEmpty(PayeeId))
             {
-                return new PayeeInfo(uri);
+                return new PayeeInfoResponse(uri);
             }
 
-            var payeeInfo = new PayeeInfo(Guid.Parse(PayeeId), PayeeReference)
-            {
-                PayeeName = PayeeName,
-                ProductCategory = ProductCategory
-            };
-            return payeeInfo;
+            return new PayeeInfoResponse(uri, OrderReference, Guid.Parse(PayeeId), PayeeName, PayeeReference, ProductCategory, Subsite);
         }
     }
 }

@@ -28,7 +28,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
                               string userAgent,
                               Language language,
                               IUrls urls,
-                              PayeeInfo payeeInfo,
+                              IPayeeInfo payeeInfo,
                               InvoiceType invoiceType)
         {
             Payment = new InvoicePaymentRequestDetails(operation, intent, currency, prices, description, userAgent, language, urls, payeeInfo);

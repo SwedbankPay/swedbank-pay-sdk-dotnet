@@ -26,7 +26,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
                                                 string userAgent,
                                                 Language language,
                                                 IUrls urls,
-                                                PayeeInfo payeeInfo)
+                                                IPayeeInfo payeeInfo)
         {
             Operation = operation ?? throw new ArgumentNullException(nameof(operation));
             Intent = intent;
@@ -92,7 +92,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// Thats the merchant or corporation that initiated the payment.
         /// This is your info
         /// </summary>
-        public PayeeInfo PayeeInfo { get; }
+        public IPayeeInfo PayeeInfo { get; }
 
         /// <summary>
         /// The reference to the payer in the merchant system,

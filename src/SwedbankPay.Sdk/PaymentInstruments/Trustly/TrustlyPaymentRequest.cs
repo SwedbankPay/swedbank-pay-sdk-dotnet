@@ -26,7 +26,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
             string userAgent,
             Language language,
             IUrls urls,
-            PayeeInfo payeeInfo)
+            IPayeeInfo payeeInfo)
         {
             Payment = new TrustlyPaymentDetails(currency, prices, description, payerReference, userAgent, language,
                                                urls, payeeInfo);

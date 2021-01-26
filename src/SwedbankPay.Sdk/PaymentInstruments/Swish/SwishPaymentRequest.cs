@@ -25,7 +25,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
                               string userAgent,
                               Language language,
                               IUrls urls,
-                              PayeeInfo payeeInfo,
+                              IPayeeInfo payeeInfo,
                               PrefillInfo prefillInfo)
         {
             var swishRequest = new SwishRequestData();

@@ -70,7 +70,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
 
         public Operation Operation { get; }
 
-        public PayeeInfo PayeeInfo { get; }
+        public IPayeeInfo PayeeInfo { get; }
 
         public string PayerReference { get; }
 

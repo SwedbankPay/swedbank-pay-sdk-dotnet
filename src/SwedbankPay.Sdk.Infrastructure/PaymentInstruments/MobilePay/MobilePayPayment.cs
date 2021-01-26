@@ -50,7 +50,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         public Language Language { get; }
         public long Number { get; }
         public Operation Operation { get; }
-        public PayeeInfo PayeeInfo { get; }
+        public IPayeeInfo PayeeInfo { get; }
         public string PayerReference { get; }
         public string InitiatingSystemUserAgent { get; }
         public IPriceListResponse Prices { get; }

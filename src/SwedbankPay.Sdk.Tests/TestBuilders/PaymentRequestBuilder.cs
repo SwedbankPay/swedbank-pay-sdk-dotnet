@@ -19,7 +19,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private string userAgent;
         private Language language;
         private IUrls urls;
-        private PayeeInfo payeeInfo;
+        private IPayeeInfo payeeInfo;
         private PrefillInfo prefillInfo;
         private TrustlyPrefillInfo trustlyPrefillInfo;
         private bool generatePaymentToken;
@@ -243,7 +243,8 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
                 CompleteUrl = new Uri("https://example.com/payment-completed"),
                 CallbackUrl = new Uri("https://example.com/payment-callback"),
                 TermsOfServiceUrl = new Uri("https://example.com/termsandconditoons.pdf"),
-                CancelUrl = new Uri("https://example.com/payment-canceled")
+                CancelUrl = new Uri("https://example.com/payment-canceled"),
+                Id = "https://example.com"
             });
         }
     }

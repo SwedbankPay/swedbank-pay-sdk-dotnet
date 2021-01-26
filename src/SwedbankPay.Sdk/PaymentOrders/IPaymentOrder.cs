@@ -61,7 +61,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <summary>
         /// Identifies the merchant that initiated the payment.
         /// </summary>
-        public PayeeInfo PayeeInfo { get; }
+        public IPayeeInfo PayeeInfo { get; }
 
         /// <summary>
         /// Resource where information about the payee of the payment order can be retrieved.

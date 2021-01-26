@@ -67,7 +67,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 
         public IUrls Urls { get; }
 
-        public PayeeInfo PayeeInfo { get; }
+        public IPayeeInfo PayeeInfo { get; }
 
         public Metadata MetaData { get; }
     }

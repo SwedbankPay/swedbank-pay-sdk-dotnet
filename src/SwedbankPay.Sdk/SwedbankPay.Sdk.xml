@@ -998,6 +998,49 @@
             The percent value of the VAT multiplied by 100, so 25% becomes 2500.
             </summary>
         </member>
+        <member name="T:SwedbankPay.Sdk.IPayeeInfo">
+            <summary>
+            Identifies the merchant that initiated the payment.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.IPayeeInfo.OrderReference">
+            <summary>
+                The order reference should reflect the order reference found in the merchant's systems.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.IPayeeInfo.PayeeId">
+            <summary>
+                This is the unique id that identifies this payee (like merchant) set by PayEx.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.IPayeeInfo.PayeeName">
+            <summary>
+                The name of the payee, usually the name of the merchant.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.IPayeeInfo.PayeeReference">
+            <summary>
+                A unique reference, max 30 characters, set by the merchant system - this must be unique for each operation!
+                NOTE://PayEx may send either the transaction number OR the payeeReference as a reference to the acquirer.
+                This will be used in reconciliation and reporting back to PayEx and you.
+                If PayEx sends the transaction number to the acquirer, then the payeeReference parameter may have the format of
+                String(30).
+                If PayEx sends the payeeRef to the acquirer, the parameter is limited to the format of String(12) AND all
+                characters must be digits/numbers.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.IPayeeInfo.ProductCategory">
+            <summary>
+                A product category or number sent in from the payee/merchant. This is not validated by PayEx, but will be passed
+                through the payment process and may be used in the settlement process.9
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.IPayeeInfo.Subsite">
+            <summary>
+                The subsite field can be used to perform split settlement on the payment. The subsites must be resolved with PayEx
+                reconciliation before being used.
+            </summary>
+        </member>
         <member name="T:SwedbankPay.Sdk.IPaymentAuthorization">
             <summary>
             Contains information about a Card payment authorization.
@@ -1715,58 +1758,44 @@
         </member>
         <member name="T:SwedbankPay.Sdk.PayeeInfo">
             <summary>
-            Identifies the merchant that initiated the payment.
+            <inheritdoc/>
             </summary>
-        </member>
-        <member name="M:SwedbankPay.Sdk.PayeeInfo.#ctor(System.Uri)">
-            <summary>
-            Constructs a <seealso cref="T:SwedbankPay.Sdk.PayeeInfo"/> with only the <see cref="P:SwedbankPay.Sdk.Identifiable.Id"/> set.
-            </summary>
-            <param name="id">The <seealso cref="T:System.Uri"/> used to access the resource.</param>
         </member>
         <member name="M:SwedbankPay.Sdk.PayeeInfo.#ctor(System.Guid,System.String)">
             <summary>
-            Constructs a fully qualified <seealso cref="T:SwedbankPay.Sdk.PayeeInfo"/>, but without a <seealso cref="P:SwedbankPay.Sdk.Identifiable.Id"/>.
+            Constructs a fully qualified <seealso cref="T:SwedbankPay.Sdk.PayeeInfo"/>
             </summary>
             <param name="payeeId"></param>
             <param name="payeeReference"></param>
         </member>
         <member name="P:SwedbankPay.Sdk.PayeeInfo.OrderReference">
             <summary>
-                The order reference should reflect the order reference found in the merchant's systems.
+            <inheritdoc/>
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PayeeInfo.PayeeId">
             <summary>
-                This is the unique id that identifies this payee (like merchant) set by PayEx.
+            <inheritdoc/>
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PayeeInfo.PayeeName">
             <summary>
-                The name of the payee, usually the name of the merchant.
+            <inheritdoc/>
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PayeeInfo.PayeeReference">
             <summary>
-                A unique reference, max 30 characters, set by the merchant system - this must be unique for each operation!
-                NOTE://PayEx may send either the transaction number OR the payeeReference as a reference to the acquirer.
-                This will be used in reconciliation and reporting back to PayEx and you.
-                If PayEx sends the transaction number to the acquirer, then the payeeReference parameter may have the format of
-                String(30).
-                If PayEx sends the payeeRef to the acquirer, the parameter is limited to the format of String(12) AND all
-                characters must be digits/numbers.
+            <inheritdoc/>
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PayeeInfo.ProductCategory">
             <summary>
-                A product category or number sent in from the payee/merchant. This is not validated by PayEx, but will be passed
-                through the payment process and may be used in the settlement process.9
+            <inheritdoc/>
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PayeeInfo.Subsite">
             <summary>
-                The subsite field can be used to perform split settlement on the payment. The subsites must be resolved with PayEx
-                reconciliation before being used.
+            <inheritdoc/>
             </summary>
         </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstrument">
@@ -2285,7 +2314,7 @@
             Holds details about a card payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentDetails.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentDetails.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.IPayeeInfo)">
             <summary>
             Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentDetails"/> with the provided parameters.
             </summary>
@@ -2399,7 +2428,7 @@
             Details on initiating a recurring payment for credit card.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurDetails.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,System.String,SwedbankPay.Sdk.Currency,SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurDetails.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,System.String,SwedbankPay.Sdk.Currency,SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.IPayeeInfo)">
             <summary>
             Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurDetails"/> with the provided parameters.
             </summary>
@@ -2489,7 +2518,7 @@
             Used to pay a credit card recurring payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,System.String,SwedbankPay.Sdk.Currency,SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,System.String,SwedbankPay.Sdk.Currency,SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.IPayeeInfo)">
             <summary>
             Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurRequest"/> with the provided parameters.
             </summary>
@@ -2515,7 +2544,7 @@
             Class to hold details about a card payment request.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.IPayeeInfo)">
             <summary>
             Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRequest"/> using the provided parameters.
             </summary>
@@ -3499,7 +3528,7 @@
             Object for storing a authorization request to the invoice API.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentAuthorizationRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoiceType)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentAuthorizationRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.IPayeeInfo,SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoiceType)">
             <summary>
             Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentAuthorizationRequest"/>.
             </summary>
@@ -3595,7 +3624,7 @@
             Object containing data needed for creating a invoice payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoiceType)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.IPayeeInfo,SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoiceType)">
             <summary>
             Instantiates a <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentRequest"/> with the provided parameters.
             </summary>
@@ -3641,7 +3670,7 @@
             Object containing detailed information about a invoice payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentRequestDetails.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentRequestDetails.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.IPayeeInfo)">
             <summary>
             Instantiates a <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Invoice.InvoicePaymentRequestDetails"/> with the provided parameters.
             </summary>
@@ -4633,7 +4662,7 @@
             Object describing details needed for performaing a Mobile Pay payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.MobilePay.MobilePayPaymentDetails.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.MobilePay.MobilePayPaymentDetails.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.IPayeeInfo)">
             <summary>
             Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.MobilePay.MobilePayPaymentDetails"/> with the provided parameters.
             </summary>
@@ -4712,7 +4741,7 @@
             Object describing a Mobile Pay payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.MobilePay.MobilePayPaymentRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,System.Uri)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.MobilePay.MobilePayPaymentRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.IPayeeInfo,System.Uri)">
             <summary>
             Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.MobilePay.MobilePayPaymentRequest"/> with the provided parameters.
             </summary>
@@ -5266,7 +5295,7 @@
             Wrapper for creating a Swish payment request.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Swish.SwishPaymentRequest.#ctor(System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,SwedbankPay.Sdk.PaymentInstruments.PrefillInfo)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Swish.SwishPaymentRequest.#ctor(System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.IPayeeInfo,SwedbankPay.Sdk.PaymentInstruments.PrefillInfo)">
             <summary>
             Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Swish.SwishPaymentRequest"/> with the provided parameters.
             </summary>
@@ -5290,7 +5319,7 @@
             Detailes needed for creating a Swish payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Swish.SwishPaymentRequestDetails.#ctor(System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,SwedbankPay.Sdk.PaymentInstruments.PrefillInfo,SwedbankPay.Sdk.PaymentInstruments.Swish.SwishRequestData)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Swish.SwishPaymentRequestDetails.#ctor(System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.IPayeeInfo,SwedbankPay.Sdk.PaymentInstruments.PrefillInfo,SwedbankPay.Sdk.PaymentInstruments.Swish.SwishRequestData)">
             <summary>
             Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Swish.SwishPaymentRequestDetails"/> with the provided parameters.
             </summary>
@@ -5759,7 +5788,7 @@
             Request details for creating a Trustly payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Trustly.TrustlyPaymentDetails.#ctor(SwedbankPay.Sdk.Currency,System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Trustly.TrustlyPaymentDetails.#ctor(SwedbankPay.Sdk.Currency,System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.IPayeeInfo)">
             <summary>
             Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Trustly.TrustlyPaymentDetails"/> with the provided parameters.
             </summary>
@@ -5832,7 +5861,7 @@
             Request details for creating a Trustly payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Trustly.TrustlyPaymentRequest.#ctor(SwedbankPay.Sdk.Currency,System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Trustly.TrustlyPaymentRequest.#ctor(SwedbankPay.Sdk.Currency,System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.IPayeeInfo)">
             <summary>
             Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Trustly.TrustlyPaymentRequest"/> with the provided parameters.
             </summary>
@@ -6233,7 +6262,7 @@
             Object to create a payment for Vipps.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Vipps.VippsPaymentRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo,System.String)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Vipps.VippsPaymentRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.IPayeeInfo,System.String)">
             <summary>
             Instantiates a <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Vipps.VippsPaymentRequest"/> with the provided parameters.
             </summary>
@@ -6258,7 +6287,7 @@
             Details needed to create a Vipps payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Vipps.VippsPaymentRequestDetails.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Vipps.VippsPaymentRequestDetails.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.IPayeeInfo)">
             <summary>
             Instantiates a <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Vipps.VippsPaymentRequestDetails"/> with the provided parameters.
             </summary>
@@ -7366,7 +7395,7 @@
             Request details for creating a payment order.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentOrders.PaymentOrderRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.Currency,SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.String,System.String,SwedbankPay.Sdk.Language,System.Boolean,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo)">
+        <member name="M:SwedbankPay.Sdk.PaymentOrders.PaymentOrderRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.Currency,SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.String,System.String,SwedbankPay.Sdk.Language,System.Boolean,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.IPayeeInfo)">
             <summary>
             Request details for creating a payment order.
             </summary>
@@ -7391,7 +7420,7 @@
             Transactional details for creating a payment order.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentOrders.PaymentOrderRequestDetails.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.Currency,SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.String,System.String,SwedbankPay.Sdk.Language,System.Boolean,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.PayeeInfo)">
+        <member name="M:SwedbankPay.Sdk.PaymentOrders.PaymentOrderRequestDetails.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.Currency,SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.String,System.String,SwedbankPay.Sdk.Language,System.Boolean,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.IPayeeInfo)">
             <summary>
             Request details for creating a payment order.
             </summary>

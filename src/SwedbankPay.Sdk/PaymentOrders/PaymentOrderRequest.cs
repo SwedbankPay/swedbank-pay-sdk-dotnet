@@ -27,7 +27,7 @@
                                    Language language,
                                    bool generateRecurrenceToken,
                                    IUrls urls,
-                                   PayeeInfo payeeInfo)
+                                   IPayeeInfo payeeInfo)
         {
             PaymentOrder = new PaymentOrderRequestDetails(operation, currency, amount, vatAmount, description, userAgent, language,
                                                          generateRecurrenceToken, urls, payeeInfo);

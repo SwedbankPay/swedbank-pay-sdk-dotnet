@@ -52,7 +52,8 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
                 CancelUrl = configuration.CancelUrl,
                 LogoUrl = configuration.LogoUrl,
                 PaymentUrl = configuration.PaymentUrl,
-                TermsOfServiceUrl = configuration.TermsOfServiceUrl
+                TermsOfServiceUrl = configuration.TermsOfServiceUrl,
+                Id = configuration.CompleteUrl.OriginalString
             };
             return new UrlsResponse(urlsDto);
         }

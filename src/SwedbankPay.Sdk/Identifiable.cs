@@ -22,10 +22,7 @@ namespace SwedbankPay.Sdk
         /// <param name="id">The unique ID of this resource.</param>
         internal Identifiable(string id)
         {
-            if(string.IsNullOrEmpty(id) == false)
-            {
-                Id = new Uri(id, UriKind.RelativeOrAbsolute);
-            }
+            Id = new Uri(id, UriKind.RelativeOrAbsolute);
         }
 
         /// <summary>

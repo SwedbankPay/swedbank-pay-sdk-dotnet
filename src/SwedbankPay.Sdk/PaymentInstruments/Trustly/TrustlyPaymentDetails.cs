@@ -25,7 +25,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
                                                 string userAgent,
                                                 Language language,
                                                 IUrls urls,
-                                                PayeeInfo payeeInfo)
+                                                IPayeeInfo payeeInfo)
         {
             Operation = Operation.Purchase;
             Intent = PaymentIntent.Sale;
@@ -71,7 +71,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
         /// <summary>
         /// Identifies the merchant that initiated the payment.
         /// </summary>
-        public PayeeInfo PayeeInfo { get; set; }
+        public IPayeeInfo PayeeInfo { get; set; }
 
         /// <summary>
         /// The reference to the payer from the merchant system, like e-mail address, mobile number, customer number etc.

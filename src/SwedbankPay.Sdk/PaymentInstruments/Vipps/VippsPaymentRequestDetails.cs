@@ -30,7 +30,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
                                                 string userAgent,
                                                 Language language,
                                                 IUrls urls,
-                                                PayeeInfo payeeInfo)
+                                                IPayeeInfo payeeInfo)
         {
             Operation = operation ?? throw new ArgumentNullException(nameof(operation));
             Intent = intent;
@@ -97,7 +97,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
         /// <summary>
         /// Identifies the merchant that initiated the payment.
         /// </summary>
-        public PayeeInfo PayeeInfo { get; set; }
+        public IPayeeInfo PayeeInfo { get; set; }
 
         /// <summary>
         /// The reference to the payer from the merchant system, like e-mail address, mobile number, customer number etc.

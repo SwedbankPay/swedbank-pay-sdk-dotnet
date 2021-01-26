@@ -102,7 +102,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// <summary>
         /// Identifies the merchant that initiated the payment.
         /// </summary>
-        PayeeInfo PayeeInfo { get; }
+        IPayeeInfo PayeeInfo { get; }
 
         /// <summary>
         /// Metadata can be used to store data associated to a payment that can be retrieved later by

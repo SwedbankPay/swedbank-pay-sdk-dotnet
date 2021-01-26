@@ -26,7 +26,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
                                                 string userAgent,
                                                 Language language,
                                                 IUrls urls,
-                                                PayeeInfo payeeInfo,
+                                                IPayeeInfo payeeInfo,
                                                 PrefillInfo prefillInfo,
                                                 SwishRequestData swishRequest)
         {
@@ -76,7 +76,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         /// <summary>
         /// Identifies the merchant that initiated the payment.
         /// </summary>
-        public PayeeInfo PayeeInfo { get; }
+        public IPayeeInfo PayeeInfo { get; }
 
         /// <summary>
         /// The reference to the payer from the merchant system, like e-mail address, mobile number, customer number etc.

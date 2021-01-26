@@ -28,7 +28,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
                               string userAgent,
                               Language language,
                               IUrls urls,
-                              PayeeInfo payeeInfo,
+                              IPayeeInfo payeeInfo,
                               string payerReference)
 
         {

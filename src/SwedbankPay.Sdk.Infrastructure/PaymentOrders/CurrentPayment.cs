@@ -47,7 +47,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public PaymentIntent Intent { get; }
         public Language Language { get; }
         public Operation Operation { get; }
-        public PayeeInfo PayeeInfo { get; }
+        public IPayeeInfo PayeeInfo { get; }
         public string PayerReference { get; }
         public string PaymentToken { get; }
         public IPriceListResponse Prices { get; }

@@ -46,7 +46,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
         public Language Language { get; }
         public long Number { get; }
         public Operation Operation { get; }
-        public PayeeInfo PayeeInfo { get; }
+        public IPayeeInfo PayeeInfo { get; }
         public ITransactionListResponse Transactions { get; }
         public string PayerReference { get; }
         public string InitiatingSystemUserAgent { get; }

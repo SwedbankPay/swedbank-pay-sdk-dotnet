@@ -29,7 +29,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
                               string userAgent,
                               Language language,
                               IUrls urls,
-                              PayeeInfo payeeInfo,
+                              IPayeeInfo payeeInfo,
                               Uri shopslogoUrl)
 
         {

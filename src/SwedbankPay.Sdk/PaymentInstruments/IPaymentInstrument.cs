@@ -71,7 +71,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         /// <summary>
         /// Identifies the merchant that initiated the payment.
         /// </summary>
-        PayeeInfo PayeeInfo { get; }
+        IPayeeInfo PayeeInfo { get; }
 
         /// <summary>
         /// The reference to the payer from the merchant system, like e-mail address, mobile number, customer number etc.

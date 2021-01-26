@@ -34,7 +34,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
             Assert.NotNull(cardPayment.Payment.Urls);
             Assert.NotNull(cardPayment.Payment.Urls.CallbackUrl);
 
-            PayeeInfo payeeInfo = new PayeeInfo(cardPayment.Payment.PayeeInfo.PayeeId, GeneratePayeeReference());
+            IPayeeInfo payeeInfo = new PayeeInfo(cardPayment.Payment.PayeeInfo.PayeeId, GeneratePayeeReference());
             var recur = new SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurRequest(Operation.Verify,
                 PaymentIntent.Authorization,
                 cardPayment.Payment.RecurrenceToken,

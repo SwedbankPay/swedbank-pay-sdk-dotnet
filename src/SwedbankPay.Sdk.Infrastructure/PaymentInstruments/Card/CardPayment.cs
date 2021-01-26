@@ -80,7 +80,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 
         public Operation Operation { get; }
 
-        public PayeeInfo PayeeInfo { get; }
+        public IPayeeInfo PayeeInfo { get; }
 
         public string PayerReference { get; }
 

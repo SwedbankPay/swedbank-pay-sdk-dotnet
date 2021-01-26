@@ -29,7 +29,7 @@
                                        string userAgent,
                                        Language language,
                                        IUrls urls,
-                                       PayeeInfo payeeInfo)
+                                       IPayeeInfo payeeInfo)
         {
             Operation = operation;
             Intent = intent;
@@ -97,7 +97,7 @@
         /// <summary>
         /// The merchant information.
         /// </summary>
-        public PayeeInfo PayeeInfo { get; }
+        public IPayeeInfo PayeeInfo { get; }
 
         /// <summary>
         /// Metadata can be used to store data associated to a payment that can be

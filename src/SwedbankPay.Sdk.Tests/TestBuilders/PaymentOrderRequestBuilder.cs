@@ -15,7 +15,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private Metadata metadata;
         private Operation operation;
         private List<IOrderItem> orderItems;
-        private PayeeInfo payeeInfo;
+        private IPayeeInfo payeeInfo;
         private IUrls urls;
         private string userAgent;
         private Amount vatAmount;
@@ -96,7 +96,8 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
                 HostUrls = new List<Uri> { new Uri("https://example.com") },
                 CompleteUrl = new Uri("https://example.com/payment-completed"),
                 TermsOfServiceUrl = new Uri("https://example.com/termsandconditoons.pdf"),
-                CancelUrl = new Uri("https://example.com/payment-canceled")
+                CancelUrl = new Uri("https://example.com/payment-canceled"),
+                Id = "https://example.com"
             });
             this.userAgent = "useragent";
             this.language = new Language("sv-SE");

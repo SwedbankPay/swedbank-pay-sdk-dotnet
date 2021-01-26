@@ -29,7 +29,7 @@
                                        string userAgent,
                                        Language language,
                                        IUrls urls,
-                                       PayeeInfo payeeInfo)
+                                       IPayeeInfo payeeInfo)
         {
             Payment = new CardPaymentRecurDetails(operation,
                                                       intent,
