@@ -104,23 +104,6 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
         }
 
         [Fact]
-        public async Task ProblemResponseException_CanBeSerialized_AsJson()
-        {
-            var handler = new FakeDelegatingHandler();
-            handler.FakeResponseList.Add(new HttpResponseMessage
-            {
-                StatusCode = System.Net.HttpStatusCode.BadRequest,
-                Content = new StringContent(PaymentOrderInputValidationFailedReponse)
-            });
-            var uri = new Uri("http://api.externalintegration.payex.com");
-            var sut = new HttpClient(handler);
-
-            var error = await Assert.ThrowsAsync<HttpResponseException>(() => sut.SendAndProcessAsync<Problem>(HttpMethod.Get, uri, null));
-
-            JsonSerializer.Serialize(error, JsonSerialization.JsonSerialization.Settings);
-        }
-
-        [Fact]
         public async Task ProblemResponse_CorrectlySerialzes_WhenApiReturnsWrongStatusCode()
         {
             var handler = new FakeDelegatingHandler();
