@@ -14,17 +14,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         }
 
         /// <summary>
-        /// Instantiates a new <seealso cref="CaptureResponse"/> with the provided parameters.
-        /// </summary>
-        /// <param name="payment"><seealso cref="Uri"/> of the payment.</param>
-        /// <param name="capture">Transactional details about the capture.</param>
-        public CaptureResponse(Uri payment, ITransaction capture)
-        {
-            Payment = payment;
-            Capture = capture;
-        }
-
-        /// <summary>
         /// A unique <seealso cref="Uri"/> to access this resource.
         /// </summary>
         public Uri Payment { get; }
