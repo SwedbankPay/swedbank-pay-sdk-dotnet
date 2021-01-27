@@ -5,10 +5,6 @@ namespace SwedbankPay.Sdk
 {
     internal class PayeeInfoResponse : Identifiable, IPayeeInfo
     {
-        public PayeeInfoResponse(Uri id) : base(id)
-        {
-        }
-
         public PayeeInfoResponse(PayeeInfoResponseDto dto)
             :base(dto.Id)
         {
@@ -23,11 +19,6 @@ namespace SwedbankPay.Sdk
         public PayeeInfoResponse(PaymentOrderPayeeInfoDto dto)
             : base(dto.Id)
         {
-            if (string.IsNullOrEmpty(dto.PayeeId))
-            {
-                return;
-            }
-
             OrderReference = dto.OrderReference;
             PayeeId = dto.PayeeId;
             PayeeName = dto.PayeeName;
