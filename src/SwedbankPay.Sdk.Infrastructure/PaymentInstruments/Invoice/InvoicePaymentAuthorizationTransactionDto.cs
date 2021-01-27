@@ -13,7 +13,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
             Intent = transaction.Intent.ToString();
             Language = transaction.Language.ToString();
             Operation = transaction.Operation.Value;
-            PayeeInfo = new PayeeInfoDto(transaction.PayeeInfo);
+            PayeeInfo = new PayeeInfoResponseDto(transaction.PayeeInfo);
             PayerReference = transaction.PayerReference;
             PaymentToken = transaction.PaymentToken;
             PrefillInfo = new PrefillInfoDto(transaction.PrefillInfo);
@@ -33,7 +33,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         public string Intent { get; set; }
         public string Language { get; set; }
         public string Operation { get; set; }
-        public PayeeInfoDto PayeeInfo { get; set; }
+        public PayeeInfoResponseDto PayeeInfo { get; set; }
         public string PayerReference { get; set; }
         public string PaymentToken { get; set; }
         public PrefillInfoDto PrefillInfo { get; set; }

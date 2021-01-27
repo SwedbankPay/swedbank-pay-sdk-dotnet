@@ -2,11 +2,11 @@
 
 namespace SwedbankPay.Sdk
 {
-    internal class PayeeInfoDto
+    internal class PayeeInfoResponseDto
     {
-        public PayeeInfoDto() { }
+        public PayeeInfoResponseDto() { }
 
-        public PayeeInfoDto(IPayeeInfo payeeInfo)
+        public PayeeInfoResponseDto(IPayeeInfo payeeInfo)
         {
             OrderReference = payeeInfo.OrderReference;
             PayeeId = payeeInfo.PayeeId;
@@ -20,7 +20,7 @@ namespace SwedbankPay.Sdk
 
         public string OrderReference { get; set; }
 
-        public Guid PayeeId { get; set; }
+        public string PayeeId { get; set; }
 
         public string PayeeName { get; set; }
 
@@ -30,16 +30,9 @@ namespace SwedbankPay.Sdk
 
         public string Subsite { get; set; }
 
-        internal PayeeInfo Map()
+        internal PayeeInfoResponse Map()
         {
-            var payeeInfo = new PayeeInfo(PayeeId, PayeeReference)
-            {
-                PayeeName = PayeeName,
-                ProductCategory = ProductCategory,
-                Subsite = Subsite,
-                OrderReference = OrderReference
-            };
-            return payeeInfo;
+            return new PayeeInfoResponse(this);
         }
     }
 }

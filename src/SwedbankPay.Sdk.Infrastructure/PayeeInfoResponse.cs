@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SwedbankPay.Sdk.PaymentOrders;
+using System;
 
 namespace SwedbankPay.Sdk
 {
@@ -8,18 +9,30 @@ namespace SwedbankPay.Sdk
         {
         }
 
-        public PayeeInfoResponse(Uri id, string orderReference, Guid payeeId, string payeeName, string payeeReference, string productCategory, string subsite): base(id)
+        public PayeeInfoResponse(PayeeInfoResponseDto dto)
+            :base(dto.Id)
         {
-            OrderReference = orderReference;
-            PayeeId = payeeId;
-            PayeeName = payeeName;
-            PayeeReference = payeeReference;
-            ProductCategory = productCategory;
-            Subsite = subsite;
+            OrderReference = dto.OrderReference;
+            PayeeId = dto.PayeeId;
+            PayeeName = dto.PayeeName;
+            PayeeReference = dto.PayeeReference;
+            ProductCategory = dto.ProductCategory;
+            Subsite = dto.Subsite;
+        }
+
+        public PayeeInfoResponse(PaymentOrderPayeeInfoDto dto)
+            : base(dto.Id)
+        {
+            OrderReference = dto.OrderReference;
+            PayeeId = dto.PayeeId;
+            PayeeName = dto.PayeeName;
+            PayeeReference = dto.PayeeReference;
+            ProductCategory = dto.ProductCategory;
+            Subsite = dto.Subsite;
         }
 
         public string OrderReference { get; }
-        public Guid PayeeId { get; }
+        public string PayeeId { get; }
         public string PayeeName { get; }
         public string PayeeReference { get; }
         public string ProductCategory { get; }

@@ -59,7 +59,7 @@ namespace Sample.AspNetCore
             services.AddDbContext<StoreDbContext>(options => options.UseInMemoryDatabase("Products"));
             services.AddControllersWithViews();
             services.AddDistributedMemoryCache();
-            Guid.TryParse(Configuration.GetSection("SwedbankPay")["PayeeId"], out Guid payeeId);
+            var payeeId = Configuration.GetSection("SwedbankPay")["PayeeId"];
             services.Configure<PayeeInfoConfig>(options =>
             {
                 options.PayeeId = payeeId;

@@ -14,7 +14,7 @@
             UserAgent = payment.UserAgent;
             Language = payment.Language.ToString();
             Urls = new UrlsDto(payment.Urls);
-            PayeeInfo = new PayeeInfoDto(payment.PayeeInfo);
+            PayeeInfo = new PayeeInfoResponseDto(payment.PayeeInfo);
 
             if (payment.Metadata != null)
             {
@@ -42,7 +42,7 @@
 
         public UrlsDto Urls { get; }
 
-        public PayeeInfoDto PayeeInfo { get; }
+        public PayeeInfoResponseDto PayeeInfo { get; }
 
         public MetadataDto Metadata { get; }
     }

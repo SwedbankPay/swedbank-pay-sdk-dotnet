@@ -23,7 +23,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
                 return new PayeeInfoResponse(uri);
             }
 
-            return new PayeeInfoResponse(uri, OrderReference, Guid.Parse(PayeeId), PayeeName, PayeeReference, ProductCategory, Subsite);
+            return new PayeeInfoResponse(this);
         }
     }
 }

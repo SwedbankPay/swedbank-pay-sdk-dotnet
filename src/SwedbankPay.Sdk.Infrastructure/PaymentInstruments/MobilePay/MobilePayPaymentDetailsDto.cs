@@ -11,7 +11,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
             Intent = payment.Intent.ToString();
             Language = payment.Language.ToString();
             Operation = payment.Operation.Value;
-            PayeeInfo = new PayeeInfoDto(payment.PayeeInfo);
+            PayeeInfo = new PayeeInfoResponseDto(payment.PayeeInfo);
             PayerReference = payment.PayerReference;
             PrefillInfo = new PrefillInfoDto(payment.PrefillInfo);
             Prices = new List<PriceDto>();
@@ -38,7 +38,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 
         public string Operation { get; set; }
 
-        public PayeeInfoDto PayeeInfo { get; }
+        public PayeeInfoResponseDto PayeeInfo { get; }
 
         public string PayerReference { get; set; }
 

@@ -40,7 +40,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
 
         public string Operation { get; set; }
 
-        public PayeeInfoDto PayeeInfo { get; set; }
+        public PayeeInfoResponseDto PayeeInfo { get; set; }
 
         public string PayerReference { get; set; }
 

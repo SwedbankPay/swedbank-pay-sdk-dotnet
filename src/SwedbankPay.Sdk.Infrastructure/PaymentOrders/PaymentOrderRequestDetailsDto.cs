@@ -12,7 +12,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
             GenerateRecurrenceToken = paymentOrder.GenerateRecurrenceToken;
             Language = paymentOrder.Language.ToString();
             Operation = paymentOrder.Operation.Value;            
-            PayeeInfo = new PayeeInfoDto(paymentOrder.PayeeInfo);
+            PayeeInfo = new PayeeInfoResponseDto(paymentOrder.PayeeInfo);
             Payer = new PayerDto(paymentOrder.Payer);
             RiskIndicator = new RiskIndicatorDto(paymentOrder.RiskIndicator);
             Urls = new UrlsDto(paymentOrder.Urls);
@@ -60,7 +60,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
         public List<OrderItemDto> OrderItems { get; }
 
-        public PayeeInfoDto PayeeInfo { get; }
+        public PayeeInfoResponseDto PayeeInfo { get; }
 
         public PayerDto Payer { get; }
 

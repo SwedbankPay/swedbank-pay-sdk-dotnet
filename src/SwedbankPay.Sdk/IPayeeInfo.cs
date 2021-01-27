@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SwedbankPay.Sdk
+﻿namespace SwedbankPay.Sdk
 {
     /// <summary>
     /// Identifies the merchant that initiated the payment.
@@ -15,7 +13,7 @@ namespace SwedbankPay.Sdk
         /// <summary>
         ///     This is the unique id that identifies this payee (like merchant) set by PayEx.
         /// </summary>
-        Guid PayeeId { get; }
+        string PayeeId { get; }
 
         /// <summary>
         ///     The name of the payee, usually the name of the merchant.

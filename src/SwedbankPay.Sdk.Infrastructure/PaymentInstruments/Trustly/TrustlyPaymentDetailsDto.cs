@@ -11,7 +11,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
             Intent = payment.Intent.ToString();
             Language = payment.Language.ToString();
             Operation = payment.Operation.Value;
-            PayeeInfo = new PayeeInfoDto(payment.PayeeInfo);
+            PayeeInfo = new PayeeInfoResponseDto(payment.PayeeInfo);
             PayerReference = payment.PayerReference;
             Prices = new List<PriceDto>();
             foreach (var item in payment.Prices)
@@ -33,7 +33,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
 
         public string Operation { get; set; }
 
-        public PayeeInfoDto PayeeInfo { get; set; }
+        public PayeeInfoResponseDto PayeeInfo { get; set; }
 
         public string PayerReference { get; set; }
 

@@ -83,7 +83,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         }
 
 
-        public PaymentOrderRequestBuilder WithTestValues(Guid payeeId)
+        public PaymentOrderRequestBuilder WithTestValues(string payeeId)
         {
             this.operation = Operation.Purchase;
             this.currency = new Currency("SEK");

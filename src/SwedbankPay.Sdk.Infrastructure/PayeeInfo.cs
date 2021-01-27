@@ -12,7 +12,7 @@ namespace SwedbankPay.Sdk
         /// </summary>
         /// <param name="payeeId"></param>
         /// <param name="payeeReference"></param>
-        public PayeeInfo(Guid payeeId,
+        public PayeeInfo(string payeeId,
                          string payeeReference)
         {
             PayeeId = payeeId;
@@ -28,7 +28,7 @@ namespace SwedbankPay.Sdk
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
-        public Guid PayeeId { get; set; }
+        public string PayeeId { get; set; }
 
 
         /// <summary>

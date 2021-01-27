@@ -1756,48 +1756,6 @@
             </summary>
             <param name="type">The API value to convert.</param>
         </member>
-        <member name="T:SwedbankPay.Sdk.PayeeInfo">
-            <summary>
-            <inheritdoc/>
-            </summary>
-        </member>
-        <member name="M:SwedbankPay.Sdk.PayeeInfo.#ctor(System.Guid,System.String)">
-            <summary>
-            Constructs a fully qualified <seealso cref="T:SwedbankPay.Sdk.PayeeInfo"/>
-            </summary>
-            <param name="payeeId"></param>
-            <param name="payeeReference"></param>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PayeeInfo.OrderReference">
-            <summary>
-            <inheritdoc/>
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PayeeInfo.PayeeId">
-            <summary>
-            <inheritdoc/>
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PayeeInfo.PayeeName">
-            <summary>
-            <inheritdoc/>
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PayeeInfo.PayeeReference">
-            <summary>
-            <inheritdoc/>
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PayeeInfo.ProductCategory">
-            <summary>
-            <inheritdoc/>
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PayeeInfo.Subsite">
-            <summary>
-            <inheritdoc/>
-            </summary>
-        </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstrument">
             <summary>
                 Payment Instrument

@@ -13,7 +13,7 @@ namespace SwedbankPay.Sdk.Tests
 
         protected readonly IUrls urls;
 
-        protected readonly Guid payeeId;
+        protected readonly string payeeId;
 
         private readonly SwedbankPayConnectionSettings connectionSettings;
 

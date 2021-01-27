@@ -97,7 +97,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
                 new Urls(
                     new List<Uri>(), new Uri("http://api.externalintegration.payex.com"),
                     new Uri("http://api.externalintegration.payex.com")),
-                new PayeeInfo(Guid.NewGuid(), payeeRef),
+                new PayeeInfo(string.Empty, payeeRef),
                 new PrefillInfo(new Msisdn(phoneNumber)));
             swishRequest.Payment.Prices.Add(new Price(amount, PriceType.Swish, vatAmount));
             swishRequest.Payment.Urls.HostUrls.Add(new Uri("http://api.externalintegration.payex.com"));

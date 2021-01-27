@@ -11,7 +11,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
             Intent = payment.Intent.ToString();
             Language = payment.Language.ToString();
             Operation = payment.Operation.Value;
-            PayeeInfo = new PayeeInfoDto(payment.PayeeInfo);
+            PayeeInfo = new PayeeInfoResponseDto(payment.PayeeInfo);
             PayerReference = payment.PayerReference;
             PrefillInfo = new PrefillInfoDto(payment.PrefillInfo);
             Prices = new List<PriceDto>();
@@ -39,7 +39,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 
         public string Operation { get; set; }
 
-        public PayeeInfoDto PayeeInfo { get; set; }
+        public PayeeInfoResponseDto PayeeInfo { get; set; }
 
         public string PayerReference { get; set; }
 

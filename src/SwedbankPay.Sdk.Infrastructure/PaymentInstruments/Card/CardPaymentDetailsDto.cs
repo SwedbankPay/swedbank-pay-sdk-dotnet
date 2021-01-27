@@ -15,7 +15,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             Intent = payment.Intent.ToString();
             Language = payment.Language.ToString();
             Operation = payment.Operation.Value;
-            PayeeInfo = new PayeeInfoDto(payment.PayeeInfo);
+            PayeeInfo = new PayeeInfoResponseDto(payment.PayeeInfo);
             PayerReference = payment.PayerReference;
             PaymentToken = payment.PaymentToken;
             RiskIndicator = new RiskIndicatorDto(payment.RiskIndicator);
@@ -52,7 +52,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 
         public string Operation { get; set; }
 
-        public PayeeInfoDto PayeeInfo { get; set; }
+        public PayeeInfoResponseDto PayeeInfo { get; set; }
 
         public string PayerReference { get; set; }
 

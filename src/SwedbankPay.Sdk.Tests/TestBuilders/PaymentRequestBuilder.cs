@@ -86,7 +86,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             return req;
         }
 
-        public PaymentRequestBuilder WithCreditcardTestValues(Guid payeeId, Operation testOperation = null, PaymentIntent paymentIntent = PaymentIntent.Authorization)
+        public PaymentRequestBuilder WithCreditcardTestValues(string payeeId, Operation testOperation = null, PaymentIntent paymentIntent = PaymentIntent.Authorization)
         {
             this.operation = testOperation ?? Operation.Purchase;
             this.intent = paymentIntent;
@@ -110,7 +110,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         }
 
 
-        public PaymentRequestBuilder WithSwishTestValues(Guid payeeId)
+        public PaymentRequestBuilder WithSwishTestValues(string payeeId)
         {
             this.operation = Operation.Purchase;
             this.intent = PaymentIntent.Sale;
@@ -133,7 +133,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             return this;
         }
 
-        public PaymentRequestBuilder WithInvoiceTestValues(Guid payeeId, Operation testOperation = null)
+        public PaymentRequestBuilder WithInvoiceTestValues(string payeeId, Operation testOperation = null)
         {
             this.operation = testOperation ?? Operation.FinancingConsumer;
             this.intent = PaymentIntent.Authorization;
@@ -156,7 +156,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             return this;
         }
 
-        public PaymentRequestBuilder WithVippsTestValues(Guid payeeId, Operation testOperation = null)
+        public PaymentRequestBuilder WithVippsTestValues(string payeeId, Operation testOperation = null)
         {
             this.operation = testOperation ?? Operation.Purchase;
             this.intent = PaymentIntent.Authorization;
@@ -179,7 +179,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             return this;
         }
 
-        public PaymentRequestBuilder WithMobilePayTestValues(Guid payeeId)
+        public PaymentRequestBuilder WithMobilePayTestValues(string payeeId)
         {
             this.operation = Operation.Purchase;
             this.intent = PaymentIntent.Authorization;
@@ -207,13 +207,13 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         }
 
 
-        public PaymentRequestBuilder WithTruslyTestValues(Guid payeeId)
+        public PaymentRequestBuilder WithTruslyTestValues(string payeeId)
         {
             return WithTruslyTestValues(payeeId, Operation.Purchase);
         }
 
 
-        public PaymentRequestBuilder WithTruslyTestValues(Guid payeeId, Operation testOperation)
+        public PaymentRequestBuilder WithTruslyTestValues(string payeeId, Operation testOperation)
         {
             this.operation = testOperation ?? Operation.Purchase;
             this.intent = PaymentIntent.Sale;
