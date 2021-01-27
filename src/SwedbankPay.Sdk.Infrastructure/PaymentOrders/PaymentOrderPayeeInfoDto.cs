@@ -16,13 +16,6 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
         internal PayeeInfoResponse Map()
         {
-            var uri = new Uri(Id, UriKind.RelativeOrAbsolute);
-
-            if (string.IsNullOrEmpty(PayeeId))
-            {
-                return new PayeeInfoResponse(uri);
-            }
-
             return new PayeeInfoResponse(this);
         }
     }

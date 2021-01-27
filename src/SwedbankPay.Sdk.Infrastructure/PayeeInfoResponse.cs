@@ -23,6 +23,11 @@ namespace SwedbankPay.Sdk
         public PayeeInfoResponse(PaymentOrderPayeeInfoDto dto)
             : base(dto.Id)
         {
+            if (string.IsNullOrEmpty(dto.PayeeId))
+            {
+                return;
+            }
+
             OrderReference = dto.OrderReference;
             PayeeId = dto.PayeeId;
             PayeeName = dto.PayeeName;
