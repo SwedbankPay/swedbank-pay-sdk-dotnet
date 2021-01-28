@@ -1,5 +1,4 @@
 ﻿using SwedbankPay.Sdk.PaymentInstruments;
-using System;
 
 namespace SwedbankPay.Sdk
 {

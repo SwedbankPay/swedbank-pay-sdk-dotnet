@@ -1,7 +1,4 @@
-﻿using SwedbankPay.Sdk.PaymentOrders;
-using System;
-
-namespace SwedbankPay.Sdk
+﻿namespace SwedbankPay.Sdk
 {
     internal class PayeeInfoResponse : Identifiable, IPayeeInfo
     {

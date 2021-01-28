@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Sample.AspNetCore.Models
+﻿namespace Sample.AspNetCore.Models
 {
     public class PayeeInfoConfig
     {
