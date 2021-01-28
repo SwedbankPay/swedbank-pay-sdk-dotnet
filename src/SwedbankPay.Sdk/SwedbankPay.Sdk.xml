@@ -6802,6 +6802,21 @@
             Returns details needed to created a hosted view for the payer to see the payment order, if available.
             </summary>
         </member>
+        <member name="T:SwedbankPay.Sdk.PaymentOrders.IPaymentOrderPayeeInfo">
+            <summary>
+            <inheritdoc/>
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentOrders.IPaymentOrderPayeeInfo.CorporationId">
+            <summary>
+            The Corporation ID for the Payee
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentOrders.IPaymentOrderPayeeInfo.CorporationName">
+            <summary>
+            The Corporation name for the Payee
+            </summary>
+        </member>
         <member name="T:SwedbankPay.Sdk.PaymentOrders.IPaymentOrdersResource">
             <summary>
             Entrypoint to our PaymentOrders API resource.

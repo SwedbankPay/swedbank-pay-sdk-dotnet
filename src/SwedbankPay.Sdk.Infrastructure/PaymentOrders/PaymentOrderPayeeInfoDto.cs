@@ -14,9 +14,9 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public string Subsite { get; set; }
         public string OrderReference { get; set; }
 
-        internal PayeeInfoResponse Map()
+        internal PaymentOrderPayeeInfoResponse Map()
         {
-            return new PayeeInfoResponse(this);
+            return new PaymentOrderPayeeInfoResponse(this);
         }
     }
 }

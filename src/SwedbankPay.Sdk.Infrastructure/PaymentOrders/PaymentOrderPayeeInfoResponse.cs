@@ -1,12 +1,9 @@
-﻿using SwedbankPay.Sdk.PaymentOrders;
-using System;
-
-namespace SwedbankPay.Sdk
+﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
-    internal class PayeeInfoResponse : Identifiable, IPayeeInfo
+    internal class PaymentOrderPayeeInfoResponse : Identifiable, IPaymentOrderPayeeInfo
     {
-        public PayeeInfoResponse(PayeeInfoResponseDto dto)
-            :base(dto.Id)
+        public PaymentOrderPayeeInfoResponse(PaymentOrderPayeeInfoDto dto)
+            : base(dto.Id)
         {
             OrderReference = dto.OrderReference;
             PayeeId = dto.PayeeId;
@@ -14,6 +11,8 @@ namespace SwedbankPay.Sdk
             PayeeReference = dto.PayeeReference;
             ProductCategory = dto.ProductCategory;
             Subsite = dto.Subsite;
+            CorporationId = dto.CorporationId;
+            CorporationName = dto.CorporationName;
         }
 
         public string OrderReference { get; }
@@ -22,5 +21,7 @@ namespace SwedbankPay.Sdk
         public string PayeeReference { get; }
         public string ProductCategory { get; }
         public string Subsite { get; }
+        public string CorporationId { get; }
+        public string CorporationName { get; }
     }
 }
