@@ -12,6 +12,9 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Payment
         [FindById("swish")]
         public Button<_> Swish { get; private set; }
 
+        [FindById("invoice")]
+        public Button<_> Invoice { get; private set; }
+
         [WaitFor(Until.Visible, TriggerEvents.BeforeAccess)]
         public Frame<_> PaymentFrame { get; private set; }
     }

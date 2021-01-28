@@ -1,7 +1,6 @@
-﻿using System;
+﻿using SwedbankPay.Sdk;
+using System;
 using System.Globalization;
-
-using SwedbankPay.Sdk;
 
 namespace Sample.AspNetCore.Models
 {

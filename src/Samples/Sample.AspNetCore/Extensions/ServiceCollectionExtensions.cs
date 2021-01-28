@@ -6,7 +6,6 @@ using Sample.AspNetCore.Models;
 using SwedbankPay.Sdk;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System;
 
 namespace Sample.AspNetCore.Extensions
 {

@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +8,7 @@ using Sample.AspNetCore.Models;
 using Sample.AspNetCore.Models.ViewModels;
 
 using SwedbankPay.Sdk;
-using SwedbankPay.Sdk.Payments;
+using SwedbankPay.Sdk.PaymentInstruments;
 
 namespace Sample.AspNetCore.Controllers
 {
@@ -17,11 +17,11 @@ namespace Sample.AspNetCore.Controllers
         private readonly StoreDbContext context;
         private readonly ISwedbankPayClient swedbankPayClient;
        
-        public OrdersController(StoreDbContext context,
-                                ISwedbankPayClient swedbankPayClient)
+        public OrdersController(StoreDbContext storeDbContext,
+                                ISwedbankPayClient payClient)
         {
-            this.context = context;
-            this.swedbankPayClient = swedbankPayClient;
+            this.context = storeDbContext;
+            this.swedbankPayClient = payClient;
         }
 
 
@@ -66,20 +66,22 @@ namespace Sample.AspNetCore.Controllers
 
 
         // GET: Orders/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? _)
         {
             var order = await this.context.Orders
                 .FirstOrDefaultAsync();
             if (order == null)
+            {
                 return NotFound();
+            }
 
-            OperationList operations = null;
+            IEnumerable<HttpOperation> operations = null;
 
             if (order.PaymentOrderLink != null)
             {
                 var paymentOrder = await this.swedbankPayClient.PaymentOrders.Get(order.PaymentOrderLink);
                 var paymentOrderOperations = paymentOrder.Operations.Where(r => r.Key.Value.Contains("paymentorder")).Select(x => x.Value);
-                operations = new OperationList(paymentOrderOperations);
+                operations = paymentOrderOperations;
             }
             else
             {
@@ -88,17 +90,17 @@ namespace Sample.AspNetCore.Controllers
                     case PaymentInstrument.Swish:
                         var swishPayment = await this.swedbankPayClient.Payments.SwishPayments.Get(order.PaymentLink, PaymentExpand.All);
                         var swishOperations = swishPayment.Operations;
-                        operations = new OperationList(swishOperations.Values);
+                        operations = swishOperations.Values;
                         break;
                     case PaymentInstrument.CreditCard:
                         var cardPayment = await this.swedbankPayClient.Payments.SwishPayments.Get(order.PaymentLink, PaymentExpand.All);
                         var cardOperations = cardPayment.Operations;
-                        operations = new OperationList(cardOperations.Values);
+                        operations = cardOperations.Values;
                         break;
                     case PaymentInstrument.Trustly:
                         var trustlyPayment = await this.swedbankPayClient.Payments.TrustlyPayments.Get(order.PaymentLink, PaymentExpand.All);
                         var trustlyOperations = trustlyPayment.Operations;
-                        operations = new OperationList(trustlyOperations.Values);
+                        operations = trustlyOperations.Values;
                         break;
                 }
             }
@@ -106,7 +108,7 @@ namespace Sample.AspNetCore.Controllers
             return View(new OrderViewModel
             {
                 Order = order,
-                OperationList = operations
+                OperationList = operations.ToList()
             });
         }
 
@@ -115,11 +117,16 @@ namespace Sample.AspNetCore.Controllers
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
+            {
                 return NotFound();
+            }
 
             var order = await this.context.Orders.FindAsync(id);
             if (order == null)
+            {
                 return NotFound();
+            }
+
             return View(order);
         }
 
@@ -132,7 +139,9 @@ namespace Sample.AspNetCore.Controllers
         public async Task<IActionResult> Edit(int id, [Bind("Id,PaymentOrderId")] Order order)
         {
             if (id != order.OrderId)
+            {
                 return NotFound();
+            }
 
             if (ModelState.IsValid)
             {
@@ -144,7 +153,10 @@ namespace Sample.AspNetCore.Controllers
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!OrderExists(order.OrderId))
+                    {
                         return NotFound();
+                    }
+
                     throw;
                 }
 

@@ -1,7 +1,5 @@
 ﻿using System;
-
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System.Text.Json;
 
 using Xunit;
 
@@ -17,16 +15,13 @@ namespace SwedbankPay.Sdk.Tests.Json
         {
             //ARRANGE
 
-            var jsonObject = new JObject
-            {
-                { "id", this.idstring }
-            };
+            var jsonObject = $"{{ \"id\": \"{this.idstring}\" }}";
 
             //ACT
-            var result = JsonConvert.DeserializeObject<Uri>(jsonObject.ToString(), JsonSerialization.JsonSerialization.Settings);
+            var result = JsonSerializer.Deserialize<DummyClass>(jsonObject, JsonSerialization.JsonSerialization.Settings);
 
             //ASSERT
-            Assert.Equal(this.idstring, result.OriginalString);
+            Assert.Equal(this.idstring, result.Id.OriginalString);
         }
 
 
@@ -40,17 +35,19 @@ namespace SwedbankPay.Sdk.Tests.Json
             };
 
             //ACT
-            var result = JsonConvert.SerializeObject(dummy, JsonSerialization.JsonSerialization.Settings);
-            var obj = JObject.Parse(result);
+            var result = JsonSerializer.Serialize(dummy, JsonSerialization.JsonSerialization.Settings);
+            var obj = JsonDocument.Parse(result);
 
-            obj.TryGetValue("Id", StringComparison.InvariantCultureIgnoreCase, out var id);
+            var id = obj.RootElement.GetProperty("id").ToString();
             //ASSERT
             Assert.Equal(this.idstring, id);
         }
-    }
 
-    internal class DummyClass
-    {
-        public Uri Id { get; set; }
+
+        private class DummyClass
+        {
+            public Uri Id { get; set; }
+        }
     }
 }
+

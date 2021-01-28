@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Sample.AspNetCore.Data;
 using Sample.AspNetCore.Extensions;
 using Sample.AspNetCore.Models;
@@ -25,7 +24,7 @@ namespace Sample.AspNetCore
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public static void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
+        public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -60,7 +59,7 @@ namespace Sample.AspNetCore
             services.AddDbContext<StoreDbContext>(options => options.UseInMemoryDatabase("Products"));
             services.AddControllersWithViews();
             services.AddDistributedMemoryCache();
-            Guid.TryParse(Configuration.GetSection("SwedbankPay")["PayeeId"], out Guid payeeId);
+            var payeeId = Configuration.GetSection("SwedbankPay")["PayeeId"];
             services.Configure<PayeeInfoConfig>(options =>
             {
                 options.PayeeId = payeeId;

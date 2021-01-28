@@ -4,7 +4,6 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 
 using Sample.AspNetCore.SystemTests.Test.Base;
-using System.Runtime.InteropServices;
 
 namespace Sample.AspNetCore.SystemTests.Services
 {

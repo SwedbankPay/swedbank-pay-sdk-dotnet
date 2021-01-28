@@ -13,6 +13,7 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
             return new ConfigurationBuilder()
                 .SetBasePath(outputPath)
                 .AddJsonFile("appsettings.json", true)
+                .AddJsonFile("appsettings.local.json", true)
                 .AddUserSecrets("55739ea0-5447-45e4-b35e-e0412f172f5f")
                 .AddEnvironmentVariables()
                 .Build();
@@ -23,7 +24,7 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
         public static SwedbankPayConnectionSettings GetSwedbankPayConnectionSettings(string outputPath)
         {
             var configuration = new SwedbankPayConnectionSettings();
-           
+
             var iConfig = GetIConfigurationRoot(outputPath);
 
             iConfig
@@ -34,18 +35,27 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
         }
 
 
-        public static Urls GetUrls(string outputPath)
+        public static IUrls GetUrls(string outputPath)
         {
             var configuration = new UrlsOptions();
-            
+
             var iConfig = GetIConfigurationRoot(outputPath);
 
             iConfig
                 .GetSection("Urls")
                 .Bind(configuration);
-
-            return new Urls(configuration.HostUrls, configuration.CompleteUrl, configuration.TermsOfServiceUrl, configuration.CancelUrl,
-                            configuration.PaymentUrl, configuration.CallbackUrl, configuration.LogoUrl);
+            var urlsDto = new UrlsDto
+            {
+                CallbackUrl = configuration.CallbackUrl,
+                CompleteUrl = configuration.CompleteUrl,
+                HostUrls = configuration.HostUrls,
+                CancelUrl = configuration.CancelUrl,
+                LogoUrl = configuration.LogoUrl,
+                PaymentUrl = configuration.PaymentUrl,
+                TermsOfServiceUrl = configuration.TermsOfServiceUrl,
+                Id = configuration.CompleteUrl.OriginalString
+            };
+            return new UrlsResponse(urlsDto);
         }
     }
 }

@@ -4,6 +4,7 @@ using Sample.AspNetCore.SystemTests.PageObjectModels.Base;
 using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
+using SwedbankPay.Sdk.PaymentOrders;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -35,8 +36,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Update
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible()
                 .Actions.Rows.Count.Should.Equal(3);
 
-            var order = await SwedbankPayClient.PaymentOrders.Get(orderLink, SwedbankPay.Sdk.PaymentOrders.PaymentOrderExpand.All);
-
+            await SwedbankPayClient.PaymentOrders.Get(orderLink, PaymentOrderExpand.All);
         }
     }
 }

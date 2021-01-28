@@ -14,8 +14,8 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
     [TestFixture(DriverAliases.Chrome)]
     public abstract class TestBase
     {
-        private readonly string _driverAlias;
-        private TestWebApplicationFactory _testWebApplicationFactory;
+        private readonly string driverAlias;
+        private TestWebApplicationFactory testWebApplicationFactory;
 
 
         [OneTimeSetUp]
@@ -37,18 +37,18 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
         [SetUp]
         public void SetUp()
         {
-            this._testWebApplicationFactory = new TestWebApplicationFactory();
+            this.testWebApplicationFactory = new TestWebApplicationFactory();
             var chromeOptions = DriverOptionsFactory.GetDriverOptions(Driver.Chrome) as ChromeOptions;
             AtataContext.Configure()
                         .UseChrome()
                         .WithOptions(chromeOptions)
-                        .UseBaseUrl(_testWebApplicationFactory.RootUri)
+                        .UseBaseUrl(this.testWebApplicationFactory.RootUri)
                         .Build();
         }
 
-        protected TestBase(string driverAlias)
+        protected TestBase(string passedDriverAlias)
         {
-            this._driverAlias = driverAlias;
+            this.driverAlias = passedDriverAlias;
         }
 
         [TearDown]
@@ -60,12 +60,12 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
             }
 
             AtataContext.Current?.CleanUp();
-            _testWebApplicationFactory.Dispose();
+            this.testWebApplicationFactory.Dispose();
         }
 
         public string PageSource()
         {
-            return $"------ Start Page ${_driverAlias} ------"
+            return $"------ Start Page ${this.driverAlias} ------"
                 + Environment.NewLine
                 + Environment.NewLine
                 + AtataContext.Current.Driver.PageSource

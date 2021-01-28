@@ -1,16 +1,17 @@
-﻿using System;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using SwedbankPay.Sdk.Consumers;
 using SwedbankPay.Sdk.Exceptions;
 using SwedbankPay.Sdk.Tests.TestBuilders;
-
+using System;
+using System.Net.Http;
+using System.Text.Json;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace SwedbankPay.Sdk.Tests
 {
     public class ConsumerResourceTests : ResourceTestsBase
     {
-        private readonly ConsumersRequestContainerBuilder consumerResourceRequestContainer = new ConsumersRequestContainerBuilder();
+        private readonly ConsumerRequestContainerBuilder consumerResourceRequestContainer = new ConsumerRequestContainerBuilder();
 
         [Fact]
         public async Task GetBillingDetails_ThrowsArgumentNullException_IfUriIsNull()
@@ -57,61 +58,42 @@ namespace SwedbankPay.Sdk.Tests
 
 
         [Fact]
-        public async Task InitializeConsumer_ReturnsNonEmptyOperationsCollection()
-        {
-            //ARRANGE
-            var orderResoureRequest = this.consumerResourceRequestContainer.WithTestValues()
-                .Build();
-
-            //ACT
-            var consumer = await this.Sut.Consumers.InitiateSession(orderResoureRequest);
-
-            //ASSERT
-            Assert.NotNull(consumer);
-            Assert.NotNull(consumer.Operations);
-            Assert.NotEmpty(consumer.Operations);
-        }
-        
-        [Fact]
         public async Task EmptyShippingAddressRestrictedToCountryCodes_ShouldThrow_HttpResponseException()
         {
             //ARRANGE
             var orderResoureRequest = this.consumerResourceRequestContainer.WithTestValues().WithEmptyShippingAddressCountryCodes()
                 .Build();
-            
+
             //ASSERT
             await Assert.ThrowsAsync<HttpResponseException>(() => this.Sut.Consumers.InitiateSession(orderResoureRequest));
-            
-        }
 
-        [Fact]
-        public async Task InitializeConsumer_ShouldReturn_NonEmptyToken()
-        {
-            //ARRANGE
-            var orderResoureRequest = this.consumerResourceRequestContainer.WithTestValues()
-                .Build();
-            //ACT
-            var consumer = await this.Sut.Consumers.InitiateSession(orderResoureRequest);
-            //ASSERT
-
-            Assert.NotNull(consumer);
-            Assert.NotNull(consumer.ConsumersResponse.Token);
-            Assert.NotEqual(string.Empty, consumer.ConsumersResponse.Token);
         }
 
 
         [Fact]
-        public async Task InitializeConsumer_ShouldReturn_TokenNotNull()
+        public void DeSerializingConsumerResponse_ShouldReturn_ConsumerResponse()
         {
-            //ARRANGE
-            var orderResoureRequest = this.consumerResourceRequestContainer.WithTestValues()
-                .Build();
-            //ACT
-            var consumer = await this.Sut.Consumers.InitiateSession(orderResoureRequest);
-            //ASSERT
-
+            var tokenString = @"{
+    ""token"": ""4d47836d3d1830da8e98d98919c495bb3051db045f711863ebb11e8cc1b69034"",
+    ""operations"": [
+        {
+            ""method"": ""GET"",
+            ""rel"": ""redirect-consumer-identification"",
+            ""href"": ""https://ecom.externalintegration.payex.com/consumers/sessions/4d47836d3d1830da8e98d98919c495bb3051db045f711863ebb11e8cc1b69034"",
+            ""contentType"": ""text/html""
+        },
+        {
+            ""method"": ""GET"",
+            ""rel"": ""view-consumer-identification"",
+            ""href"": ""https://ecom.externalintegration.payex.com/consumers/core/scripts/client/px.consumer.client.js?token=4d47836d3d1830da8e98d98919c495bb3051db045f711863ebb11e8cc1b69034"",
+            ""contentType"": ""application/javascript""
+        }
+    ]
+}";
+            var consumer = JsonSerializer.Deserialize<ConsumersResponseDto>(tokenString, JsonSerialization.JsonSerialization.Settings);
             Assert.NotNull(consumer);
-            Assert.NotNull(consumer.ConsumersResponse.Token);
+            Assert.NotNull(consumer.Operations);
+            Assert.NotNull(consumer.Token);
         }
     }
 }

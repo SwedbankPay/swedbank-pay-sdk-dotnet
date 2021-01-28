@@ -1,15 +1,17 @@
 ﻿using SwedbankPay.Sdk.Exceptions;
+using SwedbankPay.Sdk.PaymentInstruments;
 using SwedbankPay.Sdk.PaymentOrders;
 using SwedbankPay.Sdk.Tests.TestHelpers;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace SwedbankPay.Sdk.Tests.PaymentTests
 {
-    public class PaymentOrderTests
+    public class PaymentOrderTests : ResourceTestsBase
     {
         private const string PaymentOrderResponse = @"{
     ""paymentOrder"": {
@@ -130,13 +132,55 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
     ]
 }";
 
+        private const string PaymentOrderCancelResponse = @"{
+    ""payment"": ""/psp/creditcard/payments/449fcc10-e73f-430a-3a1a-08d884bfe202"",
+    ""cancellation"": {
+        ""id"": ""/psp/creditcard/payments/449fcc10-e73f-430a-3a1a-08d884bfe202/cancellations/9b9da251-67e6-4466-38d3-08d884c0c381"",
+        ""transaction"": {
+            ""id"": ""/psp/creditcard/payments/449fcc10-e73f-430a-3a1a-08d884bfe202/transactions/9b9da251-67e6-4466-38d3-08d884c0c381"",
+            ""created"": ""2020-11-10T14:04:45.5892823Z"",
+            ""updated"": ""2020-11-10T14:04:45.6937756Z"",
+            ""type"": ""Cancellation"",
+            ""state"": ""Completed"",
+            ""number"": 70100597193,
+            ""amount"": 5000,
+            ""vatAmount"": 0,
+            ""description"": ""Test Cancellation"",
+            ""payeeReference"": ""someUniqueReference1605017083"",
+            ""isOperational"": false,
+            ""operations"": []
+        }
+    }
+}";
+
+        private const string PaymentOrderReversalResponse = @"{
+    ""payment"": ""/psp/creditcard/payments/449fcc10-e73f-430a-3a1a-08d884bfe202"",
+    ""reversal"": {
+        ""id"": ""/psp/creditcard/payments/449fcc10-e73f-430a-3a1a-08d884bfe202/reversals/396f4d54-3780-4cb0-ef75-08d884c39d47"",
+        ""transaction"": {
+            ""id"": ""/psp/creditcard/payments/449fcc10-e73f-430a-3a1a-08d884bfe202/transactions/396f4d54-3780-4cb0-ef75-08d884c39d47"",
+            ""created"": ""2020-11-10T14:04:28.5615072Z"",
+            ""updated"": ""2020-11-10T14:04:28.8787354Z"",
+            ""type"": ""Reversal"",
+            ""state"": ""Completed"",
+            ""number"": 70100597192,
+            ""amount"": 2500,
+            ""vatAmount"": 0,
+            ""description"": ""description for transaction"",
+            ""payeeReference"": ""someUniqueReference1605017066"",
+            ""isOperational"": false,
+            ""operations"": []
+        }
+    }
+}";
+
         private static Uri GetUri() => new Uri("http://api.externalintegration.payex.com/psp/paymentorders/2d35afaa-4e5a-4930-0de5-08d7da0988bc", UriKind.Absolute);
+        private static Uri UriForTesting() => new Uri("https://localhost:5001", UriKind.RelativeOrAbsolute);
 
         private static PaymentOrderCaptureRequest GetTestPaymentOrderCaptureRequest()
         {
-            return new PaymentOrderCaptureRequest(new Amount(25767), new Amount(0), new List<OrderItem>
-            {
-                new OrderItem(
+            var req = new PaymentOrderCaptureRequest(new Amount(25767), new Amount(0), "Capturing payment.", "637218522761159010");
+            req.Transaction.OrderItems.Add(new OrderItem(
                     "Test",
                     "Test",
                     OrderItemType.Other,
@@ -146,32 +190,52 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
                     new Amount(25767),
                     0,
                     new Amount(25767),
-                    new Amount(0))
-            }, "Capturing payment.", "637218522761159010");
+                    new Amount(0)));
+
+            return req;
         }
 
-        private static PaymentOrderRequest GetPaymentOrderRequest()
-        {
-            return new PaymentOrderRequest(
-            Operation.Initiate,
-            new CurrencyCode("NOK"),
+        private PaymentOrderRequest GetPaymentOrderRequest() => new PaymentOrderRequest(
+            Operation.Purchase,
+            new Currency("NOK"),
             new Amount(25767),
             new Amount(0),
             "test",
             "test",
-            new System.Globalization.CultureInfo("no-nb"),
+            new Language("no-nb"),
             false,
-            new Urls(GetUri(), new List<Uri> { GetUri() }, GetUri(), GetUri()),
-            new PayeeInfo(Guid.Empty, "test")
+            new UrlsResponse(new UrlsDto
+            {
+                Id = UriForTesting().OriginalString,
+                HostUrls = new List<Uri> { UriForTesting() },
+                CallbackUrl = UriForTesting(),
+                CompleteUrl = UriForTesting(),
+                TermsOfServiceUrl = UriForTesting(),
+                PaymentUrl = UriForTesting()
+            }),
+            new PayeeInfo(this.payeeId, GeneratePayeeReference())
             );
+
+        private string GeneratePayeeReference()
+        {
+            var s = Guid.NewGuid().ToString();
+            s = s.Replace("-", "");
+            if (s.Length > 30)
+            {
+                s = s.Substring(0, 30);
+            }
+
+            return s;
         }
 
         [Fact]
         public async Task WhenSendingACaptureRequest_WeDoNotCrash_AndGiveAReasonableError()
         {
             var handler = new FakeDelegatingHandler();
-            var client = new HttpClient(handler);
-            client.BaseAddress = GetUri();
+            var client = new HttpClient(handler)
+            {
+                BaseAddress = GetUri()
+            };
             handler.FakeResponseList.Add(new HttpResponseMessage
             {
                 StatusCode = System.Net.HttpStatusCode.OK,
@@ -199,7 +263,8 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             });
             PaymentOrderCaptureRequest captureRequest = GetTestPaymentOrderCaptureRequest();
             PaymentOrderRequest paymentOrderRequest = GetPaymentOrderRequest();
-            var sut = await PaymentOrder.Create(paymentOrderRequest, client, string.Empty);
+
+            var sut = await new PaymentOrdersResource(client).Create(paymentOrderRequest);
 
             var result = await Assert.ThrowsAsync<HttpResponseException>(() => sut.Operations.Capture(captureRequest));
 
@@ -210,17 +275,21 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         public async Task CreatingACaptureRequest_Serailizes_AsExepceted()
         {
             var handler = new FakeDelegatingHandler();
-            var client = new HttpClient(handler);
-            client.BaseAddress = GetUri();
+            var client = new HttpClient(handler)
+            {
+                BaseAddress = GetUri()
+            };
             handler.FakeResponseList.Add(new HttpResponseMessage
             {
                 StatusCode = System.Net.HttpStatusCode.OK,
                 Content = new StringContent(PaymentOrderResponse)
             });
 
-            var sut = await PaymentOrder.Create(GetPaymentOrderRequest(), client, string.Empty);
+            PaymentOrderRequest paymentOrderRequest = GetPaymentOrderRequest();
 
-            Assert.NotNull(sut.PaymentOrderResponse);
+            var sut = await new PaymentOrdersResource(client).Create(paymentOrderRequest);
+
+            Assert.NotNull(sut.PaymentOrder);
             Assert.NotNull(sut.Operations);
             Assert.NotNull(sut.Operations.Abort);
             Assert.NotNull(sut.Operations.Cancel);
@@ -228,6 +297,30 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             Assert.NotNull(sut.Operations.Reverse);
             Assert.NotNull(sut.Operations.Update);
             Assert.NotNull(sut.Operations.View);
+        }
+
+        [Fact]
+        public void CanDeSerialize_Cancel_WithNoErrors()
+        {
+            var dto = JsonSerializer.Deserialize<CancelResponseDto>(PaymentOrderCancelResponse, JsonSerialization.JsonSerialization.Settings);
+            var sut = new CancellationResponse(dto.Payment, dto.Cancellation.Map());
+
+            Assert.NotNull(sut);
+            Assert.NotNull(sut.Cancellation);
+            Assert.NotNull(sut.Cancellation.Transaction);
+            Assert.NotNull(sut.Payment);
+        }
+
+        [Fact]
+        public void CanDeSerialize_Reversal_WithNoErrors()
+        {
+            var dto = JsonSerializer.Deserialize<ReversalResponseDto>(PaymentOrderReversalResponse, JsonSerialization.JsonSerialization.Settings);
+            var sut = new ReversalResponse(dto.Payment, dto.Reversal.Map());
+
+            Assert.NotNull(sut);
+            Assert.NotNull(sut.Reversal);
+            Assert.NotNull(sut.Reversal.Transaction);
+            Assert.NotNull(sut.Payment);
         }
     }
 }

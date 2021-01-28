@@ -14,9 +14,9 @@ namespace Sample.AspNetCore.Controllers
         private readonly StoreDbContext context;
 
 
-        public ProductsController(StoreDbContext context)
+        public ProductsController(StoreDbContext storeDbContext)
         {
-            this.context = context;
+            this.context = storeDbContext;
         }
 
 
@@ -63,12 +63,16 @@ namespace Sample.AspNetCore.Controllers
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
+            {
                 return NotFound();
+            }
 
             var product = await this.context.Products
                 .FirstOrDefaultAsync(m => m.ProductId == id);
             if (product == null)
+            {
                 return NotFound();
+            }
 
             return View(product);
         }
@@ -78,11 +82,16 @@ namespace Sample.AspNetCore.Controllers
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
+            {
                 return NotFound();
+            }
 
             var product = await this.context.Products.FindAsync(id);
             if (product == null)
+            {
                 return NotFound();
+            }
+
             return View(product);
         }
 
@@ -97,7 +106,9 @@ namespace Sample.AspNetCore.Controllers
                                               Product product)
         {
             if (id != product.ProductId)
+            {
                 return NotFound();
+            }
 
             if (ModelState.IsValid)
             {
@@ -109,7 +120,10 @@ namespace Sample.AspNetCore.Controllers
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!ProductExists(product.ProductId))
+                    {
                         return NotFound();
+                    }
+
                     throw;
                 }
 

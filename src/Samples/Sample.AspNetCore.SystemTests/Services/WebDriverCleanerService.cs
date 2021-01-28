@@ -28,10 +28,12 @@ namespace Sample.AspNetCore.SystemTests.Services
             try
             {
                 if (driverName != null)
+                {
                     Process.GetProcesses()
                         .Where(p => p.ProcessName == driverName)
                         .ToList()
                         .ForEach(p => p.Kill());
+                }
             }
             catch (Exception e)
             {

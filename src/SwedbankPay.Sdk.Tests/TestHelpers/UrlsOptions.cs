@@ -23,7 +23,7 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
         /// <summary>
         ///     The list of URIs valid for embedding of PayEx Hosted Views.
         /// </summary>
-        public ICollection<Uri> HostUrls { get; set; }
+        public List<Uri> HostUrls { get; set; }
 
         /// <summary>
         ///     The URI to the logo that will be displayed on redirect pages.

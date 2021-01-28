@@ -21,7 +21,9 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
             var environmentCollection = ConfigurationManager.GetSection("environments/" + environment) as NameValueCollection;
 
             foreach (var key in environmentCollection.AllKeys)
+            {
                 CapabilitiesDictionary.Add(key, environmentCollection[key]);
+            }
         }
 
 

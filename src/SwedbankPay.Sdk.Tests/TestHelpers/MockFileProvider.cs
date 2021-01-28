@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Extensions.FileProviders;
+﻿using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Primitives;
 using NSubstitute;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SwedbankPay.Sdk.Tests.TestHelpers
 {
@@ -15,14 +15,14 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
         public MockFileProvider()
         { }
 
-        public MockFileProvider(params IFileInfo[] files)
+        public MockFileProvider(params IFileInfo[] fileInfos)
         {
-            this.files = files;
+            this.files = fileInfos;
         }
 
-        public MockFileProvider(params KeyValuePair<string, IChangeToken>[] changeTokens)
+        public MockFileProvider(params KeyValuePair<string, IChangeToken>[] mockChangeTokens)
         {
-            this.changeTokens = changeTokens.ToDictionary(
+            this.changeTokens = mockChangeTokens.ToDictionary(
                 changeToken => changeToken.Key,
                 changeToken => changeToken.Value,
                 StringComparer.Ordinal);

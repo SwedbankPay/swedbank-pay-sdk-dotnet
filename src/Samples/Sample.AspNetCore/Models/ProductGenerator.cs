@@ -16,7 +16,9 @@ namespace Sample.AspNetCore.Models
                 serviceProvider.GetRequiredService<DbContextOptions<StoreDbContext>>()))
             {
                 if (context.Products.Any())
+                {
                     return;
+                }
 
                 context.Products.AddRange(
                     new Product

@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 using Sample.AspNetCore.Data;
 using Sample.AspNetCore.Models;
@@ -17,10 +16,10 @@ namespace Sample.AspNetCore.Controllers
         private readonly StoreDbContext storesContext;
 
 
-        public CartController(ILogger<CartController> logger, StoreDbContext storesContext, Cart cartService)
+        public CartController(StoreDbContext storeDb, Cart cart)
         {
-            this.storesContext = storesContext;
-            this.cartService = cartService;
+            this.storesContext = storeDb;
+            this.cartService = cart;
         }
 
 
@@ -69,7 +68,9 @@ namespace Sample.AspNetCore.Controllers
         {
             var line = this.cartService.CartLines.FirstOrDefault(i => i.Product.ProductId == id);
             if (line != null)
+            {
                 this.cartService.RemoveItem(line.Product, line.Quantity);
+            }
 
             return RedirectToAction("Index", "Products");
         }

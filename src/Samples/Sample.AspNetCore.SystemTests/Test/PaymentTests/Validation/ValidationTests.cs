@@ -4,11 +4,10 @@ using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
 using SwedbankPay.Sdk.Exceptions;
-using SwedbankPay.Sdk.Payments;
-using SwedbankPay.Sdk.Payments.SwishPayments;
+using SwedbankPay.Sdk.PaymentInstruments;
+using SwedbankPay.Sdk.PaymentInstruments.Swish;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
@@ -40,6 +39,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
                 .ExpiryDate.SetWithSpeed(TestDataService.CreditCardExpirationDate, 0.1)
                 .Cvc.Clear()
                 .Cvc.SetWithSpeed(TestDataService.CreditCardCvc, 0.1)
+                .CardTypeSelector.Check()
                 .ValidationIcons[x => x.CreditCardNumber].Should.Not.BeVisible()
                 .ValidationIcons[x => x.ExpiryDate].Should.Not.BeVisible();
         }
@@ -88,20 +88,19 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "xxxxx");
             var swedbankPayClient = new SwedbankPayClient(httpClient);
             var payeeRef = DateTime.Now.Ticks.ToString();
-            var amount = Amount.FromDecimal(1600);
-            var vatAmount = Amount.FromDecimal(0);
+            var amount = new Amount(1600);
+            var vatAmount = new Amount(0);
             var phoneNumber = "+46739000001";
-            var swishRequest = new SwishPaymentRequest(new CurrencyCode("SEK"),
-                new List<Price>
-                {
-                    new Price(amount, PriceType.Swish, vatAmount)
-                }, "Test Purchase", payeeRef, "GetUserAgent()",
-                CultureInfo.GetCultureInfo("sv-SE"),
-                new Urls(new List<Uri> { new Uri("http://api.externalintegration.payex.com") },
-                    new Uri("http://api.externalintegration.payex.com"),
+            var swishRequest = new SwishPaymentRequest(
+                new List<IPrice>(),
+                "Test Purchase", payeeRef, "GetUserAgent()", new Language("sv-SE"),
+                new Urls(
+                    new List<Uri>(), new Uri("http://api.externalintegration.payex.com"),
                     new Uri("http://api.externalintegration.payex.com")),
-                new PayeeInfo(Guid.NewGuid(), payeeRef), new PrefillInfo(new Msisdn(phoneNumber)));
-
+                new PayeeInfo(string.Empty, payeeRef),
+                new PrefillInfo(new Msisdn(phoneNumber)));
+            swishRequest.Payment.Prices.Add(new Price(amount, PriceType.Swish, vatAmount));
+            swishRequest.Payment.Urls.HostUrls.Add(new Uri("http://api.externalintegration.payex.com"));
             var error = Assert.ThrowsAsync<HttpResponseException>(() => swedbankPayClient.Payments.SwishPayments.Create(swishRequest));
 
             Assert.AreEqual(1, error.Data.Keys.Count);

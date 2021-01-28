@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using SwedbankPay.Sdk.Payments.CardPayments;
+﻿using SwedbankPay.Sdk.PaymentInstruments.Card;
 using System.Net.Http;
+using System.Text.Json;
 using Xunit;
 
 namespace SwedbankPay.Sdk.Tests.Json
@@ -10,16 +10,17 @@ namespace SwedbankPay.Sdk.Tests.Json
         [Fact]
         public void CanDeserializeUnknownOperation()
         {
-            var paymentResponse = JsonConvert.DeserializeObject<CardPaymentResponse>(TestResponse, JsonSerialization.JsonSerialization.Settings);
+            var paymentResponse = JsonSerializer.Deserialize<CardPaymentResponseDto>(TestResponse, JsonSerialization.JsonSerialization.Settings);
             Assert.NotNull(paymentResponse);
         }
 
         [Fact]
         public void CanAccessDeserializedUnknownOperation()
         {
-            var paymentResponse = JsonConvert.DeserializeObject<CardPaymentResponse>(TestResponse, JsonSerialization.JsonSerialization.Settings);
-            var operations = new CardPaymentOperations(paymentResponse.Operations, new System.Net.Http.HttpClient());
-            
+            var paymentResponse = JsonSerializer.Deserialize<CardPaymentResponseDto>(TestResponse, JsonSerialization.JsonSerialization.Settings);
+            var client = new HttpClient();
+            var operations = new CardPaymentOperations(paymentResponse.Operations.Map(), client);
+
             Assert.Contains(operations, a => a.Key.Name.Equals(TestOperationName, System.StringComparison.OrdinalIgnoreCase));
             Assert.Contains(operations, a => a.Key.Value.Equals(TestOperationName, System.StringComparison.OrdinalIgnoreCase));
         }
@@ -27,8 +28,9 @@ namespace SwedbankPay.Sdk.Tests.Json
         [Fact]
         public void UnknownOperation_IsDeserializedTo_LinkrelationType()
         {
-            var paymentResponse = JsonConvert.DeserializeObject<CardPaymentResponse>(TestResponse, JsonSerialization.JsonSerialization.Settings);
-            var operations = new CardPaymentOperations(paymentResponse.Operations, new System.Net.Http.HttpClient());
+            var paymentResponse = JsonSerializer.Deserialize<CardPaymentResponseDto>(TestResponse, JsonSerialization.JsonSerialization.Settings);
+            var client = new HttpClient();
+            var operations = new CardPaymentOperations(paymentResponse.Operations.Map(), client);
             var testLinkRelation = new LinkRelation(TestOperationName, TestOperationName);
 
             Assert.True(operations.ContainsKey(testLinkRelation), "Missing link relation in Operation list");

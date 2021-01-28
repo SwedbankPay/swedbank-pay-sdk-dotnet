@@ -1,10 +1,6 @@
-﻿using System;
-using System.Globalization;
-
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using SwedbankPay.Sdk.PaymentOrders;
-
+﻿using SwedbankPay.Sdk.PaymentOrders;
+using System;
+using System.Text.Json;
 using Xunit;
 
 namespace SwedbankPay.Sdk.Tests.Json
@@ -25,21 +21,21 @@ namespace SwedbankPay.Sdk.Tests.Json
                 ReOrderPurchaseIndicator = ReOrderPurchaseIndicator.MerchandiseAvailable,
                 PickUpAddress = new PickUpAddress
                 {
-                    CountryCode = new RegionInfo("NO")
+                    CountryCode = new CountryCode("NO")
                 }
             };
+            var dto = new RiskIndicatorDto(riskIndicator);
 
             //ACT
-            var result = JsonConvert.SerializeObject(riskIndicator, JsonSerialization.JsonSerialization.Settings);
-            var obj = JObject.Parse(result);
-
-            var dateTimeAsString = obj.GetValue("preOrderDate").ToString();
-            var shipInd = obj.GetValue("shipIndicator").ToString();
-            var delTimeFrameInd = obj.GetValue("deliveryTimeFrameIndicator").ToString();
-            var preOrdPurchaseInd = obj.GetValue("preOrderPurchaseIndicator").ToString();
-            var reOrdPurchaseInd = obj.GetValue("reOrderPurchaseIndicator").ToString();
-            var email = obj.GetValue("deliveryEmailAddress").ToString();
-            var countryCode = obj.GetValue("pickUpAddress")["countryCode"].ToString();
+            var result = JsonSerializer.Serialize(dto, JsonSerialization.JsonSerialization.Settings);
+            using JsonDocument doc = JsonDocument.Parse(result);
+            var dateTimeAsString = doc.RootElement.GetProperty("preOrderDate").ToString();
+            var shipInd = doc.RootElement.GetProperty("shipIndicator").ToString();
+            var delTimeFrameInd = doc.RootElement.GetProperty("deliveryTimeFrameIndicator").ToString();
+            var preOrdPurchaseInd = doc.RootElement.GetProperty("preOrderPurchaseIndicator").ToString();
+            var reOrdPurchaseInd = doc.RootElement.GetProperty("reOrderPurchaseIndicator").ToString();
+            var email = doc.RootElement.GetProperty("deliveryEmailAddress").ToString();
+            var countryCode = doc.RootElement.GetProperty("pickUpAddress").GetProperty("countryCode").ToString();
 
             //ASSERT
             Assert.Equal("20200101", dateTimeAsString);

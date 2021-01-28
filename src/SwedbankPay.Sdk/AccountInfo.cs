@@ -1,6 +1,4 @@
-﻿using SwedbankPay.Sdk.PaymentOrders;
-
-namespace SwedbankPay.Sdk
+﻿namespace SwedbankPay.Sdk
 {
     /// <summary>
     ///     Optional. If payer is known by merchant and have some kind of registered user then these fields can be set.

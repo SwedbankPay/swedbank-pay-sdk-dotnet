@@ -5,7 +5,7 @@ using NUnit.Framework;
 using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
-using SwedbankPay.Sdk.Payments;
+using SwedbankPay.Sdk.PaymentInstruments;
 
 namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
 {
@@ -38,12 +38,31 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
             Assert.That(cardPayment.Operations[LinkRelation.PaidPayment], Is.Not.Null);
 
             // Transactions
-            Assert.That(cardPayment.PaymentResponse.Transactions.TransactionList.Count, Is.EqualTo(2));
-            Assert.That(cardPayment.PaymentResponse.Transactions.TransactionList.First(x => x.Type == TransactionType.Authorization).State,
+            Assert.That(cardPayment.Payment.Transactions.TransactionList.Count, Is.EqualTo(2));
+            Assert.That(cardPayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionType.Authorization).State,
                         Is.EqualTo(State.Completed));
-            Assert.That(cardPayment.PaymentResponse.Transactions.TransactionList.First(x => x.Type == TransactionType.Cancellation).State,
+            Assert.That(cardPayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionType.Cancellation).State,
                         Is.EqualTo(State.Completed));
         }
 
+        [Test]
+        [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Invoice })]
+        public async Task Payment_Invoice_Cancellation(Product[] products, PayexInfo payexInfo)
+        {
+            GoToOrdersPage(products, payexInfo, Checkout.Option.LocalPaymentMenu)
+                .PaymentLink.StoreValue(out var paymentLink)
+                .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCancellation)].ExecuteAction.ClickAndGo();
+
+            var invoicePayment = await SwedbankPayClient.Payments.InvoicePayments.Get(paymentLink, PaymentExpand.All);
+
+            // Operations
+            Assert.That(invoicePayment.Operations[LinkRelation.CreateCancellation], Is.Not.Null);
+            Assert.That(invoicePayment.Operations[LinkRelation.CreateCapture], Is.Not.Null);
+            Assert.That(invoicePayment.Operations[LinkRelation.CreateReversal], Is.Null);
+            Assert.That(invoicePayment.Operations[LinkRelation.PaidPayment], Is.Not.Null);
+
+            // Transactions
+            Assert.That(invoicePayment.Payment.Transactions.TransactionList.Count, Is.EqualTo(2));
+        }
     }
 }

@@ -34,7 +34,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Abort
             Assert.That(order.Operations[LinkRelation.AbortedPaymentOrder], Is.Not.Null);
 
             // Transactions
-            Assert.That(order.PaymentOrderResponse.CurrentPayment.Payment, Is.Null);
+            Assert.That(order.PaymentOrder.CurrentPayment.Payment, Is.Null);
         }
     }
 }

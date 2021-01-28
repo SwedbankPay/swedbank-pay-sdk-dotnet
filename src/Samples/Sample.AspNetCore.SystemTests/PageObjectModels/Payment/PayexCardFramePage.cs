@@ -1,5 +1,4 @@
 ﻿using Atata;
-using NUnit.Framework;
 using Sample.AspNetCore.SystemTests.PageObjectModels.Base;
 using Sample.AspNetCore.SystemTests.PageObjectModels.ThankYou;
 
@@ -34,8 +33,8 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Payment
         [FindById("px-submit")]
         public Button<ThankYouPage, _> Pay { get; set; }
 
-        [FindByCss("label.radiogroup-select:nth-child(3)")]
-        public Clickable<_> CardTypeSelector { get; set; }
+        [FindById("creditSelector", Visibility = Visibility.Any)]
+        public RadioButton<_> CardTypeSelector { get; set; }
         
 
         public ValidationIconList<_> ValidationIcons { get; set; }

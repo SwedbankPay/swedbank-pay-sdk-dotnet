@@ -10,7 +10,7 @@ jobs:
   
   variables:
     name: Create variables
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     outputs:
       ENVIRONMENT: ${{ steps.setoutputvariables.outputs.ENVIRONMENT }}
       AZURE_WEBAPP_NAME: ${{ steps.setoutputvariables.outputs.AZURE_WEBAPP_NAME }}
@@ -21,19 +21,19 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v0.9.3
+        uses: gittools/actions/gitversion/setup@v0.9.6
         with:
-          versionSpec: '5.3.x'
+          versionSpec: '5.x.x'
  
       - name: Fetch all history for all tags and branches
         run: git fetch --prune --unshallow
  
       - name: Use GitVersion
         id: gitversion # step id used as reference for output values
-        uses: gittools/actions/gitversion/execute@v0.9.3
+        uses: gittools/actions/gitversion/execute@v0.9.6
       
       - name: Set dev environment variables
-        uses: allenevans/set-env@v1.1.0
+        uses: allenevans/set-env@v2.0.0
         if: ${{ startsWith(github.ref, 'refs/heads/develop') || startsWith(github.ref, 'refs/heads/feature/') || startsWith(github.ref, 'refs/heads/dependabot/') || github.event_name == 'pull_request' }} # deveop, featurebranches and pullrequests
         with: 
           ENVIRONMENT: dev
@@ -42,7 +42,7 @@ jobs:
           FULLSEMVER: ${{ steps.gitversion.outputs.fullSemVer }}
 
       - name: Set uat environment variables
-        uses: allenevans/set-env@v1.1.0
+        uses: allenevans/set-env@v2.0.0
         if: ${{ startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/hotfix/') || contains(github.ref, '-beta')}} 
         with: 
           ENVIRONMENT: uat
@@ -51,7 +51,7 @@ jobs:
           FULLSEMVER: ${{ steps.gitversion.outputs.fullSemVer }}
 
       - name: Set pro environment variables
-        uses: allenevans/set-env@v1.1.0
+        uses: allenevans/set-env@v2.0.0
         if: ${{ startsWith(github.ref, 'refs/tags/') && !contains(github.ref, 'refs/tags/*-*') }}
         with: 
           ENVIRONMENT: pro
@@ -123,16 +123,21 @@ jobs:
     - name: Download All artifacts
       uses: actions/download-artifact@v2
 
-    - name: Run SDK Tests
+    - name: Run SDK Unit Tests
       run: dotnet test src/SwedbankPay.Sdk.Tests/SwedbankPay.Sdk.Tests.csproj
+
+    - name: Run SDK Integration Tests
+      run: dotnet test src/SwedbankPay.Sdk.IntegrationTests/SwedbankPay.Sdk.IntegrationTests.csproj
       env:
         SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
+        SwedbankPay:TokenMobilePay: ${{ secrets.MERCHANT_TOKEN_MOBILE_PAY }}
         SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
 
     - name: Run SDK Sample project tests
       run: dotnet test  src/Samples/Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.csproj
       env:
         SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
+        SwedbankPay:TokenMobilePay: ${{ secrets.MERCHANT_TOKEN_MOBILE_PAY }}
         SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
         SwedbankPay:ApiBaseUrl: https://api.externalintegration.payex.com
         SwedbankPay:Sdk:SampleWebsite:BaseUrl: https://localhost:5001
@@ -178,7 +183,7 @@ jobs:
     - name: Publish to NuGet
       if: startsWith(github.ref, 'refs/tags/') # Only publish tagged commits
       env:
-        PROJECT_FILE: src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj
+        PROJECT_FILE: src/SwedbankPay.Sdk.Infrastructure/SwedbankPay.Sdk.Infrastructure.csproj
         VERSION_NUMBER: ${{ needs.variables.outputs.FULLSEMVER }}
         NUGET_KEY: ${{ secrets.NUGET_KEY}}
         DEBUG: true

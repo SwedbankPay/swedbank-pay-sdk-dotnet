@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Microsoft.Extensions.FileProviders;
+using System;
 using System.IO;
-using Microsoft.Extensions.FileProviders;
 
 namespace SwedbankPay.Sdk.Tests.TestHelpers
 {
@@ -8,10 +8,10 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
     {
         private readonly byte[] content;
 
-        public MemoryFileInfo(string name, byte[] content, DateTimeOffset timestamp)
+        public MemoryFileInfo(string name, byte[] byteContent, DateTimeOffset timestamp)
         {
             Name = name;
-            this.content = content;
+            this.content = byteContent;
             LastModified = timestamp;
         }
 

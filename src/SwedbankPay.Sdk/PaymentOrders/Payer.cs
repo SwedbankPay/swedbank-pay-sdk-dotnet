@@ -1,9 +1,18 @@
 ﻿namespace SwedbankPay.Sdk.PaymentOrders
 {
-    public class Payer : IdLink
+    /// <summary>
+    /// Detailed information about a payer for a payment order.
+    /// </summary>
+    public class Payer
     {
+        /// <summary>
+        /// Account information about the payer if such is known by the merchant system.
+        /// </summary>
         public AccountInfo AccountInfo { get; set; }
 
+        /// <summary>
+        /// Payers billing address for this payment order.
+        /// </summary>
         public Address BillingAddress { get; set; }
 
         /// <summary>
@@ -44,6 +53,9 @@
         /// </summary>
         public NationalIdentifier NationalIdentifier { get; set; }
 
+        /// <summary>
+        /// Payers shipping address for this payment order.
+        /// </summary>
         public Address ShippingAddress { get; set; }
 
         /// <summary>

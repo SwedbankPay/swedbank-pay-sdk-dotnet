@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 
 namespace SwedbankPay.Sdk.Consumers
 {
+    /// <summary>
+    /// Methods to initiate and get consumer information.
+    /// </summary>
     public interface IConsumersResource
     {
         /// <summary>
@@ -43,6 +46,6 @@ namespace SwedbankPay.Sdk.Consumers
         /// <exception cref="System.Net.Http.HttpRequestException"></exception>
         /// <exception cref="Exceptions.HttpResponseException"></exception>
         /// <returns></returns>
-        Task<Consumer> InitiateSession(ConsumersRequest consumersRequest);
+        Task<IConsumersResponse> InitiateSession(ConsumerRequest consumersRequest);
     }
 }

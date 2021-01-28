@@ -1,13 +1,15 @@
-﻿using Newtonsoft.Json;
-using SwedbankPay.Sdk.Exceptions;
+﻿using SwedbankPay.Sdk.Exceptions;
 using SwedbankPay.Sdk.Extensions;
+using SwedbankPay.Sdk.PaymentInstruments;
 using SwedbankPay.Sdk.PaymentOrders;
-using SwedbankPay.Sdk.Payments;
 using SwedbankPay.Sdk.Tests.TestBuilders;
 using SwedbankPay.Sdk.Tests.TestHelpers;
+
 using System;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
+
 using Xunit;
 
 namespace SwedbankPay.Sdk.Tests.UnitTests
@@ -24,7 +26,7 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
             ""problems"": [
                 {
                     ""name"": ""Transaction.Amount"",
-                    ""description"": ""  ""
+                    ""description"": ""Some description here""
                 }
             ]
         }";
@@ -48,7 +50,7 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
                     ""description"": ""description"",
                     ""payeeReference"": ""637218522761159010"",
                     ""isOperational"": false,
-                    ""reconciliationNumber"": 0001,
+                    ""reconciliationNumber"": 1,
                     ""operations"": []
                 }
             }
@@ -56,9 +58,8 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
 
         private static PaymentOrderCaptureRequest GetPaymentOrderCaptureRequest()
         {
-            return new PaymentOrderCaptureRequest(new Amount(25767), new Amount(0), new System.Collections.Generic.List<OrderItem>
-            {
-                new OrderItem(
+            var req = new PaymentOrderCaptureRequest(new Amount(25767), new Amount(0), "Capturing payment.", "637218522761159010");
+            req.Transaction.OrderItems.Add(new OrderItem(
                     "Test",
                     "Test",
                     OrderItemType.Other,
@@ -68,8 +69,9 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
                     new Amount(25767),
                     0,
                     new Amount(25767),
-                    new Amount(0))
-            }, "Capturing payment.", "637218522761159010");
+                    new Amount(0)));
+
+            return req;
         }
 
         [Fact]
@@ -96,26 +98,9 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
             var uri = new Uri("http://api.externalintegration.payex.com");
             var sut = new HttpClient(handler);
 
-            var error = await Assert.ThrowsAsync<HttpResponseException>(() => sut.SendAndProcessAsync<ProblemResponse>(HttpMethod.Get, uri, null));
+            var error = await Assert.ThrowsAsync<HttpResponseException>(() => sut.SendAndProcessAsync<Problem>(HttpMethod.Get, uri, null));
 
             Assert.Equal(1, error.Data.Count);
-        }
-
-        [Fact]
-        public async Task ProblemResponseException_CanBeSerialized_AsJson()
-        {
-            var handler = new FakeDelegatingHandler();
-            handler.FakeResponseList.Add(new HttpResponseMessage
-            {
-                StatusCode = System.Net.HttpStatusCode.BadRequest,
-                Content = new StringContent(PaymentOrderInputValidationFailedReponse)
-            });
-            var uri = new Uri("http://api.externalintegration.payex.com");
-            var sut = new HttpClient(handler);
-
-            var error = await Assert.ThrowsAsync<HttpResponseException>(() => sut.SendAndProcessAsync<ProblemResponse>(HttpMethod.Get, uri, null));
-
-            JsonConvert.SerializeObject(error);
         }
 
         [Fact]
@@ -130,9 +115,10 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
             var uri = new Uri("http://api.externalintegration.payex.com");
             var sut = new HttpClient(handler);
 
-            var result = await sut.SendAndProcessAsync<ProblemResponse>(HttpMethod.Get, uri, null);
+            var resultDto = await sut.SendAndProcessAsync<ProblemDto>(HttpMethod.Get, uri, null);
+            var result = resultDto.Map();
 
-            Assert.IsType<ProblemResponse>(result);
+            Assert.IsType<Problem>(result);
         }
 
         [Fact]
@@ -147,7 +133,7 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
             var uri = new Uri("http://api.externalintegration.payex.com");
 
             var sut = new HttpClient(handler);
-            await sut.SendAndProcessAsync<CaptureResponse>(HttpMethod.Get, uri, GetPaymentOrderCaptureRequest());
+            await sut.SendAndProcessAsync<CaptureTransactionResponseDto>(HttpMethod.Get, uri, GetPaymentOrderCaptureRequest());
         }
 
         [Fact]
@@ -165,6 +151,15 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
             var result = await Assert.ThrowsAsync<HttpResponseException>(() => sut.SendAndProcessAsync<CaptureResponse>(HttpMethod.Get, uri, new object()));
 
             Assert.Equal(1, result.Data.Count);
+        }
+
+        [Fact]
+        public void ProblemResponse_CorrectlyDeserializes_ResponseField()
+        {
+            var dto = JsonSerializer.Deserialize<ProblemDto>(PaymentOrderInputValidationFailedReponse, JsonSerialization.JsonSerialization.Settings);
+
+            Assert.NotNull(dto.Problems);
+            Assert.Equal("Some description here", dto.Problems[0].Description);
         }
     }
 }

@@ -4,23 +4,40 @@ using System.Text.RegularExpressions;
 
 namespace SwedbankPay.Sdk
 {
+    /// <summary>
+    /// Object holding a payer/consumer email address.
+    /// </summary>
     public class EmailAddress
     {
+        /// <summary>
+        /// Constructs a <seealso cref="EmailAddress"/> after validating the input.
+        /// </summary>
+        /// <param name="emailAddress">A email to be validated and stored.</param>
         public EmailAddress(string emailAddress)
         {
             if (!IsValidEmail(emailAddress))
+            {
                 throw new ArgumentException($"Invalid email address: {emailAddress}", nameof(emailAddress));
+            }
+
             Value = emailAddress;
         }
 
 
         private string Value { get; }
 
-
+        /// <summary>
+        /// Validates a email address.
+        /// </summary>
+        /// <param name="emailAddress">The email address to validate.</param>
+        /// <returns>true if it is valid, false othervise.</returns>
         public static bool IsValidEmail(string emailAddress)
         {
             if (string.IsNullOrWhiteSpace(emailAddress))
+            {
                 return false;
+            }
+
             try
             {
                 // Normalize the domain
@@ -60,7 +77,10 @@ namespace SwedbankPay.Sdk
             return match.Groups[1].Value + domainName;
         }
 
-
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <returns><inheritdoc/></returns>
         public override string ToString()
         {
             return Value;

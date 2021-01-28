@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using SwedbankPay.Sdk;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-
-using SwedbankPay.Sdk;
 
 namespace Sample.AspNetCore.Models
 {
@@ -21,13 +20,17 @@ namespace Sample.AspNetCore.Models
             var line = CartLineCollection.FirstOrDefault(p => p.Product.ProductId == product.ProductId);
 
             if (line == null)
+            {
                 CartLineCollection.Add(new CartLine
                 {
                     Product = product,
                     Quantity = quantity
                 });
+            }
             else
+            {
                 line.Quantity += quantity;
+            }
         }
 
 
@@ -50,9 +53,13 @@ namespace Sample.AspNetCore.Models
             if (line != null)
             {
                 if (quantity >= line.Quantity)
+                {
                     CartLineCollection.Remove(line);
+                }
                 else
+                {
                     line.Quantity -= quantity;
+                }
             }
         }
 
