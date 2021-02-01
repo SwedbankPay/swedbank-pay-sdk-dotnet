@@ -142,6 +142,14 @@ jobs:
         SwedbankPay:ApiBaseUrl: https://api.externalintegration.payex.com
         SwedbankPay:Sdk:SampleWebsite:BaseUrl: https://localhost:5001
 
+    - name: Test NuGet package
+      env:
+        PROJECT_FILE: src/SwedbankPay.Sdk.Infrastructure/SwedbankPay.Sdk.Infrastructure.csproj
+        VERSION_NUMBER: ${{ needs.variables.outputs.FULLSEMVER }}
+        NUGET_KEY: ${{ secrets.NUGET_KEY}}
+        DEBUG: true
+      run: .github/workflows/nuget_push.sh
+
   publish:
     runs-on: ubuntu-18.04
     needs: [variables, build, test]
@@ -187,4 +195,5 @@ jobs:
         VERSION_NUMBER: ${{ needs.variables.outputs.FULLSEMVER }}
         NUGET_KEY: ${{ secrets.NUGET_KEY}}
         DEBUG: true
+        PUBLISH: true
       run: .github/workflows/nuget_push.sh
