@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>8.0</LangVersion>
     <Authors>Swedbank Pay</Authors>
     <Description>A client library and SDK for Swedbank Pay's RESTful API Platform</Description>
     <Copyright>Swedbank Pay</Copyright>
