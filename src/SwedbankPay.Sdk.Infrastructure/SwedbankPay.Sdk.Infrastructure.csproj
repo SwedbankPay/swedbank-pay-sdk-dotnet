@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SwedbankPay.Sdk\SwedbankPay.Sdk.csproj" />
+    <ProjectReference Include="..\SwedbankPay.Sdk\SwedbankPay.Sdk.csproj" PrivateAssets="All"/>
   </ItemGroup>
 
   <ItemGroup>
@@ -27,5 +27,4 @@
       <_Parameter1>SwedbankPay.Sdk.Tests</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
-
 </Project>
