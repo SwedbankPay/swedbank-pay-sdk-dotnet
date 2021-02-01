@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>latest</LangVersion>
     <PackageId>SwedbankPay.Sdk</PackageId>
     <Authors>Swedbank Pay</Authors>
     <Description>A client library and SDK for Swedbank Pay's RESTful API Platform</Description>
@@ -11,7 +12,7 @@
     <PackageReleaseNotes>Swish payment handling. CreditCard payment handling. Checkout handling.</PackageReleaseNotes>
     <AssemblyName>SwedbankPay.Sdk</AssemblyName>
     <RootNamespace>SwedbankPay.Sdk</RootNamespace>
-    <LangVersion>latest</LangVersion>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>SwedbankPay.Sdk.xml</DocumentationFile>

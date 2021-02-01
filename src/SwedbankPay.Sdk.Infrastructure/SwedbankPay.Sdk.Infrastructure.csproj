@@ -12,7 +12,7 @@
     <PackageReleaseNotes>Swish payment handling. CreditCard payment handling. Checkout handling.</PackageReleaseNotes>
     <RootNamespace>SwedbankPay.Sdk</RootNamespace>
     <Product>SwedbankPay.Sdk</Product>
-    <PackageLicenseExpression>Apache-2</PackageLicenseExpression>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
