@@ -12,6 +12,8 @@
     <RepositoryType>git</RepositoryType>
     <PackageReleaseNotes>Swish payment handling. CreditCard payment handling. Checkout handling.</PackageReleaseNotes>
     <RootNamespace>SwedbankPay.Sdk</RootNamespace>
+    <Product>SwedbankPay.Sdk</Product>
+    <PackageLicenseExpression>Apache-2</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,12 +21,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SwedbankPay.Sdk\SwedbankPay.Sdk.csproj" PrivateAssets="All"/>
+    <ProjectReference Include="..\SwedbankPay.Sdk\SwedbankPay.Sdk.csproj" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
       <_Parameter1>SwedbankPay.Sdk.Tests</_Parameter1>
     </AssemblyAttribute>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 </Project>
