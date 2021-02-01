@@ -5,7 +5,7 @@
         <id>SwedbankPay.Sdk</id>
         <description>A client library and SDK for Swedbank Pay's RESTful API Platform</description>
         <authors>Swedbank Pay</authors>
-        <version>1.2.3</version>
+        <version>1.1.1</version>
 
         <!-- Optional elements -->
         <projectUrl>https://github.com/SwedbankPay/swedbank-pay-sdk-dotnet</projectUrl>
