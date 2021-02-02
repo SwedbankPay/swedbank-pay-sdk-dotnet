@@ -153,6 +153,9 @@ jobs:
     - name: Test install of package
       run: dotnet add package SwedbankPay.Sdk.${{ needs.variables.outputs.FULLSEMVER }} --source ../../nugets
       working-directory: src/SwedbankPay.Sdk.TestNuget
+    
+    - name: Build SwedbankPay.Sdk.TestNuget
+      run: dotnet build src/SwedbankPay.Sdk.TestNuget/SwedbankPay.Sdk.TestNuget.csproj
 
   publish:
     runs-on: ubuntu-18.04
