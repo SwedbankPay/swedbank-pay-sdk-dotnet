@@ -145,13 +145,13 @@ jobs:
     - name: Test NuGet package
       env:
         PROJECT_FILE: src/SwedbankPay.Sdk.Infrastructure/SwedbankPay.Sdk.Infrastructure.csproj
-        VERSION_NUMBER: ${{ needs.variables.outputs.FULLSEMVER }}
-        NUGET_KEY: ${{ secrets.NUGET_KEY}}
+        VERSION_NUMBER: 1.1.1-beta.0
+        NUGET_KEY: not-needed
         DEBUG: true
       run: .github/workflows/nuget_push.sh
 
     - name: Test install of package
-      run: dotnet add package SwedbankPay.Sdk.${{ needs.variables.outputs.FULLSEMVER }} --source ../../nugets
+      run: dotnet add package SwedbankPay.Sdk.1.1.1-beta.0 --source ../../nugets
       working-directory: src/SwedbankPay.Sdk.TestNuget
     
     - name: Build SwedbankPay.Sdk.TestNuget
