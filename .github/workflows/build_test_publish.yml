@@ -150,6 +150,10 @@ jobs:
         DEBUG: true
       run: .github/workflows/nuget_push.sh
 
+    - name: Test install of package
+      run: dotnet add package SwedbankPay.Sdk.${{ needs.variables.outputs.FULLSEMVER }} --source ../../nugets
+      working-directory: src/SwedbankPay.Sdk.TestNuget
+
   publish:
     runs-on: ubuntu-18.04
     needs: [variables, build, test]
