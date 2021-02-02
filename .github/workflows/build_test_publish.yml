@@ -150,6 +150,9 @@ jobs:
         DEBUG: true
       run: .github/workflows/nuget_push.sh
 
+    - name: Add local nuget source
+      run: dotnet nuget add source ../../nugets
+
     - name: Test install of package
       run: dotnet add package SwedbankPay.Sdk.1.1.1-beta.0 --source ../../nugets
       working-directory: src/SwedbankPay.Sdk.TestNuget
