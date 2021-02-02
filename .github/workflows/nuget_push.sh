@@ -35,6 +35,7 @@ sanitized_version_number=${VERSION_NUMBER//\+/.}
 
 dotnet pack "$PROJECT_FILE" -p:NuspecFile=../SwedbankPay.Sdk.nuspec -p:NuspecBasePath=. -p:NuspecProperties="version=$sanitized_version_number" -o nugets/
 
-if [[ "${PUBLISH:-false}" = "true" ]] then
+if [[ "${PUBLISH:-false}" = "true" ]]
+then
     dotnet nuget push nugets/*.nupkg -s https://api.nuget.org/v3/index.json -k "$NUGET_KEY" --skip-duplicate
 fi
