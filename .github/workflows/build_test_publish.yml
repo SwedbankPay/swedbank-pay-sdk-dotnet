@@ -115,7 +115,7 @@ jobs:
 
   test:
     runs-on: ubuntu-20.04
-    needs: build
+    needs: [variables, build]
 
     steps:
     - uses: actions/checkout@v2
