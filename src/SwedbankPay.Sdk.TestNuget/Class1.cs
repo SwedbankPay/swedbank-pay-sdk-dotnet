@@ -5,6 +5,9 @@ namespace SwedbankPay.Sdk.TestNuget
 {
     public class Class1
     {
-        _ = new Amount(1999);
+        public Class1()
+        {
+            _ = new Amount(1999);
+        }
     }
 }
