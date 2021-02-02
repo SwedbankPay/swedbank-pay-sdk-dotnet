@@ -120,6 +120,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '3.1.x' # SDK Version to use; x will use the latest version of the 3.1 channel
+
     - name: Download All artifacts
       uses: actions/download-artifact@v2
 
@@ -151,7 +155,7 @@ jobs:
       run: .github/workflows/nuget_push.sh
     
     - name: Publish test package to GitHub Package Registry
-      run: dotnet nuget push "**/*.nupkg" --api-key ${{ secrets.NUGET_KEY_GHPR }} --source "https://nuget.pkg.github.com/SwedbankPay/swedbank-pay-sdk-dotnet"
+      run: dotnet nuget push "nugets/*.nupkg" --api-key ${{ secrets.NUGET_KEY_GHPR }} --source "https://nuget.pkg.github.com/SwedbankPay/swedbank-pay-sdk-dotnet"
 
     - name: Test install of package
       run: dotnet add package SwedbankPay.Sdk.${{ needs.variables.outputs.FULLSEMVER }} --source "https://nuget.pkg.github.com/SwedbankPay/swedbank-pay-sdk-dotnet"
