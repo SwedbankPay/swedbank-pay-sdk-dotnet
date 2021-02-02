@@ -145,16 +145,16 @@ jobs:
     - name: Test NuGet package
       env:
         PROJECT_FILE: src/SwedbankPay.Sdk.Infrastructure/SwedbankPay.Sdk.Infrastructure.csproj
-        VERSION_NUMBER: 1.1.1-beta.0
+        VERSION_NUMBER: ${{ needs.variables.outputs.FULLSEMVER }}
         NUGET_KEY: not-needed
         DEBUG: true
       run: .github/workflows/nuget_push.sh
-
-    - name: Add local nuget source
-      run: dotnet nuget add source ../../nugets
+    
+    - name: Publish test package to GitHub Package Registry
+      run: dotnet nuget push "nugets"  --api-key ${{ secrets.GITHUB_TOKEN }} --source "github"
 
     - name: Test install of package
-      run: dotnet add package SwedbankPay.Sdk.1.1.1-beta.0 --source ../../nugets
+      run: dotnet add package SwedbankPay.Sdk.${{ needs.variables.outputs.FULLSEMVER }} --source "github"
       working-directory: src/SwedbankPay.Sdk.TestNuget
     
     - name: Build SwedbankPay.Sdk.TestNuget
