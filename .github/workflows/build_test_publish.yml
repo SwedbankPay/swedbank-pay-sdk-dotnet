@@ -157,8 +157,17 @@ jobs:
     - name: Publish test package to GitHub Package Registry
       run: dotnet nuget push "nugets/*.nupkg" --api-key ${{github.token}} --source https://nuget.pkg.github.com/SwedbankPay/index.json
 
+    - name: Install xmlstarlet
+      run: apt install xmlstartlet
+
     - name: Setup nuget config
-      run: sed 's/GITHUB_TOKEN/${{ secrets.GITHUB_TOKEN }}/g' NuGet.Config | sed 's/GITHUB_USER/${{ github.actor }}/g' $1 > NuGet.Config
+      run: |
+        xmlstarlet edit \
+        --update "//configuration/packageSourceCredentials/github/add[@key="Username"]"" \
+        --value '${{ github.actor }}' \
+        --update "//configuration/packageSourceCredentials/github/add[@key="ClearTextPassword"]" \
+        --value '${{ secrets.GITHUB_TOKEN }}' \
+        NuGet.Config
       working-directory: src/SwedbankPay.Sdk.TestNuget
 
     - name: Print nuget config
