@@ -159,7 +159,7 @@ jobs:
 
     - name: Update apt-get
       run: sudo apt-get update
-      
+
     - name: Install xmlstarlet
       run: sudo apt install xmlstartlet
 
@@ -184,7 +184,7 @@ jobs:
       run: dotnet build src/SwedbankPay.Sdk.TestNuget/SwedbankPay.Sdk.TestNuget.csproj
 
   publish:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     needs: [variables, build, test]
 
     steps:
