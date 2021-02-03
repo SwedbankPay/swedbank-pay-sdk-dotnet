@@ -156,6 +156,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Install dependencies
+      run: dotnet restore ./src/SwedbankPay.Sdk.sln
+
+    - name: Build solution
+      run: dotnet build ./src/SwedbankPay.Sdk.sln
+
     - name: Create test NuGet package
       env:
         PROJECT_FILE: src/SwedbankPay.Sdk.Infrastructure/SwedbankPay.Sdk.Infrastructure.csproj
