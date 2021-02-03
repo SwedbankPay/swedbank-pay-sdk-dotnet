@@ -157,6 +157,9 @@ jobs:
     - name: Publish test package to GitHub Package Registry
       run: dotnet nuget push "nugets/*.nupkg" --api-key ${{github.token}} --source https://nuget.pkg.github.com/SwedbankPay/index.json
 
+    - name: Update apt-get
+      run: sudo apt-get update
+      
     - name: Install xmlstarlet
       run: sudo apt install xmlstartlet
 
