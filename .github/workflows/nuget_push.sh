@@ -38,5 +38,4 @@ dotnet pack "$PROJECT_FILE" -p:NuspecFile=../SwedbankPay.Sdk.nuspec -p:NuspecBas
 if [[ "${PUBLISH:-false}" = "true" ]]
 then
     dotnet nuget push nugets/*.nupkg -s https://api.nuget.org/v3/index.json -k "$NUGET_KEY" --skip-duplicate
-    dotnet nuget push nugets/*.snupkg -s https://api.nuget.org/v3/index.json -k "$NUGET_KEY" --skip-duplicate
 fi
