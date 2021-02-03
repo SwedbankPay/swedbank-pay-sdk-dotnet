@@ -155,10 +155,10 @@ jobs:
       run: .github/workflows/nuget_push.sh
     
     - name: Publish test package to GitHub Package Registry
-      run: dotnet nuget push "nugets/*.nupkg" --api-key ${{ secrets.NUGET_KEY_GHPR }} --source "https://nuget.pkg.github.com/SwedbankPay/swedbank-pay-sdk-dotnet"
+      run: dotnet nuget push "nugets/*.nupkg" --api-key ${{github.token}} --source https://nuget.pkg.github.com/SwedbankPay
 
     - name: Test install of package
-      run: dotnet add package SwedbankPay.Sdk.${{ needs.variables.outputs.FULLSEMVER }} --source "https://nuget.pkg.github.com/SwedbankPay/swedbank-pay-sdk-dotnet"
+      run: dotnet add package SwedbankPay.Sdk.${{ needs.variables.outputs.FULLSEMVER }} --source https://nuget.pkg.github.com/SwedbankPay
       working-directory: src/SwedbankPay.Sdk.TestNuget
     
     - name: Build SwedbankPay.Sdk.TestNuget
