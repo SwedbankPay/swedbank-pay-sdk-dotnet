@@ -165,7 +165,7 @@ jobs:
       run: cat src/SwedbankPay.Sdk.TestNuget/NuGet.Config
 
     - name: Test install of package
-      run: dotnet add SwedbankPay.Sdk.TestNuget.csproj package SwedbankPay.Sdk --version ${{ needs.variables.outputs.FULLSEMVER }} --source "github"
+      run: dotnet add SwedbankPay.Sdk.TestNuget.csproj package SwedbankPay.Sdk --version ${{ needs.variables.outputs.FULLSEMVER }}
       working-directory: src/SwedbankPay.Sdk.TestNuget
     
     - name: Build SwedbankPay.Sdk.TestNuget
