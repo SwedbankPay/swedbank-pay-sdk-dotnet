@@ -162,8 +162,7 @@ jobs:
       working-directory: src/SwedbankPay.Sdk.TestNuget
 
     - name: Print nuget config
-      run: cat Nuget.Config
-      working-directory: src/SwedbankPay.Sdk.TestNuget
+      run: cat src/SwedbankPay.Sdk.TestNuget/NuGet.Config
 
     - name: Test install of package
       run: dotnet add SwedbankPay.Sdk.TestNuget.csproj package SwedbankPay.Sdk --version ${{ needs.variables.outputs.FULLSEMVER }} --source https://nuget.pkg.github.com/SwedbankPay/index.json
