@@ -161,6 +161,10 @@ jobs:
       run: sed 's/GITHUB_TOKEN/${{ secrets.GITHUB_TOKEN }}/g' NuGet.Config > NuGet.Config | sed 's/GITHUB_USER/${{ github.actor }}/g' NuGet.Config > NuGet.Config
       working-directory: src/SwedbankPay.Sdk.TestNuget
 
+    - name: Print nuget config
+      run: cat Nuget.Config
+      working-directory: src/SwedbankPay.Sdk.TestNuget
+
     - name: Test install of package
       run: dotnet add SwedbankPay.Sdk.TestNuget.csproj package SwedbankPay.Sdk --version ${{ needs.variables.outputs.FULLSEMVER }} --source https://nuget.pkg.github.com/SwedbankPay/index.json
       working-directory: src/SwedbankPay.Sdk.TestNuget
