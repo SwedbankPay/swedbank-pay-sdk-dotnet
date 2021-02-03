@@ -158,7 +158,7 @@ jobs:
       run: dotnet nuget push "nugets/*.nupkg" --api-key ${{github.token}} --source https://nuget.pkg.github.com/SwedbankPay/index.json
 
     - name: Test install of package
-      run: dotnet add package SwedbankPay.Sdk.${{ needs.variables.outputs.FULLSEMVER }} --source https://nuget.pkg.github.com/SwedbankPay/index.json
+      run: dotnet add package SwedbankPay.Sdk --version ${{ needs.variables.outputs.FULLSEMVER }} --source https://nuget.pkg.github.com/SwedbankPay/index.json
       working-directory: src/SwedbankPay.Sdk.TestNuget
     
     - name: Build SwedbankPay.Sdk.TestNuget
