@@ -33,7 +33,7 @@ fi
 
 sanitized_version_number=${VERSION_NUMBER//\+/.}
 
-dotnet pack "$PROJECT_FILE" -p:NuspecFile=../SwedbankPay.Sdk.nuspec -p:NuspecBasePath=. -p:NuspecProperties="version=$sanitized_version_number" -p:PackageVersion="$sanitized_version_number" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg -o nugets/
+dotnet pack "$PROJECT_FILE" -p:NuspecFile=../SwedbankPay.Sdk.nuspec -p:NuspecBasePath=. -p:NuspecProperties="version=$sanitized_version_number" -p:PackageVersion="$sanitized_version_number" -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg --include-symbols -o nugets/
 
 if [[ "${PUBLISH:-false}" = "true" ]]
 then
