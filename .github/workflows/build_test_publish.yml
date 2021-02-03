@@ -145,10 +145,11 @@ jobs:
     #    SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
     #    SwedbankPay:ApiBaseUrl: https://api.externalintegration.payex.com
     #    SwedbankPay:Sdk:SampleWebsite:BaseUrl: https://localhost:5001
-  test-nuget-package:
+  test_nuget_package:
     runs-on: ubuntu-20.04
     needs: [variables]
 
+    steps:
     - uses: actions/checkout@v2
 
     - name: Create test NuGet package
@@ -181,7 +182,7 @@ jobs:
 
   publish:
     runs-on: ubuntu-20.04
-    needs: [variables, build, test, test-nuget-package]
+    needs: [variables, build, test, test_nuget_package]
 
     steps:
     - name: Checkout
