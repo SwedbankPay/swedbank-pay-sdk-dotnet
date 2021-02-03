@@ -16,8 +16,8 @@ jobs:
       AZURE_WEBAPP_NAME: ${{ steps.setoutputvariables.outputs.AZURE_WEBAPP_NAME }}
       NUGETVERSIONV2: ${{ steps.setoutputvariables.outputs.NUGETVERSIONV2 }}
       FULLSEMVER:  ${{ steps.gitversion.outputs.fullSemVer }}
-      GITVERSION_SEMVER: ${{ steps.gitversion.outputs.GitVersion_SemVer }}
-      GITVERSION_BUILDMETADATA: ${{ steps.gitversion.outputs.GitVersion_BuildMetaData }}
+      GITVERSION_SEMVER: ${{ steps.setoutputvariables.outputs.GitVersion_SemVer }}
+      GITVERSION_BUILDMETADATA: ${{ steps.setoutputvariables.outputs.GitVersion_BuildMetaData }}
        
     steps:
       - uses: actions/checkout@v2
