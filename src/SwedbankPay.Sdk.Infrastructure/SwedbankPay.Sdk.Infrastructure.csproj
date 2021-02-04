@@ -13,7 +13,6 @@
     <RootNamespace>SwedbankPay.Sdk</RootNamespace>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);NugetPack</TargetsForTfmSpecificBuildOutput>
   </PropertyGroup>
 
   <ItemGroup>
@@ -36,9 +35,7 @@
       <PackagePath></PackagePath>
     </None>
   </ItemGroup>
-  <Target Name="NugetPack">
-    <ItemGroup>
-      <BuildOutputInPackage Include="$(OutputPath)SwedbankPay.Sdk.dll" />
-    </ItemGroup>
-  </Target>
+  <ItemGroup>
+    <BuildOutputInPackage Include="$(OutputPath)SwedbankPay.Sdk.dll" />
+  </ItemGroup>
 </Project>
