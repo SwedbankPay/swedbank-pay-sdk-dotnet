@@ -11,6 +11,8 @@
     <RepositoryType>git</RepositoryType>
     <PackageReleaseNotes>Swish payment handling. CreditCard payment handling. Checkout handling.</PackageReleaseNotes>
     <RootNamespace>SwedbankPay.Sdk</RootNamespace>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>

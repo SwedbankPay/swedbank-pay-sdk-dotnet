@@ -12,6 +12,8 @@
     <AssemblyName>SwedbankPay.Sdk</AssemblyName>
     <RootNamespace>SwedbankPay.Sdk</RootNamespace>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>SwedbankPay.Sdk.xml</DocumentationFile>
