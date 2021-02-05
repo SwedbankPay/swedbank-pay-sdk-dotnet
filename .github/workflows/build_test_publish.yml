@@ -159,6 +159,10 @@ jobs:
     - name: Install dependencies
       run: dotnet restore ./src/SwedbankPay.Sdk.sln
 
+    - uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '5.0.x' # SDK Version to use; x will use the latest version of the 3.1 channel
+
     - name: Build solution
       run: dotnet build ./src/SwedbankPay.Sdk.sln
 
