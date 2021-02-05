@@ -37,7 +37,8 @@ dotnet pack "$PROJECT_FILE" \
     -p:NuspecFile=../SwedbankPay.Sdk.nuspec \
     -p:NuspecBasePath=. \
     -p:NuspecProperties="version=$sanitized_version_number" \
-    -p:PackageVersion="$sanitized_version_number" \
+    -p:PackageVersion="version=$sanitized_version_number" \
+    -p:Version="version=$sanitized_version_number" \
     -p:IncludeSymbols=true \
     -p:SymbolPackageFormat=snupkg \
     --configuration Release \
