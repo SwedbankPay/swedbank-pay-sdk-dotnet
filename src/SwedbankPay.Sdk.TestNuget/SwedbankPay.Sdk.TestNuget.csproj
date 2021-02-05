@@ -3,17 +3,4 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="SwedbankPay.Sdk.Infrastructure" Version="2.0.0-alpha.dx-1475-fix-nuget-package-name.1.43" />
-  </ItemGroup>
-
-
-<!--
-  <ItemGroup>
-    <Reference Include="SwedbankPay.Sdk">
-      <HintPath>..\SwedbankPay.Sdk.Infrastructure\bin\Debug\netstandard2.1\SwedbankPay.Sdk.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  -->
 </Project>
