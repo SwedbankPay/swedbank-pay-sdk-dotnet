@@ -28,4 +28,4 @@ fi
 
 sanitized_version_number=${VERSION_NUMBER//\+/.}
 
-dotnet add $PROJECT_FILE package SwedbankPay.Sdk --version $sanitized_version_number
+dotnet add "$PROJECT_FILE" package SwedbankPay.Sdk --version "$sanitized_version_number"
