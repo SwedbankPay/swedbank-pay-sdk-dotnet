@@ -25,11 +25,6 @@ if [[ -z "$PROJECT_FILE" ]]; then
     echo "$help_message"
     exit 1
 fi
-if [[ -z "$NUGET_KEY" ]]; then
-    echo "Missing or empty NUGET_KEY environment variable." >&2
-    echo "$help_message"
-    exit 1
-fi
 
 sanitized_version_number=${VERSION_NUMBER//\+/.}
 
