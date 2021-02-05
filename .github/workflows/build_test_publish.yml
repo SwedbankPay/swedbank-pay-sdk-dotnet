@@ -185,7 +185,7 @@ jobs:
 
     - name: Test install of package
       env:
-        PROJECT_FILE: src/SwedbankPay.Sdk.Infrastructure/SwedbankPay.Sdk.Infrastructure.csproj
+        PROJECT_FILE: src/SwedbankPay.Sdk.TestNuget/SwedbankPay.Sdk.TestNuget.csproj
         VERSION_NUMBER: ${{ needs.variables.outputs.FULLSEMVER }}
       run: .github/workflows/nuget_install.sh
 
