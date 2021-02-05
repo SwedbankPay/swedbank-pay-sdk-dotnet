@@ -16,8 +16,6 @@ jobs:
       AZURE_WEBAPP_NAME: ${{ steps.setoutputvariables.outputs.AZURE_WEBAPP_NAME }}
       NUGETVERSIONV2: ${{ steps.setoutputvariables.outputs.NUGETVERSIONV2 }}
       FULLSEMVER:  ${{ steps.gitversion.outputs.fullSemVer }}
-      GITVERSION_SEMVER: ${{ steps.setoutputvariables.outputs.GitVersion_SemVer }}
-      GITVERSION_BUILDMETADATA: ${{ steps.setoutputvariables.outputs.GitVersion_BuildMetaData }}
        
     steps:
       - uses: actions/checkout@v2
@@ -68,8 +66,6 @@ jobs:
             echo "::set-output name=AZURE_WEBAPP_NAME::${AZURE_WEBAPP_NAME}"
             echo "::set-output name=NUGETVERSIONV2::${NUGETVERSIONV2}"
             echo "::set-output name=FULLSEMVER::${FULLSEMVER}"
-            echo "::set-output name=GITVERSION_SEMVER::${GITVERSION_SEMVER}"
-            echo "::set-output name=GITVERSION_BUILDMETADATA::${GITVERSION_BUILDMETADATA}"
 
   
   build:
@@ -131,24 +127,24 @@ jobs:
     - name: Download All artifacts
       uses: actions/download-artifact@v2
 
-    #- name: Run SDK Unit Tests
-    #  run: dotnet test src/SwedbankPay.Sdk.Tests/SwedbankPay.Sdk.Tests.csproj
+    - name: Run SDK Unit Tests
+      run: dotnet test src/SwedbankPay.Sdk.Tests/SwedbankPay.Sdk.Tests.csproj
 
-    #- name: Run SDK Integration Tests
-    #  run: dotnet test src/SwedbankPay.Sdk.IntegrationTests/SwedbankPay.Sdk.IntegrationTests.csproj
-    #  env:
-    #    SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
-    #    SwedbankPay:TokenMobilePay: ${{ secrets.MERCHANT_TOKEN_MOBILE_PAY }}
-    #    SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
+    - name: Run SDK Integration Tests
+      run: dotnet test src/SwedbankPay.Sdk.IntegrationTests/SwedbankPay.Sdk.IntegrationTests.csproj
+      env:
+        SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
+        SwedbankPay:TokenMobilePay: ${{ secrets.MERCHANT_TOKEN_MOBILE_PAY }}
+        SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
 
-    #- name: Run SDK Sample project tests
-    #  run: dotnet test  src/Samples/Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.csproj
-    #  env:
-    #    SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
-    #    SwedbankPay:TokenMobilePay: ${{ secrets.MERCHANT_TOKEN_MOBILE_PAY }}
-    #    SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
-    #    SwedbankPay:ApiBaseUrl: https://api.externalintegration.payex.com
-    #    SwedbankPay:Sdk:SampleWebsite:BaseUrl: https://localhost:5001
+    - name: Run SDK Sample project tests
+      run: dotnet test  src/Samples/Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.csproj
+      env:
+        SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
+        SwedbankPay:TokenMobilePay: ${{ secrets.MERCHANT_TOKEN_MOBILE_PAY }}
+        SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
+        SwedbankPay:ApiBaseUrl: https://api.externalintegration.payex.com
+        SwedbankPay:Sdk:SampleWebsite:BaseUrl: https://localhost:5001
   test_nuget_package:
     runs-on: ubuntu-20.04
     needs: [variables]
@@ -169,7 +165,7 @@ jobs:
     - name: Create test NuGet package
       env:
         PROJECT_FILE: src/SwedbankPay.Sdk.Infrastructure/SwedbankPay.Sdk.Infrastructure.csproj
-        VERSION_NUMBER: "${{ needs.variables.outputs.GITVERSION_SEMVER }}.${{ needs.variables.outputs.GITVERSION_BUILDMETADATA }}" # FullSemver contains illigal sign +
+        VERSION_NUMBER: ${{ needs.variables.outputs.FULLSEMVER }}
         NUGET_KEY: not-needed
         DEBUG: true
       run: .github/workflows/nuget_push.sh
@@ -188,8 +184,10 @@ jobs:
       run: cat src/SwedbankPay.Sdk.TestNuget/NuGet.Config
 
     - name: Test install of package
-      run: dotnet add SwedbankPay.Sdk.TestNuget.csproj package SwedbankPay.Sdk --version ${{ needs.variables.outputs.GITVERSION_SEMVER }}.${{ needs.variables.outputs.GITVERSION_BUILDMETADATA }}
-      working-directory: src/SwedbankPay.Sdk.TestNuget
+      env:
+        PROJECT_FILE: src/SwedbankPay.Sdk.TestNuget/SwedbankPay.Sdk.TestNuget.csproj
+        VERSION_NUMBER: ${{ needs.variables.outputs.FULLSEMVER }}
+      run: .github/workflows/nuget_install.sh
 
     - name: Print csproj
       run: cat src/SwedbankPay.Sdk.TestNuget/SwedbankPay.Sdk.TestNuget.csproj
