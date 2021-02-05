@@ -169,7 +169,7 @@ jobs:
     - name: Create test NuGet package
       env:
         PROJECT_FILE: src/SwedbankPay.Sdk.Infrastructure/SwedbankPay.Sdk.Infrastructure.csproj
-        VERSION_NUMBER: "${{ needs.variables.outputs.GITVERSION_SEMVER }}.${{ needs.variables.outputs.GITVERSION_BUILDMETADATA }}" # FullSemver contains illigal sign +
+        VERSION_NUMBER: ${{ needs.variables.outputs.FULLSEMVER }}
         NUGET_KEY: not-needed
         DEBUG: true
       run: .github/workflows/nuget_push.sh
