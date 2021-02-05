@@ -188,8 +188,10 @@ jobs:
       run: cat src/SwedbankPay.Sdk.TestNuget/NuGet.Config
 
     - name: Test install of package
-      run: dotnet add SwedbankPay.Sdk.TestNuget.csproj package SwedbankPay.Sdk --version ${{ needs.variables.outputs.GITVERSION_SEMVER }}.${{ needs.variables.outputs.GITVERSION_BUILDMETADATA }}
-      working-directory: src/SwedbankPay.Sdk.TestNuget
+      env:
+        PROJECT_FILE: src/SwedbankPay.Sdk.Infrastructure/SwedbankPay.Sdk.Infrastructure.csproj
+        VERSION_NUMBER: ${{ needs.variables.outputs.FULLSEMVER }}
+      run: .github/workflows/nuget_install.sh
 
     - name: Print csproj
       run: cat src/SwedbankPay.Sdk.TestNuget/SwedbankPay.Sdk.TestNuget.csproj
