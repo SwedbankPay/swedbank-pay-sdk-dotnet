@@ -28,8 +28,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SwedbankPay.Sdk\SwedbankPay.Sdk.csproj" PrivateAssets="All">
-      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
-      <IncludeAssets>SwedbankPay.Sdk.dll</IncludeAssets>
     </ProjectReference>
   </ItemGroup>
 
