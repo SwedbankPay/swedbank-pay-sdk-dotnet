@@ -151,19 +151,20 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v0.9.6
-        with:
-          versionSpec: '5.x.x'
- 
-      - name: Fetch all history for all tags and branches
-        run: git fetch --prune --unshallow
- 
-      - name: Use GitVersion
-        id: gitversion # step id used as reference for output values
-        uses: gittools/actions/gitversion/execute@v0.9.6
-        with:
-          updateAssemblyInfo: true
+
+    - name: Install GitVersion for nuget test
+      uses: gittools/actions/gitversion/setup@v0.9.6
+      with:
+        versionSpec: '5.x.x'
+
+    - name: Fetch all history for all tags and branches
+      run: git fetch --prune --unshallow
+
+    - name: Use GitVersion
+      id: gitversion # step id used as reference for output values
+      uses: gittools/actions/gitversion/execute@v0.9.6
+      with:
+        updateAssemblyInfo: true
 
     - name: Install dependencies
       run: dotnet restore ./src/SwedbankPay.Sdk.sln
