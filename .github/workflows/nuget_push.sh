@@ -38,6 +38,7 @@ dotnet pack "$PROJECT_FILE" \
     -p:NuspecBasePath=. \
     -p:NuspecProperties="version=$sanitized_version_number" \
     -p:PackageVersion="$sanitized_version_number" \
+    -p:Version="$sanitized_version_number" \
     -p:IncludeSymbols=true \
     -p:SymbolPackageFormat=snupkg \
     --configuration Release \
