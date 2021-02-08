@@ -116,13 +116,16 @@ jobs:
   test:
     runs-on: ubuntu-20.04
     needs: [variables, build]
+    strategy:
+      matrix:
+        dotnet: [ '3.0', '3.1.x' ]
 
     steps:
     - uses: actions/checkout@v2
 
     - uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '3.1.x' # SDK Version to use; x will use the latest version of the 3.1 channel
+        dotnet-version: ${{ matrix.dotnet }} # SDK Version to use; x will use the latest version of the 3.1 channel
 
     - name: Download All artifacts
       uses: actions/download-artifact@v2
