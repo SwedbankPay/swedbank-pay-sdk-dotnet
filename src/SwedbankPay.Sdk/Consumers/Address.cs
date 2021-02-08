@@ -23,7 +23,7 @@
         /// <summary>
         /// Country Code for country of residence.
         /// </summary>
-        public CountryCode CountryCode { get; set; }
+        public string CountryCode { get; set; }
 
         /// <summary>
         /// Payers street address
