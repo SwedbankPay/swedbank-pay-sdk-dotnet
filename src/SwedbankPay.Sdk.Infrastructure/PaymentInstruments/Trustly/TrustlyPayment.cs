@@ -17,8 +17,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
             Currency = new Currency(payment.Currency);
             Description = payment.Description;
             Id = new Uri(payment.Id, UriKind.RelativeOrAbsolute);
-            Instrument = EnumExtensions.Parse<PaymentInstrument>(payment.Instrument);
-            Intent = EnumExtensions.Parse<PaymentIntent>(payment.Intent);
+            Instrument = StringExtensions.Parse<PaymentInstrument>(payment.Instrument);
+            Intent = StringExtensions.Parse<PaymentIntent>(payment.Intent);
             Language = new Language(payment.Language);
             Number = payment.Number;
             Operation = payment.Operation;

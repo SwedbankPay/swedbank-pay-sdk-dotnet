@@ -30,7 +30,7 @@ namespace SwedbankPay.Sdk
                 operations.Add(new HttpOperation(item.Href, rel, item.Method, item.ContentType));
             }
 
-            var type = string.IsNullOrEmpty(Type)? TransactionType.Unknown : EnumExtensions.Parse<TransactionType>(Type);
+            var type = string.IsNullOrEmpty(Type)? TransactionType.Unknown : StringExtensions.Parse<TransactionType>(Type);
             var state = string.IsNullOrEmpty(State) ? "Unknown" : State;
             var id = new Uri(Id, UriKind.RelativeOrAbsolute);
 

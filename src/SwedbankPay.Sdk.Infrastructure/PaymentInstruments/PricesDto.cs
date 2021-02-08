@@ -15,7 +15,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
             var listPrice = new List<IPrice>();
             foreach (var item in PriceList)
             {
-                listPrice.Add(new Price(item.Amount, EnumExtensions.Parse<PriceType>(item.Type), item.VatAmount));
+                listPrice.Add(new Price(item.Amount, StringExtensions.Parse<PriceType>(item.Type), item.VatAmount));
             }
             var uri = new Uri(Id, UriKind.RelativeOrAbsolute);
             return new PriceListResponse(uri, listPrice);
