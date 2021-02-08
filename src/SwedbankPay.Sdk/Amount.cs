@@ -314,8 +314,9 @@ namespace SwedbankPay.Sdk
             // Use "Banker's Rounding" by default.
             const MidpointRounding roundingMode = MidpointRounding.ToEven;
             var roundedAmount = Math.Round(this.amount, 2, roundingMode);
+            roundedAmount *= 100;
             var longAmount = Convert.ToInt64(roundedAmount);
-            return longAmount * 100;
+            return longAmount;
         }
     }
 }
