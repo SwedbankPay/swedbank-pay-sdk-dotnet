@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SwedbankPay.Sdk.Extensions;
+using System;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
@@ -21,7 +22,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             Currency = new Currency(payment.Currency);
             Description = payment.Description;
             Id = new Uri(payment.Id, UriKind.RelativeOrAbsolute);
-            Instrument = Enum.Parse<PaymentInstrument>(payment.Instrument);
+            Instrument = EnumExtensions.Parse<PaymentInstrument>(payment.Instrument);
             Language = new Language(payment.Language);
             Number = payment.Number;
             Operation = payment.Operation;
@@ -42,7 +43,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             Transactions = payment.Transactions?.Map();
             if (!string.IsNullOrEmpty(payment.Intent))
             {
-                Intent = Enum.Parse<PaymentIntent>(payment.Intent);
+                Intent = EnumExtensions.Parse<PaymentIntent>(payment.Intent);
             }
         }
 

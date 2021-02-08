@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SwedbankPay.Sdk.Extensions;
+using System;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
 {
@@ -19,8 +20,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
             Currency = new Currency(payment.Currency);
             Description = payment.Description;
             Id = new Uri(payment.Id, UriKind.RelativeOrAbsolute);
-            Instrument = Enum.Parse<PaymentInstrument>(payment.Instrument);
-            Intent = Enum.Parse<PaymentIntent>(payment.Intent);
+            Instrument = EnumExtensions.Parse<PaymentInstrument>(payment.Instrument);
+            Intent = EnumExtensions.Parse<PaymentIntent>(payment.Intent);
             Language = new Language(payment.Language);
             Number = payment.Number;
             Operation = payment.Operation;

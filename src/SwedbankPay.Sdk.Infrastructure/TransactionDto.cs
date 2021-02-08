@@ -1,4 +1,5 @@
-﻿using SwedbankPay.Sdk.PaymentInstruments;
+﻿using SwedbankPay.Sdk.Extensions;
+using SwedbankPay.Sdk.PaymentInstruments;
 using System;
 
 namespace SwedbankPay.Sdk
@@ -29,7 +30,7 @@ namespace SwedbankPay.Sdk
                 operations.Add(new HttpOperation(item.Href, rel, item.Method, item.ContentType));
             }
 
-            var type = string.IsNullOrEmpty(Type)? TransactionType.Unknown : Enum.Parse<TransactionType>(Type);
+            var type = string.IsNullOrEmpty(Type)? TransactionType.Unknown : EnumExtensions.Parse<TransactionType>(Type);
             var state = string.IsNullOrEmpty(State) ? "Unknown" : State;
             var id = new Uri(Id, UriKind.RelativeOrAbsolute);
 

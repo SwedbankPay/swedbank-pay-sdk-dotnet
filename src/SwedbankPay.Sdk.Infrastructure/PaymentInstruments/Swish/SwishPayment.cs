@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SwedbankPay.Sdk.Extensions;
+using System;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
@@ -9,9 +10,9 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
             Number = payment.Number;
             Created = payment.Created;
             Updated = payment.Updated;
-            Instrument = Enum.Parse<PaymentInstrument>(payment.Instrument);
+            Instrument = EnumExtensions.Parse<PaymentInstrument>(payment.Instrument);
             Operation = payment.Operation;
-            Intent = Enum.Parse<PaymentIntent>(payment.Intent);
+            Intent = EnumExtensions.Parse<PaymentIntent>(payment.Intent);
             State = payment.State;
             Currency = new Currency(payment.Currency);
             Prices = payment.Prices.Map();
