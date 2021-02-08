@@ -10,9 +10,9 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
             Number = payment.Number;
             Created = payment.Created;
             Updated = payment.Updated;
-            Instrument = StringExtensions.Parse<PaymentInstrument>(payment.Instrument);
+            Instrument = payment.Instrument.ParseTo<PaymentInstrument>();
             Operation = payment.Operation;
-            Intent = StringExtensions.Parse<PaymentIntent>(payment.Intent);
+            Intent = payment.Intent.ParseTo<PaymentIntent>();
             State = payment.State;
             Currency = new Currency(payment.Currency);
             Prices = payment.Prices.Map();

@@ -10,13 +10,13 @@ namespace SwedbankPay.Sdk.PaymentOrders
             : base(payment.Id)
         {
             Number = payment.Number;
-            Instrument = StringExtensions.Parse<PaymentInstrument>(payment.Instrument);
+            Instrument = payment.Instrument.ParseTo<PaymentInstrument>();
             Created = payment.Created;
             Updated = payment.Updated;
             Amount = payment.Amount;
             Currency = new Currency(payment.Currency);
             Description = payment.Description;
-            Intent = StringExtensions.Parse<PaymentIntent>(payment.Intent);
+            Intent = payment.Intent.ParseTo<PaymentIntent>();
             Language = new Language(payment.Language);
             Operation = payment.Operation;
             PayeeInfo = payment.PayeeInfo.Map();

@@ -12,7 +12,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             Number = dto.Number;
             Created = dto.Created;
             Updated = dto.Updated;
-            Instrument = StringExtensions.Parse<PaymentInstrument>(dto.Instrument);
+            Instrument = dto.Instrument.ParseTo<PaymentInstrument>();
             Operation = dto.Operation;
             State = dto.State;
             Currency = new Currency(dto.Currency);

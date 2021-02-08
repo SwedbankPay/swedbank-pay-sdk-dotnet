@@ -22,7 +22,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             Currency = new Currency(payment.Currency);
             Description = payment.Description;
             Id = new Uri(payment.Id, UriKind.RelativeOrAbsolute);
-            Instrument = StringExtensions.Parse<PaymentInstrument>(payment.Instrument);
+            Instrument = payment.Instrument.ParseTo<PaymentInstrument>();
             Language = new Language(payment.Language);
             Number = payment.Number;
             Operation = payment.Operation;
@@ -43,7 +43,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             Transactions = payment.Transactions?.Map();
             if (!string.IsNullOrEmpty(payment.Intent))
             {
-                Intent = StringExtensions.Parse<PaymentIntent>(payment.Intent);
+                Intent = payment.Intent.ParseTo<PaymentIntent>();
             }
         }
 
