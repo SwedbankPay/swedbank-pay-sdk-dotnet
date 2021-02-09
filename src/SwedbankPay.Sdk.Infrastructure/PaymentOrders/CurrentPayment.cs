@@ -1,4 +1,5 @@
-﻿using SwedbankPay.Sdk.PaymentInstruments;
+﻿using SwedbankPay.Sdk.Extensions;
+using SwedbankPay.Sdk.PaymentInstruments;
 using System;
 
 namespace SwedbankPay.Sdk.PaymentOrders
@@ -9,13 +10,13 @@ namespace SwedbankPay.Sdk.PaymentOrders
             : base(payment.Id)
         {
             Number = payment.Number;
-            Instrument = Enum.Parse<PaymentInstrument>(payment.Instrument);
+            Instrument = payment.Instrument.ParseTo<PaymentInstrument>();
             Created = payment.Created;
             Updated = payment.Updated;
             Amount = payment.Amount;
             Currency = new Currency(payment.Currency);
             Description = payment.Description;
-            Intent = Enum.Parse<PaymentIntent>(payment.Intent);
+            Intent = payment.Intent.ParseTo<PaymentIntent>();
             Language = new Language(payment.Language);
             Operation = payment.Operation;
             PayeeInfo = payment.PayeeInfo.Map();

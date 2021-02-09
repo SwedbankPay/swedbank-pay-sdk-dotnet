@@ -1,5 +1,5 @@
 ﻿using System;
-
+using SwedbankPay.Sdk.Extensions;
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
 {
@@ -17,8 +17,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
             Currency = new Currency(payment.Currency);
             Description = payment.Description;
             Id = new Uri(payment.Id, UriKind.RelativeOrAbsolute);
-            Instrument = Enum.Parse<PaymentInstrument>(payment.Instrument);
-            Intent = Enum.Parse<PaymentIntent>(payment.Intent);
+            Instrument = payment.Instrument.ParseTo<PaymentInstrument>();
+            Intent = payment.Intent.ParseTo<PaymentIntent>();
             Language = new Language(payment.Language);
             Number = payment.Number;
             Operation = payment.Operation;
