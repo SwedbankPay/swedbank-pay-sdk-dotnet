@@ -7657,6 +7657,11 @@
                 NOK.
             </summary>
         </member>
+        <member name="P:SwedbankPay.Sdk.PaymentOrders.PaymentOrderUpdateRequestDetails.OrderItems">
+            <summary>
+            Order items to update
+            </summary>
+        </member>
         <member name="T:SwedbankPay.Sdk.PaymentOrders.PickUpAddress">
             <summary>
                 If shipIndicator set, then prefil 

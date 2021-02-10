@@ -1,4 +1,6 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrders
+﻿using System.Collections.Generic;
+
+namespace SwedbankPay.Sdk.PaymentOrders
 {
     /// <summary>
     /// API details for updating the amounts on a payment order.
@@ -36,5 +38,10 @@
         ///     NOK.
         /// </summary>
         public Amount VatAmount { get; }
+
+        /// <summary>
+        /// Order items to update
+        /// </summary>
+        public IList<IOrderItem> OrderItems { get; set; } = new List<IOrderItem>();
     }
 }
