@@ -19,7 +19,7 @@ namespace SwedbankPay.Sdk
         public DateTime Updated { get; set; }
         public long VatAmount { get; set; }
         public string Activity { get; set; }
-        public Problem Problem { get; set; }
+        public ProblemDto Problem { get; set; }
 
         internal ITransaction Map()
         {
@@ -48,7 +48,7 @@ namespace SwedbankPay.Sdk
                                    operations,
                                    Activity)
             {
-                Problem = Problem
+                Problem = Problem.Map()
             };
             return transaction;
         }
