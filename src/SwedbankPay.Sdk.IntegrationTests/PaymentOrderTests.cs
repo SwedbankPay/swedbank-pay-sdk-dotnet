@@ -75,14 +75,14 @@ namespace SwedbankPay.Sdk.Tests
             Assert.NotNull(paymentOrder);
             Assert.NotNull(paymentOrder.PaymentOrder);
 
-            var newAmount = 50000;
-            var updateRequest = new PaymentOrderUpdateRequest(new Amount(newAmount), new Amount(0));
-            updateRequest.PaymentOrder.OrderItems.Add(new OrderItem("p3", "Product3", OrderItemType.Product, "ProductGroup3", 1, "pcs", 50000, 0,
-                              50000, 0)
+            OrderItem updateOrderitem = new OrderItem("p3", "Product3", OrderItemType.Product, "ProductGroup3", 1, "pcs", 50000, 0,
+                                          50000, 0)
             {
                 ItemUrl = "https://example.com/products/1234",
                 ImageUrl = "https://example.com/products/1234.jpg"
-            });
+            };
+            var updateRequest = new PaymentOrderUpdateRequest(updateOrderitem.Amount, updateOrderitem.VatAmount);
+            updateRequest.PaymentOrder.OrderItems.Add(updateOrderitem);
             _ = await paymentOrder.Operations.Update.Invoke(updateRequest);
         }
 

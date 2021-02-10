@@ -9,7 +9,10 @@ namespace SwedbankPay.Sdk.PaymentOrders
 			Amount = paymentOrder.Amount.InLowestMonetaryUnit;
 			Operation = paymentOrder.Operation.Value;
 			VatAmount = paymentOrder.VatAmount?.InLowestMonetaryUnit;
-			OrderItems = paymentOrder.OrderItems;
+            foreach (var item in paymentOrder.OrderItems)
+            {
+				OrderItems.Add(new OrderItemDto(item));
+            }
 		}
 
 		public long Amount { get; }
@@ -18,6 +21,6 @@ namespace SwedbankPay.Sdk.PaymentOrders
 
 		public long? VatAmount { get; }
 
-		public IList<IOrderItem> OrderItems { get; set; }
+		public IList<OrderItemDto> OrderItems { get; } = new List<OrderItemDto>();
 	}
 }
