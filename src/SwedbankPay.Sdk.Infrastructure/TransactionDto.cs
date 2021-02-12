@@ -19,7 +19,7 @@ namespace SwedbankPay.Sdk
         public DateTime Updated { get; set; }
         public long VatAmount { get; set; }
         public string Activity { get; set; }
-        public Problem Problem { get; set; }
+        public ProblemDto Problem { get; set; }
 
         internal ITransaction Map()
         {
@@ -33,6 +33,8 @@ namespace SwedbankPay.Sdk
             var type = string.IsNullOrEmpty(Type)? TransactionType.Unknown : Type.ParseTo<TransactionType>();
             var state = string.IsNullOrEmpty(State) ? "Unknown" : State;
             var id = new Uri(Id, UriKind.RelativeOrAbsolute);
+
+            var problem = Problem?.Map();
 
             var transaction = new Transaction(id,
                                    Created,
@@ -48,7 +50,7 @@ namespace SwedbankPay.Sdk
                                    operations,
                                    Activity)
             {
-                Problem = Problem
+                Problem = problem
             };
             return transaction;
         }

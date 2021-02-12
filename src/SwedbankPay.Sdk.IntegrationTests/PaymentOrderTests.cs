@@ -67,6 +67,25 @@ namespace SwedbankPay.Sdk.Tests
             await Assert.ThrowsAsync<HttpResponseException>(() => paymentOrder.Operations.Update?.Invoke(updateRequest));
         }
 
+        [Fact]
+        public async Task CreateAndUpdatePaymentOrder_WithOrderItems_ShouldNotThrowHttpResponseException()
+        {
+            var paymentOrderRequest = this.paymentOrderRequestBuilder.WithTestValues(this.payeeId).WithOrderItems().Build();
+            var paymentOrder = await this.Sut.PaymentOrders.Create(paymentOrderRequest, PaymentOrderExpand.All);
+            Assert.NotNull(paymentOrder);
+            Assert.NotNull(paymentOrder.PaymentOrder);
+
+            OrderItem updateOrderitem = new OrderItem("p3", "Product3", OrderItemType.Product, "ProductGroup3", 1, "pcs", 50000, 0,
+                                          50000, 0)
+            {
+                ItemUrl = "https://example.com/products/1234",
+                ImageUrl = "https://example.com/products/1234.jpg"
+            };
+            var updateRequest = new PaymentOrderUpdateRequest(updateOrderitem.Amount, updateOrderitem.VatAmount);
+            updateRequest.PaymentOrder.OrderItems.Add(updateOrderitem);
+            _ = await paymentOrder.Operations.Update.Invoke(updateRequest);
+        }
+
 
         [Fact]
         public async Task CreateAndUpdatePaymentOrder_ShouldReturnPaymentOrderWithNewAmounts()
