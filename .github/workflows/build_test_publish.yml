@@ -191,7 +191,7 @@ jobs:
       run: dotnet nuget push "nugets/*.snupkg" --api-key ${{github.token}} --source https://nuget.pkg.github.com/SwedbankPay/index.json --skip-duplicate
 
     - name: Setup nuget config
-      run: awk '{gsub(/GITHUB_USER/, "${{ github.actor }}"); print}' NuGet.Config | awk '{gsub(/GITHUB_TOKEN/, "${{ secrets.GITHUB_TOKEN }}"); print}' $1 | tee NuGet.Config
+      run: awk '{gsub("GITHUB_USER", "${{ github.actor }}"); print}' NuGet.Config | awk '{gsub("GITHUB_TOKEN", "${{ secrets.GITHUB_TOKEN }}"); print}' $1 | tee NuGet.Config
       working-directory: src/SwedbankPay.Sdk.TestNuget
 
     - name: Print nuget config
