@@ -7,10 +7,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         public TransactionResponse(Uri id, TransactionDto transaction)
             : base(id)
         {
-            if(transaction != null)
-            {
-                Transaction = transaction.Map();
-            }
+            Transaction = transaction?.Map();
         }
 
         public ITransaction Transaction { get; }
