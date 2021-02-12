@@ -11,7 +11,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
 			VatAmount = paymentOrder.VatAmount?.InLowestMonetaryUnit;
             foreach (var item in paymentOrder.OrderItems)
             {
-				OrderItems.Add(new OrderItemDto(item));
+                OrderItems.Add(new OrderItemDto(item));
             }
 		}
 
