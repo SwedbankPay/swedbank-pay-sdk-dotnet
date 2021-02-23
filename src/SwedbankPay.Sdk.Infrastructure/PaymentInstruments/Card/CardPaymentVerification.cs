@@ -13,6 +13,7 @@
             CardBrand = dto.CardBrand;
             CardType = dto.CardType;
             Transaction = dto.Transaction.Map();
+            IsOperational = dto.IsOperational;
         }
 
         public string CardBrand { get; }
@@ -23,5 +24,6 @@
         public string ExpiryDate { get; }
         public string PanToken { get; }
         public ITransaction Transaction { get; }
+        public bool IsOperational { get; }
     }
 }

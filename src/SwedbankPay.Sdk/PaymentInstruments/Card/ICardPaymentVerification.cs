@@ -10,5 +10,6 @@
         string ExpiryDate { get; }
         string PanToken { get; }
         ITransaction Transaction { get; }
+        bool IsOperational { get; }
     }
 }

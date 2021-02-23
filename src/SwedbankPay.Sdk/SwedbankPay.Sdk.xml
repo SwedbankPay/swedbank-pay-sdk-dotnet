@@ -5756,6 +5756,11 @@
             Transaction was used to initialize a payment.
             </summary>
         </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.TransactionType.Verification">
+            <summary>
+            Transaction was used to verify a payment
+            </summary>
+        </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.Trustly.ITrustlyPayment">
             <summary>
             Transacational details for a Trustly payment.
