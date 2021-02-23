@@ -5,12 +5,12 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
     internal class CardPaymentVerifyResponseDetailsDto
     {
-        public string Id { get; set; }
-        public IList<CardPaymentVerifyResponse> VerificationList { get; set; }
+        public Uri Id { get; set; }
+        public IList<CardPaymentVerificationDto> VerificationList { get; set; }
 
         internal ICardPaymentVerifyResponseDetails Map()
         {
-            throw new NotImplementedException();
+            return new CardPaymentVerifyResponseDetails(Id, VerificationList);
         }
     }
 }
