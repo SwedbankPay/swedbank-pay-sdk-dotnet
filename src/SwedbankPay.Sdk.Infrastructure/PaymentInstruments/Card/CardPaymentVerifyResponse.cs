@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SwedbankPay.Sdk.PaymentInstruments.Card
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
     internal class CardPaymentVerifyResponse : Identifiable, ICardPaymentVerifyResponse
     {
-        public CardPaymentVerifyResponse(Uri id, IList<ICardPaymentAuthorization> verificationList)
-            : base(id)
+        public CardPaymentVerifyResponse(CardPaymentVerifyResponseDto dto)
+            : base(dto.Id)
         {
-            VerificationList = verificationList ?? throw new ArgumentNullException(nameof(verificationList));
+            VerificationList = dto.verificationList;
         }
 
-        public IList<ICardPaymentAuthorization> VerificationList { get; }
+        public ICardPaymentVerifications Verifications { get; }
     }
 }

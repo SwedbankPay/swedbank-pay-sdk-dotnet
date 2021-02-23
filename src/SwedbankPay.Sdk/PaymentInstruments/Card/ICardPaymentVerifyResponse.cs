@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace SwedbankPay.Sdk.PaymentInstruments.Card
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
     /// <summary>
     /// Response of verifying a card payment.
@@ -10,6 +8,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// <summary>
         /// Available list of verifications.
         /// </summary>
-        IList<ICardPaymentAuthorization> VerificationList { get; }
+        ICardPaymentVerifications VerificationList { get; }
     }
 }
