@@ -85,7 +85,13 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
         {
             var api_response = cardPaymentVerificationList;
             var dto = JsonSerializer.Deserialize<CardPaymentVerifyResponseDto>(api_response, JsonSerialization.JsonSerialization.Settings);
-            _ = new CardPaymentVerifyResponse(dto);
+            var result = new CardPaymentVerifyResponse(dto);
+
+            Assert.Equal("/psp/creditcard/payments/5adc265f-f87f-4313-577e-08d3dca1a26c", result.Id.OriginalString);
+
+            var verification = result.Verifications;
+
+            Assert.Equal("/psp/creditcard/payments/5adc265f-f87f-4313-577e-08d3dca1a26c/verifications", verification.Id.OriginalString);
         }
     }
 }
