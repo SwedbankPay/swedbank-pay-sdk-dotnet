@@ -8,6 +8,6 @@
         /// <summary>
         /// Available list of verifications.
         /// </summary>
-        ICardPaymentVerifications VerificationList { get; }
+        ICardPaymentVerifyResponseDetails Verifications { get; }
     }
 }

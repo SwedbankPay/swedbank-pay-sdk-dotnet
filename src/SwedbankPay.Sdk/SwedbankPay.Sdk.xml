@@ -3053,7 +3053,7 @@
             Response of verifying a card payment.
             </summary>
         </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentVerifyResponse.VerificationList">
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentVerifyResponse.Verifications">
             <summary>
             Available list of verifications.
             </summary>

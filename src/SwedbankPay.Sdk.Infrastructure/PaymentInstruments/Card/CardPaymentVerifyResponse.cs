@@ -3,11 +3,11 @@
     internal class CardPaymentVerifyResponse : Identifiable, ICardPaymentVerifyResponse
     {
         public CardPaymentVerifyResponse(CardPaymentVerifyResponseDto dto)
-            : base(dto.Id)
+            : base(dto.Payment)
         {
-            VerificationList = dto.verificationList;
+            Verifications = dto.Verifications.Map();
         }
 
-        public ICardPaymentVerifications Verifications { get; }
+        public ICardPaymentVerifyResponseDetails Verifications { get; }
     }
 }
