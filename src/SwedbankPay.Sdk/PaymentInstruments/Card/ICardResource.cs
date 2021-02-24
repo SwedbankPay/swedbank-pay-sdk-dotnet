@@ -32,5 +32,13 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// <param name="paymentExpand"></param>
         /// <returns></returns>
         Task<ICardPaymentRecurResponse> Create(CardPaymentRecurRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.All);
+
+        /// <summary>
+        /// Creates a new card payment with verify
+        /// </summary>
+        /// <param name="paymentRequest"></param>
+        /// <param name="paymentExpand"></param>
+        /// <returns></returns>
+        Task<ICardPaymentVerifyResponse> Create(CardPaymentVerifyRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.All);
     }
 }
