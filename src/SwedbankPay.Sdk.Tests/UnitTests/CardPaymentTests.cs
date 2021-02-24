@@ -31,10 +31,6 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
           ""vatAmount"": 250,
           ""description"": ""Test transaction"",
           ""payeeReference"": ""AH123456"",
-          ""failedReason"": ""ExternalResponseError"",
-          ""failedActivityName"": ""Authorize"",
-          ""failedErrorCode"": ""REJECTED_BY_ACQUIRER"",
-          ""failedErrorDescription"": ""General decline, response-code: 05"",
           ""isOperational"": false,
           ""activities"": ""/psp/creditcard/payments/5adc265f-f87f-4313-577e-08d3dca1a26c/transactions/12345678-1234-1234-1234-123456789012/activities"",
           ""operations"": [
@@ -61,10 +57,6 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
           ""vatAmount"": 250,
           ""description"": ""Test transaction"",
           ""payeeReference"": ""AH123456"",
-          ""failedReason"": ""ExternalResponseError"",
-          ""failedActivityName"": ""Authorize"",
-          ""failedErrorCode"": ""REJECTED_BY_ACQUIRER"",
-          ""failedErrorDescription"": ""General decline, response-code: 05"",
           ""isOperational"": true,
           ""activities"": ""/psp/creditcard/payments/5adc265f-f87f-4313-577e-08d3dca1a26c/transactions/12345678-1234-1234-1234-123456789012/activities"",
           ""operations"": [
