@@ -10,7 +10,7 @@
         public string MaskedPan { get; set; }
         public string ExpiryDate { get; set; }
         public string PanToken { get; set; }
-        public TransactionDto Transaction { get; set; }
+        public VerifyTransactionDto Transaction { get; set; }
         public bool IsOperational { get; set; }
     }
 }

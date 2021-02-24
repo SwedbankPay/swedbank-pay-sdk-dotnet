@@ -12,7 +12,7 @@
             PanToken = dto.PanToken;
             CardBrand = dto.CardBrand;
             CardType = dto.CardType;
-            Transaction = dto.Transaction.Map();
+            Transaction = new VerifyTransaction(dto.Transaction);
             IsOperational = dto.IsOperational;
         }
 
@@ -23,7 +23,7 @@
         public string MaskedPan { get; }
         public string ExpiryDate { get; }
         public string PanToken { get; }
-        public ITransaction Transaction { get; }
+        public IVerifyTransaction Transaction { get; }
         public bool IsOperational { get; }
     }
 }

@@ -89,9 +89,28 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
 
             Assert.Equal("/psp/creditcard/payments/5adc265f-f87f-4313-577e-08d3dca1a26c", result.Id.OriginalString);
 
-            var verification = result.Verifications;
+            var verifications = result.Verifications;
 
-            Assert.Equal("/psp/creditcard/payments/5adc265f-f87f-4313-577e-08d3dca1a26c/verifications", verification.Id.OriginalString);
+            Assert.Equal("/psp/creditcard/payments/5adc265f-f87f-4313-577e-08d3dca1a26c/verifications", verifications.Id.OriginalString);
+
+            var verification = verifications.VerificationList[1];
+
+            Assert.Equal("/psp/creditcard/payments/5adc265f-f87f-4313-577e-08d3dca1a26c/verifications/12345678-1234-1234-1234-123456789012", verification.Id.OriginalString);
+            Assert.Equal("Visa", verification.CardBrand);
+            Assert.Equal("Credit", verification.CardType);
+            Assert.Equal("451f9dc8-2ab0-4901-bcc0-d2115f1c0a69", verification.PaymentToken);
+            Assert.Equal("12345678-1234-1234-1234-123456789013", verification.RecurrenceToken);
+            Assert.Equal("492500******0004", verification.MaskedPan);
+
+            var transaction = verification.Transaction;
+
+            Assert.NotNull(transaction);
+            Assert.Equal("ExternalResponseError", transaction.FailedReason);
+            Assert.Equal("Authorize", transaction.FailedActivityName);
+            Assert.Equal("REJECTED_BY_ACQUIRER", transaction.FailedErrorCode);
+            Assert.Equal("General decline, response-code: 05", transaction.FailedErrorDescription);
+            Assert.True(transaction.IsOperational);
+            Assert.Equal("/psp/creditcard/payments/5adc265f-f87f-4313-577e-08d3dca1a26c/transactions/12345678-1234-1234-1234-123456789012/activities", transaction.Activities);
         }
     }
 }

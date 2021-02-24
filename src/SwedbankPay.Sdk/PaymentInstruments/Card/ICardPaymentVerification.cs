@@ -9,7 +9,7 @@
         string MaskedPan { get; }
         string ExpiryDate { get; }
         string PanToken { get; }
-        ITransaction Transaction { get; }
+        IVerifyTransaction Transaction { get; }
         bool IsOperational { get; }
     }
 }
