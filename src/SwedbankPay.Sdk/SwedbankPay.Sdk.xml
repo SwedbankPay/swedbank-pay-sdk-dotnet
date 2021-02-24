@@ -3171,26 +3171,6 @@
             Transaction for a verified payment.
             </summary>
         </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.IVerifyTransaction.FailedReason">
-            <summary>
-            Textual reason for failure if there is one.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.IVerifyTransaction.FailedActivityName">
-            <summary>
-            Textual reason for failure activity if there is one.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.IVerifyTransaction.FailedErrorCode">
-            <summary>
-            Textual reason for failure code if there is one.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.IVerifyTransaction.FailedErrorDescription">
-            <summary>
-            Textual description for failure if there is one.
-            </summary>
-        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.IVerifyTransaction.Activities">
             <summary>
             Activities resource.

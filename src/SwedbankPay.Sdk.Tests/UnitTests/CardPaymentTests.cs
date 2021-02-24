@@ -105,10 +105,6 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
             var transaction = verification.Transaction;
 
             Assert.NotNull(transaction);
-            Assert.Equal("ExternalResponseError", transaction.FailedReason);
-            Assert.Equal("Authorize", transaction.FailedActivityName);
-            Assert.Equal("REJECTED_BY_ACQUIRER", transaction.FailedErrorCode);
-            Assert.Equal("General decline, response-code: 05", transaction.FailedErrorDescription);
             Assert.True(transaction.IsOperational);
             Assert.Equal("/psp/creditcard/payments/5adc265f-f87f-4313-577e-08d3dca1a26c/transactions/12345678-1234-1234-1234-123456789012/activities", transaction.Activities.OriginalString);
         }
