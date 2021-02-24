@@ -22,6 +22,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         public string FailedActivityName { get; set; }
         public string FailedErrorCode { get; set; }
         public string FailedErrorDescription { get; set; }
-        public string Activities { get; set; }
+        public Uri Activities { get; set; }
     }
 }

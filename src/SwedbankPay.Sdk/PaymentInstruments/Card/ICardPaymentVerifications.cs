@@ -2,10 +2,14 @@
 
 namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
-    public interface ICardPaymentVerifications
+    /// <summary>
+    /// Object describing a verified card payment.
+    /// </summary>
+    public interface ICardPaymentVerifications: IIdentifiable
     {
-        IIdentifiable Id { get; }
-
+        /// <summary>
+        /// List of available <seealso cref="ICardPaymentVerification"/>.
+        /// </summary>
         IList<ICardPaymentVerification> VerificationList { get; }
     }
 }

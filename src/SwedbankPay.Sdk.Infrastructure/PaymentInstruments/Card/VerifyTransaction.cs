@@ -43,7 +43,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
 
         public string FailedErrorDescription { get; }
 
-        public string Activities { get; }
+        public Uri Activities { get; }
 
         public DateTime Created { get; }
 
@@ -70,7 +70,5 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         public Amount VatAmount { get; }
 
         public IProblem Problem { get; }
-
-        public Uri Id { get; }
     }
 }

@@ -3048,6 +3048,67 @@
             This field is used to specify how much ofthe total amount the VAT will be. Set to 0 (zero) if there is no VAT amount charged.
             </summary>
         </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentVerification">
+            <summary>
+            Object describing a verified card payment.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentVerification.CardBrand">
+            <summary>
+            Brand used for the payment.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentVerification.CardType">
+            <summary>
+            The type of card used.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentVerification.PaymentToken">
+            <summary>
+            The secure payment token for this verified payment.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentVerification.RecurrenceToken">
+            <summary>
+            If recurrence is set the token for it can be found here.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentVerification.MaskedPan">
+            <summary>
+            The masked Primary Account Number
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentVerification.ExpiryDate">
+            <summary>
+            The expiry date of the used card,
+            format: MM/YY
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentVerification.PanToken">
+            <summary>
+            The token representing the specific PAN of the card.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentVerification.Transaction">
+            <summary>
+            Transactional details for this verified transaction.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentVerification.IsOperational">
+            <summary>
+            True if this transaction is operational.
+            </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentVerifications">
+            <summary>
+            Object describing a verified card payment.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentVerifications.VerificationList">
+            <summary>
+            List of available <seealso cref="T:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentVerification"/>.
+            </summary>
+        </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentVerifyResponse">
             <summary>
             Response of verifying a card payment.
@@ -3056,6 +3117,16 @@
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentVerifyResponse.Verifications">
             <summary>
             Available list of verifications.
+            </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentVerifyResponseDetails">
+            <summary>
+            Detailed information about verified card payments.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentVerifyResponseDetails.VerificationList">
+            <summary>
+            List of available verifications.
             </summary>
         </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.ICardResource">
@@ -3094,6 +3165,36 @@
             <param name="paymentRequest"></param>
             <param name="paymentExpand"></param>
             <returns></returns>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.IVerifyTransaction">
+            <summary>
+            Transaction for a verified payment.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.IVerifyTransaction.FailedReason">
+            <summary>
+            Textual reason for failure if there is one.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.IVerifyTransaction.FailedActivityName">
+            <summary>
+            Textual reason for failure activity if there is one.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.IVerifyTransaction.FailedErrorCode">
+            <summary>
+            Textual reason for failure code if there is one.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.IVerifyTransaction.FailedErrorDescription">
+            <summary>
+            Textual description for failure if there is one.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.IVerifyTransaction.Activities">
+            <summary>
+            Activities resource.
+            </summary>
         </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.IAuthorizationTransaction">
             <summary>
