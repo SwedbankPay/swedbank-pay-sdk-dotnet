@@ -3099,6 +3099,11 @@
             True if this transaction is operational.
             </summary>
         </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentVerification.Problem">
+            <summary>
+            Indicates any problems with the transaction.
+            </summary>
+        </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentVerifications">
             <summary>
             Object describing a verified card payment.

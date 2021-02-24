@@ -50,5 +50,10 @@
         /// True if this transaction is operational.
         /// </summary>
         bool IsOperational { get; }
+
+        /// <summary>
+        /// Indicates any problems with the transaction.
+        /// </summary>
+        IProblem Problem { get; }
     }
 }

@@ -12,8 +12,14 @@
             PanToken = dto.PanToken;
             CardBrand = dto.CardBrand;
             CardType = dto.CardType;
-            Transaction = new VerifyTransaction(dto.Transaction);
             IsOperational = dto.IsOperational;
+
+            if(dto.Transaction != null)
+            {
+                Transaction = new VerifyTransaction(dto.Transaction);
+            }
+            
+            Problem = dto.Problem?.Map();
         }
 
         public string CardBrand { get; }
@@ -25,5 +31,6 @@
         public string PanToken { get; }
         public IVerifyTransaction Transaction { get; }
         public bool IsOperational { get; }
+        public IProblem Problem { get; }
     }
 }

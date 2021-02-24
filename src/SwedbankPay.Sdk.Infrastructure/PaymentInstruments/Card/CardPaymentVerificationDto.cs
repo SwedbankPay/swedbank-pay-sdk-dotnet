@@ -12,5 +12,6 @@
         public string PanToken { get; set; }
         public VerifyTransactionDto Transaction { get; set; }
         public bool IsOperational { get; set; }
+        public ProblemDto Problem { get; set; }
     }
 }
