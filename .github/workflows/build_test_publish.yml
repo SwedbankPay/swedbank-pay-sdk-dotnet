@@ -38,7 +38,7 @@ jobs:
         with: 
           ENVIRONMENT: dev
           AZURE_WEBAPP_NAME: swedbankpay-sdk-001-dev
-          NUGETVERSIONV2: ${{ steps.gitversion.outputs.nuGetVersionV2 }}
+          NUGETVERSIONV2: ${{ steps.gitversion.outputs.NUGETVERSIONV2 }}
           FULLSEMVER: ${{ steps.gitversion.outputs.fullSemVer }}
 
       - name: Set uat environment variables
@@ -47,7 +47,7 @@ jobs:
         with: 
           ENVIRONMENT: uat
           AZURE_WEBAPP_NAME: swedbankpay-sdk-001-uat
-          NUGETVERSIONV2: ${{ steps.gitversion.outputs.nuGetVersionV2 }}
+          NUGETVERSIONV2: ${{ steps.gitversion.outputs.NUGETVERSIONV2 }}
           FULLSEMVER: ${{ steps.gitversion.outputs.fullSemVer }}
 
       - name: Set pro environment variables
@@ -56,7 +56,7 @@ jobs:
         with: 
           ENVIRONMENT: pro
           AZURE_WEBAPP_NAME: swedbankpay-sdk-001-pro
-          NUGETVERSIONV2: ${{ steps.gitversion.outputs.nuGetVersionV2 }}
+          NUGETVERSIONV2: ${{ steps.gitversion.outputs.NUGETVERSIONV2 }}
           FULLSEMVER: ${{ steps.gitversion.outputs.fullSemVer }}
 
       - id: setoutputvariables
@@ -87,7 +87,7 @@ jobs:
       run: dotnet build ./src/SwedbankPay.Sdk.sln
         
     - name: Publish Sdk Sample site
-      run: dotnet publish --configuration ${{ env.Configuration }} -p:Version=${{ needs.variables.outputs.nuGetVersionV2 }} --no-restore src/Samples/Sample.AspNetCore/Sample.AspNetCore.csproj --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/samplesite'
+      run: dotnet publish --configuration ${{ env.Configuration }} -p:Version=${{ needs.variables.outputs.NUGETVERSIONV2 }} --no-restore src/Samples/Sample.AspNetCore/Sample.AspNetCore.csproj --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/samplesite'
 
     - name: Archive Sample.AspNetCore
       uses: actions/upload-artifact@v2
