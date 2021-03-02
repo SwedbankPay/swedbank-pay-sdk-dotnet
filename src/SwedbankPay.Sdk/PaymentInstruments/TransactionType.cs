@@ -38,6 +38,11 @@
         /// <summary>
         /// Transaction was used to initialize a payment.
         /// </summary>
-        Initialization
+        Initialization,
+
+        /// <summary>
+        /// Transaction was used to verify a payment
+        /// </summary>
+        Verification
     }
 }
