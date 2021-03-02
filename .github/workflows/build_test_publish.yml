@@ -1,6 +1,6 @@
 name: Build
 
-on: [push]
+on: [push, pull_request]
 
 env: 
   AZURE_WEBAPP_PACKAGE_PATH: '.'
