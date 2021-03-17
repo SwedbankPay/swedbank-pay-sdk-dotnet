@@ -178,7 +178,7 @@ jobs:
 
     - name: Create test NuGet package
       env:
-        PROJECT_FILE: src/SwedbankPay.Sdk.Infrastructure/SwedbankPay.Sdk.Infrastructure.csproj
+        SLN_FILE: src/SwedbankPay.Sdk.sln
         VERSION_NUMBER: ${{ needs.variables.outputs.FULLSEMVER }}
         NUGET_KEY: not-needed
         DEBUG: true
@@ -250,7 +250,7 @@ jobs:
     - name: Publish to NuGet
       if: startsWith(github.ref, 'refs/tags/') # Only publish tagged commits
       env:
-        PROJECT_FILE: src/SwedbankPay.Sdk.Infrastructure/SwedbankPay.Sdk.Infrastructure.csproj
+        SLN_FILE: src/SwedbankPay.Sdk.sln
         VERSION_NUMBER: ${{ needs.variables.outputs.FULLSEMVER }}
         NUGET_KEY: ${{ secrets.NUGET_KEY}}
         DEBUG: true

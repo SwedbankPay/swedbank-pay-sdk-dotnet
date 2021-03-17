@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.AspNetCore.SystemTes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwedbankPay.Sdk.Infrastructure", "SwedbankPay.Sdk.Infrastructure\SwedbankPay.Sdk.Infrastructure.csproj", "{07084906-943F-4DAE-9B4B-A3352163B4A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwedbankPay.Sdk.IntegrationTests", "SwedbankPay.Sdk.IntegrationTests\SwedbankPay.Sdk.IntegrationTests.csproj", "{0525711A-7F2E-4178-B67C-AC0167334271}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwedbankPay.Sdk.IntegrationTests", "SwedbankPay.Sdk.IntegrationTests\SwedbankPay.Sdk.IntegrationTests.csproj", "{0525711A-7F2E-4178-B67C-AC0167334271}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwedbankPay.Sdk.Extensions", "SwedbankPay.Sdk.Extensions\SwedbankPay.Sdk.Extensions.csproj", "{1A85AD74-7F5A-49A9-B570-8E6C3B82AC4F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -140,6 +142,24 @@ Global
 		{0525711A-7F2E-4178-B67C-AC0167334271}.Release|x64.Build.0 = Release|Any CPU
 		{0525711A-7F2E-4178-B67C-AC0167334271}.Release|x86.ActiveCfg = Release|Any CPU
 		{0525711A-7F2E-4178-B67C-AC0167334271}.Release|x86.Build.0 = Release|Any CPU
+		{1A85AD74-7F5A-49A9-B570-8E6C3B82AC4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A85AD74-7F5A-49A9-B570-8E6C3B82AC4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A85AD74-7F5A-49A9-B570-8E6C3B82AC4F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1A85AD74-7F5A-49A9-B570-8E6C3B82AC4F}.Debug|x64.Build.0 = Debug|Any CPU
+		{1A85AD74-7F5A-49A9-B570-8E6C3B82AC4F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1A85AD74-7F5A-49A9-B570-8E6C3B82AC4F}.Debug|x86.Build.0 = Debug|Any CPU
+		{1A85AD74-7F5A-49A9-B570-8E6C3B82AC4F}.DEV|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A85AD74-7F5A-49A9-B570-8E6C3B82AC4F}.DEV|Any CPU.Build.0 = Debug|Any CPU
+		{1A85AD74-7F5A-49A9-B570-8E6C3B82AC4F}.DEV|x64.ActiveCfg = Debug|Any CPU
+		{1A85AD74-7F5A-49A9-B570-8E6C3B82AC4F}.DEV|x64.Build.0 = Debug|Any CPU
+		{1A85AD74-7F5A-49A9-B570-8E6C3B82AC4F}.DEV|x86.ActiveCfg = Debug|Any CPU
+		{1A85AD74-7F5A-49A9-B570-8E6C3B82AC4F}.DEV|x86.Build.0 = Debug|Any CPU
+		{1A85AD74-7F5A-49A9-B570-8E6C3B82AC4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A85AD74-7F5A-49A9-B570-8E6C3B82AC4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A85AD74-7F5A-49A9-B570-8E6C3B82AC4F}.Release|x64.ActiveCfg = Release|Any CPU
+		{1A85AD74-7F5A-49A9-B570-8E6C3B82AC4F}.Release|x64.Build.0 = Release|Any CPU
+		{1A85AD74-7F5A-49A9-B570-8E6C3B82AC4F}.Release|x86.ActiveCfg = Release|Any CPU
+		{1A85AD74-7F5A-49A9-B570-8E6C3B82AC4F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
