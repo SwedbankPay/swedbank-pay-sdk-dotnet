@@ -17,7 +17,6 @@ using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
 
 
-
 namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
 {
     public abstract class PaymentTests : TestBase
@@ -51,7 +50,6 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             SwedbankPayClient = new SwedbankPayClient(httpClient);
         }
 
-
         protected OrdersPage GoToOrdersPage(Product[] products, PayexInfo payexInfo, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
             ThankYouPage page = null;
@@ -67,13 +65,15 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 case PayexInvoiceInfo invoiceInfo:
                     page = PayWithPayexInvoice(products, invoiceInfo, checkout);
                     break;
+                case PayexTrustlyInfo trustlyInfo:
+                    page = PayWithPayexTrustly(products, trustlyInfo, checkout);
+                    break;
             }
 
             return page?
                 .ThankYou.IsVisible.WaitTo.BeTrue()
                 .Header.Orders.ClickAndGo();
         }
-
 
         protected PayexCardFramePage GoToPayexCardPaymentFrame(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
@@ -102,7 +102,6 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
 
         }
 
-
         protected PayexInvoiceFramePage GoToPayexInvoicePaymentFrame(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
             return checkout switch
@@ -117,7 +116,6 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 .PaymentMethods[x => x.Name == PaymentMethods.Invoice].PaymentFrame.SwitchTo<PayexInvoiceFramePage>()
             };
         }
-
 
         protected PayexSwishFramePage GoToPayexSwishPaymentFrame(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
@@ -134,6 +132,20 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             };
         }
 
+        protected PayexTrustlyFramePage GoToPayexTrustlyPaymentFrame(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)
+        {
+            return checkout switch
+            {
+                Checkout.Option.LocalPaymentMenu => GoToLocalPaymentPage(products)
+                                       .Trustly.IsVisible.WaitTo.BeTrue()
+                                       .Trustly.Click()
+                                       .PaymentFrame.SwitchTo<PayexTrustlyFramePage>(),
+                _ => GoToPaymentFramePage(products, checkout)
+                    .PaymentMethods[x => x.Name == PaymentMethods.Trustly].IsVisible.WaitTo.BeTrue()
+                    .PaymentMethods[x => x.Name == PaymentMethods.Trustly].Click()
+                    .PaymentMethods[x => x.Name == PaymentMethods.Trustly].PaymentFrame.SwitchTo<PayexTrustlyFramePage>(),
+            };
+        }
 
         protected PaymentFramePage GoToPaymentFramePage(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
@@ -152,13 +164,11 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             };
         }
 
-
         protected LocalPaymentMenuPage GoToLocalPaymentPage(Product[] products)
         {
             return SelectProducts(products)
                     .LocalPaymentMenu.ClickAndGo();
         }
-
 
         protected PaymentPage GoToPayexPaymentPage(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
@@ -168,7 +178,6 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 _ => SelectProducts(products).AnonymousCheckout.ClickAndGo(),
             };
         }
-
 
         protected ProductsPage SelectProducts(Product[] products)
         {
@@ -247,7 +256,6 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             };
         }
 
-
         protected ThankYouPage PayWithPayexInvoice(Product[] products, PayexInvoiceInfo info, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
             return checkout switch
@@ -270,7 +278,6 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             };
         }
 
-
         protected ThankYouPage PayWithPayexSwish(Product[] products, PayexSwishInfo info, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
             return checkout switch
@@ -286,6 +293,30 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             };
         }
 
+        protected ThankYouPage PayWithPayexTrustly(Product[] products, PayexTrustlyInfo info, Checkout.Option checkout = Checkout.Option.Anonymous)
+        {
+
+            return GoToPayexTrustlyPaymentFrame(products, checkout)
+                .Submit.IsVisible.WaitTo.BeTrue()
+                .Submit.ClickAndGo<TrustlyPaymentPage>()
+                .Banks[0].IsVisible.WaitTo.BeTrue()
+                .Banks[0].Click()
+                .Next.Click()
+                .PersonalNumber.Set(TestDataService.PersonalNumber)
+                .SecurityCodeOption.Click()
+                .Next.Click()
+                .MessageCode.StoreValue(out string code)
+                .Code.Set(code)
+                .Next.Click()
+                .AccountOptions.IsVisible.WaitTo.Within(60).BeTrue()
+                .Next.Click()
+                .MessageCode.StoreValue(out code)
+                .Code.Set(code)
+                .Next.Click()
+                .PageUrl.Should.Within(TimeSpan.FromSeconds(60)).Contain("Thankyou")
+                .SwitchToRoot<ThankYouPage>()
+                .ThankYou.IsVisible.WaitTo.BeTrue();
+        }
 
         protected static IEnumerable TestData(bool singleProduct = true, string paymentMethod = PaymentMethods.Card)
         {
@@ -321,6 +352,10 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 case PaymentMethods.Invoice:
                     data.Add(new PayexInvoiceInfo(TestDataService.PersonalNumberShort, TestDataService.Email, TestDataService.PhoneNumber,
                                                   TestDataService.ZipCode));
+                    break;
+
+                case PaymentMethods.Trustly:
+                    data.Add(new PayexTrustlyInfo());
                     break;
             }
 

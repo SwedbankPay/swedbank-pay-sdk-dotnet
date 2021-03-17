@@ -25,7 +25,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
         public async Task Payment_Card_Reversal(Product[] products, PayexInfo payexInfo)
         {
             GoToOrdersPage(products, payexInfo, Checkout.Option.LocalPaymentMenu)
-                .PaymentLink.StoreValue(out var paymentLink)
+                .PaymentLink.StoreValueAsUri(out var paymentLink)
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCapture)].ExecuteAction.ClickAndGo()
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateReversal)].ExecuteAction.ClickAndGo()
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.PaidPayment)].Should.BeVisible()
@@ -57,7 +57,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
         public async Task Payment_Swish_Reversal(Product[] products, PayexInfo payexInfo)
         {
             GoToOrdersPage(products, payexInfo, Checkout.Option.LocalPaymentMenu)
-                .PaymentLink.StoreValue(out var paymentLink)
+                .PaymentLink.StoreValueAsUri(out var paymentLink)
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateReversal)].ExecuteAction.ClickAndGo()
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.ViewPayment)].Should.BeVisible()
                 .Actions.Rows.Count.Should.Equal(1);
