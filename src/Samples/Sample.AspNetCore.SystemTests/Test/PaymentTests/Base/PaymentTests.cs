@@ -297,9 +297,9 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
         {
 
             return GoToPayexTrustlyPaymentFrame(products, checkout)
-                .Submit.IsVisible.WaitTo.BeTrue()
+                .Submit.IsVisible.WaitTo.Within(15).BeTrue()
                 .Submit.ClickAndGo<TrustlyPaymentPage>()
-                .Banks[0].IsVisible.WaitTo.BeTrue()
+                .Banks[0].IsVisible.WaitTo.Within(15).BeTrue()
                 .Banks[0].Click()
                 .Next.Click()
                 .PersonalNumber.Set(TestDataService.PersonalNumber)
