@@ -24,7 +24,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Standard
         public async Task Standard_PaymentOrder_Card_Reversal(Product[] products, PayexInfo payexInfo)
         {
             GoToOrdersPage(products, payexInfo, Checkout.Option.Standard)
-                .PaymentOrderLink.StoreValue(out var orderLink)
+                .PaymentOrderLink.StoreValueAsUri(out var orderLink)
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderCapture)].ExecuteAction.ClickAndGo()
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderReversal)].ExecuteAction.ClickAndGo()
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible()
@@ -55,7 +55,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Standard
         public async Task Standard_PaymentOrder_Swish_Reversal(Product[] products, PayexInfo payexInfo)
         {
             GoToOrdersPage(products, payexInfo, Checkout.Option.Standard)
-                .PaymentOrderLink.StoreValue(out var orderLink)
+                .PaymentOrderLink.StoreValueAsUri(out var orderLink)
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderReversal)].ExecuteAction.ClickAndGo()
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible()
                 .Actions.Rows.Count.Should.Equal(1);
@@ -66,7 +66,11 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Standard
             while (order.PaymentOrder.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionType.Reversal).State != State.Completed && counter <= 15)
             {
                 await Task.Delay(1000).ConfigureAwait(false);
-                order = await SwedbankPayClient.PaymentOrders.Get(orderLink, PaymentOrderExpand.All);
+                try
+                {
+                    order = await SwedbankPayClient.PaymentOrders.Get(orderLink, PaymentOrderExpand.All);
+                }
+                catch { }
                 counter++;
             }
 
@@ -91,7 +95,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Standard
         public async Task Standard_PaymentOrder_Invoice_Reversal(Product[] products, PayexInfo payexInfo)
         {
             GoToOrdersPage(products, payexInfo, Checkout.Option.Standard)
-                .PaymentOrderLink.StoreValue(out var orderLink)
+                .PaymentOrderLink.StoreValueAsUri(out var orderLink)
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderCapture)].ExecuteAction.ClickAndGo()
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderReversal)].ExecuteAction.ClickAndGo()
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible()

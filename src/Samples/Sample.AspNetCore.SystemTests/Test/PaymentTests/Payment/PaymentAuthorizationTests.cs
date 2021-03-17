@@ -23,7 +23,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
         public async Task Payment_Card_Authorization(Product[] products, PayexInfo payexInfo)
         {
             GoToOrdersPage(products, payexInfo, Checkout.Option.LocalPaymentMenu)
-                .PaymentLink.StoreValue(out var paymentLink)
+                .PaymentLink.StoreValueAsUri(out var paymentLink)
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCancellation)].Should.BeVisible()
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCapture)].Should.BeVisible()
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.PaidPayment)].Should.BeVisible()
@@ -47,7 +47,6 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
             Assert.That(cardPayment.Payment.Transactions.TransactionList.Count, Is.EqualTo(1));
             Assert.That(cardPayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionType.Authorization).State,
                         Is.EqualTo(State.Completed));
-
         }
     }
 }
