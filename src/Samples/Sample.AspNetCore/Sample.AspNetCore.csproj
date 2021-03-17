@@ -5,17 +5,17 @@
     <UserSecretsId>034fbc91-b434-41de-9fb1-b4d29d91a6ac</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.12" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.12" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.12" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.12">
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.13" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.13" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.13" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.13">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.12" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.12" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.12" />
-    <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="3.1.12" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.13" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.13" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.13" />
+    <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="3.1.13" />
   </ItemGroup>
 
   <ItemGroup>
