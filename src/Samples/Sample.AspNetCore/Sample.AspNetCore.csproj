@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>034fbc91-b434-41de-9fb1-b4d29d91a6ac</UserSecretsId>
   </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.13" />
@@ -22,11 +23,6 @@
     <ProjectReference Include="..\..\SwedbankPay.Sdk.Extensions\SwedbankPay.Sdk.Extensions.csproj" />
     <ProjectReference Include="..\..\SwedbankPay.Sdk.Infrastructure\SwedbankPay.Sdk.Infrastructure.csproj" />
     <ProjectReference Include="..\..\SwedbankPay.Sdk\SwedbankPay.Sdk.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Constants\" />
-    <Folder Include="Views\Payment\" />
   </ItemGroup>
 
 </Project>

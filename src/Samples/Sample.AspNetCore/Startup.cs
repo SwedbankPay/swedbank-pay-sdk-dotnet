@@ -10,6 +10,8 @@ using Sample.AspNetCore.Data;
 using Sample.AspNetCore.Extensions;
 using Sample.AspNetCore.Models;
 
+using SwedbankPay.Sdk.Extensions;
+
 namespace Sample.AspNetCore
 {
     public class Startup
@@ -59,16 +61,24 @@ namespace Sample.AspNetCore
             services.AddDbContext<StoreDbContext>(options => options.UseInMemoryDatabase("Products"));
             services.AddControllersWithViews();
             services.AddDistributedMemoryCache();
-            var payeeId = Configuration.GetSection("SwedbankPay")["PayeeId"];
+
+            var swedbankPayConSettings = Configuration.GetSection("SwedbankPay");
+            services.Configure<SwedbankPayConnectionSettings>(swedbankPayConSettings);
+
+            var swedBankPayOptions = swedbankPayConSettings.Get<SwedbankPayConnectionSettings>();
+            services.AddSingleton(s => swedBankPayOptions);
+
             services.Configure<PayeeInfoConfig>(options =>
             {
-                options.PayeeId = payeeId;
+                options.PayeeId = swedBankPayOptions.PayeeId;
                 options.PayeeReference = DateTime.Now.Ticks.ToString();
             });
+
+           
             services.Configure<UrlsOptions>(Configuration.GetSection("Urls"));
             services.AddScoped(provider => SessionCart.GetCart(provider));
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddSwedbankPayClient(Configuration);
+            services.AddSwedbankPayClient(swedBankPayOptions.ApiBaseUrl, swedBankPayOptions.Token);
             services.AddSession();
 
             // Code copied from:
