@@ -8,6 +8,7 @@
 *.user
 *.userosscache
 *.sln.docstates
+*.sonarqube
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -116,6 +117,9 @@ _TeamCity*
 # Visual Studio code coverage results
 *.coverage
 *.coveragexml
+
+# Visual Studio Code user folder
+.vscode
 
 # NCrunch
 _NCrunch_*
@@ -288,3 +292,7 @@ tools/**
 *.xsd.cs
 
 /output
+
+*.local.json
+
+*.snupkg

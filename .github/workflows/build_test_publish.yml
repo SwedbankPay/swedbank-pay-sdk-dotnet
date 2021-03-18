@@ -1,0 +1,258 @@
+name: Build
+
+on: [push]
+
+env: 
+  AZURE_WEBAPP_PACKAGE_PATH: '.'
+  Configuration: Release 
+
+jobs:
+  
+  variables:
+    name: Create variables
+    runs-on: ubuntu-20.04
+    outputs:
+      ENVIRONMENT: ${{ steps.setoutputvariables.outputs.ENVIRONMENT }}
+      AZURE_WEBAPP_NAME: ${{ steps.setoutputvariables.outputs.AZURE_WEBAPP_NAME }}
+      NUGETVERSIONV2: ${{ steps.setoutputvariables.outputs.NUGETVERSIONV2 }}
+      FULLSEMVER:  ${{ steps.gitversion.outputs.fullSemVer }}
+       
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0.9.9
+        with:
+          versionSpec: '5.x.x'
+ 
+      - name: Fetch all history for all tags and branches
+        run: git fetch --prune --unshallow
+ 
+      - name: Use GitVersion
+        id: gitversion # step id used as reference for output values
+        uses: gittools/actions/gitversion/execute@v0.9.9
+      
+      - name: Set dev environment variables
+        uses: allenevans/set-env@v2.0.0
+        if: ${{ startsWith(github.ref, 'refs/heads/develop') || startsWith(github.ref, 'refs/heads/feature/') || startsWith(github.ref, 'refs/heads/dependabot/') || github.event_name == 'pull_request' }} # deveop, featurebranches and pullrequests
+        with: 
+          ENVIRONMENT: dev
+          AZURE_WEBAPP_NAME: swedbankpay-sdk-001-dev
+          NUGETVERSIONV2: ${{ steps.gitversion.outputs.nuGetVersionV2 }}
+          FULLSEMVER: ${{ steps.gitversion.outputs.fullSemVer }}
+
+      - name: Set uat environment variables
+        uses: allenevans/set-env@v2.0.0
+        if: ${{ startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/hotfix/') || contains(github.ref, '-beta')}} 
+        with: 
+          ENVIRONMENT: uat
+          AZURE_WEBAPP_NAME: swedbankpay-sdk-001-uat
+          NUGETVERSIONV2: ${{ steps.gitversion.outputs.nuGetVersionV2 }}
+          FULLSEMVER: ${{ steps.gitversion.outputs.fullSemVer }}
+
+      - name: Set pro environment variables
+        uses: allenevans/set-env@v2.0.0
+        if: ${{ startsWith(github.ref, 'refs/tags/') && !contains(github.ref, 'refs/tags/*-*') }}
+        with: 
+          ENVIRONMENT: pro
+          AZURE_WEBAPP_NAME: swedbankpay-sdk-001-pro
+          NUGETVERSIONV2: ${{ steps.gitversion.outputs.nuGetVersionV2 }}
+          FULLSEMVER: ${{ steps.gitversion.outputs.fullSemVer }}
+
+      - id: setoutputvariables
+        name: Set output variables
+        run: |
+            echo "::set-output name=ENVIRONMENT::${ENVIRONMENT}"
+            echo "::set-output name=AZURE_WEBAPP_NAME::${AZURE_WEBAPP_NAME}"
+            echo "::set-output name=NUGETVERSIONV2::${NUGETVERSIONV2}"
+            echo "::set-output name=FULLSEMVER::${FULLSEMVER}"
+
+  
+  build:
+    runs-on: ubuntu-20.04
+    needs: [variables]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.407
+
+    - name: Install dependencies
+      run: dotnet restore ./src/SwedbankPay.Sdk.sln
+
+    - name: Build solution
+      run: dotnet build ./src/SwedbankPay.Sdk.sln
+        
+    - name: Publish Sdk Sample site
+      run: dotnet publish --configuration ${{ env.Configuration }} -p:Version=${{ needs.variables.outputs.nuGetVersionV2 }} --no-restore src/Samples/Sample.AspNetCore/Sample.AspNetCore.csproj --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/samplesite'
+
+    - name: Archive Sample.AspNetCore
+      uses: actions/upload-artifact@v2
+      with:
+        name: Sample.AspNetCore
+        path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/samplesite
+
+    - name: Archive Sample.AspNetCore.SystemTests
+      uses: actions/upload-artifact@v2
+      with:
+        name: Sample.AspNetCore.SystemTests
+        path: src/Samples/Sample.AspNetCore.SystemTests/bin/*
+
+    - name: Archive SwedbankPay.Sdk
+      uses: actions/upload-artifact@v2
+      with:
+        name: SwedbankPay.Sdk
+        path: src/SwedbankPay.Sdk/bin/*
+
+    - name: Archive SwedbankPay.Sdk.Tests
+      uses: actions/upload-artifact@v2
+      with:
+        name: SwedbankPay.Sdk.Tests
+        path: src/SwedbankPay.Sdk.Tests/bin/*
+
+  test:
+    runs-on: ubuntu-20.04
+    needs: [variables, build]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '3.1.x' # SDK Version to use; x will use the latest version of the 3.1 channel
+
+    - name: Download All artifacts
+      uses: actions/download-artifact@v2
+
+    - name: Run SDK Unit Tests
+      run: dotnet test src/SwedbankPay.Sdk.Tests/SwedbankPay.Sdk.Tests.csproj
+
+    - name: Run SDK Integration Tests
+      run: dotnet test src/SwedbankPay.Sdk.IntegrationTests/SwedbankPay.Sdk.IntegrationTests.csproj
+      env:
+        SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
+        SwedbankPay:TokenMobilePay: ${{ secrets.MERCHANT_TOKEN_MOBILE_PAY }}
+        SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
+
+    - name: Run SDK Sample project tests
+      run: dotnet test  src/Samples/Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.csproj
+      env:
+        SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
+        SwedbankPay:TokenMobilePay: ${{ secrets.MERCHANT_TOKEN_MOBILE_PAY }}
+        SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
+        SwedbankPay:ApiBaseUrl: https://api.externalintegration.payex.com
+        SwedbankPay:Sdk:SampleWebsite:BaseUrl: https://localhost:5001
+  test_nuget_package:
+    runs-on: ubuntu-20.04
+    needs: [variables]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install GitVersion for nuget test
+      uses: gittools/actions/gitversion/setup@v0.9.9
+      with:
+        versionSpec: '5.x.x'
+
+    - name: Fetch all history for all tags and branches
+      run: git fetch --prune --unshallow
+
+    - name: Use GitVersion
+      id: gitversion # step id used as reference for output values
+      uses: gittools/actions/gitversion/execute@v0.9.9
+      with:
+        updateAssemblyInfo: true
+
+    - name: Install dependencies
+      run: dotnet restore ./src/SwedbankPay.Sdk.sln
+
+    - uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '5.0.x' # SDK Version to use; x will use the latest version of the 3.1 channel
+
+    - name: Build solution
+      run: dotnet build ./src/SwedbankPay.Sdk.sln
+
+    - name: Create test NuGet package
+      env:
+        SLN_FILE: src/SwedbankPay.Sdk.sln
+        VERSION_NUMBER: ${{ needs.variables.outputs.FULLSEMVER }}
+        NUGET_KEY: not-needed
+        DEBUG: true
+      run: .github/workflows/nuget_push.sh
+    
+    - name: Publish test package to GitHub Package Registry
+      run: dotnet nuget push "nugets/*.nupkg" --api-key ${{github.token}} --source https://nuget.pkg.github.com/SwedbankPay/index.json --skip-duplicate
+
+    - name: Publish test symbol package to GitHub Package Registry
+      run: dotnet nuget push "nugets/*.snupkg" --api-key ${{github.token}} --source https://nuget.pkg.github.com/SwedbankPay/index.json --skip-duplicate
+
+    - name: Setup nuget config
+      run: awk '{gsub("GITHUB_USER", "${{ github.actor }}"); print}' NuGet.template.config | awk '{gsub("GITHUB_TOKEN", "${{ secrets.GITHUB_TOKEN }}"); print}' $1 | tee NuGet.Config
+      working-directory: src/SwedbankPay.Sdk.TestNuget
+
+    - name: Print nuget config
+      run: cat src/SwedbankPay.Sdk.TestNuget/NuGet.Config
+
+    - name: Test install of package
+      env:
+        PROJECT_FILE: src/SwedbankPay.Sdk.TestNuget/SwedbankPay.Sdk.TestNuget.csproj
+        VERSION_NUMBER: ${{ needs.variables.outputs.FULLSEMVER }}
+      run: .github/workflows/nuget_install.sh
+
+    - name: Print csproj
+      run: cat src/SwedbankPay.Sdk.TestNuget/SwedbankPay.Sdk.TestNuget.csproj
+    
+    - name: Build SwedbankPay.Sdk.TestNuget
+      run: dotnet build src/SwedbankPay.Sdk.TestNuget/SwedbankPay.Sdk.TestNuget.csproj
+
+  publish:
+    runs-on: ubuntu-20.04
+    needs: [variables, build, test, test_nuget_package]
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Download All artifacts
+      uses: actions/download-artifact@v2   
+
+    # Deploy to Dev Azure Web apps
+    - name: 'Run Azure webapp deploy to dev using publish profile credentials'
+      if: ${{ needs.variables.outputs.ENVIRONMENT == 'dev' && github.event_name != 'pull_request'  && startsWith(github.ref, 'refs/heads/develop') }}
+      uses: azure/webapps-deploy@v2
+      with: 
+        app-name: ${{ needs.variables.outputs.AZURE_WEBAPP_NAME }} # Replace with your app name
+        publish-profile: ${{ secrets.AZURE_WEBAPP_DEV_PUBLISH_PROFILE }} # Define secret variable in repository settings as per action documentation
+        package: 'Sample.AspNetCore'
+
+    # Deploy to Uat Azure Web apps
+    - name: 'Run Azure webapp deploy to uat using publish profile credentials'
+      if: ${{ needs.variables.outputs.ENVIRONMENT == 'uat' && github.event_name != 'pull_request' }}
+      uses: azure/webapps-deploy@v2
+      with: 
+        app-name: ${{ needs.variables.outputs.AZURE_WEBAPP_NAME }} # Replace with your app name
+        publish-profile: ${{ secrets.AZURE_WEBAPP_UAT_PUBLISH_PROFILE }} # Define secret variable in repository settings as per action documentation
+        package: 'Sample.AspNetCore'
+
+    # Deploy to Pro Azure Web apps
+    - name: 'Run Azure webapp deploy to pro using publish profile credentials'
+      if: ${{ needs.variables.outputs.ENVIRONMENT == 'pro' && github.event_name != 'pull_request' }}
+      uses: azure/webapps-deploy@v2
+      with: 
+        app-name: ${{ needs.variables.outputs.AZURE_WEBAPP_NAME }} # Replace with your app name
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PRO_PUBLISH_PROFILE }} # Define secret variable in repository settings as per action documentation
+        package: 'Sample.AspNetCore'
+        
+    - name: Publish to NuGet
+      if: startsWith(github.ref, 'refs/tags/') # Only publish tagged commits
+      env:
+        SLN_FILE: src/SwedbankPay.Sdk.sln
+        VERSION_NUMBER: ${{ needs.variables.outputs.FULLSEMVER }}
+        NUGET_KEY: ${{ secrets.NUGET_KEY}}
+        DEBUG: true
+        PUBLISH: true
+      run: .github/workflows/nuget_push.sh
