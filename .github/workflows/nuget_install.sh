@@ -7,7 +7,7 @@ set -e
 help_message="\
 Usage:
 
-Runs 'dotnet package' and 'dotnet nuget push'.
+Runs 'dotnet add'.
 
 VERSION_NUMBER: The version number for the nuget.
 PROJECT_FILE: The project file for the nuget.
@@ -29,3 +29,4 @@ fi
 sanitized_version_number=${VERSION_NUMBER//\+/.}
 
 dotnet add "$PROJECT_FILE" package SwedbankPay.Sdk --version "$sanitized_version_number"
+dotnet add "$PROJECT_FILE" package SwedbankPay.Sdk.Extensions --version "$sanitized_version_number"

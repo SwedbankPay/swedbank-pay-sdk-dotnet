@@ -6,5 +6,6 @@ namespace Sample.AspNetCore.Models
     {
         public Uri ApiBaseUrl { get; set; }
         public string Token { get; set; }
+        public string PayeeId { get; set; }
     }
 }
