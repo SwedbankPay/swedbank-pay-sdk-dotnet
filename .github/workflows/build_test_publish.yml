@@ -14,7 +14,7 @@ jobs:
     outputs:
       ENVIRONMENT: ${{ steps.setoutputvariables.outputs.ENVIRONMENT }}
       AZURE_WEBAPP_NAME: ${{ steps.setoutputvariables.outputs.AZURE_WEBAPP_NAME }}
-      NUGETVERSIONV2: ${{ steps.setoutputvariables.outputs.NUGETVERSIONV2 }}
+      NUGETVERSIONV2: ${{ steps.gitversion.outputs.nuGetVersionV2 }}
       FULLSEMVER:  ${{ steps.gitversion.outputs.fullSemVer }}
        
     steps:
@@ -38,8 +38,6 @@ jobs:
         with: 
           ENVIRONMENT: dev
           AZURE_WEBAPP_NAME: swedbankpay-sdk-001-dev
-          NUGETVERSIONV2: ${{ steps.gitversion.outputs.nuGetVersionV2 }}
-          FULLSEMVER: ${{ steps.gitversion.outputs.fullSemVer }}
 
       - name: Set uat environment variables
         uses: allenevans/set-env@v2.0.0
@@ -47,26 +45,19 @@ jobs:
         with: 
           ENVIRONMENT: uat
           AZURE_WEBAPP_NAME: swedbankpay-sdk-001-uat
-          NUGETVERSIONV2: ${{ steps.gitversion.outputs.nuGetVersionV2 }}
-          FULLSEMVER: ${{ steps.gitversion.outputs.fullSemVer }}
-
+          
       - name: Set pro environment variables
         uses: allenevans/set-env@v2.0.0
         if: ${{ startsWith(github.ref, 'refs/tags/') && !contains(github.ref, 'refs/tags/*-*') }}
         with: 
           ENVIRONMENT: pro
           AZURE_WEBAPP_NAME: swedbankpay-sdk-001-pro
-          NUGETVERSIONV2: ${{ steps.gitversion.outputs.nuGetVersionV2 }}
-          FULLSEMVER: ${{ steps.gitversion.outputs.fullSemVer }}
 
       - id: setoutputvariables
         name: Set output variables
         run: |
             echo "::set-output name=ENVIRONMENT::${ENVIRONMENT}"
             echo "::set-output name=AZURE_WEBAPP_NAME::${AZURE_WEBAPP_NAME}"
-            echo "::set-output name=NUGETVERSIONV2::${NUGETVERSIONV2}"
-            echo "::set-output name=FULLSEMVER::${FULLSEMVER}"
-
   
   build:
     runs-on: ubuntu-20.04
