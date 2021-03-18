@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <IsPackable>false</IsPackable>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
 
@@ -9,19 +10,8 @@
     <Authors>Swedbank Pay</Authors>
     <Description>A client library and SDK for Swedbank Pay's RESTful API Platform</Description>
     <Copyright>Swedbank Pay</Copyright>
-    
-    <PackageIcon>icon.png</PackageIcon>
-    <PackageTags>SwedbankPay sdk payments payment client api rest restful</PackageTags>
-    <PackageReleaseNotes>Swish payment handling. CreditCard payment handling. Checkout handling.</PackageReleaseNotes>
-    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/SwedbankPay/swedbank-pay-sdk-dotnet</PackageProjectUrl>
-    <PackageLanguage>en-US</PackageLanguage>
 
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-
-    <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/SwedbankPay/swedbank-pay-sdk-dotnet.git</RepositoryUrl>
+    <PackageId>SwedbankPay.Sdk.NotPacked</PackageId>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>SwedbankPay.Sdk.xml</DocumentationFile>
@@ -37,11 +27,7 @@
     </AssemblyAttribute>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\SwedbankPay.Sdk.Infrastructure\bin\$(Configuration)\$(TargetFramework)\SwedbankPay.Sdk.Infrastructure.*" Pack="true" PackagePath="lib\$(TargetFramework)" />
-    <None Include="..\icon.png" Pack="true" PackagePath="\" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="System.Text.Json" Version="5.0.1" />
   </ItemGroup>
 
-</Project>
+</Project>  

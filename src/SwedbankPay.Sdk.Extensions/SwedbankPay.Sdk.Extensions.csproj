@@ -15,8 +15,7 @@
     <PackageReleaseNotes>Swish payment handling. CreditCard payment handling. Checkout handling.</PackageReleaseNotes>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/SwedbankPay/swedbank-pay-sdk-dotnet</PackageProjectUrl>
-    <language>en-US</language>
-
+   
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
 
@@ -24,7 +23,7 @@
     <RepositoryUrl>https://github.com/SwedbankPay/swedbank-pay-sdk-dotnet.git</RepositoryUrl>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="..\icon.png" Pack="true" PackagePath="\"/>
+    <None Include="..\icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.9" />
@@ -32,7 +31,7 @@
     <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.9" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SwedbankPay.Sdk.Infrastructure\SwedbankPay.Sdk.Infrastructure.csproj" PrivateAssets="All"/>
-    <ProjectReference Include="..\SwedbankPay.Sdk\SwedbankPay.Sdk.csproj" />
+    <ProjectReference Include="..\SwedbankPay.Sdk.Infrastructure\SwedbankPay.Sdk.Infrastructure.csproj" />
+    <ProjectReference Include="..\SwedbankPay.Sdk\SwedbankPay.Sdk.csproj" PrivateAssets="All"/>
   </ItemGroup>
 </Project>
