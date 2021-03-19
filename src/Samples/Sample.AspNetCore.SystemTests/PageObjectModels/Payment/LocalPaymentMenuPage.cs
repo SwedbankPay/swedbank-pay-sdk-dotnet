@@ -15,6 +15,9 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Payment
         [FindById("invoice")]
         public Button<_> Invoice { get; private set; }
 
+        [FindById("trustly")]
+        public Button<_> Trustly { get; private set; }
+
         [WaitFor(Until.Visible, TriggerEvents.BeforeAccess)]
         public Frame<_> PaymentFrame { get; private set; }
     }

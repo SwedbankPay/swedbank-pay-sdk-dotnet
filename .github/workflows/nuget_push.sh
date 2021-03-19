@@ -10,7 +10,7 @@ Usage:
 Runs 'dotnet package' and 'dotnet nuget push'.
 
 VERSION_NUMBER: The version number for the nuget.
-PROJECT_FILE: The project file for the nuget.
+SLN_FILE: The project file for the nuget.
 NUGET_KEY: The Key to the Nugets. It's in the name.
 PUBLISH: Set to \"true\" if NuGet should be published"
 
@@ -20,8 +20,8 @@ if [[ -z "$VERSION_NUMBER" ]]; then
     exit 1
 fi
 
-if [[ -z "$PROJECT_FILE" ]]; then
-    echo "Missing or empty PROJECT_FILE environment variable." >&2
+if [[ -z "$SLN_FILE" ]]; then
+    echo "Missing or empty SLN_FILE environment variable." >&2
     echo "$help_message"
     exit 1
 fi
@@ -33,14 +33,8 @@ fi
 
 sanitized_version_number=${VERSION_NUMBER//\+/.}
 
-dotnet pack "$PROJECT_FILE" \
-    -p:NuspecFile=../SwedbankPay.Sdk.nuspec \
-    -p:NuspecBasePath=. \
-    -p:NuspecProperties="version=$sanitized_version_number" \
-    -p:PackageVersion="$sanitized_version_number" \
+dotnet pack "$SLN_FILE" \
     -p:Version="$sanitized_version_number" \
-    -p:IncludeSymbols=true \
-    -p:SymbolPackageFormat=snupkg \
     --configuration Release \
     --output nugets/
 
