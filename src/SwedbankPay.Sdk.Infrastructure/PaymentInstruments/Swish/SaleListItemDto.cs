@@ -4,23 +4,12 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
 	internal class SaleListItemDto
 	{
-		public SaleListItemDto(DateTime date, Uri id, string payerAlias, string paymentRequestToken, string swishPaymentReference, string swishStatus, TransactionDto transaction)
-		{
-			Date = date;
-			Id = id;
-			PayerAlias = payerAlias;
-			PaymentRequestToken = paymentRequestToken;
-			SwishPaymentReference = swishPaymentReference;
-			SwishStatus = swishStatus;
-			Transaction = transaction;
-		}
-
-		public DateTime Date { get; }
-		public Uri Id { get; }
-		public string PayerAlias { get; }
-		public string PaymentRequestToken { get; }
-		public string SwishPaymentReference { get; }
-		public string SwishStatus { get; }
-		public TransactionDto Transaction { get; }
+		public DateTime Date { get; set; }
+		public Uri Id { get; set; }
+		public string PayerAlias { get; set; }
+		public string PaymentRequestToken { get; set; }
+		public string SwishPaymentReference { get; set; }
+		public string SwishStatus { get; set; }
+		public TransactionDto Transaction { get; set; }
 	}
 }
