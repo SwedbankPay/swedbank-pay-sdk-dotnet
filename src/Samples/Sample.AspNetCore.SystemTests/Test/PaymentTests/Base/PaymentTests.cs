@@ -71,7 +71,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             }
 
             return page?
-                .ThankYou.IsVisible.WaitTo.BeTrue()
+                .ThankYou.IsVisible.WaitTo.Within(120).BeTrue()
                 .Header.Orders.ClickAndGo();
         }
 
@@ -273,6 +273,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                     .ZipCode.SetWithSpeed(info.ZipCode, interval: 0.1)
                     .Next.Click()
                     .Wait(TimeSpan.FromSeconds(5))
+                    .Pay.IsVisible.WaitTo.Within(20).BeTrue()
                     .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
                     .Pay.ClickAndGo(),
             };

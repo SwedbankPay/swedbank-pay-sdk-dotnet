@@ -27,7 +27,9 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
         [TestCaseSource(nameof(TestData), new object[] { true, null })]
         public void FieldValidationCard(Product[] products)
         {
-            GoToPayexCardPaymentFrame(products)
+            Assert.DoesNotThrow(() => {
+
+                GoToPayexCardPaymentFrame(products)
                 .CreditCardNumber.Set("abc")
                 .ExpiryDate.Set("abcd")
                 .Cvc.Set("abc")
@@ -43,6 +45,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
                 .CardTypeSelector.Check()
                 .ValidationIcons[x => x.CreditCardNumber].Should.Not.BeVisible()
                 .ValidationIcons[x => x.ExpiryDate].Should.Not.BeVisible();
+            });
         }
 
 
@@ -51,7 +54,9 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
         [TestCaseSource(nameof(TestData), new object[] { true, null })]
         public void FieldValidationInvoice(Product[] products)
         {
-            GoToPayexInvoicePaymentFrame(products)
+            Assert.DoesNotThrow(() => {
+
+                GoToPayexInvoicePaymentFrame(products)
                 .PersonalNumber.Set("abc")
                 .Email.Set("abc")
                 .PhoneNumber.Set("abc")
@@ -70,6 +75,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
                 .ValidationIcons[x => x.Email].Should.Not.BeVisible()
                 .ValidationIcons[x => x.PhoneNumber].Should.Not.BeVisible()
                 .ValidationIcons[x => x.ZipCode].Should.Not.BeVisible();
+            });
         }
 
 
