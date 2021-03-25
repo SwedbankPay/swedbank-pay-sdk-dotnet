@@ -22,105 +22,113 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Anonymous
         [Test]
         [Retry(3)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Card })]
-        public async Task Anonymous_PaymentOrder_Card_Reversal(Product[] products, PayexInfo payexInfo)
+        public void Anonymous_PaymentOrder_Card_Reversal(Product[] products, PayexInfo payexInfo)
         {
-            GoToOrdersPage(products, payexInfo, Checkout.Option.Anonymous)
+            Assert.DoesNotThrowAsync(async () => {
+
+                GoToOrdersPage(products, payexInfo, Checkout.Option.Anonymous)
                 .PaymentOrderLink.StoreValueAsUri(out var orderLink)
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderCapture)].ExecuteAction.ClickAndGo()
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderReversal)].ExecuteAction.ClickAndGo()
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible()
                 .Actions.Rows.Count.Should.Equal(1);
 
-            var order = await SwedbankPayClient.PaymentOrders.Get(orderLink, PaymentOrderExpand.All);
+                var order = await SwedbankPayClient.PaymentOrders.Get(orderLink, PaymentOrderExpand.All);
 
-            // Operations
-            Assert.That(order.Operations[LinkRelation.CreatePaymentOrderCancel], Is.Null);
-            Assert.That(order.Operations[LinkRelation.CreatePaymentOrderCapture], Is.Null);
-            Assert.That(order.Operations[LinkRelation.CreatePaymentOrderReversal], Is.Null);
-            Assert.That(order.Operations[LinkRelation.PaidPaymentOrder], Is.Not.Null);
+                // Operations
+                Assert.That(order.Operations[LinkRelation.CreatePaymentOrderCancel], Is.Null);
+                Assert.That(order.Operations[LinkRelation.CreatePaymentOrderCapture], Is.Null);
+                Assert.That(order.Operations[LinkRelation.CreatePaymentOrderReversal], Is.Null);
+                Assert.That(order.Operations[LinkRelation.PaidPaymentOrder], Is.Not.Null);
 
-            // Transactions
-            Assert.That(order.PaymentOrder.CurrentPayment.Payment.Transactions.TransactionList.Count, Is.EqualTo(3));
-            Assert.That(order.PaymentOrder.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionType.Authorization).State,
-                        Is.EqualTo(State.Completed));
-            Assert.That(order.PaymentOrder.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionType.Capture).State,
-                        Is.EqualTo(State.Completed));
-            Assert.That(order.PaymentOrder.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionType.Reversal).State,
-                        Is.EqualTo(State.Completed));
+                // Transactions
+                Assert.That(order.PaymentOrder.CurrentPayment.Payment.Transactions.TransactionList.Count, Is.EqualTo(3));
+                Assert.That(order.PaymentOrder.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionType.Authorization).State,
+                            Is.EqualTo(State.Completed));
+                Assert.That(order.PaymentOrder.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionType.Capture).State,
+                            Is.EqualTo(State.Completed));
+                Assert.That(order.PaymentOrder.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionType.Reversal).State,
+                            Is.EqualTo(State.Completed));
+            });
         }
 
 
         [Test]
         [Retry(5)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Swish })]
-        public async Task Anonymous_PaymentOrder_Swish_Reversal(Product[] products, PayexInfo payexInfo)
+        public void Anonymous_PaymentOrder_Swish_Reversal(Product[] products, PayexInfo payexInfo)
         {
-            GoToOrdersPage(products, payexInfo, Checkout.Option.Anonymous)
-                .PaymentOrderLink.StoreValueAsUri(out var orderLink)
-                .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderReversal)].ExecuteAction.ClickAndGo()
-                .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible()
-                .Actions.Rows.Count.Should.Equal(1);
+            Assert.DoesNotThrowAsync(async () => {
 
-            var counter = 0;
-            var order = await SwedbankPayClient.PaymentOrders.Get(orderLink, PaymentOrderExpand.All);
+                GoToOrdersPage(products, payexInfo, Checkout.Option.Anonymous)
+                 .PaymentOrderLink.StoreValueAsUri(out var orderLink)
+                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderReversal)].ExecuteAction.ClickAndGo()
+                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible()
+                 .Actions.Rows.Count.Should.Equal(1);
 
-            while (order.PaymentOrder.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionType.Reversal).State != State.Completed && counter <= 15)
-            {
-                Thread.Sleep(1000);
-                try
+                var counter = 0;
+                var order = await SwedbankPayClient.PaymentOrders.Get(orderLink, PaymentOrderExpand.All);
+
+                while (order.PaymentOrder.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionType.Reversal).State != State.Completed && counter <= 15)
                 {
-                    order = await SwedbankPayClient.PaymentOrders.Get(orderLink, PaymentOrderExpand.All);
+                    Thread.Sleep(1000);
+                    try
+                    {
+                        order = await SwedbankPayClient.PaymentOrders.Get(orderLink, PaymentOrderExpand.All);
+                    }
+                    catch { }
+                    counter++;
                 }
-                catch { }
-                counter++;
-            }
 
-            // Operations
-            Assert.That(order.Operations[LinkRelation.CreatePaymentOrderCancel], Is.Null);
-            Assert.That(order.Operations[LinkRelation.CreatePaymentOrderCapture], Is.Null);
-            Assert.That(order.Operations[LinkRelation.CreatePaymentOrderReversal], Is.Null);
-            Assert.That(order.Operations[LinkRelation.PaidPaymentOrder], Is.Not.Null);
+                // Operations
+                Assert.That(order.Operations[LinkRelation.CreatePaymentOrderCancel], Is.Null);
+                Assert.That(order.Operations[LinkRelation.CreatePaymentOrderCapture], Is.Null);
+                Assert.That(order.Operations[LinkRelation.CreatePaymentOrderReversal], Is.Null);
+                Assert.That(order.Operations[LinkRelation.PaidPaymentOrder], Is.Not.Null);
 
-            // Transactions
-            Assert.That(order.PaymentOrder.CurrentPayment.Payment.Transactions.TransactionList.Count, Is.EqualTo(2));
-            Assert.That(order.PaymentOrder.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionType.Sale).State,
-                        Is.EqualTo(State.Completed));
-            Assert.That(order.PaymentOrder.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionType.Reversal).State,
-                        Is.EqualTo(State.Completed));
+                // Transactions
+                Assert.That(order.PaymentOrder.CurrentPayment.Payment.Transactions.TransactionList.Count, Is.EqualTo(2));
+                Assert.That(order.PaymentOrder.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionType.Sale).State,
+                            Is.EqualTo(State.Completed));
+                Assert.That(order.PaymentOrder.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionType.Reversal).State,
+                            Is.EqualTo(State.Completed));
+            });
         }
 
 
         [Test]
         [Retry(3)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Invoice })]
-        public async Task Anonymous_PaymentOrder_Invoice_Reversal(Product[] products, PayexInfo payexInfo)
+        public void Anonymous_PaymentOrder_Invoice_Reversal(Product[] products, PayexInfo payexInfo)
         {
-            _ = GoToOrdersPage(products, payexInfo, Checkout.Option.Anonymous)
-                .PaymentOrderLink.StoreValueAsUri(out var orderLink)
-                .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderCapture)].ExecuteAction.ClickAndGo()
-                .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderReversal)].ExecuteAction.ClickAndGo()
-                .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible()
-                .Actions.Rows.Count.Should.Equal(1);
+            Assert.DoesNotThrowAsync(async () => {
 
-            var order = await SwedbankPayClient.PaymentOrders.Get(orderLink, PaymentOrderExpand.All);
+                _ = GoToOrdersPage(products, payexInfo, Checkout.Option.Anonymous)
+                 .PaymentOrderLink.StoreValueAsUri(out var orderLink)
+                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderCapture)].ExecuteAction.ClickAndGo()
+                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderReversal)].ExecuteAction.ClickAndGo()
+                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible()
+                 .Actions.Rows.Count.Should.Equal(1);
 
-            // Operations
-            Assert.That(order.Operations[LinkRelation.CreatePaymentOrderCancel], Is.Null);
-            Assert.That(order.Operations[LinkRelation.CreatePaymentOrderCapture], Is.Null);
-            Assert.That(order.Operations[LinkRelation.CreatePaymentOrderReversal], Is.Null);
-            Assert.That(order.Operations[LinkRelation.PaidPaymentOrder], Is.Not.Null);
+                var order = await SwedbankPayClient.PaymentOrders.Get(orderLink, PaymentOrderExpand.All);
 
-            // Transactions
-            Assert.That(order.PaymentOrder.CurrentPayment.Payment.Transactions.TransactionList.Count, Is.EqualTo(4));
-            //Assert.That(order.PaymentOrder.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == "Initialization").State,
-            //            Is.EqualTo(State.Completed));
-            Assert.That(order.PaymentOrder.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionType.Authorization).State,
-                        Is.EqualTo(State.Completed));
-            Assert.That(order.PaymentOrder.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionType.Capture).State,
-                        Is.EqualTo(State.Completed));
-            Assert.That(order.PaymentOrder.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionType.Reversal).State,
-                        Is.EqualTo(State.Completed));
+                // Operations
+                Assert.That(order.Operations[LinkRelation.CreatePaymentOrderCancel], Is.Null);
+                Assert.That(order.Operations[LinkRelation.CreatePaymentOrderCapture], Is.Null);
+                Assert.That(order.Operations[LinkRelation.CreatePaymentOrderReversal], Is.Null);
+                Assert.That(order.Operations[LinkRelation.PaidPaymentOrder], Is.Not.Null);
+
+                // Transactions
+                Assert.That(order.PaymentOrder.CurrentPayment.Payment.Transactions.TransactionList.Count, Is.EqualTo(4));
+                //Assert.That(order.PaymentOrder.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == "Initialization").State,
+                //            Is.EqualTo(State.Completed));
+                Assert.That(order.PaymentOrder.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionType.Authorization).State,
+                            Is.EqualTo(State.Completed));
+                Assert.That(order.PaymentOrder.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionType.Capture).State,
+                            Is.EqualTo(State.Completed));
+                Assert.That(order.PaymentOrder.CurrentPayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionType.Reversal).State,
+                            Is.EqualTo(State.Completed));
+            });
         }
-
     }
 }
