@@ -743,7 +743,7 @@
             Validates a email address.
             </summary>
             <param name="emailAddress">The email address to validate.</param>
-            <returns>true if it is valid, false othervise.</returns>
+            <returns>true if it is valid, false otherwise.</returns>
         </member>
         <member name="M:SwedbankPay.Sdk.EmailAddress.ToString">
             <summary>
