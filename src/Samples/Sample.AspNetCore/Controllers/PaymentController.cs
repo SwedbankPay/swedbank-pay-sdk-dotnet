@@ -42,6 +42,7 @@ namespace Sample.AspNetCore.Controllers
 
                 TempData["AbortMessage"] = $"Payment Order: {response.PaymentOrder.Id} has been {response.PaymentOrder.State}";
                 this.cartService.PaymentOrderLink = null;
+                this.cartService.Update();
 
                 return RedirectToAction(nameof(Index), "Products");
             }

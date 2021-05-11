@@ -1,4 +1,6 @@
-﻿using SwedbankPay.Sdk;
+﻿using System;
+
+using SwedbankPay.Sdk;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -13,6 +15,8 @@ namespace Sample.AspNetCore.Models
         public string PaymentLink { get; set; }
         public bool Vat { get; set; }
         public PaymentInstrument Instrument { get; set; }
+        public string ConsumerUiScriptSource { get; set; }
+        public string ConsumerProfileRef { get; set; }
 
 
         public virtual void AddItem(Product product, int quantity)
