@@ -28,8 +28,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Anonymous
                 GoToOrdersPage(products, payexInfo, Checkout.Option.Anonymous)
                 .PaymentOrderLink.StoreValueAsUri(out var orderLink)
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderReversal)].Should.BeVisible()
-                .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible()
-                .Actions.Rows.Count.Should.Equal(3);
+                .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible();
 
                 var order = await SwedbankPayClient.PaymentOrders.Get(orderLink, PaymentOrderExpand.All);
 

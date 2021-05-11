@@ -28,8 +28,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Anonymous
                 GoToOrdersPage(products, payexInfo, Checkout.Option.Anonymous)
                 .PaymentOrderLink.StoreValueAsUri(out var orderLink)
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderCancel)].ExecuteAction.ClickAndGo()
-                .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible()
-                .Actions.Rows.Count.Should.Equal(2);
+                .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible();
 
                 var order = await SwedbankPayClient.PaymentOrders.Get(orderLink, PaymentOrderExpand.All);
 
@@ -59,8 +58,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Anonymous
                 GoToOrdersPage(products, payexInfo, Checkout.Option.Anonymous)
                 .PaymentOrderLink.StoreValueAsUri(out var orderLink)
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderCancel)].ExecuteAction.ClickAndGo()
-                .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible()
-                .Actions.Rows.Count.Should.Equal(2);
+                .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible();
 
                 var order = await SwedbankPayClient.PaymentOrders.Get(orderLink, PaymentOrderExpand.All);
 
