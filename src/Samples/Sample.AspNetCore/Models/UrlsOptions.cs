@@ -32,8 +32,7 @@ namespace Sample.AspNetCore.Models
 
         /// <summary>
         ///     The URI that SwedbankPay will redirect back to when the payment menu needs to be loaded, to inspect and act on the
-        ///     current status of the payment. Only used in hosted views. Can not be used simultaneously with cancelUrl; only
-        ///     cancelUrl or paymentUrl can be used, not both.
+        ///     current status of the payment. Only used in hosted views.
         /// </summary>
         public Uri PaymentUrl { get; set; }
 
@@ -41,5 +40,20 @@ namespace Sample.AspNetCore.Models
         ///     The URI to the terms of service document the payer must accept in order to complete the payment.
         /// </summary>
         public Uri TermsOfServiceUrl { get; set; }
+
+        /// <summary>
+        ///    PaymentUrl for Standard checkout
+        /// </summary>
+        public Uri StandardCheckoutPaymentUrl { get; set; }
+
+        /// <summary>
+        ///    PaymentUrl for Anonymous checkout
+        /// </summary>
+        public Uri AnonymousCheckoutPaymentUrl { get; set; }
+
+        /// <summary>
+        ///    PaymentUrl for Payment menu checkout
+        /// </summary>
+        public Uri PaymentMenuPaymentUrl { get; set; }
     }
 }
