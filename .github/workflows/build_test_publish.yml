@@ -230,7 +230,7 @@ jobs:
     # Deploy to Dev Azure Web apps
     - name: 'Run Azure webapp deploy to dev using publish profile credentials'
       if: ${{ needs.variables.outputs.ENVIRONMENT == 'dev' && github.event_name != 'pull_request'  && startsWith(github.ref, 'refs/heads/develop') }}
-      uses: azure/webapps-deploy@v2
+      uses: azure/webapps-deploy@v2.1.6
       with:
         app-name: ${{ needs.variables.outputs.AZURE_WEBAPP_NAME }} # Replace with your app name
         publish-profile: ${{ secrets.AZURE_WEBAPP_DEV_PUBLISH_PROFILE }} # Define secret variable in repository settings as per action documentation
@@ -239,7 +239,7 @@ jobs:
     # Deploy to Uat Azure Web apps
     - name: 'Run Azure webapp deploy to uat using publish profile credentials'
       if: ${{ needs.variables.outputs.ENVIRONMENT == 'uat' && github.event_name != 'pull_request' }}
-      uses: azure/webapps-deploy@v2
+      uses: azure/webapps-deploy@v2.1.6
       with:
         app-name: ${{ needs.variables.outputs.AZURE_WEBAPP_NAME }} # Replace with your app name
         publish-profile: ${{ secrets.AZURE_WEBAPP_UAT_PUBLISH_PROFILE }} # Define secret variable in repository settings as per action documentation
@@ -248,7 +248,7 @@ jobs:
     # Deploy to Pro Azure Web apps
     - name: 'Run Azure webapp deploy to pro using publish profile credentials'
       if: ${{ needs.variables.outputs.ENVIRONMENT == 'pro' && github.event_name != 'pull_request' }}
-      uses: azure/webapps-deploy@v2
+      uses: azure/webapps-deploy@v2.1.6
       with:
         app-name: ${{ needs.variables.outputs.AZURE_WEBAPP_NAME }} # Replace with your app name
         publish-profile: ${{ secrets.AZURE_WEBAPP_PRO_PUBLISH_PROFILE }} # Define secret variable in repository settings as per action documentation
