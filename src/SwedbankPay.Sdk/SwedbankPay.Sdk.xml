@@ -2476,19 +2476,18 @@
             Used to pay a credit card recurring payment.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,System.String,SwedbankPay.Sdk.Currency,SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.IPayeeInfo)">
+        <member name="M:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurRequest.#ctor(SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,System.String,SwedbankPay.Sdk.Currency,SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.IPayeeInfo)">
             <summary>
             Instantiates a new <see cref="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurRequest"/> with the provided parameters.
             </summary>
-            <param name="operation">The wanted <seealso cref="T:SwedbankPay.Sdk.Operation"/> to perform.</param>
             <param name="intent">The current <seealso cref="T:SwedbankPay.Sdk.PaymentInstruments.PaymentIntent"/> for this payment.</param>
-            <param name="recurrenceToken">A previously authorizied reucrrence token.</param>
+            <param name="recurrenceToken">A previously authorized recurrence token.</param>
             <param name="currency">The <seealso cref="T:SwedbankPay.Sdk.Currency"/> the payment is being paid in.</param>
             <param name="amount">The amount the payer pays.</param>
             <param name="vatAmount">The <seealso cref="T:SwedbankPay.Sdk.Amount"/> to be paid as Value Added Tax.</param>
             <param name="description">A textual description of the payment.</param>
             <param name="userAgent">The payers User Agent.</param>
-            <param name="language">The prefered <seealso cref="T:SwedbankPay.Sdk.Language"/> of the payer.</param>
+            <param name="language">The preferred <seealso cref="T:SwedbankPay.Sdk.Language"/> of the payer.</param>
             <param name="urls">All relevant <seealso cref="T:SwedbankPay.Sdk.IUrls"/> for this payment.</param>
             <param name="payeeInfo">Your payee information.</param>
         </member>
