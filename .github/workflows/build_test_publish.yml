@@ -68,7 +68,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.407
+        dotnet-version: 5.0.*
 
     - name: Install dependencies
       run: dotnet restore ./src/SwedbankPay.Sdk.sln
@@ -121,7 +121,7 @@ jobs:
 
     - uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '3.1.x' # SDK Version to use; x will use the latest version of the 3.1 channel
+        dotnet-version: '5.0.x' # SDK Version to use; x will use the latest version of the 5.0 channel
 
     - name: Download All artifacts
       uses: actions/download-artifact@v2
@@ -178,7 +178,7 @@ jobs:
 
     - uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '5.0.x' # SDK Version to use; x will use the latest version of the 3.1 channel
+        dotnet-version: '5.0.x' # SDK Version to use; x will use the latest version of the 5.0 channel
 
     - name: Build solution
       run: dotnet build ./src/SwedbankPay.Sdk.sln
