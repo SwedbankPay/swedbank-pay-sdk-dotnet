@@ -71,7 +71,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             }
 
             return page?
-                .ThankYou.IsVisible.WaitTo.BeTrue()
+                .ThankYou.IsVisible.WaitTo.Within(120).BeTrue()
                 .Header.Orders.ClickAndGo();
         }
 
@@ -260,11 +260,11 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
         {
             return checkout switch
             {
-                //Checkout.Option.Standard => GoToPayexInvoicePaymentFrame(products, checkout)
-                //                       .PersonalNumber.IsVisible.WaitTo.BeTrue()
-                //                       .PersonalNumber.SetWithSpeed(info.PersonalNumber.Substring(info.PersonalNumber.Length - 4), interval: 0.15)
-                //                       .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
-                //                       .Pay.ClickAndGo(),
+                Checkout.Option.Standard => GoToPayexInvoicePaymentFrame(products, checkout)
+                                       .PersonalNumber.IsVisible.WaitTo.BeTrue()
+                                       .PersonalNumber.SetWithSpeed(info.PersonalNumber.Substring(info.PersonalNumber.Length - 4), interval: 0.15)
+                                       .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
+                                       .Pay.ClickAndGo(),
                 _ => GoToPayexInvoicePaymentFrame(products, checkout)
                     .PersonalNumber.IsVisible.WaitTo.BeTrue()
                     .PersonalNumber.SetWithSpeed(info.PersonalNumber, interval: 0.1)
@@ -273,6 +273,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                     .ZipCode.SetWithSpeed(info.ZipCode, interval: 0.1)
                     .Next.Click()
                     .Wait(TimeSpan.FromSeconds(5))
+                    .Pay.IsVisible.WaitTo.Within(20).BeTrue()
                     .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
                     .Pay.ClickAndGo(),
             };

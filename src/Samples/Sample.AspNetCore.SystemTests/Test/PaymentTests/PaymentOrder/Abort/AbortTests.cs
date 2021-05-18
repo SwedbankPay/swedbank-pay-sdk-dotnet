@@ -19,22 +19,25 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Abort
         [Test]
         [Retry(3)]
         [TestCaseSource(nameof(TestData), new object[] { true, null })]
-        public async Task Abort_PaymentOrder(Product[] products)
+        public void Abort_PaymentOrder(Product[] products)
         {
-            GoToPayexPaymentPage(products)
+            Assert.DoesNotThrowAsync(async () => {
+
+                GoToPayexPaymentPage(products)
                 .Abort.ClickAndGo()
                 .Message.StoreValueAsUri(out var message)
                 .Header.Products.ClickAndGo();
 
-            var orderLink = message.OriginalString.Substring(message.OriginalString.IndexOf("/")).Replace(" has been Aborted", "");
+                var orderLink = message.OriginalString.Substring(message.OriginalString.IndexOf("/")).Replace(" has been Aborted", "");
 
-            var order = await SwedbankPayClient.PaymentOrders.Get(new Uri(orderLink, UriKind.RelativeOrAbsolute), SwedbankPay.Sdk.PaymentOrders.PaymentOrderExpand.All);
+                var order = await SwedbankPayClient.PaymentOrders.Get(new Uri(orderLink, UriKind.RelativeOrAbsolute), SwedbankPay.Sdk.PaymentOrders.PaymentOrderExpand.All);
 
-            // Operations
-            Assert.That(order.Operations[LinkRelation.AbortedPaymentOrder], Is.Not.Null);
+                // Operations
+                Assert.That(order.Operations[LinkRelation.AbortedPaymentOrder], Is.Not.Null);
 
-            // Transactions
-            Assert.That(order.PaymentOrder.CurrentPayment.Payment, Is.Null);
+                // Transactions
+                Assert.That(order.PaymentOrder.CurrentPayment.Payment, Is.Null);
+            });
         }
     }
 }

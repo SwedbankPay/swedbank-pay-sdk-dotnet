@@ -1,17 +1,11 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
-
-@model SwedbankPayCheckoutSource
+﻿@model SwedbankPayCheckoutSource
 @{
     var containerId = Guid.NewGuid();
 }
-@*@Html.HiddenFor(x => x.SystemKeyword)*@
-
 
 <div id="swedbankpay-checkout">
 
-    @if (Model.UseAnonymousCheckout)
+    @if (Model.ConsumerUiScriptSource == null && Model.UseAnonymousCheckout)
     {
         <div id="paymentMenuFrame">
             <div id="swedbankpay-paymentmenu-@containerId">
@@ -37,175 +31,118 @@
 
 
 <script type="text/javascript">
-    var loadScriptAsync = function(uri) {
-        return new Promise(function(resolve, reject) {
-            var tag = document.createElement('script');
-            tag.src = uri;
-            tag.async = true;
-            tag.onload = function() {
-                resolve();
-            };
-            var firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        });
-    };
-    var scriptLoaded = loadScriptAsync('@(Model.JavascriptSource)');
-    
-    var config = {
-        container: 'swedbankpay-paymentmenu-@containerId',
-        culture: '@Model.Culture.Name',
-        onPaymentCreated: onCreatedPaymentHandler
-    };
+	function onCreatedPaymentHandler(paymentCreatedEvent) {
+		console.log(paymentCreatedEvent);
+	}
 
-    function onCreatedPaymentHandler(paymentCreatedEvent) {
-        console.log(paymentCreatedEvent);
-        var form = $('.jsCheckoutForm');
-        //var data = form.serializeArray();
+	function onPaymentCanceledHandler(paymentCanceledEvent) {
+		console.log("Payment canceled");
+		console.log(paymentCanceledEvent);
+	}
 
-        //data.push({ name: "instrument", value: paymentCreatedEvent.instrument });
-        //$.ajax({
-        //    async: false,
-        //    type: "POST",
-        //    cache: false,
-        //    url: $(form).data('addpaymentinfourl'),
-        //    data: data,
-        //    success: function(result) {
-        //        console.log('payment created');
-        //    }
-        //});
-        $.ajax({
-            async: false,
-            type: "POST",
-            cache: false,
-            url: "/payment/OnCompleted",
-            data: { "paymentLinkId": paymentCreatedEvent.id },
-            success: function(result) {
-                console.log('payment created');
-            }
-        });
-        console.log('address saved');
-    }
+	function onPaymentFailedHandler(paymentFailedEvent) {
+		console.log("Ooopsy daisy");
+		console.log(paymentFailedEvent);
+	};
+
+	function onPaymentCompletedHandler(paymentCompletedEvent) {
+		console.log("Payment completed");
+	}
+	
+	var paymentMenuConfig = {
+		container: 'swedbankpay-paymentmenu-@containerId',
+		culture: '@Model.Culture.Name',
+		onPaymentCreated: onCreatedPaymentHandler,
+		onPaymentFailed: onPaymentFailedHandler,
+		onPaymentCanceled: onPaymentCanceledHandler
+	};
+
+	function createPaymentMenuElements(menuScript) {
+		if (window.payex?.hostedView?.paymentMenu !== undefined)
+		{
+			window.payex.hostedView.paymentMenu = undefined;
+		}
+
+		var paymentMenuScriptTag = document.getElementById('paymentMenuScript');
+		if (paymentMenuScriptTag !== null) {
+			paymentMenuScriptTag.remove();
+		}
+
+		var script = document.createElement('script');
+		script.setAttribute("id", "paymentMenuScript");
+		script.onload = function () {
+			window.payex.hostedView.paymentMenu(paymentMenuConfig).open();
+		};
+		script.src = menuScript;
+		document.getElementsByTagName('head')[0].appendChild(script);
+	}
 </script>
 
 
-@if (Model.UseAnonymousCheckout)
+@if (Model.ConsumerUiScriptSource == null && (Model.UseAnonymousCheckout))
 {
-    <script type="text/javascript">
-        scriptLoaded.then(function() {
-            payex.hostedView.paymentMenu(config).open();
-        });
-
-    </script>
+	<script type="text/javascript">
+		createPaymentMenuElements('@Model.JavascriptSource');
+	</script>
 }
 else
 {
     <script type="text/javascript">
 
-        var paymentMenuConfig = {
-            container: "swedbankpay-consumer-@containerId",
-            culture: '@Model.Culture.Name',
-            onConsumerIdentified: onIdentifiedConsumerHandler,
-            //onShippingDetailsAvailable: onShippingDetailsAvailableHandler //TODO Add support for onShipping
-        };
+	    var consumerConfig = {
+		    container: "swedbankpay-consumer-@containerId",
+		    culture: '@Model.Culture.Name',
+		    onConsumerIdentified: onIdentifiedConsumerHandler,
+	    };
 
-        function onShippingDetailsAvailableHandler(data) {
-            console.log(data);
-            var request = new XMLHttpRequest();
 
-            request.addEventListener('load',
-                function() {
-                    var response = JSON.parse(this.responseText);
-                    console.log(response);
-                    var shippingAddress = response.ShippingAddress;
-                    $('#BillingAddress_Email').val(response.Email);
-                    $('#BillingAddress_FirstName').val(shippingAddress.Addressee);
-                    $('#BillingAddress_LastName').val(shippingAddress.Addressee);
-                    $('#BillingAddress_Line1').val(shippingAddress.StreetAddress);
-                    $('#BillingAddress_PostalCode').val(shippingAddress.ZipCode);
-                    $('#BillingAddress_City').val(shippingAddress.City);
-                    $('#BillingAddress_CountryCode').val(shippingAddress.CountryCode);
+	    function onIdentifiedConsumerHandler(data) {
+		    console.log('onIdentifiedConsumerHandler:' + JSON.stringify(data));
+		  
 
-                });
-            request.open('POST', '@Url.Action("GetSwedbankPayShippingDetails", "SwedbankPayCheckout", null)', true);
-            request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-            request.send(JSON.stringify(data));
-        }
+		    var request = new XMLHttpRequest();
+			request.addEventListener('load', function () {
+				var paymentMenuFrame = document.getElementById("paymentMenuFrame");
+				paymentMenuFrame.removeAttribute("hidden");
+			    createPaymentMenuElements(this.responseText);
+			});
+		    
+		    request.open('POST', '@Url.Action("GetViewPaymentOrderHref", "Checkout", null)', true);
+			request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+			request.send(JSON.stringify({ "consumerProfileRef": data.consumerProfileRef }));
 
-        function onIdentifiedConsumerHandler(data) {
-            var paymentMenuFrame = document.getElementById("paymentMenuFrame");
-            paymentMenuFrame.removeAttribute("hidden");
-            @*console.log("data", data);
-            debugger;
-            var request = new XMLHttpRequest();
-            request.addEventListener('load', function () {
+			
+		    $.ajax({
+			    async: true,
+			    type: "POST",
+			    cache: false,
+			    url: '@Url.Action("GetViewPaymentOrderHref", "Checkout", null)',
+			    data: { "consumerProfileRef": data.consumerProfileRef },
+			    success: function(result) {
+				    var paymentMenuFrame = document.getElementById("paymentMenuFrame");
+				    paymentMenuFrame.removeAttribute("hidden");
+				    createPaymentMenuElements(result);
+			    },
+			    error: function(xhr, error) {
+				    console.debug(xhr);
+				    console.debug(error);
+			    }
+		    });
+	    }
 
-               
-                var response = JSON.parse(this.responseText);
-                console.log("result", response);
-                var script = document.createElement('script');
-                // This assumses the operations from the response of the POST of the
-                // payment cart is returned verbatim from the server to the Ajax:
-                var operation = response.Operations.find(o => o.Rel === 'view-paymentorder');
-                script.setAttribute('src', operation.Href);
-                script.onload = function() {
-                    // When the 'view-paymentcart' script is loaded, we can initialize the payment
-                    // menu inside our 'checkin' container.
-                    payex.hostedView.paymentMenu(config).open();
-                };
-                var head = document.getElementsByTagName('head')[0];
-                head.appendChild(script);
-            });
-            request.open('POST', '@Url.Action("CreatePaymentOrder", "Checkout", null)', true);
-            request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-            request.send('consumerProfileRef=jhf');*@
+	    if (window.payex?.hostedView?.consumer === undefined) {
+		    var script = document.createElement('script');
+		    script.setAttribute('src', '@Model.ConsumerUiScriptSource');
+		    script.onload = function () {
+			    window.payex.hostedView.consumer(consumerConfig).open();
+		    }
 
-            $.ajax({
-                async: true,
-                type: "POST",
-                cache: false,
-                url: '@Url.Action("GetViewPaymentOrderHref", "Checkout", null)',
-                data: { "consumerProfileRef": data.consumerProfileRef },
-                success: function(result) {
-
-                    //var response = JSON.parse(result);
-
-                    var script = document.createElement('script');
-                    // This assumses the operations from the response of the POST of the
-                    // payment cart is returned verbatim from the server to the Ajax:
-                    //var operation = response.Operations.find(o => o.Rel === 'view-paymentorder');
-                    //var operation = myFunction(result.operations, 'rel', 'view-paymentorder');
-
-                    //var operation = result.Operations.find(o => o.Rel === 'view-paymentorder');
-                    //script.setAttribute('src', operation.href);
-                    script.setAttribute('src', result);
-
-                    script.onload = function() {
-                        // When the 'view-paymentcart' script is loaded, we can initialize the payment
-                        // menu inside our 'checkin' container.
-                        payex.hostedView.paymentMenu(config).open();
-                    };
-                    var head = document.getElementsByTagName('head')[0];
-                    head.appendChild(script);
-                },
-                error: function(xhr, error) {
-                    console.debug(xhr);
-                    console.debug(error);
-                }
-            });
-
-            function myFunction(array, key, value) {
-                for (var i = 0; i < array.length; i++) {
-                    if (array[i][key] === value) {
-                        return array[i];
-                    }
-                }
-            }
-
-        }
-
-        scriptLoaded.then(function() {
-            payex.hostedView.consumer(paymentMenuConfig).open();
-        });
-
+		    var head = document.getElementsByTagName('head')[0];
+		    head.appendChild(script);
+	    }
+	    else
+	    {
+		    window.payex.hostedView.consumer(consumerConfig).open();
+	    }
     </script>
 }

@@ -20,49 +20,55 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
         [Test]
         [Retry(3)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Card })]
-        public async Task Payment_Card_Cancellation(Product[] products, PayexInfo payexInfo)
+        public void Payment_Card_Cancellation(Product[] products, PayexInfo payexInfo)
         {
-            GoToOrdersPage(products, payexInfo, Checkout.Option.LocalPaymentMenu)
-                .PaymentLink.StoreValueAsUri(out var paymentLink)
-                .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCancellation)].ExecuteAction.ClickAndGo()
-                .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.PaidPayment)].Should.BeVisible()
-                .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.ViewPayment)].Should.BeVisible()
-                .Actions.Rows.Count.Should.Equal(2);
+            Assert.DoesNotThrowAsync(async () =>
+            {
 
-            var cardPayment = await SwedbankPayClient.Payments.CardPayments.Get(paymentLink, PaymentExpand.All);
+	            GoToOrdersPage(products, payexInfo, Checkout.Option.LocalPaymentMenu)
+		            .PaymentLink.StoreValueAsUri(out var paymentLink)
+		            .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCancellation)].ExecuteAction.ClickAndGo()
+		            .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.PaidPayment)].Should.BeVisible()
+		            .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.ViewPayment)].Should.BeVisible();
 
-            // Operations
-            Assert.That(cardPayment.Operations[LinkRelation.CreateCancellation], Is.Null);
-            Assert.That(cardPayment.Operations[LinkRelation.CreateCapture], Is.Null);
-            Assert.That(cardPayment.Operations[LinkRelation.CreateReversal], Is.Null);
-            Assert.That(cardPayment.Operations[LinkRelation.PaidPayment], Is.Not.Null);
+                var cardPayment = await SwedbankPayClient.Payments.CardPayments.Get(paymentLink, PaymentExpand.All);
 
-            // Transactions
-            Assert.That(cardPayment.Payment.Transactions.TransactionList.Count, Is.EqualTo(2));
-            Assert.That(cardPayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionType.Authorization).State,
-                        Is.EqualTo(State.Completed));
-            Assert.That(cardPayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionType.Cancellation).State,
-                        Is.EqualTo(State.Completed));
+                // Operations
+                Assert.That(cardPayment.Operations[LinkRelation.CreateCancellation], Is.Null);
+                Assert.That(cardPayment.Operations[LinkRelation.CreateCapture], Is.Null);
+                Assert.That(cardPayment.Operations[LinkRelation.CreateReversal], Is.Null);
+                Assert.That(cardPayment.Operations[LinkRelation.PaidPayment], Is.Not.Null);
+
+                // Transactions
+                Assert.That(cardPayment.Payment.Transactions.TransactionList.Count, Is.EqualTo(2));
+                Assert.That(cardPayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionType.Authorization).State,
+                            Is.EqualTo(State.Completed));
+                Assert.That(cardPayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionType.Cancellation).State,
+                            Is.EqualTo(State.Completed));
+            });
         }
 
         [Test]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Invoice })]
-        public async Task Payment_Invoice_Cancellation(Product[] products, PayexInfo payexInfo)
+        public void Payment_Invoice_Cancellation(Product[] products, PayexInfo payexInfo)
         {
-            GoToOrdersPage(products, payexInfo, Checkout.Option.LocalPaymentMenu)
-                .PaymentLink.StoreValueAsUri(out var paymentLink)
-                .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCancellation)].ExecuteAction.ClickAndGo();
+            Assert.DoesNotThrowAsync(async () => { 
+                
+                GoToOrdersPage(products, payexInfo, Checkout.Option.LocalPaymentMenu)
+                    .PaymentLink.StoreValueAsUri(out var paymentLink)
+                    .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCancellation)].ExecuteAction.ClickAndGo();
 
-            var invoicePayment = await SwedbankPayClient.Payments.InvoicePayments.Get(paymentLink, PaymentExpand.All);
+                var invoicePayment = await SwedbankPayClient.Payments.InvoicePayments.Get(paymentLink, PaymentExpand.All);
 
-            // Operations
-            Assert.That(invoicePayment.Operations[LinkRelation.CreateCancellation], Is.Not.Null);
-            Assert.That(invoicePayment.Operations[LinkRelation.CreateCapture], Is.Not.Null);
-            Assert.That(invoicePayment.Operations[LinkRelation.CreateReversal], Is.Null);
-            Assert.That(invoicePayment.Operations[LinkRelation.PaidPayment], Is.Not.Null);
+                // Operations
+                Assert.That(invoicePayment.Operations[LinkRelation.CreateCancellation], Is.Not.Null);
+                Assert.That(invoicePayment.Operations[LinkRelation.CreateCapture], Is.Not.Null);
+                Assert.That(invoicePayment.Operations[LinkRelation.CreateReversal], Is.Null);
+                Assert.That(invoicePayment.Operations[LinkRelation.PaidPayment], Is.Not.Null);
 
-            // Transactions
-            Assert.That(invoicePayment.Payment.Transactions.TransactionList.Count, Is.EqualTo(2));
+                // Transactions
+                Assert.That(invoicePayment.Payment.Transactions.TransactionList.Count, Is.EqualTo(2));
+            });
         }
     }
 }
