@@ -7,10 +7,8 @@ updates:
     time: "03:00"
     timezone: Europe/Oslo
   open-pull-requests-limit: 99
-  reviewers:
-  - zunkas
-  assignees:
-  - zunkas
+  reviewers: [zunkas, perhassle]
+  assignees: [zunkas]
 - package-ecosystem: github-actions
   directory: "/"
   schedule:
@@ -18,7 +16,5 @@ updates:
     time: "03:00"
     timezone: Europe/Oslo
   open-pull-requests-limit: 99
-  reviewers:
-  - zunkas
-  assignees:
-  - zunkas
+  reviewers: [zunkas, perhassle]
+  assignees: [zunkas]
