@@ -529,6 +529,11 @@
                 List of supported shipping countries for merchant. Using ISO-3166 standard.
             </summary>
         </member>
+        <member name="P:SwedbankPay.Sdk.Consumers.ConsumerRequest.RequireShippingAddress">
+            <summary>
+            If shipping address should be required (Default is true)
+            </summary>
+        </member>
         <member name="T:SwedbankPay.Sdk.Consumers.ConsumerResourceOperations">
             <summary>
             Currently mapped operations available for consumers.
@@ -4671,7 +4676,7 @@
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.IMobilePayPaymentDetails.Language">
             <summary>
-            The prefered langauge of the payer.
+            The prefered language of the payer.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.MobilePay.IMobilePayPaymentDetails.Operation">
