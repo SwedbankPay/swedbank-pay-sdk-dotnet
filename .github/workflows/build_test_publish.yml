@@ -23,13 +23,13 @@ jobs:
           fetch-depth: 0
 
       - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v0.9.9
+        uses: gittools/actions/gitversion/setup@v0.9.10
         with:
           versionSpec: '5.x.x'
 
       - name: Use GitVersion
         id: gitversion # step id used as reference for output values
-        uses: gittools/actions/gitversion/execute@v0.9.9
+        uses: gittools/actions/gitversion/execute@v0.9.10
 
       - name: Set dev environment variables
         uses: allenevans/set-env@v2.0.1
@@ -164,11 +164,11 @@ jobs:
         fetch-depth: 0
         ref: ${{ github.event.pull_request.head.sha }}
 
-    - uses: gittools/actions/gitversion/setup@v0.9.9
+    - uses: gittools/actions/gitversion/setup@v0.9.10
       with:
         versionSpec: '5.x.x'
 
-    - uses: gittools/actions/gitversion/execute@v0.9.9
+    - uses: gittools/actions/gitversion/execute@v0.9.10
       id: gitversion # step id used as reference for output values
       with:
         updateAssemblyInfo: true
