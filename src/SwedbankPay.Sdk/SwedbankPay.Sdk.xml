@@ -732,6 +732,38 @@
             </summary>
             <returns><inheritdoc/></returns>
         </member>
+        <member name="T:SwedbankPay.Sdk.DeliveryTimeFrameIndicator">
+            <summary>
+                Indicates the merchandise delivery timeframe.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.DeliveryTimeFrameIndicator.ElectronicDelivery">
+            <summary>
+            Delivery is electronic, no phyiscal shippment.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.DeliveryTimeFrameIndicator.SameDayShipping">
+            <summary>
+            Product is shipped same day as order is placed.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.DeliveryTimeFrameIndicator.OverNightShipping">
+            <summary>
+            Delivery is done over night.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.DeliveryTimeFrameIndicator.TwoDayOrMoreShipping">
+            <summary>
+            Shippment is expected to take two days or more.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.DeliveryTimeFrameIndicator.#ctor(System.String,System.String)">
+            <summary>
+            Instantiates a <see cref="T:SwedbankPay.Sdk.DeliveryTimeFrameIndicator"/> with the provided parameters.
+            </summary>
+            <param name="name">Human readable name.</param>
+            <param name="value">API value of the indicator.</param>
+        </member>
         <member name="T:SwedbankPay.Sdk.EmailAddress">
             <summary>
             Object holding a payer/consumer email address.
@@ -1243,7 +1275,7 @@
         </member>
         <member name="P:SwedbankPay.Sdk.IRiskIndicator.PickUpAddress">
             <summary>
-            If shipIndicator set to <seealso cref="F:SwedbankPay.Sdk.PaymentOrders.DeliveryTimeFrameIndicator.TwoDayOrMoreShipping"/>,
+            If shipIndicator set to <seealso cref="F:SwedbankPay.Sdk.DeliveryTimeFrameIndicator.TwoDayOrMoreShipping"/>,
             then prefill this with the payers pick up address of the purchase to decrease the risk factor of the purchase.
             </summary>
         </member>
@@ -6614,38 +6646,6 @@
             Set to 0 (zero) if there is no VAT amount charged.
             </summary>
         </member>
-        <member name="T:SwedbankPay.Sdk.PaymentOrders.DeliveryTimeFrameIndicator">
-            <summary>
-                Indicates the merchandise delivery timeframe.
-            </summary>
-        </member>
-        <member name="F:SwedbankPay.Sdk.PaymentOrders.DeliveryTimeFrameIndicator.ElectronicDelivery">
-            <summary>
-            Delivery is electronic, no phyiscal shippment.
-            </summary>
-        </member>
-        <member name="F:SwedbankPay.Sdk.PaymentOrders.DeliveryTimeFrameIndicator.SameDayShipping">
-            <summary>
-            Product is shipped same day as order is placed.
-            </summary>
-        </member>
-        <member name="F:SwedbankPay.Sdk.PaymentOrders.DeliveryTimeFrameIndicator.OverNightShipping">
-            <summary>
-            Delivery is done over night.
-            </summary>
-        </member>
-        <member name="F:SwedbankPay.Sdk.PaymentOrders.DeliveryTimeFrameIndicator.TwoDayOrMoreShipping">
-            <summary>
-            Shippment is expected to take two days or more.
-            </summary>
-        </member>
-        <member name="M:SwedbankPay.Sdk.PaymentOrders.DeliveryTimeFrameIndicator.#ctor(System.String,System.String)">
-            <summary>
-            Instantiates a <see cref="T:SwedbankPay.Sdk.PaymentOrders.DeliveryTimeFrameIndicator"/> with the provided parameters.
-            </summary>
-            <param name="name">Human readable name.</param>
-            <param name="value">API value of the indicator.</param>
-        </member>
         <member name="T:SwedbankPay.Sdk.PaymentOrders.ICurrentPayment">
             <summary>
             Transactional details about a current payment in a payment order.
@@ -7883,133 +7883,6 @@
             Order items to update
             </summary>
         </member>
-        <member name="T:SwedbankPay.Sdk.PaymentOrders.PickUpAddress">
-            <summary>
-                If shipIndicator set, then prefil 
-            </summary>
-            
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentOrders.PickUpAddress.City">
-            <summary>
-            Payers city of residence.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentOrders.PickUpAddress.CoAddress">
-            <summary>
-            Payers C/O address (if applicable).
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentOrders.PickUpAddress.CountryCode">
-            <summary>
-            Country code of the payer.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentOrders.PickUpAddress.Name">
-            <summary>
-            Full name of the payer.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentOrders.PickUpAddress.StreetAddress">
-            <summary>
-            Street address of the payers residence.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentOrders.PickUpAddress.ZipCode">
-            <summary>
-            Zip code of the payers residence.
-            </summary>
-        </member>
-        <member name="T:SwedbankPay.Sdk.PaymentOrders.PreOrderPurchaseIndicator">
-            <summary>
-                Indicates whether Cardholder is placing an order for merchandise with a future availability or release date.
-            </summary>
-        </member>
-        <member name="F:SwedbankPay.Sdk.PaymentOrders.PreOrderPurchaseIndicator.MerchandiseAvailable">
-            <summary>
-            Merchandise is available.
-            </summary>
-        </member>
-        <member name="F:SwedbankPay.Sdk.PaymentOrders.PreOrderPurchaseIndicator.FutureAvailability">
-            <summary>
-            Merchandise is available at a later date.
-            </summary>
-        </member>
-        <member name="M:SwedbankPay.Sdk.PaymentOrders.PreOrderPurchaseIndicator.#ctor(System.String,System.String)">
-            <summary>
-            Instantiates a <see cref="T:SwedbankPay.Sdk.PaymentOrders.PreOrderPurchaseIndicator"/> with the provided parameters.
-            </summary>
-            <param name="name">Human readable name of the indicator.</param>
-            <param name="value">API value of the indicator.</param>
-        </member>
-        <member name="T:SwedbankPay.Sdk.PaymentOrders.ReOrderPurchaseIndicator">
-            <summary>
-                Indicates whether Cardholder is placing an order for merchandise with a future availability or release date.
-            </summary>
-        </member>
-        <member name="F:SwedbankPay.Sdk.PaymentOrders.ReOrderPurchaseIndicator.MerchandiseAvailable">
-            <summary>
-            Merchandise is available at release date.
-            </summary>
-        </member>
-        <member name="F:SwedbankPay.Sdk.PaymentOrders.ReOrderPurchaseIndicator.FutureAvailability">
-            <summary>
-            Merchandise is available at a later date.
-            </summary>
-        </member>
-        <member name="M:SwedbankPay.Sdk.PaymentOrders.ReOrderPurchaseIndicator.#ctor(System.String,System.String)">
-            <summary>
-            Instantiates a <see cref="T:SwedbankPay.Sdk.PaymentOrders.ReOrderPurchaseIndicator"/> with the provided parameters.
-            </summary>
-            <param name="name">Human readable name of the indicator.</param>
-            <param name="value">API value of the indicator.</param>
-        </member>
-        <member name="T:SwedbankPay.Sdk.PaymentOrders.ShipIndicator">
-            <summary>
-                Indicates shipping method chosen for the transaction.
-            </summary>
-        </member>
-        <member name="F:SwedbankPay.Sdk.PaymentOrders.ShipIndicator.ShipToCardholdersBillingAddress">
-            <summary>
-            Ship to card holders billing address.
-            </summary>
-        </member>
-        <member name="F:SwedbankPay.Sdk.PaymentOrders.ShipIndicator.ShipToAnotherVerifiedAddressOnFileWithMerchant">
-            <summary>
-            Ship to address verified at merchant.
-            </summary>
-        </member>
-        <member name="F:SwedbankPay.Sdk.PaymentOrders.ShipIndicator.ShipToAddressDifferentThanCardholdersBillingAddress">
-            <summary>
-            Ship to address different from the card holders billing address.
-            </summary>
-        </member>
-        <member name="F:SwedbankPay.Sdk.PaymentOrders.ShipIndicator.ShipToStorePickupAtLocalStore">
-            <summary>
-                Ship to Store / Pick-up at local store.Store address shall be populated in shipping address fields
-            </summary>
-        </member>
-        <member name="F:SwedbankPay.Sdk.PaymentOrders.ShipIndicator.DigitalGoods">
-            <summary>
-                Digital goods, includes online services, electronic giftcards and redemption codes
-            </summary>
-        </member>
-        <member name="F:SwedbankPay.Sdk.PaymentOrders.ShipIndicator.TravelAndEventTicketsNotShipped">
-            <summary>
-                Travel and Event tickets, not shipped
-            </summary>
-        </member>
-        <member name="F:SwedbankPay.Sdk.PaymentOrders.ShipIndicator.Other">
-            <summary>
-                Other, e.g.gaming, digital service
-            </summary>
-        </member>
-        <member name="M:SwedbankPay.Sdk.PaymentOrders.ShipIndicator.#ctor(System.String,System.String)">
-            <summary>
-            Instantiates a <see cref="T:SwedbankPay.Sdk.PaymentOrders.ShipIndicator"/> with the provided parameters.
-            </summary>
-            <param name="name">Human readable name of the indicator.</param>
-            <param name="value">API value of the indicator.</param>
-        </member>
         <member name="T:SwedbankPay.Sdk.PaymentOrders.Swish">
             <summary>
             API detail for setting Swish specific details.
@@ -8019,6 +7892,64 @@
             <summary>
              Set enable Swish on ecommerce transactions.
             </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PickUpAddress">
+            <summary>
+                If shipIndicator set, then prefill
+            </summary>
+            
+        </member>
+        <member name="P:SwedbankPay.Sdk.PickUpAddress.City">
+            <summary>
+            Payers city of residence.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PickUpAddress.CoAddress">
+            <summary>
+            Payers C/O address (if applicable).
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PickUpAddress.CountryCode">
+            <summary>
+            Country code of the payer.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PickUpAddress.Name">
+            <summary>
+            Full name of the payer.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PickUpAddress.StreetAddress">
+            <summary>
+            Street address of the payers residence.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PickUpAddress.ZipCode">
+            <summary>
+            Zip code of the payers residence.
+            </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PreOrderPurchaseIndicator">
+            <summary>
+                Indicates whether Cardholder is placing an order for merchandise with a future availability or release date.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PreOrderPurchaseIndicator.MerchandiseAvailable">
+            <summary>
+            Merchandise is available.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PreOrderPurchaseIndicator.FutureAvailability">
+            <summary>
+            Merchandise is available at a later date.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.PreOrderPurchaseIndicator.#ctor(System.String,System.String)">
+            <summary>
+            Instantiates a <see cref="T:SwedbankPay.Sdk.PreOrderPurchaseIndicator"/> with the provided parameters.
+            </summary>
+            <param name="name">Human readable name of the indicator.</param>
+            <param name="value">API value of the indicator.</param>
         </member>
         <member name="T:SwedbankPay.Sdk.PriceType">
             <summary>
@@ -8135,6 +8066,28 @@
             Payment method is handled by Trustly.
             </summary>
         </member>
+        <member name="T:SwedbankPay.Sdk.ReOrderPurchaseIndicator">
+            <summary>
+                Indicates whether Cardholder is placing an order for merchandise with a future availability or release date.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.ReOrderPurchaseIndicator.MerchandiseAvailable">
+            <summary>
+            Merchandise is available at release date.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.ReOrderPurchaseIndicator.FutureAvailability">
+            <summary>
+            Merchandise is available at a later date.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.ReOrderPurchaseIndicator.#ctor(System.String,System.String)">
+            <summary>
+            Instantiates a <see cref="T:SwedbankPay.Sdk.ReOrderPurchaseIndicator"/> with the provided parameters.
+            </summary>
+            <param name="name">Human readable name of the indicator.</param>
+            <param name="value">API value of the indicator.</param>
+        </member>
         <member name="T:SwedbankPay.Sdk.ResourceBase">
             <summary>
             Abstract class to share a <seealso cref="P:SwedbankPay.Sdk.ResourceBase.HttpClient"/>.
@@ -8206,6 +8159,53 @@
                 06 (Travel and Event tickets, not shipped)
                 07 (Other, e.g.gaming, digital service)
             </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.ShipIndicator">
+            <summary>
+                Indicates shipping method chosen for the transaction.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.ShipIndicator.ShipToCardholdersBillingAddress">
+            <summary>
+            Ship to card holders billing address.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.ShipIndicator.ShipToAnotherVerifiedAddressOnFileWithMerchant">
+            <summary>
+            Ship to address verified at merchant.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.ShipIndicator.ShipToAddressDifferentThanCardholdersBillingAddress">
+            <summary>
+            Ship to address different from the card holders billing address.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.ShipIndicator.ShipToStorePickupAtLocalStore">
+            <summary>
+                Ship to Store / Pick-up at local store.Store address shall be populated in shipping address fields
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.ShipIndicator.DigitalGoods">
+            <summary>
+                Digital goods, includes online services, electronic giftcards and redemption codes
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.ShipIndicator.TravelAndEventTicketsNotShipped">
+            <summary>
+                Travel and Event tickets, not shipped
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.ShipIndicator.Other">
+            <summary>
+                Other, e.g.gaming, digital service
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.ShipIndicator.#ctor(System.String,System.String)">
+            <summary>
+            Instantiates a <see cref="T:SwedbankPay.Sdk.ShipIndicator"/> with the provided parameters.
+            </summary>
+            <param name="name">Human readable name of the indicator.</param>
+            <param name="value">API value of the indicator.</param>
         </member>
         <member name="T:SwedbankPay.Sdk.ShippingAddressUsageIndicator">
             <summary>

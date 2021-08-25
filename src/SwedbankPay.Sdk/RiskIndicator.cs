@@ -1,6 +1,4 @@
-﻿using SwedbankPay.Sdk.PaymentOrders;
-
-using System;
+﻿using System;
 
 namespace SwedbankPay.Sdk
 {

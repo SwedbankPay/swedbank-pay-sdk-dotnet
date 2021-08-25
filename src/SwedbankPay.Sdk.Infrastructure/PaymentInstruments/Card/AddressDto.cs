@@ -1,8 +1,6 @@
-﻿using SwedbankPay.Sdk.PaymentOrders;
-
-namespace SwedbankPay.Sdk.PaymentInstruments.Card
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
-    internal class AddressDto
+	internal class AddressDto
     {
         public AddressDto() { }
         
