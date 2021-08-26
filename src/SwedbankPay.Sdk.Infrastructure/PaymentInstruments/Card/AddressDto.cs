@@ -1,9 +1,9 @@
 ﻿namespace SwedbankPay.Sdk.PaymentInstruments.Card
 {
-	internal class AddressDto
+    internal class AddressDto
     {
         public AddressDto() { }
-        
+
         public AddressDto(IAddress address)
         {
             City = address.City;
@@ -21,7 +21,7 @@
             ZipCode = address.ZipCode;
         }
 
-        public AddressDto(PickUpAddress address): this(address as IAddress)
+        public AddressDto(PickUpAddress address) : this(address as IAddress)
         {
             Name = address.Name;
         }

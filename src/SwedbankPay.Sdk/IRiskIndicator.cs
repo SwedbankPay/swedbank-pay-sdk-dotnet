@@ -2,10 +2,10 @@
 
 namespace SwedbankPay.Sdk
 {
-	/// <summary>
-	/// Risk indicator object for 3D Secure 2.0 risk assessment.
-	/// </summary>
-	public interface IRiskIndicator
+    /// <summary>
+    /// Risk indicator object for 3D Secure 2.0 risk assessment.
+    /// </summary>
+    public interface IRiskIndicator
     {
         /// <summary>
         /// Payers delivery email address.
