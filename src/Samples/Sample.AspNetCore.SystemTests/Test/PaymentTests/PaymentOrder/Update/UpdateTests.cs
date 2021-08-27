@@ -7,7 +7,6 @@ using SwedbankPay.Sdk;
 using SwedbankPay.Sdk.PaymentOrders;
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Update
 {
@@ -20,7 +19,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Update
 
 
         [Test]
-        [Retry(3)]
+        [Retry(2)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Card })]
         public void Update_PaymentOrder(Product[] products, PayexInfo payexInfo)
         {
@@ -32,10 +31,11 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Update
                 .Header.Products.ClickAndGo();
 
                 GoToOrdersPage(products, payexInfo, Checkout.Option.Anonymous)
-                    .PaymentOrderLink.StoreValueAsUri(out var orderLink)
-                    .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderCancel)].Should.BeVisible()
-                    .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderCapture)].Should.BeVisible()
-                    .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible();
+                .Wait(5).RefreshPage()
+                .PaymentOrderLink.StoreValueAsUri(out var orderLink)
+                .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderCancel)].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderCapture)].Should.BeVisible()
+                .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible();
 
                 await SwedbankPayClient.PaymentOrders.Get(orderLink, PaymentOrderExpand.All);
             });

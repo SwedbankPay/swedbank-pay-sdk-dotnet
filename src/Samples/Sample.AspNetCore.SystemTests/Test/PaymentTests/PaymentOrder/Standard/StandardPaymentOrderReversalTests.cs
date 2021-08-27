@@ -19,7 +19,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Standard
 
 
         [Test]
-        [Retry(3)]
+        [Retry(2)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Card })]
         public void Standard_PaymentOrder_Card_Reversal(Product[] products, PayexInfo payexInfo)
         {
@@ -28,7 +28,9 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Standard
                 GoToOrdersPage(products, payexInfo, Checkout.Option.Standard)
                 .PaymentOrderLink.StoreValueAsUri(out var orderLink)
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderCapture)].ExecuteAction.ClickAndGo()
+                .Wait(5).RefreshPage()
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderReversal)].ExecuteAction.ClickAndGo()
+                .Wait(5).RefreshPage()
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible();
 
                 var order = await SwedbankPayClient.PaymentOrders.Get(orderLink, PaymentOrderExpand.All);
@@ -61,6 +63,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Standard
                 GoToOrdersPage(products, payexInfo, Checkout.Option.Standard)
                 .PaymentOrderLink.StoreValueAsUri(out var orderLink)
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderReversal)].ExecuteAction.ClickAndGo()
+                .Wait(5).RefreshPage()
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible();
 
                 var order = await SwedbankPayClient.PaymentOrders.Get(orderLink, PaymentOrderExpand.All);
@@ -94,7 +97,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Standard
 
 
         [Test]
-        [Retry(3)]
+        [Retry(2)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Invoice })]
         public void Standard_PaymentOrder_Invoice_Reversal(Product[] products, PayexInfo payexInfo)
         {
@@ -103,7 +106,9 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Standard
                 GoToOrdersPage(products, payexInfo, Checkout.Option.Standard)
                 .PaymentOrderLink.StoreValueAsUri(out var orderLink)
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderCapture)].ExecuteAction.ClickAndGo()
+                .Wait(5).RefreshPage()
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderReversal)].ExecuteAction.ClickAndGo()
+                .Wait(5).RefreshPage()
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible();
 
                 var order = await SwedbankPayClient.PaymentOrders.Get(orderLink, PaymentOrderExpand.All);

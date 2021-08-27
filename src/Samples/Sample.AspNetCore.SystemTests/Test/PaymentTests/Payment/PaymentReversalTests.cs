@@ -20,15 +20,17 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
 
 
         [Test]
-        [Retry(3)]
+        [Retry(2)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Card })]
         public async Task Payment_Card_Reversal(Product[] products, PayexInfo payexInfo)
         {
 	        GoToOrdersPage(products, payexInfo, Checkout.Option.LocalPaymentMenu)
 		        .PaymentLink.StoreValueAsUri(out var paymentLink)
 		        .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCapture)].ExecuteAction.ClickAndGo()
-		        .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateReversal)].ExecuteAction.ClickAndGo()
-		        .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.PaidPayment)].Should.BeVisible()
+                .Wait(5).RefreshPage()
+                .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateReversal)].ExecuteAction.ClickAndGo()
+                .Wait(5).RefreshPage()
+                .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.PaidPayment)].Should.BeVisible()
 		        .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.ViewPayment)].Should.BeVisible();
 
             var order = await SwedbankPayClient.Payments.CardPayments.Get(paymentLink, PaymentExpand.All);
@@ -58,7 +60,8 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
 	        GoToOrdersPage(products, payexInfo, Checkout.Option.LocalPaymentMenu)
 		        .PaymentLink.StoreValueAsUri(out var paymentLink)
 		        .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateReversal)].ExecuteAction.ClickAndGo()
-		        .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.ViewPayment)].Should.BeVisible();
+                .Wait(5).RefreshPage()
+                .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.ViewPayment)].Should.BeVisible();
 
             var swishPayment = await SwedbankPayClient.Payments.SwishPayments.Get(paymentLink, PaymentExpand.All);
             var counter = 0;

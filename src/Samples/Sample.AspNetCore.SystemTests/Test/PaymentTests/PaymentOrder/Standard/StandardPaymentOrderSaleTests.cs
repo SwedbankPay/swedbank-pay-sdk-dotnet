@@ -6,7 +6,6 @@ using SwedbankPay.Sdk;
 using SwedbankPay.Sdk.PaymentInstruments;
 using SwedbankPay.Sdk.PaymentOrders;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Standard
 {
@@ -19,7 +18,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Standard
 
 
         [Test]
-        [Retry(3)]
+        [Retry(2)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Swish })]
         public void Standard_PaymentOrder_Swish_Sale(Product[] products, PayexInfo payexInfo)
         {

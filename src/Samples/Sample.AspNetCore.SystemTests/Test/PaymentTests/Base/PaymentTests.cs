@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading;
+using System.Threading.Tasks;
 using Atata;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
@@ -72,7 +74,8 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
 
             return page?
                 .ThankYou.IsVisible.WaitTo.Within(120).BeTrue()
-                .Header.Orders.ClickAndGo();
+                .Header.Orders.ClickAndGo()
+                .Wait(5).RefreshPage();
         }
 
         protected PayexCardFramePage GoToPayexCardPaymentFrame(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)

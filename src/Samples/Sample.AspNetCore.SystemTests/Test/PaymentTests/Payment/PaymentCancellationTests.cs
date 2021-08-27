@@ -18,7 +18,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
 
 
         [Test]
-        [Retry(3)]
+        [Retry(2)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Card })]
         public void Payment_Card_Cancellation(Product[] products, PayexInfo payexInfo)
         {
@@ -28,7 +28,8 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
 	            GoToOrdersPage(products, payexInfo, Checkout.Option.LocalPaymentMenu)
 		            .PaymentLink.StoreValueAsUri(out var paymentLink)
 		            .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCancellation)].ExecuteAction.ClickAndGo()
-		            .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.PaidPayment)].Should.BeVisible()
+                    .Wait(5).RefreshPage()
+                    .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.PaidPayment)].Should.BeVisible()
 		            .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.ViewPayment)].Should.BeVisible();
 
                 var cardPayment = await SwedbankPayClient.Payments.CardPayments.Get(paymentLink, PaymentExpand.All);

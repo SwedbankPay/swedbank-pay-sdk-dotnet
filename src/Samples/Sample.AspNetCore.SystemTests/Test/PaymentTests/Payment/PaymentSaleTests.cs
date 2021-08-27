@@ -19,7 +19,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
 
 
         [Test]
-        [Retry(3)]
+        [Retry(2)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Swish })]
         public async Task Payment_Swish_Sale(Product[] products, PayexInfo payexInfo)
         {
@@ -49,7 +49,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
         }
 
         //[Test]
-        //[Retry(3)]
+        //[Retry(2)]
         //[TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Trustly })]
         //public async Task Payment_Trustly_Authorization(Product[] products, PayexInfo payexInfo)
         //{
