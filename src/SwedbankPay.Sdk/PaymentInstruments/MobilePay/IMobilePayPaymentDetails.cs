@@ -23,7 +23,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         PaymentIntent Intent { get; set; }
 
         /// <summary>
-        /// The prefered langauge of the payer.
+        /// The prefered language of the payer.
         /// </summary>
         Language Language { get; set; }
 

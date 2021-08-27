@@ -115,7 +115,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// Providing these fields decreases the likelyhood of having to promt for 3-D Secure 
         /// 2.0 authentication of the payer when they are authenticating the purchase.
         /// </summary>
-        public IRiskIndicator RiskIndicator { get; set; }
+        public RiskIndicator RiskIndicator { get; set; }
 
         /// <summary>
         /// The URI to the urls resource where all URIs related to the payment can be retrieved

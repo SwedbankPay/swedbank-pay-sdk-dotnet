@@ -25,6 +25,7 @@ namespace SwedbankPay.Sdk.Consumers
             Language = consumerRequest.Language?.ToString();
             Msisdn = consumerRequest.Msisdn?.ToString();
             Operation = consumerRequest.Operation.Value;
+            RequireShippingAddress = consumerRequest.RequireShippingAddress;
             ShippingAddressRestrictedToCountryCodes = new List<string>();
             foreach (var item in consumerRequest.ShippingAddressRestrictedToCountryCodes)
             {
@@ -43,5 +44,7 @@ namespace SwedbankPay.Sdk.Consumers
         public string Operation { get; }
 
         public List<string> ShippingAddressRestrictedToCountryCodes { get; set; }
+
+        public bool RequireShippingAddress { get; set; }
     }
 }

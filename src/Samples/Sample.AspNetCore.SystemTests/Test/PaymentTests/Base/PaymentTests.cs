@@ -260,11 +260,11 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
         {
             return checkout switch
             {
-                //Checkout.Option.Standard => GoToPayexInvoicePaymentFrame(products, checkout)
-                //                       .PersonalNumber.IsVisible.WaitTo.BeTrue()
-                //                       .PersonalNumber.SetWithSpeed(info.PersonalNumber.Substring(info.PersonalNumber.Length - 4), interval: 0.15)
-                //                       .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
-                //                       .Pay.ClickAndGo(),
+                Checkout.Option.Standard => GoToPayexInvoicePaymentFrame(products, checkout)
+                                       .PersonalNumber.IsVisible.WaitTo.BeTrue()
+                                       .PersonalNumber.SetWithSpeed(info.PersonalNumber.Substring(info.PersonalNumber.Length - 4), interval: 0.15)
+                                       .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
+                                       .Pay.ClickAndGo(),
                 _ => GoToPayexInvoicePaymentFrame(products, checkout)
                     .PersonalNumber.IsVisible.WaitTo.BeTrue()
                     .PersonalNumber.SetWithSpeed(info.PersonalNumber, interval: 0.1)

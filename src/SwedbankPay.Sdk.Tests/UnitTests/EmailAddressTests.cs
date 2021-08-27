@@ -21,6 +21,9 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
 
 
         [Theory]
+        [InlineData("a@a.com")]
+        [InlineData("a_@a.com")]
+		[InlineData("a_b@a.com")]
         [InlineData("email@example.com")]
         [InlineData("firstname.lastname@example.com")]
         [InlineData("email@subdomain.example.com")]
