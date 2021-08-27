@@ -74,8 +74,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
 
             return page?
                 .ThankYou.IsVisible.WaitTo.Within(120).BeTrue()
-                .Header.Orders.ClickAndGo()
-                .Wait(5).RefreshPage();
+                .Header.Orders.ClickAndGo();
         }
 
         protected PayexCardFramePage GoToPayexCardPaymentFrame(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)

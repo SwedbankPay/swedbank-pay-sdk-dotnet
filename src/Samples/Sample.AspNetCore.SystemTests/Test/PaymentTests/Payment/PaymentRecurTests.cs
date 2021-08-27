@@ -21,6 +21,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
 		{
 			GoToOrdersPage(products, payexInfo, Checkout.Option.LocalPaymentMenu)
 				.PaymentLink.StoreValueAsUri(out var paymentLink)
+				.RefreshPageUntil(x => x.Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCancellation)].IsVisible, 30, 5)
 				.Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCancellation)].Should.BeVisible()
 				.Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCapture)].Should.BeVisible()
 				.Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.PaidPayment)].Should.BeVisible()
