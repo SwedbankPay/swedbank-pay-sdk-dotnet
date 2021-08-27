@@ -6,6 +6,11 @@
 
         public AddressDto(IAddress address)
         {
+            if (address == null)
+            {
+                return;
+            }
+
             City = address.City;
             CoAddress = address.CoAddress;
             CountryCode = address.CountryCode;
@@ -14,10 +19,15 @@
 
         public AddressDto(Address address) : this(address as IAddress)
         {
-            Email = address.Email.ToString();
+            if(address == null)
+            {
+                return;
+            }
+
+            Email = address.Email?.ToString();
             FirstName = address.FirstName;
             LastName = address.LastName;
-            Msisdn = address.Msisdn.ToString();
+            Msisdn = address.Msisdn?.ToString();
             ZipCode = address.ZipCode;
         }
 

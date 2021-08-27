@@ -4,13 +4,18 @@
     {
         public AccountInfoDto(AccountInfo accountInfo)
         {
-            AccountAgeIndicator = accountInfo.AccountAgeIndicator.Value;
-            AccountChangeIndicator = accountInfo.AccountChangeIndicator.Value;
-            AccountPwdChangeIndicator = accountInfo.AccountPwdChangeIndicator.Value;
+            if(accountInfo == null)
+            {
+                return;
+            }
+
+            AccountAgeIndicator = accountInfo.AccountAgeIndicator?.Value;
+            AccountChangeIndicator = accountInfo.AccountChangeIndicator?.Value;
+            AccountPwdChangeIndicator = accountInfo.AccountPwdChangeIndicator?.Value;
             AddressMatchIndicator = accountInfo.AddressMatchIndicator;
-            ShippingAddressUsageIndicator = accountInfo.ShippingAddressUsageIndicator.Value;
-            ShippingNameIndicator = accountInfo.ShippingNameIndicator.Value;
-            SuspiciousAccountActivity = accountInfo.SuspiciousAccountActivity.Value;
+            ShippingAddressUsageIndicator = accountInfo.ShippingAddressUsageIndicator?.Value;
+            ShippingNameIndicator = accountInfo.ShippingNameIndicator?.Value;
+            SuspiciousAccountActivity = accountInfo.SuspiciousAccountActivity?.Value;
         }
 
         public string AccountAgeIndicator { get; set; }
