@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Threading;
-using System.Threading.Tasks;
 using Atata;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
@@ -23,6 +21,9 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
 {
     public abstract class PaymentTests : TestBase
     {
+        protected string _orderLinkReference;
+        protected Uri _paymentLink;
+
         public PaymentTests(string driverAlias)
             : base(driverAlias)
         {
@@ -74,7 +75,9 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
 
             return page?
                 .ThankYou.IsVisible.WaitTo.Within(120).BeTrue()
-                .Header.Orders.ClickAndGo();
+                .Header.Orders.ClickAndGo()
+                .PaymentOrderLink.StoreValueAsUri(out _paymentLink)
+                .PaymentLink.Should.Contain(_orderLinkReference);
         }
 
         protected PayexCardFramePage GoToPayexCardPaymentFrame(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)
@@ -169,7 +172,8 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
         protected LocalPaymentMenuPage GoToLocalPaymentPage(Product[] products)
         {
             return SelectProducts(products)
-                    .LocalPaymentMenu.ClickAndGo();
+                    .LocalPaymentMenu.ClickAndGo()
+                    .PaymentOrder.StoreOrderId(out _orderLinkReference);
         }
 
         protected PaymentPage GoToPayexPaymentPage(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)

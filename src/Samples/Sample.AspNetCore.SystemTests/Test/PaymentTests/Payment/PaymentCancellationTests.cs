@@ -1,8 +1,6 @@
 ﻿using System.Linq;
-using System.Threading.Tasks;
 using Atata;
 using NUnit.Framework;
-using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
 using SwedbankPay.Sdk.PaymentInstruments;
@@ -26,14 +24,13 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
             {
 
 	            GoToOrdersPage(products, payexInfo, Checkout.Option.LocalPaymentMenu)
-		            .PaymentLink.StoreValueAsUri(out var paymentLink)
                     .RefreshPageUntil(x => x.Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCancellation)].IsVisible, 30, 5)
                     .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCancellation)].ExecuteAction.ClickAndGo()
                     .RefreshPageUntil(x => x.Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.PaidPayment)].IsVisible, 30, 5)
                     .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.PaidPayment)].Should.BeVisible()
 		            .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.ViewPayment)].Should.BeVisible();
 
-                var cardPayment = await SwedbankPayClient.Payments.CardPayments.Get(paymentLink, PaymentExpand.All);
+                var cardPayment = await SwedbankPayClient.Payments.CardPayments.Get(_paymentLink, PaymentExpand.All);
 
                 // Operations
                 Assert.That(cardPayment.Operations[LinkRelation.CreateCancellation], Is.Null);
@@ -57,11 +54,10 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
             Assert.DoesNotThrowAsync(async () => { 
                 
                 GoToOrdersPage(products, payexInfo, Checkout.Option.LocalPaymentMenu)
-                    .PaymentLink.StoreValueAsUri(out var paymentLink)
                     .RefreshPageUntil(x => x.Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCancellation)].IsVisible, 30, 5)
                     .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCancellation)].ExecuteAction.ClickAndGo();
 
-                var invoicePayment = await SwedbankPayClient.Payments.InvoicePayments.Get(paymentLink, PaymentExpand.All);
+                var invoicePayment = await SwedbankPayClient.Payments.InvoicePayments.Get(_paymentLink, PaymentExpand.All);
 
                 // Operations
                 Assert.That(invoicePayment.Operations[LinkRelation.CreateCancellation], Is.Not.Null);

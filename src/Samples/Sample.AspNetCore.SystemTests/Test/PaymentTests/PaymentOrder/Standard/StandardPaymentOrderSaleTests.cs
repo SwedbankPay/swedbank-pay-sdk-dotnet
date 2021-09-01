@@ -1,6 +1,5 @@
 ﻿using Atata;
 using NUnit.Framework;
-using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
 using SwedbankPay.Sdk.PaymentInstruments;
@@ -25,12 +24,11 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Standard
             Assert.DoesNotThrowAsync(async () => {
 
                 GoToOrdersPage(products, payexInfo, Checkout.Option.Standard)
-                .PaymentOrderLink.StoreValueAsUri(out var orderLink)
-                .RefreshPageUntil(x => x.Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderReversal)].IsVisible, 30, 5)
-                .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderReversal)].Should.BeVisible()
-                .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible();
+                    .RefreshPageUntil(x => x.Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderReversal)].IsVisible, 30, 5)
+                    .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderReversal)].Should.BeVisible()
+                    .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible();
 
-                var order = await SwedbankPayClient.PaymentOrders.Get(orderLink, PaymentOrderExpand.All);
+                var order = await SwedbankPayClient.PaymentOrders.Get(_paymentLink, PaymentOrderExpand.All);
 
                 // Global Order
                 Assert.That(order.PaymentOrder.Amount.InLowestMonetaryUnit, Is.EqualTo(products.Select(x => x.UnitPrice * x.Quantity).Sum()));

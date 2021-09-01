@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Atata;
 using NUnit.Framework;
 using Sample.AspNetCore.SystemTests.Services;
@@ -24,9 +23,9 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Abort
             Assert.DoesNotThrowAsync(async () => {
 
                 GoToPayexPaymentPage(products)
-                .Abort.ClickAndGo()
-                .Message.StoreValueAsUri(out var message)
-                .Header.Products.ClickAndGo();
+                    .Abort.ClickAndGo()
+                    .Message.StoreValueAsUri(out var message)
+                    .Header.Products.ClickAndGo();
 
                 var orderLink = message.OriginalString.Substring(message.OriginalString.IndexOf("/")).Replace(" has been Aborted", "");
 
