@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Text.RegularExpressions;
 using Atata;
+using NUnit.Framework;
 
 namespace Sample.AspNetCore.SystemTests.Services
 {
@@ -54,6 +55,8 @@ namespace Sample.AspNetCore.SystemTests.Services
         {
             var tmp = data.Value;
             var orderId = Regex.Match(tmp, "\\/psp\\/(.*?)(?=[\"&])").Value;
+
+            TestContext.Out?.WriteLine(orderId);
 
             return orderId;
 

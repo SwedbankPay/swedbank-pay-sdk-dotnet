@@ -37,6 +37,8 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
         [SetUp]
         public void SetUp()
         {
+            TestContext.Out?.WriteLine("Running: " + TestContext.CurrentContext.Test.Name);
+
             this.testWebApplicationFactory = new TestWebApplicationFactory();
             var chromeOptions = DriverOptionsFactory.GetDriverOptions(Driver.Chrome) as ChromeOptions;
             AtataContext.Configure()
