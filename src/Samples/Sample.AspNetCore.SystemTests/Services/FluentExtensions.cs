@@ -49,6 +49,17 @@ namespace Sample.AspNetCore.SystemTests.Services
             return component.Owner;
         }
 
+        public static string GetPaymentOrderFromBody<TOwner>(this DataProvider<string, TOwner> data)
+            where TOwner : PageObject<TOwner>
+        {
+            var tmp = data.Value;
+            var orderId = Regex.Match(tmp, "\\/psp\\/(.*?)(?=[\"&])").Value;
+
+            return orderId;
+
+
+        }
+
         public static TOwner StoreValueAsUri<TOwner>(this UIComponent<TOwner> component, out Uri value)
             where TOwner : PageObject<TOwner>
         {

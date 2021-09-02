@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Atata;
 using NUnit.Framework;
+using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
 using SwedbankPay.Sdk.Exceptions;
@@ -24,6 +25,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
         public async Task Payment_Card_Reversal(Product[] products, PayexInfo payexInfo)
         {
 	        GoToOrdersPage(products, payexInfo, Checkout.Option.LocalPaymentMenu)
+                .PaymentLink.StoreValueAsUri(out var paymentLink)
                 .RefreshPageUntil(x => x.Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCapture)].IsVisible, 30, 5)
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCapture)].ExecuteAction.ClickAndGo()
                 .RefreshPageUntil(x => x.Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateReversal)].IsVisible, 30, 5)
@@ -32,7 +34,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.PaidPayment)].Should.BeVisible()
 		        .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.ViewPayment)].Should.BeVisible();
 
-            var order = await SwedbankPayClient.Payments.CardPayments.Get(_paymentLink, PaymentExpand.All);
+            var order = await SwedbankPayClient.Payments.CardPayments.Get(paymentLink, PaymentExpand.All);
 
             // Operations
             Assert.That(order.Operations[LinkRelation.CreateCancellation], Is.Null);
@@ -57,12 +59,13 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
         public async Task Payment_Swish_Reversal(Product[] products, PayexInfo payexInfo)
         {
 	        GoToOrdersPage(products, payexInfo, Checkout.Option.LocalPaymentMenu)
+                .PaymentLink.StoreValueAsUri(out var paymentLink)
                 .RefreshPageUntil(x => x.Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateReversal)].IsVisible, 30, 5)
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateReversal)].ExecuteAction.ClickAndGo()
                 .RefreshPageUntil(x => x.Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.ViewPayment)].IsVisible, 30, 5)
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.ViewPayment)].Should.BeVisible();
 
-            var swishPayment = await SwedbankPayClient.Payments.SwishPayments.Get(_paymentLink, PaymentExpand.All);
+            var swishPayment = await SwedbankPayClient.Payments.SwishPayments.Get(paymentLink, PaymentExpand.All);
             var counter = 0;
 
             while (swishPayment.Payment.Transactions.TransactionList.First(x => x.Type == TransactionType.Reversal).State != State.Completed && counter <= 15)
@@ -70,7 +73,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
                 Thread.Sleep(1000);
                 try
                 {
-                    swishPayment = await SwedbankPayClient.Payments.SwishPayments.Get(_paymentLink, PaymentExpand.All);
+                    swishPayment = await SwedbankPayClient.Payments.SwishPayments.Get(paymentLink, PaymentExpand.All);
                 }
                 catch (HttpResponseException){}
 

@@ -18,9 +18,6 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Payment
         [FindById("trustly")]
         public Button<_> Trustly { get; private set; }
 
-        [FindByName("paymentOrderId", Visibility = Visibility.Any)]
-        public HiddenInput<_> PaymentOrder { get; private set; }
-
         [WaitFor(Until.Visible, TriggerEvents.BeforeAccess)]
         public Frame<_> PaymentFrame { get; private set; }
     }

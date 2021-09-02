@@ -1,5 +1,6 @@
 ﻿using Atata;
 using NUnit.Framework;
+using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
 using SwedbankPay.Sdk.PaymentInstruments;
@@ -22,12 +23,13 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
         public async Task Payment_Swish_Sale(Product[] products, PayexInfo payexInfo)
         {
             GoToOrdersPage(products, payexInfo, Checkout.Option.LocalPaymentMenu)
+                .PaymentLink.StoreValueAsUri(out var paymentLink)
                 .RefreshPageUntil(x => x.Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateReversal)].IsVisible, 30, 5)
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateReversal)].Should.BeVisible()
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.PaidPayment)].Should.BeVisible()
                 .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.ViewPayment)].Should.BeVisible();
 
-            var swishPayment = await SwedbankPayClient.Payments.SwishPayments.Get(_paymentLink, PaymentExpand.All);
+            var swishPayment = await SwedbankPayClient.Payments.SwishPayments.Get(paymentLink, PaymentExpand.All);
 
             // Global Order
             Assert.That(swishPayment.Payment.Amount.InLowestMonetaryUnit, Is.EqualTo(products.Select(x => x.UnitPrice * x.Quantity).Sum()));
@@ -52,10 +54,11 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
         //public async Task Payment_Trustly_Authorization(Product[] products, PayexInfo payexInfo)
         //{
         //    GoToOrdersPage(products, payexInfo, Checkout.Option.Standard)
+		//        .PaymentLink.StoreValueAsUri(out var paymentLink)
         //        .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderReversal)].Should.BeVisible()
         //        .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible();
 
-        //    var trustlyPayment = await SwedbankPayClient.Payments.TrustlyPayments.Get(_paymentLink, PaymentExpand.All);
+        //    var trustlyPayment = await SwedbankPayClient.Payments.TrustlyPayments.Get(paymentLink, PaymentExpand.All);
 
         //    // Global Order
         //    Assert.That(trustlyPayment.Payment.Amount.InLowestMonetaryUnit, Is.EqualTo(products.Select(x => x.UnitPrice * x.Quantity).Sum()));
