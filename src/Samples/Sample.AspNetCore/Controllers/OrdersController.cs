@@ -39,6 +39,23 @@ namespace Sample.AspNetCore.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ClearSingle(string paymentId)
+        {
+            var orders = await this.context.Orders.ToListAsync();
+
+            var order = orders.FirstOrDefault(x => x.PaymentLink.OriginalString == paymentId || x.PaymentOrderLink.OriginalString == paymentId);
+
+            if (order != null)
+            {
+                this.context.Orders.Remove(order);
+                await this.context.SaveChangesAsync();
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
 
         // GET: Orders/Create
         public IActionResult Create()

@@ -13,6 +13,7 @@ using System.Net.Http.Headers;
 
 namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
 {
+    [Ignore("Not needed")]
     public class ValidationTests : Base.PaymentTests
     {
         public ValidationTests(string driverAlias)

@@ -16,13 +16,14 @@ using Sample.AspNetCore.SystemTests.Test.Base;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
 
-
+[assembly: LevelOfParallelism(1)]
 namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
 {
+    [Parallelizable(scope: ParallelScope.All)]
     public abstract class PaymentTests : TestBase
     {
         protected string _referenceLink;
-        protected Uri link;
+        protected Uri _link;
 
         public PaymentTests(string driverAlias)
             : base(driverAlias)
@@ -42,15 +43,18 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 .AddEnvironmentVariables()
                 .Build();
 
-            var baseAddress = configRoot.GetSection("SwedbankPay:ApiBaseUrl").Value;
-            var authHeader = configRoot.GetSection("SwedbankPay:Token").Value;
-            var httpClient = new HttpClient
+            if(SwedbankPayClient == null)
             {
-                BaseAddress = new Uri(baseAddress)
-            };
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authHeader);
+                var baseAddress = configRoot.GetSection("SwedbankPay:ApiBaseUrl").Value;
+                var authHeader = configRoot.GetSection("SwedbankPay:Token").Value;
+                var httpClient = new HttpClient
+                {
+                    BaseAddress = new Uri(baseAddress)
+                };
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authHeader);
 
-            SwedbankPayClient = new SwedbankPayClient(httpClient);
+                SwedbankPayClient = new SwedbankPayClient(httpClient);
+            }
         }
 
         protected OrdersPage GoToOrdersPage(Product[] products, PayexInfo payexInfo, Checkout.Option checkout = Checkout.Option.Anonymous)
@@ -78,16 +82,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 .Header.Orders.ClickAndGo()
                 .Do(x =>
                 {
-                    if (checkout == Checkout.Option.LocalPaymentMenu)
-                    {
-                        x.PaymentLink.StoreValueAsUri(out link)
-                        .PaymentLink.Should.Contain(_referenceLink);
-                    }
-                    else
-                    {
-                        x.PaymentOrderLink.StoreValueAsUri(out link)
-                        .PaymentOrderLink.Should.Contain(_referenceLink);
-                    }
+                    _link = new Uri(_referenceLink, UriKind.RelativeOrAbsolute);
                 });
         }
 

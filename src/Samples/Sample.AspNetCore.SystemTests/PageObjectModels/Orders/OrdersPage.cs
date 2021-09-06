@@ -8,6 +8,19 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Orders
 
     public class OrdersPage : BasePage<_>
     {
+        [ControlAutomationDefinition("div", automationAttribute: "div-order")]
+        public class OrderItem : Control<_>
+        {
+            [FindFirst]
+            public Table<ActionRow, _> Actions { get; set; }
+
+            [FindByAutomation("dd", "div-paymentlink")] public Text<_> PaymentLink { get; set; }
+
+            [FindByAutomation("dd", "div-paymentorderlink")] public Text<_> PaymentOrderLink { get; set; }
+
+            [FindByAutomation("button", "button-clearorder")] public Button<HomePage, _> Clear { get; set; }
+        }
+
         public class ActionRow : TableRow<_>
         {
             [FindByColumnIndex(3)]
@@ -23,11 +36,7 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Orders
             public Text<_> Name { get; set; }
         }
 
-        [FindFirst] 
-        public Table<ActionRow, _> Actions { get; set; }
-
-        [FindByXPath("dd[2]")] public Text<_> PaymentLink { get; set; }
-
-        [FindByXPath("dd[1]")] public Text<_> PaymentOrderLink { get; set; }
+        [FindByAutomation("div", "div-orders")]
+        public ItemsControl<OrderItem, _> Orders { get; set; }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using Atata;
 using NUnit.Framework;
-using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
 using SwedbankPay.Sdk.PaymentInstruments;
+using System;
 using System.Threading.Tasks;
 
 namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
@@ -20,14 +20,14 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
 		public async Task Payment_Card_Recur(Product[] products, PayexInfo payexInfo)
 		{
 			GoToOrdersPage(products, payexInfo, Checkout.Option.LocalPaymentMenu)
-				.PaymentLink.StoreValueAsUri(out var paymentLink)
-				.RefreshPageUntil(x => x.Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCancellation)].IsVisible, 30, 5)
-				.Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCancellation)].Should.BeVisible()
-				.Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCapture)].Should.BeVisible()
-				.Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.PaidPayment)].Should.BeVisible()
-				.Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.ViewPayment)].Should.BeVisible();
+				.RefreshPageUntil(x => x.Orders[y => y.Attributes["data-paymentlink"] == _referenceLink].Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCancellation)].IsVisible, 60, 10)
+				.Orders[y => y.Attributes["data-paymentlink"] == _referenceLink].Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCancellation)].Should.BeVisible()
+				.Orders[y => y.Attributes["data-paymentlink"] == _referenceLink].Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCapture)].Should.BeVisible()
+				.Orders[y => y.Attributes["data-paymentlink"] == _referenceLink].Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.PaidPayment)].Should.BeVisible()
+				.Orders[y => y.Attributes["data-paymentlink"] == _referenceLink].Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.ViewPayment)].Should.BeVisible()
+				.Orders[y => y.Attributes["data-paymentlink"] == _referenceLink].Clear.ClickAndGo();
 
-			var cardPayment = await SwedbankPayClient.Payments.CardPayments.Get(paymentLink, PaymentExpand.All);
+			var cardPayment = await SwedbankPayClient.Payments.CardPayments.Get(new Uri(_referenceLink, UriKind.RelativeOrAbsolute), PaymentExpand.All);
 
 			Assert.NotNull(cardPayment.Payment.RecurrenceToken);
 			Assert.True(!string.IsNullOrEmpty(cardPayment.Payment.RecurrenceToken));
