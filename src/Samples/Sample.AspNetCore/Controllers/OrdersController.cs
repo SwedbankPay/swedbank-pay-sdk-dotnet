@@ -45,7 +45,7 @@ namespace Sample.AspNetCore.Controllers
         {
             var orders = await this.context.Orders.ToListAsync();
 
-            var order = orders.FirstOrDefault(x => x.PaymentLink.OriginalString == paymentId || x.PaymentOrderLink.OriginalString == paymentId);
+            var order = orders.FirstOrDefault(x => x.PaymentLink?.OriginalString == paymentId || x.PaymentOrderLink?.OriginalString == paymentId);
 
             if (order != null)
             {
