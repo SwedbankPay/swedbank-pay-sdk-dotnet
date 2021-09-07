@@ -1,8 +1,7 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System;
+using System.Linq;
 using Atata;
 using NUnit.Framework;
-using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
 using SwedbankPay.Sdk.PaymentInstruments;
@@ -18,7 +17,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
 
 
         [Test]
-        [Retry(3)]
+        [Retry(2)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Card })]
         public void Payment_Card_Cancellation(Product[] products, PayexInfo payexInfo)
         {
@@ -26,12 +25,14 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
             {
 
 	            GoToOrdersPage(products, payexInfo, Checkout.Option.LocalPaymentMenu)
-		            .PaymentLink.StoreValueAsUri(out var paymentLink)
-		            .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCancellation)].ExecuteAction.ClickAndGo()
-		            .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.PaidPayment)].Should.BeVisible()
-		            .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.ViewPayment)].Should.BeVisible();
+                    .RefreshPageUntil(x => x.Orders[y => y.Attributes["data-paymentlink"] == _referenceLink].Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCancellation)].IsVisible, 60, 10)
+                    .Orders[y => y.Content.Value.Contains(_referenceLink)].Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCancellation)].ExecuteAction.ClickAndGo()
+                    .RefreshPageUntil(x => x.Orders[y => y.Attributes["data-paymentlink"] == _referenceLink].Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.PaidPayment)].IsVisible, 60, 10)
+                    .Orders[y => y.Attributes["data-paymentlink"] == _referenceLink].Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.PaidPayment)].Should.BeVisible()
+                    .Orders[y => y.Attributes["data-paymentlink"] == _referenceLink].Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.ViewPayment)].Should.BeVisible()
+                    .Orders[y => y.Attributes["data-paymentlink"] == _referenceLink].Clear.ClickAndGo();
 
-                var cardPayment = await SwedbankPayClient.Payments.CardPayments.Get(paymentLink, PaymentExpand.All);
+                var cardPayment = await SwedbankPayClient.Payments.CardPayments.Get(new Uri(_referenceLink, UriKind.RelativeOrAbsolute), PaymentExpand.All);
 
                 // Operations
                 Assert.That(cardPayment.Operations[LinkRelation.CreateCancellation], Is.Null);
@@ -55,10 +56,11 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
             Assert.DoesNotThrowAsync(async () => { 
                 
                 GoToOrdersPage(products, payexInfo, Checkout.Option.LocalPaymentMenu)
-                    .PaymentLink.StoreValueAsUri(out var paymentLink)
-                    .Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCancellation)].ExecuteAction.ClickAndGo();
+                    .RefreshPageUntil(x => x.Orders[y => y.Attributes["data-paymentlink"] == _referenceLink].Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCancellation)].IsVisible, 60, 10)
+                    .Orders[y => y.Attributes["data-paymentlink"] == _referenceLink].Actions.Rows[y => y.Name.Value.Contains(PaymentResourceOperations.CreateCancellation)].ExecuteAction.ClickAndGo()
+                    .Orders[y => y.Attributes["data-paymentlink"] == _referenceLink].Clear.ClickAndGo();
 
-                var invoicePayment = await SwedbankPayClient.Payments.InvoicePayments.Get(paymentLink, PaymentExpand.All);
+                var invoicePayment = await SwedbankPayClient.Payments.InvoicePayments.Get(new Uri(_referenceLink, UriKind.RelativeOrAbsolute), PaymentExpand.All);
 
                 // Operations
                 Assert.That(invoicePayment.Operations[LinkRelation.CreateCancellation], Is.Not.Null);

@@ -39,6 +39,23 @@ namespace Sample.AspNetCore.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ClearSingle(string paymentId)
+        {
+            var orders = await this.context.Orders.ToListAsync();
+
+            var order = orders.FirstOrDefault(x => x.PaymentLink?.OriginalString == paymentId || x.PaymentOrderLink?.OriginalString == paymentId);
+
+            if (order != null)
+            {
+                this.context.Orders.Remove(order);
+                await this.context.SaveChangesAsync();
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
 
         // GET: Orders/Create
         public IActionResult Create()
@@ -68,48 +85,54 @@ namespace Sample.AspNetCore.Controllers
         // GET: Orders/Details/5
         public async Task<IActionResult> Details(int? _)
         {
-            var order = await this.context.Orders
-                .FirstOrDefaultAsync();
-            if (order == null)
+            var orders = await this.context.Orders.ToListAsync();
+            if (orders == null || !orders.Any())
             {
                 return NotFound();
             }
 
-            IEnumerable<HttpOperation> operations = null;
+            
+            var completedPayments = new List<OrderViewModel>();
 
-            if (order.PaymentOrderLink != null)
+            foreach (var order in orders)
             {
-                var paymentOrder = await this.swedbankPayClient.PaymentOrders.Get(order.PaymentOrderLink);
-                var paymentOrderOperations = paymentOrder.Operations.Where(r => r.Key.Value.Contains("paymentorder")).Select(x => x.Value);
-                operations = paymentOrderOperations;
-            }
-            else
-            {
-                switch (order.Instrument)
+                IEnumerable<HttpOperation> operations = Enumerable.Empty<HttpOperation>();
+                if (order.PaymentOrderLink != null)
                 {
-                    case PaymentInstrument.Swish:
-                        var swishPayment = await this.swedbankPayClient.Payments.SwishPayments.Get(order.PaymentLink, PaymentExpand.All);
-                        var swishOperations = swishPayment.Operations;
-                        operations = swishOperations.Values;
-                        break;
-                    case PaymentInstrument.CreditCard:
-                        var cardPayment = await this.swedbankPayClient.Payments.SwishPayments.Get(order.PaymentLink, PaymentExpand.All);
-                        var cardOperations = cardPayment.Operations;
-                        operations = cardOperations.Values;
-                        break;
-                    case PaymentInstrument.Trustly:
-                        var trustlyPayment = await this.swedbankPayClient.Payments.TrustlyPayments.Get(order.PaymentLink, PaymentExpand.All);
-                        var trustlyOperations = trustlyPayment.Operations;
-                        operations = trustlyOperations.Values;
-                        break;
+                    var paymentOrder = await this.swedbankPayClient.PaymentOrders.Get(order.PaymentOrderLink);
+                    var paymentOrderOperations = paymentOrder.Operations.Where(r => r.Key.Value.Contains("paymentorder")).Select(x => x.Value);
+                    operations = paymentOrderOperations;
                 }
+                else
+                {
+                    switch (order.Instrument)
+                    {
+                        case PaymentInstrument.Swish:
+                            var swishPayment = await this.swedbankPayClient.Payments.SwishPayments.Get(order.PaymentLink, PaymentExpand.All);
+                            var swishOperations = swishPayment.Operations;
+                            operations = swishOperations.Values;
+                            break;
+                        case PaymentInstrument.CreditCard:
+                            var cardPayment = await this.swedbankPayClient.Payments.SwishPayments.Get(order.PaymentLink, PaymentExpand.All);
+                            var cardOperations = cardPayment.Operations;
+                            operations = cardOperations.Values;
+                            break;
+                        case PaymentInstrument.Trustly:
+                            var trustlyPayment = await this.swedbankPayClient.Payments.TrustlyPayments.Get(order.PaymentLink, PaymentExpand.All);
+                            var trustlyOperations = trustlyPayment.Operations;
+                            operations = trustlyOperations.Values;
+                            break;
+                    }
+                }
+                completedPayments.Add(new OrderViewModel
+                {
+                    Order = order,
+                    OperationList = operations.ToList()
+                });
             }
+           
 
-            return View(new OrderViewModel
-            {
-                Order = order,
-                OperationList = operations.ToList()
-            });
+            return View(completedPayments);
         }
 
 
