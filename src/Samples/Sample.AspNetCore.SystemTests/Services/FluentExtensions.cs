@@ -41,15 +41,6 @@ namespace Sample.AspNetCore.SystemTests.Services
             return component.Owner;
         }
 
-        public static TOwner StoreOrderId<TOwner>(this HiddenInput<TOwner> component, out string value)
-            where TOwner : PageObject<TOwner>
-        {
-            var orderId = component.Value.Substring(component.Value.IndexOf("psp"));
-
-            value = orderId;
-            return component.Owner;
-        }
-
         public static string GetPaymentOrderFromBody<TOwner>(this DataProvider<string, TOwner> data)
             where TOwner : PageObject<TOwner>
         {
@@ -59,8 +50,6 @@ namespace Sample.AspNetCore.SystemTests.Services
             TestContext.Out?.WriteLine(orderId);
 
             return orderId;
-
-
         }
 
         public static TOwner StoreValueAsUri<TOwner>(this UIComponent<TOwner> component, out Uri value)
