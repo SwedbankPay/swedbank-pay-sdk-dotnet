@@ -137,7 +137,7 @@ jobs:
         SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
 
     - name: Run SDK Sample project tests
-      run: dotnet test  src/Samples/Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.csproj
+      run: dotnet test  src/Samples/Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.csproj -v n
       env:
         SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
         SwedbankPay:TokenMobilePay: ${{ secrets.MERCHANT_TOKEN_MOBILE_PAY }}

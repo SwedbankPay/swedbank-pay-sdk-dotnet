@@ -1,12 +1,10 @@
 ﻿using Atata;
 using NUnit.Framework;
-using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
 using SwedbankPay.Sdk.PaymentInstruments;
 using SwedbankPay.Sdk.PaymentOrders;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Anonymous
 {
@@ -19,19 +17,21 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Anonymous
 
 
         [Test]
-        [Retry(3)]
+        [Retry(2)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Card })]
         public void Anonymous_PaymentOrder_Card_Capture(Product[] products, PayexInfo payexInfo)
         {
             Assert.DoesNotThrowAsync(async () => {
 
                 GoToOrdersPage(products, payexInfo, Checkout.Option.Anonymous)
-                .PaymentOrderLink.StoreValueAsUri(out var orderLink)
-                .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderCapture)].ExecuteAction.ClickAndGo()
-                .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderReversal)].Should.BeVisible()
-                .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible();
+                    .RefreshPageUntil(x => x.Orders[y => y.Attributes["data-paymentorderlink"] == _referenceLink].Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderCapture)].IsVisible, 60, 10)
+                    .Orders[y => y.Attributes["data-paymentorderlink"] == _referenceLink].Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderCapture)].ExecuteAction.ClickAndGo()
+                    .RefreshPageUntil(x => x.Orders[y => y.Attributes["data-paymentorderlink"] == _referenceLink].Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderReversal)].IsVisible, 60, 10)
+                    .Orders[y => y.Attributes["data-paymentorderlink"] == _referenceLink].Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderReversal)].Should.BeVisible()
+                    .Orders[y => y.Attributes["data-paymentorderlink"] == _referenceLink].Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible()
+                    .Orders[y => y.Attributes["data-paymentorderlink"] == _referenceLink].Clear.ClickAndGo();
 
-                var order = await SwedbankPayClient.PaymentOrders.Get(orderLink, PaymentOrderExpand.All);
+                var order = await SwedbankPayClient.PaymentOrders.Get(_link, PaymentOrderExpand.All);
 
                 // Operations
                 Assert.That(order.Operations[LinkRelation.CreatePaymentOrderCancel], Is.Null);
@@ -50,19 +50,21 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Anonymous
 
 
         [Test]
-        [Retry(3)]
+        [Retry(2)]
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Invoice })]
         public void Anonymous_PaymentOrder_Invoice_Capture(Product[] products, PayexInfo payexInfo)
         {
             Assert.DoesNotThrowAsync(async () => {
 
                 GoToOrdersPage(products, payexInfo, Checkout.Option.Anonymous)
-                .PaymentOrderLink.StoreValueAsUri(out var orderLink)
-                .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderCapture)].ExecuteAction.ClickAndGo()
-                .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderReversal)].Should.BeVisible()
-                .Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible();
+                    .RefreshPageUntil(x => x.Orders[y => y.Attributes["data-paymentorderlink"] == _referenceLink].Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderCapture)].IsVisible, 60, 10)
+                    .Orders[y => y.Attributes["data-paymentorderlink"] == _referenceLink].Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderCapture)].ExecuteAction.ClickAndGo()
+                    .RefreshPageUntil(x => x.Orders[y => y.Attributes["data-paymentorderlink"] == _referenceLink].Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderReversal)].IsVisible, 60, 10)
+                    .Orders[y => y.Attributes["data-paymentorderlink"] == _referenceLink].Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderReversal)].Should.BeVisible()
+                    .Orders[y => y.Attributes["data-paymentorderlink"] == _referenceLink].Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible()
+                    .Orders[y => y.Attributes["data-paymentorderlink"] == _referenceLink].Clear.ClickAndGo();
 
-                var order = await SwedbankPayClient.PaymentOrders.Get(orderLink, PaymentOrderExpand.All);
+                var order = await SwedbankPayClient.PaymentOrders.Get(_link, PaymentOrderExpand.All);
 
                 // Operations
                 Assert.That(order.Operations[LinkRelation.CreatePaymentOrderCancel], Is.Null);
