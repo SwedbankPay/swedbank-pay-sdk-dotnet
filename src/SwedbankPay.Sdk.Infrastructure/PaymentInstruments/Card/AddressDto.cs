@@ -20,7 +20,6 @@
         public AddressDto(Address address) : this(address as IAddress)
         {
             if (address == null)
-
             {
                 return;
             }
