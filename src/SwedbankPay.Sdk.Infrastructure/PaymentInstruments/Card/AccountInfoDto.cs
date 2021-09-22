@@ -4,7 +4,8 @@
     {
         public AccountInfoDto(AccountInfo accountInfo)
         {
-            if(accountInfo == null)
+            if (accountInfo == null)
+
             {
                 return;
             }
