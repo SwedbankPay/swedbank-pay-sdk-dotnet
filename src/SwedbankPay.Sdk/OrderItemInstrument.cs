@@ -63,7 +63,7 @@
         /// <summary>
         /// Converts a <see cref="string"/> to a <see cref="OrderItemInstrument"/>.
         /// </summary>
-        /// <param name="type">The API value to convert.</param>
+        /// <param name="instrument">The API value to convert.</param>
         public static implicit operator OrderItemInstrument(string instrument)
         {
             return instrument switch
