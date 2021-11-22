@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
@@ -28,7 +29,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
             UnitPrice = item.UnitPrice.InLowestMonetaryUnit;
             VatAmount = item.VatAmount.InLowestMonetaryUnit;
             VatPercent = item.VatPercent;
-            RestrictedToInstruments = item.RestrictedToInstruments as List<string>;
+            RestrictedToInstruments = item.RestrictedToInstruments?.Select(item => item.Value).ToList();
         }
 
         public string Reference { get; set; }
