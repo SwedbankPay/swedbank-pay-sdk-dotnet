@@ -218,7 +218,23 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                         .Email.IsVisible.WaitTo.BeTrue()
                         .Email.SetWithSpeed(TestDataService.Email, interval: 0.1)
                         .PhoneNumber.SetWithSpeed(TestDataService.SwedishPhoneNumber, interval: 0.1)
-                        .Next.Click().SwitchToRoot<PaymentPage>().Wait(TimeSpan.FromSeconds(20))
+                        .Next.Click()
+                        .Wait(1)
+                        .Do(x => { 
+                            if(x.SaveMyInformation.IsVisible)
+                            {
+                                x.SaveMyInformation.Click();
+                                x.PersonalNumber.SetWithSpeed(TestDataService.PersonalNumber, interval: 0.1);
+                                x.Next.Click();
+                                x.FirstName.SetWithSpeed(TestDataService.FirstName, interval: 0.1);
+                                x.LastName.SetWithSpeed(TestDataService.LastName, interval: 0.1);
+                                x.Address.SetWithSpeed(TestDataService.Street, interval: 0.1);
+                                x.ZipCode.SetWithSpeed(TestDataService.ZipCode, interval: 0.1);
+                                x.City.SetWithSpeed(TestDataService.City, interval: 0.1);
+                                x.Next.Click();
+                            }
+                        })
+                        .SwitchToRoot<PaymentPage>().Wait(TimeSpan.FromSeconds(20))
                         .PaymentMethodsFrame.SwitchTo();
                     break;
                 default:
