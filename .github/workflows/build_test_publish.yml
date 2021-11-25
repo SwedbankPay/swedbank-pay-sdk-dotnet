@@ -65,6 +65,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    
+    - name: Test 
+      run: echo "Test"
+
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
