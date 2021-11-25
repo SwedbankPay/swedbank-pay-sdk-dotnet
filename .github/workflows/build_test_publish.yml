@@ -1,6 +1,6 @@
 name: Build
 
-on: [push, pull_request, pull_request_target]
+on: [push, pull_request_target]
 
 env:
   AZURE_WEBAPP_PACKAGE_PATH: '.'
@@ -33,7 +33,7 @@ jobs:
 
       - name: Set dev environment variables
         uses: allenevans/set-env@v2.1.0
-        if: ${{ startsWith(github.ref, 'refs/heads/develop') || startsWith(github.ref, 'refs/heads/feature/') || startsWith(github.ref, 'refs/heads/dependabot/') || github.event_name == 'pull_request' }} # deveop, featurebranches and pullrequests
+        if: ${{ startsWith(github.ref, 'refs/heads/develop') || startsWith(github.ref, 'refs/heads/feature/') || startsWith(github.ref, 'refs/heads/dependabot/') || github.event_name == 'pull_request_target' }} # deveop, featurebranches and pullrequests
         with:
           ENVIRONMENT: dev
           AZURE_WEBAPP_NAME: swedbankpay-sdk-001-dev
@@ -64,6 +64,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
+    
+    - name: Test 
+      run: echo "Test"
 
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
@@ -106,9 +110,6 @@ jobs:
   test:
     runs-on: ubuntu-20.04
     needs: [variables, build]
-    if: |
-        (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]') ||
-        (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]')
 
     steps:
     - uses: actions/checkout@v2
@@ -148,9 +149,6 @@ jobs:
   test_nuget_package:
     runs-on: ubuntu-20.04
     needs: [variables]
-    if: |
-        (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]') ||
-        (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]')
 
     steps:
     - uses: actions/checkout@v2
@@ -217,6 +215,8 @@ jobs:
       run: dotnet build src/SwedbankPay.Sdk.TestNuget/SwedbankPay.Sdk.TestNuget.csproj
 
   publish:
+    if: |
+        (github.event_name != 'pull_request_target')
     runs-on: ubuntu-20.04
     needs: [variables, build, test, test_nuget_package]
 
@@ -229,7 +229,7 @@ jobs:
 
     # Deploy to Dev Azure Web apps
     - name: 'Run Azure webapp deploy to dev using publish profile credentials'
-      if: ${{ needs.variables.outputs.ENVIRONMENT == 'dev' && github.event_name != 'pull_request'  && startsWith(github.ref, 'refs/heads/develop') }}
+      if: ${{ needs.variables.outputs.ENVIRONMENT == 'dev' && github.event_name != 'pull_request_target'  && startsWith(github.ref, 'refs/heads/develop') }}
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ needs.variables.outputs.AZURE_WEBAPP_NAME }} # Replace with your app name
@@ -238,7 +238,7 @@ jobs:
 
     # Deploy to Uat Azure Web apps
     - name: 'Run Azure webapp deploy to uat using publish profile credentials'
-      if: ${{ needs.variables.outputs.ENVIRONMENT == 'uat' && github.event_name != 'pull_request' }}
+      if: ${{ needs.variables.outputs.ENVIRONMENT == 'uat' && github.event_name != 'pull_request_target' }}
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ needs.variables.outputs.AZURE_WEBAPP_NAME }} # Replace with your app name
@@ -247,7 +247,7 @@ jobs:
 
     # Deploy to Pro Azure Web apps
     - name: 'Run Azure webapp deploy to pro using publish profile credentials'
-      if: ${{ needs.variables.outputs.ENVIRONMENT == 'pro' && github.event_name != 'pull_request' }}
+      if: ${{ needs.variables.outputs.ENVIRONMENT == 'pro' && github.event_name != 'pull_request_target' }}
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ needs.variables.outputs.AZURE_WEBAPP_NAME }} # Replace with your app name
