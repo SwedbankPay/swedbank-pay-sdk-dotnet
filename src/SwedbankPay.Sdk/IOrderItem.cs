@@ -1,4 +1,6 @@
-﻿namespace SwedbankPay.Sdk
+﻿using System.Collections.Generic;
+
+namespace SwedbankPay.Sdk
 {
     /// <summary>
     /// Detailed information about a Order Item in a payment order.
@@ -90,5 +92,10 @@
         /// The percent value of the VAT multiplied by 100, so 25% becomes 2500.
         /// </summary>
         int VatPercent { get; }
+
+        /// <summary>
+        /// Limits the order item to the payment items. Default is all supported payment items.
+        /// </summary>
+        public IList<OrderItemInstrument> RestrictedToInstruments { get; set; }
     }
 }
