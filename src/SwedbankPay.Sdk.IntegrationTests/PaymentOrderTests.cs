@@ -2,6 +2,7 @@
 using SwedbankPay.Sdk.PaymentOrders;
 using SwedbankPay.Sdk.Tests.TestBuilders;
 using System;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Xunit;
@@ -133,6 +134,32 @@ namespace SwedbankPay.Sdk.Tests
             Assert.NotNull(paymentOrder.PaymentOrder.OrderItems);
             Assert.NotEmpty(paymentOrder.PaymentOrder.OrderItems.OrderItemList);
         }
+
+
+
+        [Fact]
+        public async Task CreatePaymentOrder_With_RestrictedToInstruments_ShouldMapCorrectly()
+        {
+            //ARRANGE
+            var paymentOrderRequestContainer = this.paymentOrderRequestBuilder.WithTestValues(this.payeeId)
+                    .WithOrderItems()
+                    .WithOrderItemRestrictedToInstruments(OrderItemInstrument.Invoice, OrderItemInstrument.InvoicePayExFinancingSe, OrderItemInstrument.InvoicePayExFinancingNo)
+                    .Build();
+
+            //ACT
+            var paymentOrder = await this.Sut.PaymentOrders.Create(paymentOrderRequestContainer, PaymentOrderExpand.OrderItems);
+
+            //ASSERT
+            Assert.NotNull(paymentOrder.PaymentOrder);
+            Assert.NotNull(paymentOrder.PaymentOrder.OrderItems);
+            Assert.NotEmpty(paymentOrder.PaymentOrder.OrderItems.OrderItemList);
+            var orderItemRestrictedToInstruments = paymentOrder.PaymentOrder.OrderItems.OrderItemList.Last();
+            Assert.Collection(orderItemRestrictedToInstruments.RestrictedToInstruments,
+                item => Assert.Equal(OrderItemInstrument.Invoice, item),
+                item => Assert.Equal(OrderItemInstrument.InvoicePayExFinancingSe, item),
+                item => Assert.Equal(OrderItemInstrument.InvoicePayExFinancingNo, item));
+        }
+
 
 
         [Fact]

@@ -1,6 +1,9 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrders
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace SwedbankPay.Sdk.PaymentOrders
 {
-    internal class OrderItemDto
+	internal class OrderItemDto
     {
         public OrderItemDto() { }
 
@@ -26,6 +29,7 @@
             UnitPrice = item.UnitPrice.InLowestMonetaryUnit;
             VatAmount = item.VatAmount.InLowestMonetaryUnit;
             VatPercent = item.VatPercent;
+            RestrictedToInstruments = item.RestrictedToInstruments?.Select(item => item.Value).ToList();
         }
 
         public string Reference { get; set; }
@@ -43,6 +47,7 @@
         public int VatPercent { get; set; }
         public long Amount { get; set; }
         public long VatAmount { get; set; }
+        public List<string> RestrictedToInstruments { get; set; }
 
         internal IOrderItem Map()
         {
