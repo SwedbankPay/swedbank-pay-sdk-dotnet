@@ -10,7 +10,7 @@ env:
   dotnetVersion: '6.x.x'  # SDK Version to use; x will use the latest version of the 6.0 channel
 
 jobs:
-  build:
+  build: 
     runs-on: ubuntu-latest
     
     steps:
