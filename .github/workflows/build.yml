@@ -1,0 +1,64 @@
+name: Build
+
+# read-only repo token
+# no access to secrets
+on: [push, pull_request]
+
+env:
+  AZURE_WEBAPP_PACKAGE_PATH: '.'
+  Configuration: Release
+  dotnetVersion: '6.x.x'  # SDK Version to use; x will use the latest version of the 6.0 channel
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{ env.dotnetVersion }}
+
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v0.9.11
+      with:
+        versionSpec: '5.x.x'
+
+    - name: Use GitVersion
+      id: gitversion # step id used as reference for output values
+      uses: gittools/actions/gitversion/execute@v0.9.11
+
+    - name: Install dependencies
+      run: dotnet restore ./src/SwedbankPay.Sdk.sln
+
+    - name: Build solution
+      run: dotnet build ./src/SwedbankPay.Sdk.sln --no-restore
+
+    - name: Publish Sdk Sample site
+      run: dotnet publish --configuration ${{ env.Configuration }} -p:Version=${{ steps.gitversion.outputs.nuGetVersionV2 }} --no-restore src/Samples/Sample.AspNetCore/Sample.AspNetCore.csproj --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/samplesite'
+
+    - name: Archive Sample.AspNetCore
+      uses: actions/upload-artifact@v2
+      with:
+        name: Sample.AspNetCore
+        path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/samplesite
+
+    - name: Archive Sample.AspNetCore.SystemTests
+      uses: actions/upload-artifact@v2
+      with:
+        name: Sample.AspNetCore.SystemTests
+        path: src/Samples/Sample.AspNetCore.SystemTests/bin/*
+
+    - name: Archive SwedbankPay.Sdk
+      uses: actions/upload-artifact@v2
+      with:
+        name: SwedbankPay.Sdk
+        path: src/SwedbankPay.Sdk/bin/*
+
+    - name: Archive SwedbankPay.Sdk.Tests
+      uses: actions/upload-artifact@v2
+      with:
+        name: SwedbankPay.Sdk.Tests
+        path: src/SwedbankPay.Sdk.Tests/bin/*

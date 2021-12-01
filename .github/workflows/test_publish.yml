@@ -1,17 +1,22 @@
-name: Build
+name: CI
 
-on: [push, pull_request_target]
+on:
+    workflow_run:
+        workflows: ["Build"]
+        types:
+            - completed
 
 env:
   AZURE_WEBAPP_PACKAGE_PATH: '.'
   Configuration: Release
   dotnetVersion: '5.x.x'  # SDK Version to use; x will use the latest version of the 5.0 channel
 
-jobs:
-
+jobs:  
   variables:
     name: Create variables
     runs-on: ubuntu-latest
+    if: >
+      ${{ github.event.workflow_run.conclusion == 'success' }}
     outputs:
       ENVIRONMENT: ${{ steps.setoutputvariables.outputs.ENVIRONMENT }}
       AZURE_WEBAPP_NAME: ${{ steps.setoutputvariables.outputs.AZURE_WEBAPP_NAME }}
@@ -59,61 +64,17 @@ jobs:
             echo "::set-output name=ENVIRONMENT::${ENVIRONMENT}"
             echo "::set-output name=AZURE_WEBAPP_NAME::${AZURE_WEBAPP_NAME}"
 
-  build:
-    runs-on: ubuntu-latest
-    needs: [variables]
-
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: ${{ env.dotnetVersion }}
-
-    - name: Install dependencies
-      run: dotnet restore ./src/SwedbankPay.Sdk.sln
-
-    - name: Build solution
-      run: dotnet build ./src/SwedbankPay.Sdk.sln --no-restore
-
-    - name: Publish Sdk Sample site
-      run: dotnet publish --configuration ${{ env.Configuration }} -p:Version=${{ needs.variables.outputs.nuGetVersionV2 }} --no-restore src/Samples/Sample.AspNetCore/Sample.AspNetCore.csproj --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/samplesite'
-
-    - name: Archive Sample.AspNetCore
-      uses: actions/upload-artifact@v2
-      with:
-        name: Sample.AspNetCore
-        path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/samplesite
-
-    - name: Archive Sample.AspNetCore.SystemTests
-      uses: actions/upload-artifact@v2
-      with:
-        name: Sample.AspNetCore.SystemTests
-        path: src/Samples/Sample.AspNetCore.SystemTests/bin/*
-
-    - name: Archive SwedbankPay.Sdk
-      uses: actions/upload-artifact@v2
-      with:
-        name: SwedbankPay.Sdk
-        path: src/SwedbankPay.Sdk/bin/*
-
-    - name: Archive SwedbankPay.Sdk.Tests
-      uses: actions/upload-artifact@v2
-      with:
-        name: SwedbankPay.Sdk.Tests
-        path: src/SwedbankPay.Sdk.Tests/bin/*
-
   test:
     runs-on: ubuntu-20.04
-    needs: [variables, build]
+    if: >
+      ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
     - uses: actions/checkout@v2
-      if: ${{ github.event_name != 'pull_request_target' }}
+      if: ${{ github.event.workflow_run.event != 'pull_request_target' }}
 
     - uses: actions/checkout@v2
-      if: ${{ github.event_name == 'pull_request_target' }}
+      if: ${{ github.event.workflow_run.event == 'pull_request_target' }}
       with:
         ref: ${{ github.event.pull_request.head.sha }}
 
@@ -145,16 +106,18 @@ jobs:
 
   test_nuget_package:
     runs-on: ubuntu-20.04
+    if: >
+      ${{ github.event.workflow_run.conclusion == 'success' }}
     needs: [variables]
 
     steps:
     - uses: actions/checkout@v2
-      if: ${{ github.event_name != 'pull_request_target' }}
+      if: ${{ github.event.workflow_run.event != 'pull_request_target' }}
       with:
         fetch-depth: 0
 
     - uses: actions/checkout@v2
-      if: ${{ github.event_name == 'pull_request_target' }}
+      if: ${{ github.event.workflow_run.event == 'pull_request_target' }}
       with:
         fetch-depth: 0
         ref: ${{ github.event.pull_request.head.sha }}
@@ -181,16 +144,16 @@ jobs:
     - name: Create test NuGet package
       env:
         SLN_FILE: src/SwedbankPay.Sdk.sln
-        VERSION_NUMBER: ${{ needs.variables.outputs.FULLSEMVER }}
+        VERSION_NUMBER: ${{ steps.gitversion.outputs.FULLSEMVER }}
         NUGET_KEY: not-needed
         DEBUG: true
       run: .github/workflows/nuget_push.sh
 
     - name: Publish test package to GitHub Package Registry
-      run: dotnet nuget push "nugets/*.nupkg" --api-key ${{github.token}} --source https://nuget.pkg.github.com/SwedbankPay/index.json --skip-duplicate
+      run: dotnet nuget push "nugets/*.nupkg" --api-key ${{secrets.GITHUB_TOKEN}} --source https://nuget.pkg.github.com/SwedbankPay/index.json --skip-duplicate
 
     - name: Publish test symbol package to GitHub Package Registry
-      run: dotnet nuget push "nugets/*.snupkg" --api-key ${{github.token}} --source https://nuget.pkg.github.com/SwedbankPay/index.json --skip-duplicate
+      run: dotnet nuget push "nugets/*.snupkg" --api-key ${{secrets.GITHUB_TOKEN}} --source https://nuget.pkg.github.com/SwedbankPay/index.json --skip-duplicate
 
     - name: Setup nuget config
       run: awk '{gsub("GITHUB_USER", "${{ github.actor }}"); print}' NuGet.template.config | awk '{gsub("GITHUB_TOKEN", "${{ secrets.GITHUB_TOKEN }}"); print}' $1 | tee NuGet.Config
@@ -202,7 +165,7 @@ jobs:
     - name: Test install of package
       env:
         PROJECT_FILE: src/SwedbankPay.Sdk.TestNuget/SwedbankPay.Sdk.TestNuget.csproj
-        VERSION_NUMBER: ${{ needs.variables.outputs.FULLSEMVER }}
+        VERSION_NUMBER: ${{ steps.gitversion.outputs.FULLSEMVER }}
       run: .github/workflows/nuget_install.sh
 
     - name: Print csproj
@@ -212,10 +175,10 @@ jobs:
       run: dotnet build src/SwedbankPay.Sdk.TestNuget/SwedbankPay.Sdk.TestNuget.csproj
 
   publish:
-    if: |
-        (github.event_name != 'pull_request_target')
     runs-on: ubuntu-20.04
-    needs: [variables, build, test, test_nuget_package]
+    if: >
+      ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_runt.event != 'pull_request'}}
+    needs: [variables, test, test_nuget_package]
 
     steps:
     - name: Checkout
@@ -226,7 +189,7 @@ jobs:
 
     # Deploy to Dev Azure Web apps
     - name: 'Run Azure webapp deploy to dev using publish profile credentials'
-      if: ${{ needs.variables.outputs.ENVIRONMENT == 'dev' && github.event_name != 'pull_request_target'  && startsWith(github.ref, 'refs/heads/develop') }}
+      if: ${{ needs.variables.outputs.ENVIRONMENT == 'dev' && github.event.workflow_run.event != 'pull_request_target'  && startsWith(github.ref, 'refs/heads/develop') }}
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ needs.variables.outputs.AZURE_WEBAPP_NAME }} # Replace with your app name
@@ -235,7 +198,7 @@ jobs:
 
     # Deploy to Uat Azure Web apps
     - name: 'Run Azure webapp deploy to uat using publish profile credentials'
-      if: ${{ needs.variables.outputs.ENVIRONMENT == 'uat' && github.event_name != 'pull_request_target' }}
+      if: ${{ needs.variables.outputs.ENVIRONMENT == 'uat' && github.event.workflow_run.event != 'pull_request_target' }}
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ needs.variables.outputs.AZURE_WEBAPP_NAME }} # Replace with your app name
@@ -244,7 +207,7 @@ jobs:
 
     # Deploy to Pro Azure Web apps
     - name: 'Run Azure webapp deploy to pro using publish profile credentials'
-      if: ${{ needs.variables.outputs.ENVIRONMENT == 'pro' && github.event_name != 'pull_request_target' }}
+      if: ${{ needs.variables.outputs.ENVIRONMENT == 'pro' && github.event.workflow_run.event != 'pull_request_target' }}
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ needs.variables.outputs.AZURE_WEBAPP_NAME }} # Replace with your app name
