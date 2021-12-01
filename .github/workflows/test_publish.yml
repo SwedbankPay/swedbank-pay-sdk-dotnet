@@ -1,10 +1,10 @@
 name: CI
 
 on:
-    workflow_run:
-        workflows: ["Build"]
-        types:
-            - completed
+  workflow_run:
+    workflows: ["Build"]
+    types:
+      - completed
 
 env:
   AZURE_WEBAPP_PACKAGE_PATH: '.'
