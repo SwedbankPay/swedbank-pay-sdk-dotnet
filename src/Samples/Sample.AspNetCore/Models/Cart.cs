@@ -4,13 +4,20 @@ using SwedbankPay.Sdk;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.Json.Serialization;
 
 namespace Sample.AspNetCore.Models
 {
     public class Cart
     {
-        private List<CartLine> CartLineCollection { get; } = new List<CartLine>();
-        public virtual IEnumerable<CartLine> CartLines => CartLineCollection;
+        private List<CartLine> CartLineCollection { get; set; } = new List<CartLine>();
+        
+        [JsonInclude]
+        public virtual IEnumerable<CartLine> CartLines
+        {
+            get => CartLineCollection;
+            private set => CartLineCollection = value.ToList();
+        }
         public string PaymentOrderLink { get; set; }
         public string PaymentLink { get; set; }
         public bool Vat { get; set; }
