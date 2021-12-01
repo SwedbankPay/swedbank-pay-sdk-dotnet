@@ -5,7 +5,7 @@ on: [push, pull_request_target]
 env:
   AZURE_WEBAPP_PACKAGE_PATH: '.'
   Configuration: Release
-  dotnetVersion: '5.x.x'  # SDK Version to use; x will use the latest version of the 5.0 channel
+  dotnetVersion: '6.x.x'  # SDK Version to use; x will use the latest version of the 6.0 channel
 
 jobs:
 
