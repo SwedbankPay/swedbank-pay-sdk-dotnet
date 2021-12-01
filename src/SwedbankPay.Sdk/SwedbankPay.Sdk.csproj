@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <IsPackable>false</IsPackable>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>netstandard2.0;net5.0;net6.0</TargetFrameworks>
     <LangVersion>latest</LangVersion>
 
     <AssemblyName>SwedbankPay.Sdk</AssemblyName>
@@ -26,8 +26,9 @@
       <_Parameter1>$(AssemblyName).Infrastructure</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
+
   <ItemGroup>
-    <PackageReference Include="System.Text.Json" Version="[5.0.0,6.0.0)" />
+    <PackageReference Include="System.Text.Json" Version="5.0.2" />
   </ItemGroup>
 
-</Project>  
+</Project>
