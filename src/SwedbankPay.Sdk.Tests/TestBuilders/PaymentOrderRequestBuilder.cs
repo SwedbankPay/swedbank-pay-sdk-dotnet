@@ -83,6 +83,25 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         }
 
 
+        public PaymentOrderRequestBuilder WithOrderItemRestrictedToInstruments(params OrderItemInstrument[] instruments)
+		{
+            if (!this.orderItems.Any())
+			{
+                this.orderItems = new List<IOrderItem>();
+            }
+
+            this.orderItems.Add(new OrderItem("F1", "PaymentFee", OrderItemType.PaymentFee, "Fees", 1, "pcs", 1900, 0, 1900, 0)
+            {
+                RestrictedToInstruments = instruments
+            });
+
+            this.amount = new Amount(this.orderItems.Where(o => o.RestrictedToInstruments is null).Sum(s => s.Amount));
+            this.vatAmount = new Amount(this.orderItems.Where(o => o.RestrictedToInstruments is null).Sum(s => s.VatAmount));
+
+            return this;
+        }
+
+
         public PaymentOrderRequestBuilder WithTestValues(string payeeId)
         {
             this.operation = Operation.Purchase;

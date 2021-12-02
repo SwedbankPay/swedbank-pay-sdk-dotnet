@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
-
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace Sample.AspNetCore.Extensions
 {
@@ -11,13 +10,13 @@ namespace Sample.AspNetCore.Extensions
             var sessionData = session.GetString(key);
             return sessionData == null
                 ? default
-                : JsonConvert.DeserializeObject<T>(sessionData);
+                : JsonSerializer.Deserialize<T>(sessionData);
         }
 
 
         public static void SetJson(this ISession session, string key, object value)
         {
-            session.SetString(key, JsonConvert.SerializeObject(value));
+            session.SetString(key, JsonSerializer.Serialize(value));
         }
     }
 }
