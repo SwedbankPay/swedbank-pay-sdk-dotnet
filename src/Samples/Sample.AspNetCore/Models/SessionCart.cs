@@ -1,11 +1,10 @@
-﻿using System;
-
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
-using Newtonsoft.Json;
-
 using Sample.AspNetCore.Extensions;
+
+using System;
+using System.Text.Json.Serialization;
 
 namespace Sample.AspNetCore.Models
 {
