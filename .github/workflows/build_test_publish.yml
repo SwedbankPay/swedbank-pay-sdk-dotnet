@@ -5,7 +5,9 @@ on: [push, pull_request_target]
 env:
   AZURE_WEBAPP_PACKAGE_PATH: '.'
   Configuration: Release
-  dotnetVersion: '5.x.x'  # SDK Version to use; x will use the latest version of the 5.0 channel
+  dotnetVersion: |
+    5.x
+    6.x  
 
 jobs:
 
@@ -119,7 +121,7 @@ jobs:
 
     - uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '5.0.x' # SDK Version to use; x will use the latest version of the 5.0 channel
+        dotnet-version: ${{ env.dotnetVersion }}
 
     - name: Download All artifacts
       uses: actions/download-artifact@v2
@@ -167,6 +169,11 @@ jobs:
       id: gitversion # step id used as reference for output values
       with:
         updateAssemblyInfo: true
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{ env.dotnetVersion }}
 
     - name: Install dependencies
       run: dotnet restore ./src/SwedbankPay.Sdk.sln
