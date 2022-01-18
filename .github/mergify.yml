@@ -1,3 +1,10 @@
+queue_rules:
+  - name: default
+    conditions:
+      # Conditions to get out of the queue (= merged)
+      - check-success=build
+      - check-success=license/cla
+
 pull_request_rules:
   - name: Automatic approve on dependabot PR
     conditions:
@@ -10,9 +17,9 @@ pull_request_rules:
     conditions:
       - author~=^dependabot(|-preview)\[bot\]$
     actions:
-      merge:
+      queue:
         method: merge
-        strict: smart
+        name: default
 
   - name: Thank contributor
     conditions:

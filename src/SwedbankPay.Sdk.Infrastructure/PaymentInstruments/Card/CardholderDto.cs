@@ -12,11 +12,11 @@
             BillingAddress = new AddressDto(cardholder.BillingAddress);
             Email = cardholder.Email.ToString();
             FirstName = cardholder.FirstName;
-            HomePhoneNumber = cardholder.HomePhoneNumber.ToString();
+            HomePhoneNumber = cardholder.HomePhoneNumber?.ToString();
             LastName = cardholder.LastName;
-            Msisdn = cardholder.Msisdn.ToString();
+            Msisdn = cardholder.Msisdn?.ToString();
             Shippingaddress = new AddressDto(cardholder.Shippingaddress);
-            WorkPhoneNumber = cardholder.WorkPhoneNumber.ToString();
+            WorkPhoneNumber = cardholder.WorkPhoneNumber?.ToString();
         }
 
         public AccountInfoDto AccountInfo { get; set; }

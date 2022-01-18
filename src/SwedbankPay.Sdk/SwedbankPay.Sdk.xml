@@ -1035,6 +1035,11 @@
             The percent value of the VAT multiplied by 100, so 25% becomes 2500.
             </summary>
         </member>
+        <member name="P:SwedbankPay.Sdk.IOrderItem.RestrictedToInstruments">
+            <summary>
+            Limits the order item to the payment items. Default is all supported payment items.
+            </summary>
+        </member>
         <member name="T:SwedbankPay.Sdk.IPayeeInfo">
             <summary>
             Identifies the merchant that initiated the payment.
@@ -1739,6 +1744,69 @@
             <summary>
             Gets a <paramref name="rel"/> if the dictionary contains it, otherwise null.
             </summary>
+        </member>
+        <member name="T:SwedbankPay.Sdk.OrderItemInstrument">
+            <summary>
+            Payment instrument the order item will be limited to.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.OrderItemInstrument.CreditCard">
+            <summary>
+            The order item will be limited to credit card.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.OrderItemInstrument.Invoice">
+            <summary>
+            The order item will be limited to invoice.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.OrderItemInstrument.Vipps">
+            <summary>
+            The order item will be limited to Vipps.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.OrderItemInstrument.Swish">
+            <summary>
+            The order item will be limited to Swish.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.OrderItemInstrument.Trustly">
+            <summary>
+            The order item will be limited to Trustly.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.OrderItemInstrument.CreditAccount">
+            <summary>
+            The order item will be limited to credit account.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.OrderItemInstrument.InvoicePayExFinancingNo">
+            <summary>
+            The order item will be limited to invoice subtype PayExFinancingNo.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.OrderItemInstrument.InvoicePayExFinancingSe">
+            <summary>
+            The order item will be limited to invoice subtype PayExFinancingSe.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.OrderItemInstrument.InvoicePayMonthlyInvoiceSe">
+            <summary>
+            The order item will be limited to invoice subtype PayMonthlyInvoiceSe.
+            </summary>
+        </member>
+        <member name="M:SwedbankPay.Sdk.OrderItemInstrument.#ctor(System.String,System.String)">
+            <summary>
+            Instantiates a <see cref="T:SwedbankPay.Sdk.OrderItemInstrument"/> with the provided parameters.
+            </summary>
+            <param name="name">The human readable name of the type.</param>
+            <param name="value">The API value of the type.</param>
+        </member>
+        <member name="M:SwedbankPay.Sdk.OrderItemInstrument.op_Implicit(System.String)~SwedbankPay.Sdk.OrderItemInstrument">
+            <summary>
+            Converts a <see cref="T:System.String"/> to a <see cref="T:SwedbankPay.Sdk.OrderItemInstrument"/>.
+            </summary>
+            <param name="instrument">The API value to convert.</param>
         </member>
         <member name="T:SwedbankPay.Sdk.OrderItemType">
             <summary>

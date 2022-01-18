@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Atata;
 using NUnit.Framework;
 using Sample.AspNetCore.SystemTests.Services;
@@ -17,16 +16,16 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Abort
 
 
         [Test]
-        [Retry(3)]
+        [Retry(2)]
         [TestCaseSource(nameof(TestData), new object[] { true, null })]
         public void Abort_PaymentOrder(Product[] products)
         {
             Assert.DoesNotThrowAsync(async () => {
 
                 GoToPayexPaymentPage(products)
-                .Abort.ClickAndGo()
-                .Message.StoreValueAsUri(out var message)
-                .Header.Products.ClickAndGo();
+                    .Abort.ClickAndGo()
+                    .Message.StoreValueAsUri(out var message)
+                    .Header.Products.ClickAndGo();
 
                 var orderLink = message.OriginalString.Substring(message.OriginalString.IndexOf("/")).Replace(" has been Aborted", "");
 

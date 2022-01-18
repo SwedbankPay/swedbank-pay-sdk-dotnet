@@ -1,16 +1,19 @@
 name: Build
 
-on: [push, pull_request, pull_request_target]
+on: [push, pull_request_target]
 
 env:
   AZURE_WEBAPP_PACKAGE_PATH: '.'
   Configuration: Release
+  dotnetVersion: |
+    5.x
+    6.x  
 
 jobs:
 
   variables:
     name: Create variables
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     outputs:
       ENVIRONMENT: ${{ steps.setoutputvariables.outputs.ENVIRONMENT }}
       AZURE_WEBAPP_NAME: ${{ steps.setoutputvariables.outputs.AZURE_WEBAPP_NAME }}
@@ -23,30 +26,30 @@ jobs:
           fetch-depth: 0
 
       - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v0.9.10
+        uses: gittools/actions/gitversion/setup@v0.9.11
         with:
           versionSpec: '5.x.x'
 
       - name: Use GitVersion
         id: gitversion # step id used as reference for output values
-        uses: gittools/actions/gitversion/execute@v0.9.10
+        uses: gittools/actions/gitversion/execute@v0.9.11
 
       - name: Set dev environment variables
-        uses: allenevans/set-env@v2.0.1
-        if: ${{ startsWith(github.ref, 'refs/heads/develop') || startsWith(github.ref, 'refs/heads/feature/') || startsWith(github.ref, 'refs/heads/dependabot/') || github.event_name == 'pull_request' }} # deveop, featurebranches and pullrequests
+        uses: allenevans/set-env@v2.1.0
+        if: ${{ startsWith(github.ref, 'refs/heads/develop') || startsWith(github.ref, 'refs/heads/feature/') || startsWith(github.ref, 'refs/heads/dependabot/') || github.event_name == 'pull_request_target' }} # deveop, featurebranches and pullrequests
         with:
           ENVIRONMENT: dev
           AZURE_WEBAPP_NAME: swedbankpay-sdk-001-dev
 
       - name: Set uat environment variables
-        uses: allenevans/set-env@v2.0.1
+        uses: allenevans/set-env@v2.1.0
         if: ${{ startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/hotfix/') || contains(github.ref, '-beta')}}
         with:
           ENVIRONMENT: uat
           AZURE_WEBAPP_NAME: swedbankpay-sdk-001-uat
 
       - name: Set pro environment variables
-        uses: allenevans/set-env@v2.0.1
+        uses: allenevans/set-env@v2.1.0
         if: ${{ startsWith(github.ref, 'refs/tags/') && !contains(github.ref, 'refs/tags/*-*') }}
         with:
           ENVIRONMENT: pro
@@ -59,22 +62,22 @@ jobs:
             echo "::set-output name=AZURE_WEBAPP_NAME::${AZURE_WEBAPP_NAME}"
 
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     needs: [variables]
 
     steps:
     - uses: actions/checkout@v2
 
-    - name: Setup .NET Core
+    - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.*
+        dotnet-version: ${{ env.dotnetVersion }}
 
     - name: Install dependencies
       run: dotnet restore ./src/SwedbankPay.Sdk.sln
 
     - name: Build solution
-      run: dotnet build ./src/SwedbankPay.Sdk.sln
+      run: dotnet build ./src/SwedbankPay.Sdk.sln --no-restore
 
     - name: Publish Sdk Sample site
       run: dotnet publish --configuration ${{ env.Configuration }} -p:Version=${{ needs.variables.outputs.nuGetVersionV2 }} --no-restore src/Samples/Sample.AspNetCore/Sample.AspNetCore.csproj --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/samplesite'
@@ -106,9 +109,6 @@ jobs:
   test:
     runs-on: ubuntu-20.04
     needs: [variables, build]
-    if: |
-        (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]') ||
-        (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]')
 
     steps:
     - uses: actions/checkout@v2
@@ -121,7 +121,7 @@ jobs:
 
     - uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '5.0.x' # SDK Version to use; x will use the latest version of the 5.0 channel
+        dotnet-version: ${{ env.dotnetVersion }}
 
     - name: Download All artifacts
       uses: actions/download-artifact@v2
@@ -137,7 +137,7 @@ jobs:
         SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
 
     - name: Run SDK Sample project tests
-      run: dotnet test  src/Samples/Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.csproj
+      run: dotnet test  src/Samples/Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.csproj -v n
       env:
         SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
         SwedbankPay:TokenMobilePay: ${{ secrets.MERCHANT_TOKEN_MOBILE_PAY }}
@@ -148,9 +148,6 @@ jobs:
   test_nuget_package:
     runs-on: ubuntu-20.04
     needs: [variables]
-    if: |
-        (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]') ||
-        (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]')
 
     steps:
     - uses: actions/checkout@v2
@@ -164,21 +161,26 @@ jobs:
         fetch-depth: 0
         ref: ${{ github.event.pull_request.head.sha }}
 
-    - uses: gittools/actions/gitversion/setup@v0.9.10
+    - uses: gittools/actions/gitversion/setup@v0.9.11
       with:
         versionSpec: '5.x.x'
 
-    - uses: gittools/actions/gitversion/execute@v0.9.10
+    - uses: gittools/actions/gitversion/execute@v0.9.11
       id: gitversion # step id used as reference for output values
       with:
         updateAssemblyInfo: true
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{ env.dotnetVersion }}
 
     - name: Install dependencies
       run: dotnet restore ./src/SwedbankPay.Sdk.sln
 
     - uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '5.0.x' # SDK Version to use; x will use the latest version of the 5.0 channel
+        dotnet-version: ${{ env.dotnetVersion }}
 
     - name: Build solution
       run: dotnet build ./src/SwedbankPay.Sdk.sln
@@ -217,6 +219,8 @@ jobs:
       run: dotnet build src/SwedbankPay.Sdk.TestNuget/SwedbankPay.Sdk.TestNuget.csproj
 
   publish:
+    if: |
+        (github.event_name != 'pull_request_target')
     runs-on: ubuntu-20.04
     needs: [variables, build, test, test_nuget_package]
 
@@ -229,7 +233,7 @@ jobs:
 
     # Deploy to Dev Azure Web apps
     - name: 'Run Azure webapp deploy to dev using publish profile credentials'
-      if: ${{ needs.variables.outputs.ENVIRONMENT == 'dev' && github.event_name != 'pull_request'  && startsWith(github.ref, 'refs/heads/develop') }}
+      if: ${{ needs.variables.outputs.ENVIRONMENT == 'dev' && github.event_name != 'pull_request_target'  && startsWith(github.ref, 'refs/heads/develop') }}
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ needs.variables.outputs.AZURE_WEBAPP_NAME }} # Replace with your app name
@@ -238,7 +242,7 @@ jobs:
 
     # Deploy to Uat Azure Web apps
     - name: 'Run Azure webapp deploy to uat using publish profile credentials'
-      if: ${{ needs.variables.outputs.ENVIRONMENT == 'uat' && github.event_name != 'pull_request' }}
+      if: ${{ needs.variables.outputs.ENVIRONMENT == 'uat' && github.event_name != 'pull_request_target' }}
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ needs.variables.outputs.AZURE_WEBAPP_NAME }} # Replace with your app name
@@ -247,7 +251,7 @@ jobs:
 
     # Deploy to Pro Azure Web apps
     - name: 'Run Azure webapp deploy to pro using publish profile credentials'
-      if: ${{ needs.variables.outputs.ENVIRONMENT == 'pro' && github.event_name != 'pull_request' }}
+      if: ${{ needs.variables.outputs.ENVIRONMENT == 'pro' && github.event_name != 'pull_request_target' }}
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ needs.variables.outputs.AZURE_WEBAPP_NAME }} # Replace with your app name

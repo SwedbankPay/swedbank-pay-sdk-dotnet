@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
@@ -25,6 +27,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
             Description = dto.Description;
             DiscountDescription = dto.DiscountDescription;
             DiscountPrice = dto.DiscountPrice;
+            RestrictedToInstruments = dto.RestrictedToInstruments?.Select(instrument => OrderItemInstrument.FromValue(instrument)).ToList();
         }
 
         /// <summary>
@@ -161,5 +164,10 @@ namespace SwedbankPay.Sdk.PaymentOrders
         ///     The percent value of the VAT multiplied by 100, so 25% becomes 2500.
         /// </summary>
         public int VatPercent { get; }
-    }
+
+        /// <summary>
+        /// Limits the order item to the payment items. Default is all supported payment items.
+        /// </summary>
+        public IList<OrderItemInstrument> RestrictedToInstruments { get; set; }
+	}
 }
