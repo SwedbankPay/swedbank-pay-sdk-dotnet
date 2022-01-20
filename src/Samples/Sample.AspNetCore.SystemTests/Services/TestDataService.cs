@@ -16,7 +16,7 @@ namespace Sample.AspNetCore.SystemTests.Services
 
         public static string CreditCardExpirationDate => DateTime.Now.AddYears(1).ToString("MMyy");
 
-        public static string CreditCardNumber => "4925000000000004";
+        public static string CreditCardNumber => "4581097032723517";
 
         public static string Email => "leia.ahlstrom@payex.com";
         public static string FirstName => "John";
