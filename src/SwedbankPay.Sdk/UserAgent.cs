@@ -7,7 +7,7 @@ namespace SwedbankPay.Sdk
         public static string Default { get; }
         static UserAgent()
         {
-            Default = $"swedbankpay-sdk-dotnet/{Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion}";
+            Default = $"swedbankpay-sdk-dotnet/{Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version}";
         }
     }
 }
