@@ -129,7 +129,7 @@ namespace Sample.AspNetCore.Controllers
 			{
 				var paymentOrderRequest = new PaymentOrderRequest(Operation.Purchase, new Currency("SEK"),
 																  new Amount(totalAmount),
-																  new Amount(0), "Test description", "useragent",
+																  new Amount(0), "Test description",
 																  new Language("sv-SE"),
 																  false,
 																  new Urls(this.urls.HostUrls.ToList(), this.urls.CompleteUrl,
@@ -168,7 +168,7 @@ namespace Sample.AspNetCore.Controllers
 			{
 				var cardRequest = new CardPaymentRequest(Operation.Purchase,
 														PaymentIntent.Authorization, new Currency("SEK"),
-														"Test Purchase", this.payeeInfoOptions.PayeeReference,
+														"Test Purchase",
 														new Language("sv-SE"),
 														new Urls(
 																this.urls.HostUrls.ToList(),
@@ -214,7 +214,7 @@ namespace Sample.AspNetCore.Controllers
 				var trustlyPaymentRequest = new TrustlyPaymentRequest(
 																	new Currency("SEK"),
 																	new List<IPrice>(),
-																	"Test Purchase", this.payeeInfoOptions.PayeeReference, "useragent", new Language("sv-SE"),
+																	"Test Purchase", this.payeeInfoOptions.PayeeReference, new Language("sv-SE"),
 																	new Urls(this.urls.HostUrls.ToList(),
 																			 this.urls.CompleteUrl,
 																			 this.urls.TermsOfServiceUrl)
@@ -259,7 +259,7 @@ namespace Sample.AspNetCore.Controllers
 			{
 				var swishRequest = new SwishPaymentRequest(new List<IPrice>(),
 															"Test Purchase",
-															this.payeeInfoOptions.PayeeReference, "useragent", new Language("sv-SE"), new Urls(this.urls.HostUrls.ToList(), this.urls.CompleteUrl, this.urls.TermsOfServiceUrl) { CancelUrl = this.urls.CancelUrl, PaymentUrl = this.urls.PaymentUrl, CallbackUrl = this.urls.CallbackUrl, LogoUrl = this.urls.LogoUrl },
+															this.payeeInfoOptions.PayeeReference, new Language("sv-SE"), new Urls(this.urls.HostUrls.ToList(), this.urls.CompleteUrl, this.urls.TermsOfServiceUrl) { CancelUrl = this.urls.CancelUrl, PaymentUrl = this.urls.PaymentUrl, CallbackUrl = this.urls.CallbackUrl, LogoUrl = this.urls.LogoUrl },
 															new PayeeInfo(this.payeeInfoOptions.PayeeId, this.payeeInfoOptions.PayeeReference),
 															new PrefillInfo(new Msisdn("+46739000001")));
 				swishRequest.Payment.Prices.Add(new Price(new Amount(totalAmount), PriceType.Swish, vatAmount));
@@ -290,7 +290,6 @@ namespace Sample.AspNetCore.Controllers
 															   new Currency("SEK"),
 															   new List<IPrice>(),
 															   "Test Purchase",
-															   "useragent",
 															   new Language("sv-SE"),
 															   new Urls(this.urls.HostUrls.ToList(), this.urls.CompleteUrl, this.urls.TermsOfServiceUrl) { CancelUrl = this.urls.CancelUrl, PaymentUrl = this.urls.PaymentUrl, CallbackUrl = this.urls.CallbackUrl, LogoUrl = this.urls.LogoUrl },
 															   new PayeeInfo(this.payeeInfoOptions.PayeeId, this.payeeInfoOptions.PayeeReference),

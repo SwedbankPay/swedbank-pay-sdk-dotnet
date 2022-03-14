@@ -16,7 +16,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// <param name="currency">The <seealso cref="Sdk.Currency"/> to be paid in.</param>
         /// <param name="description">A textual description of the purchase.</param>
         /// <param name="userAgent">The payers user agent.</param>
-        /// <param name="language">The payers prefered langauge.</param>
+        /// <param name="language">The payers preferred <seealso cref="Sdk.Language"/>.</param>
         /// <param name="urls">URLs relevant for this payment.</param>
         /// <param name="payeeInfo">Identifies the merchant.</param>
         public CardPaymentDetails(Operation operation,
@@ -32,7 +32,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             Intent = intent;
             Currency = currency;
             Description = description;
-            UserAgent = userAgent;
+            UserAgent = userAgent ?? SwedbankPay.Sdk.UserAgent.Default;
             Language = language;
             Urls = urls;
             PayeeInfo = payeeInfo;

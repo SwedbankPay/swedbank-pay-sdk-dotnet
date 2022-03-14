@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
@@ -17,7 +18,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <param name="vatAmount">The amount to pay that is value added taxes.</param>
         /// <param name="description">Textual description of the payment order.</param>
         /// <param name="userAgent">The payers UserAgent string.</param>
-        /// <param name="language">The payers prefered languae.</param>
+        /// <param name="language">The payers preferred language.</param>
         /// <param name="generateRecurrenceToken">Set if you want a recurrence token for recur payments.</param>
         /// <param name="urls">Object with URLs relevant for the payment.</param>
         /// <param name="payeeInfo">Object with information about the Merchant.</param>
@@ -37,7 +38,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
             Amount = amount ?? throw new ArgumentNullException(nameof(amount));
             VatAmount = vatAmount ?? throw new ArgumentNullException(nameof(vatAmount));
             Description = description ?? throw new ArgumentNullException(nameof(description));
-            UserAgent = userAgent ?? throw new ArgumentNullException(nameof(userAgent));
+            UserAgent = userAgent ?? SwedbankPay.Sdk.UserAgent.Default;
             Language = language ?? throw new ArgumentNullException(nameof(language));
             Urls = urls ?? throw new ArgumentNullException(nameof(urls));
             GenerateRecurrenceToken = generateRecurrenceToken;

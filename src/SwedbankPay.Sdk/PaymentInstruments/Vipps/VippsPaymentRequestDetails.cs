@@ -37,7 +37,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
             Currency = currency;
             Description = description;
             PayerReference = payerReference;
-            UserAgent = userAgent;
+            UserAgent = userAgent ?? SwedbankPay.Sdk.UserAgent.Default;
             Language = language;
             Urls = urls;
             PayeeInfo = payeeInfo;

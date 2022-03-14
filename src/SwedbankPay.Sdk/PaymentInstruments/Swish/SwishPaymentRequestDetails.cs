@@ -3,7 +3,7 @@
 namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 {
     /// <summary>
-    /// Detailes needed for creating a Swish payment.
+    /// Details needed for creating a Swish payment.
     /// </summary>
     public class SwishPaymentRequestDetails
     {
@@ -12,9 +12,9 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         /// </summary>
         /// <param name="prices">List of prices object to give discounts.</param>
         /// <param name="description">Textual description of the payment.</param>
-        /// <param name="payerReference">Refence to the payer in the merchant systems.</param>
+        /// <param name="payerReference">Reference to the payer in the merchant systems.</param>
         /// <param name="userAgent">The UserAgent string of the payers device.</param>
-        /// <param name="language">The payers prefered langauge.</param>
+        /// <param name="language">The payers preferred <seealso cref="Sdk.Language"/>.</param>
         /// <param name="urls">Object describing relevant URLs for this payment.</param>
         /// <param name="payeeInfo">Object holding information about the merchant-</param>
         /// <param name="prefillInfo">Known information about the payer than can be
@@ -35,7 +35,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
             Currency = new Currency("SEK");
             Description = description;
             PayerReference = payerReference;
-            UserAgent = userAgent;
+            UserAgent = userAgent ?? SwedbankPay.Sdk.UserAgent.Default;
             Language = language;
             Urls = urls;
             PayeeInfo = payeeInfo;
@@ -64,12 +64,12 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         public PaymentIntent Intent { get; }
 
         /// <summary>
-        /// Sets the payers prefered language.
+        /// Sets the payers preferred language.
         /// </summary>
         public Language Language { get; }
 
         /// <summary>
-        /// <see cref="Operation.Purchase"/> is the only allwoed value for this request.
+        /// <see cref="Operation.Purchase"/> is the only allowed value for this request.
         /// </summary>
         public Operation Operation { get; }
 
