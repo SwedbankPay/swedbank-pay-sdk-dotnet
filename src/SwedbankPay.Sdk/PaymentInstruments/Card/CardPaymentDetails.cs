@@ -32,7 +32,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             Intent = intent;
             Currency = currency;
             Description = description;
-            UserAgent = userAgent ?? SwedbankPay.Sdk.UserAgent.Default;
+            UserAgent = userAgent;
             Language = language;
             Urls = urls;
             PayeeInfo = payeeInfo;

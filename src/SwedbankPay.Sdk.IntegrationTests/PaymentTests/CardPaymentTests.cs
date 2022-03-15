@@ -26,7 +26,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         {
             var paymentRequest = this.paymentRequestBuilder.WithCreditcardTestValues(this.payeeId, Operation.Verify).BuildCreditardPaymentRequest();
             var creditCardPayment = await this.Sut.Payments.CardPayments.Create(paymentRequest, PaymentExpand.All);
-
+            Assert.Equal(UserAgent.Default, creditCardPayment.Payment.InitiatingSystemUserAgent);
             Assert.NotNull(creditCardPayment);
         }
 
@@ -38,6 +38,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             var creditCardPayment = await this.Sut.Payments.CardPayments.Create(paymentRequest, PaymentExpand.All);
 
             Assert.NotNull(creditCardPayment);
+            Assert.Equal(UserAgent.Default, creditCardPayment.Payment.InitiatingSystemUserAgent);
             Assert.Equal(paymentRequest.Payment.Metadata["key1"], creditCardPayment.Payment.Metadata["key1"]);
         }
     }

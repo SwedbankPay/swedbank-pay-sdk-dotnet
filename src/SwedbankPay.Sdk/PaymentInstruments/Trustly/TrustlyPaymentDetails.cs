@@ -32,7 +32,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
             Currency = currency;
             Description = description;
             PayerReference = payerReference;
-            UserAgent = userAgent ?? SwedbankPay.Sdk.UserAgent.Default;
+            UserAgent = userAgent;
             Language = language;
             Urls = urls;
             PayeeInfo = payeeInfo;

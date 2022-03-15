@@ -122,5 +122,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// Set to 0 (zero) if there is no VAT amount charged.
         /// </summary>
         public Amount VatAmount { get; }
+
+        public string InitiatingSystemUserAgent { get; }
     }
 }

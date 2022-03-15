@@ -35,7 +35,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
             Currency = new Currency("SEK");
             Description = description;
             PayerReference = payerReference;
-            UserAgent = userAgent ?? SwedbankPay.Sdk.UserAgent.Default;
+            UserAgent = userAgent;
             Language = language;
             Urls = urls;
             PayeeInfo = payeeInfo;

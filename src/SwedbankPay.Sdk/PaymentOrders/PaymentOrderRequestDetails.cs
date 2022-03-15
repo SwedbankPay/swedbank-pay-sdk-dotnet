@@ -38,7 +38,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
             Amount = amount ?? throw new ArgumentNullException(nameof(amount));
             VatAmount = vatAmount ?? throw new ArgumentNullException(nameof(vatAmount));
             Description = description ?? throw new ArgumentNullException(nameof(description));
-            UserAgent = userAgent ?? SwedbankPay.Sdk.UserAgent.Default;
+            UserAgent = userAgent ?? throw new ArgumentNullException(nameof(userAgent));
             Language = language ?? throw new ArgumentNullException(nameof(language));
             Urls = urls ?? throw new ArgumentNullException(nameof(urls));
             GenerateRecurrenceToken = generateRecurrenceToken;
