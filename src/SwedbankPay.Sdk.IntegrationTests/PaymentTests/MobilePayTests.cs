@@ -16,6 +16,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             var paymentRequest = this.paymentRequestBuilder.WithMobilePayTestValues(this.payeeId).BuildMobilePayRequest();
             var mobilePayPayment = await this.SutMobilePay.Payments.MobilePayPayments.Create(paymentRequest, PaymentExpand.All);
             Assert.NotNull(mobilePayPayment);
+            Assert.Equal(UserAgent.Default, mobilePayPayment.Payment.InitiatingSystemUserAgent);
         }
 
         [Fact]
@@ -23,7 +24,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         {
             var paymentRequest = this.paymentRequestBuilder.WithMobilePayTestValues(this.payeeId).BuildMobilePayRequest();
             var mobilePayPayment = await this.SutMobilePay.Payments.MobilePayPayments.Create(paymentRequest, PaymentExpand.All);
-
+            Assert.Equal(UserAgent.Default, mobilePayPayment.Payment.InitiatingSystemUserAgent);
             var result = await mobilePayPayment.Operations.Abort(new PaymentAbortRequest());
 
             Assert.NotNull(result);

@@ -30,6 +30,11 @@ namespace SwedbankPay.Sdk
                 throw new ArgumentException($"Please configure the {nameof(httpClient)} with an Authorization header.");
             }
 
+            if (!httpClient.DefaultRequestHeaders.Contains("User-Agent"))
+            {
+                httpClient.DefaultRequestHeaders.Add("User-Agent", UserAgent.Default);
+            }
+
             PaymentOrders = paymentOrders ?? throw new ArgumentNullException(nameof(paymentOrders));
             Consumers = consumers ?? throw new ArgumentNullException(nameof(consumers));
             Payments = payments ?? throw new ArgumentNullException(nameof(payments));

@@ -20,6 +20,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
 
             Assert.NotNull(payment);
             Assert.NotNull(payment.Operations.Abort);
+            Assert.Equal(UserAgent.Default, payment.Payment.InitiatingSystemUserAgent);
 
             var paymentResponseContainer = await payment.Operations.Abort(new PaymentAbortRequest());
 
@@ -34,7 +35,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             var payment = await this.Sut.Payments.SwishPayments.Create(paymentRequest);
 
             Assert.NotNull(payment);
-
+            Assert.Equal(UserAgent.Default, payment.Payment.InitiatingSystemUserAgent);
             var saleResponseContainer = await payment.Operations.Sale?.Invoke(new SwishPaymentSaleRequest(null));
 
             Assert.NotNull(saleResponseContainer);
@@ -49,7 +50,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             var payment = await this.Sut.Payments.SwishPayments.Create(paymentRequest);
 
             Assert.NotNull(payment);
-
+            Assert.Equal(UserAgent.Default, payment.Payment.InitiatingSystemUserAgent);
             var saleResponseContainer = await payment.Operations.Sale?.Invoke(new SwishPaymentSaleRequest(new Msisdn("+46701234567")));
 
             Assert.NotNull(saleResponseContainer);
@@ -64,6 +65,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             var swishPayment = await this.Sut.Payments.SwishPayments.Create(paymentRequest, PaymentExpand.All);
             Assert.NotNull(swishPayment);
             Assert.NotNull(swishPayment.Payment);
+            Assert.Equal(UserAgent.Default, swishPayment.Payment.InitiatingSystemUserAgent);
             Assert.Equal(paymentRequest.Payment.Metadata["key1"], swishPayment.Payment.Metadata["key1"]);
         }
 

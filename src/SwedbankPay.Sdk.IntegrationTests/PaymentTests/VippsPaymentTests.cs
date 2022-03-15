@@ -24,8 +24,8 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             Assert.True(vippsPaymentRequest.Payment.Currency.ToString().Equals(vippsPayment.Payment.Currency.ToString()));
             Assert.True(vippsPaymentRequest.Payment.Description.Length.Equals(vippsPayment.Payment.Description.Length));
             Assert.True(vippsPaymentRequest.Payment.UserAgent.Length.Equals(vippsPayment.Payment.UserAgent.Length));
+            Assert.Equal(UserAgent.Default, vippsPayment.Payment.InitiatingSystemUserAgent);
             Assert.True(vippsPaymentRequest.Payment.PayeeInfo.PayeeId.Equals(vippsPayment.Payment.PayeeInfo.PayeeId));
-            Assert.NotNull(vippsPaymentRequest.Payment.UserAgent);
         }
 
         [Fact]

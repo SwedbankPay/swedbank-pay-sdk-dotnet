@@ -32,7 +32,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
                               string payerReference)
 
         {
-            Payment = new VippsPaymentRequestDetails(operation, intent, currency, prices, description, payerReference, 
+            Payment = new VippsPaymentRequestDetails(operation, intent, currency, prices, description, payerReference,
                                                 userAgent, language, urls, payeeInfo);
         }
 

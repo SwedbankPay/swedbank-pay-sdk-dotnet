@@ -12,9 +12,9 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
         /// </summary>
         /// <param name="prices">List of prices object to give discounts.</param>
         /// <param name="description">Textual description of the payment.</param>
-        /// <param name="payerReference">Refence to the payer in the merchant systems.</param>
+        /// <param name="payerReference">Reference to the payer in the merchant systems.</param>
         /// <param name="userAgent">The UserAgent string of the payers device.</param>
-        /// <param name="language">The payers prefered langauge.</param>
+        /// <param name="language">The payers preferred <seealso cref="Sdk.Language"/>.</param>
         /// <param name="urls">Object describing relevant URLs for this payment.</param>
         /// <param name="payeeInfo">Object holding information about the merchant-</param>
         /// <param name="prefillInfo">Known information about the payer than can be

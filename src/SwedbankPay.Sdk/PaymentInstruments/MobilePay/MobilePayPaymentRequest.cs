@@ -17,20 +17,20 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         /// <param name="prices">Object describing the amount to pay in different payment instruments.</param>
         /// <param name="description">A textual description of this payment.</param>
         /// <param name="userAgent">The payers UserAgent string.</param>
-        /// <param name="language">THe payers prefered <seealso cref="Language"/>.</param>
+        /// <param name="language">The payers preferred <seealso cref="Sdk.Language"/>.</param>
         /// <param name="urls">Object describing relevant URLs for this payment.</param>
         /// <param name="payeeInfo">Information about the merchant performing this payment.</param>
         /// <param name="shopslogoUrl">Custom logo to use for the payment window.</param>
         public MobilePayPaymentRequest(Operation operation,
-                              PaymentIntent intent,
-                              Currency currency,
-                              IEnumerable<IPrice> prices,
-                              string description,
-                              string userAgent,
-                              Language language,
-                              IUrls urls,
-                              IPayeeInfo payeeInfo,
-                              Uri shopslogoUrl)
+                          PaymentIntent intent,
+                          Currency currency,
+                          IEnumerable<IPrice> prices,
+                          string description,
+                          string userAgent,
+                          Language language,
+                          IUrls urls,
+                          IPayeeInfo payeeInfo,
+                          Uri shopslogoUrl)
 
         {
             Payment = new MobilePayPaymentDetails(operation, intent, currency, prices, description, userAgent, language, urls, payeeInfo);

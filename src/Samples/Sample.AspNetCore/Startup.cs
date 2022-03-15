@@ -1,7 +1,3 @@
-using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -9,16 +5,19 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
 using Sample.AspNetCore.Data;
-using Sample.AspNetCore.Extensions;
 using Sample.AspNetCore.Models;
-
 using SwedbankPay.Sdk.Extensions;
+using System;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Reflection;
+
+using SwedbankPay.Sdk;
 
 namespace Sample.AspNetCore
 {
-	public class Startup
+    public class Startup
 	{
 		public Startup(IConfiguration configuration)
 		{
@@ -86,6 +85,7 @@ namespace Sample.AspNetCore
 			{
 				a.BaseAddress = swedBankPayOptions.ApiBaseUrl;
 				a.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", swedBankPayOptions.Token);
+                a.DefaultRequestHeaders.Add("User-Agent", $"swedbankpay-sdksamplesite-dotnet/{Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version}");
 			}
 			services.AddSwedbankPayClient(configureClient);
 			services.AddSession();
