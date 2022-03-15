@@ -17,7 +17,6 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             var mobilePayPayment = await this.SutMobilePay.Payments.MobilePayPayments.Create(paymentRequest, PaymentExpand.All);
             Assert.NotNull(mobilePayPayment);
             Assert.Equal(UserAgent.Default, mobilePayPayment.Payment.InitiatingSystemUserAgent);
-            Assert.Equal(UserAgent.Default, mobilePayPayment.Payment.InitiatingSystemUserAgent);
         }
 
         [Fact]
