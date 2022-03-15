@@ -131,7 +131,7 @@ jobs:
       uses: actions/download-artifact@v2
 
     - name: Run SDK Unit Tests
-      run: dotnet test src/SwedbankPay.Sdk.Tests/SwedbankPay.Sdk.Tests.csproj
+      run: dotnet test src/SwedbankPay.Sdk.Tests/SwedbankPay.Sdk.Tests.csproj -p:Version=${{ needs.variables.outputs.FULLSEMVER }}
 
     - name: Run SDK Integration Tests
       run: dotnet test src/SwedbankPay.Sdk.IntegrationTests/SwedbankPay.Sdk.IntegrationTests.csproj
