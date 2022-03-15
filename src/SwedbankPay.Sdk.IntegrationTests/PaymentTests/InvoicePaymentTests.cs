@@ -19,6 +19,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             Assert.Equal(invoicePaymentRequest.Payment.Intent, invoicePayment.Payment.Intent);
             Assert.Equal("nb-NO", invoicePayment.Payment.Language.ToString());
             Assert.True(invoicePaymentRequest.Payment.Operation.Equals(Operation.FinancingConsumer));
+            Assert.NotEmpty(invoicePaymentRequest.Payment.UserAgent);
             Assert.Equal(UserAgent.Default, invoicePayment.Payment.InitiatingSystemUserAgent);
         }
     }
