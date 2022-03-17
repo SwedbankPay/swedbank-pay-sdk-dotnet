@@ -25,6 +25,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
             Urls = paymentOrder.Urls.Map();
             UserAgent = paymentOrder.UserAgent;
             VatAmount = paymentOrder.VatAmount;
+            InitiatingSystemUserAgent = paymentOrder.InitiatingSystemUserAgent;
 
             OrderItems = paymentOrder.OrderItems?.Map();
             Payers = paymentOrder.Payer?.Map();
@@ -56,5 +57,6 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public IUrls Urls { get; }
         public string UserAgent { get; }
         public Amount VatAmount { get; }
+        public string InitiatingSystemUserAgent { get; }
     }
 }

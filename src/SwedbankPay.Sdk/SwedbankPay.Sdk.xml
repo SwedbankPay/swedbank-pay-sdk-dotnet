@@ -2386,7 +2386,7 @@
             <param name="currency">The <seealso cref="T:SwedbankPay.Sdk.Currency"/> to be paid in.</param>
             <param name="description">A textual description of the purchase.</param>
             <param name="userAgent">The payers user agent.</param>
-            <param name="language">The payers prefered langauge.</param>
+            <param name="language">The payers preferred <seealso cref="T:SwedbankPay.Sdk.Language"/>.</param>
             <param name="urls">URLs relevant for this payment.</param>
             <param name="payeeInfo">Identifies the merchant.</param>
         </member>
@@ -2615,7 +2615,7 @@
             <param name="currency">The wanted <seealso cref="T:SwedbankPay.Sdk.Currency"/> for the payment to be paid in.</param>
             <param name="description">A textual description of the payment.</param>
             <param name="userAgent">The payers UserAgent.</param>
-            <param name="language">The prefered <seealso cref="T:SwedbankPay.Sdk.Language"/> of the payer.</param>
+            <param name="language">The preferred <seealso cref="T:SwedbankPay.Sdk.Language"/> of the payer.</param>
             <param name="urls">Object holding relevant <seealso cref="T:SwedbankPay.Sdk.IUrls"/> for the payment.</param>
             <param name="payeeInfo">Object identifying the payee.</param>
         </member>
@@ -3908,7 +3908,7 @@
             <param name="prices">A list of objects detailing price differences between different payment instruments.</param>
             <param name="description">A textual description of what is being paid.</param>
             <param name="userAgent">The payers UserAgent string.</param>
-            <param name="language">The payers prefered <seealso cref="T:SwedbankPay.Sdk.Language"/>.</param>
+            <param name="language">The payers preferred <seealso cref="T:SwedbankPay.Sdk.Language"/>.</param>
             <param name="urls">Object containing relevant URLs for this payment.</param>
             <param name="payeeInfo">Object with merchant information.</param>
             <param name="invoiceType">Specifies the invoice type, country, of the invoice.</param>
@@ -3954,7 +3954,7 @@
             <param name="prices">A list of objects detailing price differences between different payment instruments.</param>
             <param name="description">A textual description of what is being paid.</param>
             <param name="userAgent">The payers UserAgent string.</param>
-            <param name="language">The payers prefered <seealso cref="T:SwedbankPay.Sdk.Language"/>.</param>
+            <param name="language">The payers preferred <seealso cref="T:SwedbankPay.Sdk.Language"/>.</param>
             <param name="urls">Object containing relevant URLs for this payment.</param>
             <param name="payeeInfo">Object with merchant information.</param>
         </member>
@@ -4946,7 +4946,7 @@
             <param name="prices">A list of objects detailing price differences between different payment instruments.</param>
             <param name="description">A textual description of the payment.</param>
             <param name="userAgent">The payers user agent string.</param>
-            <param name="language">The payers prefered <see cref="T:SwedbankPay.Sdk.Language"/>.</param>
+            <param name="language">The payers preferred <seealso cref="T:SwedbankPay.Sdk.Language"/>.</param>
             <param name="urls">Object with relevant URLs for this payment.</param>
             <param name="payeeInfo">Object containing information about the merchant.</param>
         </member>
@@ -5025,7 +5025,7 @@
             <param name="prices">Object describing the amount to pay in different payment instruments.</param>
             <param name="description">A textual description of this payment.</param>
             <param name="userAgent">The payers UserAgent string.</param>
-            <param name="language">THe payers prefered <seealso cref="T:SwedbankPay.Sdk.Language"/>.</param>
+            <param name="language">The payers preferred <seealso cref="T:SwedbankPay.Sdk.Language"/>.</param>
             <param name="urls">Object describing relevant URLs for this payment.</param>
             <param name="payeeInfo">Information about the merchant performing this payment.</param>
             <param name="shopslogoUrl">Custom logo to use for the payment window.</param>
@@ -5575,9 +5575,9 @@
             </summary>
             <param name="prices">List of prices object to give discounts.</param>
             <param name="description">Textual description of the payment.</param>
-            <param name="payerReference">Refence to the payer in the merchant systems.</param>
+            <param name="payerReference">Reference to the payer in the merchant systems.</param>
             <param name="userAgent">The UserAgent string of the payers device.</param>
-            <param name="language">The payers prefered langauge.</param>
+            <param name="language">The payers preferred <seealso cref="T:SwedbankPay.Sdk.Language"/>.</param>
             <param name="urls">Object describing relevant URLs for this payment.</param>
             <param name="payeeInfo">Object holding information about the merchant-</param>
             <param name="prefillInfo">Known information about the payer than can be
@@ -5590,7 +5590,7 @@
         </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.Swish.SwishPaymentRequestDetails">
             <summary>
-            Detailes needed for creating a Swish payment.
+            Details needed for creating a Swish payment.
             </summary>
         </member>
         <member name="M:SwedbankPay.Sdk.PaymentInstruments.Swish.SwishPaymentRequestDetails.#ctor(System.Collections.Generic.IEnumerable{SwedbankPay.Sdk.PaymentInstruments.IPrice},System.String,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.IPayeeInfo,SwedbankPay.Sdk.PaymentInstruments.PrefillInfo,SwedbankPay.Sdk.PaymentInstruments.Swish.SwishRequestData)">
@@ -5599,9 +5599,9 @@
             </summary>
             <param name="prices">List of prices object to give discounts.</param>
             <param name="description">Textual description of the payment.</param>
-            <param name="payerReference">Refence to the payer in the merchant systems.</param>
+            <param name="payerReference">Reference to the payer in the merchant systems.</param>
             <param name="userAgent">The UserAgent string of the payers device.</param>
-            <param name="language">The payers prefered langauge.</param>
+            <param name="language">The payers preferred <seealso cref="T:SwedbankPay.Sdk.Language"/>.</param>
             <param name="urls">Object describing relevant URLs for this payment.</param>
             <param name="payeeInfo">Object holding information about the merchant-</param>
             <param name="prefillInfo">Known information about the payer than can be
@@ -5625,12 +5625,12 @@
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Swish.SwishPaymentRequestDetails.Language">
             <summary>
-            Sets the payers prefered language.
+            Sets the payers preferred language.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Swish.SwishPaymentRequestDetails.Operation">
             <summary>
-            <see cref="F:SwedbankPay.Sdk.Operation.Purchase"/> is the only allwoed value for this request.
+            <see cref="F:SwedbankPay.Sdk.Operation.Purchase"/> is the only allowed value for this request.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Swish.SwishPaymentRequestDetails.PayeeInfo">
@@ -6073,10 +6073,10 @@
             </summary>
             <param name="currency">The wanted currency of the payment.</param>
             <param name="prices">Prices object describing the payment price with different payment methods.</param>
-            <param name="description">Textual descroption of the payment.</param>
+            <param name="description">Textual description of the payment.</param>
             <param name="payerReference">A reference to the payer in the merchant system.</param>
             <param name="userAgent">The payers UserAgent string.</param>
-            <param name="language">The payers prefered language.</param>
+            <param name="language">The payers preferred <seealso cref="T:SwedbankPay.Sdk.Language"/>.</param>
             <param name="urls">Object holding relevant URLs for this payment.</param>
             <param name="payeeInfo">Object with merchant information.</param>
         </member>
@@ -6146,10 +6146,10 @@
             </summary>
             <param name="currency">The wanted currency of the payment.</param>
             <param name="prices">Prices object describing the payment price with different payment methods.</param>
-            <param name="description">Textual descroption of the payment.</param>
+            <param name="description">Textual description of the payment.</param>
             <param name="payerReference">A reference to the payer in the merchant system.</param>
             <param name="userAgent">The payers UserAgent string.</param>
-            <param name="language">The payers prefered language.</param>
+            <param name="language">The payers preferred <seealso cref="T:SwedbankPay.Sdk.Language"/>.</param>
             <param name="urls">Object holding relevant URLs for this payment.</param>
             <param name="payeeInfo">Object with merchant information.</param>
         </member>
@@ -7667,7 +7667,7 @@
             <param name="vatAmount">The amount to pay that is value added taxes.</param>
             <param name="description">Textual description of the payment order.</param>
             <param name="userAgent">The payers UserAgent string.</param>
-            <param name="language">The payers prefered languae.</param>
+            <param name="language">The payers preferred <seealso cref="T:SwedbankPay.Sdk.Language"/>.</param>
             <param name="generateRecurrenceToken">Set if you want a recurrence token for recur payments.</param>
             <param name="urls">Object with URLs relevant for the payment.</param>
             <param name="payeeInfo">Object with information about the Merchant.</param>
@@ -7692,7 +7692,7 @@
             <param name="vatAmount">The amount to pay that is value added taxes.</param>
             <param name="description">Textual description of the payment order.</param>
             <param name="userAgent">The payers UserAgent string.</param>
-            <param name="language">The payers prefered languae.</param>
+            <param name="language">The payers preferred language.</param>
             <param name="generateRecurrenceToken">Set if you want a recurrence token for recur payments.</param>
             <param name="urls">Object with URLs relevant for the payment.</param>
             <param name="payeeInfo">Object with information about the Merchant.</param>

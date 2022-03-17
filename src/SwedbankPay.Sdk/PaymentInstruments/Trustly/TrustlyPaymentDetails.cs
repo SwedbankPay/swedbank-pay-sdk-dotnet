@@ -12,10 +12,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
         /// </summary>
         /// <param name="currency">The wanted currency of the payment.</param>
         /// <param name="prices">Prices object describing the payment price with different payment methods.</param>
-        /// <param name="description">Textual descroption of the payment.</param>
+        /// <param name="description">Textual description of the payment.</param>
         /// <param name="payerReference">A reference to the payer in the merchant system.</param>
         /// <param name="userAgent">The payers UserAgent string.</param>
-        /// <param name="language">The payers prefered language.</param>
+        /// <param name="language">The payers preferred <seealso cref="Sdk.Language"/>.</param>
         /// <param name="urls">Object holding relevant URLs for this payment.</param>
         /// <param name="payeeInfo">Object with merchant information.</param>
         public TrustlyPaymentDetails(Currency currency,

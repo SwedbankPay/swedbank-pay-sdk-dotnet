@@ -17,7 +17,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
         /// <param name="prices">A list of objects detailing price differences between different payment instruments.</param>
         /// <param name="description">A textual description of the payment.</param>
         /// <param name="userAgent">The payers user agent string.</param>
-        /// <param name="language">The payers prefered <see cref="Sdk.Language"/>.</param>
+        /// <param name="language">The payers preferred <seealso cref="Sdk.Language"/>.</param>
         /// <param name="urls">Object with relevant URLs for this payment.</param>
         /// <param name="payeeInfo">Object containing information about the merchant.</param>
         public MobilePayPaymentDetails(Operation operation,

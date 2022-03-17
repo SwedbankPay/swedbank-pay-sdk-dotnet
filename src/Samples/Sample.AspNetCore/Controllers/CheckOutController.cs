@@ -168,7 +168,7 @@ namespace Sample.AspNetCore.Controllers
 			{
 				var cardRequest = new CardPaymentRequest(Operation.Purchase,
 														PaymentIntent.Authorization, new Currency("SEK"),
-														"Test Purchase", this.payeeInfoOptions.PayeeReference,
+														"Test Purchase", "useragent",
 														new Language("sv-SE"),
 														new Urls(
 																this.urls.HostUrls.ToList(),
@@ -290,7 +290,7 @@ namespace Sample.AspNetCore.Controllers
 															   new Currency("SEK"),
 															   new List<IPrice>(),
 															   "Test Purchase",
-															   "useragent",
+                                                               "useragent",
 															   new Language("sv-SE"),
 															   new Urls(this.urls.HostUrls.ToList(), this.urls.CompleteUrl, this.urls.TermsOfServiceUrl) { CancelUrl = this.urls.CancelUrl, PaymentUrl = this.urls.PaymentUrl, CallbackUrl = this.urls.CallbackUrl, LogoUrl = this.urls.LogoUrl },
 															   new PayeeInfo(this.payeeInfoOptions.PayeeId, this.payeeInfoOptions.PayeeReference),

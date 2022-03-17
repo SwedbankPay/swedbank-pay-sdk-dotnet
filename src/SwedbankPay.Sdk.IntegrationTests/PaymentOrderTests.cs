@@ -131,6 +131,7 @@ namespace SwedbankPay.Sdk.Tests
 
             //ASSERT
             Assert.NotNull(paymentOrder.PaymentOrder);
+            Assert.Equal(UserAgent.Default, paymentOrder.PaymentOrder.InitiatingSystemUserAgent);
             Assert.NotNull(paymentOrder.PaymentOrder.OrderItems);
             Assert.NotEmpty(paymentOrder.PaymentOrder.OrderItems.OrderItemList);
         }

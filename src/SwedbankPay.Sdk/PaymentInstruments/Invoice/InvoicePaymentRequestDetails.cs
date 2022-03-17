@@ -17,7 +17,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
         /// <param name="prices">A list of objects detailing price differences between different payment instruments.</param>
         /// <param name="description">A textual description of what is being paid.</param>
         /// <param name="userAgent">The payers UserAgent string.</param>
-        /// <param name="language">The payers prefered <seealso cref="Sdk.Language"/>.</param>
+        /// <param name="language">The payers preferred <seealso cref="Sdk.Language"/>.</param>
         /// <param name="urls">Object containing relevant URLs for this payment.</param>
         /// <param name="payeeInfo">Object with merchant information.</param>
         public InvoicePaymentRequestDetails(Operation operation,

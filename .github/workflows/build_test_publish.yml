@@ -1,6 +1,10 @@
 name: Build
 
-on: [push, pull_request_target]
+on: 
+  push:
+    branches:
+      - develop
+  pull_request_target:
 
 env:
   AZURE_WEBAPP_PACKAGE_PATH: '.'
@@ -21,7 +25,7 @@ jobs:
       FULLSEMVER:  ${{ steps.gitversion.outputs.fullSemVer }}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
@@ -35,21 +39,21 @@ jobs:
         uses: gittools/actions/gitversion/execute@v0.9.11
 
       - name: Set dev environment variables
-        uses: allenevans/set-env@v2.1.0
+        uses: allenevans/set-env@v2.2.0
         if: ${{ startsWith(github.ref, 'refs/heads/develop') || startsWith(github.ref, 'refs/heads/feature/') || startsWith(github.ref, 'refs/heads/dependabot/') || github.event_name == 'pull_request_target' }} # deveop, featurebranches and pullrequests
         with:
           ENVIRONMENT: dev
           AZURE_WEBAPP_NAME: swedbankpay-sdk-001-dev
 
       - name: Set uat environment variables
-        uses: allenevans/set-env@v2.1.0
+        uses: allenevans/set-env@v2.2.0
         if: ${{ startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/heads/hotfix/') || contains(github.ref, '-beta')}}
         with:
           ENVIRONMENT: uat
           AZURE_WEBAPP_NAME: swedbankpay-sdk-001-uat
 
       - name: Set pro environment variables
-        uses: allenevans/set-env@v2.1.0
+        uses: allenevans/set-env@v2.2.0
         if: ${{ startsWith(github.ref, 'refs/tags/') && !contains(github.ref, 'refs/tags/*-*') }}
         with:
           ENVIRONMENT: pro
@@ -66,10 +70,10 @@ jobs:
     needs: [variables]
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v2
       with:
         dotnet-version: ${{ env.dotnetVersion }}
 
@@ -111,15 +115,15 @@ jobs:
     needs: [variables, build]
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       if: ${{ github.event_name != 'pull_request_target' }}
 
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       if: ${{ github.event_name == 'pull_request_target' }}
       with:
         ref: ${{ github.event.pull_request.head.sha }}
 
-    - uses: actions/setup-dotnet@v1
+    - uses: actions/setup-dotnet@v2
       with:
         dotnet-version: ${{ env.dotnetVersion }}
 
@@ -150,12 +154,12 @@ jobs:
     needs: [variables]
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       if: ${{ github.event_name != 'pull_request_target' }}
       with:
         fetch-depth: 0
 
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       if: ${{ github.event_name == 'pull_request_target' }}
       with:
         fetch-depth: 0
@@ -171,14 +175,14 @@ jobs:
         updateAssemblyInfo: true
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v2
       with:
         dotnet-version: ${{ env.dotnetVersion }}
 
     - name: Install dependencies
       run: dotnet restore ./src/SwedbankPay.Sdk.sln
 
-    - uses: actions/setup-dotnet@v1
+    - uses: actions/setup-dotnet@v2
       with:
         dotnet-version: ${{ env.dotnetVersion }}
 
@@ -226,10 +230,10 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v2
       with:
         dotnet-version: ${{ env.dotnetVersion }}
 
