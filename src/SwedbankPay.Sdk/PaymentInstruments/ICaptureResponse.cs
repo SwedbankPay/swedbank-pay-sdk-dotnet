@@ -15,6 +15,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         /// <summary>
         /// Transactional information about this capture.
         /// </summary>
-        ITransaction Capture { get; }
+        ITransactionResponse Capture { get; }
     }
 }

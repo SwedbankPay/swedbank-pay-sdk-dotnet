@@ -122,7 +122,7 @@ namespace Sample.AspNetCore.Controllers
                 var response = await paymentOrder.Operations.Capture(transActionRequestObject);
 
                 TempData["CaptureMessage"] =
-                    $"{response.Capture.Id}, {response.Capture.State}, {response.Capture.Type}";
+                    $"{response.Capture.Transaction.Id}, {response.Capture.Transaction.State}, {response.Capture.Transaction.Type}";
 
                 this.cartService.PaymentOrderLink = null;
 
@@ -162,7 +162,7 @@ namespace Sample.AspNetCore.Controllers
                         }
 
                         var response = await cardPayment.Operations.Capture(captureRequest);
-                        TempData["CaptureMessage"] = $"{response.Capture.Id}, {response.Capture.State}, {response.Capture.Type}";
+                        TempData["CaptureMessage"] = $"{response.Capture.Transaction.Id}, {response.Capture.Transaction.State}, {response.Capture.Transaction.Type}";
                         break;
                 }
 
