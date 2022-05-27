@@ -1,16 +1,11 @@
-﻿using SwedbankPay.Sdk.PaymentInstruments;
+﻿using System;
 
 namespace SwedbankPay.Sdk
 {
     internal class CaptureResponseDto
     {
-        public string Payment { get; set; }
+        public Uri Payment { get; set; }
 
-        public TransactionDto Capture { get; set; }
-
-        public ITransaction Map()
-        {
-            return Capture.Map();
-        }
+        public TransactionResponseDto Capture { get; set; }
     }
 }
