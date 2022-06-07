@@ -130,7 +130,7 @@ jobs:
         dotnet-version: ${{ env.dotnetVersion }}
 
     - name: Download All artifacts
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
 
     - name: Run SDK Unit Tests
       run: dotnet test src/SwedbankPay.Sdk.Tests/SwedbankPay.Sdk.Tests.csproj -p:Version=${{ needs.variables.outputs.FULLSEMVER }}
@@ -240,7 +240,7 @@ jobs:
         dotnet-version: ${{ env.dotnetVersion }}
 
     - name: Download All artifacts
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
 
     # Deploy to Dev Azure Web apps
     - name: 'Run Azure webapp deploy to dev using publish profile credentials'
