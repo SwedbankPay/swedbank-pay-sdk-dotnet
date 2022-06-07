@@ -9,7 +9,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments
     {
         public CaptureResponse(CaptureResponseDto dto)
         {
-            Payment = new Uri(dto.Payment, UriKind.RelativeOrAbsolute);
+            Payment = dto.Payment;
             Capture = dto.Capture.Map();
         }
 
@@ -21,6 +21,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         /// <summary>
         /// Holds transactional information about this capture.
         /// </summary>
-        public ITransaction Capture { get; }
+        public ITransactionResponse Capture { get; }
     }
 }
