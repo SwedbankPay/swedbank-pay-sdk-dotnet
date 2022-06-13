@@ -6,7 +6,7 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels
 
     public class PaymentFramePage : Page<_>
     {
-        [Wait(2, TriggerEvents.BeforeClick)]
+        [WaitSeconds(2, TriggerEvents.BeforeClick)]
         [FindById("paymentmenu-container")]
         public ControlList<PayexItem, _> PaymentMethods { get; set; }
 

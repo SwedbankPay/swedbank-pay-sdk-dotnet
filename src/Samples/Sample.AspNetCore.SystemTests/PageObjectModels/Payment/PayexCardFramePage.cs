@@ -29,7 +29,7 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Payment
         [FindById("expiryInput")]
         public TelInput<_> ExpiryDate { get; set; }
 
-        [Wait(2, TriggerEvents.BeforeClick)]
+        [WaitSeconds(2, TriggerEvents.BeforeClick)]
         [FindById("px-submit")]
         public Button<ThankYouPage, _> Pay { get; set; }
 

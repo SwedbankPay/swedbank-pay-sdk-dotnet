@@ -41,7 +41,7 @@ namespace Sample.AspNetCore.SystemTests.Services
             return component.Owner;
         }
 
-        public static string GetPaymentOrderFromBody<TOwner>(this DataProvider<string, TOwner> data)
+        public static string GetPaymentOrderFromBody<TOwner>(this ValueProvider<string, TOwner> data)
             where TOwner : PageObject<TOwner>
         {
             var tmp = data.Value;
@@ -77,7 +77,7 @@ namespace Sample.AspNetCore.SystemTests.Services
             {
                 editableField.Owner
                     .Press(character.ToString())
-                    .Wait(interval);
+                    .WaitSeconds(interval);
             }
 
             return editableField.Owner;

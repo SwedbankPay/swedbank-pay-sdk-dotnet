@@ -1,9 +1,9 @@
-﻿using System;
-using Atata;
+﻿using Atata;
 using NUnit.Framework;
 using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
+using System;
 
 namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Abort
 {

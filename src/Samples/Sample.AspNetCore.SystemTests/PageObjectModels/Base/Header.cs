@@ -7,11 +7,11 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Base
     public class Header<TOwner> : Control<TOwner>
         where TOwner : BasePage<TOwner>
     {
-        [Wait(0.5, TriggerEvents.AfterClick)]
+        [WaitSeconds(0.5, TriggerEvents.AfterClick)]
         [FindByAutomation("button", "button-clearorders")]
         public Button<TOwner> ClearOrders { get; private set; }
 
-        [Wait(1, TriggerEvents.BeforeClick)]
+        [WaitSeconds(1, TriggerEvents.BeforeClick)]
         [FindByContent("Orders")] public LinkDelegate<OrdersPage, TOwner> Orders { get; private set; }
 
         [FindByContent("Products")] public LinkDelegate<ProductsPage, TOwner> Products { get; private set; }

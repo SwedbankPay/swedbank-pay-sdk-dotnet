@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using Atata;
+﻿using Atata;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using Sample.AspNetCore.SystemTests.PageObjectModels;
@@ -15,6 +9,12 @@ using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Base;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 [assembly: LevelOfParallelism(1)]
 namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
@@ -78,7 +78,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             }
 
             return page?
-                .ThankYou.IsVisible.WaitTo.Within(120).BeTrue()
+                .ThankYou.IsVisible.WaitTo.WithinSeconds(120).BeTrue()
                 .Header.Orders.ClickAndGo()
                 .Do(x =>
                 {
@@ -98,7 +98,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                         .CreditCard.Click()
                         .PaymentFrame.IsVisible.WaitTo.BeTrue()
                         .PaymentFrame.SwitchTo<PayexCardFramePage>()
-                        .PageSource.WaitTo.Within(15).Contain("/psp/");
+                        .PageSource.WaitTo.WithinSeconds(15).Contain("/psp/");
 
                     _referenceLink = frame.PageSource.GetPaymentOrderFromBody();
 
@@ -134,7 +134,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                         .Invoice.Click()
                         .PaymentFrame.IsVisible.WaitTo.BeTrue()
                         .PaymentFrame.SwitchTo<PayexInvoiceFramePage>()
-                        .PageSource.WaitTo.Within(15).Contain("/psp/");
+                        .PageSource.WaitTo.WithinSeconds(15).Contain("/psp/");
 
                     _referenceLink = frame.PageSource.GetPaymentOrderFromBody();
 
@@ -162,7 +162,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                                 .Swish.Click()
                                 .PaymentFrame.IsVisible.WaitTo.BeTrue()
                                 .PaymentFrame.SwitchTo<PayexSwishFramePage>()
-                                .PageSource.WaitTo.Within(15).Contain("/psp/");
+                                .PageSource.WaitTo.WithinSeconds(15).Contain("/psp/");
 
                     _referenceLink = frame.PageSource.GetPaymentOrderFromBody();
 
@@ -190,7 +190,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                         .Trustly.Click()
                         .PaymentFrame.IsVisible.WaitTo.BeTrue()
                         .PaymentFrame.SwitchTo<PayexTrustlyFramePage>()
-                        .PageSource.WaitTo.Within(15).Contain("/psp/");
+                        .PageSource.WaitTo.WithinSeconds(15).Contain("/psp/");
 
                     _referenceLink = frame.PageSource.GetPaymentOrderFromBody();
 
@@ -219,7 +219,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                         .Email.SetWithSpeed(TestDataService.Email, interval: 0.1)
                         .PhoneNumber.SetWithSpeed(TestDataService.SwedishPhoneNumber, interval: 0.1)
                         .Next.Click()
-                        .Wait(1)
+                        .WaitSeconds(1)
                         .Do(x => { 
                             if(x.SaveMyInformation.IsVisible)
                             {
@@ -234,7 +234,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                                 x.Next.Click();
                             }
                         })
-                        .SwitchToRoot<PaymentPage>().Wait(TimeSpan.FromSeconds(20))
+                        .SwitchToRoot<PaymentPage>().WaitSeconds(20)
                         .PaymentMethodsFrame.SwitchTo();
                     break;
                 default:
@@ -249,14 +249,14 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             return frame;
         }
 
-        protected LocalPaymentMenuPage GoToLocalPaymentPage(Product[] products, Checkout.Option checkout)
+        protected static LocalPaymentMenuPage GoToLocalPaymentPage(Product[] products, Checkout.Option checkout)
         {
             return SelectProducts(products)
                     .LocalPaymentMenu.ClickAndGo();
                     
         }
 
-        protected PaymentPage GoToPayexPaymentPage(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)
+        protected static PaymentPage GoToPayexPaymentPage(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
             return checkout switch
             {
@@ -265,7 +265,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             };
         }
 
-        protected ProductsPage SelectProducts(Product[] products)
+        protected static ProductsPage SelectProducts(Product[] products)
         {
             return Go.To<ProductsPage>()
                 .Do((x) =>
@@ -358,8 +358,8 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                     .PhoneNumber.SetWithSpeed(info.PhoneNumber, interval: 0.1)
                     .ZipCode.SetWithSpeed(info.ZipCode, interval: 0.1)
                     .Next.Click()
-                    .Wait(TimeSpan.FromSeconds(5))
-                    .Pay.IsVisible.WaitTo.Within(20).BeTrue()
+                    .WaitSeconds(5)
+                    .Pay.IsVisible.WaitTo.WithinSeconds(20).BeTrue()
                     .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
                     .Pay.ClickAndGo(),
             };
@@ -384,9 +384,9 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
         {
 
             return GoToPayexTrustlyPaymentFrame(products, checkout)
-                .Submit.IsVisible.WaitTo.Within(15).BeTrue()
+                .Submit.IsVisible.WaitTo.WithinSeconds(15).BeTrue()
                 .Submit.ClickAndGo<TrustlyPaymentPage>()
-                .Banks[0].IsVisible.WaitTo.Within(15).BeTrue()
+                .Banks[0].IsVisible.WaitTo.WithinSeconds(15).BeTrue()
                 .Banks[0].Click()
                 .Next.Click()
                 .PersonalNumber.Set(TestDataService.PersonalNumber)
@@ -395,12 +395,12 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 .MessageCode.StoreValue(out string code)
                 .Code.Set(code)
                 .Next.Click()
-                .AccountOptions.IsVisible.WaitTo.Within(60).BeTrue()
+                .AccountOptions.IsVisible.WaitTo.WithinSeconds(60).BeTrue()
                 .Next.Click()
                 .MessageCode.StoreValue(out code)
                 .Code.Set(code)
                 .Next.Click()
-                .PageUrl.Should.Within(TimeSpan.FromSeconds(60)).Contain("Thankyou")
+                .PageUrl.Should.WithinSeconds(60).Contain("Thankyou")
                 .SwitchToRoot<ThankYouPage>()
                 .ThankYou.IsVisible.WaitTo.BeTrue();
         }
