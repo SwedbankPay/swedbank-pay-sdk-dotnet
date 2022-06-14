@@ -35,7 +35,7 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels
 
             [FindByName("Quantity")] public NumberInput<_> Quantity { get; set; }
 
-            [Wait(0.5, TriggerEvents.AfterClick)]
+            [WaitSeconds(0.5, TriggerEvents.AfterClick)]
             [FindByXPath("button[1]")]
             public Button<_> Update { get; set; }
         }

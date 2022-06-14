@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
 {
-	public class PaymentRecurTests : Base.PaymentTests
+    public class PaymentRecurTests : Base.PaymentTests
 	{
 		public PaymentRecurTests(string driverAlias) : base(driverAlias)
 		{
