@@ -5,7 +5,9 @@ on:
     branches:
       - develop
   pull_request_target:
-
+  release:
+    types:
+      - created
 env:
   AZURE_WEBAPP_PACKAGE_PATH: '.'
   Configuration: Release
@@ -87,25 +89,25 @@ jobs:
       run: dotnet publish --configuration ${{ env.Configuration }} -p:Version=${{ needs.variables.outputs.nuGetVersionV2 }} --no-restore src/Samples/Sample.AspNetCore/Sample.AspNetCore.csproj --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/samplesite'
 
     - name: Archive Sample.AspNetCore
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: Sample.AspNetCore
         path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/samplesite
 
     - name: Archive Sample.AspNetCore.SystemTests
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: Sample.AspNetCore.SystemTests
         path: src/Samples/Sample.AspNetCore.SystemTests/bin/*
 
     - name: Archive SwedbankPay.Sdk
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: SwedbankPay.Sdk
         path: src/SwedbankPay.Sdk/bin/*
 
     - name: Archive SwedbankPay.Sdk.Tests
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: SwedbankPay.Sdk.Tests
         path: src/SwedbankPay.Sdk.Tests/bin/*
@@ -128,7 +130,7 @@ jobs:
         dotnet-version: ${{ env.dotnetVersion }}
 
     - name: Download All artifacts
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
 
     - name: Run SDK Unit Tests
       run: dotnet test src/SwedbankPay.Sdk.Tests/SwedbankPay.Sdk.Tests.csproj -p:Version=${{ needs.variables.outputs.FULLSEMVER }}
@@ -238,7 +240,7 @@ jobs:
         dotnet-version: ${{ env.dotnetVersion }}
 
     - name: Download All artifacts
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
 
     # Deploy to Dev Azure Web apps
     - name: 'Run Azure webapp deploy to dev using publish profile credentials'

@@ -14,11 +14,11 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Payment
         [FindById("px-submit")] public Button<_> Next { get; set; }
 
         [WaitForElement(WaitBy.Id, "consumer-input", Until.Visible, TriggerEvents.BeforeClick)]
-        [Wait(2, TriggerEvents.BeforeClick)]
+        [WaitSeconds(2, TriggerEvents.BeforeClick)]
         [FindById("px-submit")]
         public Button<ThankYouPage, _> Pay { get; set; }
 
-        [Wait(2, TriggerEvents.BeforeFocus)]
+        [WaitSeconds(2, TriggerEvents.BeforeFocus)]
         [FindById("ssnInput")] public TelInput<_> PersonalNumber { get; set; }
 
         [FindById("msisdnInput")] public TelInput<_> PhoneNumber { get; set; }

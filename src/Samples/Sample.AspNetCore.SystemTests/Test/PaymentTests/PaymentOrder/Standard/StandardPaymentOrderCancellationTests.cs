@@ -1,10 +1,10 @@
-﻿using System.Linq;
-using Atata;
+﻿using Atata;
 using NUnit.Framework;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
 using SwedbankPay.Sdk.PaymentInstruments;
 using SwedbankPay.Sdk.PaymentOrders;
+using System.Linq;
 
 namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Standard
 {

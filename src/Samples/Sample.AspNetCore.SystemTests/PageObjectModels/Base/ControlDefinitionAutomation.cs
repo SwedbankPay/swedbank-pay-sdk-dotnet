@@ -13,17 +13,6 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Base
             : base(type, automationAttribute)
         {
         }
-
-
-        /// <summary>
-        ///     Gets or sets the visibility.
-        ///     The default value is <see cref="Visibility.Visible" />.
-        /// </summary>
-        public Visibility Visibility
-        {
-            get => Properties.Get(nameof(Visibility), Visibility.Visible);
-            set => Properties[nameof(Visibility)] = value;
-        }
     }
 
     /// <summary>

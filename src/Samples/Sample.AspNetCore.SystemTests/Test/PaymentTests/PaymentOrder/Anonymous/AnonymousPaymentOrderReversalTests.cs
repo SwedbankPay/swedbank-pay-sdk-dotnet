@@ -1,11 +1,11 @@
-﻿using System.Linq;
-using System.Threading;
-using Atata;
+﻿using Atata;
 using NUnit.Framework;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
 using SwedbankPay.Sdk.PaymentInstruments;
 using SwedbankPay.Sdk.PaymentOrders;
+using System.Linq;
+using System.Threading;
 
 namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Anonymous
 {
