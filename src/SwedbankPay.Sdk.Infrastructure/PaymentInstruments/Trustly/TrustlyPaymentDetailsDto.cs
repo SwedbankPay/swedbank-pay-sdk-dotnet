@@ -21,6 +21,11 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
             Urls = new UrlsDto(payment.Urls);
             UserAgent = payment.UserAgent;
             PrefillInfo = new TrustlyPrefillInfoDto(payment.PrefillInfo);
+            
+            if (payment.Metadata != null)
+            {
+                Metadata = new MetadataDto(payment.Metadata);
+            }
         }
 
         public string Currency { get; set; }
@@ -44,5 +49,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
         public string UserAgent { get; set; }
 
         public TrustlyPrefillInfoDto PrefillInfo { get; set; }
+
+        public MetadataDto Metadata { get; set; }
     }
 }
