@@ -83,6 +83,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         {
             var req = new TrustlyPaymentRequest(this.currency, this.prices,this.description, this.payerReference, this.userAgent, this.language, this.urls, this.payeeInfo);
             req.Payment.PrefillInfo = trustlyPrefillInfo;
+            req.Payment.Metadata = this.metadata;
             return req;
         }
 

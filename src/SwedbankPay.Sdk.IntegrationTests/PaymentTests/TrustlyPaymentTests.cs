@@ -20,6 +20,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
             Assert.True(trustlyPayment.Payment.Language.ToString().Equals("sv-SE"));
             Assert.True(trustlyPaymentRequest.Payment.Operation.Equals(Operation.Purchase));
             Assert.NotEmpty(trustlyPaymentRequest.Payment.UserAgent);
+            Assert.Equal(trustlyPaymentRequest.Payment.Metadata["key1"], trustlyPayment.Payment.Metadata["key1"]);
             Assert.Equal(UserAgent.Default, trustlyPayment.Payment.InitiatingSystemUserAgent);
         }
 
