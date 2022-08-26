@@ -10,7 +10,7 @@ namespace SwedbankPay.Sdk.JsonSerialization.Converters
         public override DateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             var parsedDateTime = DateTime.Parse(reader.GetString(), CultureInfo.InvariantCulture);
-            return TimeZoneInfo.ConvertTimeToUtc(parsedDateTime, TimeZoneInfo.Local);
+            return DateTime.SpecifyKind(parsedDateTime.ToUniversalTime(), DateTimeKind.Utc);
         }
 
         public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options)
