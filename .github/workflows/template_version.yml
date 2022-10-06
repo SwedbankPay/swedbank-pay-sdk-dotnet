@@ -1,0 +1,29 @@
+name: Create version number
+
+on:
+  workflow_call:
+    outputs:
+      NUGETVERSIONV2:
+        description: "Nuget version"
+        value: ${{ jobs.version.outputs.NUGETVERSIONV2 }} 
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    outputs:
+      NUGETVERSIONV2: ${{ steps.gitversion.outputs.NUGETVERSIONV2 }}
+
+    steps:
+      - uses: actions/checkout@v3        
+
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0.9.13
+        with:
+          versionSpec: '5.x.x'
+ 
+      - name: Fetch all history for all tags and branches
+        run: git fetch --prune --unshallow
+ 
+      - name: Use GitVersion
+        id: gitversion # step id used as reference for output values
+        uses: gittools/actions/gitversion/execute@v0.9.13

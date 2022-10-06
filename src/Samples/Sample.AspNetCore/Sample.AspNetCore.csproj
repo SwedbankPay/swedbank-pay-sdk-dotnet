@@ -24,5 +24,10 @@
     <ProjectReference Include="..\..\SwedbankPay.Sdk.Infrastructure\SwedbankPay.Sdk.Infrastructure.csproj" />
     <ProjectReference Include="..\..\SwedbankPay.Sdk\SwedbankPay.Sdk.csproj" />
   </ItemGroup>
-
+  
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
 </Project>

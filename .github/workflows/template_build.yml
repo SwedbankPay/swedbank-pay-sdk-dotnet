@@ -1,0 +1,108 @@
+name: Build
+
+on:
+  workflow_call:
+    inputs:
+      Configuration:
+        required: true
+        type: string
+      NUGETVERSIONV2:
+        required: true
+        type: string
+      SlnPath:
+        required: true
+        type: string
+      SdkCsprojPath:
+        required: true
+        type: string
+      SampleSiteCsprojPath:
+        required: true
+        type: string
+      SystemTestsCsprojPath:
+        required: true
+        type: string
+      UnitTestsCsprojPath:
+        required: true
+        type: string
+      IntegrationTestsCsprojPath:
+        required: true
+        type: string
+
+env:
+  dotnetVersion: |
+    5.x
+    6.x
+  AZURE_WEBAPP_PACKAGE_PATH: '.'
+
+jobs:
+  build:
+    name: Build SDK ${{ inputs.NUGETVERSIONV2 }}
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3.0.0
+        with:
+          dotnet-version: ${{ env.dotnetVersion }}
+ 
+      - name: Install dependencies
+        run: dotnet restore ${{ inputs.SlnPath }}
+ 
+      - name: Publish Sdk Sample site
+        run: dotnet publish --configuration ${{ inputs.Configuration }} -p:Version=${{ inputs.nuGetVersionV2 }} --no-restore ${{ inputs.SampleSiteCsprojPath }} --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/samplesite'
+
+      - name: Archive Sample.AspNetCore
+        uses: actions/upload-artifact@v3
+        with:
+          name: Sample.AspNetCore
+          path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/samplesite
+
+      - name: Publish Sdk Unit tests
+        run: dotnet publish --configuration ${{ inputs.Configuration }} -p:Version=${{ inputs.nuGetVersionV2 }} --no-restore ${{ inputs.UnitTestsCsprojPath }} --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/unittests' --os win
+
+      - name: Archive Sdk Unit tests
+        uses: actions/upload-artifact@v3
+        with:
+          name: Sdk.UnitTests
+          path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/unittests
+
+      - name: Publish Sdk Integration tests
+        run: dotnet publish --configuration ${{ inputs.Configuration }} -p:Version=${{ inputs.nuGetVersionV2 }} --no-restore ${{ inputs.IntegrationTestsCsprojPath }} --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/integrationtests' --os win
+
+      - name: Archive Sdk Integration tests
+        uses: actions/upload-artifact@v3
+        with:
+          name: Sdk.IntegrationTests
+          path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/integrationtests
+
+      - name: Verify chrome driver
+        shell: pwsh
+        run: |
+          ./src/Samples/Sample.AspNetCore.SystemTests/chrome-driver-udpate.ps1
+
+      - name: Publish Sdk Sample site system test
+        run: dotnet publish --configuration ${{ inputs.Configuration }} -p:Version=${{ inputs.nuGetVersionV2 }} --no-restore ${{ inputs.SystemTestsCsprojPath }} --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/systemtests' --os win
+
+      - name: Copy wwwroot to publish directory
+        shell: pwsh
+        run: |
+          Copy-Item -Path "./src/Samples/Sample.AspNetCore/wwwroot" -Destination "./systemtests/wwwroot" -Recurse -Force
+
+      - name: Archive Sample.AspNetCore.SystemTests
+        uses: actions/upload-artifact@v3
+        with:
+          name: Sample.AspNetCore.SystemTests
+          path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/systemtests
+
+      - name: Nuget pack
+        run: dotnet pack ${{ inputs.SlnPath }} -p:PackageVersion=${{ inputs.NUGETVERSIONV2 }} -p:Version=${{ inputs.NUGETVERSIONV2 }} --no-restore --configuration=${{ inputs.Configuration }} --output=artifacts
+
+      - name: Archive nuget packages artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          # Artifact name
+          name: packages
+          # A file, directory or wildcard pattern that describes what to upload
+          path: artifacts/*.nupkg

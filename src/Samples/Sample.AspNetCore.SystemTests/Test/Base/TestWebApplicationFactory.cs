@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Sample.AspNetCore.Models;
 using System;
@@ -19,14 +20,27 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
     {
         public string RootUri { get; set; } //Save this use by tests
 
-        private const string SampleProjectLocation = "./../../../../Sample.AspNetCore";
+        private string _sampleProjectLocation;
         IWebHost _host;
 
         public TestWebApplicationFactory()
         {
+            IConfigurationRoot configRoot = new ConfigurationBuilder()
+                .SetBasePath(Environment.CurrentDirectory)
+                .AddJsonFile("appsettings.json", true)
+                .AddUserSecrets<TestBase>(true)
+                .AddEnvironmentVariables()
+                .Build();
+                
+            _sampleProjectLocation = configRoot.GetSection("SampleWebsitePath").Value;
+
+            Console.WriteLine(_sampleProjectLocation);
+
             ClientOptions.BaseAddress = new Uri("https://localhost:5001"); //will follow redirects by default
 
             CreateServer(CreateWebHostBuilder());
+            
+            Console.WriteLine("Webhost created");
         }
 
         protected override TestServer CreateServer(IWebHostBuilder builder)
@@ -34,6 +48,9 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
             //Real TCP port
             _host = builder.Build();
             _host.Start();
+            
+            Console.WriteLine("Webhost started");
+
             RootUri = _host.ServerFeatures.Get<IServerAddressesFeature>().Addresses.LastOrDefault();
             using (var scope = _host.Services.CreateScope())
             {
@@ -49,9 +66,10 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
         {
             var builder = WebHost.CreateDefaultBuilder(Array.Empty<string>());
             builder.UseStartup<Startup>();
-            var contentRoot = SampleProjectLocation;
+            var contentRoot = _sampleProjectLocation;
             if (Directory.Exists(contentRoot))
             {
+                Console.WriteLine("Directory exist");
                 builder.UseContentRoot(contentRoot);
             }
             

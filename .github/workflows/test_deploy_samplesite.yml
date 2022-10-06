@@ -1,0 +1,93 @@
+name: Run unit and ui tests, deploy samplesite 
+on:
+  workflow_run:
+    workflows: ["Dev", "Uat"]
+    types: 
+      - completed
+
+env:
+  dotnetVersion: |
+    5.x
+    6.x
+
+jobs:
+  test-unit-ui:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: windows-latest
+    environment: ${{ github.event.workflow_run.name }}
+   
+    steps:
+      - name: "Get information about the origin 'CI' run"
+        uses: potiuk/get-workflow-origin@v1_1
+        id: source-run-info
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          sourceRunId: ${{ github.event.workflow_run.id }}
+     
+      - name: Download artifact
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow_conclusion: success
+          run_id: ${{ github.event.workflow_run.id }}
+                    
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3.0.0
+        with:
+          dotnet-version: ${{ env.dotnetVersion }}       
+
+      - name: Run SDK Unit Tests
+        run: dotnet test Sdk.UnitTests/SwedbankPay.Sdk.Tests.dll
+
+      - name: Run SDK Integration Tests
+        run: dotnet test Sdk.IntegrationTests/SwedbankPay.Sdk.IntegrationTests.dll
+        env:
+          SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
+          SwedbankPay:TokenMobilePay: ${{ secrets.MERCHANT_TOKEN_MOBILE_PAY }}
+          SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
+
+      - name: Run SDK Sample project tests
+        run: dotnet test Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.dll -v n
+        env:
+          SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
+          SwedbankPay:TokenMobilePay: ${{ secrets.MERCHANT_TOKEN_MOBILE_PAY }}
+          SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
+          SwedbankPay:Sdk:SampleWebsite:BaseUrl: https://localhost:5001
+
+      - name: Commit Action Status
+        if: ${{ always() }}
+        uses: LouisBrunner/checks-action@v1.3.1
+        with:
+          sha: ${{ steps.source-run-info.outputs.sourceHeadSha }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: Run Unit and UI tests
+          conclusion: ${{ job.status }}
+              
+  publish_alpha_nuget:
+    needs: [test-unit-ui]
+    if: ${{ needs.test-unit-ui.outputs.sourceEvent != 'pull_request' && github.event.workflow_run.name == 'Dev' }}
+    name: Publish alpha nuget
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.workflow_run.name }}
+
+    steps:
+      - name: Download artifact
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow_conclusion: success
+          run_id: ${{ github.event.workflow_run.id }}
+          name: packages
+          path: packages
+    
+      - name: Publish test package to GitHub Package Registry
+        run: dotnet nuget push "packages/*.nupkg" --api-key ${{secrets.GITHUB_TOKEN}} --source  https://nuget.pkg.github.com/sveawebpay/index.json --skip-duplicate
+  
+  publish_sample_site:
+    needs: [test-unit-ui]
+    if: ${{ needs.test-unit-ui.outputs.sourceEvent != 'pull_request' }}
+    uses: ./.github/workflows/template_publish_webapp.yml  
+    secrets: inherit
+    with:
+      Environment: ${{ github.event.workflow_run.name }}
+      WorkflowRunId: ${{ github.event.workflow_run.id }}
