@@ -1,0 +1,30 @@
+name: Dev
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  callVersion:
+    name: Create version number
+    uses: ./.github/workflows/template_version.yml
+  
+  callBuild:
+    needs: [callVersion]
+    name: Build and publish artifact
+    uses: ./.github/workflows/template_build.yml
+    secrets: inherit 
+    with:
+      Configuration: Debug
+      NUGETVERSIONV2: ${{ needs.callVersion.outputs.NUGETVERSIONV2 }} 
+      SlnPath: ./src/SwedbankPay.Sdk.sln
+      SdkCsprojPath: ./src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj
+      SampleSiteCsprojPath: ./src/Samples/Sample.AspNetCore/Sample.AspNetCore.csproj
+      SystemTestsCsprojPath: ./src/Samples/Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.csproj
+      UnitTestsCsprojPath: ./src/SwedbankPay.Sdk.Tests/SwedbankPay.Sdk.Tests.csproj 
+      IntegrationTestsCsprojPath: ./src/SwedbankPay.Sdk.IntegrationTests/SwedbankPay.Sdk.IntegrationTests.csproj

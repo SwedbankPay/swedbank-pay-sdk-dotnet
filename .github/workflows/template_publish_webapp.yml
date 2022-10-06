@@ -1,0 +1,52 @@
+name: Publish WebApp
+
+on:
+  workflow_call:
+    inputs:
+      Environment:
+        required: true
+        type: string
+      WorkflowRunId:
+        required: true
+        type: string
+  
+jobs:
+  publish_sample_site:
+    name: Publish sample site
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.Environment }}
+
+    steps:
+      - name: Download artifact
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow_conclusion: success
+          run_id: ${{ inputs.WorkflowRunId }}
+          name: Sample.AspNetCore
+          path: Sample.AspNetCore
+    
+      - name: Variable Substitution
+        uses: microsoft/variable-substitution@v1
+        with:
+         # comma separated list of XML/JSON/YAML files in which tokens are to be substituted. Files names must be specified relative to the folder-path.
+           files: 'Sample.AspNetCore/appsettings.json'
+        env:
+          SwedbankPay.Token: ${{ secrets.MERCHANT_TOKEN}}
+          SwedbankPay.PayeeId: ${{ secrets.MERCHANT_PAYEEID}}
+          Urls.TermsOfServiceUrl: https://swedbankpay-sdk-001-${{ inputs.Environment }}.azurewebsites.net/Checkout/Thankyou
+          Urls.CallBackUrl: https://swedbankpay-sdk-001-${{ inputs.Environment }}.azurewebsites.net/Checkout/Callback
+          Urls.CancelUrl: https://swedbankpay-sdk-001-${{ inputs.Environment }}.azurewebsites.net/Checkout/Aborted
+          Urls.CompleteUrl: https://swedbankpay-sdk-001-${{ inputs.Environment }}.azurewebsites.net/Checkout/Thankyou
+          Urls.PaymentUrl: https://swedbankpay-sdk-001-${{ inputs.Environment }}.azurewebsites.net/CheckOut/LoadPaymentMenu
+          Urls.StandardCheckoutPaymentUrl: https://swedbankpay-sdk-001-${{ inputs.Environment }}.azurewebsites.net/CheckOut/InitiateConsumerSession
+          Urls.AnonymousCheckoutPaymentUrl: https://swedbankpay-sdk-001-${{ inputs.Environment }}.azurewebsites.net/CheckOut/LoadPaymentMenu
+          Urls.PaymentMenuPaymentUrl: https://swedbankpay-sdk-001-${{ inputs.Environment }}.azurewebsites.net/CheckOut/LoadCardPaymentMenu
+          Urls.HostUrls.0: https://swedbankpay-sdk-001-${{ inputs.Environment }}.azurewebsites.net/
+          
+      - name: 'Run Azure webapp deploy using publish profile credentials'
+        uses: azure/webapps-deploy@v2
+        with: 
+          app-name: ${{ secrets.AZURE_WEBAPP_NAME }} # Replace with your app name
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }} # Define secret variable in repository settings as per action documentation
+          package: 'Sample.AspNetCore'
