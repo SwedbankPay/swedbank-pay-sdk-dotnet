@@ -15,6 +15,16 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: windows-latest
     environment: ${{ github.event.workflow_run.name }}
+    outputs:
+      sourceHeadRepo: ${{ steps.source-run-info.outputs.sourceHeadRepo }}
+      sourceHeadBranch: ${{ steps.source-run-info.outputs.sourceHeadBranch }}
+      sourceHeadSha: ${{ steps.source-run-info.outputs.sourceHeadSha }}
+      mergeCommitSha: ${{ steps.source-run-info.outputs.mergeCommitSha }}
+      targetCommitSha: ${{ steps.source-run-info.outputs.targetCommitSha }}
+      pullRequestNumber: ${{ steps.source-run-info.outputs.pullRequestNumber }}
+      pullRequestLabels: ${{ steps.source-run-info.outputs.pullRequestLabels }}
+      targetBranch: ${{ steps.source-run-info.outputs.targetBranch }}
+      sourceEvent: ${{ steps.source-run-info.outputs.sourceEvent }}
    
     steps:
       - name: "Get information about the origin 'CI' run"
