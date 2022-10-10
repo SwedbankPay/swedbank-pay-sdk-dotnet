@@ -57,7 +57,7 @@ namespace SwedbankPay.Sdk.Tests
         [Fact]
         public async Task CreateAndUpdateOnlyAmountOnPaymentOrder_ShouldThrowHttpResponseException()
         {
-            var paymentOrderRequest = this.paymentOrderRequestBuilder.WithTestValues(this.payeeId).WithAmounts().Build();
+            var paymentOrderRequest = this.paymentOrderRequestBuilder.WithTestValues(this.payeeId).WithOrderItems().Build();
             var paymentOrder = await this.Sut.PaymentOrders.Create(paymentOrderRequest, PaymentOrderExpand.All);
             Assert.NotNull(paymentOrder);
             Assert.NotNull(paymentOrder.PaymentOrder);
