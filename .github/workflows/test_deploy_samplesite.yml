@@ -91,7 +91,7 @@ jobs:
           path: packages
     
       - name: Publish test package to GitHub Package Registry
-        run: dotnet nuget push "packages/*.nupkg" --api-key ${{secrets.GITHUB_TOKEN}} --source  https://nuget.pkg.github.com/sveawebpay/index.json --skip-duplicate
+        run: dotnet nuget push "packages/*.nupkg" --api-key ${{secrets.GITHUB_TOKEN}} --source  https://nuget.pkg.github.com/swedbankpay/index.json --skip-duplicate
   
   publish_sample_site:
     needs: [test-unit-ui]

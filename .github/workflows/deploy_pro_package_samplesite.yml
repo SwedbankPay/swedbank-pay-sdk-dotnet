@@ -20,6 +20,8 @@ jobs:
         with:
           workflow_conclusion: success
           run_id: ${{ github.event.workflow_run.id }}
+          name: packages
+          path: packages
 
       - name: Publish to nuget
         run: dotnet nuget push packages/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }} --skip-duplicate
