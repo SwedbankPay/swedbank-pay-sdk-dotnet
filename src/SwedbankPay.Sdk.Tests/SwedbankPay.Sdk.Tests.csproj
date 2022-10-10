@@ -6,6 +6,8 @@
     <IsPackable>false</IsPackable>
 
     <UserSecretsId>55739ea0-5447-45e4-b35e-e0412f172f5f</UserSecretsId>
+    
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -44,10 +46,10 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="6.*" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.*" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.*" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.*" />
-    <PackageReference Include="NSubstitute" Version="4.3.0" />
-    <PackageReference Include="xunit" Version="2.4.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.*" />
+    <PackageReference Include="NSubstitute" Version="4.4.0" />
+    <PackageReference Include="xunit" Version="2.4.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

@@ -97,5 +97,15 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
         /// Object representing information of what the payment menu text fields should be populated with
         /// </summary>
         public TrustlyPrefillInfo PrefillInfo { get; set; }
+
+        /// <summary>
+        /// Metadata can be used to store data associated to a payment that can be retrieved later by performing a GET on the payment.
+        /// Swedbank Pay does not use or process metadata, it is only stored on the payment so it can be retrieved later alongside the payment.
+        /// An example where metadata might be useful is when several internal systems are involved in the payment process and the payment
+        /// creation is done in one system and post-purchases take place in another.
+        /// In order to transmit data between these two internal systems,
+        /// the data can be stored in metadata on the payment so the internal systems do not need to communicate with each other directly. 
+        /// </summary>
+        public Metadata Metadata { get; set; }
     }
 }

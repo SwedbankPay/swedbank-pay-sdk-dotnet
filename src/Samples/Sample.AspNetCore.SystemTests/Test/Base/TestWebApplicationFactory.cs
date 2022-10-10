@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Sample.AspNetCore.Models;
 using System;
@@ -19,23 +20,39 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
     {
         public string RootUri { get; set; } //Save this use by tests
 
-        private const string SampleProjectLocation = "./../../../../Sample.AspNetCore";
+        private readonly string sampleProjectLocation;
         IWebHost host;
 
         public TestWebApplicationFactory()
         {
+            IConfigurationRoot configRoot = new ConfigurationBuilder()
+                .SetBasePath(Environment.CurrentDirectory)
+                .AddJsonFile("appsettings.json", true)
+                .AddUserSecrets<TestBase>(true)
+                .AddEnvironmentVariables()
+                .Build();
+                
+            sampleProjectLocation = configRoot.GetSection("SampleWebsitePath").Value;
+
+            Console.WriteLine(sampleProjectLocation);
+
             ClientOptions.BaseAddress = new Uri("https://localhost:5001"); //will follow redirects by default
 
             CreateServer(CreateWebHostBuilder());
+            
+            Console.WriteLine("Webhost created");
         }
 
         protected override TestServer CreateServer(IWebHostBuilder builder)
         {
             //Real TCP port
-            this.host = builder.Build();
-            this.host.Start();
-            RootUri = this.host.ServerFeatures.Get<IServerAddressesFeature>().Addresses.LastOrDefault();
-            using (var scope = this.host.Services.CreateScope())
+            host = builder.Build();
+            host.Start();
+            
+            Console.WriteLine("Webhost started");
+
+            RootUri = host.ServerFeatures.Get<IServerAddressesFeature>().Addresses.LastOrDefault();
+            using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
                 ProductGenerator.Initialize(services);
@@ -49,9 +66,10 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
         {
             var builder = WebHost.CreateDefaultBuilder(Array.Empty<string>());
             builder.UseStartup<Startup>();
-            var contentRoot = SampleProjectLocation;
+            var contentRoot = sampleProjectLocation;
             if (Directory.Exists(contentRoot))
             {
+                Console.WriteLine("Directory exist");
                 builder.UseContentRoot(contentRoot);
             }
             
@@ -63,7 +81,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
             base.Dispose(disposing);
             if (disposing)
             {
-                this.host.Dispose();
+                host.Dispose();
             }
         }
     }

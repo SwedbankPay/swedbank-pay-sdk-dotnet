@@ -6,7 +6,7 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Payment
 
     public class PayexTrustlyFramePage : Page<_>
     {
-        [Wait(2, TriggerEvents.BeforeClick)]
+        [WaitSeconds(2, TriggerEvents.BeforeClick)]
         [FindById("px-submit")]
         public Button<TrustlyPaymentPage, _> Submit { get; set; }
 

@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using OpenQA.Selenium;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
-
-using OpenQA.Selenium;
-using OpenQA.Selenium.Remote;
 
 namespace Sample.AspNetCore.SystemTests.Test.Base
 {

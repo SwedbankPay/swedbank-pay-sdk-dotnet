@@ -26,7 +26,7 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Payment
         [FindByClass("options")]
         public Control<_> AccountOptions { get; private set; }
 
-        [Wait(1, TriggerEvents.BeforeClick)]
+        [WaitSeconds(1, TriggerEvents.BeforeClick)]
         [FindByClass("button_next")]
         public Link<_> Next { get; private set; }
     }
