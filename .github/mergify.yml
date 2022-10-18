@@ -2,7 +2,7 @@ queue_rules:
   - name: default
     conditions:
       # Conditions to get out of the queue (= merged)
-      - check-success=build
+      - check-success=Run Unit and UI tests
       - check-success=license/cla
 
 pull_request_rules:
