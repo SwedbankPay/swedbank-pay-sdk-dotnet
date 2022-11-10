@@ -64,5 +64,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         /// View the verification if available.
         /// </summary>
         HttpOperation ViewVerification { get; }
+
+        /// <summary>
+        /// View the payment if available.
+        /// </summary>
+        HttpOperation ViewPayment { get; }
     }
 }
