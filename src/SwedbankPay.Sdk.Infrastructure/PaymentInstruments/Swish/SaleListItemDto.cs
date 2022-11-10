@@ -1,7 +1,7 @@
 ﻿using System;
 
-namespace SwedbankPay.Sdk.PaymentInstruments.Swish
-{
+namespace SwedbankPay.Sdk.PaymentInstruments.Swish;
+
 	internal class SaleListItemDto
 	{
 		public DateTime Date { get; set; }
@@ -12,4 +12,3 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Swish
 		public string SwishStatus { get; set; }
 		public TransactionDto Transaction { get; set; }
 	}
-}

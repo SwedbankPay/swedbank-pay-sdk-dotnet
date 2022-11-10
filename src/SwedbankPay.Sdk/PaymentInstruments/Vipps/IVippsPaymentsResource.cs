@@ -1,28 +1,27 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
+namespace SwedbankPay.Sdk.PaymentInstruments.Vipps;
+
+/// <summary>
+/// API entrypoint for using the Swedbank Pay Vipps resource.
+/// </summary>
+public interface IVippsResource
 {
     /// <summary>
-    /// API entrypoint for using the Swedbank Pay Vipps resource.
+    ///     Creates a new Vipps payment
     /// </summary>
-    public interface IVippsResource
-    {
-        /// <summary>
-        ///     Creates a new Vipps payment
-        /// </summary>
-        /// <param name="paymentRequest"></param>
-        /// <param name="paymentExpand"></param>
-        /// <returns></returns>
-        Task<IVippsPaymentReponse> Create(VippsPaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None);
+    /// <param name="paymentRequest"></param>
+    /// <param name="paymentExpand"></param>
+    /// <returns></returns>
+    Task<IVippsPaymentReponse> Create(VippsPaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.None);
 
 
-        /// <summary>
-        ///     Gets an existing Vipps payment.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="paymentExpand"></param>
-        /// <returns></returns>
-        Task<IVippsPaymentReponse> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None);
-    }
+    /// <summary>
+    ///     Gets an existing Vipps payment.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="paymentExpand"></param>
+    /// <returns></returns>
+    Task<IVippsPaymentReponse> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None);
 }

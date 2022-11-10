@@ -1,18 +1,17 @@
 ﻿using System;
 
-namespace SwedbankPay.Sdk.PaymentInstruments.Card
+namespace SwedbankPay.Sdk.PaymentInstruments.Card;
+
+internal class CardPaymentAuthorizationResponse : ICardPaymentAuthorizationResponse
 {
-    internal class CardPaymentAuthorizationResponse : ICardPaymentAuthorizationResponse
+    public CardPaymentAuthorizationResponse(Uri payment, ICardPaymentAuthorization authorization)
     {
-        public CardPaymentAuthorizationResponse(Uri payment, ICardPaymentAuthorization authorization)
-        {
-            Payment = payment;
-            Authorization = authorization;
-        }
-
-
-        public ICardPaymentAuthorization Authorization { get; }
-
-        public Uri Payment { get; }
+        Payment = payment;
+        Authorization = authorization;
     }
+
+
+    public ICardPaymentAuthorization Authorization { get; }
+
+    public Uri Payment { get; }
 }

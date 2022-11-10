@@ -2,22 +2,21 @@
 
 using Sample.AspNetCore.Models;
 
-namespace Sample.AspNetCore.Components
+namespace Sample.AspNetCore.Components;
+
+public class CartSummaryViewComponent : ViewComponent
 {
-    public class CartSummaryViewComponent : ViewComponent
+    private readonly Cart cart;
+
+
+    public CartSummaryViewComponent(Cart cartService)
     {
-        private readonly Cart cart;
+        this.cart = cartService;
+    }
 
 
-        public CartSummaryViewComponent(Cart cartService)
-        {
-            this.cart = cartService;
-        }
-
-
-        public IViewComponentResult Invoke()
-        {
-            return View(this.cart);
-        }
+    public IViewComponentResult Invoke()
+    {
+        return View(this.cart);
     }
 }

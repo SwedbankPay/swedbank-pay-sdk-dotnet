@@ -6,27 +6,27 @@
 <div id="swedbankpay-checkout">
 
     @if (Model.ConsumerUiScriptSource == null && Model.UseAnonymousCheckout)
-    {
-        <div id="paymentMenuFrame">
+{
+    <div id="paymentMenuFrame">
             <div id="swedbankpay-paymentmenu-@containerId">
 
             </div>
         </div>
-    }
-    else
-    {
-        <div>
+}
+else
+{
+    <div>
             <div id="swedbankpay-consumer-@containerId">
 
             </div>
         </div>
 
-        <div id="paymentMenuFrame" hidden>
+    <div id="paymentMenuFrame" hidden>
             <div id="swedbankpay-paymentmenu-@containerId">
 
             </div>
         </div>
-    }
+}
 </div>
 
 

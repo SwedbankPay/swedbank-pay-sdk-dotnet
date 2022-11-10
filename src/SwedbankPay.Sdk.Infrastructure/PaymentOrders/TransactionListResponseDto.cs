@@ -2,23 +2,22 @@
 using System;
 using System.Collections.Generic;
 
-namespace SwedbankPay.Sdk.PaymentOrders
+namespace SwedbankPay.Sdk.PaymentOrders;
+
+internal class TransactionListResponseDto
 {
-    internal class TransactionListResponseDto
+    public string Id { get; set; }
+    public List<TransactionDto> TransactionList { get; set; }
+
+    internal ITransactionListResponse Map()
     {
-        public string Id { get; set; }
-        public List<TransactionDto> TransactionList { get; set; }
+        var list = new List<ITransaction>();
 
-        internal ITransactionListResponse Map()
+        foreach (var c in TransactionList)
         {
-            var list = new List<ITransaction>();
-
-            foreach (var c in TransactionList)
-            {
-                list.Add(c.Map());
-            }
-
-            return new TransactionListResponse(new Uri(Id, UriKind.RelativeOrAbsolute), list);
+            list.Add(c.Map());
         }
+
+        return new TransactionListResponse(new Uri(Id, UriKind.RelativeOrAbsolute), list);
     }
 }

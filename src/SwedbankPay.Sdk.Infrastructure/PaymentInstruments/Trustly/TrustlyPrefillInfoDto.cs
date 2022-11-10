@@ -1,20 +1,19 @@
-﻿namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
-{
-    public class TrustlyPrefillInfoDto
-    {
-        public TrustlyPrefillInfoDto(TrustlyPrefillInfo prefillInfo)
-        {
-            if(prefillInfo == null)
-            {
-                return;
-            }
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Trustly;
 
-            FirstName = prefillInfo.FirstName;
-            LastName = prefillInfo.LastName;
+public class TrustlyPrefillInfoDto
+{
+    public TrustlyPrefillInfoDto(TrustlyPrefillInfo prefillInfo)
+    {
+        if(prefillInfo == null)
+        {
+            return;
         }
 
-        public string FirstName { get; set; }
-
-        public string LastName { get; set; }
+        FirstName = prefillInfo.FirstName;
+        LastName = prefillInfo.LastName;
     }
+
+    public string FirstName { get; set; }
+
+    public string LastName { get; set; }
 }

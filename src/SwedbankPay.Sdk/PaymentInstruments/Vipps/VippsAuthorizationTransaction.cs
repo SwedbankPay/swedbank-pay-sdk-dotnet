@@ -1,22 +1,21 @@
-﻿namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Vipps;
+
+/// <summary>
+/// Object for authorizing a transaction with Vipps.
+/// </summary>
+public class VippsAuthorizationTransaction
 {
     /// <summary>
-    /// Object for authorizing a transaction with Vipps.
+    /// Instantiates a <see cref="VippsAuthorizationTransaction"/> with the provided <paramref name="msisdn"/>.
     /// </summary>
-    public class VippsAuthorizationTransaction
+    /// <param name="msisdn">The payers MSISDN.</param>
+    public VippsAuthorizationTransaction(string msisdn)
     {
-        /// <summary>
-        /// Instantiates a <see cref="VippsAuthorizationTransaction"/> with the provided <paramref name="msisdn"/>.
-        /// </summary>
-        /// <param name="msisdn">The payers MSISDN.</param>
-        public VippsAuthorizationTransaction(string msisdn)
-        {
-            Msisdn = msisdn;
-        }
-
-        /// <summary>
-        /// The payers MSISDN, if set will autofill the payment UI.
-        /// </summary>
-        public string Msisdn { get; }
+        Msisdn = msisdn;
     }
+
+    /// <summary>
+    /// The payers MSISDN, if set will autofill the payment UI.
+    /// </summary>
+    public string Msisdn { get; }
 }

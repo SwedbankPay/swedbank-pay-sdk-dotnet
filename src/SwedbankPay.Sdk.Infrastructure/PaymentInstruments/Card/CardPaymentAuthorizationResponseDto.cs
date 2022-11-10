@@ -1,10 +1,9 @@
 ﻿using System;
 
-namespace SwedbankPay.Sdk.PaymentInstruments.Card
+namespace SwedbankPay.Sdk.PaymentInstruments.Card;
+
+internal class CardPaymentAuthorizationResponseDto
 {
-    internal class CardPaymentAuthorizationResponseDto
-    {
-        public PaymentAuthorizationDto Authorization { get; set; }
-        public Uri Payment { get; set; }
-    }
+    public PaymentAuthorizationDto Authorization { get; set; }
+    public Uri Payment { get; set; }
 }

@@ -2,11 +2,11 @@
 using System.Text.Json;
 using Xunit;
 
-namespace SwedbankPay.Sdk.Tests.UnitTests
+namespace SwedbankPay.Sdk.Tests.UnitTests;
+
+public class CardPaymentTests
 {
-    public class CardPaymentTests
-    {
-        private const string cardPaymentVerificationList = @"{
+    private const string cardPaymentVerificationList = @"{
   ""payment"": ""/psp/creditcard/payments/5adc265f-f87f-4313-577e-08d3dca1a26c"",
   ""verifications"": {
     ""id"": ""/psp/creditcard/payments/5adc265f-f87f-4313-577e-08d3dca1a26c/verifications"",
@@ -72,33 +72,32 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
   }
 }";
 
-        [Fact]
-        public void Creating_CardPaymentVerifyResponse_FromDto()
-        {
-            var api_response = cardPaymentVerificationList;
-            var dto = JsonSerializer.Deserialize<CardPaymentVerifyResponseDto>(api_response, JsonSerialization.JsonSerialization.Settings);
-            var result = new CardPaymentVerifyResponse(dto);
+    [Fact]
+    public void Creating_CardPaymentVerifyResponse_FromDto()
+    {
+        var api_response = cardPaymentVerificationList;
+        var dto = JsonSerializer.Deserialize<CardPaymentVerifyResponseDto>(api_response, JsonSerialization.JsonSerialization.Settings);
+        var result = new CardPaymentVerifyResponse(dto);
 
-            Assert.Equal("/psp/creditcard/payments/5adc265f-f87f-4313-577e-08d3dca1a26c", result.Id.OriginalString);
+        Assert.Equal("/psp/creditcard/payments/5adc265f-f87f-4313-577e-08d3dca1a26c", result.Id.OriginalString);
 
-            var verifications = result.Verifications;
+        var verifications = result.Verifications;
 
-            Assert.Equal("/psp/creditcard/payments/5adc265f-f87f-4313-577e-08d3dca1a26c/verifications", verifications.Id.OriginalString);
+        Assert.Equal("/psp/creditcard/payments/5adc265f-f87f-4313-577e-08d3dca1a26c/verifications", verifications.Id.OriginalString);
 
-            var verification = verifications.VerificationList[1];
+        var verification = verifications.VerificationList[1];
 
-            Assert.Equal("/psp/creditcard/payments/5adc265f-f87f-4313-577e-08d3dca1a26c/verifications/12345678-1234-1234-1234-123456789012", verification.Id.OriginalString);
-            Assert.Equal("Visa", verification.CardBrand);
-            Assert.Equal("Credit", verification.CardType);
-            Assert.Equal("451f9dc8-2ab0-4901-bcc0-d2115f1c0a69", verification.PaymentToken);
-            Assert.Equal("12345678-1234-1234-1234-123456789013", verification.RecurrenceToken);
-            Assert.Equal("492500******0004", verification.MaskedPan);
+        Assert.Equal("/psp/creditcard/payments/5adc265f-f87f-4313-577e-08d3dca1a26c/verifications/12345678-1234-1234-1234-123456789012", verification.Id.OriginalString);
+        Assert.Equal("Visa", verification.CardBrand);
+        Assert.Equal("Credit", verification.CardType);
+        Assert.Equal("451f9dc8-2ab0-4901-bcc0-d2115f1c0a69", verification.PaymentToken);
+        Assert.Equal("12345678-1234-1234-1234-123456789013", verification.RecurrenceToken);
+        Assert.Equal("492500******0004", verification.MaskedPan);
 
-            var transaction = verification.Transaction;
+        var transaction = verification.Transaction;
 
-            Assert.NotNull(transaction);
-            Assert.True(transaction.IsOperational);
-            Assert.Equal("/psp/creditcard/payments/5adc265f-f87f-4313-577e-08d3dca1a26c/transactions/12345678-1234-1234-1234-123456789012/activities", transaction.Activities.OriginalString);
-        }
+        Assert.NotNull(transaction);
+        Assert.True(transaction.IsOperational);
+        Assert.Equal("/psp/creditcard/payments/5adc265f-f87f-4313-577e-08d3dca1a26c/transactions/12345678-1234-1234-1234-123456789012/activities", transaction.Activities.OriginalString);
     }
 }

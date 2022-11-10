@@ -4,26 +4,25 @@ using Atata;
 
 using OpenQA.Selenium;
 
-namespace Sample.AspNetCore.SystemTests.PageObjectModels.Base
+namespace Sample.AspNetCore.SystemTests.PageObjectModels.Base;
+
+public class ValidationIconList<TOwner> : ControlList<ValidationIcon<TOwner>, TOwner>
+    where TOwner : PageObject<TOwner>
 {
-    public class ValidationIconList<TOwner> : ControlList<ValidationIcon<TOwner>, TOwner>
-        where TOwner : PageObject<TOwner>
+    public ValidationIcon<TOwner> this[Func<TOwner, IControl<TOwner>> controlSelector] => For(controlSelector);
+
+
+    public ValidationIcon<TOwner> For(Func<TOwner, IControl<TOwner>> controlSelector)
     {
-        public ValidationIcon<TOwner> this[Func<TOwner, IControl<TOwner>> controlSelector] => For(controlSelector);
+        var validationMessageDefinition = UIComponentResolver.GetControlDefinition(typeof(ValidationIcon<TOwner>));
 
+        var boundControl = controlSelector(Component.Owner);
 
-        public ValidationIcon<TOwner> For(Func<TOwner, IControl<TOwner>> controlSelector)
+        var scopeLocator = new PlainScopeLocator(By.XPath("ancestor::" + validationMessageDefinition.ScopeXPath))
         {
-            var validationMessageDefinition = UIComponentResolver.GetControlDefinition(typeof(ValidationIcon<TOwner>));
+            SearchContext = boundControl.Scope
+        };
 
-            var boundControl = controlSelector(Component.Owner);
-
-            var scopeLocator = new PlainScopeLocator(By.XPath("ancestor::" + validationMessageDefinition.ScopeXPath))
-            {
-                SearchContext = boundControl.Scope
-            };
-
-            return Component.Controls.Create<ValidationIcon<TOwner>>(boundControl.ComponentName, scopeLocator);
-        }
+        return Component.Controls.Create<ValidationIcon<TOwner>>(boundControl.ComponentName, scopeLocator);
     }
 }

@@ -2,8 +2,8 @@
 using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace SwedbankPay.Sdk
-{
+namespace SwedbankPay.Sdk;
+
 	/// <summary>
 	/// Object holding a payer/consumer email address.
 	/// </summary>
@@ -84,4 +84,3 @@ namespace SwedbankPay.Sdk
 			return Value;
 		}
 	}
-}

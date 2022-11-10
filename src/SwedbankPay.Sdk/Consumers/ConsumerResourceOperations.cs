@@ -10,21 +10,20 @@
 #endregion
 
 
-namespace SwedbankPay.Sdk.Consumers
+namespace SwedbankPay.Sdk.Consumers;
+
+/// <summary>
+/// Currently mapped operations available for consumers.
+/// </summary>
+public static class ConsumerResourceOperations
 {
     /// <summary>
-    /// Currently mapped operations available for consumers.
+    /// The Operation used to open a iframe to view consumer identification.
     /// </summary>
-    public static class ConsumerResourceOperations
-    {
-        /// <summary>
-        /// The Operation used to open a iframe to view consumer identification.
-        /// </summary>
-        public const string ViewConsumerIdentification = "view-consumer-identification";
+    public const string ViewConsumerIdentification = "view-consumer-identification";
 
-        /// <summary>
-        /// The operation used to redirect a consumer for identification.
-        /// </summary>
-        public const string RedirectConsumerIdentification = "redirect-consumer-identification";
-    }
+    /// <summary>
+    /// The operation used to redirect a consumer for identification.
+    /// </summary>
+    public const string RedirectConsumerIdentification = "redirect-consumer-identification";
 }

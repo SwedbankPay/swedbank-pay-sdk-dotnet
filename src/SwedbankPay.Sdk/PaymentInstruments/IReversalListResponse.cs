@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
 
-namespace SwedbankPay.Sdk.PaymentInstruments
+namespace SwedbankPay.Sdk.PaymentInstruments;
+
+/// <summary>
+/// Object holding a list of available reversals on a payment.
+/// </summary>
+public interface IReversalListResponse
 {
     /// <summary>
-    /// Object holding a list of available reversals on a payment.
+    /// Contains a list of available reversal transactions.
     /// </summary>
-    public interface IReversalListResponse
-    {
-        /// <summary>
-        /// Contains a list of available reversal transactions.
-        /// </summary>
-        IList<ITransactionResponse> ReversalList { get; }
-    }
+    IList<ITransactionResponse> ReversalList { get; }
 }

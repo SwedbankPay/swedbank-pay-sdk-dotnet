@@ -3,57 +3,56 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace SwedbankPay.Sdk.PaymentInstruments.Card
+namespace SwedbankPay.Sdk.PaymentInstruments.Card;
+
+public class CardPaymentsResource : ResourceBase, ICardResource
 {
-    public class CardPaymentsResource : ResourceBase, ICardResource
+    public CardPaymentsResource(HttpClient httpClient) : base(httpClient)
     {
-        public CardPaymentsResource(HttpClient httpClient) : base(httpClient)
+    }
+
+    public async Task<ICardPaymentResponse> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.All)
+    {
+        if (id == null)
         {
+            throw new ArgumentNullException(nameof(id));
         }
 
-        public async Task<ICardPaymentResponse> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.All)
-        {
-            if (id == null)
-            {
-                throw new ArgumentNullException(nameof(id));
-            }
+        Uri url = id.GetUrlWithQueryString(paymentExpand);
 
-            Uri url = id.GetUrlWithQueryString(paymentExpand);
-
-            var cardPaymentResponseDto = await HttpClient.GetAsJsonAsync<CardPaymentResponseDto>(url);
-            return new CardPaymentResponse(cardPaymentResponseDto, HttpClient);
-        }
+        var cardPaymentResponseDto = await HttpClient.GetAsJsonAsync<CardPaymentResponseDto>(url);
+        return new CardPaymentResponse(cardPaymentResponseDto, HttpClient);
+    }
 
 
-        public async Task<ICardPaymentResponse> Create(CardPaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.All)
-        {
-            var url = new Uri("/psp/creditcard/payments", UriKind.Relative).GetUrlWithQueryString(paymentExpand);
-            
-            var requestDto = new CardPaymentRequestDto(paymentRequest);
+    public async Task<ICardPaymentResponse> Create(CardPaymentRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.All)
+    {
+        var url = new Uri("/psp/creditcard/payments", UriKind.Relative).GetUrlWithQueryString(paymentExpand);
+        
+        var requestDto = new CardPaymentRequestDto(paymentRequest);
 
-            var cardPaymentResponseDto = await HttpClient.PostAsJsonAsync<CardPaymentResponseDto>(url.GetUrlWithQueryString(paymentExpand), requestDto);
-            return new CardPaymentResponse(cardPaymentResponseDto, HttpClient);
-        }
+        var cardPaymentResponseDto = await HttpClient.PostAsJsonAsync<CardPaymentResponseDto>(url.GetUrlWithQueryString(paymentExpand), requestDto);
+        return new CardPaymentResponse(cardPaymentResponseDto, HttpClient);
+    }
 
-        public async Task<ICardPaymentRecurResponse> Create(CardPaymentRecurRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.All)
-        {
-            var url = new Uri("/psp/creditcard/payments", UriKind.Relative).GetUrlWithQueryString(paymentExpand);
+    public async Task<ICardPaymentRecurResponse> Create(CardPaymentRecurRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.All)
+    {
+        var url = new Uri("/psp/creditcard/payments", UriKind.Relative).GetUrlWithQueryString(paymentExpand);
 
-            var requestDto = new CardPaymentRecurRequestDto(paymentRequest);
+        var requestDto = new CardPaymentRecurRequestDto(paymentRequest);
 
-            var cardPaymentResponseDto = await HttpClient.PostAsJsonAsync<CardPaymentRecurResponseDto>(url.GetUrlWithQueryString(paymentExpand), requestDto);
-            return new CardPaymentRecurResponse(cardPaymentResponseDto, HttpClient);
-        }
+        var cardPaymentResponseDto = await HttpClient.PostAsJsonAsync<CardPaymentRecurResponseDto>(url.GetUrlWithQueryString(paymentExpand), requestDto);
+        return new CardPaymentRecurResponse(cardPaymentResponseDto, HttpClient);
+    }
 
-        public async Task<ICardPaymentVerifyResponse> Create(CardPaymentVerifyRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.All)
-        {
-            var url = new Uri("/psp/creditcard/payments", UriKind.Relative).GetUrlWithQueryString(paymentExpand);
+    public async Task<ICardPaymentVerifyResponse> Create(CardPaymentVerifyRequest paymentRequest, PaymentExpand paymentExpand = PaymentExpand.All)
+    {
+        var url = new Uri("/psp/creditcard/payments", UriKind.Relative).GetUrlWithQueryString(paymentExpand);
 
-            var requestDto = new CardPaymentVerifyRequestDto(paymentRequest);
+        var requestDto = new CardPaymentVerifyRequestDto(paymentRequest);
 
-            var cardPaymentResponseDto = await HttpClient.PostAsJsonAsync<CardPaymentVerifyResponseDto>(url.GetUrlWithQueryString(paymentExpand), requestDto);
-            return new CardPaymentVerifyResponse(cardPaymentResponseDto);
+        var cardPaymentResponseDto = await HttpClient.PostAsJsonAsync<CardPaymentVerifyResponseDto>(url.GetUrlWithQueryString(paymentExpand), requestDto);
+        return new CardPaymentVerifyResponse(cardPaymentResponseDto);
 
-        }
     }
 }

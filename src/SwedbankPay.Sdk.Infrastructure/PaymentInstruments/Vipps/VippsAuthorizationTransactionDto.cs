@@ -1,12 +1,11 @@
-﻿namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
-{
-    internal class VippsAuthorizationTransactionDto
-    {
-        public VippsAuthorizationTransactionDto(VippsAuthorizationTransaction transaction)
-        {
-            Msisdn = transaction.Msisdn;
-        }
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Vipps;
 
-        public string Msisdn { get; }
+internal class VippsAuthorizationTransactionDto
+{
+    public VippsAuthorizationTransactionDto(VippsAuthorizationTransaction transaction)
+    {
+        Msisdn = transaction.Msisdn;
     }
+
+    public string Msisdn { get; }
 }

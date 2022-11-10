@@ -1,10 +1,9 @@
 ﻿using System;
 
-namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
+namespace SwedbankPay.Sdk.PaymentInstruments.Invoice;
+
+internal class ApprovedLegalAddressResponseDto
 {
-    internal class ApprovedLegalAddressResponseDto
-    {
-        public Uri Payment { get; set; }
-        public LegalAddressDto ApprovedLegalAddress { get; set; }
-    }
+    public Uri Payment { get; set; }
+    public LegalAddressDto ApprovedLegalAddress { get; set; }
 }

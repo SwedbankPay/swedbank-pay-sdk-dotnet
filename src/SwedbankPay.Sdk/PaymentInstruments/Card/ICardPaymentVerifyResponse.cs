@@ -1,13 +1,12 @@
-﻿namespace SwedbankPay.Sdk.PaymentInstruments.Card
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Card;
+
+/// <summary>
+/// Response of verifying a card payment.
+/// </summary>
+public interface ICardPaymentVerifyResponse : IIdentifiable
 {
     /// <summary>
-    /// Response of verifying a card payment.
+    /// Available list of verifications.
     /// </summary>
-    public interface ICardPaymentVerifyResponse : IIdentifiable
-    {
-        /// <summary>
-        /// Available list of verifications.
-        /// </summary>
-        ICardPaymentVerifyResponseDetails Verifications { get; }
-    }
+    ICardPaymentVerifyResponseDetails Verifications { get; }
 }

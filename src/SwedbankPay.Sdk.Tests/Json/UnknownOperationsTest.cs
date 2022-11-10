@@ -3,46 +3,46 @@ using System.Net.Http;
 using System.Text.Json;
 using Xunit;
 
-namespace SwedbankPay.Sdk.Tests.Json
+namespace SwedbankPay.Sdk.Tests.Json;
+
+public class UnknownOperationsTest
 {
-    public class UnknownOperationsTest
+    [Fact]
+    public void CanDeserializeUnknownOperation()
     {
-        [Fact]
-        public void CanDeserializeUnknownOperation()
-        {
-            var paymentResponse = JsonSerializer.Deserialize<CardPaymentResponseDto>(TestResponse, JsonSerialization.JsonSerialization.Settings);
-            Assert.NotNull(paymentResponse);
-        }
+        var paymentResponse = JsonSerializer.Deserialize<CardPaymentResponseDto>(TestResponse, JsonSerialization.JsonSerialization.Settings);
+        Assert.NotNull(paymentResponse);
+    }
 
-        [Fact]
-        public void CanAccessDeserializedUnknownOperation()
-        {
-            var paymentResponse = JsonSerializer.Deserialize<CardPaymentResponseDto>(TestResponse, JsonSerialization.JsonSerialization.Settings);
-            var client = new HttpClient();
-            var operations = new CardPaymentOperations(paymentResponse.Operations.Map(), client);
+    [Fact]
+    public void CanAccessDeserializedUnknownOperation()
+    {
+        var paymentResponse = JsonSerializer.Deserialize<CardPaymentResponseDto>(TestResponse, JsonSerialization.JsonSerialization.Settings);
+        var client = new HttpClient();
+        var operations = new CardPaymentOperations(paymentResponse.Operations.Map(), client);
 
-            Assert.Contains(operations, a => a.Key.Name.Equals(TestOperationName, System.StringComparison.OrdinalIgnoreCase));
-            Assert.Contains(operations, a => a.Key.Value.Equals(TestOperationName, System.StringComparison.OrdinalIgnoreCase));
-        }
+        Assert.Contains(operations, a => a.Key.Name.Equals(TestOperationName, System.StringComparison.OrdinalIgnoreCase));
+        Assert.Contains(operations, a => a.Key.Value.Equals(TestOperationName, System.StringComparison.OrdinalIgnoreCase));
+    }
 
-        [Fact]
-        public void UnknownOperation_IsDeserializedTo_LinkrelationType()
-        {
-            var paymentResponse = JsonSerializer.Deserialize<CardPaymentResponseDto>(TestResponse, JsonSerialization.JsonSerialization.Settings);
-            var client = new HttpClient();
-            var operations = new CardPaymentOperations(paymentResponse.Operations.Map(), client);
-            var testLinkRelation = new LinkRelation(TestOperationName, TestOperationName);
+    [Fact]
+    public void UnknownOperation_IsDeserializedTo_LinkrelationType()
+    {
+        var paymentResponse = JsonSerializer.Deserialize<CardPaymentResponseDto>(TestResponse, JsonSerialization.JsonSerialization.Settings);
+        var client = new HttpClient();
+        var operations = new CardPaymentOperations(paymentResponse.Operations.Map(), client);
+        var testLinkRelation = new LinkRelation(TestOperationName, TestOperationName);
 
-            Assert.True(operations.ContainsKey(testLinkRelation), "Missing link relation in Operation list");
+        Assert.True(operations.ContainsKey(testLinkRelation), "Missing link relation in Operation list");
 
-            Assert.True(operations.TryGetValue(testLinkRelation, out var httpOperation), "Missing value in operation list");
+        Assert.True(operations.TryGetValue(testLinkRelation, out var httpOperation), "Missing value in operation list");
 
-            Assert.Equal("text/html", httpOperation.ContentType);
-            Assert.Equal(HttpMethod.Get, httpOperation.Method);
-        }
+        Assert.Equal("text/html", httpOperation.ContentType);
+        Assert.Equal(HttpMethod.Get, httpOperation.Method);
+    }
 
-        public static string TestOperationName = "unknown-test-operation";
-        public static string TestResponse = @"{
+    public static string TestOperationName = "unknown-test-operation";
+    public static string TestResponse = @"{
     ""payment"": {
     },
     ""operations"": [
@@ -66,5 +66,4 @@ namespace SwedbankPay.Sdk.Tests.Json
         }
     ]
 }";
-    }
 }

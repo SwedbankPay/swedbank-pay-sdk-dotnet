@@ -1,13 +1,12 @@
-﻿namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Invoice;
+
+/// <summary>
+/// Transactional details about a invoice payment.
+/// </summary>
+public interface IInvoicePaymentDetails : IIdentifiable, IPaymentInstrument
 {
     /// <summary>
-    /// Transactional details about a invoice payment.
+    /// Gets the available authorizations on this invoice.
     /// </summary>
-    public interface IInvoicePaymentDetails : IIdentifiable, IPaymentInstrument
-    {
-        /// <summary>
-        /// Gets the available authorizations on this invoice.
-        /// </summary>
-        IInvoicePaymentAuthorizationListResponse Authorizations { get; }
-    }
+    IInvoicePaymentAuthorizationListResponse Authorizations { get; }
 }

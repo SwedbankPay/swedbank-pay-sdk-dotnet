@@ -21,8 +21,8 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Sample.AspNetCore.Controllers
-{
+namespace Sample.AspNetCore.Controllers;
+
 	public class CheckOutController : Controller
 	{
 		private readonly Cart cartService;
@@ -290,7 +290,7 @@ namespace Sample.AspNetCore.Controllers
 															   new Currency("SEK"),
 															   new List<IPrice>(),
 															   "Test Purchase",
-                                                               "useragent",
+                                                           "useragent",
 															   new Language("sv-SE"),
 															   new Urls(this.urls.HostUrls.ToList(), this.urls.CompleteUrl, this.urls.TermsOfServiceUrl) { CancelUrl = this.urls.CancelUrl, PaymentUrl = this.urls.PaymentUrl, CallbackUrl = this.urls.CallbackUrl, LogoUrl = this.urls.LogoUrl },
 															   new PayeeInfo(this.payeeInfoOptions.PayeeId, this.payeeInfoOptions.PayeeReference),
@@ -447,4 +447,3 @@ namespace Sample.AspNetCore.Controllers
 			return View();
 		}
 	}
-}

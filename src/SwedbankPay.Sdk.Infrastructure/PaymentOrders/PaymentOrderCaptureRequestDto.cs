@@ -1,12 +1,11 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrders
-{
-    internal class PaymentOrderCaptureRequestDto
-    {
-        public PaymentOrderCaptureRequestDto(PaymentOrderCaptureRequest payload)
-        {
-            Transaction = new PaymentOrderCaptureTransactionDto(payload.Transaction);
-        }
+﻿namespace SwedbankPay.Sdk.PaymentOrders;
 
-        public PaymentOrderCaptureTransactionDto Transaction { get; }
+internal class PaymentOrderCaptureRequestDto
+{
+    public PaymentOrderCaptureRequestDto(PaymentOrderCaptureRequest payload)
+    {
+        Transaction = new PaymentOrderCaptureTransactionDto(payload.Transaction);
     }
+
+    public PaymentOrderCaptureTransactionDto Transaction { get; }
 }

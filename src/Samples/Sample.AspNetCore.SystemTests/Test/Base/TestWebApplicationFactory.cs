@@ -14,75 +14,74 @@ using System;
 using System.IO;
 using System.Linq;
 
-namespace Sample.AspNetCore.SystemTests.Test.Base
+namespace Sample.AspNetCore.SystemTests.Test.Base;
+
+public class TestWebApplicationFactory: WebApplicationFactory<Startup>
 {
-    public class TestWebApplicationFactory: WebApplicationFactory<Startup>
+    public string RootUri { get; set; } //Save this use by tests
+
+    private readonly string sampleProjectLocation;
+    IWebHost host;
+
+    public TestWebApplicationFactory()
     {
-        public string RootUri { get; set; } //Save this use by tests
-
-        private readonly string sampleProjectLocation;
-        IWebHost host;
-
-        public TestWebApplicationFactory()
-        {
-            IConfigurationRoot configRoot = new ConfigurationBuilder()
-                .SetBasePath(Environment.CurrentDirectory)
-                .AddJsonFile("appsettings.json", true)
-                .AddUserSecrets<TestBase>(true)
-                .AddEnvironmentVariables()
-                .Build();
-                
-            sampleProjectLocation = configRoot.GetSection("SampleWebsitePath").Value;
-
-            Console.WriteLine(sampleProjectLocation);
-
-            ClientOptions.BaseAddress = new Uri("https://localhost:5001"); //will follow redirects by default
-
-            CreateServer(CreateWebHostBuilder());
+        IConfigurationRoot configRoot = new ConfigurationBuilder()
+            .SetBasePath(Environment.CurrentDirectory)
+            .AddJsonFile("appsettings.json", true)
+            .AddUserSecrets<TestBase>(true)
+            .AddEnvironmentVariables()
+            .Build();
             
-            Console.WriteLine("Webhost created");
+        sampleProjectLocation = configRoot.GetSection("SampleWebsitePath").Value;
+
+        Console.WriteLine(sampleProjectLocation);
+
+        ClientOptions.BaseAddress = new Uri("https://localhost:5001"); //will follow redirects by default
+
+        CreateServer(CreateWebHostBuilder());
+        
+        Console.WriteLine("Webhost created");
+    }
+
+    protected override TestServer CreateServer(IWebHostBuilder builder)
+    {
+        //Real TCP port
+        host = builder.Build();
+        host.Start();
+        
+        Console.WriteLine("Webhost started");
+
+        RootUri = host.ServerFeatures.Get<IServerAddressesFeature>().Addresses.LastOrDefault();
+        using (var scope = host.Services.CreateScope())
+        {
+            var services = scope.ServiceProvider;
+            ProductGenerator.Initialize(services);
         }
 
-        protected override TestServer CreateServer(IWebHostBuilder builder)
+        //Fake Server we won't use...this is lame. Should be cleaner, or a utility class
+        return new TestServer(new WebHostBuilder().UseStartup<Startup>());
+    }
+
+    protected override IWebHostBuilder CreateWebHostBuilder()
+    {
+        var builder = WebHost.CreateDefaultBuilder(Array.Empty<string>());
+        builder.UseStartup<Startup>();
+        var contentRoot = sampleProjectLocation;
+        if (Directory.Exists(contentRoot))
         {
-            //Real TCP port
-            host = builder.Build();
-            host.Start();
-            
-            Console.WriteLine("Webhost started");
-
-            RootUri = host.ServerFeatures.Get<IServerAddressesFeature>().Addresses.LastOrDefault();
-            using (var scope = host.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-                ProductGenerator.Initialize(services);
-            }
-
-            //Fake Server we won't use...this is lame. Should be cleaner, or a utility class
-            return new TestServer(new WebHostBuilder().UseStartup<Startup>());
+            Console.WriteLine("Directory exist");
+            builder.UseContentRoot(contentRoot);
         }
+        
+        return builder;
+    }
 
-        protected override IWebHostBuilder CreateWebHostBuilder()
+    protected override void Dispose(bool disposing)
+    {
+        base.Dispose(disposing);
+        if (disposing)
         {
-            var builder = WebHost.CreateDefaultBuilder(Array.Empty<string>());
-            builder.UseStartup<Startup>();
-            var contentRoot = sampleProjectLocation;
-            if (Directory.Exists(contentRoot))
-            {
-                Console.WriteLine("Directory exist");
-                builder.UseContentRoot(contentRoot);
-            }
-            
-            return builder;
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
-            if (disposing)
-            {
-                host.Dispose();
-            }
+            host.Dispose();
         }
     }
 }

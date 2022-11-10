@@ -12,11 +12,11 @@ using System.Threading.Tasks;
 
 using Xunit;
 
-namespace SwedbankPay.Sdk.Tests.UnitTests
+namespace SwedbankPay.Sdk.Tests.UnitTests;
+
+public class HttpClientExtensionsTests : ResourceTestsBase
 {
-    public class HttpClientExtensionsTests : ResourceTestsBase
-    {
-        private const string PaymentOrderInputValidationFailedReponse = @"{
+    private const string PaymentOrderInputValidationFailedReponse = @"{
             ""sessionId"": ""09ccd29a-7c4f-4752-9396-12100cbfecce"",
             ""type"": ""https://api.payex.com/psp/errordetail/inputerror"",
             ""title"": ""Error in input data"",
@@ -31,7 +31,7 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
             ]
         }";
 
-        private const string PaymentCompletedReponse = @"{
+    private const string PaymentCompletedReponse = @"{
             ""payment"": ""/psp/invoice/payments/09ccd29a-7c4f-4752-9396-12100cbfecce"",
             ""capture"": {
                 ""itemDescriptions"": {
@@ -56,110 +56,109 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
             }
         }";
 
-        private static PaymentOrderCaptureRequest GetPaymentOrderCaptureRequest()
+    private static PaymentOrderCaptureRequest GetPaymentOrderCaptureRequest()
+    {
+        var req = new PaymentOrderCaptureRequest(new Amount(25767), new Amount(0), "Capturing payment.", "637218522761159010");
+        req.Transaction.OrderItems.Add(new OrderItem(
+                "Test",
+                "Test",
+                OrderItemType.Other,
+                "Capture",
+                1,
+                "pcs",
+                new Amount(25767),
+                0,
+                new Amount(25767),
+                new Amount(0)));
+
+        return req;
+    }
+
+    [Fact]
+    public async Task ApiError_AreCorrectlySerialized_WithCorrectAmountOfDataAdded()
+    {
+        var client = new HttpClient();
+        var paymentRequest = new PaymentRequestBuilder().WithCreditcardTestValues(this.payeeId, Operation.Verify).BuildCreditardPaymentRequest();
+        var uri = new Uri("https://api.externalintegration.payex.com/psp/paymentorders/2d35afaa-4e5a-4930-0de5-08d7da0988bc");
+
+        var error = await Assert.ThrowsAsync<HttpResponseException>(() => client.SendAndProcessAsync<object>(HttpMethod.Post, uri, paymentRequest));
+
+        Assert.Equal(1, error.Data.Count);
+    }
+
+    [Fact]
+    public async Task ProblemResponse_CorrectlySerializes_WithNoAdditionalErrors()
+    {
+        var handler = new FakeDelegatingHandler();
+        handler.FakeResponseList.Add(new HttpResponseMessage
         {
-            var req = new PaymentOrderCaptureRequest(new Amount(25767), new Amount(0), "Capturing payment.", "637218522761159010");
-            req.Transaction.OrderItems.Add(new OrderItem(
-                    "Test",
-                    "Test",
-                    OrderItemType.Other,
-                    "Capture",
-                    1,
-                    "pcs",
-                    new Amount(25767),
-                    0,
-                    new Amount(25767),
-                    new Amount(0)));
+            StatusCode = System.Net.HttpStatusCode.BadRequest,
+            Content = new StringContent(PaymentOrderInputValidationFailedReponse)
+        });
+        var uri = new Uri("http://api.externalintegration.payex.com");
+        var sut = new HttpClient(handler);
 
-            return req;
-        }
+        var error = await Assert.ThrowsAsync<HttpResponseException>(() => sut.SendAndProcessAsync<Problem>(HttpMethod.Get, uri, null));
 
-        [Fact]
-        public async Task ApiError_AreCorrectlySerialized_WithCorrectAmountOfDataAdded()
+        Assert.Equal(1, error.Data.Count);
+    }
+
+    [Fact]
+    public async Task ProblemResponse_CorrectlySerialzes_WhenApiReturnsWrongStatusCode()
+    {
+        var handler = new FakeDelegatingHandler();
+        handler.FakeResponseList.Add(new HttpResponseMessage
         {
-            var client = new HttpClient();
-            var paymentRequest = new PaymentRequestBuilder().WithCreditcardTestValues(this.payeeId, Operation.Verify).BuildCreditardPaymentRequest();
-            var uri = new Uri("https://api.externalintegration.payex.com/psp/paymentorders/2d35afaa-4e5a-4930-0de5-08d7da0988bc");
+            StatusCode = System.Net.HttpStatusCode.OK,
+            Content = new StringContent(PaymentOrderInputValidationFailedReponse)
+        });
+        var uri = new Uri("http://api.externalintegration.payex.com");
+        var sut = new HttpClient(handler);
 
-            var error = await Assert.ThrowsAsync<HttpResponseException>(() => client.SendAndProcessAsync<object>(HttpMethod.Post, uri, paymentRequest));
+        var resultDto = await sut.SendAndProcessAsync<ProblemDto>(HttpMethod.Get, uri, null);
+        var result = resultDto.Map();
 
-            Assert.Equal(1, error.Data.Count);
-        }
+        Assert.IsType<Problem>(result);
+    }
 
-        [Fact]
-        public async Task ProblemResponse_CorrectlySerializes_WithNoAdditionalErrors()
+    [Fact]
+    public async Task WhenSendingACapture_TheConverter_HasZeroErrors()
+    {
+        var handler = new FakeDelegatingHandler();
+        handler.FakeResponseList.Add(new HttpResponseMessage
         {
-            var handler = new FakeDelegatingHandler();
-            handler.FakeResponseList.Add(new HttpResponseMessage
-            {
-                StatusCode = System.Net.HttpStatusCode.BadRequest,
-                Content = new StringContent(PaymentOrderInputValidationFailedReponse)
-            });
-            var uri = new Uri("http://api.externalintegration.payex.com");
-            var sut = new HttpClient(handler);
+            StatusCode = System.Net.HttpStatusCode.OK,
+            Content = new StringContent(PaymentCompletedReponse)
+        });
+        var uri = new Uri("http://api.externalintegration.payex.com");
 
-            var error = await Assert.ThrowsAsync<HttpResponseException>(() => sut.SendAndProcessAsync<Problem>(HttpMethod.Get, uri, null));
+        var sut = new HttpClient(handler);
+        await sut.SendAndProcessAsync<CaptureTransactionResponseDto>(HttpMethod.Get, uri, GetPaymentOrderCaptureRequest());
+    }
 
-            Assert.Equal(1, error.Data.Count);
-        }
-
-        [Fact]
-        public async Task ProblemResponse_CorrectlySerialzes_WhenApiReturnsWrongStatusCode()
+    [Fact]
+    public async Task SendAndPrcoess_DoesNotFail_WhenNotExpectingError()
+    {
+        var handler = new FakeDelegatingHandler();
+        handler.FakeResponseList.Add(new HttpResponseMessage
         {
-            var handler = new FakeDelegatingHandler();
-            handler.FakeResponseList.Add(new HttpResponseMessage
-            {
-                StatusCode = System.Net.HttpStatusCode.OK,
-                Content = new StringContent(PaymentOrderInputValidationFailedReponse)
-            });
-            var uri = new Uri("http://api.externalintegration.payex.com");
-            var sut = new HttpClient(handler);
+            StatusCode = System.Net.HttpStatusCode.BadRequest,
+            Content = new StringContent(PaymentOrderInputValidationFailedReponse)
+        });
+        var uri = new Uri("http://api.externalintegration.payex.com");
+        var sut = new HttpClient(handler);
 
-            var resultDto = await sut.SendAndProcessAsync<ProblemDto>(HttpMethod.Get, uri, null);
-            var result = resultDto.Map();
+        var result = await Assert.ThrowsAsync<HttpResponseException>(() => sut.SendAndProcessAsync<CaptureResponse>(HttpMethod.Get, uri, new object()));
 
-            Assert.IsType<Problem>(result);
-        }
+        Assert.Equal(1, result.Data.Count);
+    }
 
-        [Fact]
-        public async Task WhenSendingACapture_TheConverter_HasZeroErrors()
-        {
-            var handler = new FakeDelegatingHandler();
-            handler.FakeResponseList.Add(new HttpResponseMessage
-            {
-                StatusCode = System.Net.HttpStatusCode.OK,
-                Content = new StringContent(PaymentCompletedReponse)
-            });
-            var uri = new Uri("http://api.externalintegration.payex.com");
+    [Fact]
+    public void ProblemResponse_CorrectlyDeserializes_ResponseField()
+    {
+        var dto = JsonSerializer.Deserialize<ProblemDto>(PaymentOrderInputValidationFailedReponse, JsonSerialization.JsonSerialization.Settings);
 
-            var sut = new HttpClient(handler);
-            await sut.SendAndProcessAsync<CaptureTransactionResponseDto>(HttpMethod.Get, uri, GetPaymentOrderCaptureRequest());
-        }
-
-        [Fact]
-        public async Task SendAndPrcoess_DoesNotFail_WhenNotExpectingError()
-        {
-            var handler = new FakeDelegatingHandler();
-            handler.FakeResponseList.Add(new HttpResponseMessage
-            {
-                StatusCode = System.Net.HttpStatusCode.BadRequest,
-                Content = new StringContent(PaymentOrderInputValidationFailedReponse)
-            });
-            var uri = new Uri("http://api.externalintegration.payex.com");
-            var sut = new HttpClient(handler);
-
-            var result = await Assert.ThrowsAsync<HttpResponseException>(() => sut.SendAndProcessAsync<CaptureResponse>(HttpMethod.Get, uri, new object()));
-
-            Assert.Equal(1, result.Data.Count);
-        }
-
-        [Fact]
-        public void ProblemResponse_CorrectlyDeserializes_ResponseField()
-        {
-            var dto = JsonSerializer.Deserialize<ProblemDto>(PaymentOrderInputValidationFailedReponse, JsonSerialization.JsonSerialization.Settings);
-
-            Assert.NotNull(dto.Problems);
-            Assert.Equal("Some description here", dto.Problems[0].Description);
-        }
+        Assert.NotNull(dto.Problems);
+        Assert.Equal("Some description here", dto.Problems[0].Description);
     }
 }

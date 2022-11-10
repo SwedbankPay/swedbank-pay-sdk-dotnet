@@ -1,17 +1,16 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrders
-{
-    internal class InvoiceItemDto
-    {
-        public InvoiceItemDto(Invoice invoice)
-        {
-            if(invoice == null)
-            {
-                return;
-            }
+﻿namespace SwedbankPay.Sdk.PaymentOrders;
 
-            FeeAmount = invoice.FeeAmount;
+internal class InvoiceItemDto
+{
+    public InvoiceItemDto(Invoice invoice)
+    {
+        if(invoice == null)
+        {
+            return;
         }
 
-        public int? FeeAmount { get; set; }
+        FeeAmount = invoice.FeeAmount;
     }
+
+    public int? FeeAmount { get; set; }
 }

@@ -1,36 +1,35 @@
-﻿namespace SwedbankPay.Sdk
+﻿namespace SwedbankPay.Sdk;
+
+internal class PayeeInfoResponseDto
 {
-    internal class PayeeInfoResponseDto
+    public PayeeInfoResponseDto() { }
+
+    public PayeeInfoResponseDto(IPayeeInfo payeeInfo)
     {
-        public PayeeInfoResponseDto() { }
+        OrderReference = payeeInfo.OrderReference;
+        PayeeId = payeeInfo.PayeeId;
+        PayeeName = payeeInfo.PayeeName;
+        PayeeReference = payeeInfo.PayeeReference;
+        ProductCategory = payeeInfo.ProductCategory;
+        Subsite = payeeInfo.Subsite;
+    }
 
-        public PayeeInfoResponseDto(IPayeeInfo payeeInfo)
-        {
-            OrderReference = payeeInfo.OrderReference;
-            PayeeId = payeeInfo.PayeeId;
-            PayeeName = payeeInfo.PayeeName;
-            PayeeReference = payeeInfo.PayeeReference;
-            ProductCategory = payeeInfo.ProductCategory;
-            Subsite = payeeInfo.Subsite;
-        }
+    public string Id { get; set; }
 
-        public string Id { get; set; }
+    public string OrderReference { get; set; }
 
-        public string OrderReference { get; set; }
+    public string PayeeId { get; set; }
 
-        public string PayeeId { get; set; }
+    public string PayeeName { get; set; }
 
-        public string PayeeName { get; set; }
+    public string PayeeReference { get; set; }
 
-        public string PayeeReference { get; set; }
+    public string ProductCategory { get; set; }
 
-        public string ProductCategory { get; set; }
+    public string Subsite { get; set; }
 
-        public string Subsite { get; set; }
-
-        internal PayeeInfoResponse Map()
-        {
-            return new PayeeInfoResponse(this);
-        }
+    internal PayeeInfoResponse Map()
+    {
+        return new PayeeInfoResponse(this);
     }
 }

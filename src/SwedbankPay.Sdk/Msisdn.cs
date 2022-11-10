@@ -1,53 +1,52 @@
 ﻿using System;
 
-namespace SwedbankPay.Sdk
+namespace SwedbankPay.Sdk;
+
+/// <summary>
+/// Object to hold a consumers/payers <seealso cref="Msisdn"/> information.
+/// </summary>
+public class Msisdn
 {
+    private readonly string value;
+
     /// <summary>
-    /// Object to hold a consumers/payers <seealso cref="Msisdn"/> information.
+    /// Creates a new <seealso cref="Msisdn"/>
     /// </summary>
-    public class Msisdn
+    /// <param name="msisdn">The payers MSISDN.</param>
+    public Msisdn(string msisdn)
     {
-        private readonly string value;
-
-        /// <summary>
-        /// Creates a new <seealso cref="Msisdn"/>
-        /// </summary>
-        /// <param name="msisdn">The payers MSISDN.</param>
-        public Msisdn(string msisdn)
+        if (string.IsNullOrWhiteSpace(msisdn))
         {
-            if (string.IsNullOrWhiteSpace(msisdn))
-            {
-                throw new ArgumentException($"Invalid msisdn: {msisdn}", nameof(msisdn));
-            }
-
-            value = msisdn;
+            throw new ArgumentException($"Invalid msisdn: {msisdn}", nameof(msisdn));
         }
 
-        /// <summary>
-        /// Method to validate a provided <seealso cref="string"/>.
-        /// </summary>
-        /// <param name="msisdn">The <seealso cref="string"/> to validate.</param>
-        /// <param name="validMsisdn">Valid <see cref="Msisdn"/> if can be parsed, <code>null</code> otherwise.</param>
-        /// <returns>false if not valid, true otherwise.</returns>
-        public static bool TryParse(string msisdn, out Msisdn validMsisdn)
-        {
-            if (string.IsNullOrWhiteSpace(msisdn))
-            {
-                validMsisdn = null;
-                return false;
-            }
+        value = msisdn;
+    }
 
-            validMsisdn = new Msisdn(msisdn);
-            return true;
+    /// <summary>
+    /// Method to validate a provided <seealso cref="string"/>.
+    /// </summary>
+    /// <param name="msisdn">The <seealso cref="string"/> to validate.</param>
+    /// <param name="validMsisdn">Valid <see cref="Msisdn"/> if can be parsed, <code>null</code> otherwise.</param>
+    /// <returns>false if not valid, true otherwise.</returns>
+    public static bool TryParse(string msisdn, out Msisdn validMsisdn)
+    {
+        if (string.IsNullOrWhiteSpace(msisdn))
+        {
+            validMsisdn = null;
+            return false;
         }
 
-        /// <summary>
-        /// <inheritdoc/>
-        /// </summary>
-        /// <returns><inheritdoc/></returns>
-        public override string ToString()
-        {
-            return value;
-        }
+        validMsisdn = new Msisdn(msisdn);
+        return true;
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns><inheritdoc/></returns>
+    public override string ToString()
+    {
+        return value;
     }
 }

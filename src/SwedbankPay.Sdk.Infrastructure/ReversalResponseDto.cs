@@ -1,10 +1,9 @@
 ﻿using System;
 
-namespace SwedbankPay.Sdk
+namespace SwedbankPay.Sdk;
+
+internal class ReversalResponseDto
 {
-    internal class ReversalResponseDto
-    {
-        public Uri Payment { get; set; }
-        public TransactionResponseDto Reversal { get; set; }
-    }
+    public Uri Payment { get; set; }
+    public TransactionResponseDto Reversal { get; set; }
 }

@@ -1,17 +1,16 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrders
-{
-    internal class SwishItemDto
-    {
-        public SwishItemDto(Swish swish)
-        {
-            if(swish == null)
-            {
-                return;
-            }
+﻿namespace SwedbankPay.Sdk.PaymentOrders;
 
-            EnableEcomOnly = swish.EnableEcomOnly;
+internal class SwishItemDto
+{
+    public SwishItemDto(Swish swish)
+    {
+        if(swish == null)
+        {
+            return;
         }
 
-        public bool EnableEcomOnly { get; set; }
+        EnableEcomOnly = swish.EnableEcomOnly;
     }
+
+    public bool EnableEcomOnly { get; set; }
 }

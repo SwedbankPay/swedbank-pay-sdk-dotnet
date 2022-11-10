@@ -13,8 +13,8 @@ using SwedbankPay.Sdk.PaymentOrders;
 using System;
 using System.Net.Http;
 
-namespace SwedbankPay.Sdk.Extensions
-{
+namespace SwedbankPay.Sdk.Extensions;
+
 	public static class ServiceCollectionExtensions
 	{
 		/// <summary>
@@ -148,4 +148,3 @@ namespace SwedbankPay.Sdk.Extensions
 				.AddHttpMessageHandler<LoggingDelegatingHandler>();
 		}
 	}
-}

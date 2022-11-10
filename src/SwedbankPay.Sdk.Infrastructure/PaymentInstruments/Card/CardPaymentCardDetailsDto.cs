@@ -1,24 +1,23 @@
-﻿namespace SwedbankPay.Sdk.PaymentInstruments.Card
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Card;
+
+internal class CardPaymentCardDetailsDto
 {
-    internal class CardPaymentCardDetailsDto
+    public CardPaymentCardDetailsDto(ICardPaymentCardDetails transaction)
     {
-        public CardPaymentCardDetailsDto(ICardPaymentCardDetails transaction)
-        {
-            CardExpiryMonth = transaction.CardExpiryMonth;
-            CardExpiryYear = transaction.CardExpiryYear;
-            CardHolderName = transaction.CardHolderName;
-            CardNumber = transaction.CardNumber;
-            CardVerificationCode = transaction.CardVerificationCode;
-        }
-
-        public int CardExpiryMonth { get; }
-
-        public int CardExpiryYear { get; }
-
-        public string CardHolderName { get; }
-
-        public string CardNumber { get; }
-
-        public string CardVerificationCode { get; }
+        CardExpiryMonth = transaction.CardExpiryMonth;
+        CardExpiryYear = transaction.CardExpiryYear;
+        CardHolderName = transaction.CardHolderName;
+        CardNumber = transaction.CardNumber;
+        CardVerificationCode = transaction.CardVerificationCode;
     }
+
+    public int CardExpiryMonth { get; }
+
+    public int CardExpiryYear { get; }
+
+    public string CardHolderName { get; }
+
+    public string CardNumber { get; }
+
+    public string CardVerificationCode { get; }
 }

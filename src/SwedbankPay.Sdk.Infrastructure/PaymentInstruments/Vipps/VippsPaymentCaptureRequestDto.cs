@@ -1,12 +1,11 @@
-﻿namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
-{
-    internal class VippsPaymentCaptureRequestDto
-    {
-        public VippsPaymentCaptureRequestDto(VippsPaymentCaptureRequest payload)
-        {
-            Transaction = new CaptureTransactionDto(payload.Transaction);
-        }
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Vipps;
 
-        public CaptureTransactionDto Transaction { get; }
+internal class VippsPaymentCaptureRequestDto
+{
+    public VippsPaymentCaptureRequestDto(VippsPaymentCaptureRequest payload)
+    {
+        Transaction = new CaptureTransactionDto(payload.Transaction);
     }
+
+    public CaptureTransactionDto Transaction { get; }
 }

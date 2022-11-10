@@ -2,23 +2,22 @@
 using System;
 using System.Collections.Generic;
 
-namespace SwedbankPay.Sdk.PaymentOrders
+namespace SwedbankPay.Sdk.PaymentOrders;
+
+internal class PaymentOrderCancellationResponseDto
 {
-    internal class PaymentOrderCancellationResponseDto
+    public string Id { get; set; }
+    public TransactionDto Cancellation { get; set; }
+
+    internal ICancellationListResponse Map()
     {
-        public string Id { get; set; }
-        public TransactionDto Cancellation { get; set; }
+        var list = new List<ITransaction>();
 
-        internal ICancellationListResponse Map()
+        if(Cancellation != null)
         {
-            var list = new List<ITransaction>();
-
-            if(Cancellation != null)
-            {
-                list.Add(Cancellation.Map());
-            }
-
-            return new CancellationListResponse(new Uri(Id, UriKind.RelativeOrAbsolute), list);
+            list.Add(Cancellation.Map());
         }
+
+        return new CancellationListResponse(new Uri(Id, UriKind.RelativeOrAbsolute), list);
     }
 }

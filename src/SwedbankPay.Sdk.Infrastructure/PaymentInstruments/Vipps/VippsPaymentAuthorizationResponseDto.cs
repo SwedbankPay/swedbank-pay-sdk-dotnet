@@ -1,11 +1,10 @@
 ﻿using System;
 
-namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
-{
-    internal class VippsPaymentAuthorizationResponseDto
-    {
-        public VippsPaymentAuthorizationDto Authorization { get; set; }
+namespace SwedbankPay.Sdk.PaymentInstruments.Vipps;
 
-        public Uri Payment { get; set; }
-    }
+internal class VippsPaymentAuthorizationResponseDto
+{
+    public VippsPaymentAuthorizationDto Authorization { get; set; }
+
+    public Uri Payment { get; set; }
 }

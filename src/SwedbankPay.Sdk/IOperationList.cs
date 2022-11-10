@@ -1,16 +1,15 @@
 ﻿using System.Collections.Generic;
 
-namespace SwedbankPay.Sdk
+namespace SwedbankPay.Sdk;
+
+/// <summary>
+/// Holds a list of <seealso cref="HttpOperation"/>s.
+/// </summary>
+public interface IOperationList : IList<HttpOperation>
 {
     /// <summary>
-    /// Holds a list of <seealso cref="HttpOperation"/>s.
+    /// Transforms the list to a string.
     /// </summary>
-    public interface IOperationList : IList<HttpOperation>
-    {
-        /// <summary>
-        /// Transforms the list to a string.
-        /// </summary>
-        /// <returns>The transformed string.</returns>
-        string ToString();
-    }
+    /// <returns>The transformed string.</returns>
+    string ToString();
 }

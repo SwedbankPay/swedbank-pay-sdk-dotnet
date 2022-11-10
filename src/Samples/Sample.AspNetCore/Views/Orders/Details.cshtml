@@ -39,8 +39,8 @@ else if (TempData["ErrorMessage"] != null)
 <div automation="div-orders">
 
     @foreach (var order in Model)
-    {
-        <div data-paymentorderlink="@order.Order.PaymentOrderLink" data-paymentlink="@order.Order.PaymentLink" automation="div-order">
+{
+    <div data-paymentorderlink="@order.Order.PaymentOrderLink" data-paymentlink="@order.Order.PaymentLink" automation="div-order">
             <div>
                 <dl class="row">
                     <dt class="col-sm-2">
@@ -79,8 +79,8 @@ else if (TempData["ErrorMessage"] != null)
                 </thead>
                 <tbody>
                     @foreach (var item in order.OperationList)
-                    {
-                        <tr>
+                {
+                    <tr>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Method)
                             </td>
@@ -92,53 +92,53 @@ else if (TempData["ErrorMessage"] != null)
                             </td>
                             <td>
                                 @switch (item.Rel.Value)
-                                {
-                                    case PaymentOrderResourceOperations.CreatePaymentOrderCancel:
-                                        actionName = "PaymentOrderCancel";
-                                        break;
-                                    case PaymentOrderResourceOperations.CreatePaymentOrderCapture:
-                                        actionName = "PaymentOrderCapture";
-                                        break;
-                                    case PaymentOrderResourceOperations.CreatePaymentOrderReversal:
-                                        actionName = "PaymentOrderReversal";
-                                        break;
-                                    case PaymentOrderResourceOperations.RedirectPaymentOrder:
-                                        break;
-                                    case PaymentOrderResourceOperations.UpdatePaymentOrderUpdateOrder:
-                                        break;
-                                    case PaymentOrderResourceOperations.ViewPaymentOrder:
-                                        break;
-                                    case PaymentResourceOperations.CreateReversal:
-                                        actionName = "Reversal";
-                                        break;
+                            {
+                                case PaymentOrderResourceOperations.CreatePaymentOrderCancel:
+                                    actionName = "PaymentOrderCancel";
+                                    break;
+                                case PaymentOrderResourceOperations.CreatePaymentOrderCapture:
+                                    actionName = "PaymentOrderCapture";
+                                    break;
+                                case PaymentOrderResourceOperations.CreatePaymentOrderReversal:
+                                    actionName = "PaymentOrderReversal";
+                                    break;
+                                case PaymentOrderResourceOperations.RedirectPaymentOrder:
+                                    break;
+                                case PaymentOrderResourceOperations.UpdatePaymentOrderUpdateOrder:
+                                    break;
+                                case PaymentOrderResourceOperations.ViewPaymentOrder:
+                                    break;
+                                case PaymentResourceOperations.CreateReversal:
+                                    actionName = "Reversal";
+                                    break;
 
-                                    case PaymentResourceOperations.CreateCapture:
-                                        actionName = "Capture";
-                                        break;
-                                    case PaymentResourceOperations.CreateCancellation:
-                                        actionName = "Cancel";
-                                        break;
-                                }
+                                case PaymentResourceOperations.CreateCapture:
+                                    actionName = "Capture";
+                                    break;
+                                case PaymentResourceOperations.CreateCancellation:
+                                    actionName = "Cancel";
+                                    break;
+                            }
                                 @if (!string.IsNullOrEmpty(actionName))
 
-                                {
-                                    var automationTagName = $"a-{actionName.ToLower()}";
+                            {
+                                var automationTagName = $"a-{actionName.ToLower()}";
 
-                                    <a class="btn btn-primary" asp-controller="Payment" asp-action=@actionName asp-route-paymentOrderId=@order.Order.PaymentOrderLink asp-route-paymentId="@order.Order.PaymentLink" asp-route-instrument="@order.Order.Instrument" automation=@automationTagName>Execute</a>
+                                <a class="btn btn-primary" asp-controller="Payment" asp-action=@actionName asp-route-paymentOrderId=@order.Order.PaymentOrderLink asp-route-paymentId="@order.Order.PaymentLink" asp-route-instrument="@order.Order.Instrument" automation=@automationTagName>Execute</a>
 
-                                }
-                                else
-                                {
-                                    <span class="badge badge-warning">Not implemented</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-warning">Not implemented</span>
 
-                                }
+                            }
 
                             </td>
                         </tr>
-                        actionName = null;
-                    }
+                    actionName = null;
+                }
                 </tbody>
             </table>
         </div>
-    }
+}
 </div>

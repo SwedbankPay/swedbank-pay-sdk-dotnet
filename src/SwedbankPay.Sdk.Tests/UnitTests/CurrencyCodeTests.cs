@@ -2,42 +2,41 @@
 
 using Xunit;
 
-namespace SwedbankPay.Sdk.Tests.UnitTests
+namespace SwedbankPay.Sdk.Tests.UnitTests;
+
+public class CurrencyCodeTests
 {
-    public class CurrencyCodeTests
+    [Theory]
+    [InlineData("SEK")]
+    [InlineData("NOK")]
+    [InlineData("USD")]
+    [InlineData("EUR")]
+    [InlineData("DKK")]
+    public void CreateNewCurrencyCode_DoesNotThrow_WhenGivenValidCurrencyCode(string currencyCode)
     {
-        [Theory]
-        [InlineData("SEK")]
-        [InlineData("NOK")]
-        [InlineData("USD")]
-        [InlineData("EUR")]
-        [InlineData("DKK")]
-        public void CreateNewCurrencyCode_DoesNotThrow_WhenGivenValidCurrencyCode(string currencyCode)
-        {
-            //ACT
-            var ex = Record.Exception(() => new Currency(currencyCode));
+        //ACT
+        var ex = Record.Exception(() => new Currency(currencyCode));
 
-            //ASSERT
-            Assert.Null(ex);
-        }
+        //ASSERT
+        Assert.Null(ex);
+    }
 
 
-        [Theory]
-        [InlineData("SE")]
-        [InlineData("NOKK")]
-        [InlineData("USDOL")]
-        public void ThrowsArgumentException_WhenGivenInvalidCurrencyCode(string currencyCode)
-        {
-            //ASSERT
-            Assert.Throws<ArgumentException>(() => new Currency(currencyCode));
-        }
+    [Theory]
+    [InlineData("SE")]
+    [InlineData("NOKK")]
+    [InlineData("USDOL")]
+    public void ThrowsArgumentException_WhenGivenInvalidCurrencyCode(string currencyCode)
+    {
+        //ASSERT
+        Assert.Throws<ArgumentException>(() => new Currency(currencyCode));
+    }
 
 
-        [Fact]
-        public void ThrowsArgumentNullException_WhenGivenNullOrEmptyCurrencyCode()
-        {
-            //ASSERT
-            Assert.Throws<ArgumentNullException>("currencyCode", () => new Currency(""));
-        }
+    [Fact]
+    public void ThrowsArgumentNullException_WhenGivenNullOrEmptyCurrencyCode()
+    {
+        //ASSERT
+        Assert.Throws<ArgumentNullException>("currencyCode", () => new Currency(""));
     }
 }

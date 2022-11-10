@@ -1,15 +1,14 @@
 ﻿using System.Net.Http;
 
-namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
-{
-    internal class MobilePayPaymentResponseDto
-    {
-        public OperationListDto Operations { get; set; }
-        public MobilePayPaymentDto Payment { get; set; }
+namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay;
 
-        public IMobilePayPaymentResponse Map(HttpClient httpClient)
-        {
-            return new MobilePayPaymentResponse(this, httpClient);
-        }
+internal class MobilePayPaymentResponseDto
+{
+    public OperationListDto Operations { get; set; }
+    public MobilePayPaymentDto Payment { get; set; }
+
+    public IMobilePayPaymentResponse Map(HttpClient httpClient)
+    {
+        return new MobilePayPaymentResponse(this, httpClient);
     }
 }

@@ -1,23 +1,22 @@
 ﻿using System;
 
-namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
+namespace SwedbankPay.Sdk.PaymentInstruments.Invoice;
+
+internal class InvoicePaymentAuthorizationResponse : IInvoicePaymentAuthorizationResponse
 {
-    internal class InvoicePaymentAuthorizationResponse : IInvoicePaymentAuthorizationResponse
+    public InvoicePaymentAuthorizationResponse(Uri payment, IInvoicePaymentAuthorization authorization)
     {
-        public InvoicePaymentAuthorizationResponse(Uri payment, IInvoicePaymentAuthorization authorization)
-        {
-            Payment = payment;
-            Authorization = authorization;
-        }
-
-        /// <summary>
-        /// Details about the payments current authorization if available.
-        /// </summary>
-        public IInvoicePaymentAuthorization Authorization { get; }
-
-        /// <summary>
-        /// A <seealso cref="Uri"/> to the authorization if available.
-        /// </summary>
-        public Uri Payment { get; }
+        Payment = payment;
+        Authorization = authorization;
     }
+
+    /// <summary>
+    /// Details about the payments current authorization if available.
+    /// </summary>
+    public IInvoicePaymentAuthorization Authorization { get; }
+
+    /// <summary>
+    /// A <seealso cref="Uri"/> to the authorization if available.
+    /// </summary>
+    public Uri Payment { get; }
 }

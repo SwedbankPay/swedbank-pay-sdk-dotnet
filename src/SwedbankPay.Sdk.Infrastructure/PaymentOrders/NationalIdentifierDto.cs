@@ -1,21 +1,20 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrders
+﻿namespace SwedbankPay.Sdk.PaymentOrders;
+
+internal class NationalIdentifierDto
 {
-    internal class NationalIdentifierDto
+    public NationalIdentifierDto() { }
+
+    public NationalIdentifierDto(NationalIdentifier nationalIdentifier)
     {
-        public NationalIdentifierDto() { }
-
-        public NationalIdentifierDto(NationalIdentifier nationalIdentifier)
+        if(nationalIdentifier == null)
         {
-            if(nationalIdentifier == null)
-            {
-                return;
-            }
-            CountryCode = nationalIdentifier.CountryCode.ToString();
-            SocialSecurityNumber = nationalIdentifier.SocialSecurityNumber;
+            return;
         }
-
-        public string CountryCode { get; set; }
-
-        public string SocialSecurityNumber { get; }
+        CountryCode = nationalIdentifier.CountryCode.ToString();
+        SocialSecurityNumber = nationalIdentifier.SocialSecurityNumber;
     }
+
+    public string CountryCode { get; set; }
+
+    public string SocialSecurityNumber { get; }
 }

@@ -3,91 +3,90 @@ using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace SwedbankPay.Sdk.JsonSerialization.Converters
+namespace SwedbankPay.Sdk.JsonSerialization.Converters;
+
+internal class CustomMetadataDtoConverter : JsonConverter<MetadataDto>
 {
-    internal class CustomMetadataDtoConverter : JsonConverter<MetadataDto>
+    public override MetadataDto Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        public override MetadataDto Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        if (reader.TokenType != JsonTokenType.StartObject)
         {
-            if (reader.TokenType != JsonTokenType.StartObject)
+            throw new JsonException();
+        }
+
+        var metadata = new MetadataDto();
+
+        while (reader.Read())
+        {
+            if (reader.TokenType == JsonTokenType.EndObject)
             {
-                throw new JsonException();
+                return metadata;
             }
 
-            var metadata = new MetadataDto();
+            string keyString = reader.GetString();
+            reader.Read();
 
-            while (reader.Read())
+            if (reader.TokenType == JsonTokenType.String)
             {
-                if (reader.TokenType == JsonTokenType.EndObject)
+                string itemValue = reader.GetString();
+
+                if (keyString.Equals(nameof(Metadata.Id), StringComparison.InvariantCultureIgnoreCase))
                 {
-                    return metadata;
+                    metadata.Id = itemValue;
                 }
 
-                string keyString = reader.GetString();
-                reader.Read();
-
-                if (reader.TokenType == JsonTokenType.String)
+                metadata.Add(keyString, itemValue);
+            }
+            else if (reader.TokenType == JsonTokenType.Number)
+            {
+                if (reader.TryGetInt64(out var valueInt))
                 {
-                    string itemValue = reader.GetString();
-
-                    if (keyString.Equals(nameof(Metadata.Id), StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        metadata.Id = itemValue;
-                    }
-
-                    metadata.Add(keyString, itemValue);
+                    metadata.Add(keyString, valueInt);
                 }
-                else if (reader.TokenType == JsonTokenType.Number)
+                else
                 {
-                    if (reader.TryGetInt64(out var valueInt))
-                    {
-                        metadata.Add(keyString, valueInt);
-                    }
-                    else
-                    {
-                        var value = reader.GetDecimal();
-                        metadata.Add(keyString, value);
-                    }
-                }
-                else if (reader.TokenType == JsonTokenType.False)
-                {
-                    var value = false;
-                    metadata.Add(keyString, value);
-                }
-                else if (reader.TokenType == JsonTokenType.True)
-                {
-                    var value = true;
+                    var value = reader.GetDecimal();
                     metadata.Add(keyString, value);
                 }
             }
-
-            throw new JsonException("Error Occured in reading MetaData");
+            else if (reader.TokenType == JsonTokenType.False)
+            {
+                var value = false;
+                metadata.Add(keyString, value);
+            }
+            else if (reader.TokenType == JsonTokenType.True)
+            {
+                var value = true;
+                metadata.Add(keyString, value);
+            }
         }
 
-        public override void Write(Utf8JsonWriter writer, MetadataDto value, JsonSerializerOptions options)
-        {
-            writer.WriteStartObject();
+        throw new JsonException("Error Occured in reading MetaData");
+    }
 
-            foreach (KeyValuePair<string, object> item in value)
+    public override void Write(Utf8JsonWriter writer, MetadataDto value, JsonSerializerOptions options)
+    {
+        writer.WriteStartObject();
+
+        foreach (KeyValuePair<string, object> item in value)
+        {
+            if (!item.Key.Equals("id", StringComparison.InvariantCultureIgnoreCase))
             {
-                if (!item.Key.Equals("id", StringComparison.InvariantCultureIgnoreCase))
+                if (Int64.TryParse(item.Value.ToString(), out var integer))
                 {
-                    if (Int64.TryParse(item.Value.ToString(), out var integer))
-                    {
-                        writer.WriteNumber(item.Key, integer);
-                    }
-                    else if (Double.TryParse(item.Value.ToString(), out var doubleNumber))
-                    {
-                        writer.WriteNumber(item.Key, doubleNumber);
-                    }
-                    else
-                    {
-                        writer.WriteString(item.Key, item.Value.ToString());
-                    }
+                    writer.WriteNumber(item.Key, integer);
+                }
+                else if (Double.TryParse(item.Value.ToString(), out var doubleNumber))
+                {
+                    writer.WriteNumber(item.Key, doubleNumber);
+                }
+                else
+                {
+                    writer.WriteString(item.Key, item.Value.ToString());
                 }
             }
-
-            writer.WriteEndObject();
         }
+
+        writer.WriteEndObject();
     }
 }

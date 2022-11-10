@@ -2,21 +2,20 @@
 using System;
 using System.Collections.Generic;
 
-namespace SwedbankPay.Sdk.PaymentInstruments
+namespace SwedbankPay.Sdk.PaymentInstruments;
+
+internal class AuthorizationListDto
 {
-    internal class AuthorizationListDto
+    public string Id { get; set; }
+    public List<PaymentAuthorizationDto> AuthorizationList { get; set; } = new List<PaymentAuthorizationDto>();
+    internal ICardPaymentAuthorizationListResponse Map()
     {
-        public string Id { get; set; }
-        public List<PaymentAuthorizationDto> AuthorizationList { get; set; } = new List<PaymentAuthorizationDto>();
-        internal ICardPaymentAuthorizationListResponse Map()
+        var list = new List<IPaymentAuthorization>();
+        foreach (var item in AuthorizationList)
         {
-            var list = new List<IPaymentAuthorization>();
-            foreach (var item in AuthorizationList)
-            {
-                list.Add(new PaymentAuthorization(item));
-            }
-            var uri = new Uri(Id, UriKind.RelativeOrAbsolute);
-            return new CardPaymentAuthorizationListResponse(uri, list);
+            list.Add(new PaymentAuthorization(item));
         }
+        var uri = new Uri(Id, UriKind.RelativeOrAbsolute);
+        return new CardPaymentAuthorizationListResponse(uri, list);
     }
 }

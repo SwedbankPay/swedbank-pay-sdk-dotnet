@@ -1,15 +1,14 @@
-﻿namespace SwedbankPay.Sdk.PaymentInstruments.Card
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Card;
+
+internal class CardPaymentCancelTransactionDto
 {
-    internal class CardPaymentCancelTransactionDto
+    public CardPaymentCancelTransactionDto(CardPaymentCancelTransaction transaction)
     {
-        public CardPaymentCancelTransactionDto(CardPaymentCancelTransaction transaction)
-        {
-            Description = transaction.Description;
-            PayeeReference = transaction.PayeeReference;
-        }
-
-        public string Description { get; }
-
-        public string PayeeReference { get; }
+        Description = transaction.Description;
+        PayeeReference = transaction.PayeeReference;
     }
+
+    public string Description { get; }
+
+    public string PayeeReference { get; }
 }

@@ -1,8 +1,7 @@
-﻿namespace Sample.AspNetCore.SystemTests.PageObjectModels.Base
-{
-    using _ = HomePage;
+﻿namespace Sample.AspNetCore.SystemTests.PageObjectModels.Base;
 
-    public class HomePage : BasePage<_>
-    {
-    }
+using _ = HomePage;
+
+public class HomePage : BasePage<_>
+{
 }
