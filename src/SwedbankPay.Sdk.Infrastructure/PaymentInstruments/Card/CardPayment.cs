@@ -41,6 +41,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             Captures = payment.Captures?.Map();
             Reversals = payment.Reversals?.Map();
             Transactions = payment.Transactions?.Map();
+            Verifications = payment.Verifications?.Map();
             if (!string.IsNullOrEmpty(payment.Intent))
             {
                 Intent = payment.Intent.ParseTo<PaymentIntent>();
