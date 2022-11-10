@@ -26,10 +26,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
             Language = new Language(payment.Language);
             Number = payment.Number;
             Operation = payment.Operation;
-            PayeeInfo = payment.PayeeInfo.Map();
+            PayeeInfo = payment.PayeeInfo?.Map();
             PayerReference = payment.PayerReference;
             InitiatingSystemUserAgent = payment.InitiatingSystemUserAgent;
-            Prices = payment.Prices.Map();
+            Prices = payment.Prices?.Map();
             State = payment.State;
             Urls = new UrlsResponse(payment.Urls);
             UserAgent = payment.UserAgent;
@@ -95,6 +95,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         public State State { get; }
 
         public ITransactionListResponse Transactions { get; }
+
+        public IVerificationListResponse Verifications { get; }
 
         public IUrls Urls { get; }
 
