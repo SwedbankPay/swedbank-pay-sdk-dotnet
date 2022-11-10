@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -96,12 +97,12 @@ namespace Sample.AspNetCore.Controllers
 
             foreach (var order in orders)
             {
-                IEnumerable<HttpOperation> operations = Enumerable.Empty<HttpOperation>();
+                List<HttpOperation> operations = new List<HttpOperation>();
                 if (order.PaymentOrderLink != null)
                 {
                     var paymentOrder = await this.swedbankPayClient.PaymentOrders.Get(order.PaymentOrderLink);
                     var paymentOrderOperations = paymentOrder.Operations.Where(r => r.Key.Value.Contains("paymentorder")).Select(x => x.Value);
-                    operations = paymentOrderOperations;
+                    operations = paymentOrderOperations.ToList();
                 }
                 else
                 {
@@ -110,17 +111,24 @@ namespace Sample.AspNetCore.Controllers
                         case PaymentInstrument.Swish:
                             var swishPayment = await this.swedbankPayClient.Payments.SwishPayments.Get(order.PaymentLink, PaymentExpand.All);
                             var swishOperations = swishPayment.Operations;
-                            operations = swishOperations.Values;
+                            operations = swishOperations.Values.ToList();
                             break;
                         case PaymentInstrument.CreditCard:
-                            var cardPayment = await this.swedbankPayClient.Payments.SwishPayments.Get(order.PaymentLink, PaymentExpand.All);
+                            var cardPayment = await this.swedbankPayClient.Payments.CardPayments.Get(order.PaymentLink, PaymentExpand.All);
                             var cardOperations = cardPayment.Operations;
-                            operations = cardOperations.Values;
+                            operations = cardOperations.Values.ToList();
+
+                            if (!string.IsNullOrWhiteSpace(cardPayment.Payment.RecurrenceToken)
+                                && cardPayment.Payment.Operation.Equals(Operation.Verify))
+                            {
+                                operations.Add(new HttpOperation(new Uri("https://localhost:5001"), new LinkRelation("create-recurring", "create-recurring"), "GET", "text/html"));
+                            }
+
                             break;
                         case PaymentInstrument.Trustly:
                             var trustlyPayment = await this.swedbankPayClient.Payments.TrustlyPayments.Get(order.PaymentLink, PaymentExpand.All);
                             var trustlyOperations = trustlyPayment.Operations;
-                            operations = trustlyOperations.Values;
+                            operations = trustlyOperations.Values.ToList();
                             break;
                     }
                 }

@@ -205,6 +205,51 @@ namespace Sample.AspNetCore.Controllers
 			}
 		}
 
+
+		public async Task<ICardPaymentRecurResponse> CreateVerifyRecurringPayment()
+		{
+			var totalAmount = this.cartService.CalculateTotal();
+			var vatAmount = new Amount(0);
+			try
+			{
+				var cardRequest = new CardPaymentVerifyRequest(PaymentIntent.Authorization, new Currency("SEK"),
+															  "Test Purchase", "useragent",
+															  new Language("sv-SE"),
+															  new Urls(
+																  this.urls.HostUrls.ToList(),
+																  this.urls.CompleteUrl,
+																  this.urls.TermsOfServiceUrl)
+															  {
+																  CancelUrl = this.urls.CancelUrl,
+																  PaymentUrl = this.urls.PaymentUrl,
+																  CallbackUrl = this.urls.CallbackUrl,
+																  LogoUrl = this.urls.LogoUrl
+															  },
+															  new PayeeInfo(this.payeeInfoOptions.PayeeId,
+																			this.payeeInfoOptions.PayeeReference)
+				);
+				foreach (var url in urls.HostUrls)
+				{
+					cardRequest.Payment.Urls.HostUrls.Add(url);
+				}
+
+				cardRequest.Payment.GenerateRecurrenceToken = true;
+				
+				var cardPayment = await this.swedbankPayClient.Payments.CardPayments.Create(cardRequest);
+				this.cartService.PaymentLink = cardPayment.Payment.Id.OriginalString;
+				this.cartService.Instrument = PaymentInstrument.CreditCard;
+				this.cartService.PaymentOrderLink = null;
+				this.cartService.Update();
+				return cardPayment;
+			}
+			catch (Exception ex)
+			{
+				Debug.Write(ex.Message);
+				return null;
+			}
+		}
+
+
 		public async Task<ITrustlyPaymentResponse> CreateTrustlyPayment()
 		{
 			var totalAmount = this.cartService.CalculateTotal();
@@ -397,15 +442,22 @@ namespace Sample.AspNetCore.Controllers
 		}
 
 		[HttpPost]
-		public async Task<JsonResult> GetPaymentJsSource(PaymentInstrument instrument)
+		public async Task<JsonResult> GetPaymentJsSource(PaymentInstrument instrument, bool recurring = false)
 		{
 			switch (instrument)
 			{
 				case PaymentInstrument.CreditCard:
-					var cardPayment = await CreateCardPayment().ConfigureAwait(false);
-					return new JsonResult(cardPayment.Operations.ViewAuthorization.Href);
-
-				case PaymentInstrument.Swish:
+                    if (recurring)
+                    {
+                        var recurringPayment = await CreateVerifyRecurringPayment().ConfigureAwait(false);
+                        return new JsonResult(recurringPayment.Operations.ViewVerification.Href);
+                    }
+                    else
+                    {
+                        var cardPayment = await CreateCardPayment().ConfigureAwait(false);
+                        return new JsonResult(cardPayment.Operations.ViewAuthorization.Href);
+                    }
+                case PaymentInstrument.Swish:
 					var swishPayment = await CreateSwishPayment().ConfigureAwait(false);
 					return new JsonResult(swishPayment.Operations.ViewSales.Href);
 
