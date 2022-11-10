@@ -1,14 +1,13 @@
 ﻿
-namespace SwedbankPay.Sdk.PaymentInstruments
+namespace SwedbankPay.Sdk.PaymentInstruments;
+
+/// <summary>
+/// Interface describes a object having a Transaction.
+/// </summary>
+public interface ITransactionResponse
 {
     /// <summary>
-    /// Interface describes a object having a Transaction.
+    /// Details on the current transaction.
     /// </summary>
-    public interface ITransactionResponse
-    {
-        /// <summary>
-        /// Details on the current transaction.
-        /// </summary>
-        ITransaction Transaction { get; }
-    }
+    ITransaction Transaction { get; }
 }

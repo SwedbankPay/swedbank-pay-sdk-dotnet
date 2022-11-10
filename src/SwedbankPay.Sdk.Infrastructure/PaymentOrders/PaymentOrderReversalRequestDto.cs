@@ -1,12 +1,11 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrders
-{
-    internal class PaymentOrderReversalRequestDto
-    {
-        public PaymentOrderReversalRequestDto(PaymentOrderReversalRequest payload)
-        {
-            Transaction = new PaymentOrderReversalTransactionDto(payload.Transaction);
-        }
+﻿namespace SwedbankPay.Sdk.PaymentOrders;
 
-        public PaymentOrderReversalTransactionDto Transaction { get; }
+internal class PaymentOrderReversalRequestDto
+{
+    public PaymentOrderReversalRequestDto(PaymentOrderReversalRequest payload)
+    {
+        Transaction = new PaymentOrderReversalTransactionDto(payload.Transaction);
     }
+
+    public PaymentOrderReversalTransactionDto Transaction { get; }
 }

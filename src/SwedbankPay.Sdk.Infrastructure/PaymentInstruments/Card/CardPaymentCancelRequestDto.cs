@@ -1,12 +1,11 @@
-﻿namespace SwedbankPay.Sdk.PaymentInstruments.Card
-{
-    internal class CardPaymentCancelRequestDto
-    {
-        public CardPaymentCancelRequestDto(CardPaymentCancelRequest payload)
-        {
-            Transaction = new CardPaymentCancelTransactionDto(payload.Transaction);
-        }
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Card;
 
-        public CardPaymentCancelTransactionDto Transaction { get; }
+internal class CardPaymentCancelRequestDto
+{
+    public CardPaymentCancelRequestDto(CardPaymentCancelRequest payload)
+    {
+        Transaction = new CardPaymentCancelTransactionDto(payload.Transaction);
     }
+
+    public CardPaymentCancelTransactionDto Transaction { get; }
 }

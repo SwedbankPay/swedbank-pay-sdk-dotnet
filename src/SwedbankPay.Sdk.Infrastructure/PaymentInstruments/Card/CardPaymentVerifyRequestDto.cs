@@ -1,12 +1,11 @@
-﻿namespace SwedbankPay.Sdk.PaymentInstruments.Card
-{
-    internal class CardPaymentVerifyRequestDto
-    {
-        public CardPaymentVerifyRequestDto(CardPaymentVerifyRequest paymentRequest)
-        {
-            Payment = new CardPaymentVerifyRequestDetailsDto(paymentRequest.Payment);
-        }
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Card;
 
-        public CardPaymentVerifyRequestDetailsDto Payment { get; }
+internal class CardPaymentVerifyRequestDto
+{
+    public CardPaymentVerifyRequestDto(CardPaymentVerifyRequest paymentRequest)
+    {
+        Payment = new CardPaymentVerifyRequestDetailsDto(paymentRequest.Payment);
     }
+
+    public CardPaymentVerifyRequestDetailsDto Payment { get; }
 }

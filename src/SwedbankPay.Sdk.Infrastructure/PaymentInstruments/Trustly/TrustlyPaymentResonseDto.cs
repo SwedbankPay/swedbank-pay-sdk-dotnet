@@ -1,8 +1,7 @@
-﻿namespace SwedbankPay.Sdk.PaymentInstruments.Trustly
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Trustly;
+
+internal class TrustlyPaymentResonseDto
 {
-    internal class TrustlyPaymentResonseDto
-    {
-        public TrustlyPaymentDto Payment { get; set; }
-        public OperationListDto Operations { get; set; }
-    }
+    public TrustlyPaymentDto Payment { get; set; }
+    public OperationListDto Operations { get; set; }
 }

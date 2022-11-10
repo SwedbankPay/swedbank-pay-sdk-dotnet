@@ -1,7 +1,7 @@
 ﻿using System;
 
-namespace SwedbankPay.Sdk.PaymentOrders
-{
+namespace SwedbankPay.Sdk.PaymentOrders;
+
 	internal class PayerDto
 	{
 		public PayerDto() { }
@@ -71,4 +71,3 @@ namespace SwedbankPay.Sdk.PaymentOrders
 			return payer;
 		}
 	}
-}

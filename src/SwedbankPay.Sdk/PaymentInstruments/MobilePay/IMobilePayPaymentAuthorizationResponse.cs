@@ -1,20 +1,19 @@
 ﻿using System;
 
-namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
+namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay;
+
+/// <summary>
+/// Object holding a reference to a authorization resource.
+/// </summary>
+public interface IMobilePayPaymentAuthorizationResponse
 {
     /// <summary>
-    /// Object holding a reference to a authorization resource.
+    /// The currently available information about the authorization of the payment.
     /// </summary>
-    public interface IMobilePayPaymentAuthorizationResponse
-    {
-        /// <summary>
-        /// The currently available information about the authorization of the payment.
-        /// </summary>
-        IMobilePayPaymentAuthorization Authorization { get; }
+    IMobilePayPaymentAuthorization Authorization { get; }
 
-        /// <summary>
-        /// The <seealso cref="Uri"/> to get the details about the currently available authorization.
-        /// </summary>
-        Uri Payment { get; }
-    }
+    /// <summary>
+    /// The <seealso cref="Uri"/> to get the details about the currently available authorization.
+    /// </summary>
+    Uri Payment { get; }
 }

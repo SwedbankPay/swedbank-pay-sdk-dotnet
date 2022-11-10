@@ -1,9 +1,8 @@
-﻿namespace Sample.AspNetCore.SystemTests.Test.Helpers
+﻿namespace Sample.AspNetCore.SystemTests.Test.Helpers;
+
+public class PayexTrustlyInfo : PayexInfo
 {
-    public class PayexTrustlyInfo : PayexInfo
+    public PayexTrustlyInfo()
     {
-        public PayexTrustlyInfo()
-        {
-        }
     }
 }

@@ -1,20 +1,19 @@
 ﻿using System;
 
-namespace SwedbankPay.Sdk.PaymentInstruments
+namespace SwedbankPay.Sdk.PaymentInstruments;
+
+/// <summary>
+/// Transactional details about a cancelled payment.
+/// </summary>
+public interface ICancellationResponse
 {
     /// <summary>
-    /// Transactional details about a cancelled payment.
+    /// A unique <seealso cref="Uri"/> to access this cancellation resource.
     /// </summary>
-    public interface ICancellationResponse
-    {
-        /// <summary>
-        /// A unique <seealso cref="Uri"/> to access this cancellation resource.
-        /// </summary>
-        Uri Payment { get; }
+    Uri Payment { get; }
 
-        /// <summary>
-        /// Transactional information about this cancellation.
-        /// </summary>
-        ITransactionResponse Cancellation { get; }
-    }
+    /// <summary>
+    /// Transactional information about this cancellation.
+    /// </summary>
+    ITransactionResponse Cancellation { get; }
 }

@@ -1,14 +1,13 @@
-﻿namespace SwedbankPay.Sdk.PaymentInstruments.Card
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Card;
+
+internal class CardPaymentAbortDto
 {
-    internal class CardPaymentAbortDto
+    public CardPaymentAbortDto(CardPaymentAbortPayment payment)
     {
-        public CardPaymentAbortDto(CardPaymentAbortPayment payment)
-        {
-            AbortReason = payment.AbortReason;
-        }
-
-        public string Operation { get; } = "Abort";
-
-        public string AbortReason { get; }
+        AbortReason = payment.AbortReason;
     }
+
+    public string Operation { get; } = "Abort";
+
+    public string AbortReason { get; }
 }

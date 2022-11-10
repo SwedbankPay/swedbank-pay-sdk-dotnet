@@ -1,18 +1,17 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrders
+﻿namespace SwedbankPay.Sdk.PaymentOrders;
+
+/// <summary>
+/// <inheritdoc/>
+/// </summary>
+public interface IPaymentOrderPayeeInfo: IPayeeInfo
 {
     /// <summary>
-    /// <inheritdoc/>
+    /// The Corporation ID for the Payee
     /// </summary>
-    public interface IPaymentOrderPayeeInfo: IPayeeInfo
-    {
-        /// <summary>
-        /// The Corporation ID for the Payee
-        /// </summary>
-        string CorporationId { get; }
+    string CorporationId { get; }
 
-        /// <summary>
-        /// The Corporation name for the Payee
-        /// </summary>
-        string CorporationName { get; }
-    }
+    /// <summary>
+    /// The Corporation name for the Payee
+    /// </summary>
+    string CorporationName { get; }
 }

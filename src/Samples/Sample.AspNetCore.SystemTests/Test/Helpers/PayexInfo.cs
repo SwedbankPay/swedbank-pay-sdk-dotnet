@@ -1,6 +1,5 @@
-﻿namespace Sample.AspNetCore.SystemTests.Test.Helpers
+﻿namespace Sample.AspNetCore.SystemTests.Test.Helpers;
+
+public abstract class PayexInfo
 {
-    public abstract class PayexInfo
-    {
-    }
 }

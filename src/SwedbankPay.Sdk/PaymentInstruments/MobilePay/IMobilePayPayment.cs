@@ -1,13 +1,12 @@
-﻿namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.MobilePay;
+
+/// <summary>
+/// Object describing a payment for the Mobile Pay payment instrument.
+/// </summary>
+public interface IMobilePayPayment : IIdentifiable, IPaymentInstrument
 {
     /// <summary>
-    /// Object describing a payment for the Mobile Pay payment instrument.
+    /// Currently available list of authorizations.
     /// </summary>
-    public interface IMobilePayPayment : IIdentifiable, IPaymentInstrument
-    {
-        /// <summary>
-        /// Currently available list of authorizations.
-        /// </summary>
-        IMobilePayPaymentAuthorizationListResponse Authorizations { get; }
-    }
+    IMobilePayPaymentAuthorizationListResponse Authorizations { get; }
 }

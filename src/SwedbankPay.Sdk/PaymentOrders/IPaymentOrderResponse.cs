@@ -1,19 +1,18 @@
-﻿namespace SwedbankPay.Sdk.PaymentOrders
+﻿namespace SwedbankPay.Sdk.PaymentOrders;
+
+/// <summary>
+/// API response giving access to the current payment
+/// order and available operations.
+/// </summary>
+public interface IPaymentOrderResponse
 {
     /// <summary>
-    /// API response giving access to the current payment
-    /// order and available operations.
+    /// Currently available operations of this payment order.
     /// </summary>
-    public interface IPaymentOrderResponse
-    {
-        /// <summary>
-        /// Currently available operations of this payment order.
-        /// </summary>
-        IPaymentOrderOperations Operations { get; }
+    IPaymentOrderOperations Operations { get; }
 
-        /// <summary>
-        /// The current payment order.
-        /// </summary>
-        IPaymentOrder PaymentOrder { get; }
-    }
+    /// <summary>
+    /// The current payment order.
+    /// </summary>
+    IPaymentOrder PaymentOrder { get; }
 }

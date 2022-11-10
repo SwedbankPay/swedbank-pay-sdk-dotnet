@@ -1,17 +1,16 @@
-﻿namespace SwedbankPay.Sdk.PaymentInstruments.Swish
-{
-    internal class SwishPaymentSaleTransactionDto
-    {
-        public SwishPaymentSaleTransactionDto(SwishPaymentSaleTransaction transaction)
-        {
-            if (transaction == null)
-            {
-                return;
-            }
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Swish;
 
-            Msisdn = transaction.Msisdn?.ToString();
+internal class SwishPaymentSaleTransactionDto
+{
+    public SwishPaymentSaleTransactionDto(SwishPaymentSaleTransaction transaction)
+    {
+        if (transaction == null)
+        {
+            return;
         }
 
-        public string Msisdn { get; }
+        Msisdn = transaction.Msisdn?.ToString();
     }
+
+    public string Msisdn { get; }
 }

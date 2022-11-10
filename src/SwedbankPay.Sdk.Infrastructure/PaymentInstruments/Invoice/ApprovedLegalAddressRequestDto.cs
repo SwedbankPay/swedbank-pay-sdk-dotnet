@@ -1,15 +1,14 @@
-﻿namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Invoice;
+
+internal class ApprovedLegalAddressRequestDto
 {
-    internal class ApprovedLegalAddressRequestDto
+    public ApprovedLegalAddressRequestDto(ApprovedLegalAddressRequest addressee)
     {
-        public ApprovedLegalAddressRequestDto(ApprovedLegalAddressRequest addressee)
-        {
-            SocialSecurityNumber = addressee.SocialSecurityNumber;
-            ZipCode = addressee.ZipCode;
-        }
-
-        public string SocialSecurityNumber { get; }
-
-        public string ZipCode { get; }
+        SocialSecurityNumber = addressee.SocialSecurityNumber;
+        ZipCode = addressee.ZipCode;
     }
+
+    public string SocialSecurityNumber { get; }
+
+    public string ZipCode { get; }
 }

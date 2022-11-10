@@ -2,16 +2,15 @@
 using System;
 using System.Collections.Generic;
 
-namespace SwedbankPay.Sdk
+namespace SwedbankPay.Sdk;
+
+internal class CaptureListResponse : Identifiable, ICaptureListResponse
 {
-    internal class CaptureListResponse : Identifiable, ICaptureListResponse
+    public CaptureListResponse(Uri id, IList<ITransaction> captureList) : base(id)
     {
-        public CaptureListResponse(Uri id, IList<ITransaction> captureList) : base(id)
-        {
-            CaptureList = captureList;
-        }
-
-
-        public IList<ITransaction> CaptureList { get; }
+        CaptureList = captureList;
     }
+
+
+    public IList<ITransaction> CaptureList { get; }
 }

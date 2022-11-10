@@ -1,9 +1,8 @@
-﻿namespace SwedbankPay.Sdk.Consumers
-{
-    internal class ConsumersResponseDto
-    {
-        public OperationListDto Operations { get; set; }
+﻿namespace SwedbankPay.Sdk.Consumers;
 
-        public string Token { get; set; }
-    }
+internal class ConsumersResponseDto
+{
+    public OperationListDto Operations { get; set; }
+
+    public string Token { get; set; }
 }

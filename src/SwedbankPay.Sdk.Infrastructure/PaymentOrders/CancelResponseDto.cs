@@ -1,11 +1,10 @@
 ﻿using System;
 
-namespace SwedbankPay.Sdk.PaymentOrders
-{
-    internal class CancelResponseDto
-    {
-        public Uri Payment { get; set; }
+namespace SwedbankPay.Sdk.PaymentOrders;
 
-        public TransactionResponseDto Cancellation { get; set; }
-    }
+internal class CancelResponseDto
+{
+    public Uri Payment { get; set; }
+
+    public TransactionResponseDto Cancellation { get; set; }
 }

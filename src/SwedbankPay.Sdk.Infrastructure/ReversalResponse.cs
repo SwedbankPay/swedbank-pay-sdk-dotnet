@@ -1,17 +1,16 @@
 ﻿using System;
 
-namespace SwedbankPay.Sdk.PaymentInstruments
+namespace SwedbankPay.Sdk.PaymentInstruments;
+
+internal class ReversalResponse : IReversalResponse
 {
-    internal class ReversalResponse : IReversalResponse
+    public ReversalResponse(Uri payment, ITransactionResponse reversal)
     {
-        public ReversalResponse(Uri payment, ITransactionResponse reversal)
-        {
-            Payment = payment;
-            Reversal = reversal;
-        }
-
-
-        public Uri Payment { get; }
-        public ITransactionResponse Reversal { get; }
+        Payment = payment;
+        Reversal = reversal;
     }
+
+
+    public Uri Payment { get; }
+    public ITransactionResponse Reversal { get; }
 }

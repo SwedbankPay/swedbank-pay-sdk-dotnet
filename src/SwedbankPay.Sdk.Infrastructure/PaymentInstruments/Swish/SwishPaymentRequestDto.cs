@@ -1,16 +1,15 @@
-﻿namespace SwedbankPay.Sdk.PaymentInstruments.Swish
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Swish;
+
+internal class SwishPaymentRequestDto
 {
-    internal class SwishPaymentRequestDto
+    public SwishPaymentRequestDto()
     {
-        public SwishPaymentRequestDto()
-        {
-        }
-
-        public SwishPaymentRequestDto(SwishPaymentRequest paymentRequest)
-        {
-            Payment = new SwishPaymentRequestDetailsDto(paymentRequest.Payment);
-        }
-
-        public SwishPaymentRequestDetailsDto Payment { get; }
     }
+
+    public SwishPaymentRequestDto(SwishPaymentRequest paymentRequest)
+    {
+        Payment = new SwishPaymentRequestDetailsDto(paymentRequest.Payment);
+    }
+
+    public SwishPaymentRequestDetailsDto Payment { get; }
 }

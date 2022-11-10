@@ -1,15 +1,14 @@
 ﻿using System;
 
-namespace SwedbankPay.Sdk.PaymentInstruments
-{
-    internal class TransactionResponse : Identifiable, ITransactionResponse
-    {
-        public TransactionResponse(Uri id, TransactionDto transaction)
-            : base(id)
-        {
-            Transaction = transaction?.Map();
-        }
+namespace SwedbankPay.Sdk.PaymentInstruments;
 
-        public ITransaction Transaction { get; }
+internal class TransactionResponse : Identifiable, ITransactionResponse
+{
+    public TransactionResponse(Uri id, TransactionDto transaction)
+        : base(id)
+    {
+        Transaction = transaction?.Map();
     }
+
+    public ITransaction Transaction { get; }
 }

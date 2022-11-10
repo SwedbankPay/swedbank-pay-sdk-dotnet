@@ -15,9 +15,9 @@ using System.Reflection;
 
 using SwedbankPay.Sdk;
 
-namespace Sample.AspNetCore
-{
-    public class Startup
+namespace Sample.AspNetCore;
+
+public class Startup
 	{
 		public Startup(IConfiguration configuration)
 		{
@@ -85,7 +85,7 @@ namespace Sample.AspNetCore
 			{
 				a.BaseAddress = swedBankPayOptions.ApiBaseUrl;
 				a.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", swedBankPayOptions.Token);
-                a.DefaultRequestHeaders.Add("User-Agent", $"swedbankpay-sdksamplesite-dotnet/{Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version}");
+            a.DefaultRequestHeaders.Add("User-Agent", $"swedbankpay-sdksamplesite-dotnet/{Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version}");
 			}
 			services.AddSwedbankPayClient(configureClient);
 			services.AddSession();
@@ -106,4 +106,3 @@ namespace Sample.AspNetCore
 			});
 		}
 	}
-}

@@ -2,16 +2,15 @@
 using System;
 using System.Collections.Generic;
 
-namespace SwedbankPay.Sdk
+namespace SwedbankPay.Sdk;
+
+internal class CancellationListResponse : Identifiable, ICancellationListResponse
 {
-    internal class CancellationListResponse : Identifiable, ICancellationListResponse
+    public CancellationListResponse(Uri id, IList<ITransaction> cancellationList) : base(id)
     {
-        public CancellationListResponse(Uri id, IList<ITransaction> cancellationList) : base(id)
-        {
-            CancellationList = cancellationList;
-        }
-
-
-        public IList<ITransaction> CancellationList { get; }
+        CancellationList = cancellationList;
     }
+
+
+    public IList<ITransaction> CancellationList { get; }
 }

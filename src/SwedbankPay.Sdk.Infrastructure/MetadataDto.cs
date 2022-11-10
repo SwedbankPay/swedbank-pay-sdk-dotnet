@@ -1,23 +1,22 @@
 ﻿using System.Collections.Generic;
 
-namespace SwedbankPay.Sdk
+namespace SwedbankPay.Sdk;
+
+internal class MetadataDto : Dictionary<string, object>
 {
-    internal class MetadataDto : Dictionary<string, object>
+    public MetadataDto()
     {
-        public MetadataDto()
-        {
-        }
+    }
 
-        public MetadataDto(IDictionary<string, object> dictionary) : base(dictionary)
-        {
-        }
+    public MetadataDto(IDictionary<string, object> dictionary) : base(dictionary)
+    {
+    }
 
-        public string Id { get; set; }
+    public string Id { get; set; }
 
-        internal Metadata Map()
-        {
-            var metaData = new Metadata(this);
-            return metaData;
-        }
+    internal Metadata Map()
+    {
+        var metaData = new Metadata(this);
+        return metaData;
     }
 }

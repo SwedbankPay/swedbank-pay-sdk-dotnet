@@ -2,52 +2,51 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
+namespace SwedbankPay.Sdk.PaymentInstruments.Invoice;
+
+/// <summary>
+/// Gives access to all currently mapped operations in the invoice API.
+/// </summary>
+public interface IInvoicePaymentOperations : IDictionary<LinkRelation, HttpOperation>
 {
     /// <summary>
-    /// Gives access to all currently mapped operations in the invoice API.
+    /// Performs a abort on the current payment, if available.
     /// </summary>
-    public interface IInvoicePaymentOperations : IDictionary<LinkRelation, HttpOperation>
-    {
-        /// <summary>
-        /// Performs a abort on the current payment, if available.
-        /// </summary>
-        Func<PaymentAbortRequest, Task<IInvoicePaymentResponse>> Abort { get; }
+    Func<PaymentAbortRequest, Task<IInvoicePaymentResponse>> Abort { get; }
 
-        /// <summary>
-        /// Gets the current approved legal address, if available.
-        /// </summary>
-        Func<InvoiceApprovedLegalAddressRequest, Task<ApprovedLegalAddressResponse>> ApprovedLegalAddress { get; }
+    /// <summary>
+    /// Gets the current approved legal address, if available.
+    /// </summary>
+    Func<InvoiceApprovedLegalAddressRequest, Task<ApprovedLegalAddressResponse>> ApprovedLegalAddress { get; }
 
-        /// <summary>
-        /// Performs a cancel on the current payment, if available.
-        /// </summary>
-        Func<InvoicePaymentCancelRequest, Task<ICancellationResponse>> Cancel { get; }
+    /// <summary>
+    /// Performs a cancel on the current payment, if available.
+    /// </summary>
+    Func<InvoicePaymentCancelRequest, Task<ICancellationResponse>> Cancel { get; }
 
-        /// <summary>
-        /// Performs a capture on the current payment, if available.
-        /// </summary>
-        Func<InvoicePaymentCaptureRequest, Task<ICaptureResponse>> Capture { get; }
+    /// <summary>
+    /// Performs a capture on the current payment, if available.
+    /// </summary>
+    Func<InvoicePaymentCaptureRequest, Task<ICaptureResponse>> Capture { get; }
 
-        /// <summary>
-        /// Performs a direct authorization on the current payment, if available.
-        /// </summary>
-        [Obsolete("Will be phased out, use PaymentOrder instead")]
-        Func<InvoicePaymentAuthorizationRequest, Task<IInvoicePaymentAuthorizationResponse>> DirectAuthorization { get; }
+    /// <summary>
+    /// Performs a direct authorization on the current payment, if available.
+    /// </summary>
+    [Obsolete("Will be phased out, use PaymentOrder instead")]
+    Func<InvoicePaymentAuthorizationRequest, Task<IInvoicePaymentAuthorizationResponse>> DirectAuthorization { get; }
 
-        /// <summary>
-        /// Gets the information needed to redirect the authorization, if available.
-        /// </summary>
-        HttpOperation RedirectAuthorization { get; }
+    /// <summary>
+    /// Gets the information needed to redirect the authorization, if available.
+    /// </summary>
+    HttpOperation RedirectAuthorization { get; }
 
-        /// <summary>
-        /// Performs a reversal on the current payment, if available.
-        /// </summary>
-        Func<InvoicePaymentReversalRequest, Task<IReversalResponse>> Reversal { get; }
+    /// <summary>
+    /// Performs a reversal on the current payment, if available.
+    /// </summary>
+    Func<InvoicePaymentReversalRequest, Task<IReversalResponse>> Reversal { get; }
 
-        /// <summary>
-        /// Gets the information needed to view the authorization of the payment, if available.
-        /// </summary>
-        HttpOperation ViewAuthorization { get; }
-    }
+    /// <summary>
+    /// Gets the information needed to view the authorization of the payment, if available.
+    /// </summary>
+    HttpOperation ViewAuthorization { get; }
 }

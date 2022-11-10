@@ -1,10 +1,9 @@
-﻿namespace Sample.AspNetCore.SystemTests.Test.Helpers
+﻿namespace Sample.AspNetCore.SystemTests.Test.Helpers;
+
+public class PaymentMethods
 {
-    public class PaymentMethods
-    {
-        public const string Card = "Kort";
-        public const string Swish = "Swish";
-        public const string Invoice = "Faktura";
-        public const string Trustly = "Bankbetalning";
-    }
+    public const string Card = "Kort";
+    public const string Swish = "Swish";
+    public const string Invoice = "Faktura";
+    public const string Trustly = "Bankbetalning";
 }

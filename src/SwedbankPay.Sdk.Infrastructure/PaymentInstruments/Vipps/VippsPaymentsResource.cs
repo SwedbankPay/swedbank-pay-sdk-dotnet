@@ -3,36 +3,35 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace SwedbankPay.Sdk.PaymentInstruments.Vipps
+namespace SwedbankPay.Sdk.PaymentInstruments.Vipps;
+
+public class VippsPaymentsResource : ResourceBase, IVippsResource
 {
-    public class VippsPaymentsResource : ResourceBase, IVippsResource
+    public VippsPaymentsResource(HttpClient httpClient) : base(httpClient)
     {
-        public VippsPaymentsResource(HttpClient httpClient) : base(httpClient)
+    }
+
+    public async Task<IVippsPaymentReponse> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
+    {
+        if (id == null)
         {
+            throw new ArgumentNullException(nameof(id));
         }
 
-        public async Task<IVippsPaymentReponse> Get(Uri id, PaymentExpand paymentExpand = PaymentExpand.None)
-        {
-            if (id == null)
-            {
-                throw new ArgumentNullException(nameof(id));
-            }
+        Uri url = id.GetUrlWithQueryString(paymentExpand);
 
-            Uri url = id.GetUrlWithQueryString(paymentExpand);
+        var paymentResponseContainer = await HttpClient.GetAsJsonAsync<VippsPaymentResponseDto>(url);
+        return new VippsPaymentResponse(paymentResponseContainer, HttpClient);
+    }
 
-            var paymentResponseContainer = await HttpClient.GetAsJsonAsync<VippsPaymentResponseDto>(url);
-            return new VippsPaymentResponse(paymentResponseContainer, HttpClient);
-        }
+    public async Task<IVippsPaymentReponse> Create(VippsPaymentRequest paymentRequest,
+                                                        PaymentExpand paymentExpand = PaymentExpand.None)
+    {
+        var url = new Uri("/psp/vipps/payments", UriKind.Relative).GetUrlWithQueryString(paymentExpand);
 
-        public async Task<IVippsPaymentReponse> Create(VippsPaymentRequest paymentRequest,
-                                                            PaymentExpand paymentExpand = PaymentExpand.None)
-        {
-            var url = new Uri("/psp/vipps/payments", UriKind.Relative).GetUrlWithQueryString(paymentExpand);
+        var requestDto = new VippsPaymentRequestDto(paymentRequest);
 
-            var requestDto = new VippsPaymentRequestDto(paymentRequest);
-
-            var paymentResponse = await HttpClient.PostAsJsonAsync<VippsPaymentResponseDto>(url, requestDto);
-            return new VippsPaymentResponse(paymentResponse, HttpClient);
-        }
+        var paymentResponse = await HttpClient.PostAsJsonAsync<VippsPaymentResponseDto>(url, requestDto);
+        return new VippsPaymentResponse(paymentResponse, HttpClient);
     }
 }

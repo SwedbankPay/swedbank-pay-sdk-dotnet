@@ -1,10 +1,9 @@
 ﻿using System;
 
-namespace SwedbankPay.Sdk.PaymentInstruments.Swish
+namespace SwedbankPay.Sdk.PaymentInstruments.Swish;
+
+internal class SwishPaymentSaleResponseDto
 {
-    internal class SwishPaymentSaleResponseDto
-    {
-        public Uri Payment { get; set; }
-        public SiwshPaymentSaleDto Sale { get; set; }
-    }
+    public Uri Payment { get; set; }
+    public SiwshPaymentSaleDto Sale { get; set; }
 }

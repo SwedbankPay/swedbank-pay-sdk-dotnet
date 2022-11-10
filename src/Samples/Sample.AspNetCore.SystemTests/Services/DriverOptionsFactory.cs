@@ -5,56 +5,55 @@ using OpenQA.Selenium.IE;
 
 using Sample.AspNetCore.SystemTests.Test.Base;
 
-namespace Sample.AspNetCore.SystemTests.Services
+namespace Sample.AspNetCore.SystemTests.Services;
+
+using static Drivers;
+
+public static class DriverOptionsFactory
 {
-    using static Drivers;
-
-    public static class DriverOptionsFactory
+    public static DriverOptions GetDriverOptions(Driver driver)
     {
-        public static DriverOptions GetDriverOptions(Driver driver)
+        switch (driver)
         {
-            switch (driver)
-            {
-                case Driver.Chrome:
+            case Driver.Chrome:
 
-                    var chromeOptions = new ChromeOptions { AcceptInsecureCertificates = true };
-                    chromeOptions.AddArguments(
-                        "--incognito",
-                        "--disable-infobars",
-                        "--disable-notifications",
-                        "disable-extensions",
-                        "--whitelisted-ips=\"\"",
-                        "--disable-dev-shm-usage",
-                        "--no-sandbox",
-                        "--headless",
-                        "--window-size=1200,1000"
-                        );
+                var chromeOptions = new ChromeOptions { AcceptInsecureCertificates = true };
+                chromeOptions.AddArguments(
+                    "--incognito",
+                    "--disable-infobars",
+                    "--disable-notifications",
+                    "disable-extensions",
+                    "--whitelisted-ips=\"\"",
+                    "--disable-dev-shm-usage",
+                    "--no-sandbox",
+                    "--headless",
+                    "--window-size=1200,1000"
+                    );
 
-                    return chromeOptions;
+                return chromeOptions;
 
-                case Driver.Firefox:
+            case Driver.Firefox:
 
-                    var firefoxOptions = new FirefoxOptions { AcceptInsecureCertificates = true };
-                    firefoxOptions.AddArgument("-private");
-                    firefoxOptions.SetPreference("dom.webnotifications.enabled", false);
-                    firefoxOptions.SetPreference("dom.webnotifications.enabled", false);
+                var firefoxOptions = new FirefoxOptions { AcceptInsecureCertificates = true };
+                firefoxOptions.AddArgument("-private");
+                firefoxOptions.SetPreference("dom.webnotifications.enabled", false);
+                firefoxOptions.SetPreference("dom.webnotifications.enabled", false);
 
-                    return firefoxOptions;
+                return firefoxOptions;
 
-                case Driver.InternetExplorer:
+            case Driver.InternetExplorer:
 
-                    return new InternetExplorerOptions
-                    {
-                        AcceptInsecureCertificates = true,
-                        BrowserCommandLineArguments = "",
-                        EnsureCleanSession = true,
-                        RequireWindowFocus = false
-                    };
+                return new InternetExplorerOptions
+                {
+                    AcceptInsecureCertificates = true,
+                    BrowserCommandLineArguments = "",
+                    EnsureCleanSession = true,
+                    RequireWindowFocus = false
+                };
 
-                default:
+            default:
 
-                    throw new NotFoundException("This driver is not in the list of handled web drivers");
-            }
+                throw new NotFoundException("This driver is not in the list of handled web drivers");
         }
     }
 }

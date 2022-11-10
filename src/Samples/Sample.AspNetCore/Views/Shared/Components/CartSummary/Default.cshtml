@@ -14,8 +14,8 @@
     </thead>
     <tbody>
     @foreach (var line in Model.CartLines)
-    {
-        <tr>
+{
+    <tr>
             <td class="text-center">
                 <form asp-action="UpdateQuantity" asp-controller="Cart" method="post">
                     <input type="hidden" name="id"
@@ -44,7 +44,7 @@
             </td>
 
         </tr>
-    }
+}
     </tbody>
     <tfoot>
     <tr>

@@ -1,20 +1,19 @@
 ﻿using System;
 
-namespace SwedbankPay.Sdk.PaymentInstruments.Invoice
+namespace SwedbankPay.Sdk.PaymentInstruments.Invoice;
+
+/// <summary>
+/// Wrapper for a invoice payment authorization.
+/// </summary>
+public interface IInvoicePaymentAuthorizationResponse
 {
     /// <summary>
-    /// Wrapper for a invoice payment authorization.
+    /// A <seealso cref="Uri"/> to this authorization response.
     /// </summary>
-    public interface IInvoicePaymentAuthorizationResponse
-    {
-        /// <summary>
-        /// A <seealso cref="Uri"/> to this authorization response.
-        /// </summary>
-        Uri Payment { get; }
+    Uri Payment { get; }
 
-        /// <summary>
-        /// Transactional details about this authorization.
-        /// </summary>
-        IInvoicePaymentAuthorization Authorization { get; }
-    }
+    /// <summary>
+    /// Transactional details about this authorization.
+    /// </summary>
+    IInvoicePaymentAuthorization Authorization { get; }
 }

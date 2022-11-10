@@ -1,9 +1,8 @@
-namespace Sample.AspNetCore.Models
-{
-    public class ErrorViewModel
-    {
-        public string RequestId { get; set; }
+namespace Sample.AspNetCore.Models;
 
-        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
-    }
+public class ErrorViewModel
+{
+    public string RequestId { get; set; }
+
+    public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 }
