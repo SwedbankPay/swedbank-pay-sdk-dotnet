@@ -53,8 +53,12 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         /// </summary>
         Metadata = 512,
         /// <summary>
+        /// Expand the Verifications sub-resource.
+        /// </summary>
+        Verifications = 1024,
+        /// <summary>
         /// Expand all sub-resources.
         /// </summary>
-        All = 1023
+        All = 2047
     }
 }
