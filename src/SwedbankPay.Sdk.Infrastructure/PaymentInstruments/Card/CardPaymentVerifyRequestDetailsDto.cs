@@ -15,6 +15,8 @@
             Language = payment.Language.ToString();
             Urls = new UrlsDto(payment.Urls);
             PayeeInfo = new PayeeInfoResponseDto(payment.PayeeInfo);
+            GenerateRecurrenceToken = payment.GenerateRecurrenceToken;
+            GeneratePaymentToken = payment.GeneratePaymentToken;
 
             if (payment.Metadata != null)
             {
@@ -35,6 +37,19 @@
         public long VatAmount { get; }
 
         public string Description { get; }
+
+        /// <summary>
+        ///     When making the initial purchase request, you need to generate a paymentToken.
+        ///     You can do this either by by setting the GeneratePaymentToken field to true,
+        ///     or set the initial operation to Verify.
+        /// </summary>
+        public bool GeneratePaymentToken { get; set; }
+
+        /// <summary>
+        ///     Set this to true if you want to create a recurrenceToken for future use Recurring purchases (subscription
+        ///     payments).
+        /// </summary>
+        public bool GenerateRecurrenceToken { get; set; }
 
         public string UserAgent { get; }
 
