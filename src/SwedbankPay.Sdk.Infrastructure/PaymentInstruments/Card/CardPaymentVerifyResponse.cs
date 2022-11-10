@@ -8,6 +8,6 @@
             Verifications = dto.Verifications.Map();
         }
 
-        public ICardPaymentVerifyResponseDetails Verifications { get; }
+        public IVerificationListResponse Verifications { get; }
     }
 }

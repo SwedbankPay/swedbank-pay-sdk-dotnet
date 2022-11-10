@@ -2,7 +2,7 @@
 {
     internal class CardPaymentVerification : Identifiable, ICardPaymentVerification
     {
-        public CardPaymentVerification(CardPaymentVerificationDto dto)
+        public CardPaymentVerification(VerificationDto dto)
             : base(dto.Id)
         {
             PaymentToken = dto.PaymentToken;
