@@ -8,8 +8,6 @@
             Intent = payment.Intent.ToString();
             RecurrenceToken = payment.RecurrenceToken;
             Currency = payment.Currency.ToString();
-            Amount = payment.Amount.InLowestMonetaryUnit;
-            VatAmount = payment.VatAmount.InLowestMonetaryUnit;
             Description = payment.Description;
             UserAgent = payment.UserAgent;
             Language = payment.Language.ToString();
@@ -31,10 +29,6 @@
         public string RecurrenceToken { get; }
 
         public string Currency { get; }
-
-        public long Amount { get; }
-
-        public long VatAmount { get; }
 
         public string Description { get; }
 
