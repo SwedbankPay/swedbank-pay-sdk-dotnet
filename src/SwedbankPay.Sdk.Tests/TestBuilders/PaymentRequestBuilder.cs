@@ -32,7 +32,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private Uri shopslogoUrl;
 
 
-        public CardPaymentRequest BuildCreditardPaymentRequest()
+        public CardPaymentRequest BuildCreditCardPaymentRequest()
         {
             var req = new CardPaymentRequest(this.operation, this.intent, this.currency, this.description, this.userAgent, this.language, this.urls, this.payeeInfo);
 

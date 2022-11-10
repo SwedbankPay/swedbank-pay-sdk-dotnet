@@ -12,7 +12,7 @@
         /// <param name="currency">The wanted <seealso cref="Currency"/> for the payment to be paid in.</param>
         /// <param name="description">A textual description of the payment.</param>
         /// <param name="userAgent">The payers UserAgent.</param>
-        /// <param name="language">The prefered <seealso cref="Language"/> of the payer.</param>
+        /// <param name="language">The preferred <seealso cref="Language"/> of the payer.</param>
         /// <param name="urls">Object holding relevant <seealso cref="IUrls"/> for the payment.</param>
         /// <param name="payeeInfo">Object identifying the payee.</param>
         public CardPaymentVerifyRequest(PaymentIntent intent,
