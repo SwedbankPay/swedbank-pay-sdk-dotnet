@@ -2738,16 +2738,6 @@
                 The <seealso cref="T:SwedbankPay.Sdk.Currency" /> to be paid.
             </summary>
         </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentVerifyRequestDetails.Amount">
-            <summary>
-                The <seealso cref="T:SwedbankPay.Sdk.Amount" /> to be paid.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentVerifyRequestDetails.VatAmount">
-            <summary>
-                Any VAT<seealso cref="T:SwedbankPay.Sdk.Amount" /> to be paid.
-            </summary>
-        </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentVerifyRequestDetails.Description">
             <summary>
                 A textual description of the payment.
