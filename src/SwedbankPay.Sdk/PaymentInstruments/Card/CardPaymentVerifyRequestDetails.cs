@@ -47,16 +47,6 @@
         public Currency Currency { get; }
 
         /// <summary>
-        ///     The <seealso cref="Sdk.Amount" /> to be paid.
-        /// </summary>
-        public Amount Amount { get; }
-
-        /// <summary>
-        ///     Any VAT<seealso cref="Sdk.Amount" /> to be paid.
-        /// </summary>
-        public Amount VatAmount { get; }
-
-        /// <summary>
         ///     A textual description of the payment.
         /// </summary>
         public string Description { get; }
