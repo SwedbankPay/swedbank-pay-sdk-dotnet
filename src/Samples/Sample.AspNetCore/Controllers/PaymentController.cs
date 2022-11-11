@@ -296,8 +296,7 @@ namespace Sample.AspNetCore.Controllers
         private async Task<SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurRequest> GetRecurringRequest(string description, string reccurenceToken)
         {
             var order = await this.context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
-            var orderItems = order.Lines.ToOrderItems();
-
+            
             var request = new SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurRequest(PaymentIntent.AutoCapture, reccurenceToken, new Currency("SEK"), new Amount(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
                                                                                        new Amount(0), description, "useragent", new Language("sv-SE"),
                                                                                        new Urls(this.urls.HostUrls.ToList(), this.urls.CompleteUrl,

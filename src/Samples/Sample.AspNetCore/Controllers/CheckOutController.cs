@@ -208,8 +208,6 @@ namespace Sample.AspNetCore.Controllers
 
 		public async Task<ICardPaymentRecurResponse> CreateVerifyRecurringPayment()
 		{
-			var totalAmount = this.cartService.CalculateTotal();
-			var vatAmount = new Amount(0);
 			try
 			{
 				var cardRequest = new CardPaymentVerifyRequest(PaymentIntent.Authorization, new Currency("SEK"),
