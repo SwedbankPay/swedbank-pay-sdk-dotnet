@@ -15,7 +15,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         public async Task GetPayment()
         {
             var creditCardPayment = await this.Sut.Payments.CardPayments.Get(
-                new Uri("/psp/creditcard/payments/a46d809a-8d6b-4ade-4b2c-08d88169daef", UriKind.Relative), PaymentExpand.All);
+                new Uri("/psp/creditcard/payments/08bb7e22-167b-43e5-94f6-08dabd8f424e", UriKind.Relative), PaymentExpand.All);
 
             Assert.NotNull(creditCardPayment);
         }
@@ -24,17 +24,33 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         [Fact]
         public async Task CreateVerifyPayment_ShouldReturnPayment()
         {
-            var paymentRequest = this.paymentRequestBuilder.WithCreditcardTestValues(this.payeeId, Operation.Verify).BuildCreditardPaymentRequest();
+            var paymentRequest = this.paymentRequestBuilder.WithCreditcardTestValues(this.payeeId, Operation.Verify).BuildCreditCardPaymentRequest();
             var creditCardPayment = await this.Sut.Payments.CardPayments.Create(paymentRequest, PaymentExpand.All);
             Assert.Equal(UserAgent.Default, creditCardPayment.Payment.InitiatingSystemUserAgent);
             Assert.NotNull(creditCardPayment);
+        }
+
+        [Fact]
+        public async Task CreateVerifyRecurringPayment_ShouldReturnPayment()
+        {
+            var paymentRequest = this.paymentRequestBuilder.WithCreditcardTestValues(this.payeeId, Operation.Verify, generateRecurrenceToken: true).BuildCreditCardVerifyPaymentRequest();
+            var cardPayment = await this.Sut.Payments.CardPayments.Create(paymentRequest, PaymentExpand.All);
+            Assert.NotNull(cardPayment);
+        }
+
+        [Fact]
+        public async Task CreateRecurringPayment_ShouldReturnPayment()
+        {
+            var recurPaymentRequest = this.paymentRequestBuilder.WithCreditcardTestValues(this.payeeId, Operation.Verify, recurrenceToken: "fb813868-1491-4854-a71d-e3b9878b342d").BuildCreditCardRecurPaymentRequest();
+            var cardPayment = await this.Sut.Payments.CardPayments.Create(recurPaymentRequest, PaymentExpand.All);
+            Assert.NotNull(cardPayment);
         }
 
 
         [Fact]
         public async Task CreatePayment_ShouldReturnPayment()
         {
-            var paymentRequest = this.paymentRequestBuilder.WithCreditcardTestValues(this.payeeId).BuildCreditardPaymentRequest();
+            var paymentRequest = this.paymentRequestBuilder.WithCreditcardTestValues(this.payeeId).BuildCreditCardPaymentRequest();
             var creditCardPayment = await this.Sut.Payments.CardPayments.Create(paymentRequest, PaymentExpand.All);
 
             Assert.NotNull(creditCardPayment);

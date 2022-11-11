@@ -85,7 +85,7 @@
         public string UserAgent { get; }
 
         /// <summary>
-        /// The payers prefered <see cref="Sdk.Language"/>.
+        /// The payers preferred <see cref="Sdk.Language"/>.
         /// </summary>
         public Language Language { get; }
 

@@ -1,5 +1,7 @@
 ﻿using System;
 
+using SwedbankPay.Sdk.PaymentInstruments.Card;
+
 namespace SwedbankPay.Sdk.PaymentInstruments
 {
     internal class CardPaymentDto
@@ -53,6 +55,8 @@ namespace SwedbankPay.Sdk.PaymentInstruments
         public string State { get; set; }
 
         public TransactionListResponseDto Transactions { get; set; }
+
+        public VerificationListResponseDto Verifications { get; set; }
 
         public UrlsDto Urls { get; set; }
 

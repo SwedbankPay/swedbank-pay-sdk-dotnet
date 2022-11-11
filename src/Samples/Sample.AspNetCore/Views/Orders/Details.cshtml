@@ -118,6 +118,9 @@ else if (TempData["ErrorMessage"] != null)
                                     case PaymentResourceOperations.CreateCancellation:
                                         actionName = "Cancel";
                                         break;
+                                    case "create-recurring":
+                                        actionName = "Recurring";
+                                        break;
                                 }
                                 @if (!string.IsNullOrEmpty(actionName))
 

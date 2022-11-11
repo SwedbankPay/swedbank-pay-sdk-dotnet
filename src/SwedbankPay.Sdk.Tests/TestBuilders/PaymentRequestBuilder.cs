@@ -22,6 +22,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private IPayeeInfo payeeInfo;
         private PrefillInfo prefillInfo;
         private TrustlyPrefillInfo trustlyPrefillInfo;
+        private bool generateRecurrenceToken;
         private bool generatePaymentToken;
         private Amount amount;
         private Amount vatAmount;
@@ -30,9 +31,10 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
         private Metadata metadata;
         private InvoiceType invoiceType;
         private Uri shopslogoUrl;
+        private string recurrenceToken;
 
 
-        public CardPaymentRequest BuildCreditardPaymentRequest()
+        public CardPaymentRequest BuildCreditCardPaymentRequest()
         {
             var req = new CardPaymentRequest(this.operation, this.intent, this.currency, this.description, this.userAgent, this.language, this.urls, this.payeeInfo);
 
@@ -47,6 +49,35 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
 
             return req;
         }
+
+        public CardPaymentVerifyRequest BuildCreditCardVerifyPaymentRequest()
+        {
+            var req = new CardPaymentVerifyRequest(this.intent, this.currency, this.description, this.userAgent, this.language, this.urls, this.payeeInfo)
+                {
+                    Payment =
+                    {
+                        GenerateRecurrenceToken = this.generateRecurrenceToken,
+                        GeneratePaymentToken = this.generatePaymentToken,
+                        Metadata = this.metadata
+                    }
+                };
+
+            return req;
+        }
+
+        public CardPaymentRecurRequest BuildCreditCardRecurPaymentRequest()
+        {
+            var req = new CardPaymentRecurRequest(this.intent, this.recurrenceToken, this.currency, this.amount, this.vatAmount, this.description, this.userAgent, this.language, this.urls, this.payeeInfo)
+                {
+                    Payment =
+                    {
+                        Metadata = this.metadata
+                    }
+                };
+
+            return req;
+        }
+        
 
         public SwishPaymentRequest BuildSwishPaymentRequest()
         {
@@ -87,7 +118,7 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             return req;
         }
 
-        public PaymentRequestBuilder WithCreditcardTestValues(string payeeId, Operation testOperation = null, PaymentIntent paymentIntent = PaymentIntent.Authorization)
+        public PaymentRequestBuilder WithCreditcardTestValues(string payeeId, Operation testOperation = null, PaymentIntent paymentIntent = PaymentIntent.Authorization, bool generateRecurrenceToken = false, string recurrenceToken = null)
         {
             this.operation = testOperation ?? Operation.Purchase;
             this.intent = paymentIntent;
@@ -99,6 +130,8 @@ namespace SwedbankPay.Sdk.Tests.TestBuilders
             SetUrls();
             this.payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
             this.generatePaymentToken = false;
+            this.generateRecurrenceToken = generateRecurrenceToken;
+            this.recurrenceToken = recurrenceToken;
             this.amount = new Amount(1600);
             this.vatAmount = new Amount(0);
             this.metadata = new Metadata { { "key1", "value1" }, { "key2", 2 }, { "key3", 3.1 }, { "key4", false } };

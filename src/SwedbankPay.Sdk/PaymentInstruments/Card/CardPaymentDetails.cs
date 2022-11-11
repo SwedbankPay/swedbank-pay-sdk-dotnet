@@ -78,7 +78,7 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         public PaymentIntent Intent { get; }
 
         /// <summary>
-        /// The payers prefered language.
+        /// The payers preferred language.
         /// </summary>
         public Language Language { get; }
 
