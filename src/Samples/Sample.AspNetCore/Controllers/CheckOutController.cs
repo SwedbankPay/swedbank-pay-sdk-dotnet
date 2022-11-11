@@ -206,7 +206,7 @@ namespace Sample.AspNetCore.Controllers
 		}
 
 
-		public async Task<ICardPaymentRecurResponse> CreateVerifyRecurringPayment()
+		public async Task<ICardPaymentResponse> CreateVerifyRecurringPayment()
 		{
 			try
 			{
