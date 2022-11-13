@@ -123,5 +123,9 @@ public interface IPaymentOrder : IIdentifiable
     /// </summary>
     public Amount VatAmount { get; }
 
+    /// <summary>
+    /// The user agent of the HTTP client making the request,
+    /// reflecting the value sent in the User-Agent header with the initial POST request which created the Payment Order.
+    /// </summary>
     public string InitiatingSystemUserAgent { get; }
 }

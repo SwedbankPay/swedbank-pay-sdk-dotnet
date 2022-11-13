@@ -2,7 +2,13 @@
 
 namespace SwedbankPay.Sdk;
 
-	public class RiskIndicator : IRiskIndicator
+/// <summary>
+/// This object consists of information that helps verifying the payer.
+/// Providing these fields decreases the likelihood of having to
+/// prompt for 3-D Secure authentication of the payer when they are
+/// authenticating the purchase.
+/// </summary>
+public class RiskIndicator : IRiskIndicator
 {
     /// <summary>
     ///     For electronic delivery, the email address to which the merchandise was delivered.
