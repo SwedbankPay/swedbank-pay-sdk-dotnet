@@ -1,13 +1,12 @@
-﻿namespace SwedbankPay.Sdk.PaymentInstruments.Card
-{
-    internal class CardPaymentVerifyResponse : Identifiable, ICardPaymentVerifyResponse
-    {
-        public CardPaymentVerifyResponse(CardPaymentVerifyResponseDto dto)
-            : base(dto.Payment)
-        {
-            Verifications = dto.Verifications.Map();
-        }
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Card;
 
-        public IVerificationListResponse Verifications { get; }
+internal class CardPaymentVerifyResponse : Identifiable, ICardPaymentVerifyResponse
+{
+    public CardPaymentVerifyResponse(CardPaymentVerifyResponseDto dto)
+        : base(dto.Payment)
+    {
+        Verifications = dto.Verifications.Map();
     }
+
+    public IVerificationListResponse Verifications { get; }
 }

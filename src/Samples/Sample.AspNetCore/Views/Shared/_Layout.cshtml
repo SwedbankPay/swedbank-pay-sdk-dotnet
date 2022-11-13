@@ -28,18 +28,18 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">Products</a>
                     </li>
                     @if (StoreContext.Orders.Any())
-                {
-                    <li class="nav-item">
+            {
+                <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="Details">Orders</a>
                         </li>
-                    <li class="nav-item">
+                <li class="nav-item">
                             <form asp-action="Clear" asp-controller="Orders" method="post">
                                 <button type="submit" class="btn btn-danger" automation="button-clearorders">
                                     Clear Orders
                                 </button>
                             </form>
                         </li>
-                }
+            }
 
 
                 </ul>
