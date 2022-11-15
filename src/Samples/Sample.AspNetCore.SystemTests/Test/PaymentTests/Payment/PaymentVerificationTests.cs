@@ -52,20 +52,18 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Payment
         [TestCaseSource(nameof(TestData), new object[] { false, PaymentMethods.Recurring })]
         public async Task Payment_Card_Recurring(Product[] products, PayexInfo payexInfo)
         {
-            string paymentUriLink1 = null;
-
             var page = GoToOrdersPage(products, payexInfo, Checkout.Option.LocalPaymentMenu)
                 .RefreshPageUntil(x => x.Orders[y => y.Attributes["data-paymentlink"] == _referenceLink].IsVisible, 60, 10)
-                .Orders[y => y.Attributes["data-paymentlink"] == _referenceLink].Actions.Rows[y => y.Name.Value.Contains("create-recurring")].ExecuteAction.ClickAndGo()
-                .SuccessMessage.StorePaymentUri(ref paymentUriLink1);
+                .Orders[y => y.Attributes["data-paymentlink"] == _referenceLink].Actions.Rows[y => y.Name.Value.Contains("create-recurring")].ExecuteAction.ClickAndGo();
+            
+            var paymentUriLink1 = page.SuccessMessage.StorePaymentUri();
 
             await VerifyPayment(paymentUriLink1, products);
 
-            string paymentUriLink2 = null;
 
-            page
-                .Orders[y => y.Attributes["data-paymentlink"] == _referenceLink].Actions.Rows[y => y.Name.Value.Contains("create-recurring")].ExecuteAction.ClickAndGo()
-                .SuccessMessage.StorePaymentUri(ref paymentUriLink2);
+            page = page.Orders[y => y.Attributes["data-paymentlink"] == _referenceLink].Actions.Rows[y => y.Name.Value.Contains("create-recurring")].ExecuteAction.ClickAndGo();
+
+            var paymentUriLink2 = page.SuccessMessage.StorePaymentUri();
 
             await VerifyPayment(paymentUriLink2, products);
         }
