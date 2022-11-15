@@ -66,5 +66,10 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// Operation to view the payment order in a iframe.
         /// </summary>
         public const string ViewPaymentOrder = "view-paymentorder";
+
+        /// <summary>
+        /// Operation to view the payment order in a iframe.
+        /// </summary>
+        public const string RedirectCheckout = "redirect-checkout";
     }
 }

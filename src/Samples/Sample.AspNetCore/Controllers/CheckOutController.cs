@@ -46,6 +46,57 @@ namespace Sample.AspNetCore.Controllers
 		}
 
 
+        public async Task<IActionResult> RedirectCheckout(string consumerProfileRef = null, Uri paymentUrl = null)
+        {
+			var totalAmount = this.cartService.CalculateTotal();
+			Payer payer = null;
+
+			if (!string.IsNullOrWhiteSpace(consumerProfileRef))
+			{
+				payer = new Payer
+				{
+					ConsumerProfileRef = consumerProfileRef
+				};
+			}
+
+			var orderItems = this.cartService.CartLines.ToOrderItems();
+			var paymentOrderItems = orderItems?.ToList();
+			try
+			{
+				var paymentOrderRequest = new PaymentOrderRequest(Operation.Purchase, new Currency("SEK"),
+																  new Amount(totalAmount),
+																  new Amount(0), "Test description", "useragent",
+																  new Language("sv-SE"),
+																  false,
+																  new Urls(this.urls.HostUrls.ToList(), this.urls.CompleteUrl,
+																		   this.urls.TermsOfServiceUrl)
+																  {
+																	  CancelUrl = this.urls.CancelUrl,
+																	  PaymentUrl = paymentUrl ?? this.urls.PaymentUrl,
+																	  CallbackUrl = this.urls.CallbackUrl,
+																	  LogoUrl = this.urls.LogoUrl
+																  },
+																  new PayeeInfo(this.payeeInfoOptions.PayeeId,
+																				this.payeeInfoOptions.PayeeReference),
+																  true);
+				paymentOrderRequest.PaymentOrder.OrderItems = paymentOrderItems;
+				paymentOrderRequest.PaymentOrder.Payer = payer;
+
+				var paymentOrder = await this.swedbankPayClient.PaymentOrders.Create(paymentOrderRequest);
+
+				this.cartService.PaymentOrderLink = paymentOrder.PaymentOrder.Id.OriginalString;
+				this.cartService.PaymentLink = null;
+				this.cartService.ConsumerProfileRef = consumerProfileRef;
+				this.cartService.Update();
+
+                return Redirect(paymentOrder.Operations.RedirectCheckout.Href.AbsoluteUri);
+            }
+			catch (Exception ex)
+			{
+				Debug.Write(ex.Message);
+				return null;
+			}
+		}
 
 		public async Task<IPaymentOrderResponse> CreateOrUpdatePaymentOrder(string consumerProfileRef = null, Uri paymentUrl = null)
 		{

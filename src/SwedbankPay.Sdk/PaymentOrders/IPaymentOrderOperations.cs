@@ -40,5 +40,10 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// Returns details needed to created a hosted view for the payer to see the payment order, if available.
         /// </summary>
         HttpOperation View { get; }
+
+        /// <summary>
+        /// Opens the payment menu on a new page with the payer information displayed above the menu.
+        /// </summary>
+        HttpOperation RedirectCheckout { get; }
     }
 }

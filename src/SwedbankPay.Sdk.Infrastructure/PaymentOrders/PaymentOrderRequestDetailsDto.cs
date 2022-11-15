@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace SwedbankPay.Sdk.PaymentOrders
 {
@@ -42,6 +43,8 @@ namespace SwedbankPay.Sdk.PaymentOrders
                     OrderItems.Add(new OrderItemDto(item));
                 }
             }
+
+            ProductName = paymentOrder.ProductName;
         }
 
         public long Amount { get; }
@@ -75,5 +78,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public bool? DisablePaymentMenu { get; }
 
         public MetadataDto Metadata { get; }
+
+        public string ProductName { get; }
     }
 }

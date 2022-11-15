@@ -70,6 +70,9 @@ namespace SwedbankPay.Sdk.PaymentOrders
                     case PaymentOrderResourceOperations.ViewPaymentOrder:
                         View = httpOperation;
                         break;
+                    case PaymentOrderResourceOperations.RedirectCheckout:
+                        RedirectCheckout = httpOperation;
+                        break;
                 }
                 Add(httpOperation.Rel, httpOperation);
             }
@@ -81,5 +84,6 @@ namespace SwedbankPay.Sdk.PaymentOrders
         public Func<PaymentOrderReversalRequest, Task<IReversalResponse>> Reverse { get; }
         public Func<PaymentOrderUpdateRequest, Task<IPaymentOrderResponse>> Update { get; }
         public HttpOperation View { get; }
+        public HttpOperation RedirectCheckout { get; }
     }
 }

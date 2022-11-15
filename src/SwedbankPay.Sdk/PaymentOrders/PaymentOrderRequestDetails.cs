@@ -22,6 +22,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// <param name="generateRecurrenceToken">Set if you want a recurrence token for recur payments.</param>
         /// <param name="urls">Object with URLs relevant for the payment.</param>
         /// <param name="payeeInfo">Object with information about the Merchant.</param>
+        /// <param name="useCheckoutV3">Used to tag the payment as Checkout v3. Mandatory for Checkout v3, as you won’t get the operations in the response without submitting this field.</param>
         protected internal PaymentOrderRequestDetails(Operation operation,
                                                      Currency currency,
                                                      Amount amount,
@@ -31,7 +32,8 @@ namespace SwedbankPay.Sdk.PaymentOrders
                                                      Language language,
                                                      bool generateRecurrenceToken,
                                                      IUrls urls,
-                                                     IPayeeInfo payeeInfo)
+                                                     IPayeeInfo payeeInfo,
+                                                     bool useCheckoutV3)
         {
             Operation = operation ?? throw new ArgumentNullException(nameof(operation));
             Currency = currency ?? throw new ArgumentNullException(nameof(currency));
@@ -43,6 +45,11 @@ namespace SwedbankPay.Sdk.PaymentOrders
             Urls = urls ?? throw new ArgumentNullException(nameof(urls));
             GenerateRecurrenceToken = generateRecurrenceToken;
             PayeeInfo = payeeInfo;
+
+            if (useCheckoutV3)
+            {
+                ProductName = "Checkout3";
+            }
         }
 
 
@@ -133,5 +140,10 @@ namespace SwedbankPay.Sdk.PaymentOrders
         /// If set to true, disables the frame around the payment menu. Usefull when only showing one payment instrument.
         /// </summary>
         public bool? DisablePaymentMenu { get; set; }
+
+        /// <summary>
+        /// Used to tag the payment as Checkout v3. Mandatory for Checkout v3, as you won’t get the operations in the response without submitting this field.
+        /// </summary>
+        public string ProductName { get; set; }
     }
 }

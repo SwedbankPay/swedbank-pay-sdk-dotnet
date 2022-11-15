@@ -7114,6 +7114,11 @@
             Returns details needed to created a hosted view for the payer to see the payment order, if available.
             </summary>
         </member>
+        <member name="P:SwedbankPay.Sdk.PaymentOrders.IPaymentOrderOperations.RedirectCheckout">
+            <summary>
+            Opens the payment menu on a new page with the payer information displayed above the menu.
+            </summary>
+        </member>
         <member name="T:SwedbankPay.Sdk.PaymentOrders.IPaymentOrderPayeeInfo">
             <summary>
             <inheritdoc/>
@@ -7680,7 +7685,7 @@
             Request details for creating a payment order.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentOrders.PaymentOrderRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.Currency,SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.String,System.String,SwedbankPay.Sdk.Language,System.Boolean,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.IPayeeInfo)">
+        <member name="M:SwedbankPay.Sdk.PaymentOrders.PaymentOrderRequest.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.Currency,SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.String,System.String,SwedbankPay.Sdk.Language,System.Boolean,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.IPayeeInfo,System.Boolean)">
             <summary>
             Request details for creating a payment order.
             </summary>
@@ -7694,6 +7699,7 @@
             <param name="generateRecurrenceToken">Set if you want a recurrence token for recur payments.</param>
             <param name="urls">Object with URLs relevant for the payment.</param>
             <param name="payeeInfo">Object with information about the Merchant.</param>
+            <param name="useCheckoutV3">Used to tag the payment as Checkout v3. Mandatory for Checkout v3, as you won’t get the operations in the response without submitting this field.</param>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentOrders.PaymentOrderRequest.PaymentOrder">
             <summary>
@@ -7705,7 +7711,7 @@
             Transactional details for creating a payment order.
             </summary>
         </member>
-        <member name="M:SwedbankPay.Sdk.PaymentOrders.PaymentOrderRequestDetails.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.Currency,SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.String,System.String,SwedbankPay.Sdk.Language,System.Boolean,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.IPayeeInfo)">
+        <member name="M:SwedbankPay.Sdk.PaymentOrders.PaymentOrderRequestDetails.#ctor(SwedbankPay.Sdk.Operation,SwedbankPay.Sdk.Currency,SwedbankPay.Sdk.Amount,SwedbankPay.Sdk.Amount,System.String,System.String,SwedbankPay.Sdk.Language,System.Boolean,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.IPayeeInfo,System.Boolean)">
             <summary>
             Request details for creating a payment order.
             </summary>
@@ -7719,6 +7725,7 @@
             <param name="generateRecurrenceToken">Set if you want a recurrence token for recur payments.</param>
             <param name="urls">Object with URLs relevant for the payment.</param>
             <param name="payeeInfo">Object with information about the Merchant.</param>
+            <param name="useCheckoutV3">Used to tag the payment as Checkout v3. Mandatory for Checkout v3, as you won’t get the operations in the response without submitting this field.</param>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentOrders.PaymentOrderRequestDetails.Amount">
             <summary>
@@ -7808,6 +7815,11 @@
             If set to true, disables the frame around the payment menu. Usefull when only showing one payment instrument.
             </summary>
         </member>
+        <member name="P:SwedbankPay.Sdk.PaymentOrders.PaymentOrderRequestDetails.ProductName">
+            <summary>
+            Used to tag the payment as Checkout v3. Mandatory for Checkout v3, as you won’t get the operations in the response without submitting this field.
+            </summary>
+        </member>
         <member name="T:SwedbankPay.Sdk.PaymentOrders.PaymentOrderResourceOperations">
             <summary>
             Known operations for PaymentOrder.
@@ -7859,6 +7871,11 @@
             </summary>
         </member>
         <member name="F:SwedbankPay.Sdk.PaymentOrders.PaymentOrderResourceOperations.ViewPaymentOrder">
+            <summary>
+            Operation to view the payment order in a iframe.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentOrders.PaymentOrderResourceOperations.RedirectCheckout">
             <summary>
             Operation to view the payment order in a iframe.
             </summary>

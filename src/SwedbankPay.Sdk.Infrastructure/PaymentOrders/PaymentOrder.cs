@@ -10,7 +10,7 @@ namespace SwedbankPay.Sdk.PaymentOrders
             Amount = paymentOrder.Amount;
             Created = paymentOrder.Created;
             Currency = new Currency(paymentOrder.Currency);
-            CurrentPayment = paymentOrder.CurrentPayment.Map();
+            CurrentPayment = paymentOrder.CurrentPayment?.Map();
             Description = paymentOrder.Description;
             Language = new Language(paymentOrder.Language);
             Metadata = paymentOrder.Metadata?.Map();

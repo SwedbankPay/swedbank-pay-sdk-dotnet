@@ -41,13 +41,8 @@ namespace SwedbankPay.Sdk
         /// <param name="value">The value of the value in API requests.</param>
         protected TypeSafeEnum(string name, string value)
         {
-            if (string.IsNullOrEmpty(name))
-            {
-                throw new ArgumentNullException(nameof(name));
-            }
-
             Name = name;
-            Value = value ?? throw new ArgumentNullException(nameof(value));
+            Value = value;
         }
 
         /// <summary>

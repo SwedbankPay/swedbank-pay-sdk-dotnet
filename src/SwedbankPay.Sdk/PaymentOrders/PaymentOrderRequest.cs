@@ -18,6 +18,7 @@
         /// <param name="generateRecurrenceToken">Set if you want a recurrence token for recur payments.</param>
         /// <param name="urls">Object with URLs relevant for the payment.</param>
         /// <param name="payeeInfo">Object with information about the Merchant.</param>
+        /// <param name="useCheckoutV3">Used to tag the payment as Checkout v3. Mandatory for Checkout v3, as you won’t get the operations in the response without submitting this field.</param>
         public PaymentOrderRequest(Operation operation,
                                    Currency currency,
                                    Amount amount,
@@ -27,10 +28,11 @@
                                    Language language,
                                    bool generateRecurrenceToken,
                                    IUrls urls,
-                                   IPayeeInfo payeeInfo)
+                                   IPayeeInfo payeeInfo,
+                                   bool useCheckoutV3 = false)
         {
             PaymentOrder = new PaymentOrderRequestDetails(operation, currency, amount, vatAmount, description, userAgent, language,
-                                                         generateRecurrenceToken, urls, payeeInfo);
+                                                         generateRecurrenceToken, urls, payeeInfo, useCheckoutV3);
         }
 
         /// <summary>
