@@ -60,7 +60,7 @@ namespace Sample.AspNetCore.SystemTests.Services
             return component.Owner;
         }
 
-        public static TOwner StorePaymentUri<TOwner>(this UIComponent<TOwner> component, out string value)
+        public static TOwner StorePaymentUri<TOwner>(this UIComponent<TOwner> component, ref string value)
             where TOwner : PageObject<TOwner>
         {
             var val = component.Content.Value;
