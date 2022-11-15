@@ -6,7 +6,8 @@
         {
             Anonymous,
             Standard,
-            LocalPaymentMenu
+            LocalPaymentMenu,
+            LocalPaymentMenuVerification,
         }
     }
 }

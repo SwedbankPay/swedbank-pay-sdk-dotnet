@@ -38,5 +38,8 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels.Orders
 
         [FindByAutomation("div", "div-orders")]
         public ItemsControl<OrderItem, _> Orders { get; set; }
+
+        [FindByClass("alert-success")]
+        public Text<_> SuccessMessage { get; set; }
     }
 }

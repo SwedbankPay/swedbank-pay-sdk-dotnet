@@ -60,6 +60,15 @@ namespace Sample.AspNetCore.SystemTests.Services
             return component.Owner;
         }
 
+        public static TOwner StorePaymentUri<TOwner>(this UIComponent<TOwner> component, out string value)
+            where TOwner : PageObject<TOwner>
+        {
+            var val = component.Content.Value;
+            var limit = val.IndexOf("/transactions");
+            value = val.Substring(0, limit);
+            return component.Owner;
+        }
+
         public static TOwner StoreValue<TOwner>(this UIComponent<TOwner> component, out string value)
             where TOwner : PageObject<TOwner>
         {
