@@ -30,7 +30,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Validation
         {
             Assert.DoesNotThrow(() => {
 
-                GoToPayexCardPaymentFrame(products)
+                GoToPayexCardPaymentFrame(products, null)
                 .CreditCardNumber.Set("abc")
                 .ExpiryDate.Set("abcd")
                 .Cvc.Set("abc")
