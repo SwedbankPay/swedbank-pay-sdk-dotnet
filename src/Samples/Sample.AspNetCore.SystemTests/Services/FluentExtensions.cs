@@ -80,6 +80,55 @@ public static class FluentExtensions
                 .WaitSeconds(interval);
         }
 
-        return editableField.Owner;
+        public static string GetPaymentOrderFromBody<TOwner>(this ValueProvider<string, TOwner> data)
+            where TOwner : PageObject<TOwner>
+        {
+            var tmp = data.Value;
+            var orderId = Regex.Match(tmp, "\\/psp\\/(.*?)(?=[\"&])").Value;
+
+            TestContext.Out?.WriteLine(orderId);
+
+            return orderId;
+        }
+
+        public static TOwner StoreValueAsUri<TOwner>(this UIComponent<TOwner> component, out Uri value)
+            where TOwner : PageObject<TOwner>
+        {
+            var val = component.Content.Value;
+            value = new Uri(val, UriKind.RelativeOrAbsolute);
+            return component.Owner;
+        }
+
+        public static string StorePaymentUri<TOwner>(this UIComponent<TOwner> component)
+            where TOwner : PageObject<TOwner>
+        {
+            var val = component.Content.Value;
+            var limit = val.IndexOf("/transactions");
+            var value = val.Substring(0, limit);
+            return value;
+        }
+
+        public static TOwner StoreValue<TOwner>(this UIComponent<TOwner> component, out string value)
+            where TOwner : PageObject<TOwner>
+        {
+            var val = component.Content.Value;
+            value = val;
+            return component.Owner;
+        }
+
+        public static TOwner SetWithSpeed<T, TOwner>(this EditableField<T, TOwner> editableField, T value, double interval) 
+            where TOwner : PageObject<TOwner>
+        {
+            editableField.Focus();
+            
+            foreach (var character in value.ToString())
+            {
+                editableField.Owner
+                    .Press(character.ToString())
+                    .WaitSeconds(interval);
+            }
+
+            return editableField.Owner;
+        }
     }
 }

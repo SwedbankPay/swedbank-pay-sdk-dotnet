@@ -18,6 +18,10 @@ public class LocalPaymentMenuPage : Page<_>
     [FindById("trustly")]
     public Button<_> Trustly { get; private set; }
 
-    [WaitFor(Until.Visible, TriggerEvents.BeforeAccess)]
-    public Frame<_> PaymentFrame { get; private set; }
+        [FindById("recurring")]
+        public Button<_> Recurring { get; private set; }
+
+        [WaitFor(Until.Visible, TriggerEvents.BeforeAccess)]
+        public Frame<_> PaymentFrame { get; private set; }
+    }
 }
