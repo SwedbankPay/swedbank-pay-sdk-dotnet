@@ -1,10 +1,8 @@
 ﻿using Atata;
 using NUnit.Framework;
-using Sample.AspNetCore.SystemTests.Services;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
 using SwedbankPay.Sdk;
 using SwedbankPay.Sdk.PaymentInstruments;
-using SwedbankPay.Sdk.PaymentOrders;
 using System;
 using System.Linq;
 using System.Threading.Tasks;

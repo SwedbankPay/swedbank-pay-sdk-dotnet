@@ -1,5 +1,4 @@
-﻿using SwedbankPay.Sdk.PaymentOrders;
-using System;
+﻿using System;
 using System.Text.Json;
 using Xunit;
 

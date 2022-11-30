@@ -13,8 +13,6 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
 
-using SwedbankPay.Sdk;
-
 namespace Sample.AspNetCore;
 
 public class Startup

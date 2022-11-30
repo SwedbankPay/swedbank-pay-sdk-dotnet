@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SwedbankPay.Sdk.PaymentInstruments.Card;
+﻿namespace SwedbankPay.Sdk.PaymentInstruments.Card;
 
 internal class CardPaymentVerifyResponseDto
 {
