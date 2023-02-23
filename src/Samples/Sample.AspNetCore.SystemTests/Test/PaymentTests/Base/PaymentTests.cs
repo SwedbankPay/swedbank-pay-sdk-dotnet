@@ -233,6 +233,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                         .Email.SetWithSpeed(TestDataService.Email, interval: 0.1)
                         .PhoneNumber.SetWithSpeed(TestDataService.SwedishPhoneNumber, interval: 0.1)
                         .Next.Click()
+                        .Next.IsVisible.WaitTo.WithinSeconds(10).BeFalse()
                         .WaitSeconds(1)
                         .Do(x => { 
                             if(x.SaveMyInformation.IsVisible)
