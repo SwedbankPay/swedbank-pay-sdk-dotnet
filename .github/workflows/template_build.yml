@@ -83,7 +83,7 @@ jobs:
           ./src/Samples/Sample.AspNetCore.SystemTests/chrome-driver-udpate.ps1
 
       - name: Publish Sdk Sample site system test
-        run: dotnet publish --configuration ${{ inputs.Configuration }} -p:Version=${{ inputs.nuGetVersionV2 }} --no-restore ${{ inputs.SystemTestsCsprojPath }} --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/systemtests' --os win
+        run: dotnet publish --configuration ${{ inputs.Configuration }} -p:Version=${{ inputs.nuGetVersionV2 }} ${{ inputs.SystemTestsCsprojPath }} --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/systemtests' --os win
 
       - name: Copy wwwroot to publish directory
         shell: pwsh
