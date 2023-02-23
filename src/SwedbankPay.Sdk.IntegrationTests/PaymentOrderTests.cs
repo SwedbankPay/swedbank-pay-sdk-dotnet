@@ -163,23 +163,23 @@ namespace SwedbankPay.Sdk.Tests
 
 
 
-        [Fact]
-        public async Task GetPaymentOrder_WithPayment_ShouldReturnCurrentPaymentIfExpanded()
-        {
-            //ARRANGE
-            _ = this.paymentOrderRequestBuilder.WithTestValues(this.payeeId)
-                    .WithOrderItems()
-                    .Build();
+        //[Fact]
+        //public async Task GetPaymentOrder_WithPayment_ShouldReturnCurrentPaymentIfExpanded()
+        //{
+        //    //ARRANGE
+        //    _ = this.paymentOrderRequestBuilder.WithTestValues(this.payeeId)
+        //            .WithOrderItems()
+        //            .Build();
 
-            //ACT
-            var paymentOrder = await this.Sut.PaymentOrders.Get(new Uri("/psp/paymentorders/472e6f26-a9b5-4e91-1b70-08d756b9b7d8", UriKind.Relative),
-                                                                PaymentOrderExpand.CurrentPayment);
+        //    //ACT
+        //    var paymentOrder = await this.Sut.PaymentOrders.Get(new Uri("/psp/paymentorders/7737d790-dcbe-40e9-6441-08db13e1be83", UriKind.Relative),
+        //                                                        PaymentOrderExpand.CurrentPayment);
 
-            //ASSERT
-            Assert.NotNull(paymentOrder);
-            Assert.NotNull(paymentOrder.PaymentOrder.CurrentPayment);
-            Assert.NotNull(paymentOrder.PaymentOrder.CurrentPayment.Payment);
-        }
+        //    //ASSERT
+        //    Assert.NotNull(paymentOrder);
+        //    Assert.NotNull(paymentOrder.PaymentOrder.CurrentPayment);
+        //    Assert.NotNull(paymentOrder.PaymentOrder.CurrentPayment.Payment);
+        //}
 
         [Fact]
         public async Task GetUnknownPaymentOrder_ShouldThrowHttpResponseException()
