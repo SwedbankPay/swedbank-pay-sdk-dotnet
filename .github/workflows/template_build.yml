@@ -96,8 +96,11 @@ jobs:
           name: Sample.AspNetCore.SystemTests
           path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/systemtests
 
-      - name: Nuget pack
-        run: dotnet pack ${{ inputs.SlnPath }} -p:PackageVersion=${{ inputs.NUGETVERSIONV2 }} -p:Version=${{ inputs.NUGETVERSIONV2 }} --no-restore --configuration=${{ inputs.Configuration }} --output=artifacts
+      - name: Nuget pack SwedbankPay.Sdk
+        run: dotnet pack /src/SwedbankPay.Sdk.Infrastructure/SwedbankPay.Sdk.Infrastructure.csproj -p:PackageVersion=${{ inputs.NUGETVERSIONV2 }} -p:Version=${{ inputs.NUGETVERSIONV2 }} --no-restore --configuration=${{ inputs.Configuration }} --output=artifacts
+
+      - name: Nuget pack SwedbankPay.Sdk.Extensions
+        run: dotnet pack /src/SwedbankPay.Sdk.Extensions/SwedbankPay.Sdk.Extensions.csproj -p:PackageVersion=${{ inputs.NUGETVERSIONV2 }} -p:Version=${{ inputs.NUGETVERSIONV2 }} --no-restore --configuration=${{ inputs.Configuration }} --output=artifacts
 
       - name: Archive nuget packages artifacts
         uses: actions/upload-artifact@v3
