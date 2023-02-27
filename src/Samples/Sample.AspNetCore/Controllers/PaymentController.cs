@@ -19,14 +19,21 @@ namespace Sample.AspNetCore.Controllers
         private readonly StoreDbContext context;
         private readonly PayeeInfoConfig payeeInfoOptions;
         private readonly ISwedbankPayClient swedbankPayClient;
+        private readonly UrlsOptions urls;
 
 
-        public PaymentController(IOptionsSnapshot<PayeeInfoConfig> payeeInfoOptionsAccessor, Cart cart, StoreDbContext dbContext, ISwedbankPayClient payClient)
+        public PaymentController(
+            IOptionsSnapshot<PayeeInfoConfig> payeeInfoOptionsAccessor, 
+            Cart cart, 
+            StoreDbContext dbContext, 
+            ISwedbankPayClient payClient,
+            IOptionsSnapshot<UrlsOptions> urlsAccessor)
         {
             this.payeeInfoOptions = payeeInfoOptionsAccessor.Value;
             this.cartService = cart;
             this.context = dbContext;
             this.swedbankPayClient = payClient;
+            this.urls = urlsAccessor.Value;
         }
 
 
@@ -126,6 +133,36 @@ namespace Sample.AspNetCore.Controllers
 
                 this.cartService.PaymentOrderLink = null;
 
+                return RedirectToAction("Details", "Orders");
+            }
+            catch (Exception e)
+            {
+                TempData["ErrorMessage"] = $"Something unexpected happened. {e.Message}";
+                return RedirectToAction("Details", "Orders");
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Recurring(string paymentId, PaymentInstrument instrument)
+        {
+            try
+            {
+                var description = "Recurring the authorized payment";
+                
+                switch (instrument)
+                {
+                    case PaymentInstrument.CreditCard:
+                        var cardPayment = await this.swedbankPayClient.Payments.CardPayments.Get(new Uri(paymentId, UriKind.RelativeOrAbsolute));
+
+                        var recurringRequest = await GetRecurringRequest(description, cardPayment.Payment.RecurrenceToken);
+
+                        var response = await this.swedbankPayClient.Payments.CardPayments.Create(recurringRequest, PaymentExpand.All);
+                        var transaction = response.Payment.Transactions.TransactionList.LastOrDefault();
+                        TempData["CaptureMessage"] = $"{transaction.Id}, {transaction.State}, {transaction.Type}";
+                        break;
+                }
+
+                this.cartService.PaymentLink = null;
                 return RedirectToAction("Details", "Orders");
             }
             catch (Exception e)
@@ -255,6 +292,23 @@ namespace Sample.AspNetCore.Controllers
             }
         }
 
+
+        private async Task<SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurRequest> GetRecurringRequest(string description, string reccurenceToken)
+        {
+            var order = await this.context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
+            
+            var request = new SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurRequest(PaymentIntent.AutoCapture, reccurenceToken, new Currency("SEK"), new Amount(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
+                                                                                       new Amount(0), description, "useragent", new Language("sv-SE"),
+                                                                                       new Urls(this.urls.HostUrls.ToList(), this.urls.CompleteUrl,
+                                                                                           this.urls.TermsOfServiceUrl)
+                                                                                       {
+                                                                                           CancelUrl = this.urls.CancelUrl,
+                                                                                           PaymentUrl = this.urls.PaymentUrl,
+                                                                                           CallbackUrl = this.urls.CallbackUrl,
+                                                                                           LogoUrl = this.urls.LogoUrl
+                                                                                       }, new PayeeInfo(this.payeeInfoOptions.PayeeId, this.payeeInfoOptions.PayeeReference));
+            return request;
+        }
 
         private async Task<SwedbankPay.Sdk.PaymentOrders.PaymentOrderCaptureRequest> GetCaptureRequest(string description)
         {

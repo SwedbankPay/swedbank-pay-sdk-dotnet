@@ -27,12 +27,12 @@
         }
 
         /// <summary>
-        /// The initial <seealso cref="Sdk.Operation"/> of the payment.
+        /// The initial <seealso cref="Sdk.Operation" /> of the payment.
         /// </summary>
         public Operation Operation { get; } = Operation.Verify;
 
         /// <summary>
-        /// The initial <seealso cref="PaymentIntent"/> of the payment.
+        /// The initial <seealso cref="PaymentIntent" /> of the payment.
         /// </summary>
         public PaymentIntent Intent { get; }
 
@@ -42,19 +42,9 @@
         public string RecurrenceToken { get; }
 
         /// <summary>
-        /// The <seealso cref="Sdk.Currency"/> to be paid.
+        /// The <seealso cref="Sdk.Currency" /> to be paid.
         /// </summary>
         public Currency Currency { get; }
-
-        /// <summary>
-        /// The <seealso cref="Sdk.Amount"/> to be paid.
-        /// </summary>
-        public Amount Amount { get; }
-
-        /// <summary>
-        /// Any VAT<seealso cref="Sdk.Amount"/> to be paid.
-        /// </summary>
-        public Amount VatAmount { get; }
 
         /// <summary>
         /// A textual description of the payment.
@@ -67,7 +57,7 @@
         public string UserAgent { get; }
 
         /// <summary>
-        /// The payers prefered <see cref="Sdk.Language"/>.
+        /// The payers preferred <see cref="Sdk.Language" />.
         /// </summary>
         public Language Language { get; }
 
@@ -80,6 +70,19 @@
         /// The merchant information.
         /// </summary>
         public IPayeeInfo PayeeInfo { get; }
+
+        /// <summary>
+        /// When making the initial purchase request, you need to generate a paymentToken.
+        /// You can do this either by by setting the GeneratePaymentToken field to true,
+        /// or set the initial operation to Verify.
+        /// </summary>
+        public bool GeneratePaymentToken { get; set; }
+
+        /// <summary>
+        /// Set this to true if you want to create a recurrenceToken for future use Recurring purchases (subscription
+        /// payments).
+        /// </summary>
+        public bool GenerateRecurrenceToken { get; set; }
 
         /// <summary>
         /// Metadata can be used to store data associated to a payment that can be

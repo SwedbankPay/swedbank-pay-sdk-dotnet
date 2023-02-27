@@ -74,7 +74,7 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests
         public async Task GetPayment()
         {
             var payment = await this.Sut.Payments.SwishPayments.Get(
-                new Uri("/psp/swish/payments/dda2cbde-117a-4742-cbc9-08d7942e23d8", UriKind.Relative), PaymentExpand.All);
+                new Uri("/psp/swish/payments/9ffb0e41-d126-4bc4-0543-08db13d23495", UriKind.Relative), PaymentExpand.All);
             Assert.NotNull(payment);
         }
     }

@@ -40,6 +40,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 .SetBasePath(Environment.CurrentDirectory)
                 .AddJsonFile("appsettings.json", true)
                 .AddJsonFile("appsettings.local.json", true)
+                .AddUserSecrets("e6f89439-1a88-4120-92cf-be2d9fe6457d", true)
                 .AddEnvironmentVariables()
                 .Build();
 
@@ -86,7 +87,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                 });
         }
 
-        protected PayexCardFramePage GoToPayexCardPaymentFrame(Product[] products, Checkout.Option checkout = Checkout.Option.Anonymous)
+        protected PayexCardFramePage GoToPayexCardPaymentFrame(Product[] products, PayexCardInfo payexCardInfo, Checkout.Option checkout = Checkout.Option.Anonymous)
         {
             PayexCardFramePage frame = null;
 
@@ -94,8 +95,21 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             {
                 case Checkout.Option.LocalPaymentMenu:
                     frame = GoToLocalPaymentPage(products, checkout)
-                        .CreditCard.IsVisible.WaitTo.BeTrue()
-                        .CreditCard.Click()
+                        .Do(x =>
+                        {
+                            if(payexCardInfo.IsVerification)
+                            {
+                                x
+                                .Recurring.IsVisible.WaitTo.BeTrue()
+                                .Recurring.Click();
+                            }
+                            else
+                            {
+                                x
+                                .CreditCard.IsVisible.WaitTo.BeTrue()
+                                .CreditCard.Click();
+                            }
+                        })
                         .PaymentFrame.IsVisible.WaitTo.BeTrue()
                         .PaymentFrame.SwitchTo<PayexCardFramePage>()
                         .PageSource.WaitTo.WithinSeconds(15).Contain("/psp/");
@@ -219,6 +233,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                         .Email.SetWithSpeed(TestDataService.Email, interval: 0.1)
                         .PhoneNumber.SetWithSpeed(TestDataService.SwedishPhoneNumber, interval: 0.1)
                         .Next.Click()
+                        .Next.IsVisible.WaitTo.WithinSeconds(10).BeFalse()
                         .WaitSeconds(1)
                         .Do(x => { 
                             if(x.SaveMyInformation.IsVisible)
@@ -299,7 +314,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
         {
             return checkout switch
             {
-                Checkout.Option.Standard => GoToPayexCardPaymentFrame(products, checkout)
+                Checkout.Option.Standard => GoToPayexCardPaymentFrame(products, info, checkout)
                                        .Do(x =>
                                        {
                                            if (x.PreFilledCards.Exists(new SearchOptions { IsSafely = true, Timeout = TimeSpan.FromSeconds(3) }))
@@ -332,12 +347,11 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
                                        })
                                        .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
                                        .Pay.ClickAndGo(),
-                _ => GoToPayexCardPaymentFrame(products, checkout)
+                _ => GoToPayexCardPaymentFrame(products, info, checkout)
                     .CreditCardNumber.IsVisible.WaitTo.BeTrue()
                     .CreditCardNumber.SetWithSpeed(info.CreditCardNumber, interval: 0.1)
                     .ExpiryDate.SetWithSpeed(info.ExpiryDate, interval: 0.1)
                     .Cvc.SetWithSpeed(info.Cvc, interval: 0.1)
-                    .Pay.Content.Should.BeEquivalent($"Betala {string.Format("{0:N2}", Convert.ToDecimal(products.Sum(x => x.UnitPrice / 100 * x.Quantity)))} kr")
                     .Pay.ClickAndGo(),
             };
         }
@@ -429,7 +443,12 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
             {
                 case PaymentMethods.Card:
                     data.Add(new PayexCardInfo(TestDataService.CreditCardNumber, TestDataService.CreditCardExpirationDate,
-                                               TestDataService.CreditCardCvc));
+                                               TestDataService.CreditCardCvc, false));
+                    break;
+
+                case PaymentMethods.Recurring:
+                    data.Add(new PayexCardInfo(TestDataService.CreditCardNumber, TestDataService.CreditCardExpirationDate,
+                                               TestDataService.CreditCardCvc, true));
                     break;
 
                 case PaymentMethods.Swish:

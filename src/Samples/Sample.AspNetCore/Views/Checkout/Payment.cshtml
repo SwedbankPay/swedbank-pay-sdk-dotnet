@@ -3,17 +3,20 @@
 		<div class="col-md-5 col-xs-12">
 			<h2>Betala med</h2>
             <div class="btn-group-vertical btn-block">
-                <button id="creditCard" class="btn btn-default" onclick="startPayment('creditcard')">
+                <button id="creditCard" class="btn btn-default" onclick="startPayment('creditcard', false)">
                     <img class="img-paymentmethod-padding" src="/img/cards.png" alt="Credit card">
                 </button>
-                <button id="swish" class="btn btn-default" onclick="startPayment('swish')">
+                <button id="swish" class="btn btn-default" onclick="startPayment('swish', false)">
                     <img class="img-paymentmethod-padding" src="/img/swish_logo.png" alt="Swish">
                 </button>
-                <button id="trustly" class="btn btn-default" onclick="startPayment('trustly')">
+                <button id="trustly" class="btn btn-default" onclick="startPayment('trustly', false)">
                     <img class="img-paymentmethod-padding" src="/img/trustly-logo.png" alt="Trustly">
                 </button>
-                <button id="invoice" class="btn btn-default" onclick="startPayment('invoice')">
+                <button id="invoice" class="btn btn-default" onclick="startPayment('invoice', false)">
                     <img class="img-paymentmethod-padding" src="/img/invoice_logo.png" alt="Invoice">
+                </button>
+				<button id="recurring" class="btn btn-default" onclick="startPayment('creditcard', true)">
+                    <img class="img-paymentmethod-padding" src="/img/cards.png" alt="Recurring">
                 </button>
             </div>
 		</div>
@@ -102,12 +105,15 @@
 	}
 
 
-	function startPayment(instrument) {
+	function startPayment(instrument, recurring) {
 		resetPaymentFrame();
 		currentInstrument = instrument;
 		
 		$.post("/checkout/GetPaymentJsSource",
-			{ instrument: instrument },
+			{ 
+				instrument: instrument,
+				recurring: recurring
+			},
 			function (paymentPageUrl) {
 				setFrameHostedView(paymentPageUrl, instrument);
 				removeError();

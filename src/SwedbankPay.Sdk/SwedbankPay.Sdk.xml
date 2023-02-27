@@ -2431,7 +2431,7 @@
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentDetails.Language">
             <summary>
-            The payers prefered language.
+            The payers preferred language.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentDetails.Operation">
@@ -2549,7 +2549,7 @@
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurDetails.Language">
             <summary>
-            The payers prefered <see cref="T:SwedbankPay.Sdk.Language"/>.
+            The payers preferred <see cref="T:SwedbankPay.Sdk.Language"/>.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRecurDetails.Urls">
@@ -2692,7 +2692,7 @@
             <param name="currency">The wanted <seealso cref="T:SwedbankPay.Sdk.Currency"/> for the payment to be paid in.</param>
             <param name="description">A textual description of the payment.</param>
             <param name="userAgent">The payers UserAgent.</param>
-            <param name="language">The prefered <seealso cref="T:SwedbankPay.Sdk.Language"/> of the payer.</param>
+            <param name="language">The preferred <seealso cref="T:SwedbankPay.Sdk.Language"/> of the payer.</param>
             <param name="urls">Object holding relevant <seealso cref="T:SwedbankPay.Sdk.IUrls"/> for the payment.</param>
             <param name="payeeInfo">Object identifying the payee.</param>
         </member>
@@ -2703,12 +2703,12 @@
         </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentVerifyRequestDetails">
             <summary>
-            Object to hold details for verifying a card payment
+                Object to hold details for verifying a card payment
             </summary>
         </member>
         <member name="M:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentVerifyRequestDetails.#ctor(SwedbankPay.Sdk.PaymentInstruments.PaymentIntent,SwedbankPay.Sdk.Currency,System.String,System.String,SwedbankPay.Sdk.Language,SwedbankPay.Sdk.IUrls,SwedbankPay.Sdk.IPayeeInfo)">
             <summary>
-            Instantiates a new Verify request for a card payment.
+                Instantiates a new Verify request for a card payment.
             </summary>
             <param name="intent"></param>
             <param name="currency"></param>
@@ -2720,71 +2720,74 @@
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentVerifyRequestDetails.Operation">
             <summary>
-            The initial <seealso cref="T:SwedbankPay.Sdk.Operation"/> of the payment.
+                The initial <seealso cref="T:SwedbankPay.Sdk.Operation" /> of the payment.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentVerifyRequestDetails.Intent">
             <summary>
-            The initial <seealso cref="T:SwedbankPay.Sdk.PaymentInstruments.PaymentIntent"/> of the payment.
+                The initial <seealso cref="T:SwedbankPay.Sdk.PaymentInstruments.PaymentIntent" /> of the payment.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentVerifyRequestDetails.RecurrenceToken">
             <summary>
-            The provided reccurence token.
+                The provided reccurence token.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentVerifyRequestDetails.Currency">
             <summary>
-            The <seealso cref="T:SwedbankPay.Sdk.Currency"/> to be paid.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentVerifyRequestDetails.Amount">
-            <summary>
-            The <seealso cref="T:SwedbankPay.Sdk.Amount"/> to be paid.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentVerifyRequestDetails.VatAmount">
-            <summary>
-            Any VAT<seealso cref="T:SwedbankPay.Sdk.Amount"/> to be paid.
+                The <seealso cref="T:SwedbankPay.Sdk.Currency" /> to be paid.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentVerifyRequestDetails.Description">
             <summary>
-            A textual description of the payment.
+                A textual description of the payment.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentVerifyRequestDetails.UserAgent">
             <summary>
-            The payers user agent.
+                The payers user agent.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentVerifyRequestDetails.Language">
             <summary>
-            The payers prefered <see cref="T:SwedbankPay.Sdk.Language"/>.
+                The payers preferred <see cref="T:SwedbankPay.Sdk.Language" />.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentVerifyRequestDetails.Urls">
             <summary>
-            Urls relevant for the payment.
+                Urls relevant for the payment.
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentVerifyRequestDetails.PayeeInfo">
             <summary>
-            The merchant information.
+                The merchant information.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentVerifyRequestDetails.GeneratePaymentToken">
+            <summary>
+                When making the initial purchase request, you need to generate a paymentToken.
+                You can do this either by by setting the GeneratePaymentToken field to true,
+                or set the initial operation to Verify.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentVerifyRequestDetails.GenerateRecurrenceToken">
+            <summary>
+                Set this to true if you want to create a recurrenceToken for future use Recurring purchases (subscription
+                payments).
             </summary>
         </member>
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentVerifyRequestDetails.Metadata">
             <summary>
-            Metadata can be used to store data associated to a payment that can be
-            retrieved later by performing a GET on the payment.
-            Swedbank Pay does not use or process metadata,
-            it is only stored on the payment so it can be retrieved later alongside the payment.
-            An example where metadata might be useful is when several internal systems
-            are involved in the payment process and the payment creation is done in one system
-            and post-purchases take place in another.
-            In order to transmit data between these two internal systems,
-            the data can be stored in metadata on the payment so the internal
-            systems do not need to communicate with each other directly.
+                Metadata can be used to store data associated to a payment that can be
+                retrieved later by performing a GET on the payment.
+                Swedbank Pay does not use or process metadata,
+                it is only stored on the payment so it can be retrieved later alongside the payment.
+                An example where metadata might be useful is when several internal systems
+                are involved in the payment process and the payment creation is done in one system
+                and post-purchases take place in another.
+                In order to transmit data between these two internal systems,
+                the data can be stored in metadata on the payment so the internal
+                systems do not need to communicate with each other directly.
             </summary>
         </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.ICardholder">
@@ -2976,6 +2979,11 @@
         <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentOperations.ViewVerification">
             <summary>
             View the verification if available.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentOperations.ViewPayment">
+            <summary>
+            View the payment if available.
             </summary>
         </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentRecurResponse">
@@ -3228,19 +3236,9 @@
             Available list of verifications.
             </summary>
         </member>
-        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentVerifyResponseDetails">
-            <summary>
-            Detailed information about verified card payments.
-            </summary>
-        </member>
-        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.ICardPaymentVerifyResponseDetails.VerificationList">
-            <summary>
-            List of available verifications.
-            </summary>
-        </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.ICardResource">
             <summary>
-            The entrypoint for talkig with the creditcard APIs.
+            The entry point for talking with the creditcard APIs.
             </summary>
         </member>
         <member name="M:SwedbankPay.Sdk.PaymentInstruments.Card.ICardResource.Create(SwedbankPay.Sdk.PaymentInstruments.Card.CardPaymentRequest,SwedbankPay.Sdk.PaymentInstruments.PaymentExpand)">
@@ -3274,6 +3272,16 @@
             <param name="paymentRequest"></param>
             <param name="paymentExpand"></param>
             <returns></returns>
+        </member>
+        <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.IVerificationListResponse">
+            <summary>
+            Detailed information about verified card payments.
+            </summary>
+        </member>
+        <member name="P:SwedbankPay.Sdk.PaymentInstruments.Card.IVerificationListResponse.VerificationList">
+            <summary>
+            List of available verifications.
+            </summary>
         </member>
         <member name="T:SwedbankPay.Sdk.PaymentInstruments.Card.IVerifyTransaction">
             <summary>
@@ -5201,6 +5209,11 @@
         <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentExpand.Metadata">
             <summary>
             Expand the MetaData sub-resource.
+            </summary>
+        </member>
+        <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentExpand.Verifications">
+            <summary>
+            Expand the Verifications sub-resource.
             </summary>
         </member>
         <member name="F:SwedbankPay.Sdk.PaymentInstruments.PaymentExpand.All">

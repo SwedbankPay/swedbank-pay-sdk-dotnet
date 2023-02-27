@@ -42,7 +42,7 @@ jobs:
           run_id: ${{ github.event.workflow_run.id }}
                     
       - name: Setup .NET
-        uses: actions/setup-dotnet@v3.0.0
+        uses: actions/setup-dotnet@v3.0.3
         with:
           dotnet-version: ${{ env.dotnetVersion }}       
 
@@ -66,7 +66,7 @@ jobs:
 
       - name: Commit Action Status
         if: ${{ always() }}
-        uses: LouisBrunner/checks-action@v1.3.1
+        uses: LouisBrunner/checks-action@v1.5.0
         with:
           sha: ${{ steps.source-run-info.outputs.sourceHeadSha }}
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -91,7 +91,7 @@ jobs:
           path: packages
     
       - name: Publish test package to GitHub Package Registry
-        run: dotnet nuget push "packages/*.nupkg" --api-key ${{secrets.GITHUB_TOKEN}} --source  https://nuget.pkg.github.com/sveawebpay/index.json --skip-duplicate
+        run: dotnet nuget push "packages/*.nupkg" --api-key ${{secrets.GITHUB_TOKEN}} --source  https://nuget.pkg.github.com/swedbankpay/index.json --skip-duplicate
   
   publish_sample_site:
     needs: [test-unit-ui]

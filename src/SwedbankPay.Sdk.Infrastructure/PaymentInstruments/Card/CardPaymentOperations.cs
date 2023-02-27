@@ -75,6 +75,10 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
                     case PaymentResourceOperations.PaidPayment:
                         PaidPayment = httpOperation;
                         break;
+
+                    case PaymentResourceOperations.ViewPayment:
+                        ViewPayment = httpOperation;
+                        break;
                 }
                 Add(httpOperation.Rel, httpOperation);
             }
@@ -91,5 +95,6 @@ namespace SwedbankPay.Sdk.PaymentInstruments.Card
         public HttpOperation RedirectVerification { get; }
         public HttpOperation ViewAuthorization { get; }
         public HttpOperation ViewVerification { get; }
+        public HttpOperation ViewPayment { get; }
     }
 }

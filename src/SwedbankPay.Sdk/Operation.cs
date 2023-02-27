@@ -28,7 +28,7 @@
         /// <summary>
         /// The <seealso cref="Operation"/> for Recur.
         /// </summary>
-        public static readonly Operation Recur = new Operation(nameof(Initiate), "Recur");
+        public static readonly Operation Recur = new Operation(nameof(Recur), "Recur");
 
         /// <summary>
         /// The <seealso cref="Operation"/> for FinancingConsumer.

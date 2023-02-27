@@ -69,7 +69,7 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
         ""operations"": []
     }
 ]}";
-            var dto = JsonSerializer.Deserialize<CardPaymentVerifyResponseDetailsDto>(problemResponse, JsonSerialization.JsonSerialization.Settings);
+            var dto = JsonSerializer.Deserialize<VerificationListResponseDto>(problemResponse, JsonSerialization.JsonSerialization.Settings);
 
             var result = dto.Map();
 
