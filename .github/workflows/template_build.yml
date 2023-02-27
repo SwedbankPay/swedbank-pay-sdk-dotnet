@@ -83,7 +83,7 @@ jobs:
           ./src/Samples/Sample.AspNetCore.SystemTests/chrome-driver-udpate.ps1
 
       - name: Publish Sdk Sample site system test
-        run: dotnet publish --configuration ${{ inputs.Configuration }} -p:Version=${{ inputs.nuGetVersionV2 }} --no-restore ${{ inputs.SystemTestsCsprojPath }} --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/systemtests' --os win
+        run: dotnet publish --configuration ${{ inputs.Configuration }} -p:Version=${{ inputs.nuGetVersionV2 }} ${{ inputs.SystemTestsCsprojPath }} --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/systemtests' --os win
 
       - name: Copy wwwroot to publish directory
         shell: pwsh
@@ -96,8 +96,11 @@ jobs:
           name: Sample.AspNetCore.SystemTests
           path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/systemtests
 
-      - name: Nuget pack
-        run: dotnet pack ${{ inputs.SlnPath }} -p:PackageVersion=${{ inputs.NUGETVERSIONV2 }} -p:Version=${{ inputs.NUGETVERSIONV2 }} --no-restore --configuration=${{ inputs.Configuration }} --output=artifacts
+      - name: Nuget pack SwedbankPay.Sdk
+        run: dotnet pack ./src/SwedbankPay.Sdk.Infrastructure/SwedbankPay.Sdk.Infrastructure.csproj -p:PackageVersion=${{ inputs.NUGETVERSIONV2 }} -p:Version=${{ inputs.NUGETVERSIONV2 }} --no-restore --configuration=${{ inputs.Configuration }} --output=artifacts
+
+      - name: Nuget pack SwedbankPay.Sdk.Extensions
+        run: dotnet pack ./src/SwedbankPay.Sdk.Extensions/SwedbankPay.Sdk.Extensions.csproj -p:PackageVersion=${{ inputs.NUGETVERSIONV2 }} -p:Version=${{ inputs.NUGETVERSIONV2 }} --no-restore --configuration=${{ inputs.Configuration }} --output=artifacts
 
       - name: Archive nuget packages artifacts
         uses: actions/upload-artifact@v3
