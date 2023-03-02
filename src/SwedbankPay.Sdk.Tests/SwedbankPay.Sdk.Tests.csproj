@@ -45,7 +45,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.*" />
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="7.*" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.*" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.*" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="7.*" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.*" />
     <PackageReference Include="NSubstitute" Version="5.0.0" />
     <PackageReference Include="xunit" Version="2.4.2" />
