@@ -4,21 +4,21 @@ namespace SwedbankPay.Sdk.PaymentInstruments
 {
     internal class AuthorizationTransactionDto
     {
-        public long Amount { get; }
-        public long VatAmount { get; }
-        public DateTime Created { get; }
-        public string Description { get; }
-        public string FailedActivityName { get; }
-        public string FailedErrorCode { get; }
-        public string FailedErrorDescription { get; }
-        public string FailedReason { get; }
-        public bool IsOperational { get; }
-        public long Number { get; }
-        public OperationListDto Operations { get; }
-        public string PayeeReference { get; }
-        public string State { get; }
-        public string Type { get; }
-        public DateTime Updated { get; }
+        public long Amount { get; set; }
+        public long VatAmount { get; set; }
+        public DateTime Created { get; set; }
+        public string Description { get; set; }
+        public string FailedActivityName { get; set; }
+        public string FailedErrorCode { get; set; }
+        public string FailedErrorDescription { get; set; }
+        public string FailedReason { get; set; }
+        public bool IsOperational { get; set; }
+        public long Number { get; set; }
+        public OperationListDto Operations { get; set; }
+        public string PayeeReference { get; set; }
+        public string State { get; set; }
+        public string Type { get; set; }
+        public DateTime Updated { get; set; }
         public string Id { get; set; }
 
         internal IAuthorizationTransaction Map()
