@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -27,7 +27,7 @@
     </PackageReference>
     <PackageReference Include="Selenium.Firefox.WebDriver" Version="0.27.0" />
     <PackageReference Include="Selenium.WebDriver" Version="4.5.0" />
-    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="110.0.5481.7700" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="115.0.5790.10200" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.*" />
   </ItemGroup>
   
