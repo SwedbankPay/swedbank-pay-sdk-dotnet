@@ -14,7 +14,7 @@ jobs:
       NUGETVERSIONV2: ${{ steps.gitversion.outputs.NUGETVERSIONV2 }}
 
     steps:
-      - uses: actions/checkout@v3        
+      - uses: actions/checkout@v4        
 
       - name: Install GitVersion
         uses: gittools/actions/gitversion/setup@v0.10.2
