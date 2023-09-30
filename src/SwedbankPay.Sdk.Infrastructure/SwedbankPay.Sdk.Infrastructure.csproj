@@ -1,57 +1,22 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net5.0;net6.0</TargetFrameworks>
-    <!--Include Project References output-->
-    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
-    
-    <LangVersion>latest</LangVersion>
-    
-    <Authors>Swedbank Pay</Authors>
-    <Description>A client library and SDK for Swedbank Pay's RESTful API Platform</Description>
-    <Copyright>Swedbank Pay</Copyright>
-    
-    <RootNamespace>SwedbankPay.Sdk</RootNamespace>
+<Project Sdk="Microsoft.NET.Sdk">
 
-    <Authors>Swedbank Pay</Authors>
-    <Description>A client library and SDK for Swedbank Pay's RESTful API Platform</Description>
-    <Copyright>Swedbank Pay</Copyright>
-    
-    <PackageId>SwedbankPay.Sdk</PackageId>
-    <PackageIcon>icon.png</PackageIcon>
-    <PackageTags>SwedbankPay sdk payments payment client api rest restful</PackageTags>
-    <PackageReleaseNotes>Swish payment handling. CreditCard payment handling. Checkout handling.</PackageReleaseNotes>
-    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/SwedbankPay/swedbank-pay-sdk-dotnet</PackageProjectUrl>
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
 
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-
-    <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/SwedbankPay/swedbank-pay-sdk-dotnet.git</RepositoryUrl>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="System.Text.Json" Version="[5.0.0,7.0.0)" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\SwedbankPay.Sdk\SwedbankPay.Sdk.csproj" PrivateAssets="All" />
-    <None Include="..\icon.png" Pack="true" PackagePath="\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-      <_Parameter1>SwedbankPay.Sdk.Tests</_Parameter1>
-    </AssemblyAttribute>
-  </ItemGroup>
-
-  <Target DependsOnTargets="ResolveReferences" Name="CopyProjectReferencesToPackage">
     <ItemGroup>
-      <!--Include DLLs of Project References-->
-      <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))" />
-
-      <!--Include PDBs of Project References-->
-      <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference')-&gt;Replace('.dll', '.pdb'))" />
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+            <_Parameter1>SwedbankPay.Sdk.Tests</_Parameter1>
+        </AssemblyAttribute>
     </ItemGroup>
-  </Target>
+
+    <ItemGroup>
+      <ProjectReference Include="..\SwedbankPay.Sdk\SwedbankPay.Sdk.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\SwedbankPay.Sdk\SwedbankPay.Sdk.csproj" />
+    </ItemGroup>
 </Project>

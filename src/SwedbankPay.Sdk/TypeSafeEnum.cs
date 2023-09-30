@@ -1,34 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 
-namespace SwedbankPay.Sdk
-{
-    /// <summary>
+namespace SwedbankPay.Sdk;
+
+/// <summary>
     /// Class for mapping API enum values to C# classes safely.
     /// </summary>
     /// <typeparam name="TEnum">The enum type you want to be safely cast.</typeparam>
     public abstract class TypeSafeEnum<TEnum> : IEquatable<TypeSafeEnum<TEnum>>
         where TEnum : TypeSafeEnum<TEnum>
     {
-        private static readonly Lazy<Dictionary<string, TEnum>> fromName =
-            new Lazy<Dictionary<string, TEnum>>(() => GetAllOptions().ToDictionary(item => item.Name));
+        private static readonly Lazy<Dictionary<string, TEnum?>> fromName =
+            new(() => GetAllOptions().ToDictionary(item => item.Name));
 
-        private static readonly Lazy<Dictionary<string, TEnum>> fromNameIgnoreCase =
-            new Lazy<Dictionary<string, TEnum>>(() => GetAllOptions().ToDictionary(item => item.Name, StringComparer.OrdinalIgnoreCase));
+        private static readonly Lazy<Dictionary<string, TEnum?>> fromNameIgnoreCase =
+            new(() => GetAllOptions().ToDictionary(item => item.Name, StringComparer.OrdinalIgnoreCase));
 
-        private static readonly Lazy<Dictionary<string, TEnum>> fromValue =
-            new Lazy<Dictionary<string, TEnum>>(() =>
+        private static readonly Lazy<Dictionary<string?, TEnum?>> fromValue =
+            new(() =>
             {
                 // multiple enums with same value are allowed but store only one per value
                 var dictionary = new Dictionary<string, TEnum>();
                 foreach (var item in GetAllOptions())
                 {
-                    if (!dictionary.ContainsKey(item.Value))
-                    {
-                        dictionary.Add(item.Value, item);
-                    }
+                    dictionary.TryAdd(item.Value, item);
                 }
 
                 return dictionary;
@@ -53,7 +47,7 @@ namespace SwedbankPay.Sdk
         /// <summary>
         /// Gets all internal values as a list.
         /// </summary>
-        public static IReadOnlyCollection<TEnum> List =>
+        public static IReadOnlyCollection<TEnum?> List =>
             fromName.Value.Values
                 .ToList()
                 .AsReadOnly();
@@ -73,7 +67,7 @@ namespace SwedbankPay.Sdk
         /// </summary>
         /// <param name="other"><inheritdoc/></param>
         /// <returns><inheritdoc/></returns>
-        public virtual bool Equals(TypeSafeEnum<TEnum> other)
+        public virtual bool Equals(TypeSafeEnum<TEnum>? other)
         {
             // check if same instance
             if (ReferenceEquals(this, other))
@@ -96,7 +90,7 @@ namespace SwedbankPay.Sdk
         /// </summary>
         /// <param name="obj"><inheritdoc/></param>
         /// <returns><inheritdoc/></returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             return obj is TypeSafeEnum<TEnum> other && Equals(other);
         }
@@ -121,7 +115,7 @@ namespace SwedbankPay.Sdk
 
             return FromName(fromName.Value);
 
-            TEnum FromName(Dictionary<string, TEnum> dictionary)
+            TEnum FromName(Dictionary<string, TEnum?> dictionary)
             {
                 if (!dictionary.TryGetValue(name, out var result))
                 {
@@ -137,7 +131,7 @@ namespace SwedbankPay.Sdk
         /// </summary>
         /// <param name="value">The value of the enum.</param>
         /// <returns><typeparamref name="TEnum"/>.</returns>
-        public static TEnum FromValue(string value)
+        public static TEnum FromValue(string? value)
         {
             if (value == null)
             {
@@ -163,9 +157,9 @@ namespace SwedbankPay.Sdk
         /// Sets to default value if not possible
         /// </summary>
         /// <param name="value">The value of the enum.</param>
-        /// <param name="defaulstring">Default value if mapping is not possible.</param>
+        /// <param name="defaultString">Default value if mapping is not possible.</param>
         /// <returns><typeparamref name="TEnum"/>.</returns>
-        public static TEnum FromValue(string value, TEnum defaulstring)
+        public static TEnum FromValue(string? value, TEnum defaultString)
         {
             if (value == null)
             {
@@ -174,7 +168,7 @@ namespace SwedbankPay.Sdk
 
             if (!fromValue.Value.TryGetValue(value, out var result))
             {
-                return defaulstring;
+                return defaultString;
             }
 
             return result;
@@ -205,7 +199,7 @@ namespace SwedbankPay.Sdk
         /// <param name="name">The name of the enum.</param>
         /// <param name="result">The enum result.</param>
         /// <returns>true if successfull, false otherwise.</returns>
-        public static bool TryFromName(string name, out TEnum result)
+        public static bool TryFromName(string name, out TEnum? result)
         {
             return TryFromName(name, false, out result);
         }
@@ -216,8 +210,8 @@ namespace SwedbankPay.Sdk
         /// <param name="name">The name of the enum.</param>
         /// <param name="result">The enum result.</param>
         /// <param name="ignoreCase">Set if casing should be ignored.</param>
-        /// <returns>true if successfull, false otherwise.</returns>
-        public static bool TryFromName(string name, bool ignoreCase, out TEnum result)
+        /// <returns>true if successful, false otherwise.</returns>
+        public static bool TryFromName(string name, bool ignoreCase, out TEnum? result)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -238,7 +232,7 @@ namespace SwedbankPay.Sdk
         /// <param name="value">The value to map to <typeparamref name="TEnum"/>.</param>
         /// <param name="result">The result from mapping.</param>
         /// <returns>true if successfull, false otherwise.</returns>
-        public static bool TryFromValue(string value, out TEnum result)
+        public static bool TryFromValue(string? value, out TEnum? result)
         {
             if (value == null)
             {
@@ -265,4 +259,3 @@ namespace SwedbankPay.Sdk
             return options.OrderBy(t => t.Name).ToList();
         }
     }
-}

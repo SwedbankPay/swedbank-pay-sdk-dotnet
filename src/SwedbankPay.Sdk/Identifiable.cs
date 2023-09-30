@@ -1,33 +1,30 @@
-﻿using System;
+namespace SwedbankPay.Sdk;
 
-namespace SwedbankPay.Sdk
+/// <summary>
+/// Contains a <seealso cref="Uri"/> to a uniquely identifiable resource.
+/// </summary>
+public class Identifiable : IIdentifiable
 {
     /// <summary>
-    /// Contains a <seealso cref="Uri"/> to a uniquely identifiable resource.
+    /// Instantiates and sets the <see cref="Id"/> of the <see cref="Identifiable"/>.
     /// </summary>
-    public class Identifiable : IIdentifiable
+    /// <param name="id">The unique ID of this resource.</param>
+    public Identifiable(Uri id)
     {
-        /// <summary>
-        /// Instantiates and sets the <see cref="Id"/> of the <see cref="Identifiable"/>.
-        /// </summary>
-        /// <param name="id">The unique ID of this resource.</param>
-        public Identifiable(Uri id)
-        {
-            Id = id;
-        }
-
-        /// <summary>
-        /// Instantiates and sets the <see cref="Id"/> of the <see cref="Identifiable"/>.
-        /// </summary>
-        /// <param name="id">The unique ID of this resource.</param>
-        internal Identifiable(string id)
-        {
-            Id = new Uri(id, UriKind.RelativeOrAbsolute);
-        }
-
-        /// <summary>
-        ///     Relative URL to the resource
-        /// </summary>
-        public Uri Id { get; }
+        Id = id;
     }
+
+    /// <summary>
+    /// Instantiates and sets the <see cref="Id"/> of the <see cref="Identifiable"/>.
+    /// </summary>
+    /// <param name="id">The unique ID of this resource.</param>
+    internal Identifiable(string id)
+    {
+        Id = new Uri(id, UriKind.RelativeOrAbsolute);
+    }
+
+    /// <summary>
+    ///     Relative URL to the resource
+    /// </summary>
+    public Uri Id { get; }
 }

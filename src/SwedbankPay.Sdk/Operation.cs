@@ -1,6 +1,6 @@
-﻿namespace SwedbankPay.Sdk
-{
-    /// <summary>
+namespace SwedbankPay.Sdk;
+
+ /// <summary>
     /// A enum-like class that holds <seealso cref="Operation"/>.
     /// </summary>
     public sealed class Operation : TypeSafeEnum<Operation>
@@ -69,4 +69,3 @@
             };
         }
     }
-}

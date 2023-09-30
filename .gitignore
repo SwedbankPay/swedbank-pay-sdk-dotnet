@@ -296,3 +296,6 @@ tools/**
 *.local.json
 
 *.snupkg
+
+.DS_Store
+src/Samples/Sample.AspNetCore.UiTests/cypress/reports

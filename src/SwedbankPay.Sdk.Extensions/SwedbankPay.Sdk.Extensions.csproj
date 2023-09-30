@@ -1,37 +1,17 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <LangVersion>latest</LangVersion>
+<Project Sdk="Microsoft.NET.Sdk">
 
-    <AssemblyName>SwedbankPay.Sdk.Extensions</AssemblyName>
-    <RootNamespace>SwedbankPay.Sdk.Extensions</RootNamespace>
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
 
-    <Authors>Swedbank Pay</Authors>
-    <Description>Extension methods for Swedbank Pay SDK</Description>
-    <Copyright>Swedbank Pay</Copyright>
-    
-    <PackageIcon>icon.png</PackageIcon>
-    <PackageTags>SwedbankPay sdk payments payment client api rest restful extensions</PackageTags>
-    <PackageReleaseNotes>Swish payment handling. CreditCard payment handling. Checkout handling.</PackageReleaseNotes>
-    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/SwedbankPay/swedbank-pay-sdk-dotnet</PackageProjectUrl>
-   
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.Http" Version="[3.1.9,8.0.0)" />
+    </ItemGroup>
 
-    <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/SwedbankPay/swedbank-pay-sdk-dotnet.git</RepositoryUrl>
-  </PropertyGroup>
-  <ItemGroup>
-    <None Include="..\icon.png" Pack="true" PackagePath="\" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[3.1.9,7.0.0)" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="[3.1.9,8.0.0)" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="[3.1.9,7.0.0)" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SwedbankPay.Sdk.Infrastructure\SwedbankPay.Sdk.Infrastructure.csproj" />
-    <ProjectReference Include="..\SwedbankPay.Sdk\SwedbankPay.Sdk.csproj" PrivateAssets="All"/>
-  </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\SwedbankPay.Sdk\SwedbankPay.Sdk.csproj" />
+    </ItemGroup>
+
 </Project>
