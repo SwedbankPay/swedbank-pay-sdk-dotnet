@@ -1,7 +1,12 @@
+using System.Text.Json.Serialization;
+
 namespace SwedbankPay.Sdk;
 
 internal record OrderItemDto
 {
+    [JsonConstructor]
+    public OrderItemDto() { }
+    
     internal OrderItemDto(OrderItem orderItem)
     {
         Reference = orderItem.Reference;
@@ -29,11 +34,16 @@ internal record OrderItemDto
     public string? ImageUrl { get; set; }
     public string? Description { get; set; }
     public string? DiscountDescription { get; set; }
-    public int Quantity { get; set; }
+    public decimal Quantity { get; set; }
     public string QuantityUnit { get; set; }
     public long UnitPrice { get; set; }
     public int? DiscountPrice { get; set; }
     public int VatPercent { get; set; }
     public long Amount { get; set; }
     public long VatAmount { get; set; }
+
+    internal OrderItem Map()
+    {
+        return new OrderItem(this);
+    }
 }

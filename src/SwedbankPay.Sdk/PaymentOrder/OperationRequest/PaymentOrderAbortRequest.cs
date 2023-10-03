@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 
-namespace SwedbankPay.Sdk.PaymentOrder;
+namespace SwedbankPay.Sdk.PaymentOrder.OperationRequest;
 
 /// <summary>
 /// API request object for aborting a payment order.

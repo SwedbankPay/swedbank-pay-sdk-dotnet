@@ -17,7 +17,7 @@ public class PaymentOrdersResource : ResourceBase, IPaymentOrdersResource
     /// <exception cref="InvalidOperationException"></exception>
     /// <exception cref="System.Net.Http.HttpRequestException"></exception>
     /// <returns></returns>
-    public async Task<PaymentOrderResponse> Create(PaymentOrderRequest paymentOrderRequest,
+    public async Task<IPaymentOrderResponse> Create(PaymentOrderRequest paymentOrderRequest,
         PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
     {
         var url = new Uri("/psp/paymentorders", UriKind.Relative).GetUrlWithQueryString(paymentOrderExpand);
@@ -66,7 +66,7 @@ public interface IPaymentOrdersResource
     /// <exception cref="InvalidOperationException"></exception>
     /// <exception cref="System.Net.Http.HttpRequestException"></exception>
     /// <returns></returns>
-    Task<PaymentOrderResponse> Create(PaymentOrderRequest paymentOrderRequest,
+    Task<IPaymentOrderResponse> Create(PaymentOrderRequest paymentOrderRequest,
         PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None);
 
 

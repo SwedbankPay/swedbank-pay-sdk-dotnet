@@ -1,5 +1,5 @@
-using System.Text.Json;
 using SwedbankPay.Sdk.PaymentOrder;
+using SwedbankPay.Sdk.PaymentOrder.OperationRequest;
 using SwedbankPay.Sdk.Tests.TestBuilders;
 
 namespace SwedbankPay.Sdk.Tests;
@@ -18,7 +18,7 @@ public class PaymentOrderTests : ResourceTestsBase
         var paymentOrderRequest = paymentOrderRequestBuilder.WithTestValues(PayeeId).WithOrderItems().Build();
 
         //ACT
-        PaymentOrderResponse paymentOrder = await Sut.PaymentOrders.Create(paymentOrderRequest, PaymentOrderExpand.All);
+        var paymentOrder = await Sut.PaymentOrders.Create(paymentOrderRequest, PaymentOrderExpand.All);
         Assert.NotNull(paymentOrder);
         Assert.NotNull(paymentOrder.Operations);
         Assert.NotNull(paymentOrder.Operations.Abort);
@@ -36,7 +36,7 @@ public class PaymentOrderTests : ResourceTestsBase
         var paymentOrderRequest = paymentOrderRequestBuilder.WithTestValues(PayeeId).WithOrderItems().Build();
 
         //ACT
-        PaymentOrderResponse paymentOrder = await Sut.PaymentOrders.Create(paymentOrderRequest, PaymentOrderExpand.All);
+        var paymentOrder = await Sut.PaymentOrders.Create(paymentOrderRequest, PaymentOrderExpand.All);
         Assert.NotNull(paymentOrder);
         Assert.NotNull(paymentOrder.Operations);
         Assert.NotNull(paymentOrder.Operations.View);
@@ -51,9 +51,58 @@ public class PaymentOrderTests : ResourceTestsBase
         var paymentOrderRequest = paymentOrderRequestBuilder.WithTestValues(PayeeId).WithOrderItems().Build();
 
         //ACT
-        PaymentOrderResponse paymentOrder = await Sut.PaymentOrders.Create(paymentOrderRequest, PaymentOrderExpand.All);
+        var paymentOrder = await Sut.PaymentOrders.Create(paymentOrderRequest, PaymentOrderExpand.All);
+        Assert.NotNull(paymentOrder);
+        Assert.NotNull(paymentOrder.Operations);
+    }
+    
+    
+    [Fact]
+    public async Task CreateAndUpdatePaymentOrder_ShouldReturnPaymentOrder()
+    {
+        //ARRANGE
+
+        var paymentOrderRequest = paymentOrderRequestBuilder.WithTestValues(PayeeId).WithOrderItems().Build();
+
+        //ACT
+        var paymentOrder = await Sut.PaymentOrders.Create(paymentOrderRequest, PaymentOrderExpand.All);
+        Assert.NotNull(paymentOrder);
+        Assert.NotNull(paymentOrder.Operations);
+        Assert.NotNull(paymentOrder.Operations.Update);
+
+        var paymentOrderUpdateRequest = new PaymentOrderUpdateRequest(new Amount(20000), new Amount(0));
+        var orderItems = new List<OrderItem>
+        {
+            new("p3", "Product3", OrderItemType.Product, "ProductGroup3", 4, "pcs", new Amount(5000), 0,
+                new Amount(20000), new Amount(0))
+            {
+                ItemUrl = "https://example.com/products/123",
+                ImageUrl = "https://example.com/products/123.jpg"
+            }
+        };
+
+
+        paymentOrderUpdateRequest.PaymentOrder.OrderItems = orderItems;
+
+        var operationsUpdate = await paymentOrder.Operations.Update(paymentOrderUpdateRequest);
+        Assert.NotNull(operationsUpdate);
+        Assert.NotNull(operationsUpdate.PaymentOrder);
+        Assert.NotNull(operationsUpdate.PaymentOrder.OrderItems);
+        Assert.True(operationsUpdate.PaymentOrder.OrderItems.OrderItemList.Count() == 1);
+    }
+    
+    [Fact]
+    public async Task GetPaymentOrder_ShouldReturnPaymentOrder()
+    {
+        //ARRANGE
+
+        var paymentOrderUri = new Uri("/psp/paymentorders/ce5de5b7-65ba-4fd1-d25b-08dbc01c468d", UriKind.RelativeOrAbsolute);
+
+        //ACT
+        var paymentOrder = await Sut.PaymentOrders.Get(paymentOrderUri, PaymentOrderExpand.All);
         Assert.NotNull(paymentOrder);
         Assert.NotNull(paymentOrder.Operations);
         // Assert.NotNull(paymentOrder.Operations.Abort);
     }
+    
 }

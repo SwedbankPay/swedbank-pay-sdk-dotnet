@@ -1,4 +1,5 @@
 using SwedbankPay.Sdk.Extensions;
+using SwedbankPay.Sdk.PaymentOrder.OperationRequest;
 
 namespace SwedbankPay.Sdk.PaymentOrder;
 
@@ -8,6 +9,12 @@ public interface IPaymentOrderOperations
     /// Aborts the payment order, if available.
     /// </summary>
     Func<PaymentOrderAbortRequest, Task<IPaymentOrderResponse>>? Abort { get; }
+    
+    
+    /// <summary>
+    /// Updates the contents of the payment order, if available.
+    /// </summary>
+    Func<PaymentOrderUpdateRequest, Task<IPaymentOrderResponse>> Update { get; }
     
     /// <summary>
     /// Returns details needed to created a hosted view for the payer to see the payment order, if available.
@@ -52,17 +59,17 @@ internal class PaymentOrderOperations : OperationsBase, IPaymentOrderOperations
                 //             paymentOrderResponseContainer.Reversal.Map());
                 //     };
                 //     break;
-                // case PaymentOrderResourceOperations.UpdatePaymentOrderUpdateOrder:
-                //     Update = async payload =>
-                //     {
-                //         var url = httpOperation.Href.GetUrlWithQueryString(PaymentExpand.All);
-                //         var requestDto = new PaymentOrderUpdateRequestDto(payload);
-                //         var paymentOrderResponseContainer =
-                //             await client.SendAsJsonAsync<PaymentOrderResponseDto>(httpOperation.Method, url,
-                //                 requestDto);
-                //         return new PaymentOrderResponse(paymentOrderResponseContainer, client);
-                //     };
-                //     break;
+                case PaymentOrderResourceOperations.UpdateOrder:
+                    Update = async payload =>
+                    {
+                        var url = httpOperation.Href.GetUrlWithQueryString(PaymentOrderExpand.All);
+                        var requestDto = new PaymentOrderUpdateRequestDto(payload);
+                        var paymentOrderResponseContainer =
+                            await httpClient.SendAsJsonAsync<PaymentOrderResponseDto>(httpOperation.Method, url,
+                                requestDto);
+                        return new PaymentOrderResponse(paymentOrderResponseContainer, httpClient);
+                    };
+                    break;
                 case PaymentOrderResourceOperations.Abort:
                     Abort = async payload =>
                     { 
@@ -82,5 +89,6 @@ internal class PaymentOrderOperations : OperationsBase, IPaymentOrderOperations
     }
     
     public Func<PaymentOrderAbortRequest, Task<IPaymentOrderResponse>>? Abort { get; }
+    public Func<PaymentOrderUpdateRequest, Task<IPaymentOrderResponse>> Update { get; }
     public HttpOperation View { get; }
 }

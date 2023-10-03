@@ -83,16 +83,16 @@ public class PaymentOrder : IPaymentOrder
         Implementation = paymentOrderResponseItemDto.Implementation;
         InstrumentMode = paymentOrderResponseItemDto.InstrumentMode;
         GuestMode = paymentOrderResponseItemDto.GuestMode;
-        Payer = new PayerResponse(paymentOrderResponseItemDto.Payer);
-        OrderItems = new OrderItemsResponse(paymentOrderResponseItemDto.OrderItems);
-        History = new HistoryResponse(paymentOrderResponseItemDto.History);
-        Failed = new FailedResponse(paymentOrderResponseItemDto.Failed);
-        Aborted = new AbortedResponse(paymentOrderResponseItemDto.Aborted);
-        Paid = new PaidResponse(paymentOrderResponseItemDto.Paid);
-        Cancelled = new CancelledResponse(paymentOrderResponseItemDto.Cancelled);
-        FinancialTransactions = new FinancialTransactionsResponse(paymentOrderResponseItemDto.FinancialTransactions);
-        FailedAttempts = new FailedAttemptsResponse(paymentOrderResponseItemDto.FailedAttempts);
-        Metadata = new MetadataResponse(paymentOrderResponseItemDto.Metadata);
+        Payer = paymentOrderResponseItemDto.Payer.Map();
+        OrderItems = paymentOrderResponseItemDto.OrderItems.Map();
+        History = paymentOrderResponseItemDto.History.Map();
+        Failed = paymentOrderResponseItemDto.Failed.Map();
+        Aborted = paymentOrderResponseItemDto.Aborted.Map();
+        Paid = paymentOrderResponseItemDto.Paid.Map();
+        Cancelled = paymentOrderResponseItemDto.Cancelled.Map();
+        FinancialTransactions = paymentOrderResponseItemDto.FinancialTransactions.Map();
+        FailedAttempts = paymentOrderResponseItemDto.FailedAttempts.Map();
+        Metadata = paymentOrderResponseItemDto.Metadata.Map();
     }
 
     public string Id { get; }
@@ -124,70 +124,78 @@ public class PaymentOrder : IPaymentOrder
 
 public class PayerResponse : Identifiable
 {
-    internal PayerResponse(PayerResponseDto payer) : base(payer.Id)
+    internal PayerResponse(string id) : base(id)
     {
     }
 }
 
 public class OrderItemsResponse : Identifiable
 {
-    internal OrderItemsResponse(OrderItemResponseDto orderItems) : base(orderItems.Id)
+    internal OrderItemsResponse(string id) : base(id)
     {
     }
+    
+    /// <summary>
+    ///     The orderItems property of the paymentOrder is an array containing the items being purchased with the order. Used
+    ///     to print on invoices if
+    ///     the payer chooses to pay with invoice, among other things. Order items can be specified on both payment order
+    ///     creation as well as on Capture.
+    /// </summary>
+    public IEnumerable<OrderItem>? OrderItemList { get; set; }
 }
 
 public class HistoryResponse : Identifiable
 {
-    internal HistoryResponse(HistoryResponseDto historyResponse) : base(historyResponse.Id)
+    internal HistoryResponse(string id) : base(id)
     {
     }
 }
 
 public class FailedResponse : Identifiable
 {
-    internal FailedResponse(FailedResponseDto failedResponse) : base(failedResponse.Id)
+    internal FailedResponse(string id) : base(id)
     {
     }
 }
 
 public class AbortedResponse : Identifiable
 {
-    internal AbortedResponse(AbortedResponseDto abortedResponse) : base(abortedResponse.Id)
+    internal AbortedResponse(string id) : base(id)
     {
     }
 }
 
 public class PaidResponse : Identifiable
 {
-    internal PaidResponse(PaidResponseDto paidResponse) : base(paidResponse.Id)
+    internal PaidResponse(string id) : base(id)
     {
     }
 }
 
 public class CancelledResponse : Identifiable
 {
-    internal CancelledResponse(CancelledResponseDto cancelledResponse) : base(cancelledResponse.Id)
+    internal CancelledResponse(string id) : base(id)
     {
     }
 }
 
 public class FinancialTransactionsResponse : Identifiable
 {
-    internal FinancialTransactionsResponse(FinancialTransactionsResponseDto financialTransactionsResponse) : base(financialTransactionsResponse.Id)
+    internal FinancialTransactionsResponse(string id) : base(id)
     {
     }
 }
 
 public class FailedAttemptsResponse : Identifiable
 {
-    internal FailedAttemptsResponse(FailedAttemptsResponseDto failedAttemptsResponse) : base(failedAttemptsResponse.Id)
+    internal FailedAttemptsResponse(string id) : base(id)
     {
     }
 }
 
 public class MetadataResponse : Identifiable
 {
-    internal MetadataResponse(MetadataResponseDto metadataResponse) : base(metadataResponse.Id)
+    internal MetadataResponse(string id) : base(id)
     {
     }
 }
