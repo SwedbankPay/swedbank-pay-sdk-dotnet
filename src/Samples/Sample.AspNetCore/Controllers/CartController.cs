@@ -12,22 +12,22 @@ namespace Sample.AspNetCore.Controllers
 {
     public class CartController : Controller
     {
-        private readonly Cart cartService;
-        private readonly StoreDbContext storesContext;
+        private readonly Cart _cartService;
+        private readonly StoreDbContext _storesContext;
 
 
         public CartController(StoreDbContext storeDb, Cart cart)
         {
-            this.storesContext = storeDb;
-            this.cartService = cart;
+            _storesContext = storeDb;
+            _cartService = cart;
         }
 
 
         public async Task<IActionResult> AddToCart(int id)
         {
-            var productList = await this.storesContext.Products.ToListAsync();
+            var productList = await _storesContext.Products.ToListAsync();
             var product = productList.FirstOrDefault(p => p.ProductId == id);
-            this.cartService.AddItem(product, 1);
+            _cartService.AddItem(product, 1);
 
             return RedirectToAction("Index", "Products");
         }
@@ -66,10 +66,10 @@ namespace Sample.AspNetCore.Controllers
 
         public IActionResult RemoveFromCart(int id)
         {
-            var line = this.cartService.CartLines.FirstOrDefault(i => i.Product.ProductId == id);
+            var line = this._cartService.CartLines.FirstOrDefault(i => i.Product.ProductId == id);
             if (line != null)
             {
-                this.cartService.RemoveItem(line.Product, line.Quantity);
+                this._cartService.RemoveItem(line.Product, line.Quantity);
             }
 
             return RedirectToAction("Index", "Products");
@@ -79,11 +79,11 @@ namespace Sample.AspNetCore.Controllers
         [HttpPost]
         public IActionResult UpdateQuantity(int id, int quantity)
         {
-            var line = this.cartService.CartLines.FirstOrDefault(i => i.Product.ProductId == id);
+            var line = this._cartService.CartLines.FirstOrDefault(i => i.Product.ProductId == id);
             if (line != null)
             {
                 line.Quantity = quantity;
-                this.cartService.Update();
+                this._cartService.Update();
             }
 
             return RedirectToAction("Index", "Products");

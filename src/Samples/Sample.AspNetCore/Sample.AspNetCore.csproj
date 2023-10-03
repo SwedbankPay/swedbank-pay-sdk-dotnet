@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <UserSecretsId>034fbc91-b434-41de-9fb1-b4d29d91a6ac</UserSecretsId>
   </PropertyGroup>
 
@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\SwedbankPay.Sdk.Extensions\SwedbankPay.Sdk.Extensions.csproj" />
-    <ProjectReference Include="..\..\SwedbankPay.Sdk.Infrastructure\SwedbankPay.Sdk.Infrastructure.csproj" />
     <ProjectReference Include="..\..\SwedbankPay.Sdk\SwedbankPay.Sdk.csproj" />
   </ItemGroup>
   

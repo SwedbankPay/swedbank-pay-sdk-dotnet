@@ -9,7 +9,6 @@ using Sample.AspNetCore.Models;
 using Sample.AspNetCore.Models.ViewModels;
 
 using SwedbankPay.Sdk;
-using SwedbankPay.Sdk.PaymentInstruments;
 
 namespace Sample.AspNetCore.Controllers
 {
@@ -106,31 +105,31 @@ namespace Sample.AspNetCore.Controllers
                 }
                 else
                 {
-                    switch (order.Instrument)
-                    {
-                        case PaymentInstrument.Swish:
-                            var swishPayment = await this.swedbankPayClient.Payments.SwishPayments.Get(order.PaymentLink, PaymentExpand.All);
-                            var swishOperations = swishPayment.Operations;
-                            operations = swishOperations.Values.ToList();
-                            break;
-                        case PaymentInstrument.CreditCard:
-                            var cardPayment = await this.swedbankPayClient.Payments.CardPayments.Get(order.PaymentLink, PaymentExpand.All);
-                            var cardOperations = cardPayment.Operations;
-                            operations = cardOperations.Values.ToList();
-
-                            if (!string.IsNullOrWhiteSpace(cardPayment.Payment.RecurrenceToken)
-                                && cardPayment.Payment.Operation.Equals(Operation.Verify))
-                            {
-                                operations.Add(new HttpOperation(new Uri("https://localhost:5001"), new LinkRelation("create-recurring", "create-recurring"), "GET", "text/html"));
-                            }
-
-                            break;
-                        case PaymentInstrument.Trustly:
-                            var trustlyPayment = await this.swedbankPayClient.Payments.TrustlyPayments.Get(order.PaymentLink, PaymentExpand.All);
-                            var trustlyOperations = trustlyPayment.Operations;
-                            operations = trustlyOperations.Values.ToList();
-                            break;
-                    }
+                    // switch (order.Instrument)
+                    // {
+                    //     case PaymentInstrument.Swish:
+                    //         var swishPayment = await this.swedbankPayClient.Payments.SwishPayments.Get(order.PaymentLink, PaymentExpand.All);
+                    //         var swishOperations = swishPayment.Operations;
+                    //         operations = swishOperations.Values.ToList();
+                    //         break;
+                    //     case PaymentInstrument.CreditCard:
+                    //         var cardPayment = await this.swedbankPayClient.Payments.CardPayments.Get(order.PaymentLink, PaymentExpand.All);
+                    //         var cardOperations = cardPayment.Operations;
+                    //         operations = cardOperations.Values.ToList();
+                    //
+                    //         if (!string.IsNullOrWhiteSpace(cardPayment.Payment.RecurrenceToken)
+                    //             && cardPayment.Payment.Operation.Equals(Operation.Verify))
+                    //         {
+                    //             operations.Add(new HttpOperation(new Uri("https://localhost:5001"), new LinkRelation("create-recurring", "create-recurring"), "GET", "text/html"));
+                    //         }
+                    //
+                    //         break;
+                    //     case PaymentInstrument.Trustly:
+                    //         var trustlyPayment = await this.swedbankPayClient.Payments.TrustlyPayments.Get(order.PaymentLink, PaymentExpand.All);
+                    //         var trustlyOperations = trustlyPayment.Operations;
+                    //         operations = trustlyOperations.Values.ToList();
+                    //         break;
+                    // }
                 }
                 completedPayments.Add(new OrderViewModel
                 {

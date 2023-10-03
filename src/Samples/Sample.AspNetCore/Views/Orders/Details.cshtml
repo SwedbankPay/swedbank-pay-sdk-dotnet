@@ -1,6 +1,4 @@
-﻿@using SwedbankPay.Sdk
-@using SwedbankPay.Sdk.PaymentOrders
-@using SwedbankPay.Sdk.PaymentInstruments
+﻿@using SwedbankPay.Sdk.PaymentOrder
 @model List<Sample.AspNetCore.Models.ViewModels.OrderViewModel>
 
 @{
@@ -93,41 +91,45 @@ else if (TempData["ErrorMessage"] != null)
                             <td>
                                 @switch (item.Rel.Value)
                                 {
-                                    case PaymentOrderResourceOperations.CreatePaymentOrderCancel:
-                                        actionName = "PaymentOrderCancel";
+                                    // case PaymentOrderResourceOperations.CreatePaymentOrderCancel:
+                                    //     actionName = "PaymentOrderCancel";
+                                    //     break;
+                                    // case PaymentOrderResourceOperations.CreatePaymentOrderCapture:
+                                    //     actionName = "PaymentOrderCapture";
+                                    //     break;
+                                    // case PaymentOrderResourceOperations.CreatePaymentOrderReversal:
+                                    //     actionName = "PaymentOrderReversal";
+                                    //     break;
+                                    case PaymentOrderResourceOperations.RedirectCheckout:
                                         break;
-                                    case PaymentOrderResourceOperations.CreatePaymentOrderCapture:
-                                        actionName = "PaymentOrderCapture";
+                                    case PaymentOrderResourceOperations.UpdateOrder:
                                         break;
-                                    case PaymentOrderResourceOperations.CreatePaymentOrderReversal:
-                                        actionName = "PaymentOrderReversal";
+                                    case PaymentOrderResourceOperations.ViewCheckout:
                                         break;
-                                    case PaymentOrderResourceOperations.RedirectPaymentOrder:
-                                        break;
-                                    case PaymentOrderResourceOperations.UpdatePaymentOrderUpdateOrder:
-                                        break;
-                                    case PaymentOrderResourceOperations.ViewPaymentOrder:
-                                        break;
-                                    case PaymentResourceOperations.CreateReversal:
-                                        actionName = "Reversal";
-                                        break;
-
-                                    case PaymentResourceOperations.CreateCapture:
-                                        actionName = "Capture";
-                                        break;
-                                    case PaymentResourceOperations.CreateCancellation:
-                                        actionName = "Cancel";
-                                        break;
-                                    case "create-recurring":
-                                        actionName = "Recurring";
-                                        break;
+                                    // case PaymentResourceOperations.CreateReversal:
+                                    //     actionName = "Reversal";
+                                    //     break;
+                                    //
+                                    // case PaymentResourceOperations.CreateCapture:
+                                    //     actionName = "Capture";
+                                    //     break;
+                                    // case PaymentResourceOperations.CreateCancellation:
+                                    //     actionName = "Cancel";
+                                    //     break;
+                                    // case "create-recurring":
+                                    //     actionName = "Recurring";
+                                    //     break;
                                 }
                                 @if (!string.IsNullOrEmpty(actionName))
-
                                 {
                                     var automationTagName = $"a-{actionName.ToLower()}";
 
-                                    <a class="btn btn-primary" asp-controller="Payment" asp-action=@actionName asp-route-paymentOrderId=@order.Order.PaymentOrderLink asp-route-paymentId="@order.Order.PaymentLink" asp-route-instrument="@order.Order.Instrument" automation=@automationTagName>Execute</a>
+                                    <a class="btn btn-primary" asp-controller="Payment" 
+                                       asp-action=@actionName 
+                                       asp-route-paymentOrderId=@order.Order.PaymentOrderLink
+                                       asp-route-paymentId="@order.Order.PaymentLink" 
+                                       asp-route-instrument="Instrumentaaaaaa" 
+                                       automation=@automationTagName>Execute</a>
 
                                 }
                                 else

@@ -2,13 +2,15 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwedbankPay.Sdk", "SwedbankPay.Sdk\SwedbankPay.Sdk.csproj", "{A0EEAB77-B890-4284-8C83-544394B3DB91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwedbankPay.Sdk.Infrastructure", "SwedbankPay.Sdk.Infrastructure\SwedbankPay.Sdk.Infrastructure.csproj", "{79D463ED-1F0C-4D39-BD96-796C4179BFF5}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwedbankPay.Sdk.Tests", "SwedbankPay.Sdk.Tests\SwedbankPay.Sdk.Tests.csproj", "{A4F0D17E-E977-4649-86DD-3F6FD84DBCA0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary1", "ClassLibrary1\ClassLibrary1.csproj", "{656B66C5-3800-416D-992B-AC11DFEE68B6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwedbankPay.Sdk.Extensions", "SwedbankPay.Sdk.Extensions\SwedbankPay.Sdk.Extensions.csproj", "{19EBCBD4-C66A-4199-8462-83B1F51FEC6E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{9D491D2E-28E6-4657-B23B-909E8A0AAA51}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.AspNetCore", "Samples\Sample.AspNetCore\Sample.AspNetCore.csproj", "{5856BF20-367F-4217-A0A2-5365D76A77EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,10 +22,6 @@ Global
 		{A0EEAB77-B890-4284-8C83-544394B3DB91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0EEAB77-B890-4284-8C83-544394B3DB91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0EEAB77-B890-4284-8C83-544394B3DB91}.Release|Any CPU.Build.0 = Release|Any CPU
-		{79D463ED-1F0C-4D39-BD96-796C4179BFF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{79D463ED-1F0C-4D39-BD96-796C4179BFF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{79D463ED-1F0C-4D39-BD96-796C4179BFF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{79D463ED-1F0C-4D39-BD96-796C4179BFF5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A4F0D17E-E977-4649-86DD-3F6FD84DBCA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A4F0D17E-E977-4649-86DD-3F6FD84DBCA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4F0D17E-E977-4649-86DD-3F6FD84DBCA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -36,5 +34,12 @@ Global
 		{19EBCBD4-C66A-4199-8462-83B1F51FEC6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19EBCBD4-C66A-4199-8462-83B1F51FEC6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19EBCBD4-C66A-4199-8462-83B1F51FEC6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5856BF20-367F-4217-A0A2-5365D76A77EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5856BF20-367F-4217-A0A2-5365D76A77EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5856BF20-367F-4217-A0A2-5365D76A77EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5856BF20-367F-4217-A0A2-5365D76A77EC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5856BF20-367F-4217-A0A2-5365D76A77EC} = {9D491D2E-28E6-4657-B23B-909E8A0AAA51}
 	EndGlobalSection
 EndGlobal

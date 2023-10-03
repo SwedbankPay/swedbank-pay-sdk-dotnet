@@ -2,13 +2,12 @@
 
 using Sample.AspNetCore.Models;
 using SwedbankPay.Sdk;
-using SwedbankPay.Sdk.PaymentOrders;
 
 namespace Sample.AspNetCore.Extensions
 {
     public static class CartLineExtensions
     {
-        public static IEnumerable<IOrderItem> ToOrderItems(this IEnumerable<CartLine> lines)
+        public static IEnumerable<OrderItem> ToOrderItems(this IEnumerable<CartLine> lines)
         {
             foreach (var line in lines)
             {
