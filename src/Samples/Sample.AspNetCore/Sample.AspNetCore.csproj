@@ -2,21 +2,21 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <UserSecretsId>034fbc91-b434-41de-9fb1-b4d29d91a6ac</UserSecretsId>
+    <UserSecretsId>04B663D5-41D4-4161-92E7-970FC5A865A9</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.*" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.*" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.*" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.*">
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.11">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Http" Version="6.*" />
-    <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="6.*" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="7.0.11" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.*" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="6.*" />   
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />   
   </ItemGroup>
 
   <ItemGroup>

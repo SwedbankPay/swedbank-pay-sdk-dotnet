@@ -25,6 +25,7 @@ internal class PaymentOrderResponseItemDto
     public bool GuestMode { get; set; }
     public PayerResponseDto Payer { get; set; }
     public OrderItemResponseDto OrderItems { get; set; }
+    public UrlsDto Urls { get; set; }
     public HistoryResponseDto History { get; set; }
     public FailedResponseDto Failed { get; set; }
     public AbortedResponseDto Aborted { get; set; }
@@ -158,7 +159,7 @@ internal class FinancialTransactionListItemDto
     public long VatAmount { get; set; }
     public string? Description { get; set; }
     public string? PayeeReference { get; set; }
-    public string? RecepitReference { get; set; }
+    public string? ReceiptReference { get; set; }
     public IList<OrderItemDto>? OrderItems { get; set; }
 
     public FinancialTransactionListItem Map()
@@ -216,6 +217,7 @@ internal class PaidDetailsDto
     public string? NonPaymentToken { get; set; }
     public string? ExternalNonPaymentToken { get; set; }
     public string? PaymentAccountReference { get; set; }
+    public string? CardBrand { get; set; }
     public string? CardType { get; set; }
     public string? MaskedPan { get; set; }
     public string? MaskedDPan { get; set; }
@@ -225,7 +227,7 @@ internal class PaidDetailsDto
     public string? AcquirerStan { get; set; }
     public string? AcquirerTerminalId { get; set; }
     public string? AcquirerTransactionTime { get; set; }
-    public string? TransactionInitatior { get; set; }
+    public string? TransactionInitiator { get; set; }
     public string? Bin { get; set; }
     public string? Msisdn { get; set; }
 

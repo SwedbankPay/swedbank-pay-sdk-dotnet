@@ -52,7 +52,8 @@ public interface IPaymentOrder
     bool InstrumentMode { get; }
     bool GuestMode { get; }
     PayerResponse Payer { get; }
-    OrderItemsResponse OrderItems { get; }
+    OrderItemsResponse OrderItems { get; } 
+    Urls Urls { get; }
     HistoryResponse History { get; }
     FailedResponse Failed { get; }
     AbortedResponse Aborted { get; }
@@ -81,6 +82,7 @@ public class PaymentOrder : Identifiable, IPaymentOrder
     public bool GuestMode { get; }
     public PayerResponse Payer { get; }
     public OrderItemsResponse OrderItems { get; }
+    public Urls Urls { get; }
     public HistoryResponse History { get; }
     public FailedResponse Failed { get; }
     public AbortedResponse Aborted { get; }
@@ -108,6 +110,7 @@ public class PaymentOrder : Identifiable, IPaymentOrder
         GuestMode = paymentOrderResponseItemDto.GuestMode;
         Payer = paymentOrderResponseItemDto.Payer.Map();
         OrderItems = paymentOrderResponseItemDto.OrderItems.Map();
+        Urls = paymentOrderResponseItemDto.Urls.Map();
         History = paymentOrderResponseItemDto.History.Map();
         Failed = paymentOrderResponseItemDto.Failed.Map();
         Aborted = paymentOrderResponseItemDto.Aborted.Map();
@@ -250,7 +253,7 @@ public class FinancialTransactionListItem : Identifiable
         VatAmount = new Amount(dto.VatAmount);
         Description = dto.Description;
         PayeeReference = dto.PayeeReference;
-        ReceiptReference = dto.RecepitReference;
+        ReceiptReference = dto.ReceiptReference;
         OrderItems = dto.OrderItems?.Select(x => x.Map()).ToList();
     }
 }
@@ -301,6 +304,7 @@ public class PaidDetails
     public string? NonPaymentToken { get; }
     public string? ExternalNonPaymentToken { get; }
     public string? PaymentAccountReference { get; }
+    public string? CardBrand { get; }
     public string? CardType { get; }
     public string? MaskedPan { get; }
     public string? MaskedDPan { get; }
@@ -319,6 +323,7 @@ public class PaidDetails
         NonPaymentToken = dto.NonPaymentToken;
         ExternalNonPaymentToken = dto.ExternalNonPaymentToken;
         PaymentAccountReference = dto.PaymentAccountReference;
+        CardBrand = dto.CardBrand;
         CardType = dto.CardType;
         MaskedPan = dto.MaskedPan;
         MaskedDPan = dto.MaskedDPan;
@@ -328,7 +333,7 @@ public class PaidDetails
         AcquirerStan = dto.AcquirerStan;
         AcquirerTerminalId = dto.AcquirerTerminalId;
         AcquirerTransactionTime = dto.AcquirerTransactionTime;
-        TransactionInitiator = dto.TransactionInitatior;
+        TransactionInitiator = dto.TransactionInitiator;
         Bin = dto.Bin;
         Msisdn = dto.Msisdn;
     }

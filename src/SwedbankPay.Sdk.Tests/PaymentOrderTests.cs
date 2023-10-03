@@ -103,7 +103,7 @@ public class PaymentOrderTests : ResourceTestsBase
     {
         //ARRANGE
 
-        var paymentOrderUri = new Uri("/psp/paymentorders/1039d2c0-cf37-4611-6f61-08dbc01cba84", UriKind.RelativeOrAbsolute);
+        var paymentOrderUri = new Uri("/psp/paymentorders/5f0ca24d-75f1-489b-7736-08dbc01cba84", UriKind.RelativeOrAbsolute);
 
         //ACT
         var paymentOrder = await Sut.PaymentOrders.Get(paymentOrderUri, PaymentOrderExpand.All);

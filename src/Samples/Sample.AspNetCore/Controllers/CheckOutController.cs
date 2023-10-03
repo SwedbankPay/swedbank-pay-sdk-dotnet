@@ -124,6 +124,7 @@ namespace Sample.AspNetCore.Controllers
 																	  LogoUrl = this._urls.LogoUrl
 																  },
 																  new PayeeInfo(this._payeeInfoOptions.PayeeId, this._payeeInfoOptions.PayeeReference));
+				paymentOrderRequest.Implementation = "PaymentsOnly";
 				paymentOrderRequest.OrderItems = paymentOrderItems;
 				var paymentOrder = await this._swedbankPayClient.PaymentOrders.Create(paymentOrderRequest);
 

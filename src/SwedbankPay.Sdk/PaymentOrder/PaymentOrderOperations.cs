@@ -59,15 +59,15 @@ internal class PaymentOrderOperations : OperationsBase, IPaymentOrderOperations
                 //         return new CancellationResponse(dto.Payment, dto.Cancellation.Map());
                 //     };
                 //     break;
-                // case PaymentOrderResourceOperations.CreatePaymentOrderCapture:
-                //     Capture = async payload =>
-                //     {
-                //         var requestDto = new PaymentOrderCaptureRequestDto(payload);
-                //         var dto = await httpClient.SendAsJsonAsync<CaptureResponseDto>(httpOperation.Method,
-                //             httpOperation.Href, requestDto);
-                //         return new CaptureResponse(dto);
-                //     };
-                //     break;
+                case PaymentOrderResourceOperations.Capture:
+                    Capture = async payload =>
+                    {
+                        var requestDto = new PaymentOrderCaptureRequestDto(payload);
+                        var dto = await httpClient.SendAsJsonAsync<PaymentOrderCaptureResponseDto>(httpOperation.Method,
+                            httpOperation.Href, requestDto);
+                        return new PaymentOrderCaptureResponse(dto);
+                    };
+                    break;
                 // case PaymentOrderResourceOperations.CreatePaymentOrderReversal:
                 //     Reverse = async payload =>
                 //     {
@@ -93,6 +93,7 @@ internal class PaymentOrderOperations : OperationsBase, IPaymentOrderOperations
 
     public Func<PaymentOrderAbortRequest, Task<IPaymentOrderResponse>>? Abort { get; }
     public Func<PaymentOrderUpdateRequest, Task<IPaymentOrderResponse>> Update { get; }
+    public Func<PaymentOrderCaptureRequest, Task<PaymentOrderCaptureResponse>>? Capture { get; }
     public HttpOperation Redirect { get; }
     public HttpOperation View { get; }
 }
