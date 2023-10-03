@@ -10,8 +10,8 @@ internal class OperationResponseDto
         ContentType = contentType;
     }
 
-    public string Method { get; set; }
-    public string Href { get; set; }
-    public string Rel { get; set; }
-    public string ContentType { get; set; }
+    public string Method { get; }
+    public string Href { get; }
+    public string Rel { get; }
+    public string ContentType { get; }
 }

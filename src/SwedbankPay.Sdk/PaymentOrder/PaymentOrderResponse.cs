@@ -13,12 +13,12 @@ public interface IPaymentOrderResponse
     IPaymentOrder PaymentOrder { get; }
 }
 
-public class PaymentOrderResponse: IPaymentOrderResponse
+public class PaymentOrderResponse : IPaymentOrderResponse
 {
     internal PaymentOrderResponse(PaymentOrderResponseDto paymentOrderResponseDto, HttpClient httpClient)
     {
         PaymentOrder = new PaymentOrder(paymentOrderResponseDto.PaymentOrder);
-        
+
         var httpOperations = new OperationList();
         foreach (var item in paymentOrderResponseDto.Operations)
         {
@@ -34,14 +34,13 @@ public class PaymentOrderResponse: IPaymentOrderResponse
     public IPaymentOrderOperations Operations { get; }
 }
 
-
 public interface IPaymentOrder
 {
-    string Id { get; }
+    Uri Id { get; }
     DateTime Created { get; }
     DateTime Updated { get; }
     string Operation { get; }
-    string Status { get; }
+    Status Status { get; }
     string Currency { get; }
     Amount VatAmount { get; }
     Amount Amount { get; }
@@ -61,14 +60,38 @@ public interface IPaymentOrder
     CancelledResponse Cancelled { get; }
     FinancialTransactionsResponse FinancialTransactions { get; }
     FailedAttemptsResponse FailedAttempts { get; }
-    MetadataResponse Metadata { get; }
+    Metadata Metadata { get; }
 }
 
-public class PaymentOrder : IPaymentOrder
+public class PaymentOrder : Identifiable, IPaymentOrder
 {
-    internal PaymentOrder(PaymentOrderResponseItemDto paymentOrderResponseItemDto)
+    public DateTime Created { get; }
+    public DateTime Updated { get; }
+    public string Operation { get; }
+    public Status Status { get; }
+    public string Currency { get; }
+    public Amount VatAmount { get; }
+    public Amount Amount { get; }
+    public string Description { get; }
+    public string InitiatingSystemUserAgent { get; }
+    public Language Language { get; }
+    public string[] AvailableInstruments { get; }
+    public string Implementation { get; }
+    public bool InstrumentMode { get; }
+    public bool GuestMode { get; }
+    public PayerResponse Payer { get; }
+    public OrderItemsResponse OrderItems { get; }
+    public HistoryResponse History { get; }
+    public FailedResponse Failed { get; }
+    public AbortedResponse Aborted { get; }
+    public PaidResponse Paid { get; }
+    public CancelledResponse Cancelled { get; }
+    public FinancialTransactionsResponse FinancialTransactions { get; }
+    public FailedAttemptsResponse FailedAttempts { get; }
+    public Metadata Metadata { get; }
+
+    internal PaymentOrder(PaymentOrderResponseItemDto paymentOrderResponseItemDto) : base(paymentOrderResponseItemDto.Id)
     {
-        Id = paymentOrderResponseItemDto.Id;
         Created = paymentOrderResponseItemDto.Created;
         Updated = paymentOrderResponseItemDto.Updated;
         Operation = paymentOrderResponseItemDto.Operation;
@@ -94,108 +117,270 @@ public class PaymentOrder : IPaymentOrder
         FailedAttempts = paymentOrderResponseItemDto.FailedAttempts.Map();
         Metadata = paymentOrderResponseItemDto.Metadata.Map();
     }
-
-    public string Id { get; }
-    public DateTime Created { get; }
-    public DateTime Updated { get; }
-    public string Operation { get; }
-    public string Status { get; }
-    public string Currency { get; }
-    public Amount VatAmount { get; }
-    public Amount Amount { get; }
-    public string Description { get; }
-    public string InitiatingSystemUserAgent { get; }
-    public Language Language { get; }
-    public string[] AvailableInstruments { get; }
-    public string Implementation { get; }
-    public bool InstrumentMode { get; }
-    public bool GuestMode { get; }
-    public PayerResponse Payer { get; }
-    public OrderItemsResponse OrderItems { get; }
-    public HistoryResponse History { get; }
-    public FailedResponse Failed { get; }
-    public AbortedResponse Aborted { get; }
-    public PaidResponse Paid { get; }
-    public CancelledResponse Cancelled { get; }
-    public FinancialTransactionsResponse FinancialTransactions { get; }
-    public FailedAttemptsResponse FailedAttempts { get; }
-    public MetadataResponse Metadata { get; }
-}
-
-public class PayerResponse : Identifiable
-{
-    internal PayerResponse(string id) : base(id)
-    {
-    }
 }
 
 public class OrderItemsResponse : Identifiable
 {
-    internal OrderItemsResponse(string id) : base(id)
-    {
-    }
-    
     /// <summary>
     ///     The orderItems property of the paymentOrder is an array containing the items being purchased with the order. Used
     ///     to print on invoices if
     ///     the payer chooses to pay with invoice, among other things. Order items can be specified on both payment order
     ///     creation as well as on Capture.
     /// </summary>
-    public IEnumerable<OrderItem>? OrderItemList { get; set; }
-}
+    public IEnumerable<OrderItem>? OrderItemList { get; }
 
-public class HistoryResponse : Identifiable
-{
-    internal HistoryResponse(string id) : base(id)
+    internal OrderItemsResponse(OrderItemResponseDto dto) : base(dto.Id)
     {
-    }
-}
-
-public class FailedResponse : Identifiable
-{
-    internal FailedResponse(string id) : base(id)
-    {
+        OrderItemList = dto.OrderItemList?.Select(item => item.Map()).ToList();
     }
 }
 
 public class AbortedResponse : Identifiable
 {
-    internal AbortedResponse(string id) : base(id)
+    public string? AbortReason { get; }
+
+    internal AbortedResponse(AbortedResponseDto dto) : base(dto.Id)
     {
+        AbortReason = dto.AbortReason;
     }
 }
 
-public class PaidResponse : Identifiable
+public class CancelledDetails
 {
-    internal PaidResponse(string id) : base(id)
+    public string? NonPaymentToken { get; }
+    public string? ExternalNonPaymentToken { get; }
+
+    internal CancelledDetails(CancelledDetailsDto dto)
     {
+        NonPaymentToken = dto.NonPaymentToken;
+        ExternalNonPaymentToken = dto.ExternalNonPaymentToken;
     }
 }
 
 public class CancelledResponse : Identifiable
 {
-    internal CancelledResponse(string id) : base(id)
+    public string CancelReason { get; }
+    public string Instrument { get; }
+    public long Number { get; }
+    public string PayeeReference { get; }
+    public string OrderReference { get; }
+    public string TransactionType { get; }
+    public Amount Amount { get; }
+    public Amount SubmittedAmount { get; }
+    public Amount FeeAmount { get; }
+    public Amount DiscountAmount { get; }
+    public IList<TokenItem>? Tokens { get; }
+    public CancelledDetails? Details { get; }
+
+    internal CancelledResponse(CancelledResponseDto dto) : base(dto.Id)
     {
+        CancelReason = dto.CancelReason;
+        Instrument = dto.Instrument;
+        Number = dto.Number;
+        PayeeReference = dto.PayeeReference;
+        OrderReference = dto.OrderReference;
+        TransactionType = dto.TransactionType;
+        Amount = new Amount(dto.Amount);
+        SubmittedAmount = new Amount(dto.SubmittedAmount);
+        FeeAmount = new Amount(dto.FeeAmount);
+        DiscountAmount = new Amount(dto.DiscountAmount);
+        Tokens = dto.Tokens?.Select(x => x.Map()).ToList();
+        Details = dto.Details?.Map();
     }
 }
 
-public class FinancialTransactionsResponse : Identifiable
+public class FailedResponse : Identifiable
 {
-    internal FinancialTransactionsResponse(string id) : base(id)
+    public Problem? Problem { get; }
+
+    internal FailedResponse(FailedResponseDto dto) : base(dto.Id)
     {
+        Problem = dto.Problem?.Map();
+    }
+}
+
+public class FailedAttemptListItem
+{
+    public DateTime Created { get; set; }
+    public string? Instrument { get; set; }
+    public long Number { get; set; }
+    public string? Status { get; set; }
+    public Problem? Problem { get; set; }
+
+    internal FailedAttemptListItem(FailedAttemptListItemDto dto)
+    {
+        Created = dto.Created;
+        Instrument = dto.Instrument;
+        Number = dto.Number;
+        Status = dto.Status;
+        Problem = dto.Problem?.Map();
     }
 }
 
 public class FailedAttemptsResponse : Identifiable
 {
-    internal FailedAttemptsResponse(string id) : base(id)
+    public IList<FailedAttemptListItem>? FailedAttemptList { get; set; }
+
+    internal FailedAttemptsResponse(FailedAttemptsResponseDto dto) : base(dto.Id)
     {
+        FailedAttemptList = dto.FailedAttemptList?.Select(x => x.Map()).ToList();
     }
 }
 
-public class MetadataResponse : Identifiable
+public class FinancialTransactionListItem : Identifiable
 {
-    internal MetadataResponse(string id) : base(id)
+    public DateTime Created { get; set; }
+    public DateTime Updated { get; set; }
+    public string? Type { get; set; }
+    public long Number { get; set; }
+    public Amount Amount { get; set; }
+    public Amount VatAmount { get; set; }
+    public string? Description { get; set; }
+    public string? PayeeReference { get; set; }
+    public string? ReceiptReference { get; set; }
+    public IList<OrderItem>? OrderItems { get; set; }
+
+    internal FinancialTransactionListItem(FinancialTransactionListItemDto dto) : base(dto.Id)
+    {
+        Created = dto.Created;
+        Updated = dto.Updated;
+        Type = dto.Type;
+        Number = dto.Number;
+        Amount = new Amount(dto.Amount);
+        VatAmount = new Amount(dto.VatAmount);
+        Description = dto.Description;
+        PayeeReference = dto.PayeeReference;
+        ReceiptReference = dto.RecepitReference;
+        OrderItems = dto.OrderItems?.Select(x => x.Map()).ToList();
+    }
+}
+
+
+public class FinancialTransactionsResponse : Identifiable
+{
+    public IList<FinancialTransactionListItem>? FinancialTransactionList { get; set; }
+    
+    internal FinancialTransactionsResponse(FinancialTransactionsResponseDto dto) : base(dto.Id)
+    {
+        FinancialTransactionList = dto.FinancialTransactionList?.Select(x => x.Map()).ToList();
+    }
+}
+
+public class HistoryListItem
+{
+    public DateTime Created { get; }
+    public string? Name { get; }
+    public string? Instrument { get; }
+    public long? Number { get; }
+    public string? InitiatedBy { get; }
+    public bool? Prefill { get; }
+
+    internal HistoryListItem(HistoryListItemDto dto)
+    {
+        Created = dto.Created;
+        Name = dto.Name;
+        Instrument = dto.Instrument;
+        Number = dto.Number;
+        InitiatedBy = dto.InitiatedBy;
+        Prefill = dto.Prefill;
+    }
+}
+
+public class HistoryResponse : Identifiable
+{
+    public IList<HistoryListItem>? HistoryList { get; }
+
+    internal HistoryResponse(HistoryResponseDto dto) : base(dto.Id)
+    {
+        HistoryList = dto.HistoryList?.Select(x => x.Map()).ToList();
+    }
+}
+
+public class PaidDetails
+{
+    public string? NonPaymentToken { get; }
+    public string? ExternalNonPaymentToken { get; }
+    public string? PaymentAccountReference { get; }
+    public string? CardType { get; }
+    public string? MaskedPan { get; }
+    public string? MaskedDPan { get; }
+    public string? ExpiryDate { get; }
+    public string? IssuerAuthorizationApprovalCode { get; }
+    public string? AcquirerTransactionType { get; }
+    public string? AcquirerStan { get; }
+    public string? AcquirerTerminalId { get; }
+    public string? AcquirerTransactionTime { get; }
+    public string? TransactionInitiator { get; }
+    public string? Bin { get; }
+    public string? Msisdn { get; }
+
+    internal PaidDetails(PaidDetailsDto dto)
+    {
+        NonPaymentToken = dto.NonPaymentToken;
+        ExternalNonPaymentToken = dto.ExternalNonPaymentToken;
+        PaymentAccountReference = dto.PaymentAccountReference;
+        CardType = dto.CardType;
+        MaskedPan = dto.MaskedPan;
+        MaskedDPan = dto.MaskedDPan;
+        ExpiryDate = dto.ExpiryDate;
+        IssuerAuthorizationApprovalCode = dto.IssuerAuthorizationApprovalCode;
+        AcquirerTransactionType = dto.AcquirerTransactionType;
+        AcquirerStan = dto.AcquirerStan;
+        AcquirerTerminalId = dto.AcquirerTerminalId;
+        AcquirerTransactionTime = dto.AcquirerTransactionTime;
+        TransactionInitiator = dto.TransactionInitatior;
+        Bin = dto.Bin;
+        Msisdn = dto.Msisdn;
+    }
+}
+
+public class TokenItem
+{
+    public string? Type { get; }
+    public string? Token { get; }
+    public string? Name { get; }
+    public string? ExpiryDate { get; }
+
+    internal TokenItem(TokenItemDto dto)
+    {
+        Type = dto.Type;
+        Token = dto.Token;
+        Name = dto.Name;
+        ExpiryDate = dto.ExpiryDate;
+    }
+}
+
+public class PaidResponse : Identifiable
+{
+    public string? Instrument { get; }
+    public long Number { get; }
+    public string? PayeeReference { get; }
+    public string? TransactionType { get; }
+    public Amount Amount { get; }
+    public Amount SubmittedAmount { get; }
+    public Amount FeeAmount { get; }
+    public Amount DiscountAmount { get; }
+    public IList<TokenItem>? Tokens { get; }
+    public PaidDetails? Details { get; }
+
+    internal PaidResponse(PaidResponseDto dto) : base(dto.Id)
+    {
+        Instrument = dto.Instrument;
+        Number = dto.Number;
+        PayeeReference = dto.PayeeReference;
+        TransactionType = dto.TransactionType;
+        Amount = new Amount(dto.Amount);
+        SubmittedAmount = new Amount(dto.SubmittedAmount);
+        FeeAmount = new Amount(dto.FeeAmount);
+        DiscountAmount = new Amount(dto.DiscountAmount);
+        Tokens = dto.Tokens?.Select(x => x.Map()).ToList();
+        Details = dto.Details?.Map();
+    }
+}
+
+public class PayerResponse : Identifiable
+{
+    internal PayerResponse(PayerResponseDto dto) : base(dto.Id)
     {
     }
 }

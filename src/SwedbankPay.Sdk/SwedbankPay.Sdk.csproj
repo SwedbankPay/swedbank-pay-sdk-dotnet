@@ -1,11 +1,31 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFrameworks>netstandard2.0;net6.0;net7.0</TargetFrameworks>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <LangVersion>latest</LangVersion>
+
+        <Authors>Swedbank Pay</Authors>
+        <Description>A client library and SDK for Swedbank Pay's RESTful API Platform</Description>
+        <Copyright>Swedbank Pay</Copyright>
+        <AssemblyName>SwedbankPay.Sdk</AssemblyName>
+        <RootNamespace>SwedbankPay.Sdk</RootNamespace>
     </PropertyGroup>
-    
+
+    <!--    <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">-->
+    <!--        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="[7.0.0,8.0.0)" />-->
+    <!--        <PackageReference Include="System.Text.Json" Version="[7.0.0,8.0.0)" />-->
+    <!--    </ItemGroup>-->
+    <!--    <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">-->
+    <!--        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="[6.0.0,7.0.0)" />-->
+    <!--        <PackageReference Include="System.Text.Json" Version="[6.0.0,7.0.0)" />-->
+    <!--    </ItemGroup>-->
+    <!--    <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">-->
+    <!--        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="[3.1.1,8.0.0)" />-->
+    <!--        <PackageReference Include="System.Text.Json" Version="[5.0.1,8.0.0)" />-->
+    <!--    </ItemGroup>-->
+
     <ItemGroup>
         <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
             <_Parameter1>$(MSBuildProjectName).Tests</_Parameter1>
@@ -15,5 +35,9 @@
         <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
             <_Parameter1>$(AssemblyName).Infrastructure</_Parameter1>
         </AssemblyAttribute>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="System.Text.Json" Version="[5.0.0,8.0.0)" />
     </ItemGroup>
 </Project>

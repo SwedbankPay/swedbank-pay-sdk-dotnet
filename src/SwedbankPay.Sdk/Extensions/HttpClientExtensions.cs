@@ -55,8 +55,6 @@ public static class HttpClientExtensions
                 {
                     var httpStatusCode = (int)httpResponseMessage.StatusCode;
                     var problem = new Problem(httpResponseContent,
-                        httpResponseContent,
-                        httpResponseContent,
                         httpStatusCode,
                         httpResponseContent,
                         httpResponseContent);

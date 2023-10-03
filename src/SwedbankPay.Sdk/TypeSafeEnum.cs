@@ -22,7 +22,10 @@ namespace SwedbankPay.Sdk;
                 var dictionary = new Dictionary<string, TEnum>();
                 foreach (var item in GetAllOptions())
                 {
-                    dictionary.TryAdd(item.Value, item);
+                    if (!dictionary.ContainsKey(item.Value))
+                    {
+                        dictionary.Add(item.Value, item);
+                    }
                 }
 
                 return dictionary;

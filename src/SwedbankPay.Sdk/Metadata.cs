@@ -31,5 +31,5 @@ public class Metadata : Dictionary<string, object>
     /// <summary>
     /// Unique ID that references this resource, available if set.
     /// </summary>
-    public string Id { get; }
+    public string? Id { get; }
 }

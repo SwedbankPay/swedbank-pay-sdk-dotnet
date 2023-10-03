@@ -32,7 +32,244 @@ internal class PaymentOrderResponseItemDto
     public CancelledResponseDto Cancelled { get; set; }
     public FinancialTransactionsResponseDto FinancialTransactions { get; set; }
     public FailedAttemptsResponseDto FailedAttempts { get; set; }
-    public MetadataResponseDto Metadata { get; set; }
+    public MetadataDto Metadata { get; set; }
+}
+
+internal class OrderItemResponseDto : IdentifiableDto
+{
+    /// <summary>
+    ///     The orderItems property of the paymentOrder is an array containing the items being purchased with the order. Used
+    ///     to print on invoices if
+    ///     the payer chooses to pay with invoice, among other things. Order items can be specified on both payment order
+    ///     creation as well as on Capture.
+    /// </summary>
+    public IEnumerable<OrderItemDto>? OrderItemList { get; set; }
+
+    public OrderItemResponseDto(string id) : base(id)
+    {
+    }
+
+    internal OrderItemsResponse Map()
+    {
+        return new OrderItemsResponse(this);
+    }
+}
+
+internal class AbortedResponseDto : IdentifiableDto
+{
+    public string? AbortReason { get; set; }
+
+    public AbortedResponseDto(string id) : base(id)
+    {
+    }
+
+    public AbortedResponse Map()
+    {
+        return new AbortedResponse(this);
+    }
+}
+
+internal class CancelledDetailsDto
+{
+    public string? NonPaymentToken { get; set; }
+    public string? ExternalNonPaymentToken { get; set; }
+
+    public CancelledDetails Map()
+    {
+        return new CancelledDetails(this);
+    }
+}
+
+internal class CancelledResponseDto : IdentifiableDto
+{
+    public string CancelReason { get; set; }
+    public string Instrument { get; set; }
+    public long Number { get; set; }
+    public string PayeeReference { get; set; }
+    public string OrderReference { get; set; }
+    public string TransactionType { get; set; }
+    public long Amount { get; set; }
+    public long SubmittedAmount { get; set; }
+    public long FeeAmount { get; set; }
+    public long DiscountAmount { get; set; }
+    public IList<TokenItemDto>? Tokens { get; set; }
+    public CancelledDetailsDto? Details { get; set; }
+
+    public CancelledResponseDto(string id) : base(id)
+    {
+    }
+
+    public CancelledResponse Map()
+    {
+        return new CancelledResponse(this);
+    }
+}
+
+internal class FailedResponseDto : IdentifiableDto
+{
+    public ProblemDto? Problem { get; set; }
+
+    public FailedResponseDto(string id) : base(id)
+    {
+    }
+
+    public FailedResponse Map()
+    {
+        return new FailedResponse(this);
+    }
+}
+
+internal class FailedAttemptListItemDto
+{
+    public DateTime Created { get; set; }
+    public string? Instrument { get; set; }
+    public long Number { get; set; }
+    public string? Status { get; set; }
+    public ProblemDto? Problem { get; set; }
+
+    public FailedAttemptListItem Map()
+    {
+        return new FailedAttemptListItem(this);
+    }
+}
+
+internal class FailedAttemptsResponseDto : IdentifiableDto
+{
+    public IList<FailedAttemptListItemDto>? FailedAttemptList { get; set; }
+
+    public FailedAttemptsResponseDto(string id) : base(id)
+    {
+    }
+
+    public FailedAttemptsResponse Map()
+    {
+        return new FailedAttemptsResponse(this);
+    }
+}
+
+internal class FinancialTransactionListItemDto
+{
+    public string Id { get; set; }
+    public DateTime Created { get; set; }
+    public DateTime Updated { get; set; }
+    public string? Type { get; set; }
+    public long Number { get; set; }
+    public long Amount { get; set; }
+    public long VatAmount { get; set; }
+    public string? Description { get; set; }
+    public string? PayeeReference { get; set; }
+    public string? RecepitReference { get; set; }
+    public IList<OrderItemDto>? OrderItems { get; set; }
+
+    public FinancialTransactionListItem Map()
+    {
+        return new FinancialTransactionListItem(this);
+    }
+}
+
+
+internal class FinancialTransactionsResponseDto : IdentifiableDto
+{
+    public IList<FinancialTransactionListItemDto>? FinancialTransactionList { get; set; }
+    
+    public FinancialTransactionsResponseDto(string id) : base(id)
+    {
+    }
+
+    public FinancialTransactionsResponse Map()
+    {
+        return new FinancialTransactionsResponse(this);
+    }
+}
+
+internal class HistoryListItemDto
+{
+    public DateTime Created { get; set; }
+    public string? Name { get; set; }
+    public string? Instrument { get; set; }
+    public long? Number { get; set; }
+    public string? InitiatedBy { get; set; }
+    public bool? Prefill { get; set; }
+
+    public HistoryListItem Map()
+    {
+        return new HistoryListItem(this);
+    }
+}
+
+internal class HistoryResponseDto : IdentifiableDto
+{
+    public IList<HistoryListItemDto>? HistoryList { get; set; }
+
+    public HistoryResponseDto(string id) : base(id)
+    {
+    }
+
+    public HistoryResponse Map()
+    {
+        return new HistoryResponse(this);
+    }
+}
+
+internal class PaidDetailsDto
+{
+    public string? NonPaymentToken { get; set; }
+    public string? ExternalNonPaymentToken { get; set; }
+    public string? PaymentAccountReference { get; set; }
+    public string? CardType { get; set; }
+    public string? MaskedPan { get; set; }
+    public string? MaskedDPan { get; set; }
+    public string? ExpiryDate { get; set; }
+    public string? IssuerAuthorizationApprovalCode { get; set; }
+    public string? AcquirerTransactionType { get; set; }
+    public string? AcquirerStan { get; set; }
+    public string? AcquirerTerminalId { get; set; }
+    public string? AcquirerTransactionTime { get; set; }
+    public string? TransactionInitatior { get; set; }
+    public string? Bin { get; set; }
+    public string? Msisdn { get; set; }
+
+    public PaidDetails Map()
+    {
+        return new PaidDetails(this);
+    }
+}
+
+internal class TokenItemDto
+{
+    public string? Type { get; set; }
+    public string? Token { get; set; }
+    public string? Name { get; set; }
+    public string? ExpiryDate { get; set; }
+
+    public TokenItem Map()
+    {
+        return new TokenItem(this);
+    }
+}
+
+internal class PaidResponseDto : IdentifiableDto
+{
+    public string? Instrument { get; set; }
+    public long Number { get; set; }
+    public string? PayeeReference { get; set; }
+    public string? OrderReference { get; set; }
+    public string? TransactionType { get; set; }
+    public long Amount { get; set; }
+    public long SubmittedAmount { get; set; }
+    public long FeeAmount { get; set; }
+    public long DiscountAmount { get; set; }
+    public IList<TokenItemDto>? Tokens { get; set; }
+    public PaidDetailsDto? Details { get; set; }
+
+    public PaidResponseDto(string id) : base(id)
+    {
+    }
+
+    public PaidResponse Map()
+    {
+        return new PaidResponse(this);
+    }
 }
 
 internal class PayerResponseDto : IdentifiableDto
@@ -43,114 +280,6 @@ internal class PayerResponseDto : IdentifiableDto
 
     public PayerResponse Map()
     {
-        return new PayerResponse(Id);
-    }
-}
-
-internal class OrderItemResponseDto : IdentifiableDto
-{
-    public OrderItemResponseDto(string id) : base(id)
-    {
-    }
-
-    /// <summary>
-    ///     The orderItems property of the paymentOrder is an array containing the items being purchased with the order. Used
-    ///     to print on invoices if
-    ///     the payer chooses to pay with invoice, among other things. Order items can be specified on both payment order
-    ///     creation as well as on Capture.
-    /// </summary>
-    public IEnumerable<OrderItemDto>? OrderItemList { get; set; }
-
-    internal OrderItemsResponse Map()
-    {
-        var orderItemList = OrderItemList?.Select(item => item.Map()).ToList();
-        return new OrderItemsResponse(Id)
-        {
-            OrderItemList = orderItemList
-        };
-    }
-}
-
-internal class HistoryResponseDto : IdentifiableDto
-{
-    public HistoryResponseDto(string id) : base(id)
-    {
-    }
-
-    public HistoryResponse Map()
-    {
-        return new HistoryResponse(Id);
-    }
-}
-
-internal class FailedResponseDto : IdentifiableDto
-{
-    public FailedResponseDto(string id) : base(id)
-    {
-    }
-
-    public FailedResponse Map()
-    {
-        return new FailedResponse(Id);
-    }
-}
-
-internal class AbortedResponseDto : IdentifiableDto
-{
-    public AbortedResponseDto(string id) : base(id)
-    {
-    }
-
-    public AbortedResponse Map()
-    {
-        return new AbortedResponse(Id);
-    }
-}
-
-internal class PaidResponseDto : IdentifiableDto
-{
-    public PaidResponseDto(string id) : base(id)
-    {
-    }
-
-    public PaidResponse Map()
-    {
-        return new PaidResponse(Id);
-    }
-}
-
-internal class CancelledResponseDto : IdentifiableDto
-{
-    public CancelledResponseDto(string id) : base(id)
-    {
-    }
-
-    public CancelledResponse Map()
-    {
-        return new CancelledResponse(Id);
-    }
-}
-
-internal class FinancialTransactionsResponseDto : IdentifiableDto
-{
-    public FinancialTransactionsResponseDto(string id) : base(id)
-    {
-    }
-
-    public FinancialTransactionsResponse Map()
-    {
-        return new FinancialTransactionsResponse(Id);
-    }
-}
-
-internal class FailedAttemptsResponseDto : IdentifiableDto
-{
-    public FailedAttemptsResponseDto(string id) : base(id)
-    {
-    }
-
-    public FailedAttemptsResponse Map()
-    {
-        return new FailedAttemptsResponse(Id);
+        return new PayerResponse(this);
     }
 }

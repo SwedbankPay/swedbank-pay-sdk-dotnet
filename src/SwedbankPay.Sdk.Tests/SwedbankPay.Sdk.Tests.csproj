@@ -29,14 +29,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\SwedbankPay.Sdk.Infrastructure\SwedbankPay.Sdk.Infrastructure.csproj" />
       <ProjectReference Include="..\SwedbankPay.Sdk\SwedbankPay.Sdk.csproj" />
     </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\SwedbankPay.Sdk\SwedbankPay.Sdk.csproj" />
-    </ItemGroup>
-
+    
     <ItemGroup>
       <None Remove="appsettings.json" />
       <Content Include="appsettings.json">

@@ -1,10 +1,13 @@
+using System.Text.Json.Serialization;
+
 namespace SwedbankPay.Sdk;
 
 internal class MetadataDto : Dictionary<string, object>
 {
-    // public MetadataDto()
-    // {
-    // }
+    [JsonConstructor]
+    public MetadataDto()
+    {
+    }
 
     internal MetadataDto(IDictionary<string, object> dictionary) : base(dictionary)
     {
@@ -14,7 +17,6 @@ internal class MetadataDto : Dictionary<string, object>
 
     internal Metadata Map()
     {
-        var metaData = new Metadata(this);
-        return metaData;
+        return new Metadata(this);
     }
 }

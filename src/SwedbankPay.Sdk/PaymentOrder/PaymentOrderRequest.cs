@@ -9,4 +9,14 @@ public record PaymentOrderRequest(Operation Operation, Currency Currency, Amount
     public IList<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 
     public Metadata? Metadata { get; set; }
+    public Operation Operation { get; } = Operation;
+    public Currency Currency { get; } = Currency;
+    public Amount Amount { get; } = Amount;
+    public Amount VatAmount { get; } = VatAmount;
+    public string Description { get; } = Description;
+    public string UserAgent { get; } = UserAgent;
+    public Language Language { get; } = Language;
+    public string ProductName { get; } = ProductName;
+    public Urls Urls { get; } = Urls;
+    public PayeeInfo PayeeInfo { get; } = PayeeInfo;
 }
