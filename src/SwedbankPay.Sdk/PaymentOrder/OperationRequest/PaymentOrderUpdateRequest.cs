@@ -37,7 +37,7 @@ internal class PaymentOrderUpdateDto
     {
         Amount = paymentOrder.Amount.InLowestMonetaryUnit;
         Operation = paymentOrder.Operation.Value;
-        VatAmount = paymentOrder.VatAmount?.InLowestMonetaryUnit;
+        VatAmount = paymentOrder.VatAmount.InLowestMonetaryUnit;
         foreach (var item in paymentOrder.OrderItems)
         {
             OrderItems.Add(new OrderItemDto(item));

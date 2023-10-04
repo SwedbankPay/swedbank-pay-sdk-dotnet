@@ -47,12 +47,12 @@ else if (TempData["ErrorMessage"] != null)
                     <dd class="col-sm-10" automation="div-paymentorderlink">
                         @Html.DisplayFor(model => order.Order.PaymentOrderLink)
                     </dd>
-                    <dt class="col-sm-2">
-                        @Html.DisplayNameFor(model => order.Order.PaymentLink)
-                    </dt>
-                    <dd class="col-sm-10" automation="div-paymentlink">
-                        @Html.DisplayFor(model => order.Order.PaymentLink)
-                    </dd>
+                    @* <dt class="col-sm-2"> *@
+                    @*     @Html.DisplayNameFor(model => order.Order.PaymentLink) *@
+                    @* </dt> *@
+                    @* <dd class="col-sm-10" automation="div-paymentlink"> *@
+                    @*     @Html.DisplayFor(model => order.Order.PaymentLink) *@
+                    @* </dd> *@
                 </dl>
                 <form asp-action="ClearSingle" asp-controller="Orders" asp-route-paymentId="@(order.Order.PaymentLink != null ? order.Order.PaymentLink : order.Order.PaymentOrderLink)" method="post">
                     <button type="submit" class="btn btn-danger m-2" automation="button-clearorder">
@@ -91,15 +91,15 @@ else if (TempData["ErrorMessage"] != null)
                             <td>
                                 @switch (item.Rel.Value)
                                 {
-                                    // case PaymentOrderResourceOperations.CreatePaymentOrderCancel:
-                                    //     actionName = "PaymentOrderCancel";
-                                    //     break;
-                                    // case PaymentOrderResourceOperations.CreatePaymentOrderCapture:
-                                    //     actionName = "PaymentOrderCapture";
-                                    //     break;
-                                    // case PaymentOrderResourceOperations.CreatePaymentOrderReversal:
-                                    //     actionName = "PaymentOrderReversal";
-                                    //     break;
+                                    case PaymentOrderResourceOperations.Cancel:
+                                        actionName = "PaymentOrderCancel";
+                                        break;
+                                    case PaymentOrderResourceOperations.Capture:
+                                        actionName = "PaymentOrderCapture";
+                                        break;
+                                    case PaymentOrderResourceOperations.Reversal:
+                                        actionName = "PaymentOrderReversal";
+                                        break;
                                     case PaymentOrderResourceOperations.RedirectCheckout:
                                         break;
                                     case PaymentOrderResourceOperations.UpdateOrder:

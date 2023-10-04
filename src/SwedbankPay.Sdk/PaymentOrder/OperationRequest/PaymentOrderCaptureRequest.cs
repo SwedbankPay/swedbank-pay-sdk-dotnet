@@ -121,19 +121,44 @@ internal class PaymentOrderCaptureResponseDto
 {
     public string Payment { get; set; }
 
-    public TransactionResponseDto Capture { get; set; }
+    public PaymentOrderCaptureResponseDetailDto Capture { get; set; }
 }
 
-internal class PaymentOrderCaptureResponse
+internal class PaymentOrderCaptureResponseDetailDto : IdentifiableDto
 {
-    public Uri Payment { get; set; }
+    public TransactionResponseDto Transaction { get; set; }
 
-    public TransactionResponse Capture { get; set; }
-
-    public PaymentOrderCaptureResponse(PaymentOrderCaptureResponseDto dto)
+    internal PaymentOrderCaptureResponseDetailDto(string id) : base(id)
     {
-        Payment = new Uri(dto.Payment);
-        Capture = new TransactionResponse(dto.Capture);
+    }
+}
+
+public interface IPaymentOrderCaptureResponse
+{
+    Uri Payment { get; }
+    PaymentOrderCaptureResponseDetail Capture { get; }
+}
+
+public class PaymentOrderCaptureResponse : IPaymentOrderCaptureResponse
+{
+    public Uri Payment { get; }
+
+    public PaymentOrderCaptureResponseDetail Capture { get; }
+
+    internal PaymentOrderCaptureResponse(PaymentOrderCaptureResponseDto dto)
+    {
+        Payment = new Uri(dto.Payment, UriKind.RelativeOrAbsolute);
+        Capture = new PaymentOrderCaptureResponseDetail(dto.Capture);
+    }
+}
+
+public class PaymentOrderCaptureResponseDetail
+{
+    public TransactionResponse Transaction { get; }
+
+    internal PaymentOrderCaptureResponseDetail(PaymentOrderCaptureResponseDetailDto dto)
+    {
+        Transaction = new TransactionResponse(dto.Transaction);
     }
 }
 
@@ -151,6 +176,11 @@ internal class TransactionResponseDto : IdentifiableDto
 
     internal TransactionResponseDto(string id) : base(id)
     {
+    }
+
+    public TransactionResponse Map()
+    {
+        return new TransactionResponse(this);
     }
 }
 

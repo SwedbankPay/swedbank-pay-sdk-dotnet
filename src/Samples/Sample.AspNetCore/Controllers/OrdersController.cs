@@ -100,7 +100,7 @@ namespace Sample.AspNetCore.Controllers
                 if (order.PaymentOrderLink != null)
                 {
                     var paymentOrder = await this.swedbankPayClient.PaymentOrders.Get(order.PaymentOrderLink);
-                    var paymentOrderOperations = paymentOrder.Operations.Where(r => r.Key.Value.Contains("paymentorder")).Select(x => x.Value);
+                    var paymentOrderOperations = paymentOrder.Operations.Select(x => x.Value);
                     operations = paymentOrderOperations.ToList();
                 }
                 else

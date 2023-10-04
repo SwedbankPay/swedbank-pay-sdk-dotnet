@@ -61,32 +61,32 @@ namespace Sample.AspNetCore.Controllers
         }
 
 
-        // [HttpGet]
-        // public async Task<ActionResult> PaymentOrderCancel(string paymentOrderId)
-        // {
-        //     try
-        //     {
-        //         var paymentOrder = await this._swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
-        //         
-        //         if (paymentOrder.Operations.Cancel != null)
-        //         {
-        //             var cancelRequest = new SwedbankPay.Sdk.PaymentOrders.PaymentOrderCancelRequest(DateTime.Now.Ticks.ToString(), "Cancelling parts of the total amount");
-        //             var response = await paymentOrder.Operations.Cancel(cancelRequest);
-        //             TempData["CancelMessage"] = $"Payment has been cancelled: {response.Cancellation.Transaction.Id}";
-        //         }
-        //         else
-        //         {
-        //             TempData["ErrorMessage"] = "Operation not available";
-        //         }
-        //
-        //         return RedirectToAction("Details", "Orders");
-        //     }
-        //     catch (Exception e)
-        //     {
-        //         TempData["ErrorMessage"] = $"Something unexpected happened. {e.Message}";
-        //         return RedirectToAction("Details", "Orders");
-        //     }
-        // }
+        [HttpGet]
+        public async Task<ActionResult> PaymentOrderCancel(string paymentOrderId)
+        {
+            try
+            {
+                var paymentOrder = await _swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
+                
+                if (paymentOrder.Operations.Cancel != null)
+                {
+                    var cancelRequest = new PaymentOrderCancelRequest("Cancelling parts of the total amount", _payeeInfoOptions.PayeeReference);
+                    var response = await paymentOrder.Operations.Cancel(cancelRequest);
+                    TempData["CancelMessage"] = $"Payment has been cancelled: {response.Cancellation.Transaction.Id}";
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Operation not available";
+                }
+        
+                return RedirectToAction("Details", "Orders");
+            }
+            catch (Exception e)
+            {
+                TempData["ErrorMessage"] = $"Something unexpected happened. {e.Message}";
+                return RedirectToAction("Details", "Orders");
+            }
+        }
 
 
 
@@ -118,29 +118,29 @@ namespace Sample.AspNetCore.Controllers
         // }
 
 
-        // [HttpGet]
-        // public async Task<IActionResult> PaymentOrderCapture(string paymentOrderId)
-        // {
-        //     try
-        //     {
-        //         var transActionRequestObject = await GetCaptureRequest("Capturing the authorized payment");
-        //         var paymentOrder = await this._swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
-        //
-        //         var response = await paymentOrder.Operations.Capture(transActionRequestObject);
-        //
-        //         TempData["CaptureMessage"] =
-        //             $"{response.Capture.Transaction.Id}, {response.Capture.Transaction.State}, {response.Capture.Transaction.Type}";
-        //
-        //         this._cartService.PaymentOrderLink = null;
-        //
-        //         return RedirectToAction("Details", "Orders");
-        //     }
-        //     catch (Exception e)
-        //     {
-        //         TempData["ErrorMessage"] = $"Something unexpected happened. {e.Message}";
-        //         return RedirectToAction("Details", "Orders");
-        //     }
-        // }
+        [HttpGet]
+        public async Task<IActionResult> PaymentOrderCapture(string paymentOrderId)
+        {
+            try
+            {
+                var transActionRequestObject = await GetCaptureRequest("Capturing the authorized payment", DateTime.Now.Ticks.ToString());
+                var paymentOrder = await _swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
+        
+                var response = await paymentOrder.Operations.Capture(transActionRequestObject);
+        
+                TempData["CaptureMessage"] =
+                    $"{response.Capture.Transaction.Id}, {response.Capture.Transaction.State}, {response.Capture.Transaction.Type}";
+        
+                this._cartService.PaymentOrderLink = null;
+        
+                return RedirectToAction("Details", "Orders");
+            }
+            catch (Exception e)
+            {
+                TempData["ErrorMessage"] = $"Something unexpected happened. {e.Message}";
+                return RedirectToAction("Details", "Orders");
+            }
+        }
 
         // [HttpGet]
         // public async Task<IActionResult> Recurring(string paymentId, PaymentInstrument instrument)
@@ -233,28 +233,28 @@ namespace Sample.AspNetCore.Controllers
             }
         }
 
-        // [HttpGet]
-        // public async Task<IActionResult> PaymentOrderReversal(string paymentOrderId)
-        // {
-        //     try
-        //     {
-        //         var transActionRequestObject = await GetReversalRequest("Reversing the capture amount");
-        //         var paymentOrder = await this._swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
-        //
-        //         var response = await paymentOrder.Operations.Reverse.Invoke(transActionRequestObject);
-        //
-        //         TempData["ReversalMessage"] =
-        //             $"{response.Reversal.Transaction.Id}, {response.Reversal.Transaction.Type}, {response.Reversal.Transaction.State}";
-        //         this._cartService.PaymentOrderLink = null;
-        //
-        //         return RedirectToAction("Details", "Orders");
-        //     }
-        //     catch (Exception e)
-        //     {
-        //         TempData["ErrorMessage"] = $"Something unexpected happened. {e.Message}";
-        //         return RedirectToAction("Details", "Orders");
-        //     }
-        // }
+        [HttpGet]
+        public async Task<IActionResult> PaymentOrderReversal(string paymentOrderId)
+        {
+            try
+            {
+                var transActionRequestObject = await GetReversalRequest("Reversing the capture amount");
+                var paymentOrder = await this._swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
+        
+                var response = await paymentOrder.Operations.Reverse(transActionRequestObject);
+        
+                TempData["ReversalMessage"] =
+                    $"{response.Reversal.Transaction.Id}, {response.Reversal.Transaction.Type}, {response.Reversal.Transaction.State}";
+                this._cartService.PaymentOrderLink = null;
+        
+                return RedirectToAction("Details", "Orders");
+            }
+            catch (Exception e)
+            {
+                TempData["ErrorMessage"] = $"Something unexpected happened. {e.Message}";
+                return RedirectToAction("Details", "Orders");
+            }
+        }
 
 
         // [HttpGet]
@@ -309,36 +309,36 @@ namespace Sample.AspNetCore.Controllers
         //     return request;
         // }
 
-        // private async Task<SwedbankPay.Sdk.PaymentOrders.PaymentOrderCaptureRequest> GetCaptureRequest(string description)
-        // {
-        //     var order = await this._context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
-        //     var orderItems = order.Lines.ToOrderItems();
-        //
-        //     var request = new SwedbankPay.Sdk.PaymentOrders.PaymentOrderCaptureRequest(new Amount(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
-        //                                                           new Amount(0), description, DateTime.Now.Ticks.ToString());
-        //     foreach (var item in orderItems)
-        //     {
-        //         request.Transaction.OrderItems.Add(item);
-        //     }
-        //
-        //     return request;
-        // }
-        //
-        // private async Task<SwedbankPay.Sdk.PaymentOrders.PaymentOrderReversalRequest> GetReversalRequest(string description)
-        // {
-        //     var order = await this._context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
-        //     var orderItems = order.Lines.ToOrderItems();
-        //
-        //     var request = new SwedbankPay.Sdk.PaymentOrders.PaymentOrderReversalRequest(new Amount(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
-        //                                                                          new Amount(0),
-        //                                                                          description,
-        //                                                                          DateTime.Now.Ticks.ToString());
-        //     foreach (var item in orderItems)
-        //     {
-        //         request.Transaction.OrderItems.Add(item);
-        //     }
-        //
-        //     return request;
-        // }
+        private async Task<PaymentOrderCaptureRequest> GetCaptureRequest(string description, string receiptReference)
+        {
+            var order = await this._context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
+            var orderItems = order.Lines.ToOrderItems();
+        
+            var request = new PaymentOrderCaptureRequest(new Amount(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
+                                                                  new Amount(0), description, DateTime.Now.Ticks.ToString(), receiptReference);
+            foreach (var item in orderItems)
+            {
+                request.Transaction.OrderItems.Add(item);
+            }
+        
+            return request;
+        }
+        
+        private async Task<PaymentOrderReversalRequest> GetReversalRequest(string description)
+        {
+            var order = await this._context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
+            var orderItems = order.Lines.ToOrderItems();
+        
+            var request = new PaymentOrderReversalRequest(new Amount(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
+                                                                                 new Amount(0),
+                                                                                 description,
+                                                                                 DateTime.Now.Ticks.ToString());
+            foreach (var item in orderItems)
+            {
+                request.Transaction.OrderItems.Add(item);
+            }
+        
+            return request;
+        }
     }
 }
