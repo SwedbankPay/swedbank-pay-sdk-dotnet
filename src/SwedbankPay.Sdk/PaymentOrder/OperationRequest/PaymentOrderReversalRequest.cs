@@ -79,7 +79,7 @@ internal class PaymentOrderReversalResponseDetailDto : IdentifiableDto
 {
     public TransactionResponseDto Transaction { get; set; }
     
-    internal PaymentOrderReversalResponseDetailDto(string id) : base(id)
+    public PaymentOrderReversalResponseDetailDto(string id) : base(id)
     {
     }
 }

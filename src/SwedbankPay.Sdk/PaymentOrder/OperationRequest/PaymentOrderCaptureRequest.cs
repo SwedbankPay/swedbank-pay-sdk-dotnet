@@ -128,7 +128,7 @@ internal class PaymentOrderCaptureResponseDetailDto : IdentifiableDto
 {
     public TransactionResponseDto Transaction { get; set; }
 
-    internal PaymentOrderCaptureResponseDetailDto(string id) : base(id)
+    public PaymentOrderCaptureResponseDetailDto(string id) : base(id)
     {
     }
 }
@@ -174,7 +174,7 @@ internal class TransactionResponseDto : IdentifiableDto
     public string? PayeeReference { get; set; }
     public string? ReceiptReference { get; set; }
 
-    internal TransactionResponseDto(string id) : base(id)
+    public TransactionResponseDto(string id) : base(id)
     {
     }
 

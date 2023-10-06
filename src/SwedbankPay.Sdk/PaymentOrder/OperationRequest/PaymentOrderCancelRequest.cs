@@ -55,7 +55,7 @@ internal class PaymentOrderCancelResponseDetailDto : IdentifiableDto
 {
     public TransactionResponseDto Transaction { get; set; }
 
-    internal PaymentOrderCancelResponseDetailDto(string id) : base(id)
+    public PaymentOrderCancelResponseDetailDto(string id) : base(id)
     {
     }
 
