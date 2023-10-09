@@ -39,58 +39,58 @@ public interface IPaymentOrder
     Uri Id { get; }
     DateTime Created { get; }
     DateTime Updated { get; }
-    string Operation { get; }
+    string? Operation { get; }
     Status Status { get; }
-    string Currency { get; }
+    string? Currency { get; }
     Amount VatAmount { get; }
     Amount Amount { get; }
-    string Description { get; }
-    string InitiatingSystemUserAgent { get; }
+    string? Description { get; }
+    string? InitiatingSystemUserAgent { get; }
     Language Language { get; }
-    string[] AvailableInstruments { get; }
-    string Implementation { get; }
+    string[]? AvailableInstruments { get; }
+    string? Implementation { get; }
     bool InstrumentMode { get; }
     bool GuestMode { get; }
-    PayerResponse Payer { get; }
-    OrderItemsResponse OrderItems { get; } 
-    Urls Urls { get; }
-    HistoryResponse History { get; }
-    FailedResponse Failed { get; }
-    AbortedResponse Aborted { get; }
-    PaidResponse Paid { get; }
-    CancelledResponse Cancelled { get; }
-    FinancialTransactionsResponse FinancialTransactions { get; }
-    FailedAttemptsResponse FailedAttempts { get; }
-    Metadata Metadata { get; }
+    PayerResponse? Payer { get; }
+    OrderItemsResponse? OrderItems { get; } 
+    Urls? Urls { get; }
+    HistoryResponse? History { get; }
+    FailedResponse? Failed { get; }
+    AbortedResponse? Aborted { get; }
+    PaidResponse? Paid { get; }
+    CancelledResponse? Cancelled { get; }
+    FinancialTransactionsResponse? FinancialTransactions { get; }
+    FailedAttemptsResponse? FailedAttempts { get; }
+    Metadata? Metadata { get; }
 }
 
 public class PaymentOrder : Identifiable, IPaymentOrder
 {
     public DateTime Created { get; }
     public DateTime Updated { get; }
-    public string Operation { get; }
+    public string? Operation { get; }
     public Status Status { get; }
-    public string Currency { get; }
+    public string? Currency { get; }
     public Amount VatAmount { get; }
     public Amount Amount { get; }
-    public string Description { get; }
-    public string InitiatingSystemUserAgent { get; }
+    public string? Description { get; }
+    public string? InitiatingSystemUserAgent { get; }
     public Language Language { get; }
-    public string[] AvailableInstruments { get; }
-    public string Implementation { get; }
+    public string[]? AvailableInstruments { get; }
+    public string? Implementation { get; }
     public bool InstrumentMode { get; }
     public bool GuestMode { get; }
-    public PayerResponse Payer { get; }
-    public OrderItemsResponse OrderItems { get; }
-    public Urls Urls { get; }
-    public HistoryResponse History { get; }
-    public FailedResponse Failed { get; }
-    public AbortedResponse Aborted { get; }
-    public PaidResponse Paid { get; }
-    public CancelledResponse Cancelled { get; }
-    public FinancialTransactionsResponse FinancialTransactions { get; }
-    public FailedAttemptsResponse FailedAttempts { get; }
-    public Metadata Metadata { get; }
+    public PayerResponse? Payer { get; }
+    public OrderItemsResponse? OrderItems { get; }
+    public Urls? Urls { get; }
+    public HistoryResponse? History { get; }
+    public FailedResponse? Failed { get; }
+    public AbortedResponse? Aborted { get; }
+    public PaidResponse? Paid { get; }
+    public CancelledResponse? Cancelled { get; }
+    public FinancialTransactionsResponse? FinancialTransactions { get; }
+    public FailedAttemptsResponse? FailedAttempts { get; }
+    public Metadata? Metadata { get; }
 
     internal PaymentOrder(PaymentOrderResponseItemDto paymentOrderResponseItemDto) : base(paymentOrderResponseItemDto.Id)
     {
@@ -108,17 +108,17 @@ public class PaymentOrder : Identifiable, IPaymentOrder
         Implementation = paymentOrderResponseItemDto.Implementation;
         InstrumentMode = paymentOrderResponseItemDto.InstrumentMode;
         GuestMode = paymentOrderResponseItemDto.GuestMode;
-        Payer = paymentOrderResponseItemDto.Payer.Map();
-        OrderItems = paymentOrderResponseItemDto.OrderItems.Map();
-        Urls = paymentOrderResponseItemDto.Urls.Map();
-        History = paymentOrderResponseItemDto.History.Map();
-        Failed = paymentOrderResponseItemDto.Failed.Map();
-        Aborted = paymentOrderResponseItemDto.Aborted.Map();
-        Paid = paymentOrderResponseItemDto.Paid.Map();
-        Cancelled = paymentOrderResponseItemDto.Cancelled.Map();
-        FinancialTransactions = paymentOrderResponseItemDto.FinancialTransactions.Map();
-        FailedAttempts = paymentOrderResponseItemDto.FailedAttempts.Map();
-        Metadata = paymentOrderResponseItemDto.Metadata.Map();
+        Payer = paymentOrderResponseItemDto.Payer?.Map();
+        OrderItems = paymentOrderResponseItemDto.OrderItems?.Map();
+        Urls = paymentOrderResponseItemDto.Urls?.Map();
+        History = paymentOrderResponseItemDto.History?.Map();
+        Failed = paymentOrderResponseItemDto.Failed?.Map();
+        Aborted = paymentOrderResponseItemDto.Aborted?.Map();
+        Paid = paymentOrderResponseItemDto.Paid?.Map();
+        Cancelled = paymentOrderResponseItemDto.Cancelled?.Map();
+        FinancialTransactions = paymentOrderResponseItemDto.FinancialTransactions?.Map();
+        FailedAttempts = paymentOrderResponseItemDto.FailedAttempts?.Map();
+        Metadata = paymentOrderResponseItemDto.Metadata?.Map();
     }
 }
 
@@ -383,9 +383,47 @@ public class PaidResponse : Identifiable
     }
 }
 
+public class Device
+{
+    public int DetectionAccuracy { get; }
+    public string? IpAddress { get; }
+    public string? UserAgent { get; }
+    public string? DeviceType { get; }
+    public string? HardwareFamily { get; }
+    public string? HardwareName { get; }
+    public string? HardwareVendor { get; }
+    public string? PlatformName { get; }
+    public string? PlatformVendor { get; }
+    public string? PlatformVersion { get; }
+    public string? BrowserName { get; }
+    public string? BrowserVendor { get; }
+    public string? BrowserVersion { get; }
+    public bool BrowserJavaEnabled { get; }
+    
+    internal Device(DeviceDto dto)
+    {
+        DetectionAccuracy = dto.DetectionAccuracy;
+        IpAddress = dto.IpAddress;
+        UserAgent = dto.UserAgent;
+        DeviceType = dto.DeviceType;
+        HardwareFamily = dto.HardwareFamily;
+        HardwareName = dto.HardwareName;
+        HardwareVendor = dto.HardwareVendor;
+        PlatformName = dto.PlatformName;
+        PlatformVendor = dto.PlatformVendor;
+        PlatformVersion = dto.PlatformVersion;
+        BrowserName = dto.BrowserName;
+        BrowserVendor = dto.BrowserVendor;
+        BrowserVersion = dto.BrowserVersion;
+        BrowserJavaEnabled = dto.BrowserJavaEnabled;
+    }
+}
+
 public class PayerResponse : Identifiable
 {
+    public Device Device { get; }
     internal PayerResponse(PayerResponseDto dto) : base(dto.Id)
     {
+        Device = dto.Device.Map();
     }
 }

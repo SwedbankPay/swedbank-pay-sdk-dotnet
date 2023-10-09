@@ -1,17 +1,9 @@
 namespace SwedbankPay.Sdk;
 
-internal class OperationResponseDto
+internal record OperationResponseDto(string Method, string Href, string Rel, string ContentType)
 {
-    public OperationResponseDto(string method, string href, string rel, string contentType)
-    {
-        Method = method;
-        Href = href;
-        Rel = rel;
-        ContentType = contentType;
-    }
-
-    public string Method { get; }
-    public string Href { get; }
-    public string Rel { get; }
-    public string ContentType { get; }
+    public string Method { get; } = Method;
+    public string Href { get; } = Href;
+    public string Rel { get; } = Rel;
+    public string ContentType { get; } = ContentType;
 }

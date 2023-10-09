@@ -13,7 +13,7 @@ internal class MetadataDto : Dictionary<string, object>
     {
     }
 
-    public string Id { get; set; }
+    public string? Id { get; set; }
 
     internal Metadata Map()
     {

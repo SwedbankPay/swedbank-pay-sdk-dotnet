@@ -17,7 +17,7 @@ public class OperationsBase : IDictionary<LinkRelation, HttpOperation>
 
 
     public bool Contains(KeyValuePair<LinkRelation, HttpOperation> item) => internalDictionary.ContainsKey(item.Key) &&
-                                                                            internalDictionary[item.Key]
+                                                                            internalDictionary[item.Key]!
                                                                                 .Equals(item.Value);
 
     public void CopyTo(KeyValuePair<LinkRelation, HttpOperation>[] array, int arrayIndex) =>

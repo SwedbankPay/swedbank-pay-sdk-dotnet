@@ -1,42 +1,42 @@
 namespace SwedbankPay.Sdk.PaymentOrder;
 
-internal class PaymentOrderResponseDto
+internal record PaymentOrderResponseDto
 {
     public PaymentOrderResponseItemDto PaymentOrder { get; set; }
     public IList<OperationResponseDto> Operations { get; set; }
 }
 
-internal class PaymentOrderResponseItemDto
+internal record PaymentOrderResponseItemDto
 {
-    public string Id { get; set; }
+    public string? Id { get; set; }
     public DateTime Created { get; set; }
     public DateTime Updated { get; set; }
-    public string Operation { get; set; }
-    public string Status { get; set; }
-    public string Currency { get; set; }
+    public string? Operation { get; set; }
+    public string? Status { get; set; }
+    public string? Currency { get; set; }
     public long VatAmount { get; set; }
     public long Amount { get; set; }
-    public string Description { get; set; }
-    public string InitiatingSystemUserAgent { get; set; }
-    public string Language { get; set; }
-    public string[] AvailableInstruments { get; set; }
-    public string Implementation { get; set; }
+    public string? Description { get; set; }
+    public string? InitiatingSystemUserAgent { get; set; }
+    public string? Language { get; set; }
+    public string[]? AvailableInstruments { get; set; }
+    public string? Implementation { get; set; }
     public bool InstrumentMode { get; set; }
     public bool GuestMode { get; set; }
-    public PayerResponseDto Payer { get; set; }
-    public OrderItemResponseDto OrderItems { get; set; }
-    public UrlsDto Urls { get; set; }
-    public HistoryResponseDto History { get; set; }
-    public FailedResponseDto Failed { get; set; }
-    public AbortedResponseDto Aborted { get; set; }
-    public PaidResponseDto Paid { get; set; }
-    public CancelledResponseDto Cancelled { get; set; }
-    public FinancialTransactionsResponseDto FinancialTransactions { get; set; }
-    public FailedAttemptsResponseDto FailedAttempts { get; set; }
-    public MetadataDto Metadata { get; set; }
+    public PayerResponseDto? Payer { get; set; }
+    public OrderItemResponseDto? OrderItems { get; set; }
+    public UrlsDto? Urls { get; set; }
+    public HistoryResponseDto? History { get; set; }
+    public FailedResponseDto? Failed { get; set; }
+    public AbortedResponseDto? Aborted { get; set; }
+    public PaidResponseDto? Paid { get; set; }
+    public CancelledResponseDto? Cancelled { get; set; }
+    public FinancialTransactionsResponseDto? FinancialTransactions { get; set; }
+    public FailedAttemptsResponseDto? FailedAttempts { get; set; }
+    public MetadataDto? Metadata { get; set; }
 }
 
-internal class OrderItemResponseDto : IdentifiableDto
+internal record OrderItemResponseDto : IdentifiableDto
 {
     /// <summary>
     ///     The orderItems property of the paymentOrder is an array containing the items being purchased with the order. Used
@@ -56,7 +56,7 @@ internal class OrderItemResponseDto : IdentifiableDto
     }
 }
 
-internal class AbortedResponseDto : IdentifiableDto
+internal record AbortedResponseDto : IdentifiableDto
 {
     public string? AbortReason { get; set; }
 
@@ -70,7 +70,7 @@ internal class AbortedResponseDto : IdentifiableDto
     }
 }
 
-internal class CancelledDetailsDto
+internal record CancelledDetailsDto
 {
     public string? NonPaymentToken { get; set; }
     public string? ExternalNonPaymentToken { get; set; }
@@ -81,7 +81,7 @@ internal class CancelledDetailsDto
     }
 }
 
-internal class CancelledResponseDto : IdentifiableDto
+internal record CancelledResponseDto : IdentifiableDto
 {
     public string CancelReason { get; set; }
     public string Instrument { get; set; }
@@ -106,7 +106,7 @@ internal class CancelledResponseDto : IdentifiableDto
     }
 }
 
-internal class FailedResponseDto : IdentifiableDto
+internal record FailedResponseDto : IdentifiableDto
 {
     public ProblemDto? Problem { get; set; }
 
@@ -120,7 +120,7 @@ internal class FailedResponseDto : IdentifiableDto
     }
 }
 
-internal class FailedAttemptListItemDto
+internal record FailedAttemptListItemDto
 {
     public DateTime Created { get; set; }
     public string? Instrument { get; set; }
@@ -134,7 +134,7 @@ internal class FailedAttemptListItemDto
     }
 }
 
-internal class FailedAttemptsResponseDto : IdentifiableDto
+internal record FailedAttemptsResponseDto : IdentifiableDto
 {
     public IList<FailedAttemptListItemDto>? FailedAttemptList { get; set; }
 
@@ -148,7 +148,7 @@ internal class FailedAttemptsResponseDto : IdentifiableDto
     }
 }
 
-internal class FinancialTransactionListItemDto
+internal record FinancialTransactionListItemDto
 {
     public string Id { get; set; }
     public DateTime Created { get; set; }
@@ -168,11 +168,10 @@ internal class FinancialTransactionListItemDto
     }
 }
 
-
-internal class FinancialTransactionsResponseDto : IdentifiableDto
+internal record FinancialTransactionsResponseDto : IdentifiableDto
 {
     public IList<FinancialTransactionListItemDto>? FinancialTransactionList { get; set; }
-    
+
     public FinancialTransactionsResponseDto(string id) : base(id)
     {
     }
@@ -183,7 +182,7 @@ internal class FinancialTransactionsResponseDto : IdentifiableDto
     }
 }
 
-internal class HistoryListItemDto
+internal record HistoryListItemDto
 {
     public DateTime Created { get; set; }
     public string? Name { get; set; }
@@ -198,7 +197,7 @@ internal class HistoryListItemDto
     }
 }
 
-internal class HistoryResponseDto : IdentifiableDto
+internal record HistoryResponseDto : IdentifiableDto
 {
     public IList<HistoryListItemDto>? HistoryList { get; set; }
 
@@ -212,7 +211,7 @@ internal class HistoryResponseDto : IdentifiableDto
     }
 }
 
-internal class PaidDetailsDto
+internal record PaidDetailsDto
 {
     public string? NonPaymentToken { get; set; }
     public string? ExternalNonPaymentToken { get; set; }
@@ -237,7 +236,7 @@ internal class PaidDetailsDto
     }
 }
 
-internal class TokenItemDto
+internal record TokenItemDto
 {
     public string? Type { get; set; }
     public string? Token { get; set; }
@@ -250,7 +249,7 @@ internal class TokenItemDto
     }
 }
 
-internal class PaidResponseDto : IdentifiableDto
+internal record PaidResponseDto : IdentifiableDto
 {
     public string? Instrument { get; set; }
     public long Number { get; set; }
@@ -274,8 +273,33 @@ internal class PaidResponseDto : IdentifiableDto
     }
 }
 
-internal class PayerResponseDto : IdentifiableDto
+internal record DeviceDto
 {
+    public int DetectionAccuracy { get; set; }
+    public string? IpAddress { get; set; }
+    public string? UserAgent { get; set; }
+    public string? DeviceType { get; set; }
+    public string? HardwareFamily { get; set; }
+    public string? HardwareName { get; set; }
+    public string? HardwareVendor { get; set; }
+    public string? PlatformName { get; set; }
+    public string? PlatformVendor { get; set; }
+    public string? PlatformVersion { get; set; }
+    public string? BrowserName { get; set; }
+    public string? BrowserVendor { get; set; }
+    public string? BrowserVersion { get; set; }
+    public bool BrowserJavaEnabled { get; set; }
+
+    public Device Map()
+    {
+        return new Device(this);
+    }
+}
+
+internal record PayerResponseDto : IdentifiableDto
+{
+    public DeviceDto? Device { get; set; }
+    
     public PayerResponseDto(string id) : base(id)
     {
     }

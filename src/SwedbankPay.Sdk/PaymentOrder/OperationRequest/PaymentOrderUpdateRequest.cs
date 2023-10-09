@@ -21,7 +21,7 @@ public class PaymentOrderUpdateRequest
     public PaymentOrderUpdateRequestDetails PaymentOrder { get; }
 }
 
-internal class PaymentOrderUpdateRequestDto
+internal record PaymentOrderUpdateRequestDto
 {
     public PaymentOrderUpdateRequestDto(PaymentOrderUpdateRequest payload)
     {
@@ -31,7 +31,7 @@ internal class PaymentOrderUpdateRequestDto
     public PaymentOrderUpdateDto PaymentOrder { get; }
 }
 
-internal class PaymentOrderUpdateDto
+internal record PaymentOrderUpdateDto
 {
     public PaymentOrderUpdateDto(PaymentOrderUpdateRequestDetails paymentOrder)
     {

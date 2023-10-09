@@ -1,6 +1,6 @@
 namespace SwedbankPay.Sdk;
 
-internal class ProblemDto
+internal record ProblemDto
 {
     public string? Type { get; set; }
     public string? Title { get; set; }

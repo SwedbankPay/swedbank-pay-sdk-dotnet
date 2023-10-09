@@ -21,7 +21,7 @@ public class TransactionRequest
     public Amount Amount { get; }
     public Amount VatAmount { get; }
     public string PayeeReference { get; }
-    public string ReceiptReference { get; set; }
+    public string? ReceiptReference { get; set; }
     public IList<OrderItem> OrderItems { get; }
 
     public TransactionRequest(Amount amount, Amount vatAmount, string description, string payeeReference)
@@ -39,7 +39,7 @@ public class TransactionRequest
     }
 }
 
-internal class PaymentOrderReversalRequestDto
+internal record PaymentOrderReversalRequestDto
 {
     public PaymentOrderReversalRequestDto(PaymentOrderReversalRequest payload)
     {
@@ -49,13 +49,13 @@ internal class PaymentOrderReversalRequestDto
     public TransactionRequestDto Transaction { get; set; }
 }
 
-internal class TransactionRequestDto
+internal record TransactionRequestDto
 {
     public string Description { get; set; }
     public long Amount { get; set; }
     public long VatAmount { get; set; }
     public string PayeeReference { get; set; }
-    public string ReceiptReference { get; set; }
+    public string? ReceiptReference { get; set; }
     public IList<OrderItemDto> OrderItems { get; set; }
 
     public TransactionRequestDto(TransactionRequest payload)
@@ -69,13 +69,13 @@ internal class TransactionRequestDto
     }
 }
 
-internal class PaymentOrderReversalResponseDto
+internal record PaymentOrderReversalResponseDto
 {
     public string Payment { get; set; }
     public PaymentOrderReversalResponseDetailDto Reversal { get; set; }
 }
 
-internal class PaymentOrderReversalResponseDetailDto : IdentifiableDto
+internal record PaymentOrderReversalResponseDetailDto : IdentifiableDto
 {
     public TransactionResponseDto Transaction { get; set; }
     

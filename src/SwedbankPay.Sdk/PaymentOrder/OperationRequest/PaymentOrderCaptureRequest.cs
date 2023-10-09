@@ -70,7 +70,7 @@ public class PaymentOrderCaptureTransaction
     /// Used to print on invoices if the payer chooses to pay with invoice, among other things.
     /// It should only contain the items to be captured from the order.
     /// </summary>
-    public IList<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+    public IList<OrderItem> OrderItems { get; } = new List<OrderItem>();
 
     /// <summary>
     /// A unique reference from the merchant system.
@@ -117,14 +117,14 @@ internal class PaymentOrderCaptureTransactionDto
     public IList<OrderItemDto>? OrderItems { get; set; }
 }
 
-internal class PaymentOrderCaptureResponseDto
+internal record PaymentOrderCaptureResponseDto
 {
     public string Payment { get; set; }
 
     public PaymentOrderCaptureResponseDetailDto Capture { get; set; }
 }
 
-internal class PaymentOrderCaptureResponseDetailDto : IdentifiableDto
+internal record PaymentOrderCaptureResponseDetailDto : IdentifiableDto
 {
     public TransactionResponseDto Transaction { get; set; }
 
@@ -162,7 +162,7 @@ public class PaymentOrderCaptureResponseDetail
     }
 }
 
-internal class TransactionResponseDto : IdentifiableDto
+internal record TransactionResponseDto : IdentifiableDto
 {
     public DateTime Created { get; set; }
     public DateTime Updated { get; set; }

@@ -50,8 +50,9 @@ internal class PaymentOrderOperations : OperationsBase, IPaymentOrderOperations
                     Abort = async payload =>
                     {
                         var url = httpOperation.Href.GetUrlWithQueryString(PaymentOrderExpand.All);
+                        var requestDto = new PaymentOrderAbortRequestDto(payload);
                         var paymentOrderResponseContainer =
-                            await httpClient.SendAsJsonAsync<PaymentOrderResponseDto>(httpOperation.Method, url, payload);
+                            await httpClient.SendAsJsonAsync<PaymentOrderResponseDto>(httpOperation.Method, url, requestDto);
                         return new PaymentOrderResponse(paymentOrderResponseContainer, httpClient);
                     };
                     break;

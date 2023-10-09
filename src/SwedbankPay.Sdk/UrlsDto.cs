@@ -13,9 +13,9 @@ internal record UrlsDto
     {
         HostUrls = urls.HostUrls?.Select(x => x.ToString());
         PaymentUrl = urls.PaymentUrl?.ToString();
-        CompleteUrl = urls.CompleteUrl.ToString();
-        CancelUrl = urls.CancelUrl.ToString();
-        CallbackUrl = urls.CallbackUrl.ToString();
+        CompleteUrl = urls.CompleteUrl?.ToString();
+        CancelUrl = urls.CancelUrl?.ToString();
+        CallbackUrl = urls.CallbackUrl?.ToString();
         LogoUrl = urls.LogoUrl?.ToString();
     }
 

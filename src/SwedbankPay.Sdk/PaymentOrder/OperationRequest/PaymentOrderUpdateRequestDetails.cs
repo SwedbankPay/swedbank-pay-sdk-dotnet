@@ -40,5 +40,5 @@ public class PaymentOrderUpdateRequestDetails
     /// <summary>
     /// Order items to update
     /// </summary>
-    public IList<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+    public IList<OrderItem> OrderItems { get; } = new List<OrderItem>();
 }

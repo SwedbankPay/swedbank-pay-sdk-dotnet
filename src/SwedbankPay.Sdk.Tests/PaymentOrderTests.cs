@@ -88,8 +88,11 @@ public class PaymentOrderTests : ResourceTestsBase
             }
         };
 
-
-        paymentOrderUpdateRequest.PaymentOrder.OrderItems = orderItems;
+        foreach (var orderItem in orderItems)
+        {
+            paymentOrderUpdateRequest.PaymentOrder.OrderItems.Add(orderItem);
+        }
+        
 
         var operationsUpdate = await paymentOrder.Operations.Update(paymentOrderUpdateRequest);
         Assert.NotNull(operationsUpdate);
@@ -103,7 +106,7 @@ public class PaymentOrderTests : ResourceTestsBase
     {
         //ARRANGE
 
-        var paymentOrderUri = new Uri("/psp/paymentorders/5f0ca24d-75f1-489b-7736-08dbc01cba84", UriKind.RelativeOrAbsolute);
+        var paymentOrderUri = new Uri("/psp/paymentorders/cfea7191-c3e5-482a-1560-08dbc01c468e", UriKind.RelativeOrAbsolute);
 
         //ACT
         var paymentOrder = await Sut.PaymentOrders.Get(paymentOrderUri, PaymentOrderExpand.All);

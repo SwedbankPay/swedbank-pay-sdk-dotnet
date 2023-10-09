@@ -1,6 +1,6 @@
 namespace SwedbankPay.Sdk;
 
-internal class PayeeInfoDto
+internal record PayeeInfoDto
 {
     public PayeeInfoDto(PayeeInfo payeeInfo)
     {

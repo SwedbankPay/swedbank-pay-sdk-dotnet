@@ -22,7 +22,7 @@ public class PaymentOrderCancelRequestDetail
     }
 }
 
-internal class PaymentOrderCancelRequestDto
+internal record PaymentOrderCancelRequestDto
 {
     public PaymentOrderCancelRequestDetailDto Transaction { get; set; }
 
@@ -32,7 +32,7 @@ internal class PaymentOrderCancelRequestDto
     }
 }
 
-internal class PaymentOrderCancelRequestDetailDto
+internal record PaymentOrderCancelRequestDetailDto
 {
     public string Description { get; }
     public string PayeeReference { get; }
@@ -44,14 +44,14 @@ internal class PaymentOrderCancelRequestDetailDto
     }
 }
 
-internal class PaymentOrderCancelResponseDto
+internal record PaymentOrderCancelResponseDto
 {
     public string Payment { get; set; }
 
     public PaymentOrderCancelResponseDetailDto Cancellation { get; set; }
 }
 
-internal class PaymentOrderCancelResponseDetailDto : IdentifiableDto
+internal record PaymentOrderCancelResponseDetailDto : IdentifiableDto
 {
     public TransactionResponseDto Transaction { get; set; }
 

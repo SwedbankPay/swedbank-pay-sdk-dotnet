@@ -1,6 +1,6 @@
 namespace SwedbankPay.Sdk;
 
-internal class IdentifiableDto
+internal record IdentifiableDto
 {
     /// <summary>
     /// Instantiates and sets the <see cref="Id"/> of the <see cref="Identifiable"/>.
