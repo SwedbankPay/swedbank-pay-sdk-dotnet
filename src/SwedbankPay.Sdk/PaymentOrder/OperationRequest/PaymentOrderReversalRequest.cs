@@ -71,43 +71,48 @@ internal record TransactionRequestDto
 
 internal record PaymentOrderReversalResponseDto
 {
-    public string Payment { get; set; }
-    public PaymentOrderReversalResponseDetailDto Reversal { get; set; }
+    public string Payment { get; set; } = null!;
+    public PaymentOrderReversalResponseDetailDto? Reversal { get; set; }
 }
 
 internal record PaymentOrderReversalResponseDetailDto : IdentifiableDto
 {
-    public TransactionResponseDto Transaction { get; set; }
+    public TransactionResponseDto? Transaction { get; set; }
     
     public PaymentOrderReversalResponseDetailDto(string id) : base(id)
     {
+    }
+
+    public PaymentOrderReversalResponseDetail Map()
+    {
+        return new PaymentOrderReversalResponseDetail(this);
     }
 }
 
 public interface IPaymentOrderReversalResponse
 {
     Uri Payment { get; }
-    PaymentOrderReversalResponseDetail Reversal { get; }
+    PaymentOrderReversalResponseDetail? Reversal { get; }
 }
 
 public class PaymentOrderReversalResponse : IPaymentOrderReversalResponse
 {
     public Uri Payment { get; }
-    public PaymentOrderReversalResponseDetail Reversal { get; }
+    public PaymentOrderReversalResponseDetail? Reversal { get; }
     
     internal PaymentOrderReversalResponse(PaymentOrderReversalResponseDto dto)
     {
         Payment = new Uri(dto.Payment, UriKind.RelativeOrAbsolute);
-        Reversal = new PaymentOrderReversalResponseDetail(dto.Reversal);
+        Reversal = dto.Reversal?.Map();
     }
 }
 
 public class PaymentOrderReversalResponseDetail
 {
-    public TransactionResponse Transaction { get; }
+    public TransactionResponse? Transaction { get; }
 
     internal PaymentOrderReversalResponseDetail(PaymentOrderReversalResponseDetailDto dto)
     {
-        Transaction = new TransactionResponse(dto.Transaction);
+        Transaction = dto.Transaction?.Map();
     }
 }

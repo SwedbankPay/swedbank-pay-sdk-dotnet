@@ -234,7 +234,7 @@ namespace SwedbankPay.Sdk;
         /// </summary>
         /// <param name="value">The value to map to <typeparamref name="TEnum"/>.</param>
         /// <param name="result">The result from mapping.</param>
-        /// <returns>true if successfull, false otherwise.</returns>
+        /// <returns>true if sucsessfull, false otherwise.</returns>
         public static bool TryFromValue(string? value, out TEnum? result)
         {
             if (value == null)
@@ -250,13 +250,16 @@ namespace SwedbankPay.Sdk;
         private static IEnumerable<TEnum> GetAllOptions()
         {
             var baseType = typeof(TEnum);
-            var enumTypes = Assembly.GetAssembly(baseType).GetTypes().Where(t => baseType.IsAssignableFrom(t));
+            var enumTypes = Assembly.GetAssembly(baseType)?.GetTypes().Where(t => baseType.IsAssignableFrom(t));
 
             var options = new List<TEnum>();
-            foreach (var enumType in enumTypes)
+            if (enumTypes != null)
             {
-                var typeEnumOptions = enumType.GetFieldsOfType<TEnum>();
-                options.AddRange(typeEnumOptions);
+                foreach (var enumType in enumTypes)
+                {
+                    var typeEnumOptions = enumType.GetFieldsOfType<TEnum>();
+                    options.AddRange(typeEnumOptions);
+                }
             }
 
             return options.OrderBy(t => t.Name).ToList();

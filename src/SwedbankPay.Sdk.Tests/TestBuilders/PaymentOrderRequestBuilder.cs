@@ -7,10 +7,10 @@ public class PaymentOrderRequestBuilder
     private Amount? _amount;
     private Currency? _currency;
     private string? _description;
-    private bool generateRecurrenceToken;
+    // private bool _generateRecurrenceToken;
     private Language? _language;
     private Operation? _operation;
-    private List<OrderItem>? orderItems;
+    private List<OrderItem>? _orderItems;
     private PayeeInfo? _payeeInfo;
     private Urls? _urls;
     private string? _userAgent;
@@ -20,10 +20,10 @@ public class PaymentOrderRequestBuilder
 
     public PaymentOrderRequest Build()
     {
-        var req = new PaymentOrderRequest(_operation, _currency, _amount, _vatAmount, _description,
-            _userAgent, _language, "Checkout3", _urls, _payeeInfo)
+        var req = new PaymentOrderRequest(_operation!, _currency!, _amount!, _vatAmount!, _description!,
+            _userAgent!, _language!, "Checkout3", _urls!, _payeeInfo!)
         {
-            OrderItems = orderItems,
+            OrderItems = _orderItems!,
             Implementation = _implementation
         };
 
@@ -66,7 +66,7 @@ public class PaymentOrderRequestBuilder
 
     public PaymentOrderRequestBuilder WithOrderItems()
     {
-        orderItems = new List<OrderItem>
+        _orderItems = new List<OrderItem>
         {
             new("p1", "Product1", OrderItemType.Product, "ProductGroup1", 4, "pcs", new Amount(300), 0,
                 new Amount(1200), new Amount(0))
@@ -77,8 +77,8 @@ public class PaymentOrderRequestBuilder
             new("p2", "Product2", OrderItemType.Product, "ProductGroup1", 1, "pcs", new Amount(500), 0,
                 new Amount(500), new Amount(0))
         };
-        _amount = new Amount(orderItems.Sum(s => s.Amount));
-        _vatAmount = new Amount(orderItems.Sum(s => s.VatAmount));
+        _amount = new Amount(_orderItems.Sum(s => s.Amount));
+        _vatAmount = new Amount(_orderItems.Sum(s => s.VatAmount));
 
         return this;
     }

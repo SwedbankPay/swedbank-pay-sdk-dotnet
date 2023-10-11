@@ -36,7 +36,7 @@ public static class UriExtensions
         foreach (var enumValue in Enum.GetValues(typeof(T)))
         {
             var name = Enum.GetName(typeof(T), enumValue);
-            if (paymentExpand.HasFlag((T)enumValue) && name != "None" && name != "All")
+            if (!string.IsNullOrWhiteSpace(name) && paymentExpand.HasFlag((T)enumValue) && name != "None" && name != "All")
             {
                 s.Add(name.ToLower(CultureInfo.InvariantCulture));
             }

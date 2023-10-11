@@ -5,8 +5,10 @@ namespace SwedbankPay.Sdk;
 internal record OrderItemDto
 {
     [JsonConstructor]
-    public OrderItemDto() { }
-    
+    public OrderItemDto()
+    {
+    }
+
     internal OrderItemDto(OrderItem orderItem)
     {
         Reference = orderItem.Reference;
@@ -25,17 +27,18 @@ internal record OrderItemDto
         Amount = orderItem.Amount.InLowestMonetaryUnit;
         VatAmount = orderItem.VatAmount.InLowestMonetaryUnit;
     }
+
     public string? Id { get; set; }
-    public string? Reference { get; set; }
-    public string? Name { get; set; }
-    public string? Type { get; set; }
-    public string? Class { get; set; }
+    public string Reference { get; set; } = null!;
+    public string Name { get; set; } = null!;
+    public string Type { get; set; } = null!;
+    public string Class { get; set; } = null!;
     public string? ItemUrl { get; set; }
     public string? ImageUrl { get; set; }
     public string? Description { get; set; }
     public string? DiscountDescription { get; set; }
     public decimal Quantity { get; set; }
-    public string? QuantityUnit { get; set; }
+    public string QuantityUnit { get; set; } = null!;
     public long UnitPrice { get; set; }
     public int? DiscountPrice { get; set; }
     public int VatPercent { get; set; }

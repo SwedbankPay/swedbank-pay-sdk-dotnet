@@ -3,12 +3,12 @@ using SwedbankPay.Sdk.PaymentOrder.OperationRequest;
 
 namespace SwedbankPay.Sdk.PaymentOrder;
 
-public interface IPaymentOrderOperations : IDictionary<LinkRelation, HttpOperation>
+public interface IPaymentOrderOperations : IDictionary<LinkRelation, HttpOperation?>
 {
     /// <summary>
     /// Updates the contents of the payment order, if available.
     /// </summary>
-    Func<PaymentOrderUpdateRequest, Task<IPaymentOrderResponse>> Update { get; }
+    Func<PaymentOrderUpdateRequest, Task<IPaymentOrderResponse>>? Update { get; }
  
     /// <summary>
     /// Aborts the payment order, if available.
@@ -21,10 +21,12 @@ public interface IPaymentOrderOperations : IDictionary<LinkRelation, HttpOperati
     
     Func<PaymentOrderReversalRequest, Task<IPaymentOrderReversalResponse>>? Reverse { get; }
 
+    HttpOperation? Redirect { get; }
+    
     /// <summary>
     /// Returns details needed to created a hosted view for the payer to see the payment order, if available.
     /// </summary>
-    HttpOperation View { get; }
+    HttpOperation? View { get; }
 }
 
 internal class PaymentOrderOperations : OperationsBase, IPaymentOrderOperations
@@ -97,10 +99,10 @@ internal class PaymentOrderOperations : OperationsBase, IPaymentOrderOperations
     }
 
     public Func<PaymentOrderAbortRequest, Task<IPaymentOrderResponse>>? Abort { get; }
-    public Func<PaymentOrderUpdateRequest, Task<IPaymentOrderResponse>> Update { get; }
+    public Func<PaymentOrderUpdateRequest, Task<IPaymentOrderResponse>>? Update { get; }
     public Func<PaymentOrderCancelRequest, Task<IPaymentOrderCancelResponse>>? Cancel { get; }
     public Func<PaymentOrderCaptureRequest, Task<IPaymentOrderCaptureResponse>>? Capture { get; }
     public Func<PaymentOrderReversalRequest, Task<IPaymentOrderReversalResponse>>? Reverse { get; }
-    public HttpOperation Redirect { get; }
-    public HttpOperation View { get; }
+    public HttpOperation? Redirect { get; }
+    public HttpOperation? View { get; }
 }

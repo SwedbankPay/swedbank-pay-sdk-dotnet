@@ -46,14 +46,14 @@ internal record PaymentOrderCancelRequestDetailDto
 
 internal record PaymentOrderCancelResponseDto
 {
-    public string Payment { get; set; }
+    public string Payment { get; set; } = null!;
 
-    public PaymentOrderCancelResponseDetailDto Cancellation { get; set; }
+    public PaymentOrderCancelResponseDetailDto? Cancellation { get; set; }
 }
 
 internal record PaymentOrderCancelResponseDetailDto : IdentifiableDto
 {
-    public TransactionResponseDto Transaction { get; set; }
+    public TransactionResponseDto? Transaction { get; set; }
 
     public PaymentOrderCancelResponseDetailDto(string id) : base(id)
     {
@@ -68,18 +68,18 @@ internal record PaymentOrderCancelResponseDetailDto : IdentifiableDto
 public interface IPaymentOrderCancelResponse
 {
     Uri Payment { get; }
-    PaymentOrderCancelResponseDetail Cancellation { get; }
+    PaymentOrderCancelResponseDetail? Cancellation { get; }
 }
 
 public class PaymentOrderCancelResponse : IPaymentOrderCancelResponse
 {
     public Uri Payment { get; }
-    public PaymentOrderCancelResponseDetail Cancellation { get; }
+    public PaymentOrderCancelResponseDetail? Cancellation { get; }
 
     internal PaymentOrderCancelResponse(PaymentOrderCancelResponseDto dto)
     {
         Payment = new Uri(dto.Payment, UriKind.RelativeOrAbsolute);
-        Cancellation = dto.Cancellation.Map();
+        Cancellation = dto.Cancellation?.Map();
     }
 }
 
@@ -87,8 +87,8 @@ public class PaymentOrderCancelResponseDetail
 {
     internal PaymentOrderCancelResponseDetail(PaymentOrderCancelResponseDetailDto dto)
     {
-        Transaction = dto.Transaction.Map();
+        Transaction = dto.Transaction?.Map();
     }
 
-    public TransactionResponse Transaction { get; }
+    public TransactionResponse? Transaction { get; }
 }

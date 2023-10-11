@@ -15,19 +15,19 @@ public record Urls
         HostUrls = dto.HostUrls?.Where(x => !string.IsNullOrWhiteSpace(x))
             .Select(x => new Uri(x, UriKind.RelativeOrAbsolute)).ToList();
         PaymentUrl = !string.IsNullOrWhiteSpace(dto.PaymentUrl)
-            ? new Uri(dto.PaymentUrl, UriKind.RelativeOrAbsolute)
+            ? new Uri(dto.PaymentUrl!, UriKind.RelativeOrAbsolute)
             : null;
         LogoUrl = !string.IsNullOrWhiteSpace(dto.LogoUrl)
-            ? new Uri(dto.LogoUrl, UriKind.RelativeOrAbsolute)
+            ? new Uri(dto.LogoUrl!, UriKind.RelativeOrAbsolute)
             : null;
         CompleteUrl = !string.IsNullOrWhiteSpace(dto.CompleteUrl)
-            ? new Uri(dto.CompleteUrl, UriKind.RelativeOrAbsolute)
+            ? new Uri(dto.CompleteUrl!, UriKind.RelativeOrAbsolute)
             : null;
         CancelUrl = !string.IsNullOrWhiteSpace(dto.CancelUrl)
-            ? new Uri(dto.CancelUrl, UriKind.RelativeOrAbsolute)
+            ? new Uri(dto.CancelUrl!, UriKind.RelativeOrAbsolute)
             : null;
         CallbackUrl = !string.IsNullOrWhiteSpace(dto.CallbackUrl)
-            ? new Uri(dto.CallbackUrl, UriKind.RelativeOrAbsolute)
+            ? new Uri(dto.CallbackUrl!, UriKind.RelativeOrAbsolute)
             : null;
     }
     

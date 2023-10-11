@@ -119,46 +119,51 @@ internal class PaymentOrderCaptureTransactionDto
 
 internal record PaymentOrderCaptureResponseDto
 {
-    public string Payment { get; set; }
+    public string Payment { get; set; } = null!;
 
-    public PaymentOrderCaptureResponseDetailDto Capture { get; set; }
+    public PaymentOrderCaptureResponseDetailDto? Capture { get; set; }
 }
 
 internal record PaymentOrderCaptureResponseDetailDto : IdentifiableDto
 {
-    public TransactionResponseDto Transaction { get; set; }
+    public TransactionResponseDto? Transaction { get; set; }
 
     public PaymentOrderCaptureResponseDetailDto(string id) : base(id)
     {
+    }
+
+    public PaymentOrderCaptureResponseDetail Map()
+    {
+        return new PaymentOrderCaptureResponseDetail(this);
     }
 }
 
 public interface IPaymentOrderCaptureResponse
 {
     Uri Payment { get; }
-    PaymentOrderCaptureResponseDetail Capture { get; }
+    PaymentOrderCaptureResponseDetail? Capture { get; }
 }
 
 public class PaymentOrderCaptureResponse : IPaymentOrderCaptureResponse
 {
     public Uri Payment { get; }
 
-    public PaymentOrderCaptureResponseDetail Capture { get; }
+    public PaymentOrderCaptureResponseDetail? Capture { get; }
 
     internal PaymentOrderCaptureResponse(PaymentOrderCaptureResponseDto dto)
     {
         Payment = new Uri(dto.Payment, UriKind.RelativeOrAbsolute);
-        Capture = new PaymentOrderCaptureResponseDetail(dto.Capture);
+        Capture = dto.Capture?.Map();
     }
 }
 
 public class PaymentOrderCaptureResponseDetail
 {
-    public TransactionResponse Transaction { get; }
+    public TransactionResponse? Transaction { get; }
 
     internal PaymentOrderCaptureResponseDetail(PaymentOrderCaptureResponseDetailDto dto)
     {
-        Transaction = new TransactionResponse(dto.Transaction);
+        Transaction = dto.Transaction?.Map();
     }
 }
 
@@ -166,8 +171,8 @@ internal record TransactionResponseDto : IdentifiableDto
 {
     public DateTime Created { get; set; }
     public DateTime Updated { get; set; }
-    public string Type { get; set; }
-    public string State { get; set; }
+    public string Type { get; set; } = null!;
+    public string State { get; set; } = null!;
     public long Amount { get; set; }
     public long VatAmount { get; set; }
     public string? Description { get; set; }
@@ -189,7 +194,7 @@ public class TransactionResponse : Identifiable
     public DateTime Created { get; set; }
     public DateTime Updated { get; set; }
     public string Type { get; set; }
-    public string State { get; set; }
+    public State State { get; set; }
     public Amount Amount { get; set; }
     public Amount VatAmount { get; set; }
     public string? Description { get; set; }

@@ -23,7 +23,7 @@ public record OrderItem(string Reference, string Name, OrderItemType Type, strin
     internal OrderItem(OrderItemDto orderItemDto) : this(orderItemDto.Reference, orderItemDto.Name, orderItemDto.Type, orderItemDto.Class, orderItemDto.Quantity,
         orderItemDto.QuantityUnit, orderItemDto.UnitPrice, orderItemDto.VatPercent, orderItemDto.Amount, orderItemDto.VatAmount)
     {
-        Id = !string.IsNullOrWhiteSpace(orderItemDto.Id) ? new Uri(orderItemDto.Id, UriKind.RelativeOrAbsolute) : null;
+        Id = !string.IsNullOrWhiteSpace(orderItemDto.Id) ? new Uri(orderItemDto.Id!, UriKind.RelativeOrAbsolute) : null;
         ItemUrl = orderItemDto.ItemUrl;
         ImageUrl = orderItemDto.ImageUrl;
         Description = orderItemDto.Description;
