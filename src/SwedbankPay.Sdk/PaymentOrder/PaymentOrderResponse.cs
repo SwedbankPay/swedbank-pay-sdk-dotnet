@@ -421,9 +421,9 @@ public class Device
 
 public class PayerResponse : Identifiable
 {
-    public Device Device { get; }
+    public Device? Device { get; }
     internal PayerResponse(PayerResponseDto dto) : base(dto.Id)
     {
-        Device = dto.Device.Map();
+        Device = dto.Device?.Map();
     }
 }
