@@ -17,7 +17,7 @@ public class LoggingDelegatingHandler : DelegatingHandler
         HttpRequestMessage request,
         CancellationToken cancellationToken)
     {
-        HttpResponseMessage? httpResponse = null;
+        HttpResponseMessage httpResponse = null;
         try
         {
             httpResponse = await base.SendAsync(request, cancellationToken);
@@ -39,5 +39,5 @@ public class LoggingDelegatingHandler : DelegatingHandler
         }
     }
 
-    private string BuildErrorMessage(HttpRequestMessage httpRequest, HttpResponseMessage? httpResponse, string httpResponseBody) => $"{httpRequest.Method}: {httpRequest.RequestUri} failed with error code {httpResponse.StatusCode}. Response body: {httpResponseBody}";
+    private string BuildErrorMessage(HttpRequestMessage httpRequest, HttpResponseMessage httpResponse, string httpResponseBody) => $"{httpRequest.Method}: {httpRequest.RequestUri} failed with error code {httpResponse.StatusCode}. Response body: {httpResponseBody}";
 }

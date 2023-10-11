@@ -10,16 +10,16 @@ namespace SwedbankPay.Sdk;
         where TEnum : TypeSafeEnum<TEnum>
     {
         private static readonly Lazy<Dictionary<string, TEnum?>> fromName =
-            new(() => GetAllOptions().ToDictionary(item => item.Name));
+            new(() => GetAllOptions().ToDictionary(item => item.Name)!);
 
         private static readonly Lazy<Dictionary<string, TEnum?>> fromNameIgnoreCase =
-            new(() => GetAllOptions().ToDictionary(item => item.Name, StringComparer.OrdinalIgnoreCase));
+            new(() => GetAllOptions().ToDictionary(item => item.Name, StringComparer.OrdinalIgnoreCase)!);
 
-        private static readonly Lazy<Dictionary<string?, TEnum?>> fromValue =
+        private static readonly Lazy<Dictionary<string, TEnum?>> fromValue =
             new(() =>
             {
                 // multiple enums with same value are allowed but store only one per value
-                var dictionary = new Dictionary<string, TEnum>();
+                var dictionary = new Dictionary<string, TEnum?>();
                 foreach (var item in GetAllOptions())
                 {
                     if (!dictionary.ContainsKey(item.Value))
@@ -104,7 +104,7 @@ namespace SwedbankPay.Sdk;
         /// <param name="name">The name of the enum value.</param>
         /// <param name="ignoreCase">Set if casing should be ignored.</param>
         /// <returns><typeparamref name="TEnum"/>.</returns>
-        public static TEnum FromName(string name, bool ignoreCase = false)
+        public static TEnum? FromName(string name, bool ignoreCase = false)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -118,7 +118,7 @@ namespace SwedbankPay.Sdk;
 
             return FromName(fromName.Value);
 
-            TEnum FromName(Dictionary<string, TEnum?> dictionary)
+            TEnum? FromName(Dictionary<string, TEnum?> dictionary)
             {
                 if (!dictionary.TryGetValue(name, out var result))
                 {
@@ -134,7 +134,7 @@ namespace SwedbankPay.Sdk;
         /// </summary>
         /// <param name="value">The value of the enum.</param>
         /// <returns><typeparamref name="TEnum"/>.</returns>
-        public static TEnum FromValue(string? value)
+        public static TEnum? FromValue(string? value)
         {
             if (value == null)
             {
@@ -162,7 +162,7 @@ namespace SwedbankPay.Sdk;
         /// <param name="value">The value of the enum.</param>
         /// <param name="defaultString">Default value if mapping is not possible.</param>
         /// <returns><typeparamref name="TEnum"/>.</returns>
-        public static TEnum FromValue(string? value, TEnum defaultString)
+        public static TEnum? FromValue(string? value, TEnum defaultString)
         {
             if (value == null)
             {

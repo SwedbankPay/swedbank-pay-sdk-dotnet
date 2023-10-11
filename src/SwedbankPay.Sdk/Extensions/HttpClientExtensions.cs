@@ -17,7 +17,7 @@ public static class HttpClientExtensions
             IProblem? problemResponseDto = null;
             if (!string.IsNullOrEmpty(responseString))
             {
-                problemResponseDto = JsonSerializer.Deserialize<ProblemDto>(responseString).Map();
+                problemResponseDto = JsonSerializer.Deserialize<ProblemDto>(responseString)?.Map();
             }
 
             var errorMessage = BuildErrorMessage(responseString, uri, apiResponse);

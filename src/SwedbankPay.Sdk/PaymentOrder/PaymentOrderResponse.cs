@@ -162,12 +162,12 @@ public class CancelledDetails
 
 public class CancelledResponse : Identifiable
 {
-    public string CancelReason { get; }
-    public string Instrument { get; }
+    public string? CancelReason { get; }
+    public string? Instrument { get; }
     public long Number { get; }
-    public string PayeeReference { get; }
-    public string OrderReference { get; }
-    public string TransactionType { get; }
+    public string? PayeeReference { get; }
+    public string? OrderReference { get; }
+    public string? TransactionType { get; }
     public Amount Amount { get; }
     public Amount SubmittedAmount { get; }
     public Amount FeeAmount { get; }

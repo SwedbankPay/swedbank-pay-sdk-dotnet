@@ -17,7 +17,7 @@ public class PaymentOrdersResource : ResourceBase, IPaymentOrdersResource
     /// <exception cref="InvalidOperationException"></exception>
     /// <exception cref="System.Net.Http.HttpRequestException"></exception>
     /// <returns></returns>
-    public async Task<IPaymentOrderResponse> Create(PaymentOrderRequest paymentOrderRequest,
+    public async Task<IPaymentOrderResponse?> Create(PaymentOrderRequest paymentOrderRequest,
         PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
     {
         var url = new Uri("/psp/paymentorders", UriKind.Relative).GetUrlWithQueryString(paymentOrderExpand);
@@ -26,9 +26,9 @@ public class PaymentOrdersResource : ResourceBase, IPaymentOrdersResource
 
         var paymentOrderResponseDto = await HttpClient.PostAsJsonAsync<PaymentOrderResponseDto>(url, request);
 
-        return new PaymentOrderResponse(paymentOrderResponseDto, HttpClient);
+        return paymentOrderResponseDto != null ? new PaymentOrderResponse(paymentOrderResponseDto, HttpClient) : null;
     }
-    
+
     /// <summary>
     ///     Get payment order by id
     /// </summary>
@@ -39,7 +39,7 @@ public class PaymentOrdersResource : ResourceBase, IPaymentOrdersResource
     /// <exception cref="InvalidOperationException"></exception>
     /// <exception cref="HttpRequestException"></exception>
     /// <exception cref="System.Net.Http.HttpRequestException"></exception>
-    public async Task<IPaymentOrderResponse> Get(Uri id, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
+    public async Task<IPaymentOrderResponse?> Get(Uri id, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
     {
         if (id == null)
         {
@@ -50,10 +50,9 @@ public class PaymentOrdersResource : ResourceBase, IPaymentOrdersResource
 
         var paymentOrderResponseContainer = await HttpClient.GetAsJsonAsync<PaymentOrderResponseDto>(url);
 
-        return new PaymentOrderResponse(paymentOrderResponseContainer, HttpClient);
+        return paymentOrderResponseContainer != null ? new PaymentOrderResponse(paymentOrderResponseContainer, HttpClient) : null;
     }
 }
-
 
 public interface IPaymentOrdersResource
 {
@@ -66,7 +65,7 @@ public interface IPaymentOrdersResource
     /// <exception cref="InvalidOperationException"></exception>
     /// <exception cref="System.Net.Http.HttpRequestException"></exception>
     /// <returns></returns>
-    Task<IPaymentOrderResponse> Create(PaymentOrderRequest paymentOrderRequest,
+    Task<IPaymentOrderResponse?> Create(PaymentOrderRequest paymentOrderRequest,
         PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None);
 
 
@@ -79,5 +78,5 @@ public interface IPaymentOrdersResource
     /// <exception cref="InvalidOperationException"></exception>
     /// <exception cref="System.Net.Http.HttpRequestException"></exception>
     /// <returns></returns>
-    Task<IPaymentOrderResponse> Get(Uri id, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None);
+    Task<IPaymentOrderResponse?> Get(Uri id, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None);
 }

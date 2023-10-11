@@ -2,23 +2,23 @@ namespace SwedbankPay.Sdk.PaymentOrder;
 
 internal record PaymentOrderResponseDto
 {
-    public PaymentOrderResponseItemDto PaymentOrder { get; set; }
-    public IList<OperationResponseDto> Operations { get; set; }
+    public PaymentOrderResponseItemDto PaymentOrder { get; set; } = null!;
+    public IList<OperationResponseDto> Operations { get; set; } = new List<OperationResponseDto>();
 }
 
 internal record PaymentOrderResponseItemDto
 {
-    public string? Id { get; set; }
+    public string Id { get; set; } = null!;
     public DateTime Created { get; set; }
     public DateTime Updated { get; set; }
     public string? Operation { get; set; }
-    public string? Status { get; set; }
-    public string? Currency { get; set; }
+    public string Status { get; set; } = null!;
+    public string Currency { get; set; } = null!;
     public long VatAmount { get; set; }
     public long Amount { get; set; }
     public string? Description { get; set; }
     public string? InitiatingSystemUserAgent { get; set; }
-    public string? Language { get; set; }
+    public string Language { get; set; } = null!;
     public string[]? AvailableInstruments { get; set; }
     public string? Implementation { get; set; }
     public bool InstrumentMode { get; set; }
@@ -83,12 +83,12 @@ internal record CancelledDetailsDto
 
 internal record CancelledResponseDto : IdentifiableDto
 {
-    public string CancelReason { get; set; }
-    public string Instrument { get; set; }
+    public string? CancelReason { get; set; }
+    public string? Instrument { get; set; }
     public long Number { get; set; }
-    public string PayeeReference { get; set; }
-    public string OrderReference { get; set; }
-    public string TransactionType { get; set; }
+    public string? PayeeReference { get; set; }
+    public string? OrderReference { get; set; }
+    public string? TransactionType { get; set; }
     public long Amount { get; set; }
     public long SubmittedAmount { get; set; }
     public long FeeAmount { get; set; }
