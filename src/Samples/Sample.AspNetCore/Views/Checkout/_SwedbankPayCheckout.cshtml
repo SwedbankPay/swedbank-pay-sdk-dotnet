@@ -4,29 +4,11 @@
 }
 
 <div id="swedbankpay-checkout">
+    <div id="paymentMenuFrame">
+        <div id="swedbankpay-paymentmenu-@containerId">
 
-    @if (Model.ConsumerUiScriptSource == null && Model.UseAnonymousCheckout)
-    {
-        <div id="paymentMenuFrame">
-            <div id="swedbankpay-paymentmenu-@containerId">
-
-            </div>
         </div>
-    }
-    else
-    {
-        <div>
-            <div id="swedbankpay-consumer-@containerId">
-
-            </div>
-        </div>
-
-        <div id="paymentMenuFrame" hidden>
-            <div id="swedbankpay-paymentmenu-@containerId">
-
-            </div>
-        </div>
-    }
+    </div>
 </div>
 
 
@@ -34,109 +16,60 @@
 	function onCreatedPaymentHandler(paymentCreatedEvent) {
 		console.log(paymentCreatedEvent);
 	}
-
 	function onPaymentCanceledHandler(paymentCanceledEvent) {
 		console.log("Payment canceled");
 		console.log(paymentCanceledEvent);
 	}
-
 	function onPaymentFailedHandler(paymentFailedEvent) {
 		console.log("Ooopsy daisy");
 		console.log(paymentFailedEvent);
-	};
-
+	}
 	function onPaymentCompletedHandler(paymentCompletedEvent) {
 		console.log("Payment completed");
 	}
-	
-	var paymentMenuConfig = {
-		container: 'swedbankpay-paymentmenu-@containerId',
+
+	let testStyle = 
+	{
+      button: {
+        borderRadius: "8px",
+        enabled: {
+          backgroundColor: "#2F2424",
+          color: "#FFFFFF",
+          outline: "1px solid transparent",
+          hover: {
+            backgroundColor: "#72605E",
+            color: "#FFFFFF"
+          }
+        },
+        disabled: {
+          backgroundColor: "#f50000",
+          color: "#D4C4BC",
+          outline: "1px solid transparent"
+        }
+      }
+    };
+	let paymentMenuConfig = {
+		container: {
+			checkout: 'swedbankpay-paymentmenu-@containerId',
+		},
 		culture: '@Model.Culture.Name',
+		style: testStyle,
 		onPaymentCreated: onCreatedPaymentHandler,
 		onPaymentFailed: onPaymentFailedHandler,
 		onPaymentCanceled: onPaymentCanceledHandler
 	};
 
-	function createPaymentMenuElements(menuScript) {
-		if (window.payex?.hostedView?.paymentMenu !== undefined)
-		{
-			window.payex.hostedView.paymentMenu = undefined;
-		}
-
-		var paymentMenuScriptTag = document.getElementById('paymentMenuScript');
-		if (paymentMenuScriptTag !== null) {
-			paymentMenuScriptTag.remove();
-		}
-
-		var script = document.createElement('script');
-		script.setAttribute("id", "paymentMenuScript");
-		script.onload = function () {
-			window.payex.hostedView.paymentMenu(paymentMenuConfig).open();
-		};
-		script.src = menuScript;
-		document.getElementsByTagName('head')[0].appendChild(script);
+	let paymentMenuScriptTag = document.getElementById('paymentMenuScript');
+	if (paymentMenuScriptTag !== null) {
+		paymentMenuScriptTag.remove();
 	}
+
+	let script = document.createElement('script');
+	script.setAttribute("id", "paymentMenuScript");
+	script.onload = function () {
+		console.log(paymentMenuConfig);
+		payex.hostedView.checkout(paymentMenuConfig).open();
+	};
+	script.src = '@Model.JavascriptSource';
+	document.getElementsByTagName('head')[0].appendChild(script);
 </script>
-
-
-@if (Model.ConsumerUiScriptSource == null && (Model.UseAnonymousCheckout))
-{
-	<script type="text/javascript">
-		createPaymentMenuElements('@Model.JavascriptSource');
-	</script>
-}
-else
-{
-    <script type="text/javascript">
-
-	    var consumerConfig = {
-		    container: "swedbankpay-consumer-@containerId",
-		    culture: '@Model.Culture.Name',
-		    onConsumerIdentified: onIdentifiedConsumerHandler,
-	    };
-
-	    function onIdentifiedConsumerHandler(data) {
-		    console.log('onIdentifiedConsumerHandler:' + JSON.stringify(data));
-		  
-
-		    var request = new XMLHttpRequest();
-			request.addEventListener('load', function () {
-				var paymentMenuFrame = document.getElementById("paymentMenuFrame");
-				paymentMenuFrame.removeAttribute("hidden");
-			    createPaymentMenuElements(this.responseText);
-			});
-
-		    $.ajax({
-			    async: true,
-			    type: "POST",
-			    cache: false,
-			    url: '@Url.Action("GetViewPaymentOrderHref", "Checkout", null)',
-			    data: { "consumerProfileRef": data.consumerProfileRef },
-			    success: function(result) {
-				    var paymentMenuFrame = document.getElementById("paymentMenuFrame");
-				    paymentMenuFrame.removeAttribute("hidden");
-				    createPaymentMenuElements(result);
-			    },
-			    error: function(xhr, error) {
-				    console.debug(xhr);
-				    console.debug(error);
-			    }
-		    });
-	    }
-
-	    if (window.payex?.hostedView?.consumer === undefined) {
-		    var script = document.createElement('script');
-		    script.setAttribute('src', '@Model.ConsumerUiScriptSource');
-		    script.onload = function () {
-			    window.payex.hostedView.consumer(consumerConfig).open();
-		    }
-
-		    var head = document.getElementsByTagName('head')[0];
-		    head.appendChild(script);
-	    }
-	    else
-	    {
-		    window.payex.hostedView.consumer(consumerConfig).open();
-	    }
-    </script>
-}
