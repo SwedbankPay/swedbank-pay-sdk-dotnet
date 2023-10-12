@@ -18,7 +18,7 @@ namespace Sample.AspNetCore.SystemTests.PageObjectModels
         [FindByAutomation("a", "button-checkout", Index = 0)]
         public LinkDelegate<PaymentPage, _> StandardCheckout { get; set; }
 
-        [FindByAutomation("a", "button-checkout", Index = 1)]
+        [FindByAutomation("a", "button-checkout", Index = 0)]
         public LinkDelegate<PaymentPage, _> AnonymousCheckout { get; set; }
 
         [FindByAutomation("a", "button-checkout", Index = 2)]

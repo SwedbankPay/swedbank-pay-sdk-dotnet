@@ -13,17 +13,17 @@ namespace SwedbankPay.Sdk;
         public static readonly LinkRelation UpdatePaymentOrderUpdateOrder =
             new LinkRelation(nameof(UpdatePaymentOrderUpdateOrder), PaymentOrderResourceOperations.UpdateOrder);
 
-        // /// <summary>
-        // /// <seealso cref="LinkRelation"/> for PaymentOrder UpdatePaymentorder.
-        // /// </summary>
-        // public static readonly LinkRelation CreatePaymentOrderCapture =
-        //     new LinkRelation(nameof(CreatePaymentOrderCapture), PaymentOrderResourceOperations.CreatePaymentOrderCapture);
-        //
-        // /// <summary>
-        // /// <seealso cref="LinkRelation"/> for PaymentOrder UpdatePaymentorder.
-        // /// </summary>
-        // public static readonly LinkRelation CreatePaymentOrderCancel =
-        //     new LinkRelation(nameof(CreatePaymentOrderCancel), PaymentOrderResourceOperations.CreatePaymentOrderCancel);
+        /// <summary>
+        /// <seealso cref="LinkRelation"/> for PaymentOrder UpdatePaymentorder.
+        /// </summary>
+        public static readonly LinkRelation CreatePaymentOrderCapture =
+            new LinkRelation(nameof(CreatePaymentOrderCapture), PaymentOrderResourceOperations.Capture);
+        
+        /// <summary>
+        /// <seealso cref="LinkRelation"/> for PaymentOrder UpdatePaymentorder.
+        /// </summary>
+        public static readonly LinkRelation CreatePaymentOrderCancel =
+            new LinkRelation(nameof(CreatePaymentOrderCancel), PaymentOrderResourceOperations.Cancel);
 
         /// <summary>
         /// <seealso cref="LinkRelation"/> for PaymentOrder UpdateAbort.
@@ -31,11 +31,11 @@ namespace SwedbankPay.Sdk;
         public static readonly LinkRelation UpdateAbort =
             new LinkRelation(nameof(UpdateAbort), PaymentOrderResourceOperations.Abort);
 
-        // /// <summary>
-        // /// <seealso cref="LinkRelation"/> for PaymentOrder UpdatePaymentorderReversal.
-        // /// </summary>
-        // public static readonly LinkRelation CreatePaymentOrderReversal =
-        //     new LinkRelation(nameof(CreatePaymentOrderReversal), PaymentOrderResourceOperations.CreatePaymentOrderReversal);
+        /// <summary>
+        /// <seealso cref="LinkRelation"/> for PaymentOrder UpdatePaymentorderReversal.
+        /// </summary>
+        public static readonly LinkRelation CreatePaymentOrderReversal =
+            new LinkRelation(nameof(CreatePaymentOrderReversal), PaymentOrderResourceOperations.Reversal);
 
         /// <summary>
         /// <seealso cref="LinkRelation"/> for PaymentOrder View.

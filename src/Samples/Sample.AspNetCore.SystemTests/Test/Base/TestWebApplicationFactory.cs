@@ -20,7 +20,7 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
     {
         public string RootUri { get; set; } //Save this use by tests
 
-        private readonly string sampleProjectLocation;
+        private readonly string _sampleProjectLocation;
         IWebHost host;
 
         public TestWebApplicationFactory()
@@ -32,9 +32,9 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
                 .AddEnvironmentVariables()
                 .Build();
                 
-            sampleProjectLocation = configRoot.GetSection("SampleWebsitePath").Value;
+            _sampleProjectLocation = configRoot.GetSection("SampleWebsitePath").Value;
 
-            Console.WriteLine(sampleProjectLocation);
+            Console.WriteLine(_sampleProjectLocation);
 
             ClientOptions.BaseAddress = new Uri("https://localhost:5001"); //will follow redirects by default
 
@@ -66,13 +66,14 @@ namespace Sample.AspNetCore.SystemTests.Test.Base
         {
             var builder = WebHost.CreateDefaultBuilder(Array.Empty<string>());
             builder.UseStartup<Startup>();
-            var contentRoot = sampleProjectLocation;
+            var contentRoot = _sampleProjectLocation;
             if (Directory.Exists(contentRoot))
             {
                 Console.WriteLine("Directory exist");
                 builder.UseContentRoot(contentRoot);
             }
             
+            builder.UseUrls("https://localhost:5001", "http://localhost:5000");
             return builder;
         }
 

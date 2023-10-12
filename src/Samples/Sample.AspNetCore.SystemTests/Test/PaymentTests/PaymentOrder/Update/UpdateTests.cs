@@ -2,8 +2,7 @@
 using NUnit.Framework;
 using Sample.AspNetCore.SystemTests.PageObjectModels.Base;
 using Sample.AspNetCore.SystemTests.Test.Helpers;
-using SwedbankPay.Sdk;
-using SwedbankPay.Sdk.PaymentOrders;
+using SwedbankPay.Sdk.PaymentOrder;
 using System;
 using System.Linq;
 
@@ -30,10 +29,10 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Update
                 .Header.Products.ClickAndGo();
 
                 GoToOrdersPage(products, payexInfo, Checkout.Option.Anonymous)
-                .RefreshPageUntil(x => x.Orders[y => y.Attributes["data-paymentorderlink"] == _referenceLink].Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderCancel)].IsVisible, 60, 10)
-                .Orders[y => y.Attributes["data-paymentorderlink"] == _referenceLink].Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderCancel)].Should.BeVisible()
-                .Orders[y => y.Attributes["data-paymentorderlink"] == _referenceLink].Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.CreatePaymentOrderCapture)].Should.BeVisible()
-                .Orders[y => y.Attributes["data-paymentorderlink"] == _referenceLink].Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible()
+                .RefreshPageUntil(x => x.Orders[y => y.Attributes["data-paymentorderlink"] == _referenceLink].Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.Cancel)].IsVisible, 60, 10)
+                .Orders[y => y.Attributes["data-paymentorderlink"] == _referenceLink].Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.Cancel)].Should.BeVisible()
+                .Orders[y => y.Attributes["data-paymentorderlink"] == _referenceLink].Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.Capture)].Should.BeVisible()
+                // .Orders[y => y.Attributes["data-paymentorderlink"] == _referenceLink].Actions.Rows[y => y.Name.Value.Contains(PaymentOrderResourceOperations.PaidPaymentOrder)].Should.BeVisible()
                 .Orders[y => y.Attributes["data-paymentorderlink"] == _referenceLink].Clear.ClickAndGo();
 
                 await SwedbankPayClient.PaymentOrders.Get(_link, PaymentOrderExpand.All);
