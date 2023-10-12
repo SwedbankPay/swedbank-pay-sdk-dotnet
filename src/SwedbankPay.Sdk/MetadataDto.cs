@@ -2,14 +2,14 @@ using System.Text.Json.Serialization;
 
 namespace SwedbankPay.Sdk;
 
-internal class MetadataDto : Dictionary<string, object>
+internal class MetadataDto : Dictionary<string, object?>
 {
     [JsonConstructor]
     public MetadataDto()
     {
     }
 
-    internal MetadataDto(IDictionary<string, object> dictionary) : base(dictionary)
+    internal MetadataDto(IDictionary<string, object?> dictionary) : base(dictionary)
     {
     }
 

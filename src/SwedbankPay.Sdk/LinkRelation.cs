@@ -65,7 +65,7 @@ namespace SwedbankPay.Sdk;
         /// </summary>
         /// <param name="name">The name of the <seealso cref="LinkRelation"/>.</param>
         /// <param name="value">The value of the <seealso cref="LinkRelation"/>.</param>
-        private LinkRelation(string name, string value)
+        public LinkRelation(string name, string value)
             : base(name, value)
         {
         }

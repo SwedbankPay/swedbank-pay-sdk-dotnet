@@ -18,7 +18,7 @@ public static class JsonSerialization
         };
 
         Settings.Converters.Add(new CustomDateTimeConverter());
-        // Settings.Converters.Add(new CustomMetadataDtoConverter());
+        Settings.Converters.Add(new CustomMetadataDtoConverter());
     }
 
     public static JsonSerializerOptions? Settings { get; private set; }
