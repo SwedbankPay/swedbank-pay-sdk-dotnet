@@ -9,6 +9,8 @@ using SwedbankPay.Sdk;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+
+using SwedbankPay.Sdk.JsonSerialization;
 using SwedbankPay.Sdk.PaymentOrder.OperationRequest;
 
 namespace Sample.AspNetCore.Controllers
@@ -63,7 +65,14 @@ namespace Sample.AspNetCore.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult> PaymentOrderCancel(string paymentOrderId)
+        public async Task<IActionResult> GetPaymentOrder(string paymentOrderId)
+        {
+            var paymentOrder = await _swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
+            return Json(paymentOrder, JsonSerialization.Settings);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> PaymentOrderCancel(string paymentOrderId)
         {
             try
             {
