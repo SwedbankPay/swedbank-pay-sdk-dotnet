@@ -13,5 +13,6 @@ namespace Sample.AspNetCore.Models
         public HttpOperation UpdateOperation { get; set; }
         public bool UseAnonymousCheckout { get; set; }
         public Uri ConsumerUiScriptSource { get; set; }
+        public Uri PaymentOrderLink { get; set; }
     }
 }

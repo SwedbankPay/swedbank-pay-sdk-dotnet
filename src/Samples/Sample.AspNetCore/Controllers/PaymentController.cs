@@ -47,6 +47,7 @@ namespace Sample.AspNetCore.Controllers
 
                 var response = await paymentOrder.Operations.Abort(new PaymentOrderAbortRequest("CanceledByUser"));
 
+                TempData["PaymentOrderLink"] = response.PaymentOrder.Id.ToString();
                 TempData["AbortMessage"] = $"Payment Order: {response.PaymentOrder.Id} has been {response.PaymentOrder.Status}";
                 _cartService.PaymentOrderLink = null;
                 _cartService.Update();
@@ -238,7 +239,7 @@ namespace Sample.AspNetCore.Controllers
         {
             try
             {
-                var transActionRequestObject = await GetReversalRequest("Reversing the capture amount");
+                var transActionRequestObject = await GetReversalRequest(paymentOrderId, "Reversing the capture amount");
                 var paymentOrder = await this._swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
         
                 var response = await paymentOrder.Operations.Reverse(transActionRequestObject);
@@ -324,9 +325,13 @@ namespace Sample.AspNetCore.Controllers
             return request;
         }
         
-        private async Task<PaymentOrderReversalRequest> GetReversalRequest(string description)
+        private async Task<PaymentOrderReversalRequest> GetReversalRequest(string paymentOrderId, string description)
         {
-            var order = await this._context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
+            var order = await _context.Orders.Where(x => x.PaymentOrderLink.ToString().Equals(paymentOrderId, StringComparison.InvariantCultureIgnoreCase))
+                .Include(l => l.Lines)
+                .ThenInclude(p => p.Product)
+                .FirstOrDefaultAsync();
+            
             var orderItems = order.Lines.ToOrderItems();
         
             var request = new PaymentOrderReversalRequest(new Amount(order.Lines.Sum(e => e.Quantity * e.Product.Price)),

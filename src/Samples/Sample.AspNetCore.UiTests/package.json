@@ -1,0 +1,17 @@
+{
+  "name": "sample.aspnetcore.uitests",
+  "version": "1.0.0",
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": ">=18.14.0 <19.0.0"
+  },
+  "devDependencies": {
+    "cypress": "^13.3.1",
+    "typescript": "^5.2.2"
+  },
+  "scripts": {
+    "cy:open": "cypress open"
+  }
+}

@@ -30,11 +30,11 @@
                     @if (StoreContext.Orders.Any())
                     {
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="Details">Orders</a>
+                            <a class="nav-link text-dark" asp-area="" data-automation="orderslink" asp-controller="Orders" asp-action="Details">Orders</a>
                         </li>
                         <li class="nav-item">
                             <form asp-action="Clear" asp-controller="Orders" method="post">
-                                <button type="submit" class="btn btn-danger" automation="button-clearorders">
+                                <button type="submit" class="btn btn-danger" data-automation="button-clearorders">
                                     Clear Orders
                                 </button>
                             </form>

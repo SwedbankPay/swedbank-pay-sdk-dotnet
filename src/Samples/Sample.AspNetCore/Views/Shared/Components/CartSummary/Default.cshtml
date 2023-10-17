@@ -20,8 +20,8 @@
                 <form asp-action="UpdateQuantity" asp-controller="Cart" method="post">
                     <input type="hidden" name="id"
                            value="@line.Product.ProductId"/>
-                    <input type="number" required min="1" name="Quantity" value="@line.Quantity" automation="input-quantity"/>
-                    <button type="submit" class="btn btn-sm btn-danger" automation="button-updatequantity">
+                    <input type="number" required min="1" name="Quantity" value="@line.Quantity" data-automation="input-quantity"/>
+                    <button type="submit" class="btn btn-sm btn-danger" data-automation="button-updatequantity">
                         Update
                     </button>
                 </form>
@@ -56,7 +56,7 @@
     </tfoot>
 </table>
 <div class="text-center">
-    <a class="btn btn-primary" automation="button-checkout" asp-action="LoadPaymentMenu" asp-controller="CheckOut">
+    <a class="btn btn-primary" data-automation="button-checkout" asp-action="LoadPaymentMenu" asp-controller="CheckOut">
         Anonymous Checkout
     </a>
 </div>

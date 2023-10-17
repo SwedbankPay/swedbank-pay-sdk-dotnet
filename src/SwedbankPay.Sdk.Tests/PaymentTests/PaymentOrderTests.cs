@@ -274,7 +274,7 @@ public class PaymentOrderTests : ResourceTestsBase
 
     private static Uri GetUri() => new Uri("http://api.externalintegration.payex.com/psp/paymentorders/2d35afaa-4e5a-4930-0de5-08d7da0988bc", UriKind.Absolute);
     
-    private readonly PaymentOrderRequestBuilder paymentOrderRequestBuilder = new();
+    private readonly PaymentOrderRequestBuilder _paymentOrderRequestBuilder = new();
     
     [Fact]
     public void CanDeserializePaymentOrder()
@@ -287,7 +287,7 @@ public class PaymentOrderTests : ResourceTestsBase
     public async Task CreateAndAbortPaymentOrder_ShouldSetCorrectState()
     {
         //ARRANGE
-        var paymentOrderRequest = paymentOrderRequestBuilder.WithTestValues(PayeeId).WithOrderItems().Build();
+        var paymentOrderRequest = _paymentOrderRequestBuilder.WithTestValues(PayeeId).WithOrderItems().Build();
 
         //ACT
         var paymentOrder = await Sut.PaymentOrders.Create(paymentOrderRequest, PaymentOrderExpand.All);
@@ -305,7 +305,7 @@ public class PaymentOrderTests : ResourceTestsBase
     {
         //ARRANGE
 
-        var paymentOrderRequest = paymentOrderRequestBuilder.WithTestValues(PayeeId).WithOrderItems().Build();
+        var paymentOrderRequest = _paymentOrderRequestBuilder.WithTestValues(PayeeId).WithOrderItems().Build();
 
         //ACT
         var paymentOrder = await Sut.PaymentOrders.Create(paymentOrderRequest, PaymentOrderExpand.All);
@@ -320,7 +320,7 @@ public class PaymentOrderTests : ResourceTestsBase
     {
         //ARRANGE
 
-        var paymentOrderRequest = paymentOrderRequestBuilder.WithTestValues(PayeeId).WithOrderItems().Build();
+        var paymentOrderRequest = _paymentOrderRequestBuilder.WithTestValues(PayeeId).WithOrderItems().Build();
 
         //ACT
         var paymentOrder = await Sut.PaymentOrders.Create(paymentOrderRequest, PaymentOrderExpand.All);
@@ -334,7 +334,7 @@ public class PaymentOrderTests : ResourceTestsBase
     {
         //ARRANGE
 
-        var paymentOrderRequest = paymentOrderRequestBuilder.WithTestValues(PayeeId).WithOrderItems().Build();
+        var paymentOrderRequest = _paymentOrderRequestBuilder.WithTestValues(PayeeId).WithOrderItems().Build();
 
         //ACT
         var paymentOrder = await Sut.PaymentOrders.Create(paymentOrderRequest, PaymentOrderExpand.All);
@@ -370,14 +370,23 @@ public class PaymentOrderTests : ResourceTestsBase
     public async Task GetPaymentOrder_ShouldReturnPaymentOrder()
     {
         //ARRANGE
-
         var paymentOrderUri = new Uri("/psp/paymentorders/cfea7191-c3e5-482a-1560-08dbc01c468e", UriKind.RelativeOrAbsolute);
-
+        var handler = new FakeDelegatingHandler();
+        var client = new HttpClient(handler)
+        {
+            BaseAddress = GetUri()
+        };
+        handler.FakeResponseList.Add(new HttpResponseMessage
+        {
+            StatusCode = System.Net.HttpStatusCode.OK,
+            Content = new StringContent(PaymentOrderResponse)
+        });
+        
+        
         //ACT
-        var paymentOrder = await Sut.PaymentOrders.Get(paymentOrderUri, PaymentOrderExpand.All);
+        var paymentOrder = await new PaymentOrdersResource(client).Get(paymentOrderUri);
         Assert.NotNull(paymentOrder);
         Assert.NotNull(paymentOrder.Operations);
-        // Assert.NotNull(paymentOrder.Operations.Abort);
     }
 
 
@@ -415,9 +424,8 @@ public class PaymentOrderTests : ResourceTestsBase
             ")
         });
         PaymentOrderCaptureRequest captureRequest = GetTestPaymentOrderCaptureRequest();
-        // PaymentOrderRequest paymentOrderRequest = GetPaymentOrderRequest();
         
-        var paymentOrderRequest = paymentOrderRequestBuilder.WithTestValues(PayeeId).WithOrderItems().Build();
+        var paymentOrderRequest = _paymentOrderRequestBuilder.WithTestValues(PayeeId).WithOrderItems().Build();
 
         var sut = await new PaymentOrdersResource(client).Create(paymentOrderRequest);
 
@@ -441,7 +449,7 @@ public class PaymentOrderTests : ResourceTestsBase
             Content = new StringContent(PaymentOrderResponse)
         });
 
-        var paymentOrderRequest = paymentOrderRequestBuilder.WithTestValues(PayeeId).WithOrderItems().Build();
+        var paymentOrderRequest = _paymentOrderRequestBuilder.WithTestValues(PayeeId).WithOrderItems().Build();
 
         var sut = await new PaymentOrdersResource(client).Create(paymentOrderRequest);
 

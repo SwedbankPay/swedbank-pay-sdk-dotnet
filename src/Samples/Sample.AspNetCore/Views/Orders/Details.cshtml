@@ -34,28 +34,28 @@ else if (TempData["ErrorMessage"] != null)
 	<hr />
 </div>
 
-<div automation="div-orders">
+<div data-automation="div-orders">
 
     @foreach (var order in Model)
     {
-        <div data-paymentorderlink="@order.Order.PaymentOrderLink" data-paymentlink="@order.Order.PaymentLink" automation="div-order">
+        <div data-paymentorderlink="@order.Order.PaymentOrderLink" data-paymentlink="@order.Order.PaymentLink" data-automation="div-order">
             <div>
                 <dl class="row">
                     <dt class="col-sm-2">
                         @Html.DisplayNameFor(m => order.Order.PaymentOrderLink)
                     </dt>
-                    <dd class="col-sm-10" automation="div-paymentorderlink">
+                    <dd class="col-sm-10" data-automation="div-paymentorderlink">
                         @Html.DisplayFor(model => order.Order.PaymentOrderLink)
                     </dd>
                     @* <dt class="col-sm-2"> *@
                     @*     @Html.DisplayNameFor(model => order.Order.PaymentLink) *@
                     @* </dt> *@
-                    @* <dd class="col-sm-10" automation="div-paymentlink"> *@
+                    @* <dd class="col-sm-10" data-automation="div-paymentlink"> *@
                     @*     @Html.DisplayFor(model => order.Order.PaymentLink) *@
                     @* </dd> *@
                 </dl>
                 <form asp-action="ClearSingle" asp-controller="Orders" asp-route-paymentId="@(order.Order.PaymentLink != null ? order.Order.PaymentLink : order.Order.PaymentOrderLink)" method="post">
-                    <button type="submit" class="btn btn-danger m-2" automation="button-clearorder">
+                    <button type="submit" class="btn btn-danger m-2" data-automation="button-clearorder">
                         Clear Order
                     </button>
                 </form>
@@ -129,7 +129,7 @@ else if (TempData["ErrorMessage"] != null)
                                        asp-route-paymentOrderId=@order.Order.PaymentOrderLink
                                        asp-route-paymentId="@order.Order.PaymentLink" 
                                        asp-route-instrument="Instrumentaaaaaa" 
-                                       automation=@automationTagName>Execute</a>
+                                       data-automation=@automationTagName>Execute</a>
 
                                 }
                                 else

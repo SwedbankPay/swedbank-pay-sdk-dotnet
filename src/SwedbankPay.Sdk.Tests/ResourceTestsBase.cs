@@ -10,13 +10,13 @@ public abstract class ResourceTestsBase
     
     protected readonly Urls Urls;
 
-    protected readonly string? PayeeId;
+    protected readonly string PayeeId;
 
     protected ResourceTestsBase()
     {
         var connectionSettings = TestHelper.GetSwedbankPayConnectionSettings(Environment.CurrentDirectory);
         Urls = TestHelper.GetUrls(Environment.CurrentDirectory);
-        PayeeId = connectionSettings.PayeeId;
+        PayeeId = connectionSettings.PayeeId ?? "";
         var httpClient = new HttpClient
         {
             BaseAddress = connectionSettings.ApiBaseUrl

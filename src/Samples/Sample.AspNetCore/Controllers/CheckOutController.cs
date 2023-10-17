@@ -393,9 +393,10 @@ namespace Sample.AspNetCore.Controllers
 				JavascriptSource = jsSource,
 				Culture = CultureInfo.GetCultureInfo("sv-SE"),
 				UseAnonymousCheckout = true,
-				AbortOperationLink = paymentOrder.Operations[LinkRelation.UpdateAbort]?.Href
+				AbortOperationLink = paymentOrder.Operations[LinkRelation.UpdateAbort]?.Href,
+				PaymentOrderLink = paymentOrder.PaymentOrder.Id
 			};
-
+			
 			return View("Checkout", swedbankPaySource);
 		}
 
@@ -476,7 +477,17 @@ namespace Sample.AspNetCore.Controllers
 				_context.SaveChanges(true);
 				_cartService.Clear();
 			}
-			return View();
+
+			var model = new CheckoutViewModel
+			{
+				PaymentOrderLink = _cartService.PaymentOrderLink
+			};
+			return View(model);
 		}
 	}
+}
+
+public class CheckoutViewModel
+{
+	public string PaymentOrderLink { get; set; }
 }
