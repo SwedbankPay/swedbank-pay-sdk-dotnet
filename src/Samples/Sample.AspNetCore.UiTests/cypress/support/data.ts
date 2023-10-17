@@ -1,6 +1,7 @@
 export const Data = {
     payment: {
         creditCardNumber: "4925000000000004",
+        creditCardNumber3DS: "4761739001010416",
         creditCardCvc: "210",
         creditCardExpirationMonth: creditCardExpirationDate().slice(5, 7),
         creditCardExpirationYear: creditCardExpirationDate().slice(2, 4),

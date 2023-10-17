@@ -1,5 +1,6 @@
 import SwedbankBlock from "../../elements/blocks/common/swedbank-block";
 import {PaymentMethods} from "../../../support/enums";
+import {Data} from "../../../support/data";
 
 describe('Pay with Trustly', () => {
     beforeEach(() => {
@@ -12,7 +13,42 @@ describe('Pay with Trustly', () => {
         cy.get('[data-automation="button-addtocart"]').first().click()
         cy.get('[data-automation="button-checkout"]').first().click()
 
-        new SwedbankBlock().payWithSwedbank(PaymentMethods.trustly);
+        new SwedbankBlock().payWithSwedbank(PaymentMethods.trustly, () => {
+            cy.iframeLoaded(
+                "#px-overlay-iframe",
+                '[data-testid="header-title"]',
+                30,
+                ($iframe) => {
+                    cy.waitSeconds(2);
+                    cy.findInIframe($iframe, '[data-testid="list-item-sweden.esse"]').click();
+                    cy.waitSeconds(4);
+                    cy.findInIframe($iframe, '[data-testid="continue-button"]').click();
+                    cy.waitSeconds(4);
+                    cy.findInIframe($iframe, '[data-testid="Input-text-loginid"]').type(Data.payment.invoiceSsn, {force: true})
+                    cy.findInIframe($iframe, '[data-testid="continue-button"]').click();
+                    cy.waitSeconds(4);
+
+                    cy.findInIframe($iframe, 'h3').invoke('text')
+                        .then((challengeResponse) => {
+                            cy.findInIframe($iframe, '[data-testid="Input-password-challenge_response"]').type(challengeResponse, {force: true})
+                            cy.findInIframe($iframe, '[data-testid="continue-button"]').click();
+                        });
+
+                    cy.waitSeconds(10);
+                    cy.findInIframe($iframe, '[data-testid="account-list"]').children().first().click();
+                    cy.waitSeconds(4);
+                    cy.findInIframe($iframe, '[data-testid="summary-step-continue-cta-button"]').click();
+                    cy.waitSeconds(10);
+
+                    cy.findInIframe($iframe, 'h3').invoke('text')
+                        .then((challengeResponse) => {
+                            cy.findInIframe($iframe, '[data-testid="Input-password-challenge_response"]').type(challengeResponse, {force: true})
+                            cy.findInIframe($iframe, '[data-testid="continue-button"]').click();
+                        });
+                    cy.waitSeconds(4);
+                });
+        });
+
 
         cy.get('h2', {timeout: 30000}).then(($h) => {
             expect($h).to.contain('Thanks!');
@@ -21,10 +57,10 @@ describe('Pay with Trustly', () => {
                 let paymentOrderLink = $paymentOrderLink.text();
                 cy.getByAutomation('orderslink', true, {timeout: 30000}).click();
 
-                cy.get('[data-paymentorderlink="'+paymentOrderLink +'"]').within(($paymentOrder) => {
+                cy.get('[data-paymentorderlink="' + paymentOrderLink + '"]').within(($paymentOrder) => {
                     cy.getByAutomation('a-paymentorderreversal').should('be.visible').click();
                 });
-                
+
                 cy.get('.alert.alert-success', {timeout: 5000}).should('have.class', 'alert-success');
             })
         });

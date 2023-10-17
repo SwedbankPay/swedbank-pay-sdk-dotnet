@@ -2,10 +2,13 @@ import {PaymentMethods} from "../../../../support/enums";
 import {Data} from "../../../../support/data";
 
 class SwedbankBlock {
-    payWithSwedbank(payment) {
+    payWithSwedbank(payment: string, callback: () => any) {
         switch (payment) {
             case PaymentMethods.card:
                 return this.payWithCard();
+
+            case PaymentMethods.card3ds:
+                return this.payWithCard3ds(callback);
 
             case PaymentMethods.swish:
                 return this.payWithSwish();
@@ -14,10 +17,10 @@ class SwedbankBlock {
                 return this.payWithInvoice();
 
             case PaymentMethods.trustly:
-                return this.payWithTrustly();
+                return this.payWithTrustly(callback);
         }
     }
-
+    
     payWithCard() {
         cy.iframeLoaded(
             'iframe[src^="https://ecom.externalintegration.payex.com/checkout"]',
@@ -53,6 +56,43 @@ class SwedbankBlock {
         );
     }
 
+    payWithCard3ds(callback: () => any) {
+        cy.iframeLoaded(
+            'iframe[src^="https://ecom.externalintegration.payex.com/checkout"]',
+            "#creditcard",
+            30,
+            ($iframe) => {
+                cy.findInIframe($iframe, "#creditcard").click();
+                cy.findInIframe($iframe, "#view-creditcard").within(() => {
+                    cy.iframeLoaded(
+                        'iframe[src^="https://ecom.externalintegration.payex.com/creditcard"]',
+                        "#panInput",
+                        30,
+                        ($iframe) => {
+                            cy.findInIframe($iframe, "#panInput").type(
+                                Data.payment.creditCardNumber3DS,
+                                {force: true}
+                            );
+                            cy.findInIframe($iframe, "#expiryInput").type(
+                                `${Data.payment.creditCardExpirationMonth}/${Data.payment.creditCardExpirationYear}`,
+                                {force: true}
+                            );
+                            cy.findInIframe($iframe, "#cvcInput-1").type(
+                                Data.payment.creditCardCvc,
+                                {force: true}
+                            );
+                            cy.findInIframe($iframe, "#px-submit").click({
+                                force: true,
+                            });
+                        }
+                    );
+                });
+
+                callback();
+            }
+        );
+    }
+    
     payWithSwish() {
         cy.iframeLoaded(
             'iframe[src^="https://ecom.externalintegration.payex.com/checkout"]',
@@ -115,7 +155,7 @@ class SwedbankBlock {
         );
     }
 
-    payWithTrustly() {
+    payWithTrustly(callback: () => any) {
         cy.iframeLoaded(
             'iframe[src^="https://ecom.externalintegration.payex.com/checkout"]',
             "#trustly",
@@ -143,39 +183,7 @@ class SwedbankBlock {
                     );
                 });
 
-                cy.iframeLoaded(
-                    "#px-overlay-iframe",
-                    '[data-testid="header-title"]',
-                    30,
-                    ($iframe) => {
-                        cy.waitSeconds(2);
-                        cy.findInIframe($iframe, '[data-testid="list-item-sweden.esse"]').click();
-                        cy.waitSeconds(4);
-                        cy.findInIframe($iframe, '[data-testid="continue-button"]').click();
-                        cy.waitSeconds(4);
-                        cy.findInIframe($iframe, '[data-testid="Input-text-loginid"]').type(Data.payment.invoiceSsn, {force: true})
-                        cy.findInIframe($iframe, '[data-testid="continue-button"]').click();
-                        cy.waitSeconds(4);
-
-                        cy.findInIframe($iframe, 'h3').invoke('text')
-                            .then((challengeResponse) => {
-                                cy.findInIframe($iframe, '[data-testid="Input-password-challenge_response"]').type(challengeResponse, {force: true})
-                                cy.findInIframe($iframe, '[data-testid="continue-button"]').click();
-                            });
-
-                        cy.waitSeconds(10);
-                        cy.findInIframe($iframe, '[data-testid="account-list"]').children().first().click();
-                        cy.waitSeconds(4);
-                        cy.findInIframe($iframe, '[data-testid="summary-step-continue-cta-button"]').click();
-                        cy.waitSeconds(10);
-
-                        cy.findInIframe($iframe, 'h3').invoke('text')
-                            .then((challengeResponse) => {
-                                cy.findInIframe($iframe, '[data-testid="Input-password-challenge_response"]').type(challengeResponse, {force: true})
-                                cy.findInIframe($iframe, '[data-testid="continue-button"]').click();
-                            });
-                        cy.waitSeconds(4);
-                    });
+                callback();
             }
         );
     }

@@ -11,6 +11,17 @@ declare namespace Cypress {
         ): Chainable<JQuery<HTMLElement>>;
 
         /**
+         * Custom command to get DOM element by data-automation attribute.
+         * @example cy.getByTestId('continue-button')
+         */
+        getByTestId(
+            selector: string,
+            visible?: boolean,
+            ...args: any
+        ): Chainable<JQuery<HTMLElement>>;
+
+
+        /**
          * Custom command to get DOM element by data-automation substring attribute.
          * @example cy.getByAutomationLike('div')
          */
@@ -175,6 +186,14 @@ interface TypeOptions extends Cypress.TypeOptions {
 Cypress.Commands.add("getByAutomation", (selector: string, visible: boolean = false, ...args: any) => {
         return cy.get(
             `[data-automation='${selector}']${visible == true ? ":visible" : ""}`,
+            ...args
+        );
+    }
+);
+
+Cypress.Commands.add("getByTestId", (selector: string, visible: boolean = false, ...args: any) => {
+        return cy.get(
+            `[data-testid='${selector}']${visible == true ? ":visible" : ""}`,
             ...args
         );
     }
