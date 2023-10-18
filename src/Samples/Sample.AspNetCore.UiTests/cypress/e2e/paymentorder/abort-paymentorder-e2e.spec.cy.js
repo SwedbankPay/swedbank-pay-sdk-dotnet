@@ -10,5 +10,17 @@ describe('Abort paymentorder', () => {
         cy.getByAutomation('button-checkout').first().click();
         cy.getByAutomation('button-abort').click();
         cy.get('.alert.alert-success', {timeout: 5000}).should('have.class', 'alert-success');
+
+        cy.getByAutomation('paymentorderlink', true)
+            .then(($orderId) => {
+                
+                cy.getPaymentOrder($orderId.text()).then((response) => {
+                    expect(response.status).to.eq(200);
+                    let responseBody = response.body;
+
+                    expect(responseBody.paymentOrder.status.value).to.eq('Aborted');
+                    expect(responseBody.paymentOrder.aborted.abortReason).to.eq('CanceledByUser');
+                });
+            });
     })
 }) 

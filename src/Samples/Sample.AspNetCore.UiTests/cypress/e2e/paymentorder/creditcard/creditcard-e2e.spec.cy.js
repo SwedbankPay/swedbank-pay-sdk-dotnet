@@ -46,15 +46,46 @@ describe('Pay with Credit card', () => {
                 let paymentOrderLink = $paymentOrderLink.text();
                 cy.getByAutomation('orderslink', true, {timeout: 30000}).click();
 
+                cy.getPaymentOrder(paymentOrderLink).then((response) => {
+                    expect(response.status).to.eq(200);
+                    let responseBody = response.body;
+
+                    expect(responseBody.paymentOrder.status.value).to.eq('Paid');
+                    expect(responseBody.paymentOrder.paid.instrument).to.eq('CreditCard');
+                    expect(responseBody.paymentOrder.paid.transactionType).to.eq('Authorization');
+                });
+                
                 cy.get('[data-paymentorderlink="' + paymentOrderLink + '"]').within(($paymentOrder) => {
                     cy.getByAutomation('a-paymentordercapture').should('be.visible').click();
                 });
+
+                cy.getPaymentOrder(paymentOrderLink).then((response) => {
+                    expect(response.status).to.eq(200);
+                    let responseBody = response.body;
+
+                    expect(responseBody.paymentOrder.status.value).to.eq('Paid');
+                    expect(responseBody.paymentOrder.paid.instrument).to.eq('CreditCard');
+                    expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[0].type).to.eq('Capture');
+                    expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[0].amount.inLowestMonetaryUnit).to.eq(responseBody.paymentOrder.amount.inLowestMonetaryUnit);
+                });
+                
                 cy.get('.alert.alert-success', {timeout: 5000}).should('have.class', 'alert-success');
 
                 cy.get('[data-paymentorderlink="' + paymentOrderLink + '"]').within(($paymentOrder) => {
                     cy.getByAutomation('a-paymentorderreversal').should('be.visible').click();
                 });
 
+
+                cy.getPaymentOrder(paymentOrderLink).then((response) => {
+                    expect(response.status).to.eq(200);
+                    let responseBody = response.body;
+
+                    expect(responseBody.paymentOrder.status.value).to.eq('Reversed');
+                    expect(responseBody.paymentOrder.paid.instrument).to.eq('CreditCard');
+                    expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[1].type).to.eq('Reversal');
+                    expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[1].amount.inLowestMonetaryUnit).to.eq(responseBody.paymentOrder.amount.inLowestMonetaryUnit);
+                });
+                
                 cy.get('.alert.alert-success', {timeout: 5000}).should('have.class', 'alert-success');
             })
         });

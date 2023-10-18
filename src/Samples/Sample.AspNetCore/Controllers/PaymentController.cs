@@ -1,16 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+
 using Sample.AspNetCore.Data;
 using Sample.AspNetCore.Extensions;
 using Sample.AspNetCore.Models;
 
 using SwedbankPay.Sdk;
+
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
 using SwedbankPay.Sdk.JsonSerialization;
+using SwedbankPay.Sdk.PaymentOrder;
 using SwedbankPay.Sdk.PaymentOrder.OperationRequest;
 
 namespace Sample.AspNetCore.Controllers
@@ -25,9 +28,9 @@ namespace Sample.AspNetCore.Controllers
 
 
         public PaymentController(
-            IOptionsSnapshot<PayeeInfoConfig> payeeInfoOptionsAccessor, 
-            Cart cart, 
-            StoreDbContext dbContext, 
+            IOptionsSnapshot<PayeeInfoConfig> payeeInfoOptionsAccessor,
+            Cart cart,
+            StoreDbContext dbContext,
             ISwedbankPayClient payClient,
             IOptionsSnapshot<UrlsOptions> urlsAccessor)
         {
@@ -67,7 +70,7 @@ namespace Sample.AspNetCore.Controllers
         [HttpGet]
         public async Task<IActionResult> GetPaymentOrder(string paymentOrderId)
         {
-            var paymentOrder = await _swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
+            var paymentOrder = await _swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute), PaymentOrderExpand.All);
             return Json(paymentOrder, JsonSerialization.Settings);
         }
 
@@ -77,7 +80,7 @@ namespace Sample.AspNetCore.Controllers
             try
             {
                 var paymentOrder = await _swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
-                
+
                 if (paymentOrder.Operations.Cancel != null)
                 {
                     var cancelRequest = new PaymentOrderCancelRequest("Cancelling parts of the total amount", _payeeInfoOptions.PayeeReference);
@@ -88,7 +91,7 @@ namespace Sample.AspNetCore.Controllers
                 {
                     TempData["ErrorMessage"] = "Operation not available";
                 }
-        
+
                 return RedirectToAction("Details", "Orders");
             }
             catch (Exception e)
@@ -97,7 +100,6 @@ namespace Sample.AspNetCore.Controllers
                 return RedirectToAction("Details", "Orders");
             }
         }
-
 
 
         // [HttpGet]
@@ -133,16 +135,16 @@ namespace Sample.AspNetCore.Controllers
         {
             try
             {
-                var transActionRequestObject = await GetCaptureRequest("Capturing the authorized payment", DateTime.Now.Ticks.ToString());
+                var transActionRequestObject = await GetCaptureRequest(paymentOrderId, "Capturing the authorized payment", DateTime.Now.Ticks.ToString());
                 var paymentOrder = await _swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
-        
+
                 var response = await paymentOrder.Operations.Capture(transActionRequestObject);
-        
+
                 TempData["CaptureMessage"] =
                     $"{response.Capture.Transaction.Id}, {response.Capture.Transaction.State}, {response.Capture.Transaction.Type}";
-        
+
                 this._cartService.PaymentOrderLink = null;
-        
+
                 return RedirectToAction("Details", "Orders");
             }
             catch (Exception e)
@@ -250,13 +252,13 @@ namespace Sample.AspNetCore.Controllers
             {
                 var transActionRequestObject = await GetReversalRequest(paymentOrderId, "Reversing the capture amount");
                 var paymentOrder = await this._swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
-        
+
                 var response = await paymentOrder.Operations.Reverse(transActionRequestObject);
-        
+
                 TempData["ReversalMessage"] =
                     $"{response.Reversal.Transaction.Id}, {response.Reversal.Transaction.Type}, {response.Reversal.Transaction.State}";
                 this._cartService.PaymentOrderLink = null;
-        
+
                 return RedirectToAction("Details", "Orders");
             }
             catch (Exception e)
@@ -319,22 +321,7 @@ namespace Sample.AspNetCore.Controllers
         //     return request;
         // }
 
-        private async Task<PaymentOrderCaptureRequest> GetCaptureRequest(string description, string receiptReference)
-        {
-            var order = await this._context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
-            var orderItems = order.Lines.ToOrderItems();
-        
-            var request = new PaymentOrderCaptureRequest(new Amount(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
-                                                                  new Amount(0), description, DateTime.Now.Ticks.ToString(), receiptReference);
-            foreach (var item in orderItems)
-            {
-                request.Transaction.OrderItems.Add(item);
-            }
-        
-            return request;
-        }
-        
-        private async Task<PaymentOrderReversalRequest> GetReversalRequest(string paymentOrderId, string description)
+        private async Task<PaymentOrderCaptureRequest> GetCaptureRequest(string paymentOrderId, string description, string receiptReference)
         {
             var order = await _context.Orders.Where(x => x.PaymentOrderLink.ToString().Equals(paymentOrderId, StringComparison.InvariantCultureIgnoreCase))
                 .Include(l => l.Lines)
@@ -342,16 +329,35 @@ namespace Sample.AspNetCore.Controllers
                 .FirstOrDefaultAsync();
             
             var orderItems = order.Lines.ToOrderItems();
-        
-            var request = new PaymentOrderReversalRequest(new Amount(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
-                                                                                 new Amount(0),
-                                                                                 description,
-                                                                                 DateTime.Now.Ticks.ToString());
+
+            var request = new PaymentOrderCaptureRequest(new Amount(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
+                new Amount(0), description, DateTime.Now.Ticks.ToString(), receiptReference);
             foreach (var item in orderItems)
             {
                 request.Transaction.OrderItems.Add(item);
             }
-        
+
+            return request;
+        }
+
+        private async Task<PaymentOrderReversalRequest> GetReversalRequest(string paymentOrderId, string description)
+        {
+            var order = await _context.Orders.Where(x => x.PaymentOrderLink.ToString().Equals(paymentOrderId, StringComparison.InvariantCultureIgnoreCase))
+                .Include(l => l.Lines)
+                .ThenInclude(p => p.Product)
+                .FirstOrDefaultAsync();
+
+            var orderItems = order.Lines.ToOrderItems();
+
+            var request = new PaymentOrderReversalRequest(new Amount(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
+                new Amount(0),
+                description,
+                DateTime.Now.Ticks.ToString());
+            foreach (var item in orderItems)
+            {
+                request.Transaction.OrderItems.Add(item);
+            }
+
             return request;
         }
     }

@@ -23,6 +23,11 @@ public class Identifiable : IIdentifiable
         Id = new Uri(id, UriKind.RelativeOrAbsolute);
     }
 
+    internal Identifiable(IdentifiableDto id)
+    {
+        Id = new Uri(id.Id, UriKind.RelativeOrAbsolute);
+    }
+
     /// <summary>
     ///     Relative URL to the resource
     /// </summary>

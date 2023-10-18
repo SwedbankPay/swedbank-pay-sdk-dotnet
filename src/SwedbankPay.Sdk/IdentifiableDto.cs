@@ -1,7 +1,14 @@
+using System.Text.Json.Serialization;
+
 namespace SwedbankPay.Sdk;
 
 internal record IdentifiableDto
 {
+    [JsonConstructor]
+    public IdentifiableDto()
+    {
+    }
+    
     /// <summary>
     /// Instantiates and sets the <see cref="Id"/> of the <see cref="Identifiable"/>.
     /// </summary>
@@ -14,5 +21,10 @@ internal record IdentifiableDto
     /// <summary>
     ///     Relative URL to the resource
     /// </summary>
-    public string Id { get; }
+    public string Id { get; set; }
+
+    public IIdentifiable Map()
+    {
+        return new Identifiable(this);
+    }
 }

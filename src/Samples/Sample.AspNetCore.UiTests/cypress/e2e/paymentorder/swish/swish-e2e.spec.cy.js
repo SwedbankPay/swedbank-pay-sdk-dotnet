@@ -21,11 +21,14 @@ describe('Pay with Swish', () => {
                 let paymentOrderLink = $paymentOrderLink.text();
                 cy.getByAutomation('orderslink', true, {timeout: 30000}).click();
 
-                cy.get('[data-paymentorderlink="'+paymentOrderLink +'"]').within(($paymentOrder) => {
+                cy.get('[data-paymentorderlink="' + paymentOrderLink + '"]').within(($paymentOrder) => {
                     cy.getByAutomation('a-paymentorderreversal').should('be.visible').click();
                 });
-                
+
                 cy.get('.alert.alert-success', {timeout: 5000}).should('have.class', 'alert-success');
+
+
+                
             })
         });
     })

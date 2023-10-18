@@ -160,7 +160,7 @@ internal record FinancialTransactionListItemDto
     public string? Description { get; set; }
     public string? PayeeReference { get; set; }
     public string? ReceiptReference { get; set; }
-    public IList<OrderItemDto>? OrderItems { get; set; }
+    public IdentifiableDto OrderItems { get; set; }
 
     public FinancialTransactionListItem Map()
     {
@@ -170,7 +170,7 @@ internal record FinancialTransactionListItemDto
 
 internal record FinancialTransactionsResponseDto : IdentifiableDto
 {
-    public IList<FinancialTransactionListItemDto>? FinancialTransactionList { get; set; }
+    public IList<FinancialTransactionListItemDto>? FinancialTransactionsList { get; set; }
 
     public FinancialTransactionsResponseDto(string id) : base(id)
     {

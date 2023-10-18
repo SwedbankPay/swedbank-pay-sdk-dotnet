@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace SwedbankPay.Sdk.PaymentOrder;
 
 public interface IPaymentOrderResponse
@@ -27,10 +29,13 @@ public class PaymentOrderResponse : IPaymentOrderResponse
             httpOperations.Add(new HttpOperation(href, rel, item.Method, item.ContentType));
         }
 
+        
         Operations = new PaymentOrderOperations(httpOperations, httpClient);
     }
 
     public IPaymentOrder PaymentOrder { get; }
+    
+    [JsonIgnore]
     public IPaymentOrderOperations Operations { get; }
 }
 
@@ -241,7 +246,7 @@ public class FinancialTransactionListItem : Identifiable
     public string? Description { get; set; }
     public string? PayeeReference { get; set; }
     public string? ReceiptReference { get; set; }
-    public IList<OrderItem>? OrderItems { get; set; }
+    public IIdentifiable? OrderItems { get; set; }
 
     internal FinancialTransactionListItem(FinancialTransactionListItemDto dto) : base(dto.Id)
     {
@@ -254,18 +259,18 @@ public class FinancialTransactionListItem : Identifiable
         Description = dto.Description;
         PayeeReference = dto.PayeeReference;
         ReceiptReference = dto.ReceiptReference;
-        OrderItems = dto.OrderItems?.Select(x => x.Map()).ToList();
+        OrderItems = dto.OrderItems.Map();
     }
 }
 
 
 public class FinancialTransactionsResponse : Identifiable
 {
-    public IList<FinancialTransactionListItem>? FinancialTransactionList { get; set; }
+    public IList<FinancialTransactionListItem>? FinancialTransactionsList { get; set; }
     
     internal FinancialTransactionsResponse(FinancialTransactionsResponseDto dto) : base(dto.Id)
     {
-        FinancialTransactionList = dto.FinancialTransactionList?.Select(x => x.Map()).ToList();
+        FinancialTransactionsList = dto.FinancialTransactionsList?.Select(x => x.Map()).ToList();
     }
 }
 

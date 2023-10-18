@@ -20,7 +20,7 @@ public interface IPaymentOrderOperations : IDictionary<LinkRelation, HttpOperati
     Func<PaymentOrderCaptureRequest, Task<IPaymentOrderCaptureResponse?>>? Capture { get; }
     
     Func<PaymentOrderReversalRequest, Task<IPaymentOrderReversalResponse?>>? Reverse { get; }
-
+    
     HttpOperation? Redirect { get; }
     
     /// <summary>
@@ -31,7 +31,7 @@ public interface IPaymentOrderOperations : IDictionary<LinkRelation, HttpOperati
 
 internal class PaymentOrderOperations : OperationsBase, IPaymentOrderOperations
 {
-    public PaymentOrderOperations(IOperationList httpOperations, HttpClient httpClient)
+    internal PaymentOrderOperations(IOperationList httpOperations, HttpClient httpClient)
     {
         foreach (var httpOperation in httpOperations)
         {

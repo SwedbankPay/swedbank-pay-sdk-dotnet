@@ -173,7 +173,23 @@ public class PaymentOrderTests : ResourceTestsBase
             ""id"": ""/psp/paymentorders/1039d2c0-cf37-4611-6f61-08dbc01cba84/cancelled""
         },
         ""financialTransactions"": {
-            ""id"": ""/psp/paymentorders/1039d2c0-cf37-4611-6f61-08dbc01cba84/financialtransactions""
+            ""id"": ""/psp/paymentorders/86ffa0c5-a06e-4b37-3a5e-08dbceb433dc/financialtransactions"",
+            ""financialTransactionsList"": [
+                {
+                    ""id"": ""/psp/paymentorders/86ffa0c5-a06e-4b37-3a5e-08dbceb433dc/financialtransactions/177a2a19-53d9-4cd2-a6d1-08dbcee5d067"",
+                    ""created"": ""2023-10-18T13:00:04.2548195Z"",
+                    ""updated"": ""2023-10-18T13:00:04.9478096Z"",
+                    ""type"": ""Capture"",
+                    ""number"": 40127366860,
+                    ""amount"": 23000,
+                    ""vatAmount"": 0,
+                    ""description"": ""Capturing the authorized payment"",
+                    ""payeeReference"": ""638332380039447680"",
+                    ""orderItems"": {
+                        ""id"": ""/psp/paymentorders/86ffa0c5-a06e-4b37-3a5e-08dbceb433dc/financialtransactions/177a2a19-53d9-4cd2-a6d1-08dbcee5d067/orderitems""
+                    }
+                }
+            ]
         },
         ""failedAttempts"": {
             ""id"": ""/psp/paymentorders/1039d2c0-cf37-4611-6f61-08dbc01cba84/failedattempts""
@@ -273,14 +289,18 @@ public class PaymentOrderTests : ResourceTestsBase
             }";
 
     private static Uri GetUri() => new Uri("http://api.externalintegration.payex.com/psp/paymentorders/2d35afaa-4e5a-4930-0de5-08d7da0988bc", UriKind.Absolute);
-    
+
     private readonly PaymentOrderRequestBuilder _paymentOrderRequestBuilder = new();
-    
+
     [Fact]
     public void CanDeserializePaymentOrder()
     {
         var paymentOrderResponseDto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderResponse, JsonSerialization.JsonSerialization.Settings);
         Assert.NotNull(paymentOrderResponseDto);
+        Assert.NotNull(paymentOrderResponseDto.PaymentOrder.FinancialTransactions?.FinancialTransactionsList);
+        Assert.NotNull(paymentOrderResponseDto.PaymentOrder.FinancialTransactions?.FinancialTransactionsList.FirstOrDefault());
+        Assert.NotNull(paymentOrderResponseDto.PaymentOrder.FinancialTransactions?.FinancialTransactionsList.FirstOrDefault()?.OrderItems);
+        Assert.NotNull(paymentOrderResponseDto.PaymentOrder.FinancialTransactions?.FinancialTransactionsList.FirstOrDefault()?.OrderItems.Id);
     }
 
     [Fact]
@@ -381,8 +401,8 @@ public class PaymentOrderTests : ResourceTestsBase
             StatusCode = System.Net.HttpStatusCode.OK,
             Content = new StringContent(PaymentOrderResponse)
         });
-        
-        
+
+
         //ACT
         var paymentOrder = await new PaymentOrdersResource(client).Get(paymentOrderUri);
         Assert.NotNull(paymentOrder);
@@ -424,7 +444,7 @@ public class PaymentOrderTests : ResourceTestsBase
             ")
         });
         PaymentOrderCaptureRequest captureRequest = GetTestPaymentOrderCaptureRequest();
-        
+
         var paymentOrderRequest = _paymentOrderRequestBuilder.WithTestValues(PayeeId).WithOrderItems().Build();
 
         var sut = await new PaymentOrdersResource(client).Create(paymentOrderRequest);
