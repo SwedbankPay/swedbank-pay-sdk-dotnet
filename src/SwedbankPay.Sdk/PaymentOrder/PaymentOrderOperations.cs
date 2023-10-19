@@ -29,7 +29,7 @@ public interface IPaymentOrderOperations : IDictionary<LinkRelation, HttpOperati
     HttpOperation? View { get; }
 }
 
-internal class PaymentOrderOperations : OperationsBase, IPaymentOrderOperations
+public class PaymentOrderOperations : OperationsBase, IPaymentOrderOperations
 {
     internal PaymentOrderOperations(IOperationList httpOperations, HttpClient httpClient)
     {

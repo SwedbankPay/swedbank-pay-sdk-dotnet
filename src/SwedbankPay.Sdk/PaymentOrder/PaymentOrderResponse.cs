@@ -35,7 +35,6 @@ public class PaymentOrderResponse : IPaymentOrderResponse
 
     public IPaymentOrder PaymentOrder { get; }
     
-    [JsonIgnore]
     public IPaymentOrderOperations Operations { get; }
 }
 
