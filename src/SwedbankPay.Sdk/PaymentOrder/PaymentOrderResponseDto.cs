@@ -160,7 +160,7 @@ internal record FinancialTransactionListItemDto
     public string? Description { get; set; }
     public string? PayeeReference { get; set; }
     public string? ReceiptReference { get; set; }
-    public IdentifiableDto OrderItems { get; set; }
+    public IdentifiableDto? OrderItems { get; set; }
 
     public FinancialTransactionListItem Map()
     {

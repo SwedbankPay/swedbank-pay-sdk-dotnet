@@ -12,7 +12,7 @@ public class HttpOperation
     /// <param name="rel">The name of the operation.</param>
     /// <param name="method">The <seealso cref="HttpMethod"/> as a string for the operation.</param>
     /// <param name="contentType">The content type of the operation.</param>
-    public HttpOperation(Uri href, LinkRelation rel, string method, string contentType)
+    internal HttpOperation(Uri href, LinkRelation rel, string method, string contentType)
     {
         Href = href;
         Rel = rel;

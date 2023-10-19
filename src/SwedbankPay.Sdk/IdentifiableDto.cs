@@ -21,10 +21,5 @@ internal record IdentifiableDto
     /// <summary>
     ///     Relative URL to the resource
     /// </summary>
-    public string Id { get; set; }
-
-    public IIdentifiable Map()
-    {
-        return new Identifiable(this);
-    }
+    public string Id { get; set; } = null!;
 }

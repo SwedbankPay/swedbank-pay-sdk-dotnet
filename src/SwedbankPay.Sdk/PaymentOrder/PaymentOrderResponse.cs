@@ -1,5 +1,3 @@
-using System.Text.Json.Serialization;
-
 namespace SwedbankPay.Sdk.PaymentOrder;
 
 public interface IPaymentOrderResponse
@@ -258,7 +256,7 @@ public class FinancialTransactionListItem : Identifiable
         Description = dto.Description;
         PayeeReference = dto.PayeeReference;
         ReceiptReference = dto.ReceiptReference;
-        OrderItems = dto.OrderItems.Map();
+        OrderItems = dto.OrderItems != null ? new Identifiable(dto.OrderItems) : null;
     }
 }
 

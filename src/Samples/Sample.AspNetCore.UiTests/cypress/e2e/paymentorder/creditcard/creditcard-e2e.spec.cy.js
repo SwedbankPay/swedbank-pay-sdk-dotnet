@@ -33,7 +33,7 @@ describe('Pay with Credit card', () => {
     
     it('Should succeed payment and create capture and reversal', () => {
 
-        //Add to cart and go to checkout
+        //Add to cart and go to checkout    
         cy.get('[data-automation="button-addtocart"]').first().click()
         cy.get('[data-automation="button-checkout"]').first().click()
 
@@ -53,6 +53,8 @@ describe('Pay with Credit card', () => {
                     expect(responseBody.paymentOrder.status.value).to.eq('Paid');
                     expect(responseBody.paymentOrder.paid.instrument).to.eq('CreditCard');
                     expect(responseBody.paymentOrder.paid.transactionType).to.eq('Authorization');
+                    expect(responseBody.operations.capture).to.not.be.undefined;
+                    expect(responseBody.operations.reversal).to.be.undefined;
                 });
                 
                 cy.get('[data-paymentorderlink="' + paymentOrderLink + '"]').within(($paymentOrder) => {
@@ -67,6 +69,8 @@ describe('Pay with Credit card', () => {
                     expect(responseBody.paymentOrder.paid.instrument).to.eq('CreditCard');
                     expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[0].type).to.eq('Capture');
                     expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[0].amount.inLowestMonetaryUnit).to.eq(responseBody.paymentOrder.amount.inLowestMonetaryUnit);
+                    expect(responseBody.operations.capture).to.be.undefined;
+                    expect(responseBody.operations.reversal).to.not.be.undefined;
                 });
                 
                 cy.get('.alert.alert-success', {timeout: 5000}).should('have.class', 'alert-success');
@@ -84,6 +88,8 @@ describe('Pay with Credit card', () => {
                     expect(responseBody.paymentOrder.paid.instrument).to.eq('CreditCard');
                     expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[1].type).to.eq('Reversal');
                     expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[1].amount.inLowestMonetaryUnit).to.eq(responseBody.paymentOrder.amount.inLowestMonetaryUnit);
+                    expect(responseBody.operations.capture).to.be.undefined;
+                    expect(responseBody.operations.reversal).to.be.undefined;
                 });
                 
                 cy.get('.alert.alert-success', {timeout: 5000}).should('have.class', 'alert-success');
@@ -163,6 +169,18 @@ describe('Pay with 3DS Credit card', () => {
                         });
                 });
             });
+
+        cy.getByAutomation('paymentorderlink').then(($paymentOrderLink) => {
+            let paymentOrderLink = $paymentOrderLink.text();
+
+            cy.getPaymentOrder(paymentOrderLink).then((response) => {
+                expect(response.status).to.eq(200);
+                let responseBody = response.body;
+
+                expect(responseBody.paymentOrder.status.value).to.eq('Initialized');
+                expect(responseBody.operations.capture).to.be.undefined;
+            });
+        });
     });
 
     it('Should succeed payment and create capture and reversal', () => {
@@ -189,15 +207,51 @@ describe('Pay with 3DS Credit card', () => {
                 let paymentOrderLink = $paymentOrderLink.text();
                 cy.getByAutomation('orderslink', true, {timeout: 30000}).click();
 
+                cy.getPaymentOrder(paymentOrderLink).then((response) => {
+                    expect(response.status).to.eq(200);
+                    let responseBody = response.body;
+
+                    expect(responseBody.paymentOrder.status.value).to.eq('Paid');
+                    expect(responseBody.paymentOrder.paid.instrument).to.eq('CreditCard');
+                    expect(responseBody.paymentOrder.paid.transactionType).to.eq('Authorization');
+                    expect(responseBody.operations.capture).to.not.be.undefined;
+                    expect(responseBody.operations.reversal).to.be.undefined;
+                });
+                
                 cy.get('[data-paymentorderlink="' + paymentOrderLink + '"]').within(($paymentOrder) => {
                     cy.getByAutomation('a-paymentordercapture').should('be.visible').click();
                 });
+
+                cy.getPaymentOrder(paymentOrderLink).then((response) => {
+                    expect(response.status).to.eq(200);
+                    let responseBody = response.body;
+
+                    expect(responseBody.paymentOrder.status.value).to.eq('Paid');
+                    expect(responseBody.paymentOrder.paid.instrument).to.eq('CreditCard');
+                    expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[0].type).to.eq('Capture');
+                    expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[0].amount.inLowestMonetaryUnit).to.eq(responseBody.paymentOrder.amount.inLowestMonetaryUnit);
+                    expect(responseBody.operations.capture).to.be.undefined;
+                    expect(responseBody.operations.reversal).to.not.be.undefined;
+                });
+                
                 cy.get('.alert.alert-success', {timeout: 5000}).should('have.class', 'alert-success');
 
                 cy.get('[data-paymentorderlink="' + paymentOrderLink + '"]').within(($paymentOrder) => {
                     cy.getByAutomation('a-paymentorderreversal').should('be.visible').click();
                 });
 
+                cy.getPaymentOrder(paymentOrderLink).then((response) => {
+                    expect(response.status).to.eq(200);
+                    let responseBody = response.body;
+
+                    expect(responseBody.paymentOrder.status.value).to.eq('Reversed');
+                    expect(responseBody.paymentOrder.paid.instrument).to.eq('CreditCard');
+                    expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[1].type).to.eq('Reversal');
+                    expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[1].amount.inLowestMonetaryUnit).to.eq(responseBody.paymentOrder.amount.inLowestMonetaryUnit);
+                    expect(responseBody.operations.capture).to.be.undefined;
+                    expect(responseBody.operations.reversal).to.be.undefined;
+                });
+                
                 cy.get('.alert.alert-success', {timeout: 5000}).should('have.class', 'alert-success');
             })
         });

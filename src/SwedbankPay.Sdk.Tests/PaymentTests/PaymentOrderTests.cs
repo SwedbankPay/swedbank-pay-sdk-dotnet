@@ -302,6 +302,14 @@ public class PaymentOrderTests : ResourceTestsBase
         Assert.NotNull(paymentOrderResponseDto.PaymentOrder.FinancialTransactions?.FinancialTransactionsList.FirstOrDefault()?.OrderItems);
         Assert.NotNull(paymentOrderResponseDto.PaymentOrder.FinancialTransactions?.FinancialTransactionsList.FirstOrDefault()?.OrderItems.Id);
     }
+    
+    [Fact]
+    public void CanSserializePaymentOrder()
+    {
+        var paymentOrderResponseDto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderResponse, JsonSerialization.JsonSerialization.Settings);
+        var paymentOrderResponse = new PaymentOrderResponse(paymentOrderResponseDto, new HttpClient());
+        var serialize = JsonSerializer.Serialize(paymentOrderResponse, JsonSerialization.JsonSerialization.Settings);
+    }
 
     [Fact]
     public async Task CreateAndAbortPaymentOrder_ShouldSetCorrectState()

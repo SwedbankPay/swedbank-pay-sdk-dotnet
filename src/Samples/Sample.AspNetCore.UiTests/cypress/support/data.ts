@@ -8,7 +8,7 @@ export const Data = {
         invoiceEmail: "leia.ahlstrom@payex.com",
         invoicePhone: "+46739000001",
         invoiceSsn: "971020-2392",
-        swishPhone: "0739000001",
+        swishPhone: "+46739000001",
         trustlyFirstName: "Leia",
         trustlyLastName: "Ahlström"
         
