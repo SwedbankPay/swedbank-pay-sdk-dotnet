@@ -10,7 +10,117 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests;
 
 public class PaymentOrderTests : ResourceTestsBase
 {
-    private const string PaymentOrderResponse = @"{
+
+    private const string PaymentOrderResponse31 = @"{
+  ""paymentOrder"": {
+    ""id"": ""/psp/paymentorders/9c0a36c7-10fc-4d3f-7ad9-08dbdb75f503"",
+    ""created"": ""2023-11-14T12:57:18.2196109Z"",
+    ""updated"": ""2023-11-14T12:57:18.2416724Z"",
+    ""operation"": ""Purchase"",
+    ""status"": ""Initialized"",
+    ""currency"": ""SEK"",
+    ""amount"": 23000,
+    ""vatAmount"": 0,
+    ""description"": ""Test description"",
+    ""initiatingSystemUserAgent"": ""swedbankpay-sdksamplesite-dotnet/1.0.0.0"",
+    ""language"": ""sv-SE"",
+    ""availableInstruments"": [
+      ""CreditCard"",
+      ""Swish"",
+      ""Trustly""
+    ],
+    ""implementation"": ""PaymentsOnly"",
+    ""integration"": """",
+    ""instrumentMode"": false,
+    ""guestMode"": true,
+    ""orderItems"": {
+      ""id"": ""/psp/paymentorders/9c0a36c7-10fc-4d3f-7ad9-08dbdb75f503/orderitems""
+    },
+    ""urls"": {
+      ""id"": ""/psp/paymentorders/9c0a36c7-10fc-4d3f-7ad9-08dbdb75f503/urls""
+    },
+    ""payeeInfo"": {
+      ""id"": ""/psp/paymentorders/9c0a36c7-10fc-4d3f-7ad9-08dbdb75f503/payeeinfo""
+    },
+    ""payer"": {
+      ""id"": ""/psp/paymentorders/9c0a36c7-10fc-4d3f-7ad9-08dbdb75f503/payers""
+    },
+    ""history"": {
+      ""id"": ""/psp/paymentorders/9c0a36c7-10fc-4d3f-7ad9-08dbdb75f503/history""
+    },
+    ""failed"": {
+      ""id"": ""/psp/paymentorders/9c0a36c7-10fc-4d3f-7ad9-08dbdb75f503/failed""
+    },
+    ""aborted"": {
+      ""id"": ""/psp/paymentorders/9c0a36c7-10fc-4d3f-7ad9-08dbdb75f503/aborted""
+    },
+    ""paid"": {
+      ""id"": ""/psp/paymentorders/9c0a36c7-10fc-4d3f-7ad9-08dbdb75f503/paid""
+    },
+    ""cancelled"": {
+      ""id"": ""/psp/paymentorders/9c0a36c7-10fc-4d3f-7ad9-08dbdb75f503/cancelled""
+    },
+    ""reversed"": {
+      ""id"": ""/psp/paymentorders/9c0a36c7-10fc-4d3f-7ad9-08dbdb75f503/reversed""
+    },
+        ""financialTransactions"": {
+            ""id"": ""/psp/paymentorders/86ffa0c5-a06e-4b37-3a5e-08dbceb433dc/financialtransactions"",
+            ""financialTransactionsList"": [
+                {
+                    ""id"": ""/psp/paymentorders/86ffa0c5-a06e-4b37-3a5e-08dbceb433dc/financialtransactions/177a2a19-53d9-4cd2-a6d1-08dbcee5d067"",
+                    ""created"": ""2023-10-18T13:00:04.2548195Z"",
+                    ""updated"": ""2023-10-18T13:00:04.9478096Z"",
+                    ""type"": ""Capture"",
+                    ""number"": 40127366860,
+                    ""amount"": 23000,
+                    ""vatAmount"": 0,
+                    ""description"": ""Capturing the authorized payment"",
+                    ""payeeReference"": ""638332380039447680"",
+                    ""orderItems"": {
+                        ""id"": ""/psp/paymentorders/86ffa0c5-a06e-4b37-3a5e-08dbceb433dc/financialtransactions/177a2a19-53d9-4cd2-a6d1-08dbcee5d067/orderitems""
+                    }
+                }
+            ]
+        },
+    ""failedAttempts"": {
+      ""id"": ""/psp/paymentorders/9c0a36c7-10fc-4d3f-7ad9-08dbdb75f503/failedattempts""
+    },
+    ""postPurchaseFailedAttempts"": {
+      ""id"": ""/psp/paymentorders/9c0a36c7-10fc-4d3f-7ad9-08dbdb75f503/postpurchasefailedattempts""
+    },
+    ""metadata"": {
+      ""id"": ""/psp/paymentorders/9c0a36c7-10fc-4d3f-7ad9-08dbdb75f503/metadata""
+    }
+  },
+  ""operations"": [
+    {
+      ""method"": ""PATCH"",
+      ""href"": ""https://api.externalintegration.payex.com/psp/paymentorders/9c0a36c7-10fc-4d3f-7ad9-08dbdb75f503"",
+      ""rel"": ""update-order"",
+      ""contentType"": ""application/json""
+    },
+    {
+      ""method"": ""PATCH"",
+      ""href"": ""https://api.externalintegration.payex.com/psp/paymentorders/9c0a36c7-10fc-4d3f-7ad9-08dbdb75f503"",
+      ""rel"": ""abort"",
+      ""contentType"": ""application/json""
+    },
+    {
+      ""method"": ""GET"",
+      ""href"": ""https://ecom.externalintegration.payex.com/checkout/d91be3c8bc5252c2b5268864665d40e21dcfa29f36150c8c5fd33225da57a6af?_tc_tid\u003d2f1d544192e730fa1d70891a59b22f92"",
+      ""rel"": ""redirect-checkout"",
+      ""contentType"": ""text/html""
+    },
+    {
+      ""method"": ""GET"",
+      ""href"": ""https://ecom.externalintegration.payex.com/checkout/client/d91be3c8bc5252c2b5268864665d40e21dcfa29f36150c8c5fd33225da57a6af?culture\u003dsv-SE\u0026_tc_tid\u003d2f1d544192e730fa1d70891a59b22f92"",
+      ""rel"": ""view-checkout"",
+      ""contentType"": ""application/javascript""
+    }
+  ]
+}";
+    
+    private const string PaymentOrderResponse1 = @"{
     ""paymentOrder"": {
         ""id"": ""/psp/paymentorders/1039d2c0-cf37-4611-6f61-08dbc01cba84"",
         ""created"": ""2023-10-03T09:38:29.7565991Z"",
@@ -295,7 +405,7 @@ public class PaymentOrderTests : ResourceTestsBase
     [Fact]
     public void CanDeserializePaymentOrder()
     {
-        var paymentOrderResponseDto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderResponse, JsonSerialization.JsonSerialization.Settings);
+        var paymentOrderResponseDto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderResponse31, JsonSerialization.JsonSerialization.Settings);
         Assert.NotNull(paymentOrderResponseDto);
         Assert.NotNull(paymentOrderResponseDto.PaymentOrder.FinancialTransactions?.FinancialTransactionsList);
         Assert.NotNull(paymentOrderResponseDto.PaymentOrder.FinancialTransactions?.FinancialTransactionsList.FirstOrDefault());
@@ -306,7 +416,7 @@ public class PaymentOrderTests : ResourceTestsBase
     [Fact]
     public void CanSserializePaymentOrder()
     {
-        var paymentOrderResponseDto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderResponse, JsonSerialization.JsonSerialization.Settings);
+        var paymentOrderResponseDto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderResponse31, JsonSerialization.JsonSerialization.Settings);
         var paymentOrderResponse = new PaymentOrderResponse(paymentOrderResponseDto, new HttpClient());
         var serialize = JsonSerializer.Serialize(paymentOrderResponse, JsonSerialization.JsonSerialization.Settings);
     }
@@ -407,7 +517,7 @@ public class PaymentOrderTests : ResourceTestsBase
         handler.FakeResponseList.Add(new HttpResponseMessage
         {
             StatusCode = System.Net.HttpStatusCode.OK,
-            Content = new StringContent(PaymentOrderResponse)
+            Content = new StringContent(PaymentOrderResponse31)
         });
 
 
@@ -429,7 +539,7 @@ public class PaymentOrderTests : ResourceTestsBase
         handler.FakeResponseList.Add(new HttpResponseMessage
         {
             StatusCode = System.Net.HttpStatusCode.OK,
-            Content = new StringContent(PaymentOrderResponse)
+            Content = new StringContent(PaymentOrderResponse31)
         });
         handler.FakeResponseList.Add(new HttpResponseMessage
         {
@@ -474,7 +584,7 @@ public class PaymentOrderTests : ResourceTestsBase
         handler.FakeResponseList.Add(new HttpResponseMessage
         {
             StatusCode = System.Net.HttpStatusCode.OK,
-            Content = new StringContent(PaymentOrderResponse)
+            Content = new StringContent(PaymentOrderResponse31)
         });
 
         var paymentOrderRequest = _paymentOrderRequestBuilder.WithTestValues(PayeeId).WithOrderItems().Build();

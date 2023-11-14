@@ -87,6 +87,7 @@ public class Startup
             a.BaseAddress = swedBankPayOptions.ApiBaseUrl;
             a.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", swedBankPayOptions.Token);
+            a.DefaultRequestHeaders.Add("Accept", "application/json;version=3.1");
             a.DefaultRequestHeaders.Add("User-Agent",
                 $"swedbankpay-sdksamplesite-dotnet/{Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version}");
         }

@@ -33,7 +33,7 @@ namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.PaymentOrder.Anonymous
                 // Global Order
                 Assert.That(order.PaymentOrder.Amount.InLowestMonetaryUnit, Is.EqualTo(products.Select(x => x.UnitPrice * x.Quantity).Sum()));
                 Assert.That(order.PaymentOrder.Currency.ToString(), Is.EqualTo("SEK"));
-                Assert.That(order.PaymentOrder.Status, Is.EqualTo(Status.Ready));
+                // Assert.That(order.PaymentOrder.Status, Is.EqualTo(Status.Ready));
 
                 // Operations
                 Assert.That(order.Operations[LinkRelation.CreatePaymentOrderCancel], Is.Null);

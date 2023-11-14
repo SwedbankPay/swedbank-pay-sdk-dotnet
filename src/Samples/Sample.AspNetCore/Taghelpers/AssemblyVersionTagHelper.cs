@@ -3,19 +3,18 @@
 using System.Diagnostics;
 using System.Reflection;
 
-namespace Sample.AspNetCore.TagHelpers
+namespace Sample.AspNetCore.TagHelpers;
+
+[HtmlTargetElement("AssemblyVersion", TagStructure = TagStructure.NormalOrSelfClosing)]
+public class AssemblyVersionTagHelper : TagHelper
 {
-    [HtmlTargetElement("AssemblyVersion", TagStructure = TagStructure.NormalOrSelfClosing)]
-    public class AssemblyVersionTagHelper : TagHelper
+    public override void Process(TagHelperContext context, TagHelperOutput output)
     {
-        public override void Process(TagHelperContext context, TagHelperOutput output)
-        {
-            var executingAssembly = Assembly.GetExecutingAssembly();
-            var versionInfo = FileVersionInfo.GetVersionInfo(executingAssembly.Location);
-            var productVersion = versionInfo.ProductVersion;
+        var executingAssembly = Assembly.GetExecutingAssembly();
+        var versionInfo = FileVersionInfo.GetVersionInfo(executingAssembly.Location);
+        var productVersion = versionInfo.ProductVersion;
             
-            output.TagName = "";
-            output.Content.Append(productVersion);
-        }
+        output.TagName = "";
+        output.Content.Append(productVersion);
     }
 }

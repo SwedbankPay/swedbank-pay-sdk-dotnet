@@ -16,15 +16,17 @@ public class PaymentOrderRequestBuilder
     private string? _userAgent;
     private Amount? _vatAmount;
     private string? _implementation;
+    private string? _instrument;
 
 
     public PaymentOrderRequest Build()
     {
         var req = new PaymentOrderRequest(_operation!, _currency!, _amount!, _vatAmount!, _description!,
-            _userAgent!, _language!, "Checkout3", _urls!, _payeeInfo!)
+            _userAgent!, _language!, _urls!, _payeeInfo!)
         {
             OrderItems = _orderItems!,
-            Implementation = _implementation
+            Instrument = _instrument,
+            Implementation = _implementation,
         };
 
         return req;

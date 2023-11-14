@@ -6,7 +6,7 @@
     <Configurations>Debug;DEV;Release;</Configurations>
     <UserSecretsId>e6f89439-1a88-4120-92cf-be2d9fe6457d</UserSecretsId>
     <PublishChromeDriver>true</PublishChromeDriver>
-    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+<!--    <RuntimeIdentifier>win-x64</RuntimeIdentifier>-->
   </PropertyGroup>
 
   <ItemGroup>

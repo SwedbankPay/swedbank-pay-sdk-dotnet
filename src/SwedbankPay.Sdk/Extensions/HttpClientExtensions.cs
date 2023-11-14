@@ -1,5 +1,7 @@
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
+
 using SwedbankPay.Sdk.Exceptions;
 
 namespace SwedbankPay.Sdk.Extensions;
@@ -9,7 +11,6 @@ public static class HttpClientExtensions
     public static async Task<T?> GetAsJsonAsync<T>(this HttpClient httpClient, Uri uri)
     {
         var apiResponse = await httpClient.GetAsync(uri);
-
         var responseString = await apiResponse.Content.ReadAsStringAsync();
 
         if (!apiResponse.IsSuccessStatusCode)
@@ -35,20 +36,29 @@ public static class HttpClientExtensions
         where T : class
     {
         using var httpRequestMessage = new HttpRequestMessage(httpMethod, uri);
-
         if (payload != null)
         {
             var content = JsonSerializer.Serialize(payload, JsonSerialization.JsonSerialization.Settings);
-            httpRequestMessage.Content = new StringContent(content, Encoding.UTF8, "application/json");
+            try
+            {
+                httpRequestMessage.Content = new StringContent(content, Encoding.UTF8);
+                var header = new MediaTypeHeaderValue("application/json");
+                header.Parameters.Add(new NameValueHeaderValue("version", "3.1"));
+                httpRequestMessage.Content.Headers.ContentType = header;
+            }
+            catch (Exception e)
+            {
+                var a = e.Message;
+            }
         }
 
         using var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage);
 
-        string httpResponseContent = string.Empty;
+        var httpResponseContent = string.Empty;
         try
         {
             httpResponseContent = await httpResponseMessage.Content.ReadAsStringAsync();
-                if (!httpResponseMessage.IsSuccessStatusCode)
+            if (!httpResponseMessage.IsSuccessStatusCode)
             {
                 string? errorMessage;
                 if (string.IsNullOrEmpty(httpResponseContent))
@@ -81,6 +91,11 @@ public static class HttpClientExtensions
             throw ex;
         }
 
+        catch (Exception e)
+        {
+            e.Data.Add(nameof(httpResponseContent), httpResponseContent);
+            throw e;
+        }
         string BuildErrorMessage(string? httpResponseBody)
         {
             return

@@ -12,7 +12,6 @@ internal class PaymentOrderDto
         UserAgent = paymentOrderRequest.UserAgent;
         Language = paymentOrderRequest.Language.ToString();
         Instrument = paymentOrderRequest.Instrument;
-        ProductName = paymentOrderRequest.ProductName;
         Implementation = paymentOrderRequest.Implementation;
         Urls = new UrlsDto(paymentOrderRequest.Urls);
         OrderItems = paymentOrderRequest.OrderItems.Select(x => new OrderItemDto(x)).ToArray();
@@ -32,7 +31,6 @@ internal class PaymentOrderDto
     public string UserAgent { get; set; }
     public string Language { get; set; }
     public string? Instrument { get; set; }
-    public string ProductName { get; set; }
     public string? Implementation { get; set; }
     public UrlsDto Urls { get; set; }
     public OrderItemDto[] OrderItems { get; set; }

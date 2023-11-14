@@ -56,6 +56,8 @@ public interface IPaymentOrder
     PayerResponse? Payer { get; }
     OrderItemsResponse? OrderItems { get; } 
     Urls? Urls { get; }
+    Identifiable? PayeeInfo { get; }
+    Identifiable? Payers { get; }
     HistoryResponse? History { get; }
     FailedResponse? Failed { get; }
     AbortedResponse? Aborted { get; }
@@ -63,6 +65,7 @@ public interface IPaymentOrder
     CancelledResponse? Cancelled { get; }
     FinancialTransactionsResponse? FinancialTransactions { get; }
     FailedAttemptsResponse? FailedAttempts { get; }
+    Identifiable? PostPurchaseFailedAttempts { get; }
     Metadata? Metadata { get; }
 }
 
@@ -80,11 +83,14 @@ public class PaymentOrder : Identifiable, IPaymentOrder
     public Language Language { get; }
     public string[]? AvailableInstruments { get; }
     public string? Implementation { get; }
+    public string? Integration { get; }
     public bool InstrumentMode { get; }
     public bool GuestMode { get; }
     public PayerResponse? Payer { get; }
     public OrderItemsResponse? OrderItems { get; }
     public Urls? Urls { get; }
+    public Identifiable? PayeeInfo { get; }
+    public Identifiable? Payers { get; }
     public HistoryResponse? History { get; }
     public FailedResponse? Failed { get; }
     public AbortedResponse? Aborted { get; }
@@ -92,6 +98,7 @@ public class PaymentOrder : Identifiable, IPaymentOrder
     public CancelledResponse? Cancelled { get; }
     public FinancialTransactionsResponse? FinancialTransactions { get; }
     public FailedAttemptsResponse? FailedAttempts { get; }
+    public Identifiable? PostPurchaseFailedAttempts { get; }
     public Metadata? Metadata { get; }
 
     internal PaymentOrder(PaymentOrderResponseItemDto paymentOrderResponseItemDto) : base(paymentOrderResponseItemDto.Id)
@@ -108,11 +115,14 @@ public class PaymentOrder : Identifiable, IPaymentOrder
         Language = new Language(paymentOrderResponseItemDto.Language);
         AvailableInstruments = paymentOrderResponseItemDto.AvailableInstruments;
         Implementation = paymentOrderResponseItemDto.Implementation;
+        Integration = paymentOrderResponseItemDto.Integration;
         InstrumentMode = paymentOrderResponseItemDto.InstrumentMode;
         GuestMode = paymentOrderResponseItemDto.GuestMode;
         Payer = paymentOrderResponseItemDto.Payer?.Map();
         OrderItems = paymentOrderResponseItemDto.OrderItems?.Map();
         Urls = paymentOrderResponseItemDto.Urls?.Map();
+        PayeeInfo = paymentOrderResponseItemDto.PayeeInfo != null ? new Identifiable(paymentOrderResponseItemDto.PayeeInfo.Id) : null;
+        Payers = paymentOrderResponseItemDto.Payers != null ? new Identifiable(paymentOrderResponseItemDto.Payers.Id) : null;
         History = paymentOrderResponseItemDto.History?.Map();
         Failed = paymentOrderResponseItemDto.Failed?.Map();
         Aborted = paymentOrderResponseItemDto.Aborted?.Map();
@@ -120,6 +130,7 @@ public class PaymentOrder : Identifiable, IPaymentOrder
         Cancelled = paymentOrderResponseItemDto.Cancelled?.Map();
         FinancialTransactions = paymentOrderResponseItemDto.FinancialTransactions?.Map();
         FailedAttempts = paymentOrderResponseItemDto.FailedAttempts?.Map();
+        PostPurchaseFailedAttempts = paymentOrderResponseItemDto.PostPurchaseFailedAttempts != null ? new Identifiable(paymentOrderResponseItemDto.PostPurchaseFailedAttempts.Id) : null;
         Metadata = paymentOrderResponseItemDto.Metadata?.Map();
     }
 }

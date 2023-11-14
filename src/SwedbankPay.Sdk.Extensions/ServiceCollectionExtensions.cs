@@ -1,5 +1,7 @@
 using System.Net;
+
 using Microsoft.Extensions.DependencyInjection;
+
 using SwedbankPay.Sdk.PaymentOrder;
 
 namespace SwedbankPay.Sdk.Extensions;
@@ -26,6 +28,7 @@ public static class ServiceCollectionExtensions
         return AddClientAndHandler(services, a =>
         {
             a.BaseAddress = baseAddress;
+            a.DefaultRequestHeaders.Add("Accept", "application/json;version=3.1");
             a.DefaultRequestHeaders.Authorization =
                 new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", authenticationToken);
         });

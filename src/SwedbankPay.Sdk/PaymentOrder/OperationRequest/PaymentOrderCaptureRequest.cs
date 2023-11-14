@@ -194,7 +194,7 @@ public class TransactionResponse : Identifiable
     public DateTime Created { get; set; }
     public DateTime Updated { get; set; }
     public string Type { get; set; }
-    public State State { get; set; }
+    // public State State { get; set; }
     public Amount Amount { get; set; }
     public Amount VatAmount { get; set; }
     public string? Description { get; set; }
@@ -206,7 +206,7 @@ public class TransactionResponse : Identifiable
         Created = dto.Created;
         Updated = dto.Updated;
         Type = dto.Type;
-        State = dto.State;
+        // State = dto.State;
         Amount = new Amount(dto.Amount);
         VatAmount = new Amount(dto.VatAmount);
         Description = dto.Description;

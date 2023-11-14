@@ -15,11 +15,11 @@ public interface IPaymentOrderOperations : IDictionary<LinkRelation, HttpOperati
     /// </summary>
     Func<PaymentOrderAbortRequest, Task<IPaymentOrderResponse?>>? Abort { get; }
     
-    Func<PaymentOrderCancelRequest, Task<IPaymentOrderCancelResponse?>>? Cancel { get; }
+    Func<PaymentOrderCancelRequest, Task<IPaymentOrderResponse?>>? Cancel { get; }
     
-    Func<PaymentOrderCaptureRequest, Task<IPaymentOrderCaptureResponse?>>? Capture { get; }
+    Func<PaymentOrderCaptureRequest, Task<IPaymentOrderResponse?>>? Capture { get; }
     
-    Func<PaymentOrderReversalRequest, Task<IPaymentOrderReversalResponse?>>? Reverse { get; }
+    Func<PaymentOrderReversalRequest, Task<IPaymentOrderResponse?>>? Reverse { get; }
     
     HttpOperation? Redirect { get; }
     
@@ -62,18 +62,18 @@ public class PaymentOrderOperations : OperationsBase, IPaymentOrderOperations
                     Cancel = async payload =>
                     {
                         var requestDto = new PaymentOrderCancelRequestDto(payload);
-                        var dto = await httpClient.SendAsJsonAsync<PaymentOrderCancelResponseDto>(httpOperation.Method,
+                        var dto = await httpClient.SendAsJsonAsync<PaymentOrderResponseDto>(httpOperation.Method,
                             httpOperation.Href, requestDto);
-                        return dto != null ? new PaymentOrderCancelResponse(dto) : null;
+                        return dto != null ? new PaymentOrderResponse(dto, httpClient) : null;
                     };
                     break;
                 case PaymentOrderResourceOperations.Capture:
                     Capture = async payload =>
                     {
                         var requestDto = new PaymentOrderCaptureRequestDto(payload);
-                        var dto = await httpClient.SendAsJsonAsync<PaymentOrderCaptureResponseDto>(httpOperation.Method,
+                        var dto = await httpClient.SendAsJsonAsync<PaymentOrderResponseDto>(httpOperation.Method,
                             httpOperation.Href, requestDto);
-                        return dto != null ? new PaymentOrderCaptureResponse(dto) : null;
+                        return dto != null ? new PaymentOrderResponse(dto, httpClient) : null;
                     };
                     break;
                 case PaymentOrderResourceOperations.Reversal:
@@ -81,8 +81,8 @@ public class PaymentOrderOperations : OperationsBase, IPaymentOrderOperations
                     {
                         var url = httpOperation.Href.GetUrlWithQueryString(PaymentOrderExpand.All);
                         var requestDto = new PaymentOrderReversalRequestDto(payload);
-                        var dto = await httpClient.SendAsJsonAsync<PaymentOrderReversalResponseDto>(httpOperation.Method, url, requestDto);
-                        return dto != null ? new PaymentOrderReversalResponse(dto) : null;
+                        var dto = await httpClient.SendAsJsonAsync<PaymentOrderResponseDto>(httpOperation.Method, url, requestDto);
+                        return dto != null ? new PaymentOrderResponse(dto, httpClient) : null;
                     };
                     break;
                 case PaymentOrderResourceOperations.RedirectCheckout:
@@ -99,9 +99,9 @@ public class PaymentOrderOperations : OperationsBase, IPaymentOrderOperations
 
     public Func<PaymentOrderAbortRequest, Task<IPaymentOrderResponse?>>? Abort { get; }
     public Func<PaymentOrderUpdateRequest, Task<IPaymentOrderResponse?>>? Update { get; }
-    public Func<PaymentOrderCancelRequest, Task<IPaymentOrderCancelResponse?>>? Cancel { get; }
-    public Func<PaymentOrderCaptureRequest, Task<IPaymentOrderCaptureResponse?>>? Capture { get; }
-    public Func<PaymentOrderReversalRequest, Task<IPaymentOrderReversalResponse?>>? Reverse { get; }
+    public Func<PaymentOrderCancelRequest, Task<IPaymentOrderResponse?>>? Cancel { get; }
+    public Func<PaymentOrderCaptureRequest, Task<IPaymentOrderResponse?>>? Capture { get; }
+    public Func<PaymentOrderReversalRequest, Task<IPaymentOrderResponse?>>? Reverse { get; }
     public HttpOperation? Redirect { get; }
     public HttpOperation? View { get; }
 }
