@@ -15,205 +15,198 @@ using SwedbankPay.Sdk;
 using SwedbankPay.Sdk.PaymentOrder;
 using SwedbankPay.Sdk.PaymentOrder.OperationRequest;
 
-namespace Sample.AspNetCore.Controllers
+namespace Sample.AspNetCore.Controllers;
+
+public class CheckOutController : Controller
 {
-	public class CheckOutController : Controller
-	{
-		private readonly Cart _cartService;
-		private readonly StoreDbContext _context;
-		private readonly PayeeInfoConfig _payeeInfoOptions;
-		private readonly ISwedbankPayClient _swedbankPayClient;
-		private readonly UrlsOptions _urls;
+    private readonly Cart _cartService;
+    private readonly StoreDbContext _context;
+    private readonly PayeeInfoConfig _payeeInfoOptions;
+    private readonly ISwedbankPayClient _swedbankPayClient;
+    private readonly UrlsOptions _urls;
 
 
-		public CheckOutController(IOptionsSnapshot<PayeeInfoConfig> payeeInfoOptionsAccessor,
-								  IOptionsSnapshot<UrlsOptions> urlsAccessor,
-								  Cart cart,
-								  StoreDbContext storeDbContext,
-								  ISwedbankPayClient payClient)
-		{
-			_payeeInfoOptions = payeeInfoOptionsAccessor.Value;
-			_urls = urlsAccessor.Value;
-			_cartService = cart;
-			_context = storeDbContext;
-			_swedbankPayClient = payClient;
-		}
+    public CheckOutController(IOptionsSnapshot<PayeeInfoConfig> payeeInfoOptionsAccessor,
+        IOptionsSnapshot<UrlsOptions> urlsAccessor,
+        Cart cart,
+        StoreDbContext storeDbContext,
+        ISwedbankPayClient payClient)
+    {
+        _payeeInfoOptions = payeeInfoOptionsAccessor.Value;
+        _urls = urlsAccessor.Value;
+        _cartService = cart;
+        _context = storeDbContext;
+        _swedbankPayClient = payClient;
+    }
 
 
+    public async Task<IPaymentOrderResponse> CreateOrUpdatePaymentOrder(string consumerProfileRef = null, Uri paymentUrl = null)
+    {
+        Uri orderId = null;
+        var paymentOrderLink = this._cartService.PaymentOrderLink;
+        if (!string.IsNullOrWhiteSpace(paymentOrderLink))
+        {
+            orderId = new Uri(paymentOrderLink, UriKind.Relative);
+        }
 
-		public async Task<IPaymentOrderResponse> CreateOrUpdatePaymentOrder(string consumerProfileRef = null, Uri paymentUrl = null)
-		{
-			Uri orderId = null;
-			var paymentOrderLink = this._cartService.PaymentOrderLink;
-			if (!string.IsNullOrWhiteSpace(paymentOrderLink))
-			{
-				orderId = new Uri(paymentOrderLink, UriKind.Relative);
-			}
+        return orderId == null ? await CreatePaymentOrder(consumerProfileRef, paymentUrl) : await UpdatePaymentOrder(orderId, consumerProfileRef);
+    }
 
-			return orderId == null ? await CreatePaymentOrder(consumerProfileRef, paymentUrl) : await UpdatePaymentOrder(orderId, consumerProfileRef);
-		}
+    private async Task<IPaymentOrderResponse> UpdatePaymentOrder(Uri orderId, string consumerProfileRef, Uri paymentUrl = null)
+    {
+        var paymentOrder = await this._swedbankPayClient.PaymentOrders.Get(orderId, PaymentOrderExpand.All);
+        if (paymentOrder.Operations.Update == null)
+        {
+            if (paymentOrder.Operations.Abort != null)
+            {
+                await paymentOrder.Operations.Abort(new PaymentOrderAbortRequest("UpdateNotAvailable"));
+                return await CreatePaymentOrder(consumerProfileRef, paymentUrl);
+            }
 
-		private async Task<IPaymentOrderResponse> UpdatePaymentOrder(Uri orderId, string consumerProfileRef, Uri paymentUrl = null)
-		{
-			var paymentOrder = await this._swedbankPayClient.PaymentOrders.Get(orderId, PaymentOrderExpand.All);
-			if (paymentOrder.Operations.Update == null)
-			{
-				if(paymentOrder.Operations.Abort != null)
-				{
-					await paymentOrder.Operations.Abort(new PaymentOrderAbortRequest("UpdateNotAvailable"));
-					return await CreatePaymentOrder(consumerProfileRef, paymentUrl);
-				}
+            return paymentOrder;
+        }
 
-				return paymentOrder;
-			}
+        var totalAmount = this._cartService.CalculateTotal();
+        var updateRequest = new PaymentOrderUpdateRequest(new Amount(totalAmount), new Amount(0));
 
-			var totalAmount = this._cartService.CalculateTotal();
-			var updateRequest = new PaymentOrderUpdateRequest(new Amount(totalAmount), new Amount(0));
+        var orderItems = this._cartService.CartLines.ToOrderItems();
+        var paymentOrderItems = orderItems?.ToList();
 
-			var orderItems = this._cartService.CartLines.ToOrderItems();
-			var paymentOrderItems = orderItems?.ToList();
+        if (paymentOrderItems != null && paymentOrderItems.Any())
+        {
+            foreach (var orderItem in paymentOrderItems)
+            {
+                updateRequest.PaymentOrder.OrderItems.Add(orderItem);
+            }
 
-			if (paymentOrderItems != null && paymentOrderItems.Any())
-			{
-				foreach (var orderItem in paymentOrderItems)
-				{
-					updateRequest.PaymentOrder.OrderItems.Add(orderItem);
-				}
+            var sameOrderItems = paymentOrderItems.Select(x => x.Reference)
+                .All(paymentOrder.PaymentOrder.OrderItems.OrderItemList.Select(y => y.Reference).Contains);
 
-				var sameOrderItems = paymentOrderItems.Select(x => x.Reference)
-					.All(paymentOrder.PaymentOrder.OrderItems.OrderItemList.Select(y => y.Reference).Contains);
+            var amountChanged = totalAmount != paymentOrder.PaymentOrder.Amount;
+            if (amountChanged || !sameOrderItems)
+            {
+                var paymentOrderStatus = paymentOrder.PaymentOrder.Status;
+                if (!paymentOrderStatus.Equals(Status.Initialized))
+                {
+                    await paymentOrder.Operations.Abort(new PaymentOrderAbortRequest("UpdatedOrderItems"));
+                    return await CreatePaymentOrder(consumerProfileRef, paymentUrl);
+                }
+                else
+                {
+                    await paymentOrder.Operations.Update(updateRequest);
+                }
+            }
 
-				var amountChanged = totalAmount != paymentOrder.PaymentOrder.Amount;
-				if (amountChanged || !sameOrderItems)
-				{
-					var paymentOrderStatus = paymentOrder.PaymentOrder.Status;
-					if (!paymentOrderStatus.Equals(Status.Initialized))
-					{
-						await paymentOrder.Operations.Abort(new PaymentOrderAbortRequest("UpdatedOrderItems"));
-						return await CreatePaymentOrder(consumerProfileRef, paymentUrl);
-					}
-					else
-					{
-						await paymentOrder.Operations.Update(updateRequest);
-					}
-				}
+            return paymentOrder;
+        }
 
-				return paymentOrder;
-			}
+        return paymentOrder;
+    }
 
-			return paymentOrder;
-		}
+    public async Task<IPaymentOrderResponse> CreatePaymentOrder(string consumerProfileRef = null, Uri paymentUrl = null)
+    {
+        var totalAmount = _cartService.CalculateTotal();
 
-		public async Task<IPaymentOrderResponse> CreatePaymentOrder(string consumerProfileRef = null, Uri paymentUrl = null)
-		{
-			var totalAmount = _cartService.CalculateTotal();
-			
-			var orderItems = _cartService.CartLines.ToOrderItems();
-			var paymentOrderItems = orderItems?.ToList();
-			try
-			{
-				var paymentOrderRequest = new PaymentOrderRequest(Operation.Purchase, new Currency("SEK"),
-																  new Amount(totalAmount),
-																  new Amount(0), "Test description", "useragent",
-																  new Language("sv-SE"),
-																  new Urls(_urls.HostUrls.ToList(), _urls.CompleteUrl, _urls.CancelUrl, _urls.CallbackUrl)
-																  {
-																	  PaymentUrl = paymentUrl ?? _urls.PaymentUrl,
-																	  LogoUrl = _urls.LogoUrl
-																  },
-																  new PayeeInfo(_payeeInfoOptions.PayeeId, _payeeInfoOptions.PayeeReference));
-				paymentOrderRequest.Implementation = "PaymentsOnly";
-				paymentOrderRequest.OrderItems = paymentOrderItems;
-				var paymentOrder = await _swedbankPayClient.PaymentOrders.Create(paymentOrderRequest);
+        var orderItems = _cartService.CartLines.ToOrderItems();
+        var paymentOrderItems = orderItems?.ToList();
+        try
+        {
+            var paymentOrderRequest = new PaymentOrderRequest(Operation.Purchase, new Currency("SEK"),
+                new Amount(totalAmount),
+                new Amount(0), "Test description", "useragent",
+                new Language("sv-SE"),
+                new Urls(_urls.HostUrls.ToList(), _urls.CompleteUrl, _urls.CancelUrl, _urls.CallbackUrl)
+                {
+                    PaymentUrl = paymentUrl ?? _urls.PaymentUrl,
+                    LogoUrl = _urls.LogoUrl
+                },
+                new PayeeInfo(_payeeInfoOptions.PayeeId, _payeeInfoOptions.PayeeReference));
+            // paymentOrderRequest.Implementation = "PaymentsOnly";
+            paymentOrderRequest.OrderItems = paymentOrderItems;
+            var paymentOrder = await _swedbankPayClient.PaymentOrders.Create(paymentOrderRequest);
 
-				_cartService.PaymentOrderLink = paymentOrder.PaymentOrder.Id.OriginalString;
-				_cartService.PaymentLink = null;
-				_cartService.ConsumerProfileRef = consumerProfileRef;
-				_cartService.Update();
+            _cartService.PaymentOrderLink = paymentOrder.PaymentOrder.Id.OriginalString;
+            _cartService.PaymentLink = null;
+            _cartService.ConsumerProfileRef = consumerProfileRef;
+            _cartService.Update();
 
-				return paymentOrder;
-			}
-			catch (Exception ex)
-			{
-				Debug.Write(ex.Message);
-				return null;
-			}
-		}
+            return paymentOrder;
+        }
+        catch (Exception ex)
+        {
+            Debug.Write(ex.Message);
+            return null;
+        }
+    }
 
-		[HttpPost]
-		public async Task<JsonResult> GetViewPaymentOrderHref(string consumerProfileRef = null)
-		{
-			string paymentOrderLink = this._cartService.PaymentOrderLink;
-			if (!string.IsNullOrWhiteSpace(paymentOrderLink))
-			{
-				var uri = new Uri(paymentOrderLink, UriKind.Relative);
-				var paymentOrderResponse = await this._swedbankPayClient.PaymentOrders.Get(uri, PaymentOrderExpand.None);
-				return Json(paymentOrderResponse.Operations.View.Href.OriginalString);
-			}
+    [HttpPost]
+    public async Task<JsonResult> GetViewPaymentOrderHref(string consumerProfileRef = null)
+    {
+        string paymentOrderLink = this._cartService.PaymentOrderLink;
+        if (!string.IsNullOrWhiteSpace(paymentOrderLink))
+        {
+            var uri = new Uri(paymentOrderLink, UriKind.Relative);
+            var paymentOrderResponse = await this._swedbankPayClient.PaymentOrders.Get(uri, PaymentOrderExpand.None);
+            return Json(paymentOrderResponse.Operations.View.Href.OriginalString);
+        }
 
-			var paymentOrderResponseObject = await CreateOrUpdatePaymentOrder(consumerProfileRef, this._urls.StandardCheckoutPaymentUrl);
-			return Json(paymentOrderResponseObject.Operations.View.Href.OriginalString);
-		}
-
-
-		public async Task<IActionResult> LoadPaymentMenu()
-		{
-			var consumerProfileRef = this._cartService.ConsumerProfileRef;
-			var paymentOrder = await CreateOrUpdatePaymentOrder(consumerProfileRef, this._urls.AnonymousCheckoutPaymentUrl);
-
-			var jsSource = paymentOrder.Operations.View.Href;
-
-			var swedbankPaySource = new SwedbankPayCheckoutSource
-			{
-				JavascriptSource = jsSource,
-				Culture = CultureInfo.GetCultureInfo("sv-SE"),
-				UseAnonymousCheckout = true,
-				AbortOperationLink = paymentOrder.Operations[LinkRelation.UpdateAbort]?.Href,
-				PaymentOrderLink = paymentOrder.PaymentOrder.Id
-			};
-			
-			return View("Checkout", swedbankPaySource);
-		}
-
-		public IActionResult LoadCardPaymentMenu()
-		{
-			return View("Payment");
-		}
-
-		public ViewResult Aborted()
-		{
-			return View();
-		}
+        var paymentOrderResponseObject = await CreateOrUpdatePaymentOrder(consumerProfileRef, this._urls.StandardCheckoutPaymentUrl);
+        return Json(paymentOrderResponseObject.Operations.View.Href.OriginalString);
+    }
 
 
-		public ViewResult Thankyou()
-		{
-			if (_cartService.CartLines != null && _cartService.CartLines.Any())
-			{
-				var products = _cartService.CartLines.Select(p => p.Product);
-				_context.Products.AttachRange(products);
+    public async Task<IActionResult> LoadPaymentMenu()
+    {
+        var consumerProfileRef = this._cartService.ConsumerProfileRef;
+        var paymentOrder = await CreateOrUpdatePaymentOrder(consumerProfileRef, this._urls.AnonymousCheckoutPaymentUrl);
 
-				_context.Orders.Add(new Order
-				{
-					PaymentOrderLink = _cartService.PaymentOrderLink != null ? new Uri(_cartService.PaymentOrderLink, UriKind.RelativeOrAbsolute) : null,
-					PaymentLink = _cartService.PaymentLink != null ? new Uri(_cartService.PaymentLink, UriKind.RelativeOrAbsolute) : null,
-					// Instrument = this._cartService.Instrument,
-					Lines = _cartService.CartLines.ToList()
-				});
-				_context.SaveChanges(true);
-				_cartService.Clear();
-			}
+        var jsSource = paymentOrder.Operations.View.Href;
 
-			var model = new CheckoutViewModel
-			{
-				PaymentOrderLink = _cartService.PaymentOrderLink
-			};
-			return View(model);
-		}
-	}
-}
+        var swedbankPaySource = new SwedbankPayCheckoutSource
+        {
+            JavascriptSource = jsSource,
+            Culture = CultureInfo.GetCultureInfo("sv-SE"),
+            UseAnonymousCheckout = true,
+            AbortOperationLink = paymentOrder.Operations[LinkRelation.UpdateAbort]?.Href,
+            PaymentOrderLink = paymentOrder.PaymentOrder.Id
+        };
 
-public class CheckoutViewModel
-{
-	public string PaymentOrderLink { get; set; }
+        return View("Checkout", swedbankPaySource);
+    }
+
+    public IActionResult LoadCardPaymentMenu()
+    {
+        return View("Payment");
+    }
+
+    public ViewResult Aborted()
+    {
+        return View();
+    }
+
+
+    public ViewResult Thankyou()
+    {
+        if (_cartService.CartLines != null && _cartService.CartLines.Any())
+        {
+            var products = _cartService.CartLines.Select(p => p.Product);
+            _context.Products.AttachRange(products);
+
+            _context.Orders.Add(new Order
+            {
+                PaymentOrderLink = _cartService.PaymentOrderLink != null ? new Uri(_cartService.PaymentOrderLink, UriKind.RelativeOrAbsolute) : null,
+                PaymentLink = _cartService.PaymentLink != null ? new Uri(_cartService.PaymentLink, UriKind.RelativeOrAbsolute) : null,
+                // Instrument = this._cartService.Instrument,
+                Lines = _cartService.CartLines.ToList()
+            });
+            _context.SaveChanges(true);
+            _cartService.Clear();
+        }
+
+        var model = new CheckoutViewModel
+        {
+            PaymentOrderLink = _cartService.PaymentOrderLink
+        };
+        return View(model);
+    }
 }

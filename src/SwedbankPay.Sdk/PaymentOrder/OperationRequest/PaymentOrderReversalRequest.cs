@@ -51,13 +51,6 @@ internal record PaymentOrderReversalRequestDto
 
 internal record TransactionRequestDto
 {
-    public string Description { get; set; }
-    public long Amount { get; set; }
-    public long VatAmount { get; set; }
-    public string PayeeReference { get; set; }
-    public string? ReceiptReference { get; set; }
-    public IList<OrderItemDto> OrderItems { get; set; }
-
     public TransactionRequestDto(TransactionRequest payload)
     {
         Description = payload.Description;
@@ -67,52 +60,11 @@ internal record TransactionRequestDto
         ReceiptReference = payload.ReceiptReference;
         OrderItems = payload.OrderItems.Select(x => new OrderItemDto(x)).ToList();
     }
-}
-
-internal record PaymentOrderReversalResponseDto
-{
-    public string Payment { get; set; } = null!;
-    public PaymentOrderReversalResponseDetailDto? Reversal { get; set; }
-}
-
-internal record PaymentOrderReversalResponseDetailDto : IdentifiableDto
-{
-    public TransactionResponseDto? Transaction { get; set; }
     
-    public PaymentOrderReversalResponseDetailDto(string id) : base(id)
-    {
-    }
-
-    public PaymentOrderReversalResponseDetail Map()
-    {
-        return new PaymentOrderReversalResponseDetail(this);
-    }
-}
-
-public interface IPaymentOrderReversalResponse
-{
-    Uri Payment { get; }
-    PaymentOrderReversalResponseDetail? Reversal { get; }
-}
-
-public class PaymentOrderReversalResponse : IPaymentOrderReversalResponse
-{
-    public Uri Payment { get; }
-    public PaymentOrderReversalResponseDetail? Reversal { get; }
-    
-    internal PaymentOrderReversalResponse(PaymentOrderReversalResponseDto dto)
-    {
-        Payment = new Uri(dto.Payment, UriKind.RelativeOrAbsolute);
-        Reversal = dto.Reversal?.Map();
-    }
-}
-
-public class PaymentOrderReversalResponseDetail
-{
-    public TransactionResponse? Transaction { get; }
-
-    internal PaymentOrderReversalResponseDetail(PaymentOrderReversalResponseDetailDto dto)
-    {
-        Transaction = dto.Transaction?.Map();
-    }
+    public string Description { get; set; }
+    public long Amount { get; set; }
+    public long VatAmount { get; set; }
+    public string PayeeReference { get; set; }
+    public string? ReceiptReference { get; set; }
+    public IList<OrderItemDto> OrderItems { get; set; }
 }
