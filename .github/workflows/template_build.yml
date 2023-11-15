@@ -109,4 +109,6 @@ jobs:
           # Artifact name
           name: packages
           # A file, directory or wildcard pattern that describes what to upload
-          path: artifacts/*.nupkg
+          path: |
+            artifacts/*.nupkg
+            artifacts/*.snupkg
