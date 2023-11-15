@@ -247,7 +247,7 @@ public class FinancialTransactionListItem : Identifiable
 {
     public DateTime Created { get; set; }
     public DateTime Updated { get; set; }
-    public string? Type { get; set; }
+    public FinancialTransactionType? Type { get; set; }
     public long Number { get; set; }
     public Amount Amount { get; set; }
     public Amount VatAmount { get; set; }
@@ -373,7 +373,7 @@ public class PaidResponse : Identifiable
     public string? Instrument { get; }
     public long Number { get; }
     public string? PayeeReference { get; }
-    public string? TransactionType { get; }
+    public TransactionType? TransactionType { get; }
     public Amount Amount { get; }
     public Amount SubmittedAmount { get; }
     public Amount FeeAmount { get; }
