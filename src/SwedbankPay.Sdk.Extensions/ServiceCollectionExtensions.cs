@@ -21,16 +21,20 @@ public static class ServiceCollectionExtensions
         string authenticationToken)
     {
         if (string.IsNullOrWhiteSpace(authenticationToken))
+        {
             throw new ArgumentNullException(nameof(authenticationToken));
+        }
+
         if (Uri.IsWellFormedUriString(baseAddress.OriginalString, UriKind.Absolute) == false)
+        {
             throw new ArgumentException($"{nameof(baseAddress)} is not a well formed and absolute {nameof(Uri)}.");
+        }
 
         return AddClientAndHandler(services, a =>
         {
             a.BaseAddress = baseAddress;
             a.DefaultRequestHeaders.Add("Accept", "application/json;version=3.1");
-            a.DefaultRequestHeaders.Authorization =
-                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", authenticationToken);
+            a.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", authenticationToken);
         });
     }
 
