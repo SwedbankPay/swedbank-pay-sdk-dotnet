@@ -28,9 +28,9 @@ describe('Pay with Swish', () => {
 
                     expect(responseBody.paymentOrder.status.value).to.eq('Paid');
                     expect(responseBody.paymentOrder.paid.instrument).to.eq('Swish');
-                    expect(responseBody.paymentOrder.paid.transactionType).to.eq('Sale');
+                    expect(responseBody.paymentOrder.paid.transactionType.value).to.eq('Sale');
                     expect(responseBody.paymentOrder.paid.details.msisdn).to.eq(Data.payment.swishPhone);
-                    expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[0].type).to.eq('Sale');
+                    expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[0].type.value).to.eq('Sale');
 
                     expect(responseBody.operations.capture).to.be.undefined;
                     expect(responseBody.operations.reversal).to.not.be.undefined;
@@ -46,7 +46,8 @@ describe('Pay with Swish', () => {
                 cy.getPaymentOrder(paymentOrderLink).then((response) => {
                     expect(response.status).to.eq(200);
                     let responseBody = response.body;
-                    expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[1].type).to.eq('Reversal');
+                    expect(responseBody.paymentOrder.status.value).to.eq('Reversed');
+                    expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[1].type.value).to.eq('Reversal');
                     expect(responseBody.operations.capture).to.be.undefined;
                     expect(responseBody.operations.reversal).to.be.undefined;
                 });

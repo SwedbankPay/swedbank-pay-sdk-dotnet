@@ -57,11 +57,28 @@ describe('Pay with Trustly', () => {
                 let paymentOrderLink = $paymentOrderLink.text();
                 cy.getByAutomation('orderslink', true, {timeout: 30000}).click();
 
+                cy.getPaymentOrder(paymentOrderLink).then((response) => {
+                    expect(response.status).to.eq(200);
+                    let responseBody = response.body;
+                    expect(responseBody.paymentOrder.status.value).to.eq('Paid');
+                    expect(responseBody.operations.capture).to.be.undefined;
+                    expect(responseBody.operations.reversal).to.not.be.undefined;
+                });
+                
                 cy.get('[data-paymentorderlink="' + paymentOrderLink + '"]').within(($paymentOrder) => {
                     cy.getByAutomation('a-paymentorderreversal').should('be.visible').click();
                 });
 
                 cy.get('.alert.alert-success', {timeout: 5000}).should('have.class', 'alert-success');
+
+
+                cy.getPaymentOrder(paymentOrderLink).then((response) => {
+                    expect(response.status).to.eq(200);
+                    let responseBody = response.body;
+                    expect(responseBody.paymentOrder.status.value).to.eq('Reversed');
+                    expect(responseBody.operations.capture).to.be.undefined;
+                    expect(responseBody.operations.reversal).to.be.undefined;
+                });
             })
         });
     })

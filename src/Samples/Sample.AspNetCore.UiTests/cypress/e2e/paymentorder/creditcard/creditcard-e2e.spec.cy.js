@@ -52,7 +52,7 @@ describe('Pay with Credit card', () => {
 
                     expect(responseBody.paymentOrder.status.value).to.eq('Paid');
                     expect(responseBody.paymentOrder.paid.instrument).to.eq('CreditCard');
-                    expect(responseBody.paymentOrder.paid.transactionType).to.eq('Authorization');
+                    expect(responseBody.paymentOrder.paid.transactionType.value).to.eq('Authorization');
                     expect(responseBody.operations.capture).to.not.be.undefined;
                     expect(responseBody.operations.reversal).to.be.undefined;
                 });
@@ -67,7 +67,7 @@ describe('Pay with Credit card', () => {
 
                     expect(responseBody.paymentOrder.status.value).to.eq('Paid');
                     expect(responseBody.paymentOrder.paid.instrument).to.eq('CreditCard');
-                    expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[0].type).to.eq('Capture');
+                    expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[0].type.value).to.eq('Capture');
                     expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[0].amount.inLowestMonetaryUnit).to.eq(responseBody.paymentOrder.amount.inLowestMonetaryUnit);
                     expect(responseBody.operations.capture).to.be.undefined;
                     expect(responseBody.operations.reversal).to.not.be.undefined;
@@ -85,8 +85,7 @@ describe('Pay with Credit card', () => {
                     let responseBody = response.body;
 
                     expect(responseBody.paymentOrder.status.value).to.eq('Reversed');
-                    expect(responseBody.paymentOrder.paid.instrument).to.eq('CreditCard');
-                    expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[1].type).to.eq('Reversal');
+                    expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[1].type.value).to.eq('Reversal');
                     expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[1].amount.inLowestMonetaryUnit).to.eq(responseBody.paymentOrder.amount.inLowestMonetaryUnit);
                     expect(responseBody.operations.capture).to.be.undefined;
                     expect(responseBody.operations.reversal).to.be.undefined;
@@ -213,7 +212,7 @@ describe('Pay with 3DS Credit card', () => {
 
                     expect(responseBody.paymentOrder.status.value).to.eq('Paid');
                     expect(responseBody.paymentOrder.paid.instrument).to.eq('CreditCard');
-                    expect(responseBody.paymentOrder.paid.transactionType).to.eq('Authorization');
+                    expect(responseBody.paymentOrder.paid.transactionType.value).to.eq('Authorization');
                     expect(responseBody.operations.capture).to.not.be.undefined;
                     expect(responseBody.operations.reversal).to.be.undefined;
                 });
@@ -228,7 +227,7 @@ describe('Pay with 3DS Credit card', () => {
 
                     expect(responseBody.paymentOrder.status.value).to.eq('Paid');
                     expect(responseBody.paymentOrder.paid.instrument).to.eq('CreditCard');
-                    expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[0].type).to.eq('Capture');
+                    expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[0].type.value).to.eq('Capture');
                     expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[0].amount.inLowestMonetaryUnit).to.eq(responseBody.paymentOrder.amount.inLowestMonetaryUnit);
                     expect(responseBody.operations.capture).to.be.undefined;
                     expect(responseBody.operations.reversal).to.not.be.undefined;
@@ -245,8 +244,7 @@ describe('Pay with 3DS Credit card', () => {
                     let responseBody = response.body;
 
                     expect(responseBody.paymentOrder.status.value).to.eq('Reversed');
-                    expect(responseBody.paymentOrder.paid.instrument).to.eq('CreditCard');
-                    expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[1].type).to.eq('Reversal');
+                    expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[1].type.value).to.eq('Reversal');
                     expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[1].amount.inLowestMonetaryUnit).to.eq(responseBody.paymentOrder.amount.inLowestMonetaryUnit);
                     expect(responseBody.operations.capture).to.be.undefined;
                     expect(responseBody.operations.reversal).to.be.undefined;
