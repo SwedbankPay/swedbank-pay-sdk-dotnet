@@ -82,17 +82,19 @@ public class Startup
         services.AddScoped(provider => SessionCart.GetCart(provider));
         services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 
-        void configureClient(HttpClient a)
-        {
-            a.BaseAddress = swedBankPayOptions.ApiBaseUrl;
-            a.DefaultRequestHeaders.Authorization =
-                new AuthenticationHeaderValue("Bearer", swedBankPayOptions.Token);
-            a.DefaultRequestHeaders.Add("Accept", "application/json;version=3.1");
-            a.DefaultRequestHeaders.Add("User-Agent",
-                $"swedbankpay-sdksamplesite-dotnet/{Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version}");
-        }
-
-        services.AddSwedbankPayClient(configureClient);
+        // void configureClient(HttpClient a)
+        // {
+        //     a.BaseAddress = swedBankPayOptions.ApiBaseUrl;
+        //     a.DefaultRequestHeaders.Authorization =
+        //         new AuthenticationHeaderValue("Bearer", swedBankPayOptions.Token);
+        //     a.DefaultRequestHeaders.Add("Accept", "application/json;version=3.1");
+        //     a.DefaultRequestHeaders.Add("User-Agent",
+        //         $"swedbankpay-sdksamplesite-dotnet/{Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version}");
+        // }
+        //
+        // services.AddSwedbankPayClient(configureClient);
+        
+        services.AddSwedbankPayClient(swedBankPayOptions.ApiBaseUrl, swedBankPayOptions.Token);
         services.AddSession();
 
         // Code copied from:
