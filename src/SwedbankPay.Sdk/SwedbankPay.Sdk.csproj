@@ -11,7 +11,24 @@
         <Copyright>Swedbank Pay</Copyright>
         <AssemblyName>SwedbankPay.Sdk</AssemblyName>
         <RootNamespace>SwedbankPay.Sdk</RootNamespace>
+        
+        <PackageId>SwedbankPay.Sdk</PackageId>
+        <PackageIcon>icon.png</PackageIcon>
+        <PackageTags>SwedbankPay sdk payments payment client api rest restful</PackageTags>
+        <PackageReleaseNotes>SDK for Swedbank Pay Checkout v3.1.</PackageReleaseNotes>
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/SwedbankPay/swedbank-pay-sdk-dotnet</PackageProjectUrl>
+
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://github.com/SwedbankPay/swedbank-pay-sdk-dotnet.git</RepositoryUrl>
     </PropertyGroup>
+    <ItemGroup>
+        <None Include="..\icon.png" Pack="true" PackagePath="\" />
+    </ItemGroup>
+    
     
     <ItemGroup>
         <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
