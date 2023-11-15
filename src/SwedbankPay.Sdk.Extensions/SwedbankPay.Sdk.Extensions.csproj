@@ -20,6 +20,7 @@
 
         <RepositoryType>git</RepositoryType>
         <RepositoryUrl>https://github.com/SwedbankPay/swedbank-pay-sdk-dotnet.git</RepositoryUrl>
+        <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     </PropertyGroup>
     <ItemGroup>
         <None Include="..\icon.png" Pack="true" PackagePath="\" />
