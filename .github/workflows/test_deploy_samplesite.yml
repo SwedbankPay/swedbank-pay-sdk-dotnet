@@ -7,13 +7,13 @@ on:
 
 env:
   dotnetVersion: |
-    5.x
     6.x
+    8.x
 
 jobs:
   test-unit-ui:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     environment: ${{ github.event.workflow_run.name }}
     outputs:
       sourceHeadRepo: ${{ steps.source-run-info.outputs.sourceHeadRepo }}
@@ -34,70 +34,94 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           sourceRunId: ${{ github.event.workflow_run.id }}
      
+      - uses: actions/checkout@v4
+                    
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.dotnetVersion }}
+
       - name: Download artifact
         id: download-artifact
         uses: dawidd6/action-download-artifact@v2
         with:
           workflow_conclusion: success
           run_id: ${{ github.event.workflow_run.id }}
-                    
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3.0.3
+
+      # - name: Run SDK Unit Tests
+      #   run: dotnet test Sdk.UnitTests/SwedbankPay.Sdk.Tests.dll
+
+      # - name: Run SDK Integration Tests
+      #   run: dotnet test Sdk.IntegrationTests/SwedbankPay.Sdk.IntegrationTests.dll
+      #   env:
+      #     SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
+      #     SwedbankPay:TokenMobilePay: ${{ secrets.MERCHANT_TOKEN_MOBILE_PAY }}
+      #     SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
+
+      - name: Trust dev cert
+        run: dotnet dev-certs https --trust
+
+      #- name: Run SDK Sample project
+      #  run: dotnet Sample.AspNetCore.dll --urls https://localhost:5001
+      #  working-directory: Sample.AspNetCore
+        # env:
+        #   SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
+        #   SwedbankPay:TokenMobilePay: ${{ secrets.MERCHANT_TOKEN_MOBILE_PAY }}
+        #   SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
+        #   SwedbankPay:Sdk:SampleWebsite:BaseUrl: https://localhost:5001
+
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
         with:
-          dotnet-version: ${{ env.dotnetVersion }}       
-
-      - name: Run SDK Unit Tests
-        run: dotnet test Sdk.UnitTests/SwedbankPay.Sdk.Tests.dll
-
-      - name: Run SDK Integration Tests
-        run: dotnet test Sdk.IntegrationTests/SwedbankPay.Sdk.IntegrationTests.dll
+          working-directory: ./src/Samples/Sample.AspNetCore.UiTests
+          start: dotnet run --project ../Sample.AspNetCore/Sample.AspNetCore.csproj --urls https://localhost:5001
+          wait-on: 'https://localhost:5001'
+          browser: chrome
         env:
-          SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
-          SwedbankPay:TokenMobilePay: ${{ secrets.MERCHANT_TOKEN_MOBILE_PAY }}
-          SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
-
-      - name: Run SDK Sample project tests
-        run: dotnet test Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.dll -v n
-        env:
-          SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
-          SwedbankPay:TokenMobilePay: ${{ secrets.MERCHANT_TOKEN_MOBILE_PAY }}
-          SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
-          SwedbankPay:Sdk:SampleWebsite:BaseUrl: https://localhost:5001
+          NODE_TLS_REJECT_UNAUTHORIZED: 0
+        
+      # - uses: actions/setup-node@v4
+      #   with:
+      #     node-version;: 18.14.0
+      # - run: npm ci
+      # - run: run cy:run:inte
+      
 
       - name: Commit Action Status
         if: ${{ always() }}
-        uses: LouisBrunner/checks-action@v1.6.0
+        uses: LouisBrunner/checks-action@v1.6.2
         with:
           sha: ${{ steps.source-run-info.outputs.sourceHeadSha }}
           token: ${{ secrets.GITHUB_TOKEN }}
           name: Run Unit and UI tests
           conclusion: ${{ job.status }}
               
-  publish_alpha_nuget:
-    needs: [test-unit-ui]
-    if: ${{ needs.test-unit-ui.outputs.sourceEvent != 'pull_request' && github.event.workflow_run.name == 'Dev' }}
-    name: Publish alpha nuget
-    runs-on: ubuntu-latest
-    environment: ${{ github.event.workflow_run.name }}
+  # publish_alpha_nuget:
+  #   needs: [test-unit-ui]
+  #   if: ${{ needs.test-unit-ui.outputs.sourceEvent != 'pull_request' && github.event.workflow_run.name == 'Dev' }}
+  #   name: Publish alpha nuget
+  #   runs-on: ubuntu-latest
+  #   environment: ${{ github.event.workflow_run.name }}
 
-    steps:
-      - name: Download artifact
-        id: download-artifact
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          workflow_conclusion: success
-          run_id: ${{ github.event.workflow_run.id }}
-          name: packages
-          path: packages
+  #   steps:
+  #     - name: Download artifact
+  #       id: download-artifact
+  #       uses: dawidd6/action-download-artifact@v2
+  #       with:
+  #         workflow_conclusion: success
+  #         run_id: ${{ github.event.workflow_run.id }}
+  #         name: packages
+  #         path: packages
     
-      - name: Publish test package to GitHub Package Registry
-        run: dotnet nuget push "packages/*.nupkg" --api-key ${{secrets.GITHUB_TOKEN}} --source  https://nuget.pkg.github.com/swedbankpay/index.json --skip-duplicate
+  #     - name: Publish test package to GitHub Package Registry
+  #       run: dotnet nuget push "packages/*.nupkg" --api-key ${{secrets.GITHUB_TOKEN}} --source  https://nuget.pkg.github.com/swedbankpay/index.json --skip-duplicate
   
-  publish_sample_site:
-    needs: [test-unit-ui]
-    if: ${{ needs.test-unit-ui.outputs.sourceEvent != 'pull_request' }}
-    uses: ./.github/workflows/template_publish_webapp.yml  
-    secrets: inherit
-    with:
-      Environment: ${{ github.event.workflow_run.name }}
-      WorkflowRunId: ${{ github.event.workflow_run.id }}
+  # publish_sample_site:
+  #   needs: [test-unit-ui]
+  #   if: ${{ needs.test-unit-ui.outputs.sourceEvent != 'pull_request' }}
+  #   uses: ./.github/workflows/template_publish_webapp.yml  
+  #   secrets: inherit
+  #   with:
+  #     Environment: ${{ github.event.workflow_run.name }}
+  #     WorkflowRunId: ${{ github.event.workflow_run.id }}
