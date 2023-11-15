@@ -68,12 +68,17 @@ public enum PaymentOrderExpand
     FailedAttempts = 1024,
     
     /// <summary>
+    /// Expand the Post Purchase Failed Attempts sub-resource.
+    /// </summary>
+    PostPurchaseFailedAttempts = 2048,
+    
+    /// <summary>
     /// Expand the Meta data sub-resource.
     /// </summary>
-    MetaData = 2048,
+    MetaData = 4096,
     
     /// <summary>
     /// Expand All sub-resources.
     /// </summary>
-    All = 4095
+    All = 8191
 }

@@ -36,7 +36,7 @@ internal record PaymentOrderResponseItemDto
     public CancelledResponseDto? Cancelled { get; set; }
     public FinancialTransactionsResponseDto? FinancialTransactions { get; set; }
     public FailedAttemptsResponseDto? FailedAttempts { get; set; }
-    public IdentifiableDto? PostPurchaseFailedAttempts { get; set; }
+    public PostPurchaseFailedAttemptsResponseDto? PostPurchaseFailedAttempts { get; set; }
     public MetadataDto? Metadata { get; set; }
 }
 
@@ -149,6 +149,18 @@ internal record FailedAttemptsResponseDto : IdentifiableDto
     public FailedAttemptsResponse Map()
     {
         return new FailedAttemptsResponse(this);
+    }
+}
+
+internal record PostPurchaseFailedAttemptsResponseDto : IdentifiableDto
+{
+    public PostPurchaseFailedAttemptsResponseDto(string id) : base(id)
+    {
+    }
+
+    public PostPurchaseFailedAttemptsResponse Map()
+    {
+        return new PostPurchaseFailedAttemptsResponse(this);
     }
 }
 
