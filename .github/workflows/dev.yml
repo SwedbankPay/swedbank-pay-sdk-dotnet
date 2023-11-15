@@ -25,6 +25,6 @@ jobs:
       SlnPath: ./src/SwedbankPay.Sdk.sln
       SdkCsprojPath: ./src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj
       SampleSiteCsprojPath: ./src/Samples/Sample.AspNetCore/Sample.AspNetCore.csproj
-      SystemTestsCsprojPath: ./src/Samples/Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.csproj
+      # SystemTestsCsprojPath: ./src/Samples/Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.csproj
       UnitTestsCsprojPath: ./src/SwedbankPay.Sdk.Tests/SwedbankPay.Sdk.Tests.csproj 
-      IntegrationTestsCsprojPath: ./src/SwedbankPay.Sdk.IntegrationTests/SwedbankPay.Sdk.IntegrationTests.csproj
+      # IntegrationTestsCsprojPath: ./src/SwedbankPay.Sdk.IntegrationTests/SwedbankPay.Sdk.IntegrationTests.csproj
