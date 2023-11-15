@@ -11,12 +11,12 @@ namespace Sample.AspNetCore.Controllers;
 
 public class ProductsController : Controller
 {
-    private readonly StoreDbContext context;
+    private readonly StoreDbContext _storeDbContext;
 
 
-    public ProductsController(StoreDbContext storeDbContext)
+    public ProductsController(StoreDbContext storeDbStoreDbContext)
     {
-        this.context = storeDbContext;
+        _storeDbContext = storeDbStoreDbContext;
     }
 
 
@@ -37,8 +37,8 @@ public class ProductsController : Controller
     {
         if (ModelState.IsValid)
         {
-            this.context.Add(product);
-            await this.context.SaveChangesAsync();
+            _storeDbContext.Add(product);
+            await _storeDbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
@@ -52,9 +52,9 @@ public class ProductsController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        var product = await this.context.Products.FindAsync(id);
-        this.context.Products.Remove(product);
-        await this.context.SaveChangesAsync();
+        var product = await _storeDbContext.Products.FindAsync(id);
+        _storeDbContext.Products.Remove(product);
+        await _storeDbContext.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
 
@@ -67,8 +67,7 @@ public class ProductsController : Controller
             return NotFound();
         }
 
-        var product = await this.context.Products
-            .FirstOrDefaultAsync(m => m.ProductId == id);
+        var product = await _storeDbContext.Products.FirstOrDefaultAsync(m => m.ProductId == id);
         if (product == null)
         {
             return NotFound();
@@ -86,7 +85,7 @@ public class ProductsController : Controller
             return NotFound();
         }
 
-        var product = await this.context.Products.FindAsync(id);
+        var product = await _storeDbContext.Products.FindAsync(id);
         if (product == null)
         {
             return NotFound();
@@ -114,8 +113,8 @@ public class ProductsController : Controller
         {
             try
             {
-                this.context.Update(product);
-                await this.context.SaveChangesAsync();
+                _storeDbContext.Update(product);
+                await _storeDbContext.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -137,14 +136,12 @@ public class ProductsController : Controller
     // GET: Products
     public async Task<IActionResult> Index()
     {
-        return View(await this.context.Products.ToListAsync());
+        return View(await _storeDbContext.Products.ToListAsync());
     }
 
 
     private bool ProductExists(int id)
     {
-        return this.context.Products.Any(e => e.ProductId == id);
+        return _storeDbContext.Products.Any(e => e.ProductId == id);
     }
-
-
 }

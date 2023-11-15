@@ -43,7 +43,7 @@ public class CheckOutController : Controller
     public async Task<IPaymentOrderResponse> CreateOrUpdatePaymentOrder(string consumerProfileRef = null, Uri paymentUrl = null)
     {
         Uri orderId = null;
-        var paymentOrderLink = this._cartService.PaymentOrderLink;
+        var paymentOrderLink = _cartService.PaymentOrderLink;
         if (!string.IsNullOrWhiteSpace(paymentOrderLink))
         {
             orderId = new Uri(paymentOrderLink, UriKind.Relative);
@@ -54,7 +54,7 @@ public class CheckOutController : Controller
 
     private async Task<IPaymentOrderResponse> UpdatePaymentOrder(Uri orderId, string consumerProfileRef, Uri paymentUrl = null)
     {
-        var paymentOrder = await this._swedbankPayClient.PaymentOrders.Get(orderId, PaymentOrderExpand.All);
+        var paymentOrder = await _swedbankPayClient.PaymentOrders.Get(orderId, PaymentOrderExpand.All);
         if (paymentOrder.Operations.Update == null)
         {
             if (paymentOrder.Operations.Abort != null)
@@ -66,10 +66,10 @@ public class CheckOutController : Controller
             return paymentOrder;
         }
 
-        var totalAmount = this._cartService.CalculateTotal();
+        var totalAmount = _cartService.CalculateTotal();
         var updateRequest = new PaymentOrderUpdateRequest(new Amount(totalAmount), new Amount(0));
 
-        var orderItems = this._cartService.CartLines.ToOrderItems();
+        var orderItems = _cartService.CartLines.ToOrderItems();
         var paymentOrderItems = orderItems?.ToList();
 
         if (paymentOrderItems != null && paymentOrderItems.Any())
@@ -142,23 +142,23 @@ public class CheckOutController : Controller
     [HttpPost]
     public async Task<JsonResult> GetViewPaymentOrderHref(string consumerProfileRef = null)
     {
-        string paymentOrderLink = this._cartService.PaymentOrderLink;
+        string paymentOrderLink = _cartService.PaymentOrderLink;
         if (!string.IsNullOrWhiteSpace(paymentOrderLink))
         {
             var uri = new Uri(paymentOrderLink, UriKind.Relative);
-            var paymentOrderResponse = await this._swedbankPayClient.PaymentOrders.Get(uri, PaymentOrderExpand.None);
+            var paymentOrderResponse = await _swedbankPayClient.PaymentOrders.Get(uri, PaymentOrderExpand.None);
             return Json(paymentOrderResponse.Operations.View.Href.OriginalString);
         }
 
-        var paymentOrderResponseObject = await CreateOrUpdatePaymentOrder(consumerProfileRef, this._urls.StandardCheckoutPaymentUrl);
+        var paymentOrderResponseObject = await CreateOrUpdatePaymentOrder(consumerProfileRef, _urls.StandardCheckoutPaymentUrl);
         return Json(paymentOrderResponseObject.Operations.View.Href.OriginalString);
     }
 
 
     public async Task<IActionResult> LoadPaymentMenu()
     {
-        var consumerProfileRef = this._cartService.ConsumerProfileRef;
-        var paymentOrder = await CreateOrUpdatePaymentOrder(consumerProfileRef, this._urls.AnonymousCheckoutPaymentUrl);
+        var consumerProfileRef = _cartService.ConsumerProfileRef;
+        var paymentOrder = await CreateOrUpdatePaymentOrder(consumerProfileRef, _urls.AnonymousCheckoutPaymentUrl);
 
         var jsSource = paymentOrder.Operations.View.Href;
 

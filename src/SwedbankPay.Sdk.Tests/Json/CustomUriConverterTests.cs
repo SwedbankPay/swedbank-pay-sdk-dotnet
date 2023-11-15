@@ -12,13 +12,13 @@ public class CustomUriConverterTests
     {
         //ARRANGE
 
-        var jsonObject = $"{{ \"id\": \"{this._idstring}\" }}";
+        var jsonObject = $"{{ \"id\": \"{_idstring}\" }}";
 
         //ACT
         var result = JsonSerializer.Deserialize<DummyClass>(jsonObject, JsonSerialization.JsonSerialization.Settings);
 
         //ASSERT
-        Assert.Equal(this._idstring, result?.Id?.OriginalString);
+        Assert.Equal(_idstring, result?.Id?.OriginalString);
     }
 
 
@@ -28,7 +28,7 @@ public class CustomUriConverterTests
         //ARRANGE
         var dummy = new DummyClass
         {
-            Id = new Uri(this._idstring, UriKind.RelativeOrAbsolute)
+            Id = new Uri(_idstring, UriKind.RelativeOrAbsolute)
         };
 
         //ACT
@@ -37,7 +37,7 @@ public class CustomUriConverterTests
 
         var id = obj.RootElement.GetProperty("id").ToString();
         //ASSERT
-        Assert.Equal(this._idstring, id);
+        Assert.Equal(_idstring, id);
     }
 
 

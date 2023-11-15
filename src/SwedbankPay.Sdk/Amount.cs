@@ -312,7 +312,7 @@ public class Amount : IEquatable<Amount>, IComparable<Amount>, IComparable
     {
         // Use "Banker's Rounding" by default.
         const MidpointRounding roundingMode = MidpointRounding.ToEven;
-        var roundedAmount = Math.Round(this._amount, 2, roundingMode);
+        var roundedAmount = Math.Round(_amount, 2, roundingMode);
         roundedAmount *= 100;
         var longAmount = Convert.ToInt64(roundedAmount);
         return longAmount;

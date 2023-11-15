@@ -6,17 +6,17 @@ namespace Sample.AspNetCore.Components;
 
 public class CartSummaryViewComponent : ViewComponent
 {
-    private readonly Cart cart;
+    private readonly Cart _cart;
 
 
     public CartSummaryViewComponent(Cart cartService)
     {
-        this.cart = cartService;
+        _cart = cartService;
     }
 
 
     public IViewComponentResult Invoke()
     {
-        return View(this.cart);
+        return View(_cart);
     }
 }

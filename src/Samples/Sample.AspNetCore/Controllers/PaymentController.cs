@@ -109,11 +109,14 @@ public class PaymentController : Controller
             var transActionRequestObject = await GetCaptureRequest(paymentOrderId, "Capturing the authorized payment", DateTime.Now.Ticks.ToString());
             var paymentOrder = await _swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
 
-            var response = await paymentOrder.Operations.Capture(transActionRequestObject);
-
-            TempData["CaptureMessage"] = $"{response.PaymentOrder.FinancialTransactions.Id}, {response.PaymentOrder.Status}";
+            if (paymentOrder?.Operations.Capture != null)
+            {
+                var response = await paymentOrder.Operations.Capture(transActionRequestObject);
+                var financialTransactionListItem = response?.PaymentOrder.FinancialTransactions?.FinancialTransactionsList?.FirstOrDefault(x => x.Type.Equals(FinancialTransactionType.Capture));
+                TempData["CaptureMessage"] = $"{financialTransactionListItem?.Id}, {financialTransactionListItem?.Number}, {response?.PaymentOrder.Status}";
+            }
                 
-            this._cartService.PaymentOrderLink = null;
+            _cartService.PaymentOrderLink = null;
 
             return RedirectToAction("Details", "Orders");
         }
@@ -182,9 +185,13 @@ public class PaymentController : Controller
             var transActionRequestObject = await GetReversalRequest(paymentOrderId, "Reversing the capture amount");
             var paymentOrder = await _swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute), PaymentOrderExpand.All);
 
-            var response = await paymentOrder.Operations.Reverse(transActionRequestObject);
-            var financialTransactionListItem = response.PaymentOrder.FinancialTransactions.FinancialTransactionsList.FirstOrDefault(x => x.Type == "Reversal");
-            TempData["ReversalMessage"] = $"{response.PaymentOrder.FinancialTransactions.Id}, {response.PaymentOrder.Status}";
+            if (paymentOrder?.Operations.Reverse != null)
+            {
+                var response = await paymentOrder.Operations.Reverse(transActionRequestObject);
+                var financialTransactionListItem = response?.PaymentOrder.FinancialTransactions?.FinancialTransactionsList?.FirstOrDefault(x => x.Type.Equals(FinancialTransactionType.Reversal));
+                TempData["ReversalMessage"] = $"{financialTransactionListItem?.Id}, {financialTransactionListItem?.Number}, {response?.PaymentOrder.Status}";
+            }
+
             _cartService.PaymentOrderLink = null;
 
             return RedirectToAction("Details", "Orders");

@@ -15,14 +15,14 @@ namespace Sample.AspNetCore.Controllers;
 
 public class OrdersController : Controller
 {
-    private readonly StoreDbContext context;
-    private readonly ISwedbankPayClient swedbankPayClient;
+    private readonly StoreDbContext _storeDbContext;
+    private readonly ISwedbankPayClient _swedbankPayClient;
        
-    public OrdersController(StoreDbContext storeDbContext,
-        ISwedbankPayClient payClient)
+    public OrdersController(StoreDbContext storeDbStoreDbContext,
+        ISwedbankPayClient swedbankPayClient)
     {
-        this.context = storeDbContext;
-        this.swedbankPayClient = payClient;
+        _storeDbContext = storeDbStoreDbContext;
+        _swedbankPayClient = swedbankPayClient;
     }
 
 
@@ -30,11 +30,11 @@ public class OrdersController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Clear()
     {
-        var orders = await this.context.Orders.ToListAsync();
+        var orders = await _storeDbContext.Orders.ToListAsync();
         if (orders != null)
         {
-            this.context.Orders.RemoveRange(orders);
-            await this.context.SaveChangesAsync();
+            _storeDbContext.Orders.RemoveRange(orders);
+            await _storeDbContext.SaveChangesAsync();
         }
 
         return RedirectToAction(nameof(Index));
@@ -44,14 +44,14 @@ public class OrdersController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> ClearSingle(string paymentId)
     {
-        var orders = await this.context.Orders.ToListAsync();
+        var orders = await _storeDbContext.Orders.ToListAsync();
 
         var order = orders.FirstOrDefault(x => x.PaymentLink?.OriginalString == paymentId || x.PaymentOrderLink?.OriginalString == paymentId);
 
         if (order != null)
         {
-            this.context.Orders.Remove(order);
-            await this.context.SaveChangesAsync();
+            _storeDbContext.Orders.Remove(order);
+            await _storeDbContext.SaveChangesAsync();
         }
 
         return RedirectToAction(nameof(Index));
@@ -74,8 +74,8 @@ public class OrdersController : Controller
     {
         if (ModelState.IsValid)
         {
-            this.context.Add(order);
-            await this.context.SaveChangesAsync();
+            _storeDbContext.Add(order);
+            await _storeDbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
@@ -86,7 +86,7 @@ public class OrdersController : Controller
     // GET: Orders/Details/5
     public async Task<IActionResult> Details(int? _)
     {
-        var orders = await this.context.Orders.ToListAsync();
+        var orders = await _storeDbContext.Orders.ToListAsync();
         if (orders == null || !orders.Any())
         {
             return NotFound();
@@ -100,7 +100,7 @@ public class OrdersController : Controller
             List<HttpOperation> operations = new List<HttpOperation>();
             if (order.PaymentOrderLink != null)
             {
-                var paymentOrder = await this.swedbankPayClient.PaymentOrders.Get(order.PaymentOrderLink);
+                var paymentOrder = await _swedbankPayClient.PaymentOrders.Get(order.PaymentOrderLink);
                 var paymentOrderOperations = paymentOrder.Operations.Select(x => x.Value);
                 operations = paymentOrderOperations.ToList();
             }
@@ -152,7 +152,7 @@ public class OrdersController : Controller
             return NotFound();
         }
 
-        var order = await this.context.Orders.FindAsync(id);
+        var order = await _storeDbContext.Orders.FindAsync(id);
         if (order == null)
         {
             return NotFound();
@@ -178,8 +178,8 @@ public class OrdersController : Controller
         {
             try
             {
-                this.context.Update(order);
-                await this.context.SaveChangesAsync();
+                _storeDbContext.Update(order);
+                await _storeDbContext.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -207,6 +207,6 @@ public class OrdersController : Controller
 
     private bool OrderExists(int id)
     {
-        return this.context.Orders.Any(e => e.OrderId == id);
+        return _storeDbContext.Orders.Any(e => e.OrderId == id);
     }
 }

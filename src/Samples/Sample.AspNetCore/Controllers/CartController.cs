@@ -66,10 +66,10 @@ public class CartController : Controller
 
     public IActionResult RemoveFromCart(int id)
     {
-        var line = this._cartService.CartLines.FirstOrDefault(i => i.Product.ProductId == id);
+        var line = _cartService.CartLines.FirstOrDefault(i => i.Product.ProductId == id);
         if (line != null)
         {
-            this._cartService.RemoveItem(line.Product, line.Quantity);
+            _cartService.RemoveItem(line.Product, line.Quantity);
         }
 
         return RedirectToAction("Index", "Products");
@@ -79,11 +79,11 @@ public class CartController : Controller
     [HttpPost]
     public IActionResult UpdateQuantity(int id, int quantity)
     {
-        var line = this._cartService.CartLines.FirstOrDefault(i => i.Product.ProductId == id);
+        var line = _cartService.CartLines.FirstOrDefault(i => i.Product.ProductId == id);
         if (line != null)
         {
             line.Quantity = quantity;
-            this._cartService.Update();
+            _cartService.Update();
         }
 
         return RedirectToAction("Index", "Products");
