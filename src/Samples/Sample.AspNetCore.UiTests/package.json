@@ -12,6 +12,7 @@
     "typescript": "^5.2.2"
   },
   "scripts": {
-    "cy:open": "cypress open"
+    "cy:open": "cypress open",
+    "cy:run:inte": "cypress run -b chrome --env env=inte"
   }
 }
