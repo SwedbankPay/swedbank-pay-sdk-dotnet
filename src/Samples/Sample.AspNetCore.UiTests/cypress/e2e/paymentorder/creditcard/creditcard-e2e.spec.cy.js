@@ -112,11 +112,10 @@ describe('Pay with 3DS Credit card', () => {
         new SwedbankBlock().payWithSwedbank(PaymentMethods.card3ds, () => {
             cy.iframeLoaded(
                 'iframe[src^="https://ecom.externalintegration.payex.com/creditcard"]',
-                '#otp',
+                '.btn.btn-success',
                 30,
                 ($iframe) => {
-                    cy.findInIframe($iframe, '#otp').type('1234');
-                    cy.findInIframe($iframe, '#sendOtp').click();
+                    cy.findInIframe($iframe, '.btn.btn-success').click();
                 })
         });
 
@@ -145,11 +144,10 @@ describe('Pay with 3DS Credit card', () => {
         new SwedbankBlock().payWithSwedbank(PaymentMethods.card3ds, () => {
             cy.iframeLoaded(
                 'iframe[src^="https://ecom.externalintegration.payex.com/creditcard"]',
-                '#otp',
+                '.btn.btn-success',
                 30,
                 ($iframe) => {
-                    cy.findInIframe($iframe, '#otp').type('1111');
-                    cy.findInIframe($iframe, '#sendOtp').click();
+                    cy.findInIframe($iframe, '.btn.btn-warning').click();
                 })
         });
 
@@ -191,12 +189,11 @@ describe('Pay with 3DS Credit card', () => {
         new SwedbankBlock().payWithSwedbank(PaymentMethods.card3ds, () => {
             cy.iframeLoaded(
                 'iframe[src^="https://ecom.externalintegration.payex.com/creditcardv3"]',
-                '#otp',
+                '.btn.btn-success',
                 30,
                 ($iframe) => {
-                    cy.findInIframe($iframe, '#otp').type('1234');
-                    cy.findInIframe($iframe, '#sendOtp').click();
-                });
+                    cy.findInIframe($iframe, '.btn.btn-success').click();
+                })
         });
 
         cy.get('h2', {timeout: 30000}).then(($h) => {
