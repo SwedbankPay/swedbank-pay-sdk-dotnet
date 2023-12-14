@@ -6,7 +6,7 @@ namespace SwedbankPay.Sdk;
 /// Wraps the amount passed to and from API requests to make
 /// dealing with the amount in code more frictionless.
 /// </summary>
-public class Amount : IEquatable<Amount>, IComparable<Amount>, IComparable
+public record Amount : IComparable<Amount>, IComparable
 {
     private readonly decimal _amount;
     private readonly long _inLowestMonetaryUnit;
@@ -137,20 +137,20 @@ public class Amount : IEquatable<Amount>, IComparable<Amount>, IComparable
         {
             return 1;
         }
-
+    
         if (ReferenceEquals(this, obj))
         {
             return 0;
         }
-
+    
         if (!(obj is Amount))
         {
             throw new ArgumentException($"Object must be of type {nameof(Amount)}");
         }
-
+    
         return CompareTo((Amount)obj);
     }
-
+    
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -161,62 +161,15 @@ public class Amount : IEquatable<Amount>, IComparable<Amount>, IComparable
         {
             return 0;
         }
-
+    
         if (other is null)
         {
             return 1;
         }
-
+    
         return _amount.CompareTo(other._amount);
     }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns><inheritdoc/></returns>
-    public bool Equals(Amount? other)
-    {
-        if (other is null)
-        {
-            return false;
-        }
-
-        if (ReferenceEquals(this, other))
-        {
-            return true;
-        }
-
-        return _amount == other._amount;
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns><inheritdoc/></returns>
-    public override bool Equals(object? obj)
-    {
-        if (obj is null)
-        {
-            return false;
-        }
-
-        if (ReferenceEquals(this, obj))
-        {
-            return true;
-        }
-
-        return obj.GetType() == GetType() && Equals((Amount)obj);
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns><inheritdoc/></returns>
-    public override int GetHashCode()
-    {
-        return _amount.GetHashCode();
-    }
-
+    
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -235,35 +188,7 @@ public class Amount : IEquatable<Amount>, IComparable<Amount>, IComparable
     {
         return _amount.ToString(format, CultureInfo.InvariantCulture);
     }
-
-    /// <summary>
-    /// Checks that two <seealso cref="Amount"/> are equal.
-    /// </summary>
-    /// <returns>true if equal, false otherwise.</returns>
-    public static bool operator ==(Amount? left, Amount? right)
-    {
-        if (left is null)
-        {
-            return right is null;
-        }
-
-        return left.Equals(right);
-    }
-
-    /// <summary>
-    /// Checks that two <seealso cref="Amount"/> are not equal.
-    /// </summary>
-    /// <returns>true if not equal, false otherwise.</returns>
-    public static bool operator !=(Amount? left, Amount? right)
-    {
-        if (left is null || right is null)
-        {
-            return false;
-        }
-
-        return left.InLowestMonetaryUnit != right.InLowestMonetaryUnit;
-    }
-
+    
     /// <summary>
     /// Checks if the first <seealso cref="Amount"/> is smaler than the second.
     /// </summary>
