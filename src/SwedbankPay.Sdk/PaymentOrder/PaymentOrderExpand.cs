@@ -73,12 +73,17 @@ public enum PaymentOrderExpand
     PostPurchaseFailedAttempts = 2048,
     
     /// <summary>
+    /// Expand the Reversed sub-resource.
+    /// </summary>
+    Reversed = 4096,
+    
+    /// <summary>
     /// Expand the Meta data sub-resource.
     /// </summary>
-    MetaData = 4096,
+    MetaData = 8192,
     
     /// <summary>
     /// Expand All sub-resources.
     /// </summary>
-    All = 8191
+    All = 16383
 }

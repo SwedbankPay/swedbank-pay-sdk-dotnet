@@ -94,6 +94,7 @@ public class PaymentOrder : Identifiable, IPaymentOrder
     public AbortedResponse? Aborted { get; }
     public PaidResponse? Paid { get; }
     public CancelledResponse? Cancelled { get; }
+    public ReversedResponse? Reversed { get; }
     public FinancialTransactionsResponse? FinancialTransactions { get; }
     public FailedAttemptsResponse? FailedAttempts { get; }
     public PostPurchaseFailedAttemptsResponse? PostPurchaseFailedAttempts { get; }
@@ -125,6 +126,7 @@ public class PaymentOrder : Identifiable, IPaymentOrder
         Aborted = paymentOrderResponseItemDto.Aborted?.Map();
         Paid = paymentOrderResponseItemDto.Paid?.Map();
         Cancelled = paymentOrderResponseItemDto.Cancelled?.Map();
+        Reversed = paymentOrderResponseItemDto.Reversed?.Map();
         FinancialTransactions = paymentOrderResponseItemDto.FinancialTransactions?.Map();
         FailedAttempts = paymentOrderResponseItemDto.FailedAttempts?.Map();
         PostPurchaseFailedAttempts = paymentOrderResponseItemDto.PostPurchaseFailedAttempts?.Map();
@@ -247,6 +249,36 @@ public class PostPurchaseFailedAttemptsResponse : Identifiable
     }
 }
 
+public class ReversedDetails
+{
+    public string? Msisdn { get; set; }
+}
+
+
+public class ReversedResponse : Identifiable
+{
+    public long Number { get; set; }
+    public string? Instrument { get; set; }
+    public string? PayeeReference { get; set; }
+    public Amount Amount { get; set; }
+    public Amount SubmittedAmount { get; set; }
+    public Amount FeeAmount { get; set; }
+    public Amount DiscountAmount { get; set; }
+    public ReversedDetails? Details { get; set; }
+    
+    internal ReversedResponse(ReversedResponseDto dto) : base(dto)
+    {
+        Number = dto.Number;
+        Instrument = dto.Instrument;
+        PayeeReference = dto.PayeeReference;
+        Amount = dto.Amount;
+        SubmittedAmount = dto.SubmittedAmount;
+        FeeAmount = dto.FeeAmount;
+        DiscountAmount = dto.DiscountAmount;
+        Details = dto.Details?.Map();
+    }
+}
+
 public class FinancialTransactionListItem : Identifiable
 {
     public DateTime Created { get; set; }
@@ -274,7 +306,6 @@ public class FinancialTransactionListItem : Identifiable
         OrderItems = dto.OrderItems != null ? new Identifiable(dto.OrderItems) : null;
     }
 }
-
 
 public class FinancialTransactionsResponse : Identifiable
 {

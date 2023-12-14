@@ -34,6 +34,7 @@ internal record PaymentOrderResponseItemDto
     public AbortedResponseDto? Aborted { get; set; }
     public PaidResponseDto? Paid { get; set; }
     public CancelledResponseDto? Cancelled { get; set; }
+    public ReversedResponseDto? Reversed { get; set; }
     public FinancialTransactionsResponseDto? FinancialTransactions { get; set; }
     public FailedAttemptsResponseDto? FailedAttempts { get; set; }
     public PostPurchaseFailedAttemptsResponseDto? PostPurchaseFailedAttempts { get; set; }
@@ -162,6 +163,36 @@ internal record PostPurchaseFailedAttemptsResponseDto : IdentifiableDto
     {
         return new PostPurchaseFailedAttemptsResponse(this);
     }
+}
+
+internal record ReversedDetailsDto
+{
+    public string? Msisdn { get; set; }
+
+    public ReversedDetails Map()
+    {
+        return new ReversedDetails
+        {
+            Msisdn = Msisdn
+        };
+    }
+}
+
+internal record ReversedResponseDto : IdentifiableDto
+{
+    public long Number { get; set; }
+    public string? Instrument { get; set; }
+    public string? PayeeReference { get; set; }
+    public long Amount { get; set; }
+    public long SubmittedAmount { get; set; }
+    public long FeeAmount { get; set; }
+    public long DiscountAmount { get; set; }
+    public ReversedDetailsDto? Details { get; set; }
+    
+    public ReversedResponse Map()
+    {
+        return new ReversedResponse(this);
+    } 
 }
 
 internal record FinancialTransactionListItemDto
