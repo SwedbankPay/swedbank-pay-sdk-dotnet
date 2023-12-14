@@ -63,6 +63,15 @@ public class Currency
     {
         return CultureInfo.GetCultures(CultureTypes.AllCultures);
     }
+    
+    /// <summary>
+    /// Converts a <seealso cref="string"/> to a <seealso cref="Currency"/>
+    /// </summary>
+    /// <param name="currency">The <seealso cref="string"/> you want converted.</param>
+    public static implicit operator Currency(string currency)
+    {
+        return new Currency(currency);
+    }
 
     /// <summary>
     /// <inheritdoc/>

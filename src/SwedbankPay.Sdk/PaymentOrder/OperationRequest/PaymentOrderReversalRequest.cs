@@ -1,6 +1,6 @@
 namespace SwedbankPay.Sdk.PaymentOrder.OperationRequest;
 
-public class PaymentOrderReversalRequest
+public record PaymentOrderReversalRequest
 {
     public PaymentOrderReversalRequest(Amount amount, Amount vatAmount, string description, string payeeReference)
     {

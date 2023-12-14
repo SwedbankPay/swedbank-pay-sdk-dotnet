@@ -1,6 +1,6 @@
 namespace SwedbankPay.Sdk.PaymentOrder.OperationRequest;
 
-public class PaymentOrderCancelRequest
+public record PaymentOrderCancelRequest
 {
     public PaymentOrderCancelRequestDetail Transaction { get; }
 

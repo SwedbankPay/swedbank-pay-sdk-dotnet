@@ -10,8 +10,8 @@ internal record PayeeInfoDto
         OrderReference = payeeInfo.OrderReference;
     }
 
-    public string PayeeId { get; set; }
-    public string PayeeReference { get; set; }
-    public string? PayeeName { get; set; }
-    public string? OrderReference { get; set; }
+    public string PayeeId { get; init; }
+    public string PayeeReference { get; init; }
+    public string? PayeeName { get; init; }
+    public string? OrderReference { get; init; }
 }

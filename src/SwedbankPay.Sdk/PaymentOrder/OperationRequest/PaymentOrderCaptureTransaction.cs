@@ -3,7 +3,7 @@ namespace SwedbankPay.Sdk.PaymentOrder.OperationRequest;
 /// <summary>
 /// Transactional details for capturing funds for a payment order.
 /// </summary>
-public class PaymentOrderCaptureTransaction
+public record PaymentOrderCaptureTransaction
 {
     /// <summary>
     /// Instantiates a <see cref="PaymentOrderCaptureTransaction"/> with the provided parameters.

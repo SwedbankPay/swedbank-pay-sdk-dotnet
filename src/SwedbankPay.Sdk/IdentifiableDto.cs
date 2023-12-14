@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace SwedbankPay.Sdk;
 
-internal record IdentifiableDto
+public record IdentifiableDto
 {
     [JsonConstructor]
     public IdentifiableDto()
@@ -21,5 +21,5 @@ internal record IdentifiableDto
     /// <summary>
     ///     Relative URL to the resource
     /// </summary>
-    public string Id { get; set; } = null!;
+    public string Id { get; init; } = null!;
 }

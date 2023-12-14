@@ -5,7 +5,7 @@ internal record PaymentOrderResponseItemDto
     public string Id { get; init; } = null!;
     public DateTime Created { get; init; }
     public DateTime Updated { get; init; }
-    public string? Operation { get; init; }
+    public string Operation { get; init; } = null!;
     public string Status { get; init; } = null!;
     public string Currency { get; init; } = null!;
     public long VatAmount { get; init; }
@@ -21,8 +21,7 @@ internal record PaymentOrderResponseItemDto
     public PayerResponseDto? Payer { get; init; }
     public OrderItemResponseDto? OrderItems { get; init; }
     public UrlsDto? Urls { get; init; }
-    public IdentifiableDto? PayeeInfo { get; init; }
-    public IdentifiableDto? Payers { get; init; }
+    public PayeeInfoResponseDto? PayeeInfo { get; init; }
     public HistoryResponseDto? History { get; init; }
     public FailedResponseDto? Failed { get; init; }
     public AbortedResponseDto? Aborted { get; init; }

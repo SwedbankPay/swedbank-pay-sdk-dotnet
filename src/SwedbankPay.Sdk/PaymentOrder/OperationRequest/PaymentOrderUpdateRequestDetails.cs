@@ -3,7 +3,7 @@ namespace SwedbankPay.Sdk.PaymentOrder.OperationRequest;
 /// <summary>
 /// API details for updating the amounts on a payment order.
 /// </summary>
-public class PaymentOrderUpdateRequestDetails
+public record PaymentOrderUpdateRequestDetails
 {
     /// <summary>
     /// Instantiates a <see cref="PaymentOrderUpdateRequestDetails"/> with the provided parameters.

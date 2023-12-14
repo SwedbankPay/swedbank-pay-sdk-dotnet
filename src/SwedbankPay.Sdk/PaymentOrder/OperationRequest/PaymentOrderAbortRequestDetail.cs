@@ -1,6 +1,6 @@
 namespace SwedbankPay.Sdk.PaymentOrder.OperationRequest;
 
-public class PaymentOrderAbortRequestDetail
+public record PaymentOrderAbortRequestDetail
 {
     /// <summary>
     /// Instantiates a <see cref="PaymentOrderAbortRequestDetail"/> with default values.

@@ -3,7 +3,7 @@ namespace SwedbankPay.Sdk.PaymentOrder.OperationRequest;
 /// <summary>
 /// API request object for capturing funds for a payment order.
 /// </summary>
-public class PaymentOrderCaptureRequest
+public record PaymentOrderCaptureRequest
 {
     /// <summary>
     /// Instantiates a <see cref="PaymentOrderCaptureRequest"/> with the provided parameters.
@@ -16,8 +16,7 @@ public class PaymentOrderCaptureRequest
     public PaymentOrderCaptureRequest(Amount amount, Amount vatAmount, string description, string payeeReference,
         string receiptReference)
     {
-        Transaction =
-            new PaymentOrderCaptureTransaction(amount, vatAmount, description, payeeReference, receiptReference);
+        Transaction = new PaymentOrderCaptureTransaction(amount, vatAmount, description, payeeReference, receiptReference);
     }
 
     /// <summary>

@@ -7,9 +7,9 @@ public interface IPaymentOrder
     Uri Id { get; }
     DateTime Created { get; }
     DateTime Updated { get; }
-    string? Operation { get; }
+    Operation Operation { get; }
     Status Status { get; }
-    string? Currency { get; }
+    Currency? Currency { get; }
     Amount VatAmount { get; }
     Amount Amount { get; }
     string? Description { get; }
@@ -21,7 +21,7 @@ public interface IPaymentOrder
     bool GuestMode { get; }
     OrderItemsResponse? OrderItems { get; } 
     Urls? Urls { get; }
-    Identifiable? PayeeInfo { get; }
+    PayeeInfoResponse? PayeeInfo { get; }
     PayerResponse? Payer { get; }
     HistoryResponse? History { get; }
     FailedResponse? Failed { get; }

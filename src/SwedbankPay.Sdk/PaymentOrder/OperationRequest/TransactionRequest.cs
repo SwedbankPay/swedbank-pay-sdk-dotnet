@@ -1,6 +1,6 @@
 namespace SwedbankPay.Sdk.PaymentOrder.OperationRequest;
 
-public class TransactionRequest
+public record TransactionRequest
 {
     public string Description { get; }
     public Amount Amount { get; }

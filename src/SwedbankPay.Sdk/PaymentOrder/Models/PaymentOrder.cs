@@ -4,9 +4,9 @@ public record PaymentOrder : Identifiable, IPaymentOrder
 {
     public DateTime Created { get; }
     public DateTime Updated { get; }
-    public string? Operation { get; }
+    public Operation Operation { get; }
     public Status Status { get; }
-    public string? Currency { get; }
+    public Currency? Currency { get; }
     public Amount VatAmount { get; }
     public Amount Amount { get; }
     public string? Description { get; }
@@ -19,7 +19,7 @@ public record PaymentOrder : Identifiable, IPaymentOrder
     public bool GuestMode { get; }
     public OrderItemsResponse? OrderItems { get; }
     public Urls? Urls { get; }
-    public Identifiable? PayeeInfo { get; }
+    public PayeeInfoResponse? PayeeInfo { get; }
     public PayerResponse? Payer { get; }
     public HistoryResponse? History { get; }
     public FailedResponse? Failed { get; }
@@ -37,10 +37,10 @@ public record PaymentOrder : Identifiable, IPaymentOrder
         Created = paymentOrderResponseItemDto.Created;
         Updated = paymentOrderResponseItemDto.Updated;
         Operation = paymentOrderResponseItemDto.Operation;
-        Status = paymentOrderResponseItemDto.Status;
-        Currency = paymentOrderResponseItemDto.Currency;
-        VatAmount = new Amount(paymentOrderResponseItemDto.VatAmount);
-        Amount = new Amount(paymentOrderResponseItemDto.Amount);
+        Status= paymentOrderResponseItemDto.Status;
+        Currency= paymentOrderResponseItemDto.Currency;
+        VatAmount= paymentOrderResponseItemDto.VatAmount;
+        Amount= paymentOrderResponseItemDto.Amount;
         Description = paymentOrderResponseItemDto.Description;
         InitiatingSystemUserAgent = paymentOrderResponseItemDto.InitiatingSystemUserAgent;
         Language = new Language(paymentOrderResponseItemDto.Language);
@@ -51,7 +51,7 @@ public record PaymentOrder : Identifiable, IPaymentOrder
         GuestMode = paymentOrderResponseItemDto.GuestMode;
         OrderItems = paymentOrderResponseItemDto.OrderItems?.Map();
         Urls = paymentOrderResponseItemDto.Urls?.Map();
-        PayeeInfo = paymentOrderResponseItemDto.PayeeInfo != null ? new Identifiable(paymentOrderResponseItemDto.PayeeInfo.Id) : null;
+        PayeeInfo = paymentOrderResponseItemDto.PayeeInfo?.Map();
         Payer = paymentOrderResponseItemDto.Payer?.Map();
         History = paymentOrderResponseItemDto.History?.Map();
         Failed = paymentOrderResponseItemDto.Failed?.Map();

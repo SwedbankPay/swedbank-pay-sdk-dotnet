@@ -5,9 +5,9 @@ namespace SwedbankPay.Sdk.PaymentOrder.OperationRequest;
 /// <summary>
 /// API request object for aborting a payment order.
 /// </summary>
-public class PaymentOrderAbortRequest
+public record PaymentOrderAbortRequest
 {
-    private static readonly Regex validRegexMatch = new Regex(@"^[a-zA-Z0-9]+$");
+    private static readonly Regex ValidRegexMatch = new Regex(@"^[a-zA-Z0-9]+$");
 
     /// <summary>
     /// Instantiates a <see cref="PaymentOrderAbortRequest"/> with the provided <paramref name="abortReason"/>.
@@ -15,7 +15,7 @@ public class PaymentOrderAbortRequest
     /// <param name="abortReason">A textual reason for the abort.</param>
     public PaymentOrderAbortRequest(string abortReason)
     {
-        if (!validRegexMatch.IsMatch(abortReason))
+        if (!ValidRegexMatch.IsMatch(abortReason))
         {
             throw new ArgumentException(@"Abort reason must match the regular expression '\w*'");
         }
