@@ -2,7 +2,7 @@ namespace SwedbankPay.Sdk.PaymentOrder.Models;
 
 public record FinancialTransactionsResponse : Identifiable
 {
-    public IList<FinancialTransactionListItem>? FinancialTransactionsList { get; set; }
+    public IList<FinancialTransactionListItem>? FinancialTransactionsList { get; }
     
     internal FinancialTransactionsResponse(FinancialTransactionsResponseDto dto) : base(dto.Id)
     {
