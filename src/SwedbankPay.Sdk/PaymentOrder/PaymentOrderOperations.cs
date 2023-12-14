@@ -17,9 +17,7 @@ public class PaymentOrderOperations : OperationsBase, IPaymentOrderOperations
                     {
                         var url = httpOperation.Href.GetUrlWithQueryString(PaymentOrderExpand.All);
                         var requestDto = new PaymentOrderUpdateRequestDto(payload);
-                        var paymentOrderResponseContainer =
-                            await httpClient.SendAsJsonAsync<PaymentOrderResponseDto>(httpOperation.Method, url,
-                                requestDto);
+                        var paymentOrderResponseContainer = await httpClient.SendAsJsonAsync<PaymentOrderResponseDto>(httpOperation.Method, url, requestDto);
                         return paymentOrderResponseContainer != null ? new PaymentOrderResponse(paymentOrderResponseContainer, httpClient) : null;
                     };
                     break;
@@ -28,8 +26,7 @@ public class PaymentOrderOperations : OperationsBase, IPaymentOrderOperations
                     {
                         var url = httpOperation.Href.GetUrlWithQueryString(PaymentOrderExpand.All);
                         var requestDto = new PaymentOrderAbortRequestDto(payload);
-                        var paymentOrderResponseContainer =
-                            await httpClient.SendAsJsonAsync<PaymentOrderResponseDto>(httpOperation.Method, url, requestDto);
+                        var paymentOrderResponseContainer = await httpClient.SendAsJsonAsync<PaymentOrderResponseDto>(httpOperation.Method, url, requestDto);
                         return paymentOrderResponseContainer != null ? new PaymentOrderResponse(paymentOrderResponseContainer, httpClient) : null;
                     };
                     break;
@@ -37,8 +34,8 @@ public class PaymentOrderOperations : OperationsBase, IPaymentOrderOperations
                     Cancel = async payload =>
                     {
                         var requestDto = new PaymentOrderCancelRequestDto(payload);
-                        var dto = await httpClient.SendAsJsonAsync<PaymentOrderResponseDto>(httpOperation.Method,
-                            httpOperation.Href, requestDto);
+                        var url = httpOperation.Href.GetUrlWithQueryString(PaymentOrderExpand.All);
+                        var dto = await httpClient.SendAsJsonAsync<PaymentOrderResponseDto>(httpOperation.Method, url, requestDto);
                         return dto != null ? new PaymentOrderResponse(dto, httpClient) : null;
                     };
                     break;
@@ -46,8 +43,8 @@ public class PaymentOrderOperations : OperationsBase, IPaymentOrderOperations
                     Capture = async payload =>
                     {
                         var requestDto = new PaymentOrderCaptureRequestDto(payload);
-                        var dto = await httpClient.SendAsJsonAsync<PaymentOrderResponseDto>(httpOperation.Method,
-                            httpOperation.Href, requestDto);
+                        var url = httpOperation.Href.GetUrlWithQueryString(PaymentOrderExpand.All);
+                        var dto = await httpClient.SendAsJsonAsync<PaymentOrderResponseDto>(httpOperation.Method, url, requestDto);
                         return dto != null ? new PaymentOrderResponse(dto, httpClient) : null;
                     };
                     break;
