@@ -22,7 +22,7 @@ internal record OrderItemDto
         Quantity = orderItem.Quantity;
         QuantityUnit = orderItem.QuantityUnit;
         UnitPrice = orderItem.UnitPrice.InLowestMonetaryUnit;
-        DiscountPrice = orderItem.DiscountPrice;
+        DiscountPrice = orderItem.DiscountPrice?.InLowestMonetaryUnit ?? 0;
         VatPercent = orderItem.VatPercent;
         Amount = orderItem.Amount.InLowestMonetaryUnit;
         VatAmount = orderItem.VatAmount.InLowestMonetaryUnit;
@@ -40,7 +40,7 @@ internal record OrderItemDto
     public decimal Quantity { get; set; }
     public string QuantityUnit { get; set; } = null!;
     public long UnitPrice { get; set; }
-    public int? DiscountPrice { get; set; }
+    public long DiscountPrice { get; set; }
     public int VatPercent { get; set; }
     public long Amount { get; set; }
     public long VatAmount { get; set; }

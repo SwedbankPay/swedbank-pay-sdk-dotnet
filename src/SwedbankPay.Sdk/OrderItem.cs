@@ -18,7 +18,7 @@ public record OrderItem(string Reference, string Name, OrderItemType Type, strin
     public string? ImageUrl { get; set; }
     public string? Description { get; set; }
     public string? DiscountDescription { get; set; }
-    public int? DiscountPrice { get; set; }
+    public Amount? DiscountPrice { get; set; }
 
     internal OrderItem(OrderItemDto orderItemDto) : this(orderItemDto.Reference, orderItemDto.Name, orderItemDto.Type, orderItemDto.Class, orderItemDto.Quantity,
         orderItemDto.QuantityUnit, orderItemDto.UnitPrice, orderItemDto.VatPercent, orderItemDto.Amount, orderItemDto.VatAmount)
