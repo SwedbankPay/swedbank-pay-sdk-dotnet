@@ -514,7 +514,7 @@ public class PaymentOrderTests : ResourceTestsBase
     }
     
     [Fact]
-    public void CanSserializePaymentOrder()
+    public void CanSerializePaymentOrder()
     {
         var paymentOrderResponseDto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderResponse31, JsonSerialization.JsonSerialization.Settings);
         var paymentOrderResponse = new PaymentOrderResponse(paymentOrderResponseDto, new HttpClient());
