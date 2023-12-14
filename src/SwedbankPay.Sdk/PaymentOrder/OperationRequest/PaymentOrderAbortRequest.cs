@@ -28,13 +28,3 @@ public class PaymentOrderAbortRequest
     /// </summary>
     public PaymentOrderAbortRequestDetail PaymentOrder { get; } = new();
 }
-
-internal record PaymentOrderAbortRequestDto
-{
-    internal PaymentOrderAbortRequestDto(PaymentOrderAbortRequest payload)
-    {
-        PaymentOrder = new PaymentOrderAbortRequestDetailDto(payload.PaymentOrder);
-    }
-
-    public PaymentOrderAbortRequestDetailDto PaymentOrder { get; }
-}   
