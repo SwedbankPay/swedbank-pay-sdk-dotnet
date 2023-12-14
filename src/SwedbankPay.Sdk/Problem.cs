@@ -25,7 +25,7 @@ public class Problem : IProblem
         Problems = dto.Problems?.Select(x => x.Map()).ToList();
     }
 
-    public Problem(string? detail, int status, string? title, string? type)
+    internal Problem(string? detail, int status, string? title, string? type)
     {
         Type = type;
         Title = title;
