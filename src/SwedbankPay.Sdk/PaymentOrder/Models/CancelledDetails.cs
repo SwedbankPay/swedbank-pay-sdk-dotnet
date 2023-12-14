@@ -1,6 +1,6 @@
 namespace SwedbankPay.Sdk.PaymentOrder.Models;
 
-public class CancelledDetails
+public record CancelledDetails
 {
     public string? NonPaymentToken { get; }
     public string? ExternalNonPaymentToken { get; }

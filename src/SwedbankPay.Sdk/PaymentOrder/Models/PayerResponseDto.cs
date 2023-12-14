@@ -2,7 +2,7 @@ namespace SwedbankPay.Sdk.PaymentOrder.Models;
 
 internal record PayerResponseDto : IdentifiableDto
 {
-    public DeviceDto? Device { get; set; }
+    public DeviceDto? Device { get; init; }
     
     public PayerResponseDto(string id) : base(id)
     {

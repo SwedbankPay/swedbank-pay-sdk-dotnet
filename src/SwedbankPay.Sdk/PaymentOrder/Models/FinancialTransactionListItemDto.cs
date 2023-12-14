@@ -2,17 +2,17 @@ namespace SwedbankPay.Sdk.PaymentOrder.Models;
 
 internal record FinancialTransactionListItemDto
 {
-    public string Id { get; set; } = null!;
-    public DateTime Created { get; set; }
-    public DateTime Updated { get; set; }
-    public string? Type { get; set; }
-    public long Number { get; set; }
-    public long Amount { get; set; }
-    public long VatAmount { get; set; }
-    public string? Description { get; set; }
-    public string? PayeeReference { get; set; }
-    public string? ReceiptReference { get; set; }
-    public IdentifiableDto? OrderItems { get; set; }
+    public string Id { get; init; } = null!;
+    public DateTime Created { get; init; }
+    public DateTime Updated { get; init; }
+    public string? Type { get; init; }
+    public long Number { get; init; }
+    public long Amount { get; init; }
+    public long VatAmount { get; init; }
+    public string? Description { get; init; }
+    public string? PayeeReference { get; init; }
+    public string? ReceiptReference { get; init; }
+    public IdentifiableDto? OrderItems { get; init; }
 
     public FinancialTransactionListItem Map()
     {

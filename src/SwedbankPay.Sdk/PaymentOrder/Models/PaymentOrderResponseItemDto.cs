@@ -2,35 +2,35 @@ namespace SwedbankPay.Sdk.PaymentOrder.Models;
 
 internal record PaymentOrderResponseItemDto
 {
-    public string Id { get; set; } = null!;
-    public DateTime Created { get; set; }
-    public DateTime Updated { get; set; }
-    public string? Operation { get; set; }
-    public string Status { get; set; } = null!;
-    public string Currency { get; set; } = null!;
-    public long VatAmount { get; set; }
-    public long Amount { get; set; }
-    public string? Description { get; set; }
-    public string? InitiatingSystemUserAgent { get; set; }
-    public string Language { get; set; } = null!;
-    public string[]? AvailableInstruments { get; set; }
-    public string? Implementation { get; set; }
-    public string? Integration { get; set; }
-    public bool InstrumentMode { get; set; }
-    public bool GuestMode { get; set; }
-    public PayerResponseDto? Payer { get; set; }
-    public OrderItemResponseDto? OrderItems { get; set; }
-    public UrlsDto? Urls { get; set; }
-    public IdentifiableDto? PayeeInfo { get; set; }
-    public IdentifiableDto? Payers { get; set; }
-    public HistoryResponseDto? History { get; set; }
-    public FailedResponseDto? Failed { get; set; }
-    public AbortedResponseDto? Aborted { get; set; }
-    public PaidResponseDto? Paid { get; set; }
-    public CancelledResponseDto? Cancelled { get; set; }
-    public ReversedResponseDto? Reversed { get; set; }
-    public FinancialTransactionsResponseDto? FinancialTransactions { get; set; }
-    public FailedAttemptsResponseDto? FailedAttempts { get; set; }
-    public PostPurchaseFailedAttemptsResponseDto? PostPurchaseFailedAttempts { get; set; }
-    public MetadataDto? Metadata { get; set; }
+    public string Id { get; init; } = null!;
+    public DateTime Created { get; init; }
+    public DateTime Updated { get; init; }
+    public string? Operation { get; init; }
+    public string Status { get; init; } = null!;
+    public string Currency { get; init; } = null!;
+    public long VatAmount { get; init; }
+    public long Amount { get; init; }
+    public string? Description { get; init; }
+    public string? InitiatingSystemUserAgent { get; init; }
+    public string Language { get; init; } = null!;
+    public string[]? AvailableInstruments { get; init; }
+    public string? Implementation { get; init; }
+    public string? Integration { get; init; }
+    public bool InstrumentMode { get; init; }
+    public bool GuestMode { get; init; }
+    public PayerResponseDto? Payer { get; init; }
+    public OrderItemResponseDto? OrderItems { get; init; }
+    public UrlsDto? Urls { get; init; }
+    public IdentifiableDto? PayeeInfo { get; init; }
+    public IdentifiableDto? Payers { get; init; }
+    public HistoryResponseDto? History { get; init; }
+    public FailedResponseDto? Failed { get; init; }
+    public AbortedResponseDto? Aborted { get; init; }
+    public PaidResponseDto? Paid { get; init; }
+    public CancelledResponseDto? Cancelled { get; init; }
+    public ReversedResponseDto? Reversed { get; init; }
+    public FinancialTransactionsResponseDto? FinancialTransactions { get; init; }
+    public FailedAttemptsResponseDto? FailedAttempts { get; init; }
+    public PostPurchaseFailedAttemptsResponseDto? PostPurchaseFailedAttempts { get; init; }
+    public MetadataDto? Metadata { get; init; }
 }

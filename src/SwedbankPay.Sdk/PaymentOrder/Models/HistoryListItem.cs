@@ -1,6 +1,6 @@
 namespace SwedbankPay.Sdk.PaymentOrder.Models;
 
-public class HistoryListItem
+public record HistoryListItem
 {
     public DateTime Created { get; }
     public string? Name { get; }

@@ -2,17 +2,17 @@ namespace SwedbankPay.Sdk.PaymentOrder.Models;
 
 internal record PaidResponseDto : IdentifiableDto
 {
-    public string? Instrument { get; set; }
-    public long Number { get; set; }
-    public string? PayeeReference { get; set; }
-    public string? OrderReference { get; set; }
-    public string? TransactionType { get; set; }
-    public long Amount { get; set; }
-    public long SubmittedAmount { get; set; }
-    public long FeeAmount { get; set; }
-    public long DiscountAmount { get; set; }
-    public IList<TokenItemDto>? Tokens { get; set; }
-    public PaidDetailsDto? Details { get; set; }
+    public string? Instrument { get; init; }
+    public long Number { get; init; }
+    public string? PayeeReference { get; init; }
+    public string? OrderReference { get; init; }
+    public string? TransactionType { get; init; }
+    public long Amount { get; init; }
+    public long SubmittedAmount { get; init; }
+    public long FeeAmount { get; init; }
+    public long DiscountAmount { get; init; }
+    public IList<TokenItemDto>? Tokens { get; init; }
+    public PaidDetailsDto? Details { get; init; }
 
     public PaidResponseDto(string id) : base(id)
     {

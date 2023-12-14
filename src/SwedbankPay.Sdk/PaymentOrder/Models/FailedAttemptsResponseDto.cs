@@ -2,7 +2,7 @@ namespace SwedbankPay.Sdk.PaymentOrder.Models;
 
 internal record FailedAttemptsResponseDto : IdentifiableDto
 {
-    public IList<FailedAttemptListItemDto>? FailedAttemptList { get; set; }
+    public IList<FailedAttemptListItemDto>? FailedAttemptList { get; init; }
 
     public FailedAttemptsResponseDto(string id) : base(id)
     {

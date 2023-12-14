@@ -2,11 +2,11 @@ namespace SwedbankPay.Sdk.PaymentOrder.Models;
 
 internal record FailedAttemptListItemDto
 {
-    public DateTime Created { get; set; }
-    public string? Instrument { get; set; }
-    public long Number { get; set; }
-    public string? Status { get; set; }
-    public ProblemDto? Problem { get; set; }
+    public DateTime Created { get; init; }
+    public string? Instrument { get; init; }
+    public long Number { get; init; }
+    public string? Status { get; init; }
+    public ProblemDto? Problem { get; init; }
 
     public FailedAttemptListItem Map()
     {

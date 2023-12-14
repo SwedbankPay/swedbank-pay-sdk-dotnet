@@ -2,7 +2,7 @@ namespace SwedbankPay.Sdk.PaymentOrder.Models;
 
 internal record AbortedResponseDto : IdentifiableDto
 {
-    public string? AbortReason { get; set; }
+    public string? AbortReason { get; init; }
 
     public AbortedResponseDto(string id) : base(id)
     {

@@ -2,7 +2,7 @@ namespace SwedbankPay.Sdk.PaymentOrder.Models;
 
 internal record HistoryResponseDto : IdentifiableDto
 {
-    public IList<HistoryListItemDto>? HistoryList { get; set; }
+    public IList<HistoryListItemDto>? HistoryList { get; init; }
 
     public HistoryResponseDto(string id) : base(id)
     {

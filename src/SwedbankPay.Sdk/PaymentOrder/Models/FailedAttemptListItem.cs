@@ -1,6 +1,6 @@
 namespace SwedbankPay.Sdk.PaymentOrder.Models;
 
-public class FailedAttemptListItem
+public record FailedAttemptListItem
 {
     public DateTime Created { get; set; }
     public string? Instrument { get; set; }

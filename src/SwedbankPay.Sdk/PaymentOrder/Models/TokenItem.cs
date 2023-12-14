@@ -1,6 +1,6 @@
 namespace SwedbankPay.Sdk.PaymentOrder.Models;
 
-public class TokenItem
+public record TokenItem
 {
     public string? Type { get; }
     public string? Token { get; }

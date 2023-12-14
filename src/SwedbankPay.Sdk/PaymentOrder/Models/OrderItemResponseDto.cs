@@ -8,7 +8,7 @@ internal record OrderItemResponseDto : IdentifiableDto
     ///     the payer chooses to pay with invoice, among other things. Order items can be specified on both payment order
     ///     creation as well as on Capture.
     /// </summary>
-    public IEnumerable<OrderItemDto>? OrderItemList { get; set; }
+    public IEnumerable<OrderItemDto>? OrderItemList { get; init; }
 
     public OrderItemResponseDto(string id) : base(id)
     {

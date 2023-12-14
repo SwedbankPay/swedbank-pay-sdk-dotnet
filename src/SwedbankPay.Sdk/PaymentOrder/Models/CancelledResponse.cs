@@ -23,10 +23,10 @@ public record CancelledResponse : Identifiable
         PayeeReference = dto.PayeeReference;
         OrderReference = dto.OrderReference;
         TransactionType = dto.TransactionType;
-        Amount = new Amount(dto.Amount);
-        SubmittedAmount = new Amount(dto.SubmittedAmount);
-        FeeAmount = new Amount(dto.FeeAmount);
-        DiscountAmount = new Amount(dto.DiscountAmount);
+        Amount= dto.Amount;
+        SubmittedAmount = dto.SubmittedAmount;
+        FeeAmount = dto.FeeAmount;
+        DiscountAmount = dto.DiscountAmount;
         Tokens = dto.Tokens?.Select(x => x.Map()).ToList();
         Details = dto.Details?.Map();
     }

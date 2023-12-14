@@ -1,6 +1,6 @@
 namespace SwedbankPay.Sdk.PaymentOrder.Models;
 
-public class Device
+public record Device
 {
     public int DetectionAccuracy { get; }
     public string? IpAddress { get; }
