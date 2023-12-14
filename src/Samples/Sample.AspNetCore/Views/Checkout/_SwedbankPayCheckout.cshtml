@@ -13,30 +13,68 @@
 
 
 <script type="text/javascript">
-	function onCreatedPaymentHandler(paymentCreatedEvent) {
-		console.log(paymentCreatedEvent);
-	}
-	function onPaymentCanceledHandler(paymentCanceledEvent) {
-		console.log("Payment canceled");
-		console.log(paymentCanceledEvent);
-	}
-	function onPaymentFailedHandler(paymentFailedEvent) {
-		console.log("Ooopsy daisy");
-		console.log(paymentFailedEvent);
-	}
-	function onPaymentCompletedHandler(paymentCompletedEvent) {
-		console.log("Payment completed");
-	}
-	
-	function onCheckoutLoaded(checkoutLoadedEvent){
-		console.log("Checkout loaded");
-	}
-	
-	function onCheckoutResized(checkoutResized){
-		console.log("Checkout resized");
+	function onCheckoutLoaded(obj){
+		console.log("Checkout loaded:");
+		console.log(obj)
 	}
 
-
+	function onCheckoutResized(obj){
+		console.log("Checkout resized:");
+		console.log(obj)
+	}
+	
+	function onError(obj){
+		console.log("Error event:");
+		console.log(obj)
+	}
+	
+	function onOutOfViewRedirect(obj){
+		console.log("Out of view redirect event:");
+		console.log(obj)
+		location.href = obj.redirectUrl;
+	}
+	
+	function onAborted(obj){
+		console.log("Aborted event:");
+		console.log(obj)
+	}
+		
+	function onPaymentAttemptAborted(obj){
+		console.log("Payment attempt aborted event:");
+		console.log(obj)
+	}
+	
+	function onPaymentAttemptStarted(obj){
+		console.log("Payment attempt started event:");
+		console.log(obj)
+	}
+	
+	function onPaid(obj){
+		console.log("Paid:");
+		console.log(obj)
+		location.href = obj.redirectUrl;
+	}
+	
+	function onPaymentAttemptFailed(obj){
+		console.log("Payment attempt failed event:");
+		console.log(obj)
+	}
+	
+	function onInstrumentSelected(obj){
+		console.log("Instrument selected event:");
+		console.log(obj)
+	}
+	
+	function onTermsOfServiceRequested(obj){
+		console.log("Terms of service requested event:");
+		console.log(obj)
+	}
+	
+	function onEventNotification(obj){
+		console.log("Event notification:");
+		console.log(obj)
+	}
+	
 	let testStyle = 
 	{
       button: {
@@ -63,11 +101,20 @@
 		},
 		culture: '@Model.Culture.Name',
 		style: testStyle,
-		onPaymentCreated: onCreatedPaymentHandler,
-		onPaymentFailed: onPaymentFailedHandler,
-		onPaymentCanceled: onPaymentCanceledHandler
+		onCheckoutLoaded: onCheckoutLoaded,
+		onCheckoutResized: onCheckoutResized,
+		onError: onError,
+		onOutOfViewRedirect: onOutOfViewRedirect,
+		onAborted: onAborted,
+		onPaymentAttemptAborted: onPaymentAttemptAborted,
+		onPaymentAttemptStarted: onPaymentAttemptStarted,
+		onPaid: onPaid,
+		onPaymentAttemptFailed: onPaymentAttemptFailed,
+		onInstrumentSelected: onInstrumentSelected,
+		onTermsOfServiceRequested: onTermsOfServiceRequested,
+		onEventNotification: onEventNotification
 	};
-
+	
 	let paymentMenuScriptTag = document.getElementById('paymentMenuScript');
 	if (paymentMenuScriptTag !== null) {
 		paymentMenuScriptTag.remove();
