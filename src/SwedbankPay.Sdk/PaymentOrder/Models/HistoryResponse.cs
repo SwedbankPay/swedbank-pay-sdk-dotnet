@@ -1,6 +1,6 @@
 namespace SwedbankPay.Sdk.PaymentOrder.Models;
 
-public class HistoryResponse : Identifiable
+public record HistoryResponse : Identifiable
 {
     public IList<HistoryListItem>? HistoryList { get; }
 

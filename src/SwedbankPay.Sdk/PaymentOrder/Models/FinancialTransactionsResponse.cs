@@ -1,6 +1,6 @@
 namespace SwedbankPay.Sdk.PaymentOrder.Models;
 
-public class FinancialTransactionsResponse : Identifiable
+public record FinancialTransactionsResponse : Identifiable
 {
     public IList<FinancialTransactionListItem>? FinancialTransactionsList { get; set; }
     

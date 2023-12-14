@@ -1,6 +1,6 @@
 namespace SwedbankPay.Sdk.PaymentOrder.Models;
 
-public class PaymentOrder : Identifiable, IPaymentOrder
+public record PaymentOrder : Identifiable, IPaymentOrder
 {
     public DateTime Created { get; }
     public DateTime Updated { get; }

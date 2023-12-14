@@ -1,6 +1,6 @@
 namespace SwedbankPay.Sdk.PaymentOrder.Models;
 
-public class FailedResponse : Identifiable
+public record FailedResponse : Identifiable
 {
     public Problem? Problem { get; }
 

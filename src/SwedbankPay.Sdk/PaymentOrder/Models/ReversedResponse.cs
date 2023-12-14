@@ -1,6 +1,6 @@
 namespace SwedbankPay.Sdk.PaymentOrder.Models;
 
-public class ReversedResponse : Identifiable
+public record ReversedResponse : Identifiable
 {
     public long Number { get; set; }
     public string? Instrument { get; set; }

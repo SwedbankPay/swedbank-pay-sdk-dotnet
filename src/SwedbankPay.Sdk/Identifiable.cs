@@ -3,7 +3,7 @@ namespace SwedbankPay.Sdk;
 /// <summary>
 /// Contains a <seealso cref="Uri"/> to a uniquely identifiable resource.
 /// </summary>
-public class Identifiable : IIdentifiable
+public record Identifiable : IIdentifiable
 {
     /// <summary>
     /// Instantiates and sets the <see cref="Id"/> of the <see cref="Identifiable"/>.

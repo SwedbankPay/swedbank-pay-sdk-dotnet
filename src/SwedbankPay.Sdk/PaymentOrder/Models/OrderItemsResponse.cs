@@ -1,6 +1,6 @@
 namespace SwedbankPay.Sdk.PaymentOrder.Models;
 
-public class OrderItemsResponse : Identifiable
+public record OrderItemsResponse : Identifiable
 {
     /// <summary>
     ///     The orderItems property of the paymentOrder is an array containing the items being purchased with the order. Used

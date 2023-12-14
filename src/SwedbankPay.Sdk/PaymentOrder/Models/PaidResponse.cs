@@ -1,6 +1,6 @@
 namespace SwedbankPay.Sdk.PaymentOrder.Models;
 
-public class PaidResponse : Identifiable
+public record PaidResponse : Identifiable
 {
     public string? Instrument { get; }
     public long Number { get; }

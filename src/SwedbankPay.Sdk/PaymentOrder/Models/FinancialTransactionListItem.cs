@@ -1,6 +1,6 @@
 namespace SwedbankPay.Sdk.PaymentOrder.Models;
 
-public class FinancialTransactionListItem : Identifiable
+public record FinancialTransactionListItem : Identifiable
 {
     public DateTime Created { get; set; }
     public DateTime Updated { get; set; }

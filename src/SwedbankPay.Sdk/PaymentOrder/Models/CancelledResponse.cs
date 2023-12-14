@@ -1,6 +1,6 @@
 namespace SwedbankPay.Sdk.PaymentOrder.Models;
 
-public class CancelledResponse : Identifiable
+public record CancelledResponse : Identifiable
 {
     public string? CancelReason { get; }
     public string? Instrument { get; }

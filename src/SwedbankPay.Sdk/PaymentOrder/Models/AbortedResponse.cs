@@ -1,6 +1,6 @@
 namespace SwedbankPay.Sdk.PaymentOrder.Models;
 
-public class AbortedResponse : Identifiable
+public record AbortedResponse : Identifiable
 {
     public string? AbortReason { get; }
 

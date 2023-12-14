@@ -1,6 +1,6 @@
 namespace SwedbankPay.Sdk.PaymentOrder.Models;
 
-public class FailedAttemptsResponse : Identifiable
+public record FailedAttemptsResponse : Identifiable
 {
     public IList<FailedAttemptListItem>? FailedAttemptList { get; set; }
 
