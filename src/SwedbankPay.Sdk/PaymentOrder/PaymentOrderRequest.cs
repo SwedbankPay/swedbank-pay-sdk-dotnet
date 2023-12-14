@@ -5,7 +5,7 @@ public record PaymentOrderRequest(Operation Operation, Currency Currency, Amount
 {
     public IList<OrderItem>? OrderItems { get; set; }
 
-    public Metadata? Metadata { get; }
+    public Metadata? Metadata { get; set; }
     public Operation Operation { get; } = Operation;
     public Currency Currency { get; } = Currency;
     public Amount Amount { get; } = Amount;
