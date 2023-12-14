@@ -36,5 +36,5 @@ internal record PaymentOrderAbortRequestDto
         PaymentOrder = new PaymentOrderAbortRequestDetailDto(payload.PaymentOrder);
     }
 
-    public PaymentOrderAbortRequestDetailDto PaymentOrder { get; set; }
+    public PaymentOrderAbortRequestDetailDto PaymentOrder { get; }
 }   

@@ -87,9 +87,9 @@ public class PaymentOrderCaptureTransaction
     public Amount VatAmount { get; }
 }
 
-internal class PaymentOrderCaptureRequestDto
+internal record PaymentOrderCaptureRequestDto
 {
-    public PaymentOrderCaptureTransactionDto Transaction { get; set; }
+    public PaymentOrderCaptureTransactionDto Transaction { get; }
 
     public PaymentOrderCaptureRequestDto(PaymentOrderCaptureRequest payload)
     {
@@ -97,7 +97,7 @@ internal class PaymentOrderCaptureRequestDto
     }
 }
 
-internal class PaymentOrderCaptureTransactionDto
+internal record PaymentOrderCaptureTransactionDto
 {
     public PaymentOrderCaptureTransactionDto(PaymentOrderCaptureTransaction payload)
     {
@@ -109,10 +109,10 @@ internal class PaymentOrderCaptureTransactionDto
         OrderItems = payload.OrderItems.Select(x => new OrderItemDto(x)).ToList();
     }
 
-    public string? Description { get; set; }
-    public long Amount { get; set; }
-    public long VatAmount { get; set; }
-    public string? PayeeReference { get; set; }
-    public string? ReceiptReference { get; set; }
-    public IList<OrderItemDto>? OrderItems { get; set; }
+    public string? Description { get; }
+    public long Amount { get; }
+    public long VatAmount { get; }
+    public string? PayeeReference { get; }
+    public string? ReceiptReference { get; }
+    public IList<OrderItemDto>? OrderItems { get; }
 }

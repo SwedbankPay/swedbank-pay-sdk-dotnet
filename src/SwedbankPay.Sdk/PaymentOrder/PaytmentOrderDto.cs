@@ -1,6 +1,6 @@
 namespace SwedbankPay.Sdk.PaymentOrder;
 
-internal class PaymentOrderDto
+internal record PaymentOrderDto
 {
     internal PaymentOrderDto(PaymentOrderRequest paymentOrderRequest)
     {
@@ -14,7 +14,7 @@ internal class PaymentOrderDto
         Instrument = paymentOrderRequest.Instrument;
         Implementation = paymentOrderRequest.Implementation;
         Urls = new UrlsDto(paymentOrderRequest.Urls);
-        OrderItems = paymentOrderRequest.OrderItems.Select(x => new OrderItemDto(x)).ToArray();
+        OrderItems = paymentOrderRequest.OrderItems?.Select(x => new OrderItemDto(x)).ToArray();
         PayeeInfo = new PayeeInfoDto(paymentOrderRequest.PayeeInfo);
 
         if (paymentOrderRequest.Metadata != null)
@@ -23,17 +23,17 @@ internal class PaymentOrderDto
         }
     }
 
-    public string Operation { get; set; }
-    public string Currency { get; set; }
-    public long Amount { get; set; }
-    public long VatAmount { get; set; }
-    public string Description { get; set; }
-    public string UserAgent { get; set; }
-    public string Language { get; set; }
-    public string? Instrument { get; set; }
-    public string? Implementation { get; set; }
+    public string Operation { get; }
+    public string Currency { get; }
+    public long Amount { get; }
+    public long VatAmount { get; }
+    public string Description { get; }
+    public string UserAgent { get; }
+    public string Language { get; }
+    public string? Instrument { get; }
+    public string? Implementation { get; }
     public UrlsDto Urls { get; set; }
-    public OrderItemDto[] OrderItems { get; set; }
-    public PayeeInfoDto PayeeInfo { get; set; }
-    public MetadataDto? Metadata { get; set; }
+    public OrderItemDto[]? OrderItems { get; }
+    public PayeeInfoDto PayeeInfo { get; }
+    public MetadataDto? Metadata { get; }
 }

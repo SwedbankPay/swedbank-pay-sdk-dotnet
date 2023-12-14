@@ -120,12 +120,13 @@ public class CheckOutController : Controller
                     PaymentUrl = paymentUrl ?? _urls.PaymentUrl,
                     LogoUrl = _urls.LogoUrl
                 },
-                new PayeeInfo(_payeeInfoOptions.PayeeId, _payeeInfoOptions.PayeeReference));
-            // paymentOrderRequest.Implementation = "PaymentsOnly";
-            paymentOrderRequest.OrderItems = paymentOrderItems;
-            var paymentOrder = await _swedbankPayClient.PaymentOrders.Create(paymentOrderRequest);
+                new PayeeInfo(_payeeInfoOptions.PayeeId, _payeeInfoOptions.PayeeReference))
+            {
+                OrderItems = paymentOrderItems
+            };
+            var paymentOrder = await _swedbankPayClient.PaymentOrders.Create(paymentOrderRequest, PaymentOrderExpand.All);
 
-            _cartService.PaymentOrderLink = paymentOrder.PaymentOrder.Id.OriginalString;
+            _cartService.PaymentOrderLink = paymentOrder?.PaymentOrder.Id.OriginalString;
             _cartService.PaymentLink = null;
             _cartService.ConsumerProfileRef = consumerProfileRef;
             _cartService.Update();

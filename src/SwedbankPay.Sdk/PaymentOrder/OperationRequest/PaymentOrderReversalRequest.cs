@@ -46,7 +46,7 @@ internal record PaymentOrderReversalRequestDto
         Transaction = payload.Transaction.Map();
     }
 
-    public TransactionRequestDto Transaction { get; set; }
+    public TransactionRequestDto Transaction { get; }
 }
 
 internal record TransactionRequestDto
@@ -61,10 +61,10 @@ internal record TransactionRequestDto
         OrderItems = payload.OrderItems.Select(x => new OrderItemDto(x)).ToList();
     }
     
-    public string Description { get; set; }
-    public long Amount { get; set; }
-    public long VatAmount { get; set; }
-    public string PayeeReference { get; set; }
-    public string? ReceiptReference { get; set; }
-    public IList<OrderItemDto> OrderItems { get; set; }
+    public string Description { get; }
+    public long Amount { get; }
+    public long VatAmount { get; }
+    public string PayeeReference { get; }
+    public string? ReceiptReference { get; }
+    public IList<OrderItemDto> OrderItems { get; }
 }

@@ -39,7 +39,7 @@ public class Status : TypeSafeEnum<Status>
     }
     
     /// <summary>
-    /// Converts from a <c>string</c> to a <see cref="State"/>.
+    /// Converts from a <c>string</c> to a <see cref="Status"/>.
     /// </summary>
     /// <param name="originalState">he API value of the state.</param>
     public static implicit operator Status(string originalState)

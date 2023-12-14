@@ -7,5 +7,5 @@ internal record PaymentOrderRequestDto
         PaymentOrder = new PaymentOrderDto(paymentOrderRequest);
     }
 
-    public PaymentOrderDto PaymentOrder { get; set; }
+    public PaymentOrderDto PaymentOrder { get; }
 }

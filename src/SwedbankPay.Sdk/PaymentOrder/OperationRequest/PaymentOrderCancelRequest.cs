@@ -24,7 +24,7 @@ public class PaymentOrderCancelRequestDetail
 
 internal record PaymentOrderCancelRequestDto
 {
-    public PaymentOrderCancelRequestDetailDto Transaction { get; set; }
+    public PaymentOrderCancelRequestDetailDto Transaction { get; }
 
     public PaymentOrderCancelRequestDto(PaymentOrderCancelRequest payload)
     {
