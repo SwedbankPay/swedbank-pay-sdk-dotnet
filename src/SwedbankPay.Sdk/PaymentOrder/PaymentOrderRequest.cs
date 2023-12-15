@@ -1,7 +1,9 @@
+using SwedbankPay.Sdk.PaymentOrder.OrderItems;
+
 namespace SwedbankPay.Sdk.PaymentOrder;
 
 public record PaymentOrderRequest(Operation Operation, Currency Currency, Amount Amount, Amount VatAmount, string Description,
-    string UserAgent, Language Language, Urls Urls, Sdk.PayeeInfo PayeeInfo)
+    string UserAgent, Language Language, Urls.Urls Urls, Sdk.PayeeInfo PayeeInfo)
 {
     public IList<OrderItem>? OrderItems { get; set; }
 
@@ -15,6 +17,6 @@ public record PaymentOrderRequest(Operation Operation, Currency Currency, Amount
     public Language Language { get; } = Language;
     public string? Instrument { get; set; }
     public string? Implementation { get; set; }
-    public Urls Urls { get; } = Urls;
+    public Urls.Urls Urls { get; } = Urls;
     public Sdk.PayeeInfo PayeeInfo { get; } = PayeeInfo;
 }

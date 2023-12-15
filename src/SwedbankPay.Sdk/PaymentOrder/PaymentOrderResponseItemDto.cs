@@ -11,6 +11,7 @@ using SwedbankPay.Sdk.PaymentOrder.PayeeInfo;
 using SwedbankPay.Sdk.PaymentOrder.Payer;
 using SwedbankPay.Sdk.PaymentOrder.PostPurchaseFailedAttempts;
 using SwedbankPay.Sdk.PaymentOrder.Reversed;
+using SwedbankPay.Sdk.PaymentOrder.Urls;
 
 namespace SwedbankPay.Sdk.PaymentOrder;
 

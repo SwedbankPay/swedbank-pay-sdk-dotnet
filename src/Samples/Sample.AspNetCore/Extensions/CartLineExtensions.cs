@@ -2,6 +2,7 @@
 
 using Sample.AspNetCore.Models;
 using SwedbankPay.Sdk;
+using SwedbankPay.Sdk.PaymentOrder.OrderItems;
 
 namespace Sample.AspNetCore.Extensions;
 

@@ -1,3 +1,5 @@
+using SwedbankPay.Sdk.PaymentOrder.OrderItems;
+
 namespace SwedbankPay.Sdk.PaymentOrder.OperationRequest;
 
 /// <summary>

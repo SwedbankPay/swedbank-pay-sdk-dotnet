@@ -1,4 +1,6 @@
 using SwedbankPay.Sdk.PaymentOrder.Metadata;
+using SwedbankPay.Sdk.PaymentOrder.OrderItems;
+using SwedbankPay.Sdk.PaymentOrder.Urls;
 
 namespace SwedbankPay.Sdk.PaymentOrder;
 

@@ -1,4 +1,4 @@
-namespace SwedbankPay.Sdk;
+namespace SwedbankPay.Sdk.PaymentOrder.OrderItems;
 
 public record OrderItem(string Reference, string Name, OrderItemType Type, string Class, decimal Quantity,
     string QuantityUnit, Amount UnitPrice, int VatPercent, Amount Amount, Amount VatAmount)

@@ -31,7 +31,7 @@ public interface IPaymentOrder
     bool InstrumentMode { get; }
     bool GuestMode { get; }
     OrderItemsResponse? OrderItems { get; } 
-    Urls? Urls { get; }
+    Urls.Urls? Urls { get; }
     PayeeInfoResponse? PayeeInfo { get; }
     PayerResponse? Payer { get; }
     HistoryResponse? History { get; }

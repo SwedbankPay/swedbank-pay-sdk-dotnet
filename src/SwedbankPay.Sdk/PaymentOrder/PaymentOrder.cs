@@ -31,7 +31,7 @@ public record PaymentOrder : Identifiable, IPaymentOrder
     public bool InstrumentMode { get; }
     public bool GuestMode { get; }
     public OrderItemsResponse? OrderItems { get; }
-    public Urls? Urls { get; }
+    public Urls.Urls? Urls { get; }
     public PayeeInfoResponse? PayeeInfo { get; }
     public PayerResponse? Payer { get; }
     public HistoryResponse? History { get; }

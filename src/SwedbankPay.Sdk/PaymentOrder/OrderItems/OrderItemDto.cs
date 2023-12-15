@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace SwedbankPay.Sdk;
+namespace SwedbankPay.Sdk.PaymentOrder.OrderItems;
 
 internal record OrderItemDto
 {
