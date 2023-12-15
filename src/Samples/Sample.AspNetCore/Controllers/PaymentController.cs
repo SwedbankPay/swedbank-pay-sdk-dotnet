@@ -13,6 +13,7 @@ using Sample.AspNetCore.Models;
 using SwedbankPay.Sdk;
 using SwedbankPay.Sdk.JsonSerialization;
 using SwedbankPay.Sdk.PaymentOrder;
+using SwedbankPay.Sdk.PaymentOrder.FinancialTransactions;
 using SwedbankPay.Sdk.PaymentOrder.OperationRequest;
 
 namespace Sample.AspNetCore.Controllers;

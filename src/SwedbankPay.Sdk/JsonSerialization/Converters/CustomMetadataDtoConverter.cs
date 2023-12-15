@@ -1,6 +1,8 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
+using SwedbankPay.Sdk.PaymentOrder.Metadata;
+
 namespace SwedbankPay.Sdk.JsonSerialization.Converters;
 
  internal class CustomMetadataDtoConverter : JsonConverter<MetadataDto>

@@ -1,5 +1,4 @@
 using SwedbankPay.Sdk.Extensions;
-using SwedbankPay.Sdk.PaymentOrder.Models;
 
 namespace SwedbankPay.Sdk.PaymentOrder;
 

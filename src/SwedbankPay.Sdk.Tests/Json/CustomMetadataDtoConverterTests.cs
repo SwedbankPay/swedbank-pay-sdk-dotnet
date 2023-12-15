@@ -1,5 +1,7 @@
 using System.Text.Json;
 
+using SwedbankPay.Sdk.PaymentOrder.Metadata;
+
 namespace SwedbankPay.Sdk.Tests.Json;
 
 public class CustomMetadataDtoConverterTests

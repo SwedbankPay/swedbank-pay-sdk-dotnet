@@ -55,9 +55,9 @@ public class CheckOutController : Controller
     private async Task<IPaymentOrderResponse> UpdatePaymentOrder(Uri orderId, string consumerProfileRef, Uri paymentUrl = null)
     {
         var paymentOrder = await _swedbankPayClient.PaymentOrders.Get(orderId, PaymentOrderExpand.All);
-        if (paymentOrder.Operations.Update == null)
+        if (paymentOrder?.Operations.Update == null)
         {
-            if (paymentOrder.Operations.Abort != null)
+            if (paymentOrder?.Operations.Abort != null)
             {
                 await paymentOrder.Operations.Abort(new PaymentOrderAbortRequest("UpdateNotAvailable"));
                 return await CreatePaymentOrder(consumerProfileRef, paymentUrl);
@@ -124,6 +124,8 @@ public class CheckOutController : Controller
             {
                 OrderItems = paymentOrderItems
             };
+
+            paymentOrderRequest.Metadata = null;
             var paymentOrder = await _swedbankPayClient.PaymentOrders.Create(paymentOrderRequest, PaymentOrderExpand.All);
 
             _cartService.PaymentOrderLink = paymentOrder?.PaymentOrder.Id.OriginalString;

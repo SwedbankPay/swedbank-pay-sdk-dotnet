@@ -2,7 +2,6 @@ using System.Text.Json;
 
 using SwedbankPay.Sdk.Exceptions;
 using SwedbankPay.Sdk.PaymentOrder;
-using SwedbankPay.Sdk.PaymentOrder.Models;
 using SwedbankPay.Sdk.PaymentOrder.OperationRequest;
 using SwedbankPay.Sdk.Tests.TestBuilders;
 using SwedbankPay.Sdk.Tests.TestHelpers;
@@ -499,7 +498,7 @@ public class PaymentOrderTests : ResourceTestsBase
   ]
 }";
 
-    private static Uri GetUri() => new Uri("http://api.externalintegration.payex.com/psp/paymentorders/2d35afaa-4e5a-4930-0de5-08d7da0988bc", UriKind.Absolute);
+    private static Uri GetUri() => new Uri("http://api.externalintegration.payex.com", UriKind.Absolute);
 
     private readonly PaymentOrderRequestBuilder _paymentOrderRequestBuilder = new();
 

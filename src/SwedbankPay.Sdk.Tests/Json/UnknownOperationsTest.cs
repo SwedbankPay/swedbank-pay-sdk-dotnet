@@ -1,7 +1,6 @@
 using System.Text.Json;
 
 using SwedbankPay.Sdk.PaymentOrder;
-using SwedbankPay.Sdk.PaymentOrder.Models;
 
 namespace SwedbankPay.Sdk.Tests.Json;
 

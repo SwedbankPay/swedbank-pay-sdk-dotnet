@@ -1,12 +1,10 @@
-using SwedbankPay.Sdk.PaymentOrder.Models;
-
 namespace SwedbankPay.Sdk.PaymentOrder;
 
 public class PaymentOrderResponse : IPaymentOrderResponse
 {
     internal PaymentOrderResponse(PaymentOrderResponseDto paymentOrderResponseDto, HttpClient httpClient)
     {
-        PaymentOrder = new Models.PaymentOrder(paymentOrderResponseDto.PaymentOrder);
+        PaymentOrder = new PaymentOrder(paymentOrderResponseDto.PaymentOrder);
 
         var httpOperations = new OperationList();
         foreach (var item in paymentOrderResponseDto.Operations)

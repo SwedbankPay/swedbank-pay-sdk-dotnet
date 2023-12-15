@@ -1,11 +1,11 @@
 namespace SwedbankPay.Sdk.PaymentOrder;
 
 public record PaymentOrderRequest(Operation Operation, Currency Currency, Amount Amount, Amount VatAmount, string Description,
-    string UserAgent, Language Language, Urls Urls, PayeeInfo PayeeInfo)
+    string UserAgent, Language Language, Urls Urls, Sdk.PayeeInfo PayeeInfo)
 {
     public IList<OrderItem>? OrderItems { get; set; }
 
-    public Metadata? Metadata { get; set; }
+    public Metadata.Metadata? Metadata { get; set; }
     public Operation Operation { get; } = Operation;
     public Currency Currency { get; } = Currency;
     public Amount Amount { get; } = Amount;
@@ -16,5 +16,5 @@ public record PaymentOrderRequest(Operation Operation, Currency Currency, Amount
     public string? Instrument { get; set; }
     public string? Implementation { get; set; }
     public Urls Urls { get; } = Urls;
-    public PayeeInfo PayeeInfo { get; } = PayeeInfo;
+    public Sdk.PayeeInfo PayeeInfo { get; } = PayeeInfo;
 }
