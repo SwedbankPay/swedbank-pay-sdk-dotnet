@@ -55,7 +55,7 @@ jobs:
         run: dotnet publish --configuration ${{ inputs.Configuration }} -p:Version=${{ inputs.nuGetVersionV2 }} --no-restore ${{ inputs.SampleSiteCsprojPath }} --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/samplesite'
 
       - name: Archive Sample.AspNetCore
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Sample.AspNetCore
           path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/samplesite
@@ -64,7 +64,7 @@ jobs:
         run: dotnet publish --configuration ${{ inputs.Configuration }} -p:Version=${{ inputs.nuGetVersionV2 }} --no-restore ${{ inputs.UnitTestsCsprojPath }} --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/unittests'
 
       - name: Archive Sdk Unit tests
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Sdk.UnitTests
           path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/unittests
@@ -73,7 +73,7 @@ jobs:
       #   run: dotnet publish --configuration ${{ inputs.Configuration }} -p:Version=${{ inputs.nuGetVersionV2 }} --no-restore ${{ inputs.IntegrationTestsCsprojPath }} --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/integrationtests' --os win
 
       # - name: Archive Sdk Integration tests
-      #   uses: actions/upload-artifact@v3
+      #   uses: actions/upload-artifact@v4
       #   with:
       #     name: Sdk.IntegrationTests
       #     path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/integrationtests
@@ -92,7 +92,7 @@ jobs:
       #     Copy-Item -Path "./src/Samples/Sample.AspNetCore/wwwroot" -Destination "./systemtests/wwwroot" -Recurse -Force
 
       # - name: Archive Sample.AspNetCore.SystemTests
-      #   uses: actions/upload-artifact@v3
+      #   uses: actions/upload-artifact@v4
       #   with:
       #     name: Sample.AspNetCore.SystemTests
       #     path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/systemtests
@@ -104,7 +104,7 @@ jobs:
         run: dotnet pack ./src/SwedbankPay.Sdk.Extensions/SwedbankPay.Sdk.Extensions.csproj -p:PackageVersion=${{ inputs.NUGETVERSIONV2 }} -p:Version=${{ inputs.NUGETVERSIONV2 }} --no-restore --configuration=${{ inputs.Configuration }} --output=artifacts
 
       - name: Archive nuget packages artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           # Artifact name
           name: packages
