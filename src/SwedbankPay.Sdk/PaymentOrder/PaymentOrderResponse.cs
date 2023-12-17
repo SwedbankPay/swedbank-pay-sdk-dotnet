@@ -1,6 +1,6 @@
 namespace SwedbankPay.Sdk.PaymentOrder;
 
-public class PaymentOrderResponse : IPaymentOrderResponse
+internal class PaymentOrderResponse : IPaymentOrderResponse
 {
     internal PaymentOrderResponse(PaymentOrderResponseDto paymentOrderResponseDto, HttpClient httpClient)
     {

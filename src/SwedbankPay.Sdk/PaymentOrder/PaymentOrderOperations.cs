@@ -3,7 +3,7 @@ using SwedbankPay.Sdk.PaymentOrder.OperationRequest;
 
 namespace SwedbankPay.Sdk.PaymentOrder;
 
-public class PaymentOrderOperations : OperationsBase, IPaymentOrderOperations
+internal class PaymentOrderOperations : OperationsBase, IPaymentOrderOperations
 {
     internal PaymentOrderOperations(IOperationList httpOperations, HttpClient httpClient)
     {

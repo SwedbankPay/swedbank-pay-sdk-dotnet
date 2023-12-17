@@ -5,7 +5,7 @@ using SwedbankPay.Sdk.PaymentOrder;
 
 namespace SwedbankPay.Sdk.JsonSerialization.Converters;
 
-public class CustomPaymentOrderOperationsConverter : JsonConverter<IPaymentOrderOperations>
+internal class CustomPaymentOrderOperationsConverter : JsonConverter<IPaymentOrderOperations>
 {
     public override IPaymentOrderOperations? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {

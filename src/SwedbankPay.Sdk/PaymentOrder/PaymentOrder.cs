@@ -13,7 +13,7 @@ using SwedbankPay.Sdk.PaymentOrder.Reversed;
 
 namespace SwedbankPay.Sdk.PaymentOrder;
 
-public record PaymentOrder : Identifiable, IPaymentOrder
+internal record PaymentOrder : Identifiable, IPaymentOrder
 {
     public DateTime Created { get; }
     public DateTime Updated { get; }
