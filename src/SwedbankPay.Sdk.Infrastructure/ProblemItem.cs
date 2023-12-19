@@ -2,7 +2,7 @@ namespace SwedbankPay.Sdk.Infrastructure;
 
 internal record ProblemItem : IProblemItem
 {
-    public ProblemItem(ProblemItemDto dto)
+    internal ProblemItem(ProblemItemDto dto)
     {
         Description = dto.Description;
         Name = dto.Name;

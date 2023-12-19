@@ -516,13 +516,14 @@ public class PaymentOrderTests : ResourceTestsBase
         Assert.NotNull(paymentOrderResponseDto.PaymentOrder.FinancialTransactions?.FinancialTransactionsList);
         Assert.NotNull(paymentOrderResponseDto.PaymentOrder.FinancialTransactions?.FinancialTransactionsList.FirstOrDefault());
         Assert.NotNull(paymentOrderResponseDto.PaymentOrder.FinancialTransactions?.FinancialTransactionsList.FirstOrDefault()?.OrderItems);
-        Assert.NotNull(paymentOrderResponseDto.PaymentOrder.FinancialTransactions?.FinancialTransactionsList.FirstOrDefault()?.OrderItems.Id);
+        Assert.NotNull(paymentOrderResponseDto.PaymentOrder.FinancialTransactions?.FinancialTransactionsList.FirstOrDefault()?.OrderItems?.Id);
     }
     
     [Fact]
     public void CanSerializePaymentOrder()
     {
         var paymentOrderResponseDto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderResponse31, JsonSerialization.Settings);
+        Assert.NotNull(paymentOrderResponseDto);
         var paymentOrderResponse = new PaymentOrderResponse(paymentOrderResponseDto, new HttpClient());
         var serialize = JsonSerializer.Serialize(paymentOrderResponse, JsonSerialization.Settings);
     }
@@ -607,6 +608,7 @@ public class PaymentOrderTests : ResourceTestsBase
         Assert.NotNull(operationsUpdate);
         Assert.NotNull(operationsUpdate.PaymentOrder);
         Assert.NotNull(operationsUpdate.PaymentOrder.OrderItems);
+        Assert.NotNull(operationsUpdate.PaymentOrder.OrderItems.OrderItemList);
         Assert.True(operationsUpdate.PaymentOrder.OrderItems.OrderItemList.Count() == 1);
     }
 
@@ -686,9 +688,9 @@ public class PaymentOrderTests : ResourceTestsBase
 
         var sut = await new PaymentOrdersResource(client).Create(paymentOrderRequest);
 
-        var result = await Assert.ThrowsAsync<HttpResponseException>(() => sut.Operations.Capture(captureRequest));
+        var result = await Assert.ThrowsAsync<HttpResponseException>(() => sut!.Operations.Capture!.Invoke(captureRequest));
 
-        Assert.Equal(1, result.Data.Count);
+        Assert.Single(result.Data);
     }
 
 

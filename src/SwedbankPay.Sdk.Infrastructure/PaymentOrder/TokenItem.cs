@@ -2,7 +2,7 @@ using SwedbankPay.Sdk.PaymentOrder;
 
 namespace SwedbankPay.Sdk.Infrastructure.PaymentOrder;
 
-public record TokenItem : ITokenItem
+internal record TokenItem : ITokenItem
 {
     public string? Type { get; }
     public string? Token { get; }

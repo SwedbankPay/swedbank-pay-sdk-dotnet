@@ -29,11 +29,3 @@ internal class OperationListDto : List<HttpOperationDto>
         return list;
     }
 }
-
-internal record HttpOperationDto
-{
-    public string? ContentType { get; init; }
-    public string Href { get; init; } = null!;
-    public string? Method { get; init; }
-    public string? Rel { get; init; }
-}

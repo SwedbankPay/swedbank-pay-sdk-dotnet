@@ -18,8 +18,7 @@ public class PaymentOrderRequestBuilder
     private string? _userAgent;
     private Amount? _vatAmount;
     private string? _implementation;
-    private string? _instrument;
-
+    
 
     public PaymentOrderRequest Build()
     {
@@ -27,7 +26,6 @@ public class PaymentOrderRequestBuilder
             _userAgent!, _language!, _urls!, _payeeInfo!)
         {
             OrderItems = _orderItems!,
-            Instrument = _instrument,
             Implementation = _implementation,
         };
 

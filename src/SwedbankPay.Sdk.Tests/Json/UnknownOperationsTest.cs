@@ -59,8 +59,8 @@ public class UnknownOperationsTest
     
         Assert.True(operations.TryGetValue(testLinkRelation, out var httpOperation), "Missing value in operation list");
     
-        Assert.Equal("text/html", httpOperation.ContentType);
-        Assert.Equal(HttpMethod.Get, httpOperation.Method);
+        Assert.Equal("text/html", httpOperation?.ContentType);
+        Assert.Equal(HttpMethod.Get, httpOperation?.Method);
     }
 
     public static string TestOperationName = "unknown-test-operation";

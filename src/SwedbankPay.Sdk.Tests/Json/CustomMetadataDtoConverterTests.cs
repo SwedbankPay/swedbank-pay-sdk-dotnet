@@ -20,6 +20,7 @@ public class CustomMetadataDtoConverterTests
 
         var result = JsonSerializer.Deserialize<MetadataDto>(serialized, JsonSerialization.Settings);
 
+        Assert.NotNull(result);
         Assert.Equal(metadata["key2"], result["key2"]);
         Assert.Equal(metadata["key1"], result["key1"]);
     }

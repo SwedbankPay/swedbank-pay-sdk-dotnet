@@ -26,7 +26,7 @@ public interface IUrls
     /// <summary>
     /// The array of URIs valid for embedding of Swedbank Pay Hosted Views.
     /// </summary>
-    IList<Uri> HostUrls { get; }
+    IList<Uri>? HostUrls { get; }
 
     /// <summary>
     /// The URL that will be used for showing the customer logo.

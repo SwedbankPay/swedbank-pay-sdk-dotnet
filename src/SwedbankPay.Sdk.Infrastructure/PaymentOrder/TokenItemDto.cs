@@ -4,10 +4,10 @@ namespace SwedbankPay.Sdk.Infrastructure.PaymentOrder;
 
 internal record TokenItemDto
 {
-    public string? Type { get; set; }
-    public string? Token { get; set; }
-    public string? Name { get; set; }
-    public string? ExpiryDate { get; set; }
+    public string? Type { get; init; }
+    public string? Token { get; init; }
+    public string? Name { get; init; }
+    public string? ExpiryDate { get; init; }
 
     public ITokenItem Map()
     {
