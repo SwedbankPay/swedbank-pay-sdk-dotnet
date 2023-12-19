@@ -13,7 +13,8 @@ using Sample.AspNetCore.Models;
 
 using SwedbankPay.Sdk;
 using SwedbankPay.Sdk.PaymentOrder;
-using SwedbankPay.Sdk.PaymentOrder.OperationRequest;
+using SwedbankPay.Sdk.PaymentOrder.OperationRequest.Abort;
+using SwedbankPay.Sdk.PaymentOrder.OperationRequest.Update;
 using SwedbankPay.Sdk.PaymentOrder.Urls;
 
 namespace Sample.AspNetCore.Controllers;

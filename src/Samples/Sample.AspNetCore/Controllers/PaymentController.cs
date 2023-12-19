@@ -14,7 +14,10 @@ using SwedbankPay.Sdk;
 using SwedbankPay.Sdk.JsonSerialization;
 using SwedbankPay.Sdk.PaymentOrder;
 using SwedbankPay.Sdk.PaymentOrder.FinancialTransactions;
-using SwedbankPay.Sdk.PaymentOrder.OperationRequest;
+using SwedbankPay.Sdk.PaymentOrder.OperationRequest.Abort;
+using SwedbankPay.Sdk.PaymentOrder.OperationRequest.Cancel;
+using SwedbankPay.Sdk.PaymentOrder.OperationRequest.Capture;
+using SwedbankPay.Sdk.PaymentOrder.OperationRequest.Reversal;
 
 namespace Sample.AspNetCore.Controllers;
 

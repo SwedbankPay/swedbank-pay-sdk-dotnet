@@ -1,8 +1,8 @@
-namespace SwedbankPay.Sdk.PaymentOrder.OperationRequest;
+namespace SwedbankPay.Sdk.PaymentOrder.OperationRequest.Reversal;
 
 internal record PaymentOrderReversalRequestDto
 {
-    public PaymentOrderReversalRequestDto(PaymentOrderReversalRequest payload)
+    internal PaymentOrderReversalRequestDto(PaymentOrderReversalRequest payload)
     {
         Transaction = payload.Transaction.Map();
     }

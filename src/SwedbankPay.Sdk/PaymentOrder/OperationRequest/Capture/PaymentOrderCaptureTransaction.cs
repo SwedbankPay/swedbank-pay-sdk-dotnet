@@ -1,6 +1,6 @@
 using SwedbankPay.Sdk.PaymentOrder.OrderItems;
 
-namespace SwedbankPay.Sdk.PaymentOrder.OperationRequest;
+namespace SwedbankPay.Sdk.PaymentOrder.OperationRequest.Capture;
 
 /// <summary>
 /// Transactional details for capturing funds for a payment order.

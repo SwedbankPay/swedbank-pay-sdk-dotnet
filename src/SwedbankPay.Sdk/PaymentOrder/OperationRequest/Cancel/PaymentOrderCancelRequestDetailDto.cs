@@ -1,11 +1,11 @@
-namespace SwedbankPay.Sdk.PaymentOrder.OperationRequest;
+namespace SwedbankPay.Sdk.PaymentOrder.OperationRequest.Cancel;
 
 internal record PaymentOrderCancelRequestDetailDto
 {
     public string Description { get; }
     public string PayeeReference { get; }
 
-    public PaymentOrderCancelRequestDetailDto(PaymentOrderCancelRequestDetail payload)
+    internal PaymentOrderCancelRequestDetailDto(PaymentOrderCancelRequestDetail payload)
     {
         Description = payload.Description;
         PayeeReference = payload.PayeeReference;

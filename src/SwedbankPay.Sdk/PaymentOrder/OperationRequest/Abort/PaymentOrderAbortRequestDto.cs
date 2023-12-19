@@ -1,4 +1,4 @@
-namespace SwedbankPay.Sdk.PaymentOrder.OperationRequest;
+namespace SwedbankPay.Sdk.PaymentOrder.OperationRequest.Abort;
 
 internal record PaymentOrderAbortRequestDto
 {

@@ -1,10 +1,10 @@
 using SwedbankPay.Sdk.PaymentOrder.OrderItems;
 
-namespace SwedbankPay.Sdk.PaymentOrder.OperationRequest;
+namespace SwedbankPay.Sdk.PaymentOrder.OperationRequest.Capture;
 
 internal record PaymentOrderCaptureTransactionDto
 {
-    public PaymentOrderCaptureTransactionDto(PaymentOrderCaptureTransaction payload)
+    internal PaymentOrderCaptureTransactionDto(PaymentOrderCaptureTransaction payload)
     {
         Description = payload.Description;
         Amount = payload.Amount.InLowestMonetaryUnit;

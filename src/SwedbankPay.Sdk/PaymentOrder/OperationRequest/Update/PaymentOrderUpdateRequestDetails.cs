@@ -1,6 +1,6 @@
 using SwedbankPay.Sdk.PaymentOrder.OrderItems;
 
-namespace SwedbankPay.Sdk.PaymentOrder.OperationRequest;
+namespace SwedbankPay.Sdk.PaymentOrder.OperationRequest.Update;
 
 /// <summary>
 /// API details for updating the amounts on a payment order.

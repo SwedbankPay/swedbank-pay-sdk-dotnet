@@ -1,4 +1,4 @@
-namespace SwedbankPay.Sdk.PaymentOrder.OperationRequest;
+namespace SwedbankPay.Sdk.PaymentOrder.OperationRequest.Capture;
 
 /// <summary>
 /// API request object for capturing funds for a payment order.

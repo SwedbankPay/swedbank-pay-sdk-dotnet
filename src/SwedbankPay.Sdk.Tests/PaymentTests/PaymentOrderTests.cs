@@ -1,8 +1,11 @@
+using System.Net;
 using System.Text.Json;
 
 using SwedbankPay.Sdk.Exceptions;
 using SwedbankPay.Sdk.PaymentOrder;
-using SwedbankPay.Sdk.PaymentOrder.OperationRequest;
+using SwedbankPay.Sdk.PaymentOrder.OperationRequest.Abort;
+using SwedbankPay.Sdk.PaymentOrder.OperationRequest.Capture;
+using SwedbankPay.Sdk.PaymentOrder.OperationRequest.Update;
 using SwedbankPay.Sdk.PaymentOrder.OrderItems;
 using SwedbankPay.Sdk.Tests.TestBuilders;
 using SwedbankPay.Sdk.Tests.TestHelpers;
@@ -617,13 +620,26 @@ public class PaymentOrderTests : ResourceTestsBase
         };
         handler.FakeResponseList.Add(new HttpResponseMessage
         {
-            StatusCode = System.Net.HttpStatusCode.OK,
+            StatusCode = HttpStatusCode.OK,
             Content = new StringContent(PaymentOrderResponse31)
         });
 
 
         //ACT
         var paymentOrder = await new PaymentOrdersResource(client).Get(paymentOrderUri);
+        Assert.NotNull(paymentOrder);
+        Assert.NotNull(paymentOrder.Operations);
+    }
+
+    
+    [Fact]
+    public async Task GetPaymentOrder_ShouldReturnPaymentOrderReal()
+    {
+        //ARRANGE
+        var paymentOrderUri = new Uri("/psp/paymentorders/894f7efb-8535-4c3f-ccd6-08dbf62d5f1c", UriKind.RelativeOrAbsolute);
+        
+        //ACT
+        var paymentOrder = await Sut.PaymentOrders.Get(paymentOrderUri, PaymentOrderExpand.All);
         Assert.NotNull(paymentOrder);
         Assert.NotNull(paymentOrder.Operations);
     }
@@ -639,12 +655,12 @@ public class PaymentOrderTests : ResourceTestsBase
         };
         handler.FakeResponseList.Add(new HttpResponseMessage
         {
-            StatusCode = System.Net.HttpStatusCode.OK,
+            StatusCode = HttpStatusCode.OK,
             Content = new StringContent(PaymentOrderResponse31)
         });
         handler.FakeResponseList.Add(new HttpResponseMessage
         {
-            StatusCode = System.Net.HttpStatusCode.BadRequest,
+            StatusCode = HttpStatusCode.BadRequest,
             Content = new StringContent(@"
             {
                 ""sessionId"": ""27146bc5-269e-4b69-a25b-16308f4b481f"",
@@ -684,7 +700,7 @@ public class PaymentOrderTests : ResourceTestsBase
         };
         handler.FakeResponseList.Add(new HttpResponseMessage
         {
-            StatusCode = System.Net.HttpStatusCode.OK,
+            StatusCode = HttpStatusCode.OK,
             Content = new StringContent(PaymentOrderResponse31)
         });
 
