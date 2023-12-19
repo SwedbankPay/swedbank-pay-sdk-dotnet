@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
+namespace SwedbankPay.Sdk.Infrastructure;
 
-namespace SwedbankPay.Sdk
+internal class OperationList : List<HttpOperation>, IOperationList
 {
-    internal class OperationList : List<HttpOperation>, IOperationList
-    {
-    }
+    
 }
