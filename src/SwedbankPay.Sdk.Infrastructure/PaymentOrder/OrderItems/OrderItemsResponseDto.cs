@@ -1,5 +1,3 @@
-using SwedbankPay.Sdk.PaymentOrder.OrderItems;
-
 namespace SwedbankPay.Sdk.Infrastructure.PaymentOrder.OrderItems;
 
 internal record OrderItemsResponseDto : IdentifiableDto

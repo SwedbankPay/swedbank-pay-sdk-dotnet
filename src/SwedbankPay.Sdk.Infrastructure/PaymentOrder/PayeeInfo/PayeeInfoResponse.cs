@@ -2,7 +2,7 @@ using SwedbankPay.Sdk.PaymentOrder;
 
 namespace SwedbankPay.Sdk.Infrastructure.PaymentOrder.PayeeInfo;
 
-public record PayeeInfoResponse : Identifiable, IPayeeInfoResponse
+internal record PayeeInfoResponse : Identifiable, IPayeeInfoResponse
 {
     public string? PayeeId { get; init; }
     public string? PayeeReference { get; init; }

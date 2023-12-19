@@ -2,7 +2,7 @@ using SwedbankPay.Sdk.PaymentOrder;
 
 namespace SwedbankPay.Sdk.Infrastructure.PaymentOrder.Cancelled;
 
-public record CancelledDetails : ICancelledDetails
+internal record CancelledDetails : ICancelledDetails
 {
     public string? NonPaymentToken { get; }
     public string? ExternalNonPaymentToken { get; }

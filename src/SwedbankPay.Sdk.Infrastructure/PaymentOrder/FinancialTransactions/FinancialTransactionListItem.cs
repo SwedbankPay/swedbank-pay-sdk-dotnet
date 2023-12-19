@@ -1,9 +1,9 @@
 using SwedbankPay.Sdk.PaymentOrder;
 using SwedbankPay.Sdk.PaymentOrder.FinancialTransactions;
 
-namespace SwedbankPay.Sdk.Infrastructure.PaymentOrder.FinancialTransactions;
+namespace SwedbankPay.Sdk.Infrastructure.PaymentOrder.FinancialTransactions; 
 
-public record FinancialTransactionListItem : Identifiable, IFinancialTransactionListItem
+internal record FinancialTransactionListItem : Identifiable, IFinancialTransactionListItem
 {
     public DateTime Created { get; }
     public DateTime Updated { get; }

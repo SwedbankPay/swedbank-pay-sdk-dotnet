@@ -2,7 +2,7 @@ using SwedbankPay.Sdk.PaymentOrder;
 
 namespace SwedbankPay.Sdk.Infrastructure.PaymentOrder.History;
 
-public record HistoryListItem : IHistoryListItem
+internal record HistoryListItem : IHistoryListItem
 {
     public DateTime Created { get; }
     public string? Name { get; }
