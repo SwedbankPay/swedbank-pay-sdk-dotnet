@@ -1,5 +1,8 @@
 using System.Text.Json;
 
+using SwedbankPay.Sdk.Infrastructure;
+using SwedbankPay.Sdk.Infrastructure.JsonSerialization;
+using SwedbankPay.Sdk.Infrastructure.PaymentOrder;
 using SwedbankPay.Sdk.PaymentOrder;
 
 namespace SwedbankPay.Sdk.Tests.Json;
@@ -42,6 +45,6 @@ public class LinkRelationTests
             httpOperation
         };
         var paymentOrderOperations = new PaymentOrderOperations(operationList, new HttpClient());
-        var serialize = JsonSerializer.Serialize(paymentOrderOperations, JsonSerialization.JsonSerialization.Settings);
+        var serialize = JsonSerializer.Serialize(paymentOrderOperations, JsonSerialization.Settings);
     }
 }

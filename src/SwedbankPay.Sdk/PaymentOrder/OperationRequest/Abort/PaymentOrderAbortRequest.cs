@@ -7,6 +7,7 @@ namespace SwedbankPay.Sdk.PaymentOrder.OperationRequest.Abort;
 /// </summary>
 public record PaymentOrderAbortRequest
 {
+    
     private static readonly Regex ValidAbortReasonRegex = new Regex(@"^[a-zA-Z0-9]+$");
     
     public PaymentOrderAbortRequest(string abortReason)

@@ -1,5 +1,7 @@
 using System.Text.Json;
 
+using SwedbankPay.Sdk.Infrastructure.JsonSerialization;
+
 namespace SwedbankPay.Sdk.Tests.Json;
 
 public class CustomUriConverterTests
@@ -15,7 +17,7 @@ public class CustomUriConverterTests
         var jsonObject = $"{{ \"id\": \"{_idstring}\" }}";
 
         //ACT
-        var result = JsonSerializer.Deserialize<DummyClass>(jsonObject, JsonSerialization.JsonSerialization.Settings);
+        var result = JsonSerializer.Deserialize<DummyClass>(jsonObject, JsonSerialization.Settings);
 
         //ASSERT
         Assert.Equal(_idstring, result?.Id?.OriginalString);
@@ -32,7 +34,7 @@ public class CustomUriConverterTests
         };
 
         //ACT
-        var result = JsonSerializer.Serialize(dummy, JsonSerialization.JsonSerialization.Settings);
+        var result = JsonSerializer.Serialize(dummy, JsonSerialization.Settings);
         var obj = JsonDocument.Parse(result);
 
         var id = obj.RootElement.GetProperty("id").ToString();

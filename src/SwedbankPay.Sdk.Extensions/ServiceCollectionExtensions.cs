@@ -2,6 +2,8 @@ using System.Net;
 
 using Microsoft.Extensions.DependencyInjection;
 
+using SwedbankPay.Sdk.Infrastructure;
+using SwedbankPay.Sdk.Infrastructure.PaymentOrder;
 using SwedbankPay.Sdk.PaymentOrder;
 
 namespace SwedbankPay.Sdk.Extensions;
@@ -9,7 +11,7 @@ namespace SwedbankPay.Sdk.Extensions;
 public static class ServiceCollectionExtensions
 {
     /// <summary>
-    /// Configures the named HttpClient <seealso cref="SwedbankPayClient"/> with <paramref name="baseAddress"/>
+    /// Configures the named HttpClient <seealso cref="SwedbankPay.Sdk.Infrastructure.SwedbankPayClient"/> with <paramref name="baseAddress"/>
     ///    and default <seealso cref="Authorization"/> to be <paramref name="authenticationToken"/>.
     ///    This also configures up a <seealso cref="LoggingDelegatingHandler"/> to log on exceptions.
     /// </summary>
@@ -39,7 +41,7 @@ public static class ServiceCollectionExtensions
     }
 
     /// <summary>
-    /// Configures the named HttpClient <seealso cref="SwedbankPayClient"/> with <paramref name="configureClient"/>.
+    /// Configures the named HttpClient <seealso cref="SwedbankPay.Sdk.Infrastructure.SwedbankPayClient"/> with <paramref name="configureClient"/>.
     ///    This also configures up a <seealso cref="LoggingDelegatingHandler"/> to log on exceptions.
     /// </summary>
     /// <param name="services"></param>
@@ -52,7 +54,7 @@ public static class ServiceCollectionExtensions
     }
 
     /// <summary>
-    /// Configures the named HttpClient <seealso cref="SwedbankPayClient"/> with <paramref name="configureClient"/>.
+    /// Configures the named HttpClient <seealso cref="SwedbankPay.Sdk.Infrastructure.SwedbankPayClient"/> with <paramref name="configureClient"/>.
     ///    This also configures up a <seealso cref="LoggingDelegatingHandler"/> to log on exceptions.
     /// </summary>
     /// <param name="services"></param>

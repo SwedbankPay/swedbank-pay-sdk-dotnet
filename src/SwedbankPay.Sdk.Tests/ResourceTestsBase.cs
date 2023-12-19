@@ -1,5 +1,6 @@
 using System.Net.Http.Headers;
-using SwedbankPay.Sdk.PaymentOrder;
+
+using SwedbankPay.Sdk.Infrastructure;
 using SwedbankPay.Sdk.PaymentOrder.Urls;
 using SwedbankPay.Sdk.Tests.TestHelpers;
 

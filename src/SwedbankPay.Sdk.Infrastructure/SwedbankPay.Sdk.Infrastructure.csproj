@@ -1,22 +1,19 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFrameworks>netstandard2.0;net6.0;net7.0;net8.0</TargetFrameworks>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <LangVersion>Latest</LangVersion>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\SwedbankPay.Sdk\SwedbankPay.Sdk.csproj" />
+    </ItemGroup>
+    
     <ItemGroup>
         <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
             <_Parameter1>SwedbankPay.Sdk.Tests</_Parameter1>
         </AssemblyAttribute>
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\SwedbankPay.Sdk\SwedbankPay.Sdk.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\SwedbankPay.Sdk\SwedbankPay.Sdk.csproj" />
     </ItemGroup>
 </Project>

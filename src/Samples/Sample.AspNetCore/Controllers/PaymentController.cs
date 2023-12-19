@@ -11,7 +11,7 @@ using Sample.AspNetCore.Extensions;
 using Sample.AspNetCore.Models;
 
 using SwedbankPay.Sdk;
-using SwedbankPay.Sdk.JsonSerialization;
+using SwedbankPay.Sdk.Infrastructure.JsonSerialization;
 using SwedbankPay.Sdk.PaymentOrder;
 using SwedbankPay.Sdk.PaymentOrder.FinancialTransactions;
 using SwedbankPay.Sdk.PaymentOrder.OperationRequest.Abort;

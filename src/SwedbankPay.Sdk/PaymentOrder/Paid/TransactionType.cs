@@ -1,5 +1,3 @@
-using SwedbankPay.Sdk.PaymentOrder.FinancialTransactions;
-
 namespace SwedbankPay.Sdk.PaymentOrder.Paid;
 
 public class TransactionType : TypeSafeEnum<TransactionType>

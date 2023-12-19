@@ -1,6 +1,8 @@
 using System.Text.Json;
 
-using SwedbankPay.Sdk.PaymentOrder;
+using SwedbankPay.Sdk.Infrastructure;
+using SwedbankPay.Sdk.Infrastructure.JsonSerialization;
+using SwedbankPay.Sdk.Infrastructure.PaymentOrder;
 
 namespace SwedbankPay.Sdk.Tests.Json;
 
@@ -9,22 +11,22 @@ public class UnknownOperationsTest
     [Fact]
     public void CanDeserializeUnknownOperation()
     {
-        var paymentResponse = JsonSerializer.Deserialize<PaymentOrderResponseDto>(TestResponse, JsonSerialization.JsonSerialization.Settings);
+        var paymentResponse = JsonSerializer.Deserialize<PaymentOrderResponseDto>(TestResponse, JsonSerialization.Settings);
         Assert.NotNull(paymentResponse);
     }
 
     [Fact]
     public void CanAccessDeserializedUnknownOperation()
     {
-        var paymentResponse = JsonSerializer.Deserialize<PaymentOrderResponseDto>(TestResponse, JsonSerialization.JsonSerialization.Settings);
+        var paymentResponse = JsonSerializer.Deserialize<PaymentOrderResponseDto>(TestResponse, JsonSerialization.Settings);
         var client = new HttpClient();
 
         var httpOperations = CreateOperationList(paymentResponse);
 
         var operations = new PaymentOrderOperations(httpOperations, client);
 
-        Assert.Contains(operations, a => a.Key.Name.Equals(TestOperationName, System.StringComparison.OrdinalIgnoreCase));
-        Assert.Contains(operations, a => a.Key.Value.Equals(TestOperationName, System.StringComparison.OrdinalIgnoreCase));
+        Assert.Contains(operations, a => a.Key.Name.Equals(TestOperationName, StringComparison.OrdinalIgnoreCase));
+        Assert.Contains(operations, a => a.Key.Value.Equals(TestOperationName, StringComparison.OrdinalIgnoreCase));
     }
 
     private static OperationList CreateOperationList(PaymentOrderResponseDto? paymentResponse)
@@ -46,7 +48,7 @@ public class UnknownOperationsTest
     [Fact]
     public void UnknownOperation_IsDeserializedTo_LinkrelationType()
     {
-        var paymentResponse = JsonSerializer.Deserialize<PaymentOrderResponseDto>(TestResponse, JsonSerialization.JsonSerialization.Settings);
+        var paymentResponse = JsonSerializer.Deserialize<PaymentOrderResponseDto>(TestResponse, JsonSerialization.Settings);
         var client = new HttpClient();
         var httpOperations = CreateOperationList(paymentResponse);
         var operations = new PaymentOrderOperations(httpOperations, client);

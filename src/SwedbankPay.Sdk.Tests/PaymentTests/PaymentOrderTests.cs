@@ -2,6 +2,8 @@ using System.Net;
 using System.Text.Json;
 
 using SwedbankPay.Sdk.Exceptions;
+using SwedbankPay.Sdk.Infrastructure.JsonSerialization;
+using SwedbankPay.Sdk.Infrastructure.PaymentOrder;
 using SwedbankPay.Sdk.PaymentOrder;
 using SwedbankPay.Sdk.PaymentOrder.OperationRequest.Abort;
 using SwedbankPay.Sdk.PaymentOrder.OperationRequest.Capture;
@@ -509,7 +511,7 @@ public class PaymentOrderTests : ResourceTestsBase
     [Fact]
     public void CanDeserializePaymentOrder()
     {
-        var paymentOrderResponseDto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderResponse31, JsonSerialization.JsonSerialization.Settings);
+        var paymentOrderResponseDto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderResponse31, JsonSerialization.Settings);
         Assert.NotNull(paymentOrderResponseDto);
         Assert.NotNull(paymentOrderResponseDto.PaymentOrder.FinancialTransactions?.FinancialTransactionsList);
         Assert.NotNull(paymentOrderResponseDto.PaymentOrder.FinancialTransactions?.FinancialTransactionsList.FirstOrDefault());
@@ -520,9 +522,9 @@ public class PaymentOrderTests : ResourceTestsBase
     [Fact]
     public void CanSerializePaymentOrder()
     {
-        var paymentOrderResponseDto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderResponse31, JsonSerialization.JsonSerialization.Settings);
+        var paymentOrderResponseDto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderResponse31, JsonSerialization.Settings);
         var paymentOrderResponse = new PaymentOrderResponse(paymentOrderResponseDto, new HttpClient());
-        var serialize = JsonSerializer.Serialize(paymentOrderResponse, JsonSerialization.JsonSerialization.Settings);
+        var serialize = JsonSerializer.Serialize(paymentOrderResponse, JsonSerialization.Settings);
     }
 
     [Fact]
@@ -723,7 +725,7 @@ public class PaymentOrderTests : ResourceTestsBase
     [Fact]
     public void CanDeSerialize_Cancel_WithNoErrors()
     {
-        var dto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderCancelResponse, JsonSerialization.JsonSerialization.Settings);
+        var dto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderCancelResponse, JsonSerialization.Settings);
         Assert.NotNull(dto);
         var sut = new PaymentOrderResponse(dto, new HttpClient());
 
@@ -734,7 +736,7 @@ public class PaymentOrderTests : ResourceTestsBase
     [Fact]
     public void CanDeSerialize_Reversal_WithNoErrors()
     {
-        var dto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderReversalResponse, JsonSerialization.JsonSerialization.Settings);
+        var dto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderReversalResponse, JsonSerialization.Settings);
         Assert.NotNull(dto);
         var sut = new PaymentOrderResponse(dto, new HttpClient());
 

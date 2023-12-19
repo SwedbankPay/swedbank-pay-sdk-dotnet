@@ -1,6 +1,8 @@
 using System.Globalization;
 using System.Text.Json;
 
+using SwedbankPay.Sdk.Infrastructure.JsonSerialization;
+
 namespace SwedbankPay.Sdk.Tests.Json;
 
 public class CustomDateTimeConverterTests
@@ -17,7 +19,7 @@ public class CustomDateTimeConverterTests
         var serialized = @"{ ""testValue"": ""2022-04-26T10:00:00.0000000Z"" }";
 
         // Act
-        var result = JsonSerializer.Deserialize<TestDto>(serialized, JsonSerialization.JsonSerialization.Settings)!;
+        var result = JsonSerializer.Deserialize<TestDto>(serialized, JsonSerialization.Settings)!;
 
         // Assert
         var expected = DateTime.ParseExact("2022-04-26T10:00:00.0000000Z",

@@ -19,9 +19,4 @@ public record TransactionRequest
         PayeeReference = payeeReference;
         OrderItems = new List<OrderItem>();
     }
-
-    internal TransactionRequestDto Map()
-    {
-        return new TransactionRequestDto(this);
-    }
 }
