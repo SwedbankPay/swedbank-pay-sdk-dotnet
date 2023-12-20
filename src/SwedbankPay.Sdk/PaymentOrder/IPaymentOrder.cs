@@ -1,4 +1,15 @@
+using SwedbankPay.Sdk.PaymentOrder.Aborted;
+using SwedbankPay.Sdk.PaymentOrder.Cancelled;
+using SwedbankPay.Sdk.PaymentOrder.Failed;
+using SwedbankPay.Sdk.PaymentOrder.FailedAttempts;
+using SwedbankPay.Sdk.PaymentOrder.FinancialTransactions;
+using SwedbankPay.Sdk.PaymentOrder.History;
 using SwedbankPay.Sdk.PaymentOrder.OrderItems;
+using SwedbankPay.Sdk.PaymentOrder.Paid;
+using SwedbankPay.Sdk.PaymentOrder.PayeeInfo;
+using SwedbankPay.Sdk.PaymentOrder.Payer;
+using SwedbankPay.Sdk.PaymentOrder.PostPurchaseFailedAttempts;
+using SwedbankPay.Sdk.PaymentOrder.Reversed;
 using SwedbankPay.Sdk.PaymentOrder.Urls;
 
 namespace SwedbankPay.Sdk.PaymentOrder;

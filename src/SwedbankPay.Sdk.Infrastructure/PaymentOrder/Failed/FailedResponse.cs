@@ -1,4 +1,4 @@
-using SwedbankPay.Sdk.PaymentOrder;
+using SwedbankPay.Sdk.PaymentOrder.Failed;
 
 namespace SwedbankPay.Sdk.Infrastructure.PaymentOrder.Failed;
 

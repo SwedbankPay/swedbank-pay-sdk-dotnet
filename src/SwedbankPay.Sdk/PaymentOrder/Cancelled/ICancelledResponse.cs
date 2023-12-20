@@ -1,17 +1,18 @@
-using SwedbankPay.Sdk.PaymentOrder.Paid;
+namespace SwedbankPay.Sdk.PaymentOrder.Cancelled;
 
-namespace SwedbankPay.Sdk.PaymentOrder;
-
-public interface IPaidResponse
+public interface ICancelledResponse
 {
+    public Uri Id { get; }
+    public string? CancelReason { get; }
     public string? Instrument { get; }
     public long Number { get; }
     public string? PayeeReference { get; }
-    public TransactionType? TransactionType { get; }
+    public string? OrderReference { get; }
+    public string? TransactionType { get; }
     public Amount Amount { get; }
     public Amount SubmittedAmount { get; }
     public Amount FeeAmount { get; }
     public Amount DiscountAmount { get; }
     public IList<ITokenItem>? Tokens { get; }
-    public IPaidDetails? Details { get; }
+    public ICancelledDetails? Details { get; }
 }

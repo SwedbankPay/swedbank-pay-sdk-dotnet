@@ -1,4 +1,4 @@
-namespace SwedbankPay.Sdk.PaymentOrder;
+namespace SwedbankPay.Sdk.PaymentOrder.Failed;
 
 public interface IFailedResponse
 {

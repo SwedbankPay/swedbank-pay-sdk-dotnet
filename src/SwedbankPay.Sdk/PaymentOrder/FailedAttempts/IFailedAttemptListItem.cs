@@ -1,6 +1,4 @@
-using SwedbankPay.Sdk.PaymentOrder.FailedAttempts;
-
-namespace SwedbankPay.Sdk.PaymentOrder;
+namespace SwedbankPay.Sdk.PaymentOrder.FailedAttempts;
 
 public interface IFailedAttemptListItem
 {

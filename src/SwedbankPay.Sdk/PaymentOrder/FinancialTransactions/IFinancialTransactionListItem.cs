@@ -1,6 +1,4 @@
-using SwedbankPay.Sdk.PaymentOrder.FinancialTransactions;
-
-namespace SwedbankPay.Sdk.PaymentOrder;
+namespace SwedbankPay.Sdk.PaymentOrder.FinancialTransactions;
 
 public interface IFinancialTransactionListItem
 {

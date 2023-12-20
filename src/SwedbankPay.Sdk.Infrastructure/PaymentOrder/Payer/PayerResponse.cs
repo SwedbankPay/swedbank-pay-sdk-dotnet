@@ -1,4 +1,4 @@
-using SwedbankPay.Sdk.PaymentOrder;
+using SwedbankPay.Sdk.PaymentOrder.Payer;
 
 namespace SwedbankPay.Sdk.Infrastructure.PaymentOrder.Payer;
 
