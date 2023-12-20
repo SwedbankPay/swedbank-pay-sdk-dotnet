@@ -1,5 +1,3 @@
-using System.Globalization;
-
 using SwedbankPay.Sdk.PaymentOrder.Cancelled;
 
 namespace SwedbankPay.Sdk.Infrastructure.PaymentOrder.Cancelled;

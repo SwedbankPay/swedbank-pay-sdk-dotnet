@@ -2,7 +2,6 @@ using System.Text.Json;
 
 using SwedbankPay.Sdk.Infrastructure.JsonSerialization;
 using SwedbankPay.Sdk.Infrastructure.PaymentOrder.Metadata;
-using SwedbankPay.Sdk.PaymentOrder.Metadata;
 
 namespace SwedbankPay.Sdk.Tests.Json;
 

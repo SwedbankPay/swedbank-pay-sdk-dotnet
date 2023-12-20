@@ -1,4 +1,3 @@
-using SwedbankPay.Sdk.PaymentOrder;
 using SwedbankPay.Sdk.PaymentOrder.FinancialTransactions;
 
 namespace SwedbankPay.Sdk.Infrastructure.PaymentOrder.FinancialTransactions; 

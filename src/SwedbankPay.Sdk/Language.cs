@@ -3,7 +3,7 @@ using System.Globalization;
 namespace SwedbankPay.Sdk;
 
 /// <summary>
-/// Contains information about a payers prefered langauge.
+/// Contains information about a payers preferred langauge.
 /// </summary>
 public class Language
 {

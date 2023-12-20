@@ -1,34 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
+        <IsPackable>false</IsPackable>
         <TargetFrameworks>netstandard2.0;net6.0;net7.0;net8.0</TargetFrameworks>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
-
-        <Authors>Swedbank Pay</Authors>
-        <Description>A client library and SDK for Swedbank Pay's RESTful API Platform</Description>
-        <Copyright>Swedbank Pay</Copyright>
-        <AssemblyName>SwedbankPay.Sdk</AssemblyName>
-        <RootNamespace>SwedbankPay.Sdk</RootNamespace>
         
-        <PackageId>SwedbankPay.Sdk</PackageId>
-        <PackageIcon>icon.png</PackageIcon>
-        <PackageTags>SwedbankPay sdk payments payment client api rest restful</PackageTags>
-        <PackageReleaseNotes>SDK for Swedbank Pay Checkout v3.1.</PackageReleaseNotes>
-        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-        <PackageProjectUrl>https://github.com/SwedbankPay/swedbank-pay-sdk-dotnet</PackageProjectUrl>
-
-        <IncludeSymbols>true</IncludeSymbols>
-        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-
-        <RepositoryType>git</RepositoryType>
-        <RepositoryUrl>https://github.com/SwedbankPay/swedbank-pay-sdk-dotnet.git</RepositoryUrl>
-        <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+        <RootNamespace>SwedbankPay.Sdk</RootNamespace>
+        <PackageId>SwedbankPay.Sdk.NotPacked</PackageId>
     </PropertyGroup>
-    <ItemGroup>
-        <None Include="..\icon.png" Pack="true" PackagePath="\" />
-    </ItemGroup>
     
     <ItemGroup>
         <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">

@@ -1,5 +1,3 @@
-using System.Globalization;
-
 using SwedbankPay.Sdk.PaymentOrder.Reversed;
 
 namespace SwedbankPay.Sdk.Infrastructure.PaymentOrder.Reversed;

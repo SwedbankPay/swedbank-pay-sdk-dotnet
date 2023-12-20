@@ -1,4 +1,5 @@
 using System.Net;
+using System.Net.Http.Headers;
 
 using Microsoft.Extensions.DependencyInjection;
 
@@ -36,7 +37,7 @@ public static class ServiceCollectionExtensions
         {
             a.BaseAddress = baseAddress;
             a.DefaultRequestHeaders.Add("Accept", "application/json;version=3.1");
-            a.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", authenticationToken);
+            a.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authenticationToken);
         });
     }
 

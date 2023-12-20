@@ -1,5 +1,3 @@
-using System.Globalization;
-
 using SwedbankPay.Sdk.PaymentOrder.Paid;
 
 namespace SwedbankPay.Sdk.Infrastructure.PaymentOrder.Paid;
