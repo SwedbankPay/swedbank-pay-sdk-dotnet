@@ -67,27 +67,50 @@ public class PaymentOrderTests : ResourceTestsBase
       ""id"": ""/psp/paymentorders/9c0a36c7-10fc-4d3f-7ad9-08dbdb75f503/cancelled""
     },
     ""reversed"": {
-      ""id"": ""/psp/paymentorders/9c0a36c7-10fc-4d3f-7ad9-08dbdb75f503/reversed""
+        ""id"": ""/psp/paymentorders/5a89bf9b-4cee-42df-ef05-08dc003cdad5/reversed"",
+        ""number"": 40128508922,
+        ""instrument"": ""CreditCard"",
+        ""payeeReference"": ""638386601473813240"",
+        ""amount"": 300000,
+        ""submittedAmount"": 300000,
+        ""feeAmount"": 0,
+        ""discountAmount"": 0,
+        ""details"": {
+            ""nonPaymentToken"": ""fe1c1960-697e-43cc-a099-b9e5b56b0f08"",
+            ""externalNonPaymentToken"": ""92af358aede74eb51710de09b7055"",
+            ""cardBrand"": ""Visa"",
+            ""cardType"": ""Credit"",
+            ""maskedPan"": ""476173******0416"",
+            ""expiryDate"": ""11/2033"",
+            ""issuerAuthorizationApprovalCode"": ""L24829"",
+            ""acquirerTransactionType"": ""3DSECURE"",
+            ""acquirerStan"": ""24829"",
+            ""acquirerTerminalId"": ""40128508602"",
+            ""acquirerTransactionTime"": ""2023-12-20T07:43:36.018Z"",
+            ""transactionInitiator"": ""CARDHOLDER"",
+            ""bin"": ""476173"",
+            ""paymentAccountReference"": ""92af358aede74eb51710de09b7055""
+        }
     },
-        ""financialTransactions"": {
-            ""id"": ""/psp/paymentorders/86ffa0c5-a06e-4b37-3a5e-08dbceb433dc/financialtransactions"",
-            ""financialTransactionsList"": [
-                {
-                    ""id"": ""/psp/paymentorders/86ffa0c5-a06e-4b37-3a5e-08dbceb433dc/financialtransactions/177a2a19-53d9-4cd2-a6d1-08dbcee5d067"",
-                    ""created"": ""2023-10-18T13:00:04.2548195Z"",
-                    ""updated"": ""2023-10-18T13:00:04.9478096Z"",
-                    ""type"": ""Capture"",
-                    ""number"": 40127366860,
-                    ""amount"": 23000,
-                    ""vatAmount"": 0,
-                    ""description"": ""Capturing the authorized payment"",
-                    ""payeeReference"": ""638332380039447680"",
-                    ""orderItems"": {
-                        ""id"": ""/psp/paymentorders/86ffa0c5-a06e-4b37-3a5e-08dbceb433dc/financialtransactions/177a2a19-53d9-4cd2-a6d1-08dbcee5d067/orderitems""
-                    }
+    ""financialTransactions"": {
+        ""id"": ""/psp/paymentorders/86ffa0c5-a06e-4b37-3a5e-08dbceb433dc/financialtransactions"",
+        ""financialTransactionsList"": [
+            {
+                ""id"": ""/psp/paymentorders/86ffa0c5-a06e-4b37-3a5e-08dbceb433dc/financialtransactions/177a2a19-53d9-4cd2-a6d1-08dbcee5d067"",
+                ""created"": ""2023-10-18T13:00:04.2548195Z"",
+                ""updated"": ""2023-10-18T13:00:04.9478096Z"",
+                ""type"": ""Capture"",
+                ""number"": 40127366860,
+                ""amount"": 23000,
+                ""vatAmount"": 0,
+                ""description"": ""Capturing the authorized payment"",
+                ""payeeReference"": ""638332380039447680"",
+                ""orderItems"": {
+                    ""id"": ""/psp/paymentorders/86ffa0c5-a06e-4b37-3a5e-08dbceb433dc/financialtransactions/177a2a19-53d9-4cd2-a6d1-08dbcee5d067/orderitems""
                 }
-            ]
-        },
+            }
+        ]
+    },
     ""failedAttempts"": {
       ""id"": ""/psp/paymentorders/9c0a36c7-10fc-4d3f-7ad9-08dbdb75f503/failedattempts""
     },

@@ -1,6 +1,5 @@
 namespace SwedbankPay.Sdk.PaymentOrder.Reversed;
 
-public interface IReversedDetails
+public interface IReversedDetails : IDetails
 {
-    string? Msisdn { get; init; }
 }

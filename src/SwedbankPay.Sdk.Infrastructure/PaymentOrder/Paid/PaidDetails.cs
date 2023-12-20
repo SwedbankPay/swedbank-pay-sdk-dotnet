@@ -1,3 +1,5 @@
+using System.Globalization;
+
 using SwedbankPay.Sdk.PaymentOrder.Paid;
 
 namespace SwedbankPay.Sdk.Infrastructure.PaymentOrder.Paid;
@@ -16,7 +18,7 @@ internal record PaidDetails : IPaidDetails
     public string? AcquirerTransactionType { get; }
     public string? AcquirerStan { get; }
     public string? AcquirerTerminalId { get; }
-    public string? AcquirerTransactionTime { get; }
+    public DateTime? AcquirerTransactionTime { get; }
     public string? TransactionInitiator { get; }
     public string? Bin { get; }
     public string? Msisdn { get; }

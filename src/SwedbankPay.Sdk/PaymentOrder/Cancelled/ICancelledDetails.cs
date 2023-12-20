@@ -1,7 +1,5 @@
 namespace SwedbankPay.Sdk.PaymentOrder.Cancelled;
 
-public interface ICancelledDetails
+public interface ICancelledDetails : IDetails
 {
-    string? NonPaymentToken { get; }
-    string? ExternalNonPaymentToken { get; }
 }
