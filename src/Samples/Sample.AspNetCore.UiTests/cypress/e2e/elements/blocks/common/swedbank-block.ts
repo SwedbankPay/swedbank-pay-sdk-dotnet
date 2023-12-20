@@ -106,10 +106,10 @@ class SwedbankBlock {
                         "#msisdnInput",
                         30,
                         ($iframe) => {
-                            cy.findInIframe($iframe, "#msisdnInput").type(
-                                Data.payment.swishPhone,
-                                {force: true}
-                            );
+                            // cy.findInIframe($iframe, "#msisdnInput").type(
+                            //     Data.payment.swishPhone,
+                            //     {force: true}
+                            // );
                             cy.findInIframe($iframe, "#px-submit").click({
                                 force: true,
                             });

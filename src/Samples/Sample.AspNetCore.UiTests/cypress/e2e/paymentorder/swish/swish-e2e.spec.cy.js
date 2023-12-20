@@ -29,7 +29,7 @@ describe('Pay with Swish', () => {
                     expect(responseBody.paymentOrder.status.value).to.eq('Paid');
                     expect(responseBody.paymentOrder.paid.instrument).to.eq('Swish');
                     expect(responseBody.paymentOrder.paid.transactionType.value).to.eq('Sale');
-                    expect(responseBody.paymentOrder.paid.details.msisdn).to.eq(Data.payment.swishPhone);
+                    expect(responseBody.paymentOrder.paid.details.msisdn.value).to.eq(Data.payment.swishPhone);
                     expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[0].type.value).to.eq('Sale');
 
                     expect(responseBody.operations.capture).to.be.undefined;

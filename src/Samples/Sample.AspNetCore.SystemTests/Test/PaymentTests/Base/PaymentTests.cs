@@ -16,6 +16,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
+using SwedbankPay.Sdk.Infrastructure;
+
 [assembly: LevelOfParallelism(1)]
 namespace Sample.AspNetCore.SystemTests.Test.PaymentTests.Base
 {

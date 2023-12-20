@@ -16,6 +16,8 @@ using SwedbankPay.Sdk;
 using SwedbankPay.Sdk.PaymentOrder;
 using SwedbankPay.Sdk.PaymentOrder.OperationRequest.Abort;
 using SwedbankPay.Sdk.PaymentOrder.OperationRequest.Update;
+using SwedbankPay.Sdk.PaymentOrder.Payer;
+using SwedbankPay.Sdk.PaymentOrder.RiskIndicator;
 using SwedbankPay.Sdk.PaymentOrder.Urls;
 
 namespace Sample.AspNetCore.Controllers;
@@ -121,6 +123,9 @@ public class CheckOutController : Controller
         var paymentOrderItems = orderItems?.ToList();
         try
         {
+            
+            
+            
             var paymentOrderRequest = new PaymentOrderRequest(Operation.Purchase, new Currency("SEK"),
                 new Amount(totalAmount),
                 new Amount(0), "Test description", "useragent",
@@ -136,8 +141,68 @@ public class CheckOutController : Controller
             };
 
             paymentOrderRequest.Metadata = null;
+        
+            paymentOrderRequest.Payer = new Payer
+            {
+                FirstName = "Olivia",
+                LastName = "Nyhuus",
+                PayerReference = "AB1234",
+                Email = new EmailAddress("olivia.nyhuus@payex.com"),
+                Msisdn = new Msisdn("+46739000001"),
+                WorkPhoneNumber = new Msisdn("+4787654321"),
+                HomePhoneNumber = new Msisdn("+4776543210"),
+                ShippingAddress = new Address
+                {
+                    StreetAddress = "Saltnestoppen 43",
+                    CoAddress = "",
+                    City = "Saltnes",
+                    ZipCode = "1642",
+                    CountryCode = new CountryCode("NO")
+                },
+                BillingAddress = new Address
+                {
+                    FirstName = "firstname/companyname",
+                    LastName = "lastname",
+                    Email = new EmailAddress("karl.anderssson@mail.se"),
+                    StreetAddress = "Saltnestoppen 43",
+                    CoAddress = "",
+                    City = "Saltnes",
+                    ZipCode = "1642",
+                    CountryCode = new CountryCode("NO")
+                },
+                AccountInfo = new AccountInfo
+                {
+                    AccountAgeIndicator = AccountAgeIndicator.ThirtyToSixtyDays,
+                    AccountChangeIndicator = AccountChangeIndicator.MoreThanSixtyDays,
+                    AccountPwdChangeIndicator = AccountPwdChangeIndicator.NoChange,
+                    ShippingAddressUsageIndicator = ShippingAddressUsageIndicator.ThisTransaction,
+                    ShippingNameIndicator = ShippingNameIndicator.AccountNameIdenticalToShippingName,
+                    SuspiciousAccountActivity = SuspiciousAccountActivity.NoSuspiciousActivityObserved
+                }
+            };
+            
+            paymentOrderRequest.RiskIndicator = new RiskIndicator
+            {
+                DeliveryEmailAddress = new EmailAddress("olivia.nyhuus@payex.com"),
+                DeliveryTimeFrameIndicator = DeliveryTimeFrameIndicator.ElectronicDelivery,
+                PreOrderDate = DateTime.Today,
+                PreOrderPurchaseIndicator = PreOrderPurchaseIndicator.MerchandiseAvailable,
+                ShipIndicator = ShipIndicator.ShipToCardholdersBillingAddress,
+                GiftCardPurchase = false,
+                ReOrderPurchaseIndicator = ReOrderPurchaseIndicator.MerchandiseAvailable,
+                PickUpAddress = new Address
+                {
+                    Name = "Company Megashop Sarpsborg",
+                    StreetAddress = "Hundskinnveien 92",
+                    CoAddress = "",
+                    City = "Sarpsborg",
+                    ZipCode = "1711",
+                    CountryCode = new CountryCode("NO")
+                }
+            };
+            
             var paymentOrder = await _swedbankPayClient.PaymentOrders.Create(paymentOrderRequest, PaymentOrderExpand.All);
-
+            
             _cartService.PaymentOrderLink = paymentOrder?.PaymentOrder.Id.OriginalString;
             _cartService.PaymentLink = null;
             _cartService.ConsumerProfileRef = consumerProfileRef;

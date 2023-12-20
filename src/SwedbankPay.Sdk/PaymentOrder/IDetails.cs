@@ -17,5 +17,5 @@ public interface IDetails
     public DateTime? AcquirerTransactionTime { get; }
     public string? TransactionInitiator { get; }
     public string? Bin { get; }
-    public string? Msisdn { get; }
+    public Msisdn? Msisdn { get; }
 }

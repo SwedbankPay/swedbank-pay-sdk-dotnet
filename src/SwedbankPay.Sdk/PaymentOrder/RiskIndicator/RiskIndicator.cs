@@ -1,4 +1,4 @@
-namespace SwedbankPay.Sdk;
+namespace SwedbankPay.Sdk.PaymentOrder.RiskIndicator;
 
 /// <summary>
 /// This object consist of information that helps verifying the payer. Providing these fields decreases the likelihood of
@@ -61,5 +61,5 @@ public record RiskIndicator
     /// <summary>
     ///     If shipIndicator set to 4, then prefill
     /// </summary>
-    public PickUpAddress? PickUpAddress { get; set; }
+    public Address? PickUpAddress { get; set; }
 }
