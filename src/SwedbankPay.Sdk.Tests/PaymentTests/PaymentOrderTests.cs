@@ -768,6 +768,21 @@ public class PaymentOrderTests : ResourceTestsBase
         Assert.NotNull(sut);
         Assert.NotNull(sut.PaymentOrder);
     }
+    
+    [Fact]
+    public void CanDeserializeCallback()
+    {
+        string callback = @"{
+            ""paymentOrder"": {
+                ""id"": ""/psp/paymentorders/4b03d9e6-e75f-48a2-32d8-08dbff73f7a7"",
+                ""instrument"": ""Swish"",
+                ""number"": 44100921924
+            }
+        }";
+        var callbackInfo = JsonSerializer.Deserialize<CallbackInfo>(callback, JsonSerialization.Settings);
+        Assert.NotNull(callbackInfo);
+        Assert.NotNull(callbackInfo.PaymentOrder);
+    }
 
 
     private static PaymentOrderCaptureRequest GetTestPaymentOrderCaptureRequest()
