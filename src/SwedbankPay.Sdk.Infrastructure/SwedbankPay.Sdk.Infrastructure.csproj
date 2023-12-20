@@ -14,7 +14,7 @@
 
         <PackageId>SwedbankPay.Sdk</PackageId>
         <PackageIcon>icon.png</PackageIcon>
-        <PackageReadmeFile>readme.md</PackageReadmeFile>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageTags>SwedbankPay sdk payments payment client api rest restful</PackageTags>
         <PackageReleaseNotes>SDK for Swedbank Pay Checkout v3.1.</PackageReleaseNotes>
         <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
