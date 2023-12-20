@@ -749,7 +749,7 @@ public class PaymentOrderTests : ResourceTestsBase
 
     private static PaymentOrderCaptureRequest GetTestPaymentOrderCaptureRequest()
     {
-        var req = new PaymentOrderCaptureRequest(new Amount(25767), new Amount(0), "Capturing payment.", "637218522761159010", "receiptReference");
+        var req = new PaymentOrderCaptureRequest(new Amount(25767), new Amount(0), "Capturing payment.", "637218522761159010");
         req.Transaction.OrderItems.Add(new OrderItem(
             "Test",
             "Test",

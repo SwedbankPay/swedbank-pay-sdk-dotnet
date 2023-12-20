@@ -1,11 +1,11 @@
 using SwedbankPay.Sdk.Infrastructure.PaymentOrder.OrderItems;
-using SwedbankPay.Sdk.PaymentOrder.OperationRequest;
+using SwedbankPay.Sdk.PaymentOrder.OperationRequest.Reversal;
 
-namespace SwedbankPay.Sdk.Infrastructure.PaymentOrder.OperationRequest;
+namespace SwedbankPay.Sdk.Infrastructure.PaymentOrder.OperationRequest.Reversal;
 
-internal record TransactionRequestDto
+internal record PaymentOrderReversalTransactionDto
 {
-    public TransactionRequestDto(TransactionRequest payload)
+    public PaymentOrderReversalTransactionDto(PaymentOrderReversalTransaction payload)
     {
         Description = payload.Description;
         Amount = payload.Amount.InLowestMonetaryUnit;

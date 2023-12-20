@@ -235,7 +235,8 @@ public class PaymentController : Controller
         var orderItems = order.Lines.ToOrderItems();
 
         var request = new PaymentOrderCaptureRequest(new Amount(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
-            new Amount(0), description, DateTime.Now.Ticks.ToString(), receiptReference);
+            new Amount(0), description, DateTime.Now.Ticks.ToString());
+        request.ReceiptReference = receiptReference;
         foreach (var item in orderItems)
         {
             request.Transaction.OrderItems.Add(item);
