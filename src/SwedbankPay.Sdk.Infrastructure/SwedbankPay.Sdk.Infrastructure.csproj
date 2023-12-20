@@ -14,6 +14,7 @@
 
         <PackageId>SwedbankPay.Sdk</PackageId>
         <PackageIcon>icon.png</PackageIcon>
+        <PackageReadmeFile>readme.md</PackageReadmeFile>
         <PackageTags>SwedbankPay sdk payments payment client api rest restful</PackageTags>
         <PackageReleaseNotes>SDK for Swedbank Pay Checkout v3.1.</PackageReleaseNotes>
         <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
@@ -26,10 +27,11 @@
         <RepositoryUrl>https://github.com/SwedbankPay/swedbank-pay-sdk-dotnet.git</RepositoryUrl>
         <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     </PropertyGroup>
-    
+
     <ItemGroup>
         <ProjectReference Include="..\SwedbankPay.Sdk\SwedbankPay.Sdk.csproj"/>
         <None Include="..\icon.png" Pack="true" PackagePath="\"/>
+        <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -42,9 +44,6 @@
         <ItemGroup>
             <!--Include DLLs of Project References-->
             <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))"/>
-
-            <!--Include PDBs of Project References-->
-            <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference')-&gt;Replace('.dll', '.pdb'))"/>
         </ItemGroup>
     </Target>
 </Project>
