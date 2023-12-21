@@ -47,9 +47,9 @@ public class CheckOutController : Controller
         _swedbankPayClient = payClient;
     }
 
-    public async Task Callback([FromBody]CallbackInfo callbackInfo)
+    public void Callback([FromBody] CallbackInfo callbackInfo)
     {
-        _logger.LogInformation($"Callback received for id {callbackInfo.PaymentOrder.Id}", callbackInfo);
+        _logger.LogInformation($"Callback received for id {callbackInfo?.PaymentOrder?.Id}", callbackInfo);
     }
 
     public async Task<IPaymentOrderResponse> CreateOrUpdatePaymentOrder(string consumerProfileRef = null, Uri paymentUrl = null)
@@ -123,9 +123,6 @@ public class CheckOutController : Controller
         var paymentOrderItems = orderItems?.ToList();
         try
         {
-            
-            
-            
             var paymentOrderRequest = new PaymentOrderRequest(Operation.Purchase, new Currency("SEK"),
                 new Amount(totalAmount),
                 new Amount(0), "Test description", "useragent",
@@ -135,13 +132,16 @@ public class CheckOutController : Controller
                     PaymentUrl = paymentUrl ?? _urls.PaymentUrl,
                     LogoUrl = _urls.LogoUrl
                 },
-                new PayeeInfo(_payeeInfoOptions.PayeeId, _payeeInfoOptions.PayeeReference))
+                new PayeeInfo(_payeeInfoOptions.PayeeId, _payeeInfoOptions.PayeeReference)
+                {
+                    OrderReference = $"PO-{DateTime.UtcNow.Ticks}"
+                })
             {
                 OrderItems = paymentOrderItems
             };
 
             paymentOrderRequest.Metadata = null;
-        
+
             paymentOrderRequest.Payer = new Payer
             {
                 FirstName = "Olivia",
@@ -180,7 +180,7 @@ public class CheckOutController : Controller
                     SuspiciousAccountActivity = SuspiciousAccountActivity.NoSuspiciousActivityObserved
                 }
             };
-            
+
             paymentOrderRequest.RiskIndicator = new RiskIndicator
             {
                 DeliveryEmailAddress = new EmailAddress("olivia.nyhuus@payex.com"),
@@ -200,9 +200,9 @@ public class CheckOutController : Controller
                     CountryCode = new CountryCode("NO")
                 }
             };
-            
+
             var paymentOrder = await _swedbankPayClient.PaymentOrders.Create(paymentOrderRequest, PaymentOrderExpand.All);
-            
+
             _cartService.PaymentOrderLink = paymentOrder?.PaymentOrder.Id.OriginalString;
             _cartService.PaymentLink = null;
             _cartService.ConsumerProfileRef = consumerProfileRef;
