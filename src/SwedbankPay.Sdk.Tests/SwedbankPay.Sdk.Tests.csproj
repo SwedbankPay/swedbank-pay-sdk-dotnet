@@ -29,6 +29,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\SwedbankPay.Sdk.Extensions\SwedbankPay.Sdk.Extensions.csproj" />
       <ProjectReference Include="..\SwedbankPay.Sdk.Infrastructure\SwedbankPay.Sdk.Infrastructure.csproj" />
       <ProjectReference Include="..\SwedbankPay.Sdk\SwedbankPay.Sdk.csproj" />
     </ItemGroup>

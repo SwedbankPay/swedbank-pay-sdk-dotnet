@@ -17,7 +17,7 @@ public class CustomUriConverterTests
         var jsonObject = $"{{ \"id\": \"{_idstring}\" }}";
 
         //ACT
-        var result = JsonSerializer.Deserialize<DummyClass>(jsonObject, JsonSerialization.Settings);
+        var result = JsonSerializer.Deserialize<DummyClass>(jsonObject, Infrastructure.JsonSerialization.JsonSerialization.Settings);
 
         //ASSERT
         Assert.Equal(_idstring, result?.Id?.OriginalString);
@@ -34,7 +34,7 @@ public class CustomUriConverterTests
         };
 
         //ACT
-        var result = JsonSerializer.Serialize(dummy, JsonSerialization.Settings);
+        var result = JsonSerializer.Serialize(dummy, Infrastructure.JsonSerialization.JsonSerialization.Settings);
         var obj = JsonDocument.Parse(result);
 
         var id = obj.RootElement.GetProperty("id").ToString();

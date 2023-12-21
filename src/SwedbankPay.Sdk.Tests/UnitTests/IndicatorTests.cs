@@ -16,7 +16,7 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
             var result = AccountAgeIndicator.FromName(name);
 
             //ASSERT
-            Assert.Equal(value, result.Value);
+            Assert.Equal(value, result?.Value);
         }
 
 
@@ -32,7 +32,7 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
             var result = AccountAgeIndicator.FromValue(value);
 
             //ASSERT
-            Assert.Equal(name, result.Name);
+            Assert.Equal(name, result?.Name);
         }
     }
 }

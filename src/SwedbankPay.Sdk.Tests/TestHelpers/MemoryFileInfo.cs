@@ -19,7 +19,7 @@ namespace SwedbankPay.Sdk.Tests.TestHelpers
 
         long IFileInfo.Length => this.content.LongLength;
 
-        public string PhysicalPath => null;
+        public string? PhysicalPath => null;
 
         public string Name { get; }
 

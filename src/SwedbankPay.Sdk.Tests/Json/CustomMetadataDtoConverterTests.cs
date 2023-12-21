@@ -15,9 +15,9 @@ public class CustomMetadataDtoConverterTests
             { "key1", 1000000000000 },
             { "key2", "test-string" }
         };
-        var serialized = JsonSerializer.Serialize(metadata, JsonSerialization.Settings);
+        var serialized = JsonSerializer.Serialize(metadata, Infrastructure.JsonSerialization.JsonSerialization.Settings);
 
-        var result = JsonSerializer.Deserialize<MetadataDto>(serialized, JsonSerialization.Settings);
+        var result = JsonSerializer.Deserialize<MetadataDto>(serialized, Infrastructure.JsonSerialization.JsonSerialization.Settings);
 
         Assert.NotNull(result);
         Assert.Equal(metadata["key2"], result["key2"]);

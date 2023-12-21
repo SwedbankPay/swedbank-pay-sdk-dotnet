@@ -45,6 +45,6 @@ public class LinkRelationTests
             httpOperation
         };
         var paymentOrderOperations = new PaymentOrderOperations(operationList, new HttpClient());
-        var serialize = JsonSerializer.Serialize(paymentOrderOperations, JsonSerialization.Settings);
+        var serialize = JsonSerializer.Serialize(paymentOrderOperations, Infrastructure.JsonSerialization.JsonSerialization.Settings);
     }
 }

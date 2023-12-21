@@ -1,5 +1,3 @@
-using SwedbankPay.Sdk.PaymentOrder.Payer;
-
 namespace SwedbankPay.Sdk.Infrastructure.PaymentOrder.Payer;
 
 internal record PayerRequestDto

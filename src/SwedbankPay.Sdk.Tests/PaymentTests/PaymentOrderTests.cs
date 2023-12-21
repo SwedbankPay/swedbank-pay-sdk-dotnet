@@ -534,7 +534,7 @@ public class PaymentOrderTests : ResourceTestsBase
     [Fact]
     public void CanDeserializePaymentOrder()
     {
-        var paymentOrderResponseDto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderResponse31, JsonSerialization.Settings);
+        var paymentOrderResponseDto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderResponse31, Infrastructure.JsonSerialization.JsonSerialization.Settings);
         Assert.NotNull(paymentOrderResponseDto);
         Assert.NotNull(paymentOrderResponseDto.PaymentOrder.FinancialTransactions?.FinancialTransactionsList);
         Assert.NotNull(paymentOrderResponseDto.PaymentOrder.FinancialTransactions?.FinancialTransactionsList.FirstOrDefault());
@@ -545,10 +545,10 @@ public class PaymentOrderTests : ResourceTestsBase
     [Fact]
     public void CanSerializePaymentOrder()
     {
-        var paymentOrderResponseDto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderResponse31, JsonSerialization.Settings);
+        var paymentOrderResponseDto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderResponse31, Infrastructure.JsonSerialization.JsonSerialization.Settings);
         Assert.NotNull(paymentOrderResponseDto);
         var paymentOrderResponse = new PaymentOrderResponse(paymentOrderResponseDto, new HttpClient());
-        var serialize = JsonSerializer.Serialize(paymentOrderResponse, JsonSerialization.Settings);
+        var serialize = JsonSerializer.Serialize(paymentOrderResponse, Infrastructure.JsonSerialization.JsonSerialization.Settings);
     }
 
     [Fact]
@@ -750,7 +750,7 @@ public class PaymentOrderTests : ResourceTestsBase
     [Fact]
     public void CanDeSerialize_Cancel_WithNoErrors()
     {
-        var dto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderCancelResponse, JsonSerialization.Settings);
+        var dto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderCancelResponse, Infrastructure.JsonSerialization.JsonSerialization.Settings);
         Assert.NotNull(dto);
         var sut = new PaymentOrderResponse(dto, new HttpClient());
 
@@ -761,7 +761,7 @@ public class PaymentOrderTests : ResourceTestsBase
     [Fact]
     public void CanDeSerialize_Reversal_WithNoErrors()
     {
-        var dto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderReversalResponse, JsonSerialization.Settings);
+        var dto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderReversalResponse, Infrastructure.JsonSerialization.JsonSerialization.Settings);
         Assert.NotNull(dto);
         var sut = new PaymentOrderResponse(dto, new HttpClient());
 
@@ -779,7 +779,7 @@ public class PaymentOrderTests : ResourceTestsBase
                 ""number"": 44100921924
             }
         }";
-        var callbackInfo = JsonSerializer.Deserialize<CallbackInfo>(callback, JsonSerialization.Settings);
+        var callbackInfo = JsonSerializer.Deserialize<CallbackInfo>(callback, Infrastructure.JsonSerialization.JsonSerialization.Settings);
         Assert.NotNull(callbackInfo);
         Assert.NotNull(callbackInfo.PaymentOrder);
     }

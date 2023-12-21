@@ -1,5 +1,3 @@
-using static SwedbankPay.Sdk.PaymentOrder.Address;
-
 namespace SwedbankPay.Sdk.PaymentOrder.Payer;
 
 /// <summary>

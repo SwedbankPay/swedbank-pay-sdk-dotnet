@@ -19,7 +19,7 @@ public class CustomDateTimeConverterTests
         var serialized = @"{ ""testValue"": ""2022-04-26T10:00:00.0000000Z"" }";
 
         // Act
-        var result = JsonSerializer.Deserialize<TestDto>(serialized, JsonSerialization.Settings)!;
+        var result = JsonSerializer.Deserialize<TestDto>(serialized, Infrastructure.JsonSerialization.JsonSerialization.Settings)!;
 
         // Assert
         var expected = DateTime.ParseExact("2022-04-26T10:00:00.0000000Z",
