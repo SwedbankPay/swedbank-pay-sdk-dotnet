@@ -233,20 +233,23 @@ public class CheckOutController : Controller
     }
 
 
-    public async Task<IActionResult> LoadPaymentMenu()
+    public async Task<IActionResult> LoadPaymentMenu(bool isRedirect = false)
     {
         var consumerProfileRef = _cartService.ConsumerProfileRef;
         var paymentOrder = await CreateOrUpdatePaymentOrder(consumerProfileRef, _urls.AnonymousCheckoutPaymentUrl);
 
-        var jsSource = paymentOrder.Operations.View.Href;
-
+        if (isRedirect)
+        {
+            return Redirect(paymentOrder?.Operations.Redirect?.Href.ToString()!);
+        }
+        
         var swedbankPaySource = new SwedbankPayCheckoutSource
         {
-            JavascriptSource = jsSource,
+            JavascriptSource = paymentOrder?.Operations.View?.Href,
             Culture = CultureInfo.GetCultureInfo("sv-SE"),
             UseAnonymousCheckout = true,
-            AbortOperationLink = paymentOrder.Operations[LinkRelation.UpdateAbort]?.Href,
-            PaymentOrderLink = paymentOrder.PaymentOrder.Id
+            AbortOperationLink = paymentOrder?.Operations[LinkRelation.UpdateAbort]?.Href,
+            PaymentOrderLink = paymentOrder?.PaymentOrder.Id
         };
 
         return View("Checkout", swedbankPaySource);
