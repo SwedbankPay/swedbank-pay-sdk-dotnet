@@ -56,7 +56,18 @@
     </tfoot>
 </table>
 <div class="text-center">
-    <a class="btn btn-primary" data-automation="button-checkout" asp-action="LoadPaymentMenu" asp-controller="CheckOut">
-        Checkout
+    <a class="btn btn-primary" 
+       data-automation="button-checkout" 
+       asp-action="LoadPaymentMenu" 
+       asp-controller="CheckOut">
+        Checkout Seamless
+    </a>
+
+    <a class="btn btn-primary" 
+       data-automation="button-checkout" 
+       asp-route-isRedirect="true"
+       asp-action="LoadPaymentMenu" 
+       asp-controller="CheckOut">
+        Checkout Redirect
     </a>
 </div>
