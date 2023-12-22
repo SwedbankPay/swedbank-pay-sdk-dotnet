@@ -7,6 +7,7 @@ using SwedbankPay.Sdk.Infrastructure.PaymentOrder;
 using SwedbankPay.Sdk.PaymentOrder;
 using SwedbankPay.Sdk.PaymentOrder.OperationRequest.Abort;
 using SwedbankPay.Sdk.PaymentOrder.OperationRequest.Capture;
+using SwedbankPay.Sdk.PaymentOrder.OperationRequest.RemoveToken;
 using SwedbankPay.Sdk.PaymentOrder.OperationRequest.Update;
 using SwedbankPay.Sdk.PaymentOrder.OrderItems;
 using SwedbankPay.Sdk.Tests.TestBuilders;
@@ -16,7 +17,6 @@ namespace SwedbankPay.Sdk.Tests.PaymentTests;
 
 public class PaymentOrderTests : ResourceTestsBase
 {
-
     private const string PaymentOrderResponse31 = @"{
   ""paymentOrder"": {
     ""id"": ""/psp/paymentorders/9c0a36c7-10fc-4d3f-7ad9-08dbdb75f503"",
@@ -166,7 +166,7 @@ public class PaymentOrderTests : ResourceTestsBase
         }
     ]
 }";
-    
+
     private const string PaymentOrderResponse1 = @"{
     ""paymentOrder"": {
         ""id"": ""/psp/paymentorders/1039d2c0-cf37-4611-6f61-08dbc01cba84"",
@@ -534,21 +534,27 @@ public class PaymentOrderTests : ResourceTestsBase
     [Fact]
     public void CanDeserializePaymentOrder()
     {
-        var paymentOrderResponseDto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderResponse31, Infrastructure.JsonSerialization.JsonSerialization.Settings);
+        var paymentOrderResponseDto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderResponse31,
+            Infrastructure.JsonSerialization.JsonSerialization.Settings);
         Assert.NotNull(paymentOrderResponseDto);
         Assert.NotNull(paymentOrderResponseDto.PaymentOrder.FinancialTransactions?.FinancialTransactionsList);
-        Assert.NotNull(paymentOrderResponseDto.PaymentOrder.FinancialTransactions?.FinancialTransactionsList.FirstOrDefault());
-        Assert.NotNull(paymentOrderResponseDto.PaymentOrder.FinancialTransactions?.FinancialTransactionsList.FirstOrDefault()?.OrderItems);
-        Assert.NotNull(paymentOrderResponseDto.PaymentOrder.FinancialTransactions?.FinancialTransactionsList.FirstOrDefault()?.OrderItems?.Id);
+        Assert.NotNull(paymentOrderResponseDto.PaymentOrder.FinancialTransactions?.FinancialTransactionsList
+            .FirstOrDefault());
+        Assert.NotNull(paymentOrderResponseDto.PaymentOrder.FinancialTransactions?.FinancialTransactionsList
+            .FirstOrDefault()?.OrderItems);
+        Assert.NotNull(paymentOrderResponseDto.PaymentOrder.FinancialTransactions?.FinancialTransactionsList
+            .FirstOrDefault()?.OrderItems?.Id);
     }
-    
+
     [Fact]
     public void CanSerializePaymentOrder()
     {
-        var paymentOrderResponseDto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderResponse31, Infrastructure.JsonSerialization.JsonSerialization.Settings);
+        var paymentOrderResponseDto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderResponse31,
+            Infrastructure.JsonSerialization.JsonSerialization.Settings);
         Assert.NotNull(paymentOrderResponseDto);
         var paymentOrderResponse = new PaymentOrderResponse(paymentOrderResponseDto, new HttpClient());
-        var serialize = JsonSerializer.Serialize(paymentOrderResponse, Infrastructure.JsonSerialization.JsonSerialization.Settings);
+        var serialize = JsonSerializer.Serialize(paymentOrderResponse,
+            Infrastructure.JsonSerialization.JsonSerialization.Settings);
     }
 
     [Fact]
@@ -639,7 +645,8 @@ public class PaymentOrderTests : ResourceTestsBase
     public async Task GetPaymentOrder_ShouldReturnPaymentOrder()
     {
         //ARRANGE
-        var paymentOrderUri = new Uri("/psp/paymentorders/cfea7191-c3e5-482a-1560-08dbc01c468e", UriKind.RelativeOrAbsolute);
+        var paymentOrderUri = new Uri("/psp/paymentorders/cfea7191-c3e5-482a-1560-08dbc01c468e",
+            UriKind.RelativeOrAbsolute);
         var handler = new FakeDelegatingHandler();
         var client = new HttpClient(handler)
         {
@@ -658,13 +665,14 @@ public class PaymentOrderTests : ResourceTestsBase
         Assert.NotNull(paymentOrder.Operations);
     }
 
-    
+
     [Fact]
     public async Task GetPaymentOrder_ShouldReturnPaymentOrderReal()
     {
         //ARRANGE
-        var paymentOrderUri = new Uri("/psp/paymentorders/894f7efb-8535-4c3f-ccd6-08dbf62d5f1c", UriKind.RelativeOrAbsolute);
-        
+        var paymentOrderUri = new Uri("/psp/paymentorders/894f7efb-8535-4c3f-ccd6-08dbf62d5f1c",
+            UriKind.RelativeOrAbsolute);
+
         //ACT
         var paymentOrder = await Sut.PaymentOrders.Get(paymentOrderUri, PaymentOrderExpand.All);
         Assert.NotNull(paymentOrder);
@@ -711,7 +719,8 @@ public class PaymentOrderTests : ResourceTestsBase
 
         var sut = await new PaymentOrdersResource(client).Create(paymentOrderRequest);
 
-        var result = await Assert.ThrowsAsync<HttpResponseException>(() => sut!.Operations.Capture!.Invoke(captureRequest));
+        var result =
+            await Assert.ThrowsAsync<HttpResponseException>(() => sut!.Operations.Capture!.Invoke(captureRequest));
 
         Assert.Single(result.Data);
     }
@@ -750,7 +759,8 @@ public class PaymentOrderTests : ResourceTestsBase
     [Fact]
     public void CanDeSerialize_Cancel_WithNoErrors()
     {
-        var dto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderCancelResponse, Infrastructure.JsonSerialization.JsonSerialization.Settings);
+        var dto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderCancelResponse,
+            Infrastructure.JsonSerialization.JsonSerialization.Settings);
         Assert.NotNull(dto);
         var sut = new PaymentOrderResponse(dto, new HttpClient());
 
@@ -761,14 +771,15 @@ public class PaymentOrderTests : ResourceTestsBase
     [Fact]
     public void CanDeSerialize_Reversal_WithNoErrors()
     {
-        var dto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderReversalResponse, Infrastructure.JsonSerialization.JsonSerialization.Settings);
+        var dto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderReversalResponse,
+            Infrastructure.JsonSerialization.JsonSerialization.Settings);
         Assert.NotNull(dto);
         var sut = new PaymentOrderResponse(dto, new HttpClient());
 
         Assert.NotNull(sut);
         Assert.NotNull(sut.PaymentOrder);
     }
-    
+
     [Fact]
     public void CanDeserializeCallback()
     {
@@ -779,7 +790,9 @@ public class PaymentOrderTests : ResourceTestsBase
                 ""number"": 44100921924
             }
         }";
-        var callbackInfo = JsonSerializer.Deserialize<CallbackInfo>(callback, Infrastructure.JsonSerialization.JsonSerialization.Settings);
+        var callbackInfo =
+            JsonSerializer.Deserialize<CallbackInfo>(callback,
+                Infrastructure.JsonSerialization.JsonSerialization.Settings);
         Assert.NotNull(callbackInfo);
         Assert.NotNull(callbackInfo.PaymentOrder);
     }
@@ -787,7 +800,8 @@ public class PaymentOrderTests : ResourceTestsBase
 
     private static PaymentOrderCaptureRequest GetTestPaymentOrderCaptureRequest()
     {
-        var req = new PaymentOrderCaptureRequest(new Amount(25767), new Amount(0), "Capturing payment.", "637218522761159010");
+        var req = new PaymentOrderCaptureRequest(new Amount(25767), new Amount(0), "Capturing payment.",
+            "637218522761159010");
         req.Transaction.OrderItems.Add(new OrderItem(
             "Test",
             "Test",
@@ -801,5 +815,102 @@ public class PaymentOrderTests : ResourceTestsBase
             new Amount(0)));
 
         return req;
+    }
+
+    [Fact]
+    public async Task GetTokens()
+    {
+        var tokenResponse = await Sut.PaymentOrders.GetOwnedTokens("AB1234");
+
+        Assert.NotNull(tokenResponse);
+
+        var resp = await tokenResponse.Operations?.DeleteAllTokens!(new RemoveTokenRequest(TokenState.Deleted, "test"))!;
+        Assert.NotNull(resp);
+    }
+
+    [Fact]
+    public void DeserializeGetTokensResponse()
+    {
+        var response = @"{
+  ""payerOwnedTokens"": {
+    ""id"": ""/psp/paymentorders/payerownedtokens/AB1234"",
+    ""payerReference"": ""AB1234"",
+    ""tokens"": [
+      {
+        ""tokenType"": ""Payment"",
+        ""token"": ""82dcd804-5c32-4a00-ae7f-954491db438f"",
+        ""correlationId"": ""3e4ed820-12c6-41b0-90f3-1d9d0e2d21ec"",
+        ""instrument"": ""CreditCard"",
+        ""instrumentDisplayName"": ""476173******0416"",
+        ""instrumentParameters"": {
+          ""expiryDate"": ""12/2024"",
+          ""cardBrand"": ""Visa""
+        },
+        ""operations"": [
+          {
+            ""method"": ""PATCH"",
+            ""href"": ""https://api.externalintegration.payex.com/psp/paymentorders/paymenttokens/82dcd804-5c32-4a00-ae7f-954491db438f"",
+            ""rel"": ""delete-paymenttokens"",
+            ""contentType"": ""application/json""
+          }
+        ]
+      }
+    ]
+  },
+  ""operations"": [
+    {
+      ""method"": ""PATCH"",
+      ""href"": ""https://api.externalintegration.payex.com/psp/paymentorders/payerOwnedTokens/AB1234"",
+      ""rel"": ""delete-payerownedtokens"",
+      ""contentType"": ""application/json""
+    }
+  ]
+}
+";
+
+        var dto = JsonSerializer.Deserialize<UserTokenListResponseDto>(response, JsonSerialization.Settings);
+        Assert.NotNull(dto);
+    }
+
+
+    [Fact]
+    public void DeserializeRemoveTokenResp()
+    {
+        var response = @"{
+  ""payerOwnedTokens"": {
+    ""id"": ""/psp/paymentorders/payerownedtokens/AB1234"",
+    ""payerReference"": ""AB1234"",
+    ""tokens"": [
+      {
+        ""tokenType"": ""Payment"",
+        ""token"": ""d52ae770-2cb8-4f41-9aad-c6f5259f5b53"",
+        ""correlationId"": ""3e4ed820-12c6-41b0-90f3-1d9d0e2d21ec"",
+        ""instrument"": ""CreditCard"",
+        ""instrumentDisplayName"": ""476173******0416"",
+        ""instrumentParameters"": {
+          ""expiryDate"": ""12/2024"",
+          ""cardBrand"": ""Visa""
+        }
+      },
+      {
+        ""tokenType"": ""Recurrence"",
+        ""token"": ""5327ef8f-8121-4155-a831-7c30e3a6d959"",
+        ""correlationId"": ""c15a032f-2c31-4c8a-b6eb-f33097829b46"",
+        ""instrument"": ""CreditCard"",
+        ""instrumentDisplayName"": ""551000******2347"",
+        ""instrumentParameters"": {
+          ""expiryDate"": ""11/2033"",
+          ""cardBrand"": ""MasterCard""
+        }
+      }
+    ]
+  }
+}";
+
+        var dtoResp = JsonSerializer.Deserialize<UserTokenResponseDto>(response, JsonSerialization.Settings);
+        Assert.NotNull(dtoResp);
+
+        var resp = new UserTokenResponse(dtoResp, new HttpClient());
+        Assert.NotNull(resp);
     }
 }

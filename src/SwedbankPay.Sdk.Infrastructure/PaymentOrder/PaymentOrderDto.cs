@@ -17,7 +17,9 @@ internal record PaymentOrderDto
         VatAmount = paymentOrderRequest.VatAmount.InLowestMonetaryUnit;
         Description = paymentOrderRequest.Description;
         UserAgent = paymentOrderRequest.UserAgent;
+        GeneratePaymentToken = paymentOrderRequest.GeneratePaymentToken;
         Language = paymentOrderRequest.Language.ToString();
+        DisableStoredPaymentDetails = paymentOrderRequest.DisableStoredPaymentDetails;
         Instrument = paymentOrderRequest.Instrument;
         Implementation = paymentOrderRequest.Implementation;
         Urls = new UrlsRequestDto(paymentOrderRequest.Urls);
@@ -46,7 +48,9 @@ internal record PaymentOrderDto
     public long VatAmount { get; }
     public string Description { get; }
     public string UserAgent { get; }
+    public bool GeneratePaymentToken { get;  }
     public string Language { get; }
+    public bool DisableStoredPaymentDetails { get;  }
     public string? Instrument { get; }
     public string? Implementation { get; }
     public UrlsRequestDto Urls { get; set; }

@@ -36,4 +36,19 @@ public static class PaymentOrderResourceOperations
     /// Operation to view the payment order in a iframe.
     /// </summary>
     public const string ViewCheckout = "view-checkout";
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    public const string DeleteAllTokens = "delete-payerownedtokens";
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    public const string DeleteRecurringTokens = "delete-recurrencetokens";
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    public const string DeleteTokens = "delete-paymenttokens";
 }

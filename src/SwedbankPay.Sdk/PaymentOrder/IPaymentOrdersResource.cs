@@ -25,4 +25,6 @@ public interface IPaymentOrdersResource
     /// <exception cref="System.Net.Http.HttpRequestException"></exception>
     /// <returns></returns>
     Task<IPaymentOrderResponse?> Get(Uri id, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None);
+
+    Task<IUserTokenResponse?> GetOwnedTokens(string payerReference);
 }

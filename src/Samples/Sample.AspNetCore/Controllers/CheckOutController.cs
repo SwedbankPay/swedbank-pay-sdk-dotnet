@@ -140,6 +140,7 @@ public class CheckOutController : Controller
                 OrderItems = paymentOrderItems
             };
 
+            paymentOrderRequest.GeneratePaymentToken = true;
             paymentOrderRequest.Metadata = null;
 
             paymentOrderRequest.Payer = new Payer
@@ -200,7 +201,7 @@ public class CheckOutController : Controller
                     CountryCode = new CountryCode("NO")
                 }
             };
-
+            
             var paymentOrder = await _swedbankPayClient.PaymentOrders.Create(paymentOrderRequest, PaymentOrderExpand.All);
 
             _cartService.PaymentOrderLink = paymentOrder?.PaymentOrder.Id.OriginalString;
