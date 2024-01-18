@@ -61,7 +61,7 @@ public class LinkRelationTests
                 Description = "description",
                 InitiatingSystemUserAgent = "userAgent",
                 Language = "sv-SE",
-                AvailableInstruments = new string[] { "instrument1", "instrument2" },
+                AvailableInstruments = ["instrument1", "instrument2"],
                 Implementation = "implementation",
                 Integration = "integration",
                 InstrumentMode = true,
