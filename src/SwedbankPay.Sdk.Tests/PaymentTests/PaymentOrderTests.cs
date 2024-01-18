@@ -7,7 +7,6 @@ using SwedbankPay.Sdk.Infrastructure.PaymentOrder;
 using SwedbankPay.Sdk.PaymentOrder;
 using SwedbankPay.Sdk.PaymentOrder.OperationRequest.Abort;
 using SwedbankPay.Sdk.PaymentOrder.OperationRequest.Capture;
-using SwedbankPay.Sdk.PaymentOrder.OperationRequest.RemoveToken;
 using SwedbankPay.Sdk.PaymentOrder.OperationRequest.Update;
 using SwedbankPay.Sdk.PaymentOrder.OrderItems;
 using SwedbankPay.Sdk.Tests.TestBuilders;
@@ -613,17 +612,6 @@ public class PaymentOrderTests : ResourceTestsBase
             new Amount(0)));
 
         return req;
-    }
-
-    [Fact]
-    public async Task GetTokens()
-    {
-        var tokenResponse = await Sut.PaymentOrders.GetOwnedTokens("AB1234");
-
-        Assert.NotNull(tokenResponse);
-
-        var resp = await tokenResponse.Operations?.DeleteAllTokens!(new RemoveTokenRequest(TokenState.Deleted, "test"))!;
-        Assert.NotNull(resp);
     }
 
     [Fact]

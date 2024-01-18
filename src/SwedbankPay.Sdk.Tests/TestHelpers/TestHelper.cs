@@ -1,5 +1,5 @@
 using Microsoft.Extensions.Configuration;
-using SwedbankPay.Sdk.PaymentOrder;
+
 using SwedbankPay.Sdk.PaymentOrder.Urls;
 
 namespace SwedbankPay.Sdk.Tests.TestHelpers;

@@ -1,35 +1,32 @@
 ﻿using Microsoft.Extensions.FileProviders;
-using System;
-using System.IO;
 
-namespace SwedbankPay.Sdk.Tests.TestHelpers
+namespace SwedbankPay.Sdk.Tests.TestHelpers;
+
+public class MemoryFileInfo : IFileInfo
 {
-    public class MemoryFileInfo : IFileInfo
+    private readonly byte[] content;
+
+    public MemoryFileInfo(string name, byte[] byteContent, DateTimeOffset timestamp)
     {
-        private readonly byte[] content;
+        Name = name;
+        this.content = byteContent;
+        LastModified = timestamp;
+    }
 
-        public MemoryFileInfo(string name, byte[] byteContent, DateTimeOffset timestamp)
-        {
-            Name = name;
-            this.content = byteContent;
-            LastModified = timestamp;
-        }
+    public bool Exists => true;
 
-        public bool Exists => true;
+    long IFileInfo.Length => this.content.LongLength;
 
-        long IFileInfo.Length => this.content.LongLength;
+    public string? PhysicalPath => null;
 
-        public string? PhysicalPath => null;
+    public string Name { get; }
 
-        public string Name { get; }
+    public DateTimeOffset LastModified { get; }
 
-        public DateTimeOffset LastModified { get; }
+    public bool IsDirectory => false;
 
-        public bool IsDirectory => false;
-
-        public Stream CreateReadStream()
-        {
-            return new MemoryStream(this.content);
-        }
+    public Stream CreateReadStream()
+    {
+        return new MemoryStream(this.content);
     }
 }

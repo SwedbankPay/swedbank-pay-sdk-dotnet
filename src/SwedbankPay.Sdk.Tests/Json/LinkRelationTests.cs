@@ -9,21 +9,21 @@ namespace SwedbankPay.Sdk.Tests.Json;
 public class LinkRelationTests
 {
     [Fact]
-    public void A()
+    public void ShouldSerializeLinkRelation()
     {
         var linkRelation = new LinkRelation("name", "value");
         JsonSerializer.Serialize(linkRelation);
     }
 
     [Fact]
-    public void B()
+    public void ShouldSerializeHttpOperation()
     {
         var httpOperation = new HttpOperation(new Uri("https://www.google.com", UriKind.RelativeOrAbsolute), new LinkRelation("name", "value"), "GET", "text/html");
         JsonSerializer.Serialize(httpOperation);
     }
 
     [Fact]
-    public void C()
+    public void ShouldSerializeOperationList()
     {
         var httpOperation = new HttpOperation(new Uri("https://www.google.com", UriKind.RelativeOrAbsolute), new LinkRelation("name", "value"), "GET", "text/html");
         var operationList = new OperationList
@@ -34,15 +34,43 @@ public class LinkRelationTests
         JsonSerializer.Serialize(operationList);
     }
     
+    
     [Fact]
-    public void D()
+    public void ShouldSerializePaymentOrderResponse()
     {
-        var httpOperation = new HttpOperation(new Uri("https://www.google.com", UriKind.RelativeOrAbsolute), new LinkRelation("name", "value"), "GET", "text/html");
-        var operationList = new OperationList
+        var httpOperation = new HttpOperationDto
         {
-            httpOperation
+            ContentType = "text/html",
+            Href = "https://www.google.com",
+            Method = "GET",
+            Rel = "name"
         };
-        var paymentOrderOperations = new PaymentOrderOperations(operationList, new HttpClient());
-        JsonSerializer.Serialize(paymentOrderOperations, Infrastructure.JsonSerialization.JsonSerialization.Settings);
+
+        var paymentOrderResponseDto = new PaymentOrderResponseDto
+        {
+            PaymentOrder = new PaymentOrderResponseItemDto
+            {
+                Id = "/paymentorder/assdadsasd",
+                Created = DateTime.Now,
+                Updated = DateTime.Now,
+                Operation = "operation",
+                Status = "status",
+                Currency = "SEK",
+                VatAmount = 100,
+                Amount = 1000,
+                Description = "description",
+                InitiatingSystemUserAgent = "userAgent",
+                Language = "sv-SE",
+                AvailableInstruments = new string[] { "instrument1", "instrument2" },
+                Implementation = "implementation",
+                Integration = "integration",
+                InstrumentMode = true,
+                GuestMode = true,
+            },
+            Operations = [httpOperation]
+
+        };
+        var paymentOrderResponse = new PaymentOrderResponse(paymentOrderResponseDto, new HttpClient());
+        JsonSerializer.Serialize(paymentOrderResponse, Infrastructure.JsonSerialization.JsonSerialization.Settings);
     }
 }
