@@ -245,6 +245,8 @@ public class CheckOutController : Controller
 
     public ViewResult Aborted()
     {
+        _cartService.PaymentOrderLink = null;
+        _cartService.Update();
         return View();
     }
 
