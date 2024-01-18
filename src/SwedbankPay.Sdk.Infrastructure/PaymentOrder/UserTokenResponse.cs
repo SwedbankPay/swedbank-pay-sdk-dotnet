@@ -20,6 +20,11 @@ internal record UserTokenResponse : IUserTokenResponse
         }
     }
 
+    public UserTokenResponse(UserTokenResponseItemDto userTokenResponseItemDto, HttpClient httpClient)
+    {
+        Tokens = new List<IUserToken> { userTokenResponseItemDto.Map(httpClient) };
+    }
+    
     public string? Id { get; }
     public string? PayerReference { get; }
     public List<IUserToken>? Tokens { get; }

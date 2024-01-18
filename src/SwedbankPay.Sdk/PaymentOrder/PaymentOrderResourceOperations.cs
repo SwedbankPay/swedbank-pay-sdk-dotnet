@@ -60,5 +60,10 @@ public static class PaymentOrderResourceOperations
     /// <summary>
     /// Deletes payment tokens for the payment order
     /// </summary>
+    public const string DeleteUnscheduledTokens = "delete-unscheduledtokens";
+    
+    /// <summary>
+    /// 
+    /// </summary>
     public const string DeleteTokens = "delete-paymenttokens";
 }

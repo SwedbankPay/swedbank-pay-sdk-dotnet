@@ -4,6 +4,7 @@ namespace SwedbankPay.Sdk.Infrastructure.PaymentOrder;
 
 internal record UserTokenResponseItemDto
 {
+    public bool? IsDeleted { get; init; }
     public string? Token { get; init; }
     public string? TokenType { get; init; }
     public string? Instrument { get; init; }
@@ -16,6 +17,7 @@ internal record UserTokenResponseItemDto
     {
         var dto = new UserTokenDto
         {
+            IsDeleted = IsDeleted,
             Token = Token,
             TokenType = TokenType,
             Instrument = Instrument,

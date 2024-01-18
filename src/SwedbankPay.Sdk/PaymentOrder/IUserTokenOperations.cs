@@ -7,4 +7,5 @@ public interface IUserTokenOperations
     Func<RemoveTokenRequest, Task<IUserTokenResponse?>>? DeleteAllTokens { get; }
     Func<RemoveTokenRequest, Task<IUserTokenResponse?>>? DeleteTokens { get; }
     Func<RemoveTokenRequest, Task<IUserTokenResponse?>>? DeleteRecurringTokens { get; }
+    Func<RemoveTokenRequest, Task<IUserTokenResponse?>>? DeleteUnscheduledTokens { get; }
 }
