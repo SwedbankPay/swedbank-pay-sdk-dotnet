@@ -38,7 +38,10 @@ public class OperationsBase : IDictionary<LinkRelation, HttpOperation?>
         _internalDictionary.TryGetValue(key, out value);
 
     public HttpOperation? this[LinkRelation key]
-    { get => _internalDictionary.ContainsKey(key) ? _internalDictionary[key] : null; set => _internalDictionary[key] = value; }
+    {
+        get => _internalDictionary.ContainsKey(key) ? _internalDictionary[key] : null;
+        set => _internalDictionary[key] = value;
+    }
 
     public ICollection<LinkRelation> Keys => _internalDictionary.Keys;
     public ICollection<HttpOperation?> Values => _internalDictionary.Values;

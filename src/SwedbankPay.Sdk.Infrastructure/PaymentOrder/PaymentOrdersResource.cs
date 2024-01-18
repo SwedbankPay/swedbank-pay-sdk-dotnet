@@ -56,7 +56,7 @@ public class PaymentOrdersResource : ResourceBase, IPaymentOrdersResource
     
     public async Task<IUserTokenResponse?> GetOwnedTokens(string payerReference)
     {
-        var url = new Uri($"/psp/paymentorders/payerownedtokens/{payerReference}", UriKind.Relative);//.GetUrlWithQueryString(paymentOrderExpand);
+        var url = new Uri($"/psp/paymentorders/payerownedtokens/{payerReference}", UriKind.Relative);
 
         var tokenResponseDto = await HttpClient.GetAsJsonAsync<UserTokenResponseDto>(url);
 

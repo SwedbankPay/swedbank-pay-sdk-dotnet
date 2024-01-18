@@ -185,7 +185,7 @@ public class PaymentController : Controller
             _context.Orders.Add(new Order
             {
                 PaymentOrderLink = response?.PaymentOrder.Id,
-                Lines = response.PaymentOrder.OrderItems?.OrderItemList?.Select(x => new CartLine
+                Lines = response?.PaymentOrder.OrderItems?.OrderItemList?.Select(x => new CartLine
                 {
                     Quantity = (int)x.Quantity,
                     Product = new Product
