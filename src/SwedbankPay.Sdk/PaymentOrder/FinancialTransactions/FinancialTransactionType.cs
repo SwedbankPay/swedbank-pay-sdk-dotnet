@@ -1,6 +1,6 @@
 namespace SwedbankPay.Sdk.PaymentOrder.FinancialTransactions;
 
-public class FinancialTransactionType : TypeSafeEnum<FinancialTransactionType>
+public sealed class FinancialTransactionType : TypeSafeEnum<FinancialTransactionType>
 {
     
     /// <summary>

@@ -1,6 +1,6 @@
 namespace SwedbankPay.Sdk;
 
-public class Status : TypeSafeEnum<Status>
+public sealed class Status : TypeSafeEnum<Status>
 {
     /// <summary>
     /// State of payment is Initialized.

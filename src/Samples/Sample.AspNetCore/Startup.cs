@@ -1,3 +1,5 @@
+using System;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -10,11 +12,6 @@ using Sample.AspNetCore.Data;
 using Sample.AspNetCore.Models;
 
 using SwedbankPay.Sdk.Extensions;
-
-using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Reflection;
 
 namespace Sample.AspNetCore;
 
@@ -81,19 +78,6 @@ public class Startup
         services.Configure<UrlsOptions>(Configuration.GetSection("Urls"));
         services.AddScoped(provider => SessionCart.GetCart(provider));
         services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
-
-        // void configureClient(HttpClient a)
-        // {
-        //     a.BaseAddress = swedBankPayOptions.ApiBaseUrl;
-        //     a.DefaultRequestHeaders.Authorization =
-        //         new AuthenticationHeaderValue("Bearer", swedBankPayOptions.Token);
-        //     a.DefaultRequestHeaders.Add("Accept", "application/json;version=3.1");
-        //     a.DefaultRequestHeaders.Add("User-Agent",
-        //         $"swedbankpay-sdksamplesite-dotnet/{Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version}");
-        // }
-        //
-        // services.AddSwedbankPayClient(configureClient);
-        
         services.AddSwedbankPayClient(swedBankPayOptions.ApiBaseUrl, swedBankPayOptions.Token);
         services.AddSession();
 

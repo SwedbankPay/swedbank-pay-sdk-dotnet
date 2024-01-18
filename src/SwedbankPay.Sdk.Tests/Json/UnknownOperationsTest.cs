@@ -52,7 +52,6 @@ public class UnknownOperationsTest
         var client = new HttpClient();
         var httpOperations = CreateOperationList(paymentResponse);
         var operations = new PaymentOrderOperations(httpOperations, client);
-        // var operations = new CardPaymentOperations(paymentResponse.Operations.Map(), client);
         var testLinkRelation = new LinkRelation(TestOperationName, TestOperationName);
     
         Assert.True(operations.ContainsKey(testLinkRelation), "Missing link relation in Operation list");
@@ -63,9 +62,9 @@ public class UnknownOperationsTest
         Assert.Equal(HttpMethod.Get, httpOperation?.Method);
     }
 
-    public static string TestOperationName = "unknown-test-operation";
+    private static readonly string TestOperationName = "unknown-test-operation";
 
-    public static string TestResponse = @"{
+    private static readonly string TestResponse = @"{
     ""paymentOrder"": {
     },
     ""operations"": [

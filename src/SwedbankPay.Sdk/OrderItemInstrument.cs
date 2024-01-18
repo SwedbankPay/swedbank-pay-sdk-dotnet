@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Payment instrument the order item will be limited to.
 	/// </summary>
-	public class OrderItemInstrument : TypeSafeEnum<OrderItemInstrument>
+	public sealed class OrderItemInstrument : TypeSafeEnum<OrderItemInstrument>
 	{
         /// <summary>
         /// The order item will be limited to credit card.

@@ -1,6 +1,6 @@
 namespace SwedbankPay.Sdk.PaymentOrder.FailedAttempts;
 
-public class FailedStatus : TypeSafeEnum<FailedStatus>
+public sealed class FailedStatus : TypeSafeEnum<FailedStatus>
 {
     /// <summary>
     /// State of payment is Aborted.

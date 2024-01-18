@@ -6,18 +6,9 @@ namespace SwedbankPay.Sdk.Infrastructure.Extensions;
 
 public static class UriExtensions
 {
-    // public static Uri GetUrlWithQueryString(this Uri uri, PaymentExpand paymentExpand)
-    // {
-    //     var paymentExpandQueryString = GetExpandQueryString<PaymentExpand>(paymentExpand);
-    //     var url = !string.IsNullOrWhiteSpace(paymentExpandQueryString)
-    //         ? new Uri(uri.OriginalString + paymentExpandQueryString, UriKind.RelativeOrAbsolute)
-    //         : uri;
-    //     return url;
-    // }
-
     public static Uri GetUrlWithQueryString(this Uri uri, PaymentOrderExpand paymentExpand)
     {
-        string paymentExpandQueryString = GetExpandQueryString<PaymentOrderExpand>(paymentExpand);
+        var paymentExpandQueryString = GetExpandQueryString<PaymentOrderExpand>(paymentExpand);
         var url = !string.IsNullOrWhiteSpace(paymentExpandQueryString)
             ? new Uri(uri.OriginalString + paymentExpandQueryString, UriKind.RelativeOrAbsolute)
             : uri;

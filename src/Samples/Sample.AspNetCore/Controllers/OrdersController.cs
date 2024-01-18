@@ -105,7 +105,7 @@ public class OrdersController : Controller
             {
                 var paymentOrder = await _swedbankPayClient.PaymentOrders.Get(order.PaymentOrderLink, PaymentOrderExpand.All);
                 var paymentOrderOperations = paymentOrder?.Operations.Select(x => x.Value);
-                operations = paymentOrderOperations?.ToList();
+                operations = paymentOrderOperations?.ToList() ?? [];
 
                 var recurringTokenItem = paymentOrder?.PaymentOrder.Paid?.Tokens?.FirstOrDefault(x => x.Type == "recur");
                 if (recurringTokenItem != null)
