@@ -14,6 +14,4 @@ public class Order
     public Uri PaymentLink { get; set; }
 
     public Uri PaymentOrderLink { get; set; }
-
-    // public PaymentInstrument Instrument { get; set; }
 }

@@ -200,240 +200,6 @@ public class PaymentOrderTests : ResourceTestsBase
     ]
 }";
 
-    private const string PaymentOrderResponse1 = @"{
-    ""paymentOrder"": {
-        ""id"": ""/psp/paymentorders/1039d2c0-cf37-4611-6f61-08dbc01cba84"",
-        ""created"": ""2023-10-03T09:38:29.7565991Z"",
-        ""updated"": ""2023-10-03T10:45:05.4862034Z"",
-        ""operation"": ""Purchase"",
-        ""status"": ""Paid"",
-        ""currency"": ""SEK"",
-        ""amount"": 98000,
-        ""vatAmount"": 0,
-        ""remainingReversalAmount"": 98000,
-        ""description"": ""Test description"",
-        ""initiatingSystemUserAgent"": ""swedbankpay-sdksamplesite-dotnet/1.0.0.0"",
-        ""language"": ""sv-SE"",
-        ""availableInstruments"": [
-            ""CreditCard"",
-            ""Invoice-PayExFinancingSe"",
-            ""Swish"",
-            ""CreditAccount-CreditAccountSe"",
-            ""Trustly"",
-            ""MobilePay"",
-            ""GooglePay"",
-            ""ClickToPay""
-        ],
-        ""implementation"": ""PaymentsOnly"",
-        ""integration"": ""HostedView"",
-        ""instrumentMode"": false,
-        ""guestMode"": true,
-        ""orderItems"": {
-            ""id"": ""/psp/paymentorders/1039d2c0-cf37-4611-6f61-08dbc01cba84/orderitems"",
-            ""orderItemList"": [
-                {
-                    ""reference"": ""P2"",
-                    ""name"": ""Nike Metcon 5"",
-                    ""type"": ""PRODUCT"",
-                    ""class"": ""ProductGroup1"",
-                    ""quantity"": 1.0000,
-                    ""quantityUnit"": ""pcs"",
-                    ""unitPrice"": 75000,
-                    ""discountPrice"": 0,
-                    ""vatPercent"": 0,
-                    ""amount"": 75000,
-                    ""vatAmount"": 0,
-                    ""restrictedToInstruments"": []
-                },
-                {
-                    ""reference"": ""P1"",
-                    ""name"": ""Puma Black Sneakers Shoes"",
-                    ""type"": ""PRODUCT"",
-                    ""class"": ""ProductGroup1"",
-                    ""quantity"": 1.0000,
-                    ""quantityUnit"": ""pcs"",
-                    ""unitPrice"": 23000,
-                    ""discountPrice"": 0,
-                    ""vatPercent"": 0,
-                    ""amount"": 23000,
-                    ""vatAmount"": 0,
-                    ""restrictedToInstruments"": []
-                }
-            ]
-        },
-        ""urls"": {
-            ""id"": ""/psp/paymentorders/1039d2c0-cf37-4611-6f61-08dbc01cba84/urls"",
-            ""hostUrls"": [
-                ""https://localhost:5001/""
-            ],
-            ""completeUrl"": ""https://localhost:5001/Checkout/Thankyou"",
-            ""cancelUrl"": ""https://localhost:5001/Checkout/Aborted"",
-            ""callbackUrl"": ""https://localhost:5001/Checkout/Callback"",
-            ""paymentUrl"": ""https://localhost:5001/CheckOut/LoadPaymentMenu""
-        },
-        ""payeeInfo"": {
-            ""id"": ""/psp/paymentorders/1039d2c0-cf37-4611-6f61-08dbc01cba84/payeeinfo""
-        },
-        ""payer"": {
-            ""id"": ""/psp/paymentorders/1039d2c0-cf37-4611-6f61-08dbc01cba84/payers""
-        },
-        ""history"": {
-            ""id"": ""/psp/paymentorders/1039d2c0-cf37-4611-6f61-08dbc01cba84/history"",
-            ""historyList"": [
-                {
-                    ""created"": ""2023-10-03T09:38:29.7565991Z"",
-                    ""name"": ""PaymentCreated"",
-                    ""initiatedBy"": ""Merchant""
-                },
-                {
-                    ""created"": ""2023-10-03T09:38:30.5390334Z"",
-                    ""name"": ""PaymentLoaded"",
-                    ""initiatedBy"": ""System""
-                },
-                {
-                    ""created"": ""2023-10-03T10:44:10.2721998Z"",
-                    ""name"": ""PaymentInstrumentSelected"",
-                    ""instrument"": ""GooglePay"",
-                    ""initiatedBy"": ""Payer""
-                },
-                {
-                    ""created"": ""2023-10-03T10:44:14.1774001Z"",
-                    ""name"": ""PaymentAttemptStarted"",
-                    ""instrument"": ""GooglePay"",
-                    ""prefill"": false,
-                    ""initiatedBy"": ""Payer""
-                },
-                {
-                    ""created"": ""2023-10-03T10:44:35.1882228Z"",
-                    ""name"": ""PaymentInstrumentSelected"",
-                    ""instrument"": ""Swish"",
-                    ""initiatedBy"": ""Payer""
-                },
-                {
-                    ""created"": ""2023-10-03T10:44:35.2507252Z"",
-                    ""name"": ""PaymentAttemptAborted"",
-                    ""instrument"": ""GooglePay"",
-                    ""initiatedBy"": ""Payer""
-                },
-                {
-                    ""created"": ""2023-10-03T10:45:05.4823577Z"",
-                    ""name"": ""PaymentAttemptStarted"",
-                    ""number"": 44100889705,
-                    ""instrument"": ""Swish"",
-                    ""prefill"": false,
-                    ""initiatedBy"": ""Payer""
-                },
-                {
-                    ""created"": ""2023-10-03T10:45:10.573019Z"",
-                    ""name"": ""PaymentSaleCompleted"",
-                    ""number"": 44100889705,
-                    ""instrument"": ""Swish"",
-                    ""initiatedBy"": ""Merchant""
-                },
-                {
-                    ""created"": ""2023-10-03T10:45:10.573019Z"",
-                    ""name"": ""PaymentPaid"",
-                    ""number"": 44100889705,
-                    ""instrument"": ""Swish"",
-                    ""initiatedBy"": ""Payer""
-                }
-            ]
-        },
-        ""failed"": {
-            ""id"": ""/psp/paymentorders/1039d2c0-cf37-4611-6f61-08dbc01cba84/failed""
-        },
-        ""aborted"": {
-            ""id"": ""/psp/paymentorders/1039d2c0-cf37-4611-6f61-08dbc01cba84/aborted""
-        },
-        ""paid"": {
-            ""id"": ""/psp/paymentorders/1039d2c0-cf37-4611-6f61-08dbc01cba84/paid"",
-            ""instrument"": ""Swish"",
-            ""number"": 44100889705,
-            ""payeeReference"": ""638319299095650770"",
-            ""transactionType"": ""Sale"",
-            ""amount"": 98000,
-            ""submittedAmount"": 98000,
-            ""feeAmount"": 0,
-            ""discountAmount"": 0,
-            ""details"": {
-                ""msisdn"": ""+46701234567""
-            }
-        },
-        ""cancelled"": {
-            ""id"": ""/psp/paymentorders/1039d2c0-cf37-4611-6f61-08dbc01cba84/cancelled""
-        },
-        ""financialTransactions"": {
-            ""id"": ""/psp/paymentorders/86ffa0c5-a06e-4b37-3a5e-08dbceb433dc/financialtransactions"",
-            ""financialTransactionsList"": [
-                {
-                    ""id"": ""/psp/paymentorders/86ffa0c5-a06e-4b37-3a5e-08dbceb433dc/financialtransactions/177a2a19-53d9-4cd2-a6d1-08dbcee5d067"",
-                    ""created"": ""2023-10-18T13:00:04.2548195Z"",
-                    ""updated"": ""2023-10-18T13:00:04.9478096Z"",
-                    ""type"": ""Capture"",
-                    ""number"": 40127366860,
-                    ""amount"": 23000,
-                    ""vatAmount"": 0,
-                    ""description"": ""Capturing the authorized payment"",
-                    ""payeeReference"": ""638332380039447680"",
-                    ""orderItems"": {
-                        ""id"": ""/psp/paymentorders/86ffa0c5-a06e-4b37-3a5e-08dbceb433dc/financialtransactions/177a2a19-53d9-4cd2-a6d1-08dbcee5d067/orderitems""
-                    }
-                }
-            ]
-        },
-        ""failedAttempts"": {
-            ""id"": ""/psp/paymentorders/1039d2c0-cf37-4611-6f61-08dbc01cba84/failedattempts""
-        },
-        ""metadata"": {
-            ""id"": ""/psp/paymentorders/1039d2c0-cf37-4611-6f61-08dbc01cba84/metadata""
-        }
-    },
-    ""operations"": [
-        {
-            ""method"": ""PATCH"",
-            ""href"": ""https://api.externalintegration.payex.com/psp/paymentorders/09ccd29a-7c4f-4752-9396-12100cbfecce"",
-            ""rel"": ""update-order"",
-            ""contentType"": ""application/json""
-        },
-        {
-            ""method"": ""PATCH"",
-            ""href"": ""https://api.externalintegration.payex.com/psp/paymentorders/09ccd29a-7c4f-4752-9396-12100cbfecce"",
-            ""rel"": ""abort"",
-            ""contentType"": ""application/json""
-        },
-        {
-            ""method"": ""POST"",
-            ""href"": ""https://api.externalintegration.payex.com/psp/paymentorders/09ccd29a-7c4f-4752-9396-12100cbfecce/cancellations"",
-            ""rel"": ""cancel"",
-            ""contentType"": ""application/json""
-        },
-        {
-            ""method"": ""POST"",
-            ""href"": ""https://api.externalintegration.payex.com/psp/paymentorders/09ccd29a-7c4f-4752-9396-12100cbfecce/captures"",
-            ""rel"": ""capture"",
-            ""contentType"": ""application/json""
-        },
-        {
-            ""method"": ""POST"",
-            ""href"": ""https://api.externalintegration.payex.com/psp/paymentorders/09ccd29a-7c4f-4752-9396-12100cbfecce/reversals"",
-            ""rel"": ""reversal"",
-            ""contentType"": ""application/json""
-        },
-        {
-            ""method"": ""GET"",
-            ""href"": ""https://ecom.externalintegration.payex.com/checkout/073115b6226e834dd9b1665771bae76223b4488429729155587de689555c5539?_tc_tid=30f2168171e142d38bcd4af2c3721959"",
-            ""rel"": ""redirect-checkout"",
-            ""contentType"": ""text/html""
-        },
-        {
-            ""method"": ""GET"",
-            ""href"": ""https://ecom.externalintegration.payex.com/checkout/core/js/px.checkout.client.js?token=073115b6226e834dd9b1665771bae76223b4488429729155587de689555c5539&culture=sv-SE&_tc_tid=30f2168171e142d38bcd4af2c3721959"",
-            ""rel"": ""view-checkout"",
-            ""contentType"": ""application/javascript""
-        }
-    ]
-}";
-
     private const string PaymentOrderCancelResponse = @"{
   ""paymentOrder"": {
     ""id"": ""/psp/paymentorders/8be318c1-1caa-4db1-e2c6-08d7bf41224d"",
@@ -560,7 +326,7 @@ public class PaymentOrderTests : ResourceTestsBase
   ]
 }";
 
-    private static Uri GetUri() => new Uri("http://api.externalintegration.payex.com", UriKind.Absolute);
+    private static Uri GetUri() => new("http://api.externalintegration.payex.com", UriKind.Absolute);
 
     private readonly PaymentOrderRequestBuilder _paymentOrderRequestBuilder = new();
 
@@ -568,7 +334,7 @@ public class PaymentOrderTests : ResourceTestsBase
     public void CanDeserializePaymentOrder()
     {
         var paymentOrderResponseDto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderResponse31,
-            Infrastructure.JsonSerialization.JsonSerialization.Settings);
+            JsonSerialization.Settings);
         Assert.NotNull(paymentOrderResponseDto);
         Assert.NotNull(paymentOrderResponseDto.PaymentOrder.FinancialTransactions?.FinancialTransactionsList);
         Assert.NotNull(paymentOrderResponseDto.PaymentOrder.FinancialTransactions?.FinancialTransactionsList
@@ -583,11 +349,10 @@ public class PaymentOrderTests : ResourceTestsBase
     public void CanSerializePaymentOrder()
     {
         var paymentOrderResponseDto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderResponse31,
-            Infrastructure.JsonSerialization.JsonSerialization.Settings);
+            JsonSerialization.Settings);
         Assert.NotNull(paymentOrderResponseDto);
         var paymentOrderResponse = new PaymentOrderResponse(paymentOrderResponseDto, new HttpClient());
-        var serialize = JsonSerializer.Serialize(paymentOrderResponse,
-            Infrastructure.JsonSerialization.JsonSerialization.Settings);
+        JsonSerializer.Serialize(paymentOrderResponse, JsonSerialization.Settings);
     }
 
     [Fact]
@@ -793,7 +558,7 @@ public class PaymentOrderTests : ResourceTestsBase
     public void CanDeSerialize_Cancel_WithNoErrors()
     {
         var dto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderCancelResponse,
-            Infrastructure.JsonSerialization.JsonSerialization.Settings);
+            JsonSerialization.Settings);
         Assert.NotNull(dto);
         var sut = new PaymentOrderResponse(dto, new HttpClient());
 
@@ -805,7 +570,7 @@ public class PaymentOrderTests : ResourceTestsBase
     public void CanDeSerialize_Reversal_WithNoErrors()
     {
         var dto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderReversalResponse,
-            Infrastructure.JsonSerialization.JsonSerialization.Settings);
+            JsonSerialization.Settings);
         Assert.NotNull(dto);
         var sut = new PaymentOrderResponse(dto, new HttpClient());
 
@@ -825,7 +590,7 @@ public class PaymentOrderTests : ResourceTestsBase
         }";
         var callbackInfo =
             JsonSerializer.Deserialize<CallbackInfo>(callback,
-                Infrastructure.JsonSerialization.JsonSerialization.Settings);
+                JsonSerialization.Settings);
         Assert.NotNull(callbackInfo);
         Assert.NotNull(callbackInfo.PaymentOrder);
     }

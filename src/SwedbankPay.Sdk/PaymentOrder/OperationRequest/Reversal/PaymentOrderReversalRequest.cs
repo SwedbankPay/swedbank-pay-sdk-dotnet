@@ -17,9 +17,10 @@ public record PaymentOrderReversalRequest
     /// <summary>
     /// A unique reference to the transaction, provided by the merchant. Can be used as an invoice or receipt number as a supplement to payeeReference.
     /// </summary>
-    public string ReceiptReference
+    public string? ReceiptReference
     {
         set => Transaction.ReceiptReference = value;
+        get => Transaction.ReceiptReference;
     }
     
     

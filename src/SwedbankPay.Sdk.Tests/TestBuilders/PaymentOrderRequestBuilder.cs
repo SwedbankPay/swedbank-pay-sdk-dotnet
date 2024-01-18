@@ -9,7 +9,6 @@ public class PaymentOrderRequestBuilder
     private Amount? _amount;
     private Currency? _currency;
     private string? _description;
-    // private bool _generateRecurrenceToken;
     private Language? _language;
     private Operation? _operation;
     private List<OrderItem>? _orderItems;
@@ -31,40 +30,6 @@ public class PaymentOrderRequestBuilder
 
         return req;
     }
-
-
-    public PaymentOrderRequestBuilder WithAmounts(long longAmount = 30000, long longVatAmount = 7500)
-    {
-        if (longAmount - longVatAmount < 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(longVatAmount),
-                $"{longVatAmount} cant be greater than {longAmount}");
-        }
-
-        _amount = new Amount(longAmount);
-        _vatAmount = new Amount(longVatAmount);
-
-        return this;
-    }
-
-
-    public PaymentOrderRequestBuilder WithLanguageCode(string code)
-    {
-        _language = new Language(code);
-        return this;
-    }
-
-
-    // public PaymentOrderRequestBuilder WithMetadata()
-    // {
-    //     this.metadata = new Metadata
-    //     {
-    //         ["testvalue"] = 3,
-    //         ["testvalue2"] = "test"
-    //     };
-    //     return this;
-    // }
-
 
     public PaymentOrderRequestBuilder WithOrderItems()
     {
@@ -94,7 +59,6 @@ public class PaymentOrderRequestBuilder
         _description = "Test Description";
         _userAgent = "useragent";
         _language = new Language("sv-SE");
-        // _implementation = "Checkoutv3";
         _implementation = "PaymentsOnly";
         _urls = new Urls(new List<Uri> { new Uri("https://example.com") },new Uri("https://example.com/payment-completed"),
             new Uri("https://example.com/payment-canceled"), new Uri("https://example.com/payment-callback"));

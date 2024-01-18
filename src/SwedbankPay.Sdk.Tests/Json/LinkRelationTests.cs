@@ -1,9 +1,7 @@
 using System.Text.Json;
 
 using SwedbankPay.Sdk.Infrastructure;
-using SwedbankPay.Sdk.Infrastructure.JsonSerialization;
 using SwedbankPay.Sdk.Infrastructure.PaymentOrder;
-using SwedbankPay.Sdk.PaymentOrder;
 
 namespace SwedbankPay.Sdk.Tests.Json;
 
@@ -14,14 +12,14 @@ public class LinkRelationTests
     public void A()
     {
         var linkRelation = new LinkRelation("name", "value");
-        var serialize = JsonSerializer.Serialize(linkRelation);
+        JsonSerializer.Serialize(linkRelation);
     }
 
     [Fact]
     public void B()
     {
         var httpOperation = new HttpOperation(new Uri("https://www.google.com", UriKind.RelativeOrAbsolute), new LinkRelation("name", "value"), "GET", "text/html");
-        var serialize = JsonSerializer.Serialize(httpOperation);
+        JsonSerializer.Serialize(httpOperation);
     }
 
     [Fact]
@@ -33,7 +31,7 @@ public class LinkRelationTests
             httpOperation
         };
         
-        var serialize = JsonSerializer.Serialize(operationList);
+        JsonSerializer.Serialize(operationList);
     }
     
     [Fact]
@@ -45,6 +43,6 @@ public class LinkRelationTests
             httpOperation
         };
         var paymentOrderOperations = new PaymentOrderOperations(operationList, new HttpClient());
-        var serialize = JsonSerializer.Serialize(paymentOrderOperations, Infrastructure.JsonSerialization.JsonSerialization.Settings);
+        JsonSerializer.Serialize(paymentOrderOperations, Infrastructure.JsonSerialization.JsonSerialization.Settings);
     }
 }

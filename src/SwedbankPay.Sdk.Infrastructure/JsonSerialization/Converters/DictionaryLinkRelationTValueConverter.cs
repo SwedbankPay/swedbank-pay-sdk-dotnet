@@ -15,12 +15,11 @@ public class DictionaryLinkRelationTValueConverter : JsonConverterFactory
 
     public override JsonConverter? CreateConverter(Type typeToConvert, JsonSerializerOptions options)
     {
-        Type keyType = typeToConvert.GetGenericArguments()[0];
-        Type valueType = typeToConvert.GetGenericArguments()[1];
+        var keyType = typeToConvert.GetGenericArguments()[0];
+        var valueType = typeToConvert.GetGenericArguments()[1];
 
-        JsonConverter converter = (JsonConverter)Activator.CreateInstance(
-            typeof(CustomPaymentOrderOperationsConverter).MakeGenericType(
-                new Type[] { keyType, valueType }),
+        var converter = (JsonConverter)Activator.CreateInstance(
+            typeof(CustomPaymentOrderOperationsConverter).MakeGenericType(keyType, valueType),
             BindingFlags.Instance | BindingFlags.Public,
             binder: null,
             args: new object[] { options },
