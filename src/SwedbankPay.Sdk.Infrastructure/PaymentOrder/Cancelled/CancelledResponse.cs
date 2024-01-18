@@ -15,7 +15,7 @@ internal record CancelledResponse : Identifiable, ICancelledResponse
     public Amount SubmittedAmount { get; }
     public Amount FeeAmount { get; }
     public Amount DiscountAmount { get; }
-    public IList<ITokenItem>? Tokens { get; }
+    public IList<IRecurringTokenItem>? Tokens { get; }
     public ICancelledDetails? Details { get; }
 
     internal CancelledResponse(CancelledResponseDto dto) : base(dto.Id)

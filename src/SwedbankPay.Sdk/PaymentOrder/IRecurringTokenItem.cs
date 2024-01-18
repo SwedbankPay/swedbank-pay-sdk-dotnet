@@ -1,6 +1,6 @@
 namespace SwedbankPay.Sdk.PaymentOrder;
 
-public interface ITokenItem
+public interface IRecurringTokenItem
 {
     public string? Type { get; }
     public string? Token { get; }

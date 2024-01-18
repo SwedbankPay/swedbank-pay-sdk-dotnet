@@ -2,36 +2,36 @@
 @model List<Sample.AspNetCore.Models.ViewModels.OrderViewModel>
 
 @{
-	ViewData["Title"] = "OrderDetails";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "OrderDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @{
-	var actionName = "";
+    var actionName = "";
 }
 
 @if (TempData["CancelMessage"] != null)
 {
-	<div class="alert alert-success">@TempData["CancelMessage"]</div>
+    <div class="alert alert-success">@TempData["CancelMessage"]</div>
 }
 else if (TempData["CaptureMessage"] != null)
 {
-	<div class="alert alert-success">@TempData["CaptureMessage"]</div>
+    <div class="alert alert-success">@TempData["CaptureMessage"]</div>
 }
 else if (TempData["ReversalMessage"] != null)
 {
-	<div class="alert alert-success">@TempData["ReversalMessage"]</div>
+    <div class="alert alert-success">@TempData["ReversalMessage"]</div>
 }
 else if (TempData["ErrorMessage"] != null)
 {
-	<div class="alert alert-warning">@TempData["ErrorMessage"]</div>
+    <div class="alert alert-warning">@TempData["ErrorMessage"]</div>
 }
 
 <h1>Details</h1>
 
 <div>
-	<h4>Orders</h4>
-	<hr />
+    <h4>Orders</h4>
+    <hr/>
 </div>
 
 <div data-automation="div-orders">
@@ -62,86 +62,78 @@ else if (TempData["ErrorMessage"] != null)
             </div>
             <table class="table">
                 <thead>
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => order.OperationList[0].Method)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => order.OperationList[0].Rel)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => order.OperationList[0].Href)
-                        </th>
-                        <th></th>
-                    </tr>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => order.OperationList[0].Method)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => order.OperationList[0].Rel)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => order.OperationList[0].Href)
+                    </th>
+                    <th></th>
+                </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in order.OperationList)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Method)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Rel)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Href)
-                            </td>
-                            <td>
-                                @switch (item.Rel.Value)
-                                {
-                                    case PaymentOrderResourceOperations.Cancel:
-                                        actionName = "PaymentOrderCancel";
-                                        break;
-                                    case PaymentOrderResourceOperations.Capture:
-                                        actionName = "PaymentOrderCapture";
-                                        break;
-                                    case PaymentOrderResourceOperations.Reversal:
-                                        actionName = "PaymentOrderReversal";
-                                        break;
-                                    case PaymentOrderResourceOperations.RedirectCheckout:
-                                        break;
-                                    case PaymentOrderResourceOperations.UpdateOrder:
-                                        break;
-                                    case PaymentOrderResourceOperations.ViewCheckout:
-                                        break;
-                                    // case PaymentResourceOperations.CreateReversal:
-                                    //     actionName = "Reversal";
-                                    //     break;
-                                    //
-                                    // case PaymentResourceOperations.CreateCapture:
-                                    //     actionName = "Capture";
-                                    //     break;
-                                    // case PaymentResourceOperations.CreateCancellation:
-                                    //     actionName = "Cancel";
-                                    //     break;
-                                    // case "create-recurring":
-                                    //     actionName = "Recurring";
-                                    //     break;
-                                }
-                                @if (!string.IsNullOrEmpty(actionName))
-                                {
-                                    var automationTagName = $"a-{actionName.ToLower()}";
+                @foreach (var item in order.OperationList)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Method)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Rel)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Href)
+                        </td>
+                        <td>
+                            @switch (item.Rel.Value)
+                            {
+                                case PaymentOrderResourceOperations.Cancel:
+                                    actionName = "PaymentOrderCancel";
+                                    break;
+                                case PaymentOrderResourceOperations.Capture:
+                                    actionName = "PaymentOrderCapture";
+                                    break;
+                                case PaymentOrderResourceOperations.Reversal:
+                                    actionName = "PaymentOrderReversal";
+                                    break;
+                                case PaymentOrderResourceOperations.RedirectCheckout:
+                                    break;
+                                case PaymentOrderResourceOperations.UpdateOrder:
+                                    break;
+                                case PaymentOrderResourceOperations.ViewCheckout:
+                                    break;
+                                case PaymentOrderResourceOperations.Recur:
+                                    actionName = "Recurring";
+                                    break;
+                                case PaymentOrderResourceOperations.Unscheduled:
+                                    actionName = "Unscheduled";
+                                    break;
+                            }
+                            @if (!string.IsNullOrEmpty(actionName))
+                            {
+                                var automationTagName = $"a-{actionName.ToLower()}";
 
-                                    <a class="btn btn-primary" asp-controller="Payment" 
-                                       asp-action=@actionName 
-                                       asp-route-paymentOrderId=@order.Order.PaymentOrderLink
-                                       asp-route-paymentId="@order.Order.PaymentLink" 
-                                       asp-route-instrument="Instrumentaaaaaa" 
-                                       data-automation=@automationTagName>Execute</a>
+                                <a class="btn btn-primary" asp-controller="Payment"
+                                   asp-action=@actionName
+                                   asp-route-paymentOrderId=@order.Order.PaymentOrderLink
+                                   asp-route-recurringToken="@order.RecurringToken"
+                                   data-automation=@automationTagName>
+                                    Execute
+                                </a>
+                            }
+                            else
+                            {
+                                <span class="badge badge-warning">Not implemented</span>
+                            }
 
-                                }
-                                else
-                                {
-                                    <span class="badge badge-warning">Not implemented</span>
-
-                                }
-
-                            </td>
-                        </tr>
-                        actionName = null;
-                    }
+                        </td>
+                    </tr>
+                    actionName = null;
+                }
                 </tbody>
             </table>
         </div>

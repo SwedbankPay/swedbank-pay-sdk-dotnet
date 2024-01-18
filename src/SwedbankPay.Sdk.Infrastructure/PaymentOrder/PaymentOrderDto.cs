@@ -12,6 +12,8 @@ internal record PaymentOrderDto
     internal PaymentOrderDto(PaymentOrderRequest paymentOrderRequest)
     {
         Operation = paymentOrderRequest.Operation.Value;
+        RecurrenceToken = paymentOrderRequest.RecurrenceToken;
+        UnscheduledToken = paymentOrderRequest.UnscheduledToken;
         Currency = paymentOrderRequest.Currency.ToString();
         Amount = paymentOrderRequest.Amount.InLowestMonetaryUnit;
         VatAmount = paymentOrderRequest.VatAmount.InLowestMonetaryUnit;
@@ -19,6 +21,9 @@ internal record PaymentOrderDto
         UserAgent = paymentOrderRequest.UserAgent;
         GeneratePaymentToken = paymentOrderRequest.GeneratePaymentToken;
         Language = paymentOrderRequest.Language.ToString();
+        GenerateRecurrenceToken = paymentOrderRequest.GenerateRecurrenceToken;
+        GenerateUnscheduledToken = paymentOrderRequest.GenerateUnscheduledToken;
+        
         DisableStoredPaymentDetails = paymentOrderRequest.DisableStoredPaymentDetails;
         Instrument = paymentOrderRequest.Instrument;
         Implementation = paymentOrderRequest.Implementation;
@@ -43,6 +48,8 @@ internal record PaymentOrderDto
     }
 
     public string Operation { get; }
+    public string? RecurrenceToken { get; }
+    public string? UnscheduledToken { get; }
     public string Currency { get; }
     public long Amount { get; }
     public long VatAmount { get; }
@@ -50,6 +57,8 @@ internal record PaymentOrderDto
     public string UserAgent { get; }
     public bool GeneratePaymentToken { get;  }
     public string Language { get; }
+    public bool GenerateRecurrenceToken { get; }  
+    public bool GenerateUnscheduledToken { get; }
     public bool DisableStoredPaymentDetails { get;  }
     public string? Instrument { get; }
     public string? Implementation { get; }

@@ -70,4 +70,28 @@
        asp-controller="CheckOut">
         Checkout Redirect
     </a>
+    
+    <a class="btn btn-primary" 
+       data-automation="button-checkout" 
+       asp-route-generatePaymentToken="true"
+       asp-action="LoadPaymentMenu" 
+       asp-controller="CheckOut">
+        Checkout PaymentToken
+    </a>
+
+    <a class="btn btn-primary" 
+       data-automation="button-checkout" 
+       asp-route-generateRecurrenceToken="true"
+       asp-action="LoadPaymentMenu" 
+       asp-controller="CheckOut">
+        Checkout Recurring
+    </a>
+
+    <a class="btn btn-primary" 
+       data-automation="button-checkout" 
+       asp-route-generateUnscheduledToken="true"
+       asp-action="LoadPaymentMenu" 
+       asp-controller="CheckOut">
+        Checkout Unscheduled
+    </a>
 </div>

@@ -14,7 +14,7 @@ internal record CancelledResponseDto : IdentifiableDto
     public long SubmittedAmount { get; init; }
     public long FeeAmount { get; init; }
     public long DiscountAmount { get; init; }
-    public IList<TokenItemDto>? Tokens { get; init; }
+    public IList<RecurringTokenItemDto>? Tokens { get; init; }
     public CancelledDetailsDto? Details { get; init; }
 
     public CancelledResponseDto(string id) : base(id)

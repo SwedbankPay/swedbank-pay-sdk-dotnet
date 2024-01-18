@@ -13,7 +13,7 @@ internal record PaidResponseDto : IdentifiableDto
     public long SubmittedAmount { get; init; }
     public long FeeAmount { get; init; }
     public long DiscountAmount { get; init; }
-    public IList<TokenItemDto>? Tokens { get; init; }
+    public IList<RecurringTokenItemDto>? Tokens { get; init; }
     public PaidDetailsDto? Details { get; init; }
 
     public PaidResponseDto(string id) : base(id)

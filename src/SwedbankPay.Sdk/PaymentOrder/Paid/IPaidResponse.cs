@@ -10,6 +10,6 @@ public interface IPaidResponse
     public Amount SubmittedAmount { get; }
     public Amount FeeAmount { get; }
     public Amount DiscountAmount { get; }
-    public IList<ITokenItem>? Tokens { get; }
+    public IList<IRecurringTokenItem>? Tokens { get; }
     public IPaidDetails? Details { get; }
 }

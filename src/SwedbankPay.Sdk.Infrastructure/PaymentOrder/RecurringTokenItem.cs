@@ -2,14 +2,14 @@ using SwedbankPay.Sdk.PaymentOrder;
 
 namespace SwedbankPay.Sdk.Infrastructure.PaymentOrder;
 
-internal record TokenItem : ITokenItem
+internal record RecurringTokenItem : IRecurringTokenItem
 {
     public string? Type { get; }
     public string? Token { get; }
     public string? Name { get; }
     public string? ExpiryDate { get; }
 
-    internal TokenItem(TokenItemDto dto)
+    internal RecurringTokenItem(RecurringTokenItemDto dto)
     {
         Type = dto.Type;
         Token = dto.Token;

@@ -61,7 +61,40 @@ public class PaymentOrderTests : ResourceTestsBase
       ""id"": ""/psp/paymentorders/9c0a36c7-10fc-4d3f-7ad9-08dbdb75f503/aborted""
     },
     ""paid"": {
-      ""id"": ""/psp/paymentorders/9c0a36c7-10fc-4d3f-7ad9-08dbdb75f503/paid""
+      ""id"": ""/psp/paymentorders/9c0a36c7-10fc-4d3f-7ad9-08dbdb75f503/paid"",
+        ""number"": 40128554403,
+        ""instrument"": ""CreditCard"",
+        ""payeeReference"": ""638388382567231410"",
+        ""orderReference"": ""PO-638388346589715940"",
+        ""transactionType"": ""Authorization"",
+        ""amount"": 75000,
+        ""submittedAmount"": 75000,
+        ""feeAmount"": 0,
+        ""discountAmount"": 0,
+        ""tokens"": [
+            {
+                ""type"": ""recurrence"",
+                ""token"": ""8da454e7-1f34-4942-be19-4eb133ce22cf"",
+                ""name"": ""551000******2347"",
+                ""expiryDate"": ""11/2033""
+            }
+        ],
+        ""details"": {
+            ""nonPaymentToken"": ""fdf176f9-71a2-4d84-9885-6c08f3060272"",
+            ""externalNonPaymentToken"": ""d812904c476550b474b6616adafea"",
+            ""cardBrand"": ""MasterCard"",
+            ""cardType"": ""Credit"",
+            ""maskedPan"": ""551000******2347"",
+            ""expiryDate"": ""11/2033"",
+            ""issuerAuthorizationApprovalCode"": ""L24700"",
+            ""acquirerTransactionType"": ""3DSECURE"",
+            ""acquirerStan"": ""24700"",
+            ""acquirerTerminalId"": ""40128554403"",
+            ""acquirerTransactionTime"": ""2023-12-22T09:38:06.084Z"",
+            ""transactionInitiator"": ""CARDHOLDER"",
+            ""bin"": ""551000"",
+            ""paymentAccountReference"": ""d812904c476550b474b6616adafea""
+        }
     },
     ""cancelled"": {
       ""id"": ""/psp/paymentorders/9c0a36c7-10fc-4d3f-7ad9-08dbdb75f503/cancelled""

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,6 +11,7 @@ using Sample.AspNetCore.Models;
 using Sample.AspNetCore.Models.ViewModels;
 
 using SwedbankPay.Sdk;
+using SwedbankPay.Sdk.PaymentOrder;
 
 namespace Sample.AspNetCore.Controllers;
 
@@ -17,7 +19,7 @@ public class OrdersController : Controller
 {
     private readonly StoreDbContext _storeDbContext;
     private readonly ISwedbankPayClient _swedbankPayClient;
-       
+
     public OrdersController(StoreDbContext storeDbStoreDbContext,
         ISwedbankPayClient swedbankPayClient)
     {
@@ -92,53 +94,43 @@ public class OrdersController : Controller
             return NotFound();
         }
 
-            
+
         var completedPayments = new List<OrderViewModel>();
 
         foreach (var order in orders)
         {
             List<HttpOperation> operations = new List<HttpOperation>();
+            string recurringToken = null;
             if (order.PaymentOrderLink != null)
             {
-                var paymentOrder = await _swedbankPayClient.PaymentOrders.Get(order.PaymentOrderLink);
-                var paymentOrderOperations = paymentOrder.Operations.Select(x => x.Value);
-                operations = paymentOrderOperations.ToList();
+                var paymentOrder = await _swedbankPayClient.PaymentOrders.Get(order.PaymentOrderLink, PaymentOrderExpand.All);
+                var paymentOrderOperations = paymentOrder?.Operations.Select(x => x.Value);
+                operations = paymentOrderOperations?.ToList();
+
+                var recurringTokenItem = paymentOrder?.PaymentOrder.Paid?.Tokens?.FirstOrDefault(x => x.Type == "recur");
+                if (recurringTokenItem != null)
+                {
+                    var uri = new Uri("https://api.externalintegration.payex.com" + paymentOrder.PaymentOrder.Id);
+                    operations.Add(new HttpOperation(uri, new LinkRelation("recur", "recur"), "POST", "text/html"));
+                    recurringToken = recurringTokenItem.Token;
+                }
+                
+                var unscheduledTokenItem = paymentOrder?.PaymentOrder.Paid?.Tokens?.FirstOrDefault(x => x.Type == "unscheduled");
+                if (unscheduledTokenItem != null)
+                {
+                    var uri = new Uri("https://api.externalintegration.payex.com" + paymentOrder.PaymentOrder.Id);
+                    operations.Add(new HttpOperation(uri, new LinkRelation("unscheduled", "unscheduled"), "POST", "text/html"));
+                    recurringToken = unscheduledTokenItem.Token;
+                }
             }
-            else
-            {
-                // switch (order.Instrument)
-                // {
-                //     case PaymentInstrument.Swish:
-                //         var swishPayment = await this.swedbankPayClient.Payments.SwishPayments.Get(order.PaymentLink, PaymentExpand.All);
-                //         var swishOperations = swishPayment.Operations;
-                //         operations = swishOperations.Values.ToList();
-                //         break;
-                //     case PaymentInstrument.CreditCard:
-                //         var cardPayment = await this.swedbankPayClient.Payments.CardPayments.Get(order.PaymentLink, PaymentExpand.All);
-                //         var cardOperations = cardPayment.Operations;
-                //         operations = cardOperations.Values.ToList();
-                //
-                //         if (!string.IsNullOrWhiteSpace(cardPayment.Payment.RecurrenceToken)
-                //             && cardPayment.Payment.Operation.Equals(Operation.Verify))
-                //         {
-                //             operations.Add(new HttpOperation(new Uri("https://localhost:5001"), new LinkRelation("create-recurring", "create-recurring"), "GET", "text/html"));
-                //         }
-                //
-                //         break;
-                //     case PaymentInstrument.Trustly:
-                //         var trustlyPayment = await this.swedbankPayClient.Payments.TrustlyPayments.Get(order.PaymentLink, PaymentExpand.All);
-                //         var trustlyOperations = trustlyPayment.Operations;
-                //         operations = trustlyOperations.Values.ToList();
-                //         break;
-                // }
-            }
+
             completedPayments.Add(new OrderViewModel
             {
                 Order = order,
+                RecurringToken = recurringToken,
                 OperationList = operations.ToList()
             });
         }
-           
 
         return View(completedPayments);
     }
