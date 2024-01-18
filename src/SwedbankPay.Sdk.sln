@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.AspNetCore", "Sample
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwedbankPay.Sdk.Infrastructure", "SwedbankPay.Sdk.Infrastructure\SwedbankPay.Sdk.Infrastructure.csproj", "{B87890C3-B0AC-453C-8F78-E670F11C27EC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwedbankPay.Sdk.IntegrationTests", "SwedbankPay.Sdk.IntegrationTests\SwedbankPay.Sdk.IntegrationTests.csproj", "{B9C047F6-951D-4A3D-9463-0D7EAC62F4E9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +40,10 @@ Global
 		{B87890C3-B0AC-453C-8F78-E670F11C27EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B87890C3-B0AC-453C-8F78-E670F11C27EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B87890C3-B0AC-453C-8F78-E670F11C27EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9C047F6-951D-4A3D-9463-0D7EAC62F4E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9C047F6-951D-4A3D-9463-0D7EAC62F4E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9C047F6-951D-4A3D-9463-0D7EAC62F4E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9C047F6-951D-4A3D-9463-0D7EAC62F4E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{5856BF20-367F-4217-A0A2-5365D76A77EC} = {9D491D2E-28E6-4657-B23B-909E8A0AAA51}

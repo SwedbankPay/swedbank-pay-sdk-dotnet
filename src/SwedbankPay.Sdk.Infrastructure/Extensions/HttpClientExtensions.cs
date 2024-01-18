@@ -22,8 +22,13 @@ public static class HttpClientExtensions
         return httpClient.SendAndProcessAsync<T>(HttpMethod.Post, uri, payload);
     }
 
-    public static Task<T?> SendAsJsonAsync<T>(this HttpClient httpClient, HttpMethod httpMethod, Uri uri,
-        object? payload = null)
+    public static Task<T?> SendAsJsonAsync<T>(this HttpClient httpClient, HttpMethod httpMethod, Uri uri)
+        where T : class
+    {
+        return SendAsJsonAsync<T>(httpClient, httpMethod, uri, null);
+    }
+    
+    public static Task<T?> SendAsJsonAsync<T>(this HttpClient httpClient, HttpMethod httpMethod, Uri uri, object? payload)
         where T : class
     {
         return httpClient.SendAndProcessAsync<T>(httpMethod, uri, payload);

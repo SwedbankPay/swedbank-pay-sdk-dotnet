@@ -10,16 +10,25 @@ public class PaymentOrdersResource : ResourceBase, IPaymentOrdersResource
     }
 
     /// <summary>
-    ///     Creates a payment order
+    /// Create a payment order asynchronously with the given request.
     /// </summary>
-    /// <param name="paymentOrderRequest"></param>
-    /// <param name="paymentOrderExpand"></param>
-    /// <exception cref="System.ArgumentNullException"></exception>
-    /// <exception cref="System.InvalidOperationException"></exception>
-    /// <exception cref="System.Net.Http.HttpRequestException"></exception>
-    /// <returns></returns>
-    public async Task<IPaymentOrderResponse?> Create(PaymentOrderRequest paymentOrderRequest,
-        PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
+    /// <param name="paymentOrderRequest">The payment order request object.</param>
+    /// <returns>A task representing an optional payment order response.</returns>
+    public async Task<IPaymentOrderResponse?> Create(PaymentOrderRequest paymentOrderRequest)
+    {
+        return await Create(paymentOrderRequest, PaymentOrderExpand.None);
+    }
+
+    /// <summary>
+    /// Creates a payment order.
+    /// </summary>
+    /// <param name="paymentOrderRequest">The payment order request.</param>
+    /// <param name="paymentOrderExpand">The optional payment order expand.</param>
+    /// <exception cref="System.ArgumentNullException">Thrown when paymentOrderRequest is null.</exception>
+    /// <exception cref="System.InvalidOperationException">Thrown when the request is invalid.</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">Thrown when an HTTP request error occurs.</exception>
+    /// <returns>The payment order response.</returns>
+    public async Task<IPaymentOrderResponse?> Create(PaymentOrderRequest paymentOrderRequest, PaymentOrderExpand paymentOrderExpand)
     {
         var url = new Uri("/psp/paymentorders", UriKind.Relative).GetUrlWithQueryString(paymentOrderExpand);
 
@@ -31,16 +40,28 @@ public class PaymentOrdersResource : ResourceBase, IPaymentOrdersResource
     }
 
     /// <summary>
-    ///     Get payment order by id
+    /// Retrieves a payment order by its ID.
     /// </summary>
-    /// <param name="id"></param>
-    /// <param name="paymentOrderExpand"></param>
-    /// <returns></returns>
-    /// <exception cref="System.ArgumentNullException"></exception>
-    /// <exception cref="System.InvalidOperationException"></exception>
-    /// <exception cref="System.Net.Http.HttpRequestException"></exception>
-    /// <exception cref="System.Net.Http.HttpRequestException"></exception>
-    public async Task<IPaymentOrderResponse?> Get(Uri id, PaymentOrderExpand paymentOrderExpand = PaymentOrderExpand.None)
+    /// <param name="id">The ID of the payment order to retrieve.</param>
+    /// <returns>The payment order response if found; otherwise, it returns null.</returns>
+    /// <exception cref="System.ArgumentNullException">Thrown when <paramref name="id"/> is null.</exception>
+    /// <exception cref="System.InvalidOperationException">Thrown when the operation is invalid.</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">Thrown when an error occurs during the HTTP request.</exception>
+    public async Task<IPaymentOrderResponse?> Get(Uri id)
+    {
+        return await Get(id, PaymentOrderExpand.None);
+    }
+
+    /// <summary>
+    /// Retrieves a payment order by its ID.
+    /// </summary>
+    /// <param name="id">The ID of the payment order to retrieve.</param>
+    /// <param name="paymentOrderExpand">The expansion options for the payment order.</param>
+    /// <returns>The retrieved payment order response, or null if not found.</returns>
+    /// <exception cref="System.ArgumentNullException">Thrown when <paramref name="id"/> is null.</exception>
+    /// <exception cref="System.InvalidOperationException">Thrown when the operation is invalid.</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">Thrown when an error occurs during the HTTP request.</exception>
+    public async Task<IPaymentOrderResponse?> Get(Uri id, PaymentOrderExpand paymentOrderExpand)
     {
         if (id == null)
         {
@@ -53,7 +74,15 @@ public class PaymentOrdersResource : ResourceBase, IPaymentOrdersResource
 
         return paymentOrderResponseContainer != null ? new PaymentOrderResponse(paymentOrderResponseContainer, HttpClient) : null;
     }
-    
+
+    /// <summary>
+    /// Retrieves user-owned tokens for a specific payer reference.
+    /// </summary>
+    /// <param name="payerReference">The payer reference for which to retrieve the tokens.</param>
+    /// <returns>
+    /// The <see cref="IUserTokenResponse"/> object representing the user-owned tokens,
+    /// or <c>null</c> if no tokens are found for the specified payer reference.
+    /// </returns>
     public async Task<IUserTokenResponse?> GetOwnedTokens(string payerReference)
     {
         var url = new Uri($"/psp/paymentorders/payerownedtokens/{payerReference}", UriKind.Relative);

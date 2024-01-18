@@ -10,7 +10,7 @@ namespace Sample.AspNetCore.Models;
 
 public class SessionCart : Cart
 {
-    public const string CartSessionKey = "_Cart";
+    private const string CartSessionKey = "_Cart";
 
     [JsonIgnore] public ISession Session { get; set; }
 
