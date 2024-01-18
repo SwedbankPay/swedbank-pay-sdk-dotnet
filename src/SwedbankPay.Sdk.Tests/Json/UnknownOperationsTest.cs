@@ -11,14 +11,14 @@ public class UnknownOperationsTest
     [Fact]
     public void CanDeserializeUnknownOperation()
     {
-        var paymentResponse = JsonSerializer.Deserialize<PaymentOrderResponseDto>(TestResponse, Infrastructure.JsonSerialization.JsonSerialization.Settings);
+        var paymentResponse = JsonSerializer.Deserialize<PaymentOrderResponseDto>(TestResponse, JsonSerialization.Settings);
         Assert.NotNull(paymentResponse);
     }
 
     [Fact]
     public void CanAccessDeserializedUnknownOperation()
     {
-        var paymentResponse = JsonSerializer.Deserialize<PaymentOrderResponseDto>(TestResponse, Infrastructure.JsonSerialization.JsonSerialization.Settings);
+        var paymentResponse = JsonSerializer.Deserialize<PaymentOrderResponseDto>(TestResponse, JsonSerialization.Settings);
         var client = new HttpClient();
 
         var httpOperations = CreateOperationList(paymentResponse);
@@ -48,7 +48,7 @@ public class UnknownOperationsTest
     [Fact]
     public void UnknownOperation_IsDeserializedTo_LinkrelationType()
     {
-        var paymentResponse = JsonSerializer.Deserialize<PaymentOrderResponseDto>(TestResponse, Infrastructure.JsonSerialization.JsonSerialization.Settings);
+        var paymentResponse = JsonSerializer.Deserialize<PaymentOrderResponseDto>(TestResponse, JsonSerialization.Settings);
         var client = new HttpClient();
         var httpOperations = CreateOperationList(paymentResponse);
         var operations = new PaymentOrderOperations(httpOperations, client);
@@ -62,9 +62,9 @@ public class UnknownOperationsTest
         Assert.Equal(HttpMethod.Get, httpOperation?.Method);
     }
 
-    private static readonly string TestOperationName = "unknown-test-operation";
+    private const string TestOperationName = "unknown-test-operation";
 
-    private static readonly string TestResponse = @"{
+    private const string TestResponse = @"{
     ""paymentOrder"": {
     },
     ""operations"": [
