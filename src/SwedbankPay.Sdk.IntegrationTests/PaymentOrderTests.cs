@@ -162,6 +162,8 @@ public class PaymentOrderTests : ResourceTestsBase
         var id = new Uri("/psp/paymentorders/56a45c8a-9605-437a-fb80-08d742822747", UriKind.Relative);
 
         var thrownException = await Assert.ThrowsAsync<HttpResponseException>(() => this.Sut.PaymentOrders.Get(id));
+        
+        Assert.NotNull(thrownException.HttpResponse);
         Assert.Equal(HttpStatusCode.NotFound, thrownException.HttpResponse.StatusCode);
     }
 }
