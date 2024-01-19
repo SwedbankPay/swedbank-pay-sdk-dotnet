@@ -44,6 +44,13 @@ jobs:
             SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
             SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
 
+
+      - name: Set environment variables
+        run: |
+          export
+          export SwedbankPay__Token=${{ secrets.MERCHANT_TOKEN }}
+          export
+
       - name: Download artifact
         id: download-artifact
         uses: dawidd6/action-download-artifact@v3
