@@ -41,27 +41,6 @@ jobs:
         with:
           dotnet-version: ${{ env.dotnetVersion }}
 
-      # - name: Download artifact
-      #   id: download-artifact
-      #   uses: dawidd6/action-download-artifact@v3
-      #   with:
-      #     workflow_conclusion: success
-      #     run_id: ${{ github.event.workflow_run.id }}
-
-      # - name: Run SDK Unit Tests
-      #   run: dotnet test Sdk.UnitTests/SwedbankPay.Sdk.Tests.dll
-
-      # - name: Run SDK Integration Tests
-      #   run: dotnet test Sdk.IntegrationTests/SwedbankPay.Sdk.IntegrationTests.dll
-      #   env:
-      #     SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
-      #     SwedbankPay:TokenMobilePay: ${{ secrets.MERCHANT_TOKEN_MOBILE_PAY }}
-      #     SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
-
-      # - name: Trust dev cert
-      #   run: dotnet dev-certs https --trust
-
-
       - name: Run SDK Integration Tests
         run: | 
           export SwedbankPay__PayeeId=${{ secrets.MERCHANT_PAYEEID }}
@@ -114,11 +93,11 @@ jobs:
   #     - name: Publish test package to GitHub Package Registry
   #       run: dotnet nuget push "packages/*.nupkg" --api-key ${{secrets.GITHUB_TOKEN}} --source  https://nuget.pkg.github.com/swedbankpay/index.json --skip-duplicate
   
-  # publish_sample_site:
-  #   needs: [test-unit-ui]
-  #   if: ${{ needs.test-unit-ui.outputs.sourceEvent != 'pull_request' }}
-  #   uses: ./.github/workflows/template_publish_webapp.yml  
-  #   secrets: inherit
-  #   with:
-  #     Environment: ${{ github.event.workflow_run.name }}
-  #     WorkflowRunId: ${{ github.event.workflow_run.id }}
+  publish_sample_site:
+    needs: [test-unit-ui]
+    if: ${{ needs.test-unit-ui.outputs.sourceEvent != 'pull_request' }}
+    uses: ./.github/workflows/template_publish_webapp.yml  
+    secrets: inherit
+    with:
+      Environment: ${{ github.event.workflow_run.name }}
+      WorkflowRunId: ${{ github.event.workflow_run.id }}

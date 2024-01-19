@@ -60,14 +60,14 @@ jobs:
           name: Sample.AspNetCore
           path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/samplesite
 
-      - name: Publish Sdk Unit tests
-        run: dotnet publish --configuration ${{ inputs.Configuration }} -p:Version=${{ inputs.nuGetVersionV2 }} --no-restore ${{ inputs.UnitTestsCsprojPath }} --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/unittests'
+      # - name: Publish Sdk Unit tests
+      #   run: dotnet publish --configuration ${{ inputs.Configuration }} -p:Version=${{ inputs.nuGetVersionV2 }} --no-restore ${{ inputs.UnitTestsCsprojPath }} --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/unittests'
 
-      - name: Archive Sdk Unit tests
-        uses: actions/upload-artifact@v4
-        with:
-          name: Sdk.UnitTests
-          path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/unittests
+      # - name: Archive Sdk Unit tests
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: Sdk.UnitTests
+      #     path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/unittests
 
       # - name: Publish Sdk Integration tests
       #   run: dotnet publish --configuration ${{ inputs.Configuration }} -p:Version=${{ inputs.nuGetVersionV2 }} --no-restore ${{ inputs.IntegrationTestsCsprojPath }} --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/integrationtests' --os win
