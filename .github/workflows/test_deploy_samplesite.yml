@@ -40,15 +40,12 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ env.dotnetVersion }}
-        env: 
-            SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
-            SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
-
-
+        
       - name: Set environment variables
         run: |
           export
           export SwedbankPay__Token=${{ secrets.MERCHANT_TOKEN }}
+          export SwedbankPay__PayeeId=${{ secrets.MERCHANT_PAYEEID }}
           export
 
       - name: Download artifact
