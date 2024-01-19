@@ -104,7 +104,7 @@ public abstract class TypeSafeEnum<TEnum> : IEquatable<TypeSafeEnum<TEnum>>
     /// <param name="name">The name of the enum value.</param>
     /// <param name="ignoreCase">Set if casing should be ignored.</param>
     /// <returns><typeparamref name="TEnum"/>.</returns>
-    public static TEnum? FromName(string name, bool ignoreCase = false)
+    public static TEnum? FromName(string name, bool ignoreCase)
     {
         if (string.IsNullOrEmpty(name))
         {
@@ -113,12 +113,12 @@ public abstract class TypeSafeEnum<TEnum> : IEquatable<TypeSafeEnum<TEnum>>
 
         if (ignoreCase)
         {
-            return FromName(fromNameIgnoreCase.Value);
+            return GetName(fromNameIgnoreCase.Value);
         }
 
-        return FromName(fromName.Value);
+        return GetName(fromName.Value);
 
-        TEnum? FromName(Dictionary<string, TEnum?> dictionary)
+        TEnum? GetName(Dictionary<string, TEnum?> dictionary)
         {
             if (!dictionary.TryGetValue(name, out var result))
             {
@@ -127,6 +127,11 @@ public abstract class TypeSafeEnum<TEnum> : IEquatable<TypeSafeEnum<TEnum>>
 
             return result;
         }
+    }
+
+    public static TEnum? FromName(string name)
+    {
+        return FromName(name, false);
     }
 
     /// <summary>

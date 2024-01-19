@@ -31,7 +31,7 @@ public class LoggingDelegatingHandler : DelegatingHandler
         catch (Exception ex)
         {
             _logger.LogError(ex, ex.Message);
-            var httpResponseBody = await httpResponse.Content.ReadAsStringAsync();
+            var httpResponseBody = await httpResponse!.Content.ReadAsStringAsync();
             throw new HttpResponseException(
                 httpResponse,
                 message: BuildErrorMessage(request, httpResponse, httpResponseBody),

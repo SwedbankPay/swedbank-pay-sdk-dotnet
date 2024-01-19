@@ -6,12 +6,12 @@ using Sample.AspNetCore.Models;
 
 namespace Sample.AspNetCore;
 
-public class Program
+public abstract class Program
 {
-    public static IHostBuilder CreateHostBuilder(string[] args)
+    private static IHostBuilder CreateHostBuilder(string[] args)
     {
         return Host.CreateDefaultBuilder(args)
-            .ConfigureAppConfiguration((hostingContext, config) =>
+            .ConfigureAppConfiguration((_, config) =>
             {
                 config.AddEnvironmentVariables();
             })

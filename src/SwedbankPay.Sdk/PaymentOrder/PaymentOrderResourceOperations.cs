@@ -11,12 +11,12 @@ public static class PaymentOrderResourceOperations
     /// Operation to update the payment order to aborted state.
     /// </summary>
     public const string Abort = "abort";
-    
+
     /// <summary>
     /// Creates a cancellation for a payment order.
     /// </summary>
     public const string Cancel = "cancel";
-    
+
     /// <summary>
     /// Creates a capture for the payment order.
     /// </summary>
