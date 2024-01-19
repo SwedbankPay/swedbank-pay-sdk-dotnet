@@ -44,8 +44,8 @@ jobs:
       - name: Set environment variables
         run: |
           export
-          export SwedbankPay__Token=${{ secrets.MERCHANT_TOKEN }}
-          export SwedbankPay__PayeeId=${{ secrets.MERCHANT_PAYEEID }}
+          export SwedbankPay__Token=${{ vars.MERCHANT_TOKEN }}
+          export SwedbankPay__PayeeId=${{ vars.MERCHANT_PAYEEID }}
           export
 
       - name: Download artifact
