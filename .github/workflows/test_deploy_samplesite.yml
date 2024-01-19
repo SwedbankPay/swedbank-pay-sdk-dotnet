@@ -75,7 +75,10 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           working-directory: ./src/Samples/Sample.AspNetCore.UiTests
-          start: dotnet run --project ../Sample.AspNetCore/Sample.AspNetCore.csproj --urls https://localhost:5001
+          start: | 
+            set SwedbankPay__Token=${{ secrets.MERCHANT_TOKEN }}
+            set SwedbankPay__PayeeId=${{ secrets.MERCHANT_PAYEEID }}
+            dotnet run --project ../Sample.AspNetCore/Sample.AspNetCore.csproj --urls https://localhost:5001 
           wait-on: 'https://localhost:5001'
           browser: chrome
         env:
