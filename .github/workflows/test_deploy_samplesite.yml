@@ -41,12 +41,12 @@ jobs:
         with:
           dotnet-version: ${{ env.dotnetVersion }}
 
-      - name: Download artifact
-        id: download-artifact
-        uses: dawidd6/action-download-artifact@v3
-        with:
-          workflow_conclusion: success
-          run_id: ${{ github.event.workflow_run.id }}
+      # - name: Download artifact
+      #   id: download-artifact
+      #   uses: dawidd6/action-download-artifact@v3
+      #   with:
+      #     workflow_conclusion: success
+      #     run_id: ${{ github.event.workflow_run.id }}
 
       # - name: Run SDK Unit Tests
       #   run: dotnet test Sdk.UnitTests/SwedbankPay.Sdk.Tests.dll
@@ -58,17 +58,21 @@ jobs:
       #     SwedbankPay:TokenMobilePay: ${{ secrets.MERCHANT_TOKEN_MOBILE_PAY }}
       #     SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
 
-      - name: Trust dev cert
-        run: dotnet dev-certs https --trust
+      # - name: Trust dev cert
+      #   run: dotnet dev-certs https --trust
 
-      #- name: Run SDK Sample project
-      #  run: dotnet Sample.AspNetCore.dll --urls https://localhost:5001
-      #  working-directory: Sample.AspNetCore
-        # env:
-        #   SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
-        #   SwedbankPay:TokenMobilePay: ${{ secrets.MERCHANT_TOKEN_MOBILE_PAY }}
-        #   SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
-        #   SwedbankPay:Sdk:SampleWebsite:BaseUrl: https://localhost:5001
+
+      - name: Run SDK Integration Tests
+        run: | 
+          export SwedbankPay__PayeeId=${{ secrets.MERCHANT_PAYEEID }}
+          export SwedbankPay__Token=${{ secrets.MERCHANT_TOKEN }}
+          dotnet test ./src/SwedbankPay.Sdk.IntegrationTests/SwedbankPay.Sdk.IntegrationTests.csproj
+
+      - name: Run SDK Unit Tests
+        run: | 
+          export SwedbankPay__PayeeId=${{ secrets.MERCHANT_PAYEEID }}
+          export SwedbankPay__Token=${{ secrets.MERCHANT_TOKEN }}
+          dotnet test ./src/SwedbankPay.Sdk.Tests/SwedbankPay.Sdk.Tests.csproj
 
       - name: Cypress run
         uses: cypress-io/github-action@v6
@@ -79,13 +83,7 @@ jobs:
           browser: chrome
         env:
           NODE_TLS_REJECT_UNAUTHORIZED: 0          
-        
-      # - uses: actions/setup-node@v4
-      #   with:
-      #     node-version;: 18.14.0
-      # - run: npm ci
-      # - run: run cy:run:inte
-      
+     
 
       - name: Commit Action Status
         if: ${{ always() }}

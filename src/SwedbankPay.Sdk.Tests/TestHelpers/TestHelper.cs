@@ -1,3 +1,5 @@
+using System.Reflection;
+
 using Microsoft.Extensions.Configuration;
 
 using SwedbankPay.Sdk.PaymentOrder.Urls;
@@ -11,8 +13,7 @@ public static class TestHelper
         return new ConfigurationBuilder()
             .SetBasePath(outputPath)
             .AddJsonFile("appsettings.json", true)
-            .AddJsonFile("appsettings.local.json", true)
-            .AddUserSecrets("c8b73df2-a490-4925-b7e6-41605890ed2b")
+            .AddUserSecrets(Assembly.GetExecutingAssembly(), true)
             .AddEnvironmentVariables()
             .Build();
     }

@@ -17,11 +17,5 @@
   <ItemGroup>
     <ProjectReference Include="..\SwedbankPay.Sdk.Tests\SwedbankPay.Sdk.Tests.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
   
 </Project>
