@@ -40,16 +40,6 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ env.dotnetVersion }}
-        
-      - name: Set environment variables
-        run: |
-          export
-          export SwedbankPay__Token=${{ vars.MERCHANT_TOKEN }}
-          export SwedbankPay__PayeeId=${{ vars.MERCHANT_PAYEEID }}
-          export
-
-      - name: Read environment variables
-        run: export
 
       - name: Download artifact
         id: download-artifact
@@ -84,12 +74,11 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           working-directory: ./src/Samples/Sample.AspNetCore.UiTests
-          start: dotnet run --project ../Sample.AspNetCore/Sample.AspNetCore.csproj --urls https://localhost:5001 
+          start: dotnet run --project ../Sample.AspNetCore/Sample.AspNetCore.csproj --urls https://localhost:5001 --SwedbankPay:PayeeId ${{ secrets.MERCHANT_PAYEEID }} --SwedbankPay:Token ${{ secrets.MERCHANT_TOKEN }}
           wait-on: 'https://localhost:5001'
           browser: chrome
         env:
-          NODE_TLS_REJECT_UNAUTHORIZED: 0
-          SwedbankPay:PayeeId: ${{ vars.MERCHANT_PAYEEID }}
+          NODE_TLS_REJECT_UNAUTHORIZED: 0          
         
       # - uses: actions/setup-node@v4
       #   with:

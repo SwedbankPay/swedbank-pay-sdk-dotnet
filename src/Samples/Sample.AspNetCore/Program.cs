@@ -14,6 +14,7 @@ public abstract class Program
             .ConfigureAppConfiguration((_, config) =>
             {
                 config.AddEnvironmentVariables();
+                config.AddCommandLine(args);
             })
             .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
     }

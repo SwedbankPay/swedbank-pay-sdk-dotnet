@@ -76,7 +76,7 @@ public class Startup
         });
         
         Console.WriteLine("Token: " + swedBankPayOptions.Token);
-        Console.WriteLine("PayeeId: " + swedBankPayOptions.Token);
+        Console.WriteLine("PayeeId: " + swedBankPayOptions.PayeeId);
 
         services.Configure<UrlsOptions>(Configuration.GetSection("Urls"));
         services.AddScoped(provider => SessionCart.GetCart(provider));
