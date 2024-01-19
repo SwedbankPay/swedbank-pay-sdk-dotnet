@@ -40,6 +40,9 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ env.dotnetVersion }}
+        env: 
+            SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
+            SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
 
       - name: Download artifact
         id: download-artifact
@@ -70,15 +73,11 @@ jobs:
         #   SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
         #   SwedbankPay:Sdk:SampleWebsite:BaseUrl: https://localhost:5001
 
-
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
           working-directory: ./src/Samples/Sample.AspNetCore.UiTests
-          start: | 
-            export SwedbankPay__Token=${{ secrets.MERCHANT_TOKEN }}
-            export SwedbankPay__PayeeId=${{ secrets.MERCHANT_PAYEEID }}
-            dotnet run --project ../Sample.AspNetCore/Sample.AspNetCore.csproj --urls https://localhost:5001 
+          start: dotnet run --project ../Sample.AspNetCore/Sample.AspNetCore.csproj --urls https://localhost:5001 
           wait-on: 'https://localhost:5001'
           browser: chrome
         env:
