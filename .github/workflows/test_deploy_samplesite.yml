@@ -76,8 +76,8 @@ jobs:
         with:
           working-directory: ./src/Samples/Sample.AspNetCore.UiTests
           start: | 
-            set SwedbankPay__Token=${{ secrets.MERCHANT_TOKEN }}
-            set SwedbankPay__PayeeId=${{ secrets.MERCHANT_PAYEEID }}
+            export SwedbankPay__Token=${{ secrets.MERCHANT_TOKEN }}
+            export SwedbankPay__PayeeId=${{ secrets.MERCHANT_PAYEEID }}
             dotnet run --project ../Sample.AspNetCore/Sample.AspNetCore.csproj --urls https://localhost:5001 
           wait-on: 'https://localhost:5001'
           browser: chrome
