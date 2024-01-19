@@ -48,6 +48,9 @@ jobs:
           export SwedbankPay__PayeeId=${{ vars.MERCHANT_PAYEEID }}
           export
 
+      - name: Read environment variables
+        run: export
+
       - name: Download artifact
         id: download-artifact
         uses: dawidd6/action-download-artifact@v3
@@ -86,6 +89,7 @@ jobs:
           browser: chrome
         env:
           NODE_TLS_REJECT_UNAUTHORIZED: 0
+          SwedbankPay:PayeeId: ${{ vars.MERCHANT_PAYEEID }}
         
       # - uses: actions/setup-node@v4
       #   with:
