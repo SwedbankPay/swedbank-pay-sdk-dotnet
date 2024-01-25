@@ -41,11 +41,11 @@ public static class TestHelper
             .GetSection("Urls")
             .Bind(configuration);
         
-        return new Urls(configuration.HostUrls, configuration.CompleteUrl!, configuration.CancelUrl!,
-            configuration.CallbackUrl!)
+        return new Urls(configuration.HostUrls, configuration.CompleteUrl!, configuration.CallbackUrl!)
         {
             LogoUrl = configuration.LogoUrl,
-            PaymentUrl = configuration.PaymentUrl
+            PaymentUrl = configuration.PaymentUrl,
+            CancelUrl = configuration.CancelUrl
         };
     }
 }

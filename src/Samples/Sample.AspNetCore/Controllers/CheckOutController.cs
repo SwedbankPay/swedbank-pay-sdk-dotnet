@@ -138,16 +138,19 @@ public class CheckOutController : Controller
         var paymentOrderItems = orderItems?.ToList();
         try
         {
+            var urls = new Urls(_urls.HostUrls.ToList(), _urls.CompleteUrl, _urls.CallbackUrl)
+            {
+                PaymentUrl = paymentUrl ?? _urls.PaymentUrl,
+                LogoUrl = _urls.LogoUrl,
+                CancelUrl = _urls.CancelUrl
+            };
+            
             var paymentOrderRequest = new PaymentOrderRequest(generateRecurrenceToken || generateUnscheduledToken ? Operation.Verify : Operation.Purchase,
                 new Currency("SEK"),
                 new Amount(totalAmount),
                 new Amount(0), "Test description", "useragent",
                 new Language("sv-SE"),
-                new Urls(_urls.HostUrls.ToList(), _urls.CompleteUrl, _urls.CancelUrl, _urls.CallbackUrl)
-                {
-                    PaymentUrl = paymentUrl ?? _urls.PaymentUrl,
-                    LogoUrl = _urls.LogoUrl
-                },
+                urls,
                 new PayeeInfo(_payeeInfoOptions.PayeeId, _payeeInfoOptions.PayeeReference)
                 {
                     OrderReference = $"PO-{DateTime.UtcNow.Ticks}"

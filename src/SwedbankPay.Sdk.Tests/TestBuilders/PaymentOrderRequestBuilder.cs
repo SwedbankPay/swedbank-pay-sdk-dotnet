@@ -60,10 +60,14 @@ public class PaymentOrderRequestBuilder
         _userAgent = "useragent";
         _language = new Language("sv-SE");
         _implementation = "PaymentsOnly";
-        _urls = new Urls(new List<Uri> { new Uri("https://example.com") },new Uri("https://example.com/payment-completed"),
-            new Uri("https://example.com/payment-canceled"), new Uri("https://example.com/payment-callback"));
-       
-      
+        _urls = new Urls(new List<Uri> { new Uri("https://example.com") },
+            new Uri("https://example.com/payment-completed"),
+            new Uri("https://example.com/payment-callback"))
+        {
+            CancelUrl = new Uri("https://example.com/payment-canceled")
+        };
+
+
         _payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
         return this;
     }

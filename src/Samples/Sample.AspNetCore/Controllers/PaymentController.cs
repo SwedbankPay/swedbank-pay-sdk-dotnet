@@ -264,8 +264,13 @@ public class PaymentController : Controller
         var order = await _context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
         var orderItems = order.Lines.ToOrderItems();
 
+        var urls = new Urls(_urls.HostUrls.ToList(), _urls.CompleteUrl, _urls.CallbackUrl)
+        {
+            CancelUrl = _urls.CancelUrl
+        };
+        
         var request = new PaymentOrderRequest(Operation.Recur, new Currency("SEK"), new Amount(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
-            new Amount(0), description, "userAgent", new Language("sv-SE"), new Urls(_urls.HostUrls.ToList(), _urls.CompleteUrl, _urls.CancelUrl, _urls.CallbackUrl),
+            new Amount(0), description, "userAgent", new Language("sv-SE"), urls,
             new PayeeInfo(_payeeInfoOptions.PayeeId, _payeeInfoOptions.PayeeReference))
         {
             RecurrenceToken = recurrenceToken,
@@ -284,8 +289,13 @@ public class PaymentController : Controller
         var order = await _context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
         var orderItems = order.Lines.ToOrderItems();
 
+        var urls = new Urls(_urls.HostUrls.ToList(), _urls.CompleteUrl, _urls.CallbackUrl)
+        {
+            CancelUrl = _urls.CancelUrl
+        };
+        
         var request = new PaymentOrderRequest(Operation.UnscheduledPurchase, new Currency("SEK"), new Amount(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
-            new Amount(0), description, "userAgent", new Language("sv-SE"), new Urls(_urls.HostUrls.ToList(), _urls.CompleteUrl, _urls.CancelUrl, _urls.CallbackUrl),
+            new Amount(0), description, "userAgent", new Language("sv-SE"), urls,
             new PayeeInfo(_payeeInfoOptions.PayeeId, _payeeInfoOptions.PayeeReference))
         {
             UnscheduledToken = recurrenceToken,
