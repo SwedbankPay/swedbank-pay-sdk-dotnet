@@ -5,7 +5,7 @@ namespace SwedbankPay.Sdk.Infrastructure.PaymentOrder.Paid;
 
 internal record PaidResponse : Identifiable, IPaidResponse
 {
-    public string? Instrument { get; }
+    public PaymentInstrument? Instrument { get; }
     public long Number { get; }
     public string? PayeeReference { get; }
     public TransactionType? TransactionType { get; }

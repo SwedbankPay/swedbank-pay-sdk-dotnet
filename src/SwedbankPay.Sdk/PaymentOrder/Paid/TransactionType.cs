@@ -25,7 +25,7 @@ public sealed class TransactionType : TypeSafeEnum<TransactionType>
     /// <summary>
     /// Converts from a <c>string</c> to a <see cref="FinancialTransactionType"/>.
     /// </summary>
-    /// <param name="originalState">he API value of the state.</param>
+    /// <param name="originalState">The API value of the state.</param>
     public static implicit operator TransactionType?(string? originalState)
     {
         if (string.IsNullOrWhiteSpace(originalState))
