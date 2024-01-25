@@ -23,8 +23,11 @@ internal record PaymentOrderResponseItemDto
     public string Operation { get; init; } = null!;
     public string Status { get; init; } = null!;
     public string Currency { get; init; } = null!;
-    public long VatAmount { get; init; }
     public long Amount { get; init; }
+    public long VatAmount { get; init; }
+    public long RemainingCaptureAmount { get; init; }
+    public long RemainingReversalAmount { get; init; }
+    public long RemainingCancellationAmount { get; init; }
     public string? Description { get; init; }
     public string? InitiatingSystemUserAgent { get; init; }
     public string Language { get; init; } = null!;

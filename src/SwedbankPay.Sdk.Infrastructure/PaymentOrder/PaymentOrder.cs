@@ -24,6 +24,9 @@ internal record PaymentOrder : Identifiable, IPaymentOrder
     public Currency? Currency { get; }
     public Amount VatAmount { get; }
     public Amount Amount { get; }
+    public Amount RemainingCaptureAmount { get; }
+    public Amount RemainingReversalAmount { get; }
+    public Amount RemainingCancellationAmount { get; }
     public string? Description { get; }
     public string? InitiatingSystemUserAgent { get; }
     public Language Language { get; }
@@ -54,8 +57,11 @@ internal record PaymentOrder : Identifiable, IPaymentOrder
         Operation = paymentOrderResponseItemDto.Operation;
         Status= paymentOrderResponseItemDto.Status;
         Currency= paymentOrderResponseItemDto.Currency;
-        VatAmount= paymentOrderResponseItemDto.VatAmount;
         Amount= paymentOrderResponseItemDto.Amount;
+        VatAmount= paymentOrderResponseItemDto.VatAmount;
+        RemainingCaptureAmount = paymentOrderResponseItemDto.RemainingCaptureAmount;
+        RemainingReversalAmount = paymentOrderResponseItemDto.RemainingReversalAmount;
+        RemainingCancellationAmount = paymentOrderResponseItemDto.RemainingCancellationAmount;
         Description = paymentOrderResponseItemDto.Description;
         InitiatingSystemUserAgent = paymentOrderResponseItemDto.InitiatingSystemUserAgent;
         Language = new Language(paymentOrderResponseItemDto.Language);

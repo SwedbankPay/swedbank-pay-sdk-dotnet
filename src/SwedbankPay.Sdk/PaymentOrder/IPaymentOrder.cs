@@ -22,8 +22,11 @@ public interface IPaymentOrder
     Operation Operation { get; }
     Status Status { get; }
     Currency? Currency { get; }
-    Amount VatAmount { get; }
     Amount Amount { get; }
+    Amount VatAmount { get; }
+    public Amount RemainingCaptureAmount { get; }
+    public Amount RemainingReversalAmount { get; }
+    public Amount RemainingCancellationAmount { get; }
     string? Description { get; }
     string? InitiatingSystemUserAgent { get; }
     Language Language { get; }
