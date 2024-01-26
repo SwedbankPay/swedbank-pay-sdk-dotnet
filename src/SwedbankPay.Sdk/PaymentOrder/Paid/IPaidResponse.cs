@@ -2,7 +2,7 @@ namespace SwedbankPay.Sdk.PaymentOrder.Paid;
 
 public interface IPaidResponse
 {
-    public string? Instrument { get; }
+    public PaymentInstrument? Instrument { get; }
     public long Number { get; }
     public string? PayeeReference { get; }
     public TransactionType? TransactionType { get; }
