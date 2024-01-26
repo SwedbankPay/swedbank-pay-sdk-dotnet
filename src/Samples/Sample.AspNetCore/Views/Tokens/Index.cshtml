@@ -39,7 +39,7 @@
             <thead>
             <tr>
                 <th>
-                    @* @Html.DisplayNameFor(model => order.OperationList[0].Method) *@
+                    @* @Html.DisplayNameFor(model => order.OperationList[0].Method) *@g
                 </th>
             </tr>
             </thead>
@@ -48,7 +48,7 @@
             {
                 @foreach (var token in Model.Tokens)
                 {
-                    <tr>
+                    <tr data-automation="@token.TokenType">
                         <td>
                             @Html.DisplayFor(modelItem => token.Token)
                         </td>

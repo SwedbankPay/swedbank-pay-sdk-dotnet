@@ -7,6 +7,9 @@ class SwedbankBlock {
             case PaymentMethods.card:
                 return this.payWithCard();
 
+            case PaymentMethods.savedCard:
+                return this.payWithSavedCard();
+
             case PaymentMethods.card3ds:
                 return this.payWithCard3ds(callback);
 
@@ -46,6 +49,29 @@ class SwedbankBlock {
                                 Data.payment.creditCardCvc,
                                 {force: true}
                             );
+                            cy.findInIframe($iframe, "#px-submit").click({
+                                force: true,
+                            });
+                        }
+                    );
+                });
+            }
+        );
+    }
+
+    payWithSavedCard() {
+        cy.iframeLoaded(
+            'iframe[src^="https://ecom.externalintegration.payex.com/checkout"]',
+            "#creditcard",
+            30,
+            ($iframe) => {
+                cy.findInIframe($iframe, "#creditcard").click();
+                cy.findInIframe($iframe, "#view-creditcard").within(() => {
+                    cy.iframeLoaded(
+                        'iframe[src^="https://ecom.externalintegration.payex.com/creditcard"]',
+                        '#px-submit[aria-disabled="false"]',
+                        30,
+                        ($iframe) => {
                             cy.findInIframe($iframe, "#px-submit").click({
                                 force: true,
                             });
