@@ -251,4 +251,30 @@ describe('Pay with 3DS Credit card', () => {
             })
         });
     })
+
+
+    it('Should succeed payment with token and delete token', () => {
+
+        //Add to cart and go to checkout
+        cy.get('[data-automation="button-addtocart"]').first().click()
+        cy.get('[data-automation="button-checkout-payment-token"]').first().click()
+
+        new SwedbankBlock().payWithSwedbank(PaymentMethods.card);
+
+        cy.get('h2', {timeout: 30000}).then(($h) => {
+            expect($h).to.contain('Thanks!');
+
+            cy.getByAutomation('paymentorderlink').then(($paymentOrderLink) => {
+                let paymentOrderLink = $paymentOrderLink.text();
+                cy.getByAutomation('orderslink', true, {timeout: 30000}).click();
+
+                cy.get('[data-paymentorderlink="' + paymentOrderLink + '"]').within(($paymentOrder) => {
+                    cy.getByAutomation('a-paymentordercancel').should('be.visible').click();
+                });
+
+                cy.get('.alert.alert-success', {timeout: 5000}).should('have.class', 'alert-success');
+            })
+        });
+    })
+    
 })

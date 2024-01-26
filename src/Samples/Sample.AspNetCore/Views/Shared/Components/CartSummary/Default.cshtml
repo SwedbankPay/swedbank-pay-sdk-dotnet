@@ -64,7 +64,7 @@
     </a>
 
     <a class="btn btn-primary" 
-       data-automation="button-checkout" 
+       data-automation="button-checkout-redirect" 
        asp-route-isRedirect="true"
        asp-action="LoadPaymentMenu" 
        asp-controller="CheckOut">
@@ -72,7 +72,7 @@
     </a>
     
     <a class="btn btn-primary" 
-       data-automation="button-checkout" 
+       data-automation="button-checkout-payment-token" 
        asp-route-generatePaymentToken="true"
        asp-action="LoadPaymentMenu" 
        asp-controller="CheckOut">
@@ -80,7 +80,7 @@
     </a>
 
     <a class="btn btn-primary" 
-       data-automation="button-checkout" 
+       data-automation="button-checkout-recurrence-token" 
        asp-route-generateRecurrenceToken="true"
        asp-action="LoadPaymentMenu" 
        asp-controller="CheckOut">
@@ -88,7 +88,7 @@
     </a>
 
     <a class="btn btn-primary" 
-       data-automation="button-checkout" 
+       data-automation="button-checkout-unscheduled-token" 
        asp-route-generateUnscheduledToken="true"
        asp-action="LoadPaymentMenu" 
        asp-controller="CheckOut">
