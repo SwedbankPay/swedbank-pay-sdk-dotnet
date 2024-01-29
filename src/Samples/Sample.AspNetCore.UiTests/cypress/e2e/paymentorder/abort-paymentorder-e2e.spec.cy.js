@@ -1,6 +1,6 @@
 describe('Abort paymentorder', () => {
     beforeEach(() => {
-        cy.visit('https://localhost:5001')
+        cy.visit(Cypress.env("baseUrl"))
     })
 
     it('Should abort paymentorder', () => {

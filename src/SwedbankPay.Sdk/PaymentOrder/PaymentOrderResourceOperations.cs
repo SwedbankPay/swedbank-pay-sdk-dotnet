@@ -40,7 +40,7 @@ public static class PaymentOrderResourceOperations
     /// <summary>
     /// Creates a recur for the payment order.
     /// </summary>
-    public const string Recur = "recur";
+    public const string Recurrence = "recurrence";
 
     /// <summary>
     /// Creates a unscheduled for the payment order.

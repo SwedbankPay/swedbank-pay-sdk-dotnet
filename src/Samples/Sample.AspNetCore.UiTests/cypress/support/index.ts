@@ -149,6 +149,13 @@ declare namespace Cypress {
             selector: string,
             ...args: any
         ): Cypress.Chainable<JQuery<HTMLElement | Document | Text | Comment>>;
+        
+        
+        findInIframeIf(
+            $iframe: JQuery<HTMLElement>,
+            selector: string,
+            ...args: any
+        ): Cypress.Chainable<JQuery<HTMLElement | Document | Text | Comment>>;
 
         getPaymentOrder<T = any>(
             paymentOrderId: string
@@ -351,6 +358,18 @@ Cypress.Commands.add("iframeLoaded", (
 Cypress.Commands.add("findInIframe",
     ($iframe: JQuery<HTMLElement>, element: string) => {
         return cy.wrap($iframe.contents().find(element));
+    }
+);
+
+Cypress.Commands.add("findInIframeIf",
+    ($iframe: JQuery<HTMLElement>, 
+     element: string) => {
+        if($iframe.contents().find(element).length > 0){
+            return cy.wrap($iframe.contents().find(element));    
+        }   
+        else{
+            return
+        }
     }
 );
 

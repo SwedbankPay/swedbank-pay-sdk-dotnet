@@ -107,11 +107,11 @@ public class OrdersController : Controller
                 var paymentOrderOperations = paymentOrder?.Operations.Select(x => x.Value);
                 operations = paymentOrderOperations?.ToList() ?? [];
 
-                var recurringTokenItem = paymentOrder?.PaymentOrder.Paid?.Tokens?.FirstOrDefault(x => x.Type == "recur");
+                var recurringTokenItem = paymentOrder?.PaymentOrder.Paid?.Tokens?.FirstOrDefault(x => x.Type == "recurrence");
                 if (recurringTokenItem != null)
                 {
                     var uri = new Uri("https://api.externalintegration.payex.com" + paymentOrder.PaymentOrder.Id);
-                    operations.Add(new HttpOperation(uri, new LinkRelation("recur", "recur"), "POST", "text/html"));
+                    operations.Add(new HttpOperation(uri, new LinkRelation("recurrence", "recurrence"), "POST", "text/html"));
                     recurringToken = recurringTokenItem.Token;
                 }
                 

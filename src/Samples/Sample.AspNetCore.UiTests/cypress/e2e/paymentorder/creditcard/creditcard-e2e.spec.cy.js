@@ -1,9 +1,9 @@
 import SwedbankBlock from "../../elements/blocks/common/swedbank-block";
-import {PaymentMethods} from "../../../support/enums";
+import {PaymentMethods, TokenType} from "../../../support/enums";
 
 describe('Pay with Credit card', () => {
     beforeEach(() => {
-        cy.visit('https://localhost:5001')
+        cy.visit(Cypress.env("baseUrl"))
     });
 
     it('Should succeed payment and create cancellation', () => {
@@ -108,18 +108,16 @@ describe('Pay with Credit card and Payment token', () => {
 
         cy.get('[data-automation="button-checkout-payment-token"]').first().click()
 
-        new SwedbankBlock().payWithSwedbank(PaymentMethods.card);
+        let swedbankBlock = new SwedbankBlock();
+        swedbankBlock.payWithSwedbank(PaymentMethods.card);
 
         cy.get('h2', {timeout: 30000}).then(($h) => {
             expect($h).to.contain('Thanks!');
 
             cy.getByAutomation('paymentorderlink').then(($paymentOrderLink) => {
                 let paymentOrderLink = $paymentOrderLink.text();
-                cy.getByAutomation('tokenslink', true, {timeout: 30000}).click();
-                
-                cy.get('table.table tr[data-automation="Payment"] td a.btn', {timeout: 30000}).first().click()
 
-                cy.get('.alert.alert-success', {timeout: 5000}).should('have.class', 'alert-success');
+                swedbankBlock.deleteToken(TokenType.Payment);
             })
         });
     })

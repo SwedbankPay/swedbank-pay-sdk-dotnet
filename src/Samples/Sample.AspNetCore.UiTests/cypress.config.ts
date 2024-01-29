@@ -5,7 +5,10 @@ module.exports = defineConfig({
     setupNodeEvents(on: any, config: any) {
       // implement node event listeners here
       return require("./cypress/plugins/index.ts")(on, config);
-    }
+    },
+  },
+  env:{
+    baseUrl: "https://localhost:5001"
   },
   chromeWebSecurity: false,
   reporter: "junit",

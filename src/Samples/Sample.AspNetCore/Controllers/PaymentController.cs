@@ -162,7 +162,7 @@ public class PaymentController : Controller
                 }).ToList()
             });
             _context.SaveChanges(true);
-
+            TempData["PaymentOrderLink"] = response?.PaymentOrder.Id.ToString();
             return RedirectToAction("Details", "Orders");
         }
         catch (Exception e)
@@ -200,7 +200,7 @@ public class PaymentController : Controller
                 }).ToList()
             });
             _context.SaveChanges(true);
-
+            TempData["PaymentOrderLink"] = response?.PaymentOrder.Id.ToString();
             return RedirectToAction("Details", "Orders");
         }
         catch (Exception e)

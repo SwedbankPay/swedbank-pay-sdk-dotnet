@@ -22,6 +22,10 @@ else if (TempData["ReversalMessage"] != null)
 {
     <div class="alert alert-success">@TempData["ReversalMessage"]</div>
 }
+else if (TempData["PaymentOrderLink"] != null)
+{
+    <div class="alert alert-success" data-automation="paymentorderlink">@TempData["PaymentOrderLink"]</div>
+}
 else if (TempData["ErrorMessage"] != null)
 {
     <div class="alert alert-warning">@TempData["ErrorMessage"]</div>
@@ -106,7 +110,7 @@ else if (TempData["ErrorMessage"] != null)
                                     break;
                                 case PaymentOrderResourceOperations.ViewCheckout:
                                     break;
-                                case PaymentOrderResourceOperations.Recur:
+                                case PaymentOrderResourceOperations.Recurrence:
                                     actionName = "Recurring";
                                     break;
                                 case PaymentOrderResourceOperations.Unscheduled:

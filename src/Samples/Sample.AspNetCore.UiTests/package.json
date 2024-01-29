@@ -13,6 +13,8 @@
   },
   "scripts": {
     "cy:open": "cypress open",
-    "cy:run:inte": "cypress run -b chrome --env env=inte"
+    "cy:run": "cypress run -b chrome",
+    "cy:run:dev": "cypress run -b chrome --env baseUrl=https://swedbankpay-sdk-001-dev.azurewebsites.net/",
+    "cy:run:uat": "cypress run -b chrome --env baseUrl=https://swedbankpay-sdk-001-uat.azurewebsites.net/"
   }
 }

@@ -7,3 +7,9 @@ export const PaymentMethods = {
     invoice: "invoice",
     trustly: "trustly"
 };
+
+export const TokenType = {
+    Payment: 'Payment',
+    Unscheduled: 'Unscheduled',
+    Recurrence: 'Recurrence'
+}

@@ -23,38 +23,59 @@ class SwedbankBlock {
                 return this.payWithTrustly(callback);
         }
     }
-    
+
+    deleteToken(tokenType: string) {
+        cy.getByAutomation('tokenslink', true, {timeout: 30000}).click();
+        cy.get('table.table tr[data-automation="' + tokenType + '"] td a.btn', {timeout: 30000}).first().click()
+        cy.get('.alert.alert-success', {timeout: 5000}).should('have.class', 'alert-success');
+    }
+
     payWithCard() {
         cy.iframeLoaded(
             'iframe[src^="https://ecom.externalintegration.payex.com/checkout"]',
             "#creditcard",
             30,
             ($iframe) => {
-                cy.findInIframe($iframe, "#creditcard").click();
-                cy.findInIframe($iframe, "#view-creditcard").within(() => {
-                    cy.iframeLoaded(
-                        'iframe[src^="https://ecom.externalintegration.payex.com/creditcard"]',
-                        "#panInput",
-                        30,
-                        ($iframe) => {
-                            cy.findInIframe($iframe, "#panInput").type(
-                                Data.payment.creditCardNumber,
-                                {force: true}
-                            );
-                            cy.findInIframe($iframe, "#expiryInput").type(
-                                `${Data.payment.creditCardExpirationMonth}/${Data.payment.creditCardExpirationYear}`,
-                                {force: true}
-                            );
-                            cy.findInIframe($iframe, "#cvcInput-1").type(
-                                Data.payment.creditCardCvc,
-                                {force: true}
-                            );
-                            cy.findInIframe($iframe, "#px-submit").click({
-                                force: true,
-                            });
+                cy.wait(2000);
+                cy.findInIframe($iframe, '#creditcard')
+                    .then(($btn) => {
+                        if (!$btn.hasClass('selected')) {
+                            $btn.trigger('click');
                         }
-                    );
-                });
+                        
+                        cy.findInIframe($iframe, '#view-creditcard').within(() => {
+                            cy.iframeLoaded(
+                                'iframe[src^="https://ecom.externalintegration.payex.com/creditcard"]',
+                                "#px-submit",
+                                30,
+                                ($iframe2) => {
+
+                                    cy.findInIframeIf($iframe2, '#panInput')
+                                        .then(($input) => {
+                                            if($input){
+                                                console.log('2 id:' + $input.attr('id'));
+                                                cy.findInIframe($iframe2, "#panInput").type(
+                                                    Data.payment.creditCardNumber,
+                                                    {force: true}
+                                                );
+                                                cy.findInIframe($iframe2, "#expiryInput").type(
+                                                    `${Data.payment.creditCardExpirationMonth}/${Data.payment.creditCardExpirationYear}`,
+                                                    {force: true}
+                                                );
+                                                cy.findInIframe($iframe2, "#cvcInput-1").type(
+                                                    Data.payment.creditCardCvc,
+                                                    {force: true}
+                                                );
+                                            }
+                                        })
+                                    cy.wait(4000);
+                                    cy.findInIframe($iframe2, "#px-submit").click({
+                                        force: true,
+                                    });
+                                }
+                            );
+                        });
+                    })
             }
         );
     }
@@ -118,7 +139,7 @@ class SwedbankBlock {
             }
         );
     }
-    
+
     payWithSwish() {
         cy.iframeLoaded(
             'iframe[src^="https://ecom.externalintegration.payex.com/checkout"]',

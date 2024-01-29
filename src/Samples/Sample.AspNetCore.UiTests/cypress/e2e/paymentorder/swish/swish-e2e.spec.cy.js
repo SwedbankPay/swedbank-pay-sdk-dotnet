@@ -4,7 +4,7 @@ import {Data} from "../../../support/data";
 
 describe('Pay with Swish', () => {
     beforeEach(() => {
-        cy.visit('https://localhost:5001')
+        cy.visit(Cypress.env("baseUrl"))
     })
 
     it('Should succeed and create reversal', () => {
@@ -27,7 +27,7 @@ describe('Pay with Swish', () => {
                     let responseBody = response.body;
 
                     expect(responseBody.paymentOrder.status.value).to.eq('Paid');
-                    expect(responseBody.paymentOrder.paid.instrument).to.eq('Swish');
+                    expect(responseBody.paymentOrder.paid.instrument.value).to.eq('Swish');
                     expect(responseBody.paymentOrder.paid.transactionType.value).to.eq('Sale');
                     expect(responseBody.paymentOrder.paid.details.msisdn.value).to.eq(Data.payment.swishPhone);
                     expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[0].type.value).to.eq('Sale');
