@@ -9,4 +9,6 @@ public class InstrumentParametersDto : IInstrumentParameters
     public string? Email { get; init; }
     public string? Msisdn { get; init; }
     public string? ZipCode { get; init; }
+    public string? LastFourPan { get; init; }
+    public string? LastFourDPan { get; init; }
 }

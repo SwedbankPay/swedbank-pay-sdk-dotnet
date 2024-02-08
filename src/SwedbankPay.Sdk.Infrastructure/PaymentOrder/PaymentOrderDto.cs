@@ -19,13 +19,14 @@ internal record PaymentOrderDto
         VatAmount = paymentOrderRequest.VatAmount.InLowestMonetaryUnit;
         Description = paymentOrderRequest.Description;
         UserAgent = paymentOrderRequest.UserAgent;
+        PaymentToken = paymentOrderRequest.PaymentToken;
         GeneratePaymentToken = paymentOrderRequest.GeneratePaymentToken;
         Language = paymentOrderRequest.Language.ToString();
         GenerateRecurrenceToken = paymentOrderRequest.GenerateRecurrenceToken;
         GenerateUnscheduledToken = paymentOrderRequest.GenerateUnscheduledToken;
-        
         DisableStoredPaymentDetails = paymentOrderRequest.DisableStoredPaymentDetails;
-        Instrument = paymentOrderRequest.Instrument;
+        EnablePaymentDetailsConsentCheckbox = paymentOrderRequest.EnablePaymentDetailsConsentCheckbox;
+        Instrument = paymentOrderRequest.Instrument?.Value;
         Implementation = paymentOrderRequest.Implementation;
         Urls = new UrlsRequestDto(paymentOrderRequest.Urls);
         OrderItems = paymentOrderRequest.OrderItems?.Select(x => new OrderItemRequestDto(x)).ToArray();
@@ -56,10 +57,12 @@ internal record PaymentOrderDto
     public string Description { get; }
     public string UserAgent { get; }
     public bool GeneratePaymentToken { get;  }
+    public string? PaymentToken { get; }
     public string Language { get; }
     public bool GenerateRecurrenceToken { get; }  
     public bool GenerateUnscheduledToken { get; }
     public bool DisableStoredPaymentDetails { get;  }
+    public bool EnablePaymentDetailsConsentCheckbox { get; }
     public string? Instrument { get; }
     public string? Implementation { get; }
     public UrlsRequestDto Urls { get; set; }

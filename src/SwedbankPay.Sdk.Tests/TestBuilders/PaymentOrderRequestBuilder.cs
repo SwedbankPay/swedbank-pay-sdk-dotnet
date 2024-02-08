@@ -68,7 +68,10 @@ public class PaymentOrderRequestBuilder
         };
 
 
-        _payeeInfo = new PayeeInfo(payeeId, DateTime.Now.Ticks.ToString());
+        _payeeInfo = new PayeeInfo(DateTime.Now.Ticks.ToString())
+        {
+            PayeeId = payeeId
+        };
         return this;
     }
 }

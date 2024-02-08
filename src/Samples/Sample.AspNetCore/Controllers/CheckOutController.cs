@@ -151,8 +151,9 @@ public class CheckOutController : Controller
                 new Amount(0), "Test description", "useragent",
                 new Language("sv-SE"),
                 urls,
-                new PayeeInfo(_payeeInfoOptions.PayeeId, _payeeInfoOptions.PayeeReference)
+                new PayeeInfo(_payeeInfoOptions.PayeeReference)
                 {
+                    PayeeId = _payeeInfoOptions.PayeeId,
                     OrderReference = $"PO-{DateTime.UtcNow.Ticks}"
                 })
             {
@@ -163,6 +164,7 @@ public class CheckOutController : Controller
             paymentOrderRequest.Metadata = null;
             paymentOrderRequest.GenerateRecurrenceToken = generateRecurrenceToken;
             paymentOrderRequest.GenerateUnscheduledToken = generateUnscheduledToken;
+            paymentOrderRequest.EnablePaymentDetailsConsentCheckbox = true;
             paymentOrderRequest.Payer = new Payer
             {
                 FirstName = "Olivia",

@@ -7,4 +7,8 @@ public interface IInstrumentParameters
     string? Email { get; init; }
     string? Msisdn { get; init; }
     string? ZipCode { get; init; }
+    string? LastFourPan { get; init; }
+    string? LastFourDPan { get; init; }
+
+    
 }

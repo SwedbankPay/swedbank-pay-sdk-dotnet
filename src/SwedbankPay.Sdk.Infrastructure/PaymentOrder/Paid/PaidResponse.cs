@@ -13,6 +13,7 @@ internal record PaidResponse : Identifiable, IPaidResponse
     public Amount SubmittedAmount { get; }
     public Amount FeeAmount { get; }
     public Amount DiscountAmount { get; }
+    public bool PaymentTokenGenerated { get; }
     public IList<IRecurringTokenItem>? Tokens { get; }
     public IPaidDetails? Details { get; }
 
@@ -25,6 +26,7 @@ internal record PaidResponse : Identifiable, IPaidResponse
         Amount = new Amount(dto.Amount);
         SubmittedAmount = new Amount(dto.SubmittedAmount);
         FeeAmount = new Amount(dto.FeeAmount);
+        PaymentTokenGenerated = dto.PaymentTokenGenerated;
         DiscountAmount = new Amount(dto.DiscountAmount);
         Tokens = dto.Tokens?.Select(x => x.Map()).ToList();
         Details = dto.Details?.Map();

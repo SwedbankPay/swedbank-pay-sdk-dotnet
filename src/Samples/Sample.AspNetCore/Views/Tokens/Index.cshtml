@@ -10,83 +10,109 @@
     <div class="alert alert-success">@TempData["ResponseMessage"]</div>
 }
 
-<h1>Tokens</h1>
+<h1>My Page</h1>
 
 <div>
-    <h4>Operations</h4>
+    <form asp-action="RemoveAll" asp-controller="Tokens" method="post">
+        <button type="submit" class="btn btn-danger m-2" data-automation="button-cleartokens">
+            Remove All Tokens
+        </button>
+    </form>
     <hr/>
 </div>
 
+<h4>Saved Details</h4>
 <div data-automation="div-tokens">
-
     <div>
-        <div>
-            <dl class="row">
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(m => Model.Id)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayNameFor(m => Model.PayerReference)
-                </dd>
-            </dl>
-            <form asp-action="RemoveAll" asp-controller="Tokens" method="post">
-                <button type="submit" class="btn btn-danger m-2" data-automation="button-cleartokens">
-                    Remove All Tokens
-                </button>
-            </form>
-        </div>
         <table class="table">
             <thead>
             <tr>
                 <th>
-                    @* @Html.DisplayNameFor(model => order.OperationList[0].Method) *@
+                    Card Name
+                </th>
+                <th>
+                    Expiry Date
+                </th>
+                <th>
+                    Card Number
+                </th>
+                <th>
+                    Delete
                 </th>
             </tr>
             </thead>
             <tbody>
             @if (Model.Tokens != null)
             {
-                @foreach (var token in Model.Tokens)
+                foreach (var token in Model.Tokens.Where(token => token.Operations?.DeleteTokens != null))
                 {
                     <tr data-automation="@token.TokenType">
                         <td>
-                            @Html.DisplayFor(modelItem => token.Token)
+                            @Html.DisplayFor(modelItem => token.InstrumentParameters.CardBrand)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => token.TokenType)
+                            @Html.DisplayFor(modelItem => token.InstrumentParameters.ExpiryDate)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => token.InstrumentDisplayName)
                         </td>
                         <td>
-                            @if (token.Operations?.DeleteTokens != null)
-                            {
-                                <a class="btn btn-primary" asp-controller="Tokens"
-                                   asp-action="DeleteToken"
-                                   asp-route-tokenId=@token.Token>
-                                    Delete Token
-                                </a>
-                            }
-                            else if (token.Operations?.DeleteRecurringTokens != null)
-                            {
-                                <a class="btn btn-primary" asp-controller="Tokens"
-                                   asp-action="DeleteRecurringToken"
-                                   asp-route-tokenId=@token.Token>
-                                    Delete Recurring Token
-                                </a>
-                            }
-                            else if (token.Operations?.DeleteUnscheduledTokens != null)
-                            {
-                                <a class="btn btn-primary" asp-controller="Tokens"
-                                   asp-action="DeleteUnscheduledToken"
-                                   asp-route-tokenId=@token.Token>
-                                    Delete Unscheduled Token
-                                </a>
-                            }
-                            else
-                            {
-                                <span class="badge badge-warning">Not implemented</span>
-                            }
+                            <a class="btn btn-primary" asp-controller="Tokens"
+                               asp-action="DeleteToken"
+                               asp-route-tokenId=@token.Token>
+                                Delete Token
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<h4>Subscription Details</h4>
+<div data-automation="div-tokens">
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>
+                    Card Name
+                </th>
+                <th>
+                    Expiry Date
+                </th>
+                <th>
+                    Card Number
+                </th>
+                <th>
+                    Delete
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            @if (Model.Tokens != null)
+            {
+                foreach (var token in Model.Tokens.Where(token => token.Operations?.DeleteRecurringTokens != null || token.Operations?.DeleteUnscheduledTokens != null))
+                {
+                    <tr data-automation="@token.TokenType">
+                        <td>
+                            @Html.DisplayFor(modelItem => token.InstrumentParameters.CardBrand)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => token.InstrumentParameters.ExpiryDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => token.InstrumentDisplayName)
+                        </td>
+                        <td>
+                            <a class="btn btn-primary" asp-controller="Tokens"
+                               asp-action="DeleteRecurringToken"
+                               asp-route-tokenId=@token.Token>
+                                Delete Subscription Token
+                            </a>
                         </td>
                     </tr>
                 }
