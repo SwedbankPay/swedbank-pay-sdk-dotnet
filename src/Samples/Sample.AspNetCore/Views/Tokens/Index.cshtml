@@ -37,6 +37,9 @@
                     Card Number
                 </th>
                 <th>
+                    Type
+                </th>
+                <th>
                     Delete
                 </th>
             </tr>
@@ -55,6 +58,9 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => token.InstrumentDisplayName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => token.TokenType)
                         </td>
                         <td>
                             <a class="btn btn-primary" asp-controller="Tokens"
@@ -88,6 +94,9 @@
                     Card Number
                 </th>
                 <th>
+                    Type
+                </th>
+                <th>
                     Delete
                 </th>
             </tr>
@@ -108,11 +117,26 @@
                             @Html.DisplayFor(modelItem => token.InstrumentDisplayName)
                         </td>
                         <td>
-                            <a class="btn btn-primary" asp-controller="Tokens"
-                               asp-action="DeleteRecurringToken"
-                               asp-route-tokenId=@token.Token>
-                                Delete Subscription Token
-                            </a>
+                            @Html.DisplayFor(modelItem => token.TokenType)
+                        </td>
+                        <td>
+                            @if (token.Operations?.DeleteRecurringTokens != null)
+                            {
+                                <a class="btn btn-primary" asp-controller="Tokens"
+                                   asp-action="DeleteRecurringToken"
+                                   asp-route-tokenId=@token.Token>
+                                    Delete Subscription Token
+                                </a>
+                            }
+                            @if (token.Operations?.DeleteUnscheduledTokens != null)
+                            {
+                                <a class="btn btn-primary" asp-controller="Tokens"
+                                   asp-action="DeleteUnscheduledToken"
+                                   asp-route-tokenId=@token.Token>
+                                    Delete Subscription Token
+                                </a>
+                            }
+
                         </td>
                     </tr>
                 }
