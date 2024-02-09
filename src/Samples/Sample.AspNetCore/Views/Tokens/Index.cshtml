@@ -40,7 +40,7 @@
                     Type
                 </th>
                 <th>
-                    Delete
+                    Actions
                 </th>
             </tr>
             </thead>
@@ -67,6 +67,14 @@
                                asp-action="DeleteToken"
                                asp-route-tokenId=@token.Token>
                                 Delete Token
+                            </a>
+
+                            <a class="btn btn-primary"
+                               data-automation="button-checkout-with-token"
+                               asp-route-paymentToken="@token.Token"
+                               asp-action="LoadPaymentMenu"
+                               asp-controller="CheckOut">
+                                Checkout with token
                             </a>
                         </td>
                     </tr>
@@ -97,7 +105,7 @@
                     Type
                 </th>
                 <th>
-                    Delete
+                    Actions
                 </th>
             </tr>
             </thead>
