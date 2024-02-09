@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
+using Sample.AspNetCore.Models;
 using Sample.AspNetCore.Models.ViewModels;
 
 using SwedbankPay.Sdk;
@@ -17,12 +18,15 @@ public class TokensController : Controller
 {
     private readonly ISwedbankPayClient _swedbankPayClient;
     private readonly ILogger<TokensController> _logger;
+    private readonly Cart _cart;
 
     public TokensController(ISwedbankPayClient swedbankPayClient,
-        ILogger<TokensController> logger)
+        ILogger<TokensController> logger,
+        Cart cart)
     {
         _swedbankPayClient = swedbankPayClient;
         _logger = logger;
+        _cart = cart;
     }
 
 
@@ -107,6 +111,7 @@ public class TokensController : Controller
             viewModel.PayerReference = tokenResponse?.PayerReference;
             viewModel.Tokens = tokenResponse?.Tokens;
             viewModel.OperationList = tokenResponse?.Operations;
+            viewModel.Cart = _cart;
         }
         catch (Exception)
         {

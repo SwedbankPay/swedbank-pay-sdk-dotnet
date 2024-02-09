@@ -1,5 +1,4 @@
 ﻿@model Sample.AspNetCore.Models.ViewModels.TokenViewModel
-
 @{
     ViewData["Title"] = "Tokens";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -68,14 +67,18 @@
                                asp-route-tokenId=@token.Token>
                                 Delete Token
                             </a>
-
-                            <a class="btn btn-primary"
-                               data-automation="button-checkout-with-token"
-                               asp-route-paymentToken="@token.Token"
-                               asp-action="LoadPaymentMenu"
-                               asp-controller="CheckOut">
-                                Checkout with token
-                            </a>
+                            
+                            @if (Model.Cart.CartLines.Any())
+                            {
+                                <a class="btn btn-primary"
+                                   data-automation="button-checkout-with-token"
+                                   asp-route-paymentToken="@token.Token"
+                                   asp-action="LoadPaymentMenu"
+                                   asp-controller="CheckOut">
+                                    Checkout with token
+                                </a>
+                            }
+                           
                         </td>
                     </tr>
                 }

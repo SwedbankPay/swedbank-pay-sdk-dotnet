@@ -129,11 +129,6 @@ public class CheckOutController : Controller
         return await CreatePaymentOrder(generatePaymentToken, generateRecurrenceToken, generateUnscheduledToken, null, null);
     }
     
-    // public async Task<IPaymentOrderResponse> CreatePaymentOrder(bool generatePaymentToken, bool generateRecurrenceToken, bool generateUnscheduledToken, string paymentToken)
-    // {
-    //     return await CreatePaymentOrder(generatePaymentToken, generateRecurrenceToken, generateUnscheduledToken, null, paymentToken);
-    // }
-
     public async Task<IPaymentOrderResponse> CreatePaymentOrder(bool generatePaymentToken, bool generateRecurrenceToken, bool generateUnscheduledToken,
         Uri paymentUrl, string paymentToken)
     {
@@ -231,7 +226,6 @@ public class CheckOutController : Controller
 
             if (!string.IsNullOrWhiteSpace(paymentToken))
             {
-                // paymentOrderRequest.Payer.PayerReference = null;
                 paymentOrderRequest.GeneratePaymentToken = false;
                 paymentOrderRequest.PaymentToken ??= paymentToken;
 

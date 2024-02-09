@@ -8,8 +8,9 @@ public class TokenViewModel
 {
     public string Id { get;set; }
     public string PayerReference { get;set; }
-
+    
+    public Cart Cart { get; set; }
     public IUserTokenOperations OperationList { get; set; }
-
     public List<IUserToken> Tokens { get; set; }
+    
 }
