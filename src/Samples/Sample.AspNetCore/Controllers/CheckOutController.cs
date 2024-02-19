@@ -160,11 +160,18 @@ public class CheckOutController : Controller
                 OrderItems = paymentOrderItems
             };
 
-            paymentOrderRequest.GeneratePaymentToken = generatePaymentToken;
+            if (generatePaymentToken)
+            {
+                paymentOrderRequest.GeneratePaymentToken = true;
+                paymentOrderRequest.EnablePaymentDetailsConsentCheckbox = true;
+                paymentOrderRequest.DisableStoredPaymentDetails = true;       
+            }
+            
             paymentOrderRequest.Metadata = null;
             paymentOrderRequest.GenerateRecurrenceToken = generateRecurrenceToken;
             paymentOrderRequest.GenerateUnscheduledToken = generateUnscheduledToken;
-            paymentOrderRequest.EnablePaymentDetailsConsentCheckbox = true;
+       ;
+       
             paymentOrderRequest.Payer = new Payer
             {
                 FirstName = "Olivia",
@@ -227,8 +234,7 @@ public class CheckOutController : Controller
             if (!string.IsNullOrWhiteSpace(paymentToken))
             {
                 paymentOrderRequest.GeneratePaymentToken = false;
-                paymentOrderRequest.PaymentToken ??= paymentToken;
-
+                paymentOrderRequest.PaymentToken ??= paymentToken;          
             }
 
             var paymentOrder = await _swedbankPayClient.PaymentOrders.Create(paymentOrderRequest, PaymentOrderExpand.All);
