@@ -20,27 +20,27 @@
     <hr/>
 </div>
 
+@{
+    void RenderInfo(string name, string? value)
+    {
+        if (!string.IsNullOrWhiteSpace(value))
+        {
+            <div><b>@(name)</b>: @value</div>
+        }
+    }
+}
+
 <h4>Saved Details</h4>
 <div data-automation="div-tokens">
     <div>
         <table class="table">
             <thead>
             <tr>
-                <th>
-                    Card Name
-                </th>
-                <th>
-                    Expiry Date
-                </th>
-                <th>
-                    Card Number
-                </th>
-                <th>
-                    Type
-                </th>
-                <th>
-                    Actions
-                </th>
+                <th>Instrument</th>
+                <th>Display name</th>
+                <th>Instrument parameters</th>
+                <th>Type</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -50,13 +50,23 @@
                 {
                     <tr data-automation="@token.TokenType">
                         <td>
-                            @Html.DisplayFor(modelItem => token.InstrumentParameters.CardBrand)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => token.InstrumentParameters.ExpiryDate)
+                            @Html.DisplayFor(modelItem => token.Instrument.Value)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => token.InstrumentDisplayName)
+                        </td>
+                        <td>
+                            @{
+                                RenderInfo("Account id", token.InstrumentParameters?.AccountId);
+                                RenderInfo("Bank", token.InstrumentParameters?.Bank);
+                                RenderInfo("Card brand", token.InstrumentParameters?.CardBrand);
+                                RenderInfo("Expiry date", token.InstrumentParameters?.ExpiryDate);
+                                RenderInfo("ExpiryPan", token.InstrumentParameters?.ExpiryPan?.ToShortDateString());
+                                RenderInfo("ExpiryDPan", token.InstrumentParameters?.ExpiryDPan?.ToShortDateString());
+                                RenderInfo("First name", token.InstrumentParameters?.FirstName);
+                                RenderInfo("Last name", token.InstrumentParameters?.LastName);
+                                RenderInfo("Email", token.InstrumentParameters?.Email);
+                            }
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => token.TokenType)
@@ -67,7 +77,7 @@
                                asp-route-tokenId=@token.Token>
                                 Delete Token
                             </a>
-                            
+
                             @if (Model.Cart.CartLines.Any())
                             {
                                 <a class="btn btn-primary"
@@ -78,7 +88,7 @@
                                     Checkout with token
                                 </a>
                             }
-                           
+
                         </td>
                     </tr>
                 }
@@ -95,21 +105,11 @@
         <table class="table">
             <thead>
             <tr>
-                <th>
-                    Card Name
-                </th>
-                <th>
-                    Expiry Date
-                </th>
-                <th>
-                    Card Number
-                </th>
-                <th>
-                    Type
-                </th>
-                <th>
-                    Actions
-                </th>
+                <th>Instrument</th>
+                <th>Display name</th>
+                <th>Instrument parameters</th>
+                <th>Type</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -119,13 +119,23 @@
                 {
                     <tr data-automation="@token.TokenType">
                         <td>
-                            @Html.DisplayFor(modelItem => token.InstrumentParameters.CardBrand)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => token.InstrumentParameters.ExpiryDate)
+                            @Html.DisplayFor(modelItem => token.Instrument.Value)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => token.InstrumentDisplayName)
+                        </td>
+                        <td>
+                            @{
+                                RenderInfo("Account id", token.InstrumentParameters?.AccountId);
+                                RenderInfo("Bank", token.InstrumentParameters?.Bank);
+                                RenderInfo("Card brand", token.InstrumentParameters?.CardBrand);
+                                RenderInfo("Expiry date", token.InstrumentParameters?.ExpiryDate);
+                                RenderInfo("ExpiryPan", token.InstrumentParameters?.ExpiryPan?.ToShortDateString());
+                                RenderInfo("ExpiryDPan", token.InstrumentParameters?.ExpiryDPan?.ToShortDateString());
+                                RenderInfo("First name", token.InstrumentParameters?.FirstName);
+                                RenderInfo("Last name", token.InstrumentParameters?.LastName);
+                                RenderInfo("Email", token.InstrumentParameters?.Email);
+                            }
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => token.TokenType)

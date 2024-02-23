@@ -10,7 +10,7 @@ internal record UserTokenResponseItemDto
     public string? Instrument { get; init; }
     public string? InstrumentDisplayName { get; init; }
     public string? CorrelationId { get; init; }
-    public InstrumentParametersDto? InstrumentParameters { get; init; }
+    public InstrumentParametersResponseDto? InstrumentParameters { get; init; }
     public OperationListDto? Operations { get; init; }
 
     public IUserToken Map(HttpClient httpClient)
@@ -23,7 +23,7 @@ internal record UserTokenResponseItemDto
             Instrument = Instrument,
             InstrumentDisplayName = InstrumentDisplayName,
             CorrelationId = CorrelationId,
-            InstrumentParameters = InstrumentParameters
+            InstrumentParameters = InstrumentParameters?.Map()
         };
         
         if (Operations != null) {
