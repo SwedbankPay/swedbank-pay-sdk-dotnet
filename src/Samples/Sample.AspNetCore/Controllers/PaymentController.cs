@@ -152,24 +152,21 @@ public class PaymentController : Controller
         {
             var description = "Recurring the authorized payment";
             var recurringRequest = await GetRecurringRequest(description, recurringToken);
-
+            
             var response = await _swedbankPayClient.PaymentOrders.Create(recurringRequest, PaymentOrderExpand.All);
-
+            
             _context.Orders.Add(new Order
             {
                 PaymentOrderLink = response?.PaymentOrder.Id,
-                Lines = response?.PaymentOrder.OrderItems?.OrderItemList?.Select(x => new CartLine
+                Lines = response?.PaymentOrder.OrderItems?.OrderItemList?.Select(x =>
                 {
-                    Quantity = (int)x.Quantity,
-                    Product = new Product
+                    var productList = _context.Products.ToList();
+                    var product = productList.FirstOrDefault(p => p.Reference == x.Reference);
+                    return new CartLine
                     {
-                        Reference = x.Reference,
-                        Class = x.Class,
-                        Name = x.Name,
-                        Price = x.Amount,
-                        Type = x.Type.Value,
-                        VatPercentage = x.VatPercent
-                    }
+                        Quantity = (int)x.Quantity,
+                        Product = product
+                    };
                 }).ToList()
             });
             _context.SaveChanges(true);
@@ -196,18 +193,15 @@ public class PaymentController : Controller
             _context.Orders.Add(new Order
             {
                 PaymentOrderLink = response?.PaymentOrder.Id,
-                Lines = response?.PaymentOrder.OrderItems?.OrderItemList?.Select(x => new CartLine
+                Lines = response?.PaymentOrder.OrderItems?.OrderItemList?.Select(x =>
                 {
-                    Quantity = (int)x.Quantity,
-                    Product = new Product
+                    var productList = _context.Products.ToList();
+                    var product = productList.FirstOrDefault(p => p.Reference == x.Reference);
+                    return new CartLine
                     {
-                        Reference = x.Reference,
-                        Class = x.Class,
-                        Name = x.Name,
-                        Price = x.Amount,
-                        Type = x.Type.Value,
-                        VatPercentage = x.VatPercent
-                    }
+                        Quantity = (int)x.Quantity,
+                        Product = product
+                    };
                 }).ToList()
             });
             _context.SaveChanges(true);
