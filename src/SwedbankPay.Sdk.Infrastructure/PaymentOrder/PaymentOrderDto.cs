@@ -56,13 +56,13 @@ internal record PaymentOrderDto
     public long VatAmount { get; }
     public string Description { get; }
     public string UserAgent { get; }
-    public bool GeneratePaymentToken { get;  }
+    public bool? GeneratePaymentToken { get;  }
     public string? PaymentToken { get; }
     public string Language { get; }
-    public bool GenerateRecurrenceToken { get; }  
-    public bool GenerateUnscheduledToken { get; }
-    public bool DisableStoredPaymentDetails { get;  }
-    public bool EnablePaymentDetailsConsentCheckbox { get; }
+    public bool? GenerateRecurrenceToken { get; }  
+    public bool? GenerateUnscheduledToken { get; }
+    public bool? DisableStoredPaymentDetails { get;  }
+    public bool? EnablePaymentDetailsConsentCheckbox { get; }
     public string? Instrument { get; }
     public string? Implementation { get; }
     public UrlsRequestDto Urls { get; set; }
