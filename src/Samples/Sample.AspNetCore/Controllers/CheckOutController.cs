@@ -167,8 +167,6 @@ public class CheckOutController : Controller
             if (generatePaymentToken.HasValue && generatePaymentToken.Value)
             {
                 paymentOrderRequest.GeneratePaymentToken = true;
-                paymentOrderRequest.EnablePaymentDetailsConsentCheckbox = true;
-                paymentOrderRequest.DisableStoredPaymentDetails = true;
             }
 
             paymentOrderRequest.Metadata = null;
