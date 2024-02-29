@@ -147,21 +147,8 @@ class SwedbankBlock {
             30,
             ($iframe) => {
                 cy.findInIframe($iframe, "#swish").click();
-                cy.findInIframe($iframe, "#view-swish").within(() => {
-                    cy.iframeLoaded(
-                        'iframe[src^="https://ecom.externalintegration.payex.com/swish"]',
-                        "#msisdnInput",
-                        30,
-                        ($iframe) => {
-                            // cy.findInIframe($iframe, "#msisdnInput").type(
-                            //     Data.payment.swishPhone,
-                            //     {force: true}
-                            // );
-                            cy.findInIframe($iframe, "#px-submit").click({
-                                force: true,
-                            });
-                        }
-                    );
+                cy.findInIframe($iframe, "#px-submit").click({
+                    force: true,
                 });
             }
         );
