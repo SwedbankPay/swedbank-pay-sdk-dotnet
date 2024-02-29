@@ -147,7 +147,8 @@ class SwedbankBlock {
             30,
             ($iframe) => {
                 cy.findInIframe($iframe, "#swish").click();
-                cy.findInIframe($iframe, "#px-submit").click({
+                cy.wait(4000);
+                cy.findInIframe($iframe, "#px-submit", ).click({
                     force: true,
                 });
             }
