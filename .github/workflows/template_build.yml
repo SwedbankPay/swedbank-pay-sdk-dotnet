@@ -18,15 +18,9 @@ on:
       SampleSiteCsprojPath:
         required: true
         type: string
-      # SystemTestsCsprojPath:
-      #   required: true
-      #   type: string
       UnitTestsCsprojPath:
         required: true
         type: string
-      # IntegrationTestsCsprojPath:
-      #   required: true
-      #   type: string
 
 env:
   dotnetVersion: |
@@ -59,43 +53,6 @@ jobs:
         with:
           name: Sample.AspNetCore
           path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/samplesite
-
-      # - name: Publish Sdk Unit tests
-      #   run: dotnet publish --configuration ${{ inputs.Configuration }} -p:Version=${{ inputs.nuGetVersionV2 }} --no-restore ${{ inputs.UnitTestsCsprojPath }} --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/unittests'
-
-      # - name: Archive Sdk Unit tests
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: Sdk.UnitTests
-      #     path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/unittests
-
-      # - name: Publish Sdk Integration tests
-      #   run: dotnet publish --configuration ${{ inputs.Configuration }} -p:Version=${{ inputs.nuGetVersionV2 }} --no-restore ${{ inputs.IntegrationTestsCsprojPath }} --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/integrationtests' --os win
-
-      # - name: Archive Sdk Integration tests
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: Sdk.IntegrationTests
-      #     path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/integrationtests
-
-      # - name: Verify chrome driver
-      #   shell: pwsh
-      #   run: |
-      #     ./src/Samples/Sample.AspNetCore.SystemTests/chrome-driver-udpate.ps1
-
-      # - name: Publish Sdk Sample site system test
-      #   run: dotnet publish --configuration ${{ inputs.Configuration }} -p:Version=${{ inputs.nuGetVersionV2 }} ${{ inputs.SystemTestsCsprojPath }} --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/systemtests' --os win
-
-      # - name: Copy wwwroot to publish directory
-      #   shell: pwsh
-      #   run: |
-      #     Copy-Item -Path "./src/Samples/Sample.AspNetCore/wwwroot" -Destination "./systemtests/wwwroot" -Recurse -Force
-
-      # - name: Archive Sample.AspNetCore.SystemTests
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: Sample.AspNetCore.SystemTests
-      #     path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/systemtests
 
       - name: Nuget pack SwedbankPay.Sdk
         run: dotnet pack ${{ inputs.SdkCsprojPath }} -p:PackageVersion=${{ inputs.NUGETVERSIONV2 }} -p:Version=${{ inputs.NUGETVERSIONV2 }} --no-restore --configuration=${{ inputs.Configuration }} --output=artifacts

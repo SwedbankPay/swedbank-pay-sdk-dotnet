@@ -73,25 +73,25 @@ jobs:
           name: Run Unit and UI tests
           conclusion: ${{ job.status }}
               
-  # publish_alpha_nuget:
-  #   needs: [test-unit-ui]
-  #   if: ${{ needs.test-unit-ui.outputs.sourceEvent != 'pull_request' && github.event.workflow_run.name == 'Dev' }}
-  #   name: Publish alpha nuget
-  #   runs-on: ubuntu-latest
-  #   environment: ${{ github.event.workflow_run.name }}
+  publish_alpha_nuget:
+    needs: [test-unit-ui]
+    if: ${{ needs.test-unit-ui.outputs.sourceEvent != 'pull_request' && github.event.workflow_run.name == 'Dev' }}
+    name: Publish alpha nuget
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.workflow_run.name }}
 
-  #   steps:
-  #     - name: Download artifact
-  #       id: download-artifact
-  #       uses: dawidd6/action-download-artifact@v3
-  #       with:
-  #         workflow_conclusion: success
-  #         run_id: ${{ github.event.workflow_run.id }}
-  #         name: packages
-  #         path: packages
+    steps:
+      - name: Download artifact
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v3
+        with:
+          workflow_conclusion: success
+          run_id: ${{ github.event.workflow_run.id }}
+          name: packages
+          path: packages
     
-  #     - name: Publish test package to GitHub Package Registry
-  #       run: dotnet nuget push "packages/*.nupkg" --api-key ${{secrets.GITHUB_TOKEN}} --source  https://nuget.pkg.github.com/swedbankpay/index.json --skip-duplicate
+      - name: Publish test package to GitHub Package Registry
+        run: dotnet nuget push "packages/*.nupkg" --api-key ${{secrets.GITHUB_TOKEN}} --source  https://nuget.pkg.github.com/swedbankpay/index.json --skip-duplicate
   
   publish_sample_site:
     needs: [test-unit-ui]
