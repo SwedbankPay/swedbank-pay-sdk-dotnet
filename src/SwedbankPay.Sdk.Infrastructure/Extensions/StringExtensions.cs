@@ -1,12 +1,9 @@
-﻿using System;
+﻿namespace SwedbankPay.Sdk.Extensions;
 
-namespace SwedbankPay.Sdk.Extensions
+public static class StringExtensions
 {
-    public static class StringExtensions
+    public static TEnum ParseTo<TEnum>(this string value) where TEnum : struct
     {
-        public static TEnum ParseTo<TEnum>(this string value) where TEnum : struct
-        {
-            return (TEnum)Enum.Parse(typeof(TEnum), value);
-        }
+        return (TEnum)Enum.Parse(typeof(TEnum), value);
     }
 }

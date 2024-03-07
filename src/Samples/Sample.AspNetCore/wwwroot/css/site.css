@@ -12,9 +12,13 @@ a.navbar-brand {
 a { color: #0366d6; }
 
 .btn-primary {
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+    background-color: #ff5f00;
+    border-color: #c76a31;
     color: #fff;
+}
+
+.btn-primary:hover{
+    background-color: #c76a31;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {

@@ -47,7 +47,6 @@ dlldata.c
 project.lock.json
 project.fragment.lock.json
 artifacts/
-**/Properties/launchSettings.json
 
 *_i.c
 *_p.c
@@ -296,3 +295,6 @@ tools/**
 *.local.json
 
 *.snupkg
+
+.DS_Store
+src/Samples/Sample.AspNetCore.UiTests/cypress/reports

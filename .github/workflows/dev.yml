@@ -23,8 +23,6 @@ jobs:
       Configuration: Debug
       NUGETVERSIONV2: ${{ needs.callVersion.outputs.NUGETVERSIONV2 }} 
       SlnPath: ./src/SwedbankPay.Sdk.sln
-      SdkCsprojPath: ./src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj
+      SdkCsprojPath: ./src/SwedbankPay.Sdk.Infrastructure/SwedbankPay.Sdk.Infrastructure.csproj
       SampleSiteCsprojPath: ./src/Samples/Sample.AspNetCore/Sample.AspNetCore.csproj
-      SystemTestsCsprojPath: ./src/Samples/Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.csproj
-      UnitTestsCsprojPath: ./src/SwedbankPay.Sdk.Tests/SwedbankPay.Sdk.Tests.csproj 
-      IntegrationTestsCsprojPath: ./src/SwedbankPay.Sdk.IntegrationTests/SwedbankPay.Sdk.IntegrationTests.csproj
+      UnitTestsCsprojPath: ./src/SwedbankPay.Sdk.Tests/SwedbankPay.Sdk.Tests.csproj       

@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace SwedbankPay.Sdk.JsonSerialization.Converters
-{
-    internal class CustomMetadataDtoConverter : JsonConverter<MetadataDto>
+using SwedbankPay.Sdk.Infrastructure.PaymentOrder.Metadata;
+using SwedbankPay.Sdk.PaymentOrder.Metadata;
+
+namespace SwedbankPay.Sdk.Infrastructure.JsonSerialization.Converters;
+
+ internal class CustomMetadataDtoConverter : JsonConverter<MetadataDto>
     {
         public override MetadataDto Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
@@ -23,12 +24,12 @@ namespace SwedbankPay.Sdk.JsonSerialization.Converters
                     return metadata;
                 }
 
-                string keyString = reader.GetString();
+                string keyString = reader.GetString()!;
                 reader.Read();
 
                 if (reader.TokenType == JsonTokenType.String)
                 {
-                    string itemValue = reader.GetString();
+                    string? itemValue = reader.GetString();
 
                     if (keyString.Equals(nameof(Metadata.Id), StringComparison.InvariantCultureIgnoreCase))
                     {
@@ -68,21 +69,21 @@ namespace SwedbankPay.Sdk.JsonSerialization.Converters
         {
             writer.WriteStartObject();
 
-            foreach (KeyValuePair<string, object> item in value)
+            foreach (KeyValuePair<string, object?> item in value)
             {
                 if (!item.Key.Equals("id", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    if (Int64.TryParse(item.Value.ToString(), out var integer))
+                    if (Int64.TryParse(item.Value?.ToString(), out var integer))
                     {
                         writer.WriteNumber(item.Key, integer);
                     }
-                    else if (Double.TryParse(item.Value.ToString(), out var doubleNumber))
+                    else if (Double.TryParse(item.Value?.ToString(), out var doubleNumber))
                     {
                         writer.WriteNumber(item.Key, doubleNumber);
                     }
                     else
                     {
-                        writer.WriteString(item.Key, item.Value.ToString());
+                        writer.WriteString(item.Key, item.Value?.ToString());
                     }
                 }
             }
@@ -90,4 +91,3 @@ namespace SwedbankPay.Sdk.JsonSerialization.Converters
             writer.WriteEndObject();
         }
     }
-}
