@@ -7,7 +7,6 @@
 [![NuGet downloads][nuget-downloads-badge]][nuget]
 [![CLA assistant][cla-badge]][cla]
 [![License][license-badge]][license]
-[![Dependabot Status][dependabot-badge]][dependabot]
 [![Contributor Covenant][coc-badge]][coc]
 
 [`SwedbankPay.Sdk`][nuget] is a library that allows you to interact with
@@ -22,14 +21,6 @@ Microsoft's documentation][netstandard-impl].
 supported as of yet by Swedbank Pay. It is provided as a convenience to speed
 up your development, so please feel free to play around. However, if you need
 support, please wait for a future, stable release.
-
-## Build status
-
-| Platform | Status                                                                |
-| -------- | --------------------------------------------------------------------- |
-| Windows  | [![Windows develop build status][azdo-win-badge]][azdo-win-link]      |
-| macOS    | [![macOS develop build status][azdo-mac-badge]][azdo-mac-link]        |
-| Ubuntu   | [![Ubuntu develop build status][azdo-ubuntu-badge]][azdo-ubuntu-link] |
 
 ## Supported APIs Version 3.1
 
