@@ -31,22 +31,28 @@ support, please wait for a future, stable release.
 | macOS    | [![macOS develop build status][azdo-mac-badge]][azdo-mac-link]        |
 | Ubuntu   | [![Ubuntu develop build status][azdo-ubuntu-badge]][azdo-ubuntu-link] |
 
-## Supported APIs
+## Supported APIs Version 3.1
 
--   **Payment Order v3.1**
-    - Create PaymentOrder
-    - GET PaymentOrder
-    - UpdateOrder
-    - Capture
-    - Cancel
-    - Reversal
-    - Abort
-    - Subscriptions
-    - Add and/or update stored payment details (Verify)
-    - Instrument Mode (Build your own menu)
-    - Network Tokenization
-    - Get stored details (Tokens)
-    - Delete stored details (Tokens)
+- **Payment Order**
+  - Create PaymentOrder
+  - GET PaymentOrder
+  - UpdateOrder
+  - Capture
+  - Cancel
+  - Reversal
+  - Abort
+- **Tokens**
+  - Network Tokenization
+  - Get stored details
+  - Delete stored details
+
+## Use Cases
+
+  - Subscriptions
+  - Verify
+  - Collect and store payment details for future usage.
+  - Collect and replace current payment details (Subscriptions)
+  - Instrument Mode (Build your own menu)
     
 ## Sample App
 
