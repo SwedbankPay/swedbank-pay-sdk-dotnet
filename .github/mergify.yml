@@ -18,7 +18,7 @@ pull_request_rules:
       - author~=^dependabot(|-preview)\[bot\]$
     actions:
       queue:
-        method: merge
+        method: squash
         name: default
 
   - name: Thank contributor
