@@ -50,8 +50,8 @@ support, please wait for a future, stable release.
 
   - Subscriptions
   - Verify
-  - Collect and store payment details for future usage.
-  - Collect and replace current payment details (Subscriptions)
+    - Collect and store payment details for future usage.
+    - Collect and replace current payment details (Subscriptions)
   - Instrument Mode (Build your own menu)
     
 ## Sample App
