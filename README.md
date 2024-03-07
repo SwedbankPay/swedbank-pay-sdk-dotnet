@@ -33,13 +33,20 @@ support, please wait for a future, stable release.
 
 ## Supported APIs
 
--   **Payment Order v3**
-    -   create payment order
-    -   get payment order
-    -   capture
-    -   cancel
-    -   reversal
-    -   abort
+-   **Payment Order v3.1**
+    - Create PaymentOrder
+    - GET PaymentOrder
+    - UpdateOrder
+    - Capture
+    - Cancel
+    - Reversal
+    - Abort
+    - Subscriptions
+    - Add and/or update stored payment details (Verify)
+    - Instrument Mode (Build your own menu)
+    - Network Tokenization
+    - Get stored details (Tokens)
+    - Delete stored details (Tokens)
     
 ## Sample App
 
