@@ -7,13 +7,13 @@ on:
 
 env:
   dotnetVersion: |
-    5.x
     6.x
+    8.x
 
 jobs:
   test-unit-ui:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     environment: ${{ github.event.workflow_run.name }}
     outputs:
       sourceHeadRepo: ${{ steps.source-run-info.outputs.sourceHeadRepo }}
@@ -34,39 +34,39 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           sourceRunId: ${{ github.event.workflow_run.id }}
      
-      - name: Download artifact
-        id: download-artifact
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          workflow_conclusion: success
-          run_id: ${{ github.event.workflow_run.id }}
+      - uses: actions/checkout@v4
                     
       - name: Setup .NET
-        uses: actions/setup-dotnet@v3.0.3
+        uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: ${{ env.dotnetVersion }}       
-
-      - name: Run SDK Unit Tests
-        run: dotnet test Sdk.UnitTests/SwedbankPay.Sdk.Tests.dll
+          dotnet-version: ${{ env.dotnetVersion }}
 
       - name: Run SDK Integration Tests
-        run: dotnet test Sdk.IntegrationTests/SwedbankPay.Sdk.IntegrationTests.dll
-        env:
-          SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
-          SwedbankPay:TokenMobilePay: ${{ secrets.MERCHANT_TOKEN_MOBILE_PAY }}
-          SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
+        run: | 
+          export SwedbankPay__PayeeId=${{ secrets.MERCHANT_PAYEEID }}
+          export SwedbankPay__Token=${{ secrets.MERCHANT_TOKEN }}
+          dotnet test ./src/SwedbankPay.Sdk.IntegrationTests/SwedbankPay.Sdk.IntegrationTests.csproj
 
-      - name: Run SDK Sample project tests
-        run: dotnet test Sample.AspNetCore.SystemTests/Sample.AspNetCore.SystemTests.dll -v n
+      - name: Run SDK Unit Tests
+        run: | 
+          export SwedbankPay__PayeeId=${{ secrets.MERCHANT_PAYEEID }}
+          export SwedbankPay__Token=${{ secrets.MERCHANT_TOKEN }}
+          dotnet test ./src/SwedbankPay.Sdk.Tests/SwedbankPay.Sdk.Tests.csproj
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          working-directory: ./src/Samples/Sample.AspNetCore.UiTests
+          start: dotnet run --project ../Sample.AspNetCore/Sample.AspNetCore.csproj --urls https://localhost:5001 --SwedbankPay:PayeeId ${{ secrets.MERCHANT_PAYEEID }} --SwedbankPay:Token ${{ secrets.MERCHANT_TOKEN }}
+          wait-on: 'https://localhost:5001'
+          browser: chrome
         env:
-          SwedbankPay:Token: ${{ secrets.MERCHANT_TOKEN }}
-          SwedbankPay:TokenMobilePay: ${{ secrets.MERCHANT_TOKEN_MOBILE_PAY }}
-          SwedbankPay:PayeeId: ${{ secrets.MERCHANT_PAYEEID }}
-          SwedbankPay:Sdk:SampleWebsite:BaseUrl: https://localhost:5001
+          NODE_TLS_REJECT_UNAUTHORIZED: 0          
+     
 
       - name: Commit Action Status
         if: ${{ always() }}
-        uses: LouisBrunner/checks-action@v1.5.0
+        uses: LouisBrunner/checks-action@v2.0.0
         with:
           sha: ${{ steps.source-run-info.outputs.sourceHeadSha }}
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -83,7 +83,7 @@ jobs:
     steps:
       - name: Download artifact
         id: download-artifact
-        uses: dawidd6/action-download-artifact@v2
+        uses: dawidd6/action-download-artifact@v3
         with:
           workflow_conclusion: success
           run_id: ${{ github.event.workflow_run.id }}

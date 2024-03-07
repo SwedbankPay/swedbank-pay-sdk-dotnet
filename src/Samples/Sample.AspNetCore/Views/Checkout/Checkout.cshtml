@@ -4,6 +4,8 @@
     ViewData["Title"] = "Index";
 }
 
+<div class="alert" data-automation="paymentorderlink">@Model.PaymentOrderLink</div>
+
 <h1>SwedbankPay menu</h1>
 
 @await Html.PartialAsync("_SwedbankPayCheckOut", Model)
@@ -16,7 +18,7 @@
             <form asp-action="AbortPaymentOrder" asp-controller="Payment" method="post">
                 <input type="hidden" name="paymentOrderId"
                        value="@Model.AbortOperationLink.OriginalString"/>
-                <button type="submit" class="btn btn-lg btn-danger" automation="button-abort">
+                <button type="submit" class="btn btn-lg btn-danger" data-automation="button-abort">
                     Abort
                 </button>
             </form>

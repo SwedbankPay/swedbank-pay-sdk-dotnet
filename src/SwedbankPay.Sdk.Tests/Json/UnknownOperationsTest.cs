@@ -1,49 +1,71 @@
-﻿using SwedbankPay.Sdk.PaymentInstruments.Card;
-using System.Net.Http;
 using System.Text.Json;
-using Xunit;
 
-namespace SwedbankPay.Sdk.Tests.Json
+using SwedbankPay.Sdk.Infrastructure;
+using SwedbankPay.Sdk.Infrastructure.JsonSerialization;
+using SwedbankPay.Sdk.Infrastructure.PaymentOrder;
+
+namespace SwedbankPay.Sdk.Tests.Json;
+
+public class UnknownOperationsTest
 {
-    public class UnknownOperationsTest
+    [Fact]
+    public void CanDeserializeUnknownOperation()
     {
-        [Fact]
-        public void CanDeserializeUnknownOperation()
+        var paymentResponse = JsonSerializer.Deserialize<PaymentOrderResponseDto>(TestResponse, JsonSerialization.Settings);
+        Assert.NotNull(paymentResponse);
+    }
+
+    [Fact]
+    public void CanAccessDeserializedUnknownOperation()
+    {
+        var paymentResponse = JsonSerializer.Deserialize<PaymentOrderResponseDto>(TestResponse, JsonSerialization.Settings);
+        var client = new HttpClient();
+
+        var httpOperations = CreateOperationList(paymentResponse);
+
+        var operations = new PaymentOrderOperations(httpOperations, client);
+
+        Assert.Contains(operations, a => a.Key.Name.Equals(TestOperationName, StringComparison.OrdinalIgnoreCase));
+        Assert.Contains(operations, a => a.Key.Value.Equals(TestOperationName, StringComparison.OrdinalIgnoreCase));
+    }
+
+    private static OperationList CreateOperationList(PaymentOrderResponseDto? paymentResponse)
+    {
+        var httpOperations = new OperationList();
+        if (paymentResponse?.Operations != null)
         {
-            var paymentResponse = JsonSerializer.Deserialize<CardPaymentResponseDto>(TestResponse, JsonSerialization.JsonSerialization.Settings);
-            Assert.NotNull(paymentResponse);
+            foreach (var item in paymentResponse.Operations)
+            {
+                var rel = new LinkRelation(item.Rel);
+                var href = new Uri(item.Href, UriKind.RelativeOrAbsolute);
+                httpOperations.Add(new HttpOperation(href, rel, item.Method, item.ContentType));
+            }
         }
 
-        [Fact]
-        public void CanAccessDeserializedUnknownOperation()
-        {
-            var paymentResponse = JsonSerializer.Deserialize<CardPaymentResponseDto>(TestResponse, JsonSerialization.JsonSerialization.Settings);
-            var client = new HttpClient();
-            var operations = new CardPaymentOperations(paymentResponse.Operations.Map(), client);
+        return httpOperations;
+    }
 
-            Assert.Contains(operations, a => a.Key.Name.Equals(TestOperationName, System.StringComparison.OrdinalIgnoreCase));
-            Assert.Contains(operations, a => a.Key.Value.Equals(TestOperationName, System.StringComparison.OrdinalIgnoreCase));
-        }
+    [Fact]
+    public void UnknownOperation_IsDeserializedTo_LinkrelationType()
+    {
+        var paymentResponse = JsonSerializer.Deserialize<PaymentOrderResponseDto>(TestResponse, JsonSerialization.Settings);
+        var client = new HttpClient();
+        var httpOperations = CreateOperationList(paymentResponse);
+        var operations = new PaymentOrderOperations(httpOperations, client);
+        var testLinkRelation = new LinkRelation(TestOperationName, TestOperationName);
+    
+        Assert.True(operations.ContainsKey(testLinkRelation), "Missing link relation in Operation list");
+    
+        Assert.True(operations.TryGetValue(testLinkRelation, out var httpOperation), "Missing value in operation list");
+    
+        Assert.Equal("text/html", httpOperation?.ContentType);
+        Assert.Equal(HttpMethod.Get, httpOperation?.Method);
+    }
 
-        [Fact]
-        public void UnknownOperation_IsDeserializedTo_LinkrelationType()
-        {
-            var paymentResponse = JsonSerializer.Deserialize<CardPaymentResponseDto>(TestResponse, JsonSerialization.JsonSerialization.Settings);
-            var client = new HttpClient();
-            var operations = new CardPaymentOperations(paymentResponse.Operations.Map(), client);
-            var testLinkRelation = new LinkRelation(TestOperationName, TestOperationName);
+    private const string TestOperationName = "unknown-test-operation";
 
-            Assert.True(operations.ContainsKey(testLinkRelation), "Missing link relation in Operation list");
-
-            Assert.True(operations.TryGetValue(testLinkRelation, out var httpOperation), "Missing value in operation list");
-
-            Assert.Equal("text/html", httpOperation.ContentType);
-            Assert.Equal(HttpMethod.Get, httpOperation.Method);
-        }
-
-        public static string TestOperationName = "unknown-test-operation";
-        public static string TestResponse = @"{
-    ""payment"": {
+    private const string TestResponse = @"{
+    ""paymentOrder"": {
     },
     ""operations"": [
         {
@@ -66,5 +88,4 @@ namespace SwedbankPay.Sdk.Tests.Json
         }
     ]
 }";
-    }
 }

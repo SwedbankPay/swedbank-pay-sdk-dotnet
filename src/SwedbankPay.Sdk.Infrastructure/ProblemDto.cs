@@ -1,26 +1,17 @@
-﻿using System.Collections.Generic;
+namespace SwedbankPay.Sdk.Infrastructure;
 
-namespace SwedbankPay.Sdk
+internal record ProblemDto
 {
-    internal class ProblemDto
+    public string? Type { get; init; }
+    public string? Title { get; init; }
+    public string? Detail { get; init; }
+    public string? Instance { get; init; }
+    public int Status { get; init; }
+    public string? Action { get; init; }
+    public List<ProblemItemDto>? Problems { get; init; }
+
+    internal IProblem Map()
     {
-        public string Action { get; set; }
-        public string Detail { get; set; }
-        public string Instance { get; set; }
-        public List<ProblemItemDto> Problems { get; set; } = new List<ProblemItemDto>();
-        public int Status { get; set; }
-        public string Title { get; set; }
-        public string Type { get; set; }
-
-        internal IProblem Map()
-        {
-            var response = new Problem(this);
-            foreach (var item in Problems)
-            {
-                response.Problems.Add(item.Map());
-            }
-
-            return response;
-        }
+        return new Problem(this);
     }
 }

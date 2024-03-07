@@ -20,8 +20,8 @@
                 <form asp-action="UpdateQuantity" asp-controller="Cart" method="post">
                     <input type="hidden" name="id"
                            value="@line.Product.ProductId"/>
-                    <input type="number" required min="1" name="Quantity" value="@line.Quantity" automation="input-quantity"/>
-                    <button type="submit" class="btn btn-sm btn-danger" automation="button-updatequantity">
+                    <input type="number" required min="1" name="Quantity" value="@line.Quantity" data-automation="input-quantity"/>
+                    <button type="submit" class="btn btn-sm btn-danger" data-automation="button-updatequantity">
                         Update
                     </button>
                 </form>
@@ -56,13 +56,42 @@
     </tfoot>
 </table>
 <div class="text-center">
-    <a class="btn btn-primary" automation="button-checkout" asp-action="InitiateConsumerSession" asp-controller="CheckOut">
-        Standard Checkout
+    <a class="btn btn-primary" 
+       data-automation="button-checkout" 
+       asp-action="LoadPaymentMenu" 
+       asp-controller="CheckOut">
+        Checkout Seamless
     </a>
-    <a class="btn btn-primary" automation="button-checkout" asp-action="LoadPaymentMenu" asp-controller="CheckOut">
-        Anonymous Checkout
+
+    <a class="btn btn-primary" 
+       data-automation="button-checkout-redirect" 
+       asp-route-isRedirect="true"
+       asp-action="LoadPaymentMenu" 
+       asp-controller="CheckOut">
+        Checkout Redirect
     </a>
-    <a class="btn btn-secondary" automation="button-checkout" asp-action="LoadCardPaymentMenu" asp-controller="CheckOut">
-        Payment page
+    
+    <a class="btn btn-primary" 
+       data-automation="button-checkout-payment-token" 
+       asp-route-generatePaymentToken="true"
+       asp-action="LoadPaymentMenu" 
+       asp-controller="CheckOut">
+        Checkout PaymentToken
+    </a>
+
+    <a class="btn btn-primary" 
+       data-automation="button-checkout-recurrence-token" 
+       asp-route-generateRecurrenceToken="true"
+       asp-action="LoadPaymentMenu" 
+       asp-controller="CheckOut">
+        Checkout Recurring
+    </a>
+
+    <a class="btn btn-primary" 
+       data-automation="button-checkout-unscheduled-token" 
+       asp-route-generateUnscheduledToken="true"
+       asp-action="LoadPaymentMenu" 
+       asp-controller="CheckOut">
+        Checkout Unscheduled
     </a>
 </div>

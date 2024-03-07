@@ -1,7 +1,10 @@
-﻿@{
+﻿@model CheckoutViewModel
+@{
     ViewData["Title"] = "Thankyou";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<div class="alert" data-automation="paymentorderlink">@Model.PaymentOrderLink</div>
 
 <h2>Thanks!</h2>
 <p>Thanks for placing your order.</p>

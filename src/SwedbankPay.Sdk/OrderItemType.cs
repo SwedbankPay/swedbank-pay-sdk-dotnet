@@ -1,6 +1,6 @@
-﻿namespace SwedbankPay.Sdk
-{
-    /// <summary>
+namespace SwedbankPay.Sdk;
+
+/// <summary>
     ///     PRODUCT, SERVICE, SHIPPING_FEE, PAYMENT_FEE, DISCOUNT, VALUE_CODE or OTHER. The type of the order item.
     /// </summary>
     public sealed class OrderItemType : TypeSafeEnum<OrderItemType>
@@ -69,4 +69,3 @@
             };
         }
     }
-}

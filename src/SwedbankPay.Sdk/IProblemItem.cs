@@ -1,19 +1,18 @@
-﻿namespace SwedbankPay.Sdk
+namespace SwedbankPay.Sdk;
+
+/// <summary>
+/// Class to describe problem responses in certain api responses.
+/// </summary>
+public interface IProblemItem
 {
     /// <summary>
-    /// Class to describe problem responses in certain api responses.
+    /// The human readable description of what was wrong with the field,
+    /// header, object, entity or likewise identified by <see cref="Name"/>.
     /// </summary>
-    public interface IProblemItem
-    {
-        /// <summary>
-        /// The human readable description of what was wrong with the field,
-        /// header, object, entity or likewise identified by <see cref="Name"/>.
-        /// </summary>
-        string Description { get; }
+    string? Description { get; }
 
-        /// <summary>
-        /// The name of the field, header, object, entity or likewise that was erroneous.
-        /// </summary>
-        string Name { get; }
-    }
+    /// <summary>
+    /// The name of the field, header, object, entity or likewise that was erroneous.
+    /// </summary>
+    string? Name { get; }
 }

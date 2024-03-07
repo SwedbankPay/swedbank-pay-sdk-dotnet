@@ -1,42 +1,40 @@
-﻿using System.Collections.Generic;
 using System.Text.Json;
 
-namespace SwedbankPay.Sdk
+namespace SwedbankPay.Sdk.Infrastructure;
+
+internal record Problem : IProblem
 {
-    internal class Problem : IProblem
+    public string? Type { get; }
+    public string? Title { get; }
+    public string? Detail { get; }
+    public string? Instance { get; }
+    public int Status { get; }
+    public string? Action { get; }
+    public IList<IProblemItem>? Problems { get; }
+    
+    
+    internal Problem(ProblemDto dto)
     {
-        public Problem(ProblemDto dto)
-        {
-            Action = dto.Action;
-            Detail = dto.Detail;
-            Instance = dto.Instance;
-            Status = dto.Status;
-            Title = dto.Title;
-            Type = dto.Type;
-        }
+        Type = dto.Type;
+        Title = dto.Title;
+        Detail = dto.Detail;
+        Instance = dto.Instance;
+        Status = dto.Status;
+        Action = dto.Action;
+        Problems = dto.Problems?.Select(x => x.Map()).ToList();
+    }
 
-        public Problem(string action, string detail, string instance, int status, string title, string type)
-        {
-            Action = action;
-            Detail = detail;
-            Instance = instance;
-            Status = status;
-            Title = title;
-            Type = type;
-        }
+    internal Problem(string? detail, int status, string? title, string? type)
+    {
+        Type = type;
+        Title = title;
+        Detail = detail;
+        Status = status;
+    }
 
-        public string Action { get;}
-        public string Detail { get; }
-        public string Instance { get; }
-        public IList<IProblemItem> Problems { get; } = new List<IProblemItem>();
-        public int Status { get; }
-        public string Title { get; }
-        public string Type { get; }
-
-        public override string ToString()
-        {
-            var problems = JsonSerializer.Serialize(Problems, JsonSerialization.JsonSerialization.Settings);
-            return problems;
-        }
+    public override string ToString()
+    {
+        var problems = JsonSerializer.Serialize(Problems, JsonSerialization.JsonSerialization.Settings);
+        return problems;
     }
 }

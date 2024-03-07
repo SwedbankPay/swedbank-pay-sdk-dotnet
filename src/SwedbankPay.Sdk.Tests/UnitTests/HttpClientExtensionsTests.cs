@@ -1,22 +1,15 @@
-﻿using SwedbankPay.Sdk.Exceptions;
-using SwedbankPay.Sdk.Extensions;
-using SwedbankPay.Sdk.PaymentInstruments;
-using SwedbankPay.Sdk.PaymentOrders;
-using SwedbankPay.Sdk.Tests.TestBuilders;
+﻿using System.Net;
+using System.Text.Json;
+
+using SwedbankPay.Sdk.Infrastructure;
+using SwedbankPay.Sdk.Infrastructure.Extensions;
 using SwedbankPay.Sdk.Tests.TestHelpers;
 
-using System;
-using System.Net.Http;
-using System.Text.Json;
-using System.Threading.Tasks;
+namespace SwedbankPay.Sdk.Tests.UnitTests;
 
-using Xunit;
-
-namespace SwedbankPay.Sdk.Tests.UnitTests
+public class HttpClientExtensionsTests : ResourceTestsBase
 {
-    public class HttpClientExtensionsTests : ResourceTestsBase
-    {
-        private const string PaymentOrderInputValidationFailedReponse = @"{
+    private const string PaymentOrderInputValidationFailedReponse = @"{
             ""sessionId"": ""09ccd29a-7c4f-4752-9396-12100cbfecce"",
             ""type"": ""https://api.payex.com/psp/errordetail/inputerror"",
             ""title"": ""Error in input data"",
@@ -31,135 +24,30 @@ namespace SwedbankPay.Sdk.Tests.UnitTests
             ]
         }";
 
-        private const string PaymentCompletedReponse = @"{
-            ""payment"": ""/psp/invoice/payments/09ccd29a-7c4f-4752-9396-12100cbfecce"",
-            ""capture"": {
-                ""itemDescriptions"": {
-                    ""id"": ""/psp/invoice/payments/09ccd29a-7c4f-4752-9396-12100cbfecce/transactions/d07e17bf-8664-4664-fade-08d7dace174a/itemdescriptions""
-                },
-                ""id"": ""/psp/invoice/payments/09ccd29a-7c4f-4752-9396-12100cbfecce/captures/d07e17bf-8664-4664-fade-08d7dace174a"",
-                ""transaction"": {
-                    ""id"": ""/psp/invoice/payments/09ccd29a-7c4f-4752-9396-12100cbfecce/transactions/d07e17bf-8664-4664-fade-08d7dace174a"",
-                    ""created"": ""2020-04-07T08:57:05.7367464Z"",
-                    ""updated"": ""2020-04-07T08:57:07.1111552Z"",
-                    ""type"": ""Capture"",
-                    ""state"": ""Completed"",
-                    ""number"": 71100590865,
-                    ""amount"": 2,
-                    ""vatAmount"": 0,
-                    ""description"": ""description"",
-                    ""payeeReference"": ""637218522761159010"",
-                    ""isOperational"": false,
-                    ""reconciliationNumber"": 1,
-                    ""operations"": []
-                }
-            }
-        }";
-
-        private static PaymentOrderCaptureRequest GetPaymentOrderCaptureRequest()
+    [Fact]
+    public async Task ProblemResponse_CorrectlySerialzes_WhenApiReturnsWrongStatusCode()
+    {
+        var handler = new FakeDelegatingHandler();
+        handler.FakeResponseList.Add(new HttpResponseMessage
         {
-            var req = new PaymentOrderCaptureRequest(new Amount(25767), new Amount(0), "Capturing payment.", "637218522761159010");
-            req.Transaction.OrderItems.Add(new OrderItem(
-                    "Test",
-                    "Test",
-                    OrderItemType.Other,
-                    "Capture",
-                    1,
-                    "pcs",
-                    new Amount(25767),
-                    0,
-                    new Amount(25767),
-                    new Amount(0)));
+            StatusCode = HttpStatusCode.OK,
+            Content = new StringContent(PaymentOrderInputValidationFailedReponse)
+        });
+        var uri = new Uri("http://api.externalintegration.payex.com");
+        var sut = new HttpClient(handler);
 
-            return req;
-        }
+        var resultDto = await sut.SendAsJsonAsync<ProblemDto>(HttpMethod.Get, uri);
+        var result = resultDto?.Map();
 
-        [Fact]
-        public async Task ApiError_AreCorrectlySerialized_WithCorrectAmountOfDataAdded()
-        {
-            var client = new HttpClient();
-            var paymentRequest = new PaymentRequestBuilder().WithCreditcardTestValues(this.payeeId, Operation.Verify).BuildCreditCardPaymentRequest();
-            var uri = new Uri("https://api.externalintegration.payex.com/psp/paymentorders/2d35afaa-4e5a-4930-0de5-08d7da0988bc");
+        Assert.IsType<Problem>(result);
+    }
+        
+    [Fact]
+    public void ProblemResponse_CorrectlyDeserializes_ResponseField()
+    {
+        var dto = JsonSerializer.Deserialize<ProblemDto>(PaymentOrderInputValidationFailedReponse, Infrastructure.JsonSerialization.JsonSerialization.Settings);
 
-            var error = await Assert.ThrowsAsync<HttpResponseException>(() => client.SendAndProcessAsync<object>(HttpMethod.Post, uri, paymentRequest));
-
-            Assert.Equal(1, error.Data.Count);
-        }
-
-        [Fact]
-        public async Task ProblemResponse_CorrectlySerializes_WithNoAdditionalErrors()
-        {
-            var handler = new FakeDelegatingHandler();
-            handler.FakeResponseList.Add(new HttpResponseMessage
-            {
-                StatusCode = System.Net.HttpStatusCode.BadRequest,
-                Content = new StringContent(PaymentOrderInputValidationFailedReponse)
-            });
-            var uri = new Uri("http://api.externalintegration.payex.com");
-            var sut = new HttpClient(handler);
-
-            var error = await Assert.ThrowsAsync<HttpResponseException>(() => sut.SendAndProcessAsync<Problem>(HttpMethod.Get, uri, null));
-
-            Assert.Equal(1, error.Data.Count);
-        }
-
-        [Fact]
-        public async Task ProblemResponse_CorrectlySerialzes_WhenApiReturnsWrongStatusCode()
-        {
-            var handler = new FakeDelegatingHandler();
-            handler.FakeResponseList.Add(new HttpResponseMessage
-            {
-                StatusCode = System.Net.HttpStatusCode.OK,
-                Content = new StringContent(PaymentOrderInputValidationFailedReponse)
-            });
-            var uri = new Uri("http://api.externalintegration.payex.com");
-            var sut = new HttpClient(handler);
-
-            var resultDto = await sut.SendAndProcessAsync<ProblemDto>(HttpMethod.Get, uri, null);
-            var result = resultDto.Map();
-
-            Assert.IsType<Problem>(result);
-        }
-
-        [Fact]
-        public async Task WhenSendingACapture_TheConverter_HasZeroErrors()
-        {
-            var handler = new FakeDelegatingHandler();
-            handler.FakeResponseList.Add(new HttpResponseMessage
-            {
-                StatusCode = System.Net.HttpStatusCode.OK,
-                Content = new StringContent(PaymentCompletedReponse)
-            });
-            var uri = new Uri("http://api.externalintegration.payex.com");
-
-            var sut = new HttpClient(handler);
-            await sut.SendAndProcessAsync<CaptureTransactionResponseDto>(HttpMethod.Get, uri, GetPaymentOrderCaptureRequest());
-        }
-
-        [Fact]
-        public async Task SendAndPrcoess_DoesNotFail_WhenNotExpectingError()
-        {
-            var handler = new FakeDelegatingHandler();
-            handler.FakeResponseList.Add(new HttpResponseMessage
-            {
-                StatusCode = System.Net.HttpStatusCode.BadRequest,
-                Content = new StringContent(PaymentOrderInputValidationFailedReponse)
-            });
-            var uri = new Uri("http://api.externalintegration.payex.com");
-            var sut = new HttpClient(handler);
-
-            var result = await Assert.ThrowsAsync<HttpResponseException>(() => sut.SendAndProcessAsync<CaptureResponse>(HttpMethod.Get, uri, new object()));
-
-            Assert.Equal(1, result.Data.Count);
-        }
-
-        [Fact]
-        public void ProblemResponse_CorrectlyDeserializes_ResponseField()
-        {
-            var dto = JsonSerializer.Deserialize<ProblemDto>(PaymentOrderInputValidationFailedReponse, JsonSerialization.JsonSerialization.Settings);
-
-            Assert.NotNull(dto.Problems);
-            Assert.Equal("Some description here", dto.Problems[0].Description);
-        }
+        Assert.NotNull(dto?.Problems);
+        Assert.Equal("Some description here", dto?.Problems[0]?.Description);
     }
 }

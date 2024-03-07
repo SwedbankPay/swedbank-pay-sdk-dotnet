@@ -1,6 +1,6 @@
-﻿namespace SwedbankPay.Sdk
-{
-    /// <summary>
+namespace SwedbankPay.Sdk;
+
+ /// <summary>
     /// A enum-like class that holds <seealso cref="Operation"/>.
     /// </summary>
     public sealed class Operation : TypeSafeEnum<Operation>
@@ -41,6 +41,11 @@
         public static readonly Operation Sale = new Operation(nameof(Sale), "Sale");
 
         /// <summary>
+        /// The <seealso cref="Operation"/> for UnscheduledPurchase.
+        /// </summary>
+        public static readonly Operation UnscheduledPurchase = new Operation(nameof(UnscheduledPurchase), "UnscheduledPurchase");
+
+        /// <summary>
         /// Instantiates a new <seealso cref="Operation"/> with the provided parameters.
         /// </summary>
         /// <param name="name">The name of the operation.</param>
@@ -65,8 +70,8 @@
                 "Recur" => Recur,
                 "FinancingConsumer" => FinancingConsumer,
                 "Sale" => Sale,
+                "UnscheduledPurchase" => UnscheduledPurchase,
                 _ => new Operation(operation, operation),
             };
         }
     }
-}

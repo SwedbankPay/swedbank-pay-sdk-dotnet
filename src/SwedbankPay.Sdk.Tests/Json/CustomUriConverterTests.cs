@@ -1,53 +1,50 @@
-﻿using System;
 using System.Text.Json;
 
-using Xunit;
+using SwedbankPay.Sdk.Infrastructure.JsonSerialization;
 
-namespace SwedbankPay.Sdk.Tests.Json
+namespace SwedbankPay.Sdk.Tests.Json;
+
+public class CustomUriConverterTests
 {
-    public class CustomUriConverterTests
+    private readonly string _idstring = "/psp/creditcard/payments/5adc265f-f87f-4313-577e-08d3dca1a26c";
+
+
+    [Fact]
+    public void CanDeSerialize_Uri()
     {
-        private readonly string idstring = "/psp/creditcard/payments/5adc265f-f87f-4313-577e-08d3dca1a26c";
+        //ARRANGE
+
+        var jsonObject = $"{{ \"id\": \"{_idstring}\" }}";
+
+        //ACT
+        var result = JsonSerializer.Deserialize<DummyClass>(jsonObject, JsonSerialization.Settings);
+
+        //ASSERT
+        Assert.Equal(_idstring, result?.Id?.OriginalString);
+    }
 
 
-        [Fact]
-        public void CanDeSerialize_Uri()
+    [Fact]
+    public void CanSerialize_Uri()
+    {
+        //ARRANGE
+        var dummy = new DummyClass
         {
-            //ARRANGE
+            Id = new Uri(_idstring, UriKind.RelativeOrAbsolute)
+        };
 
-            var jsonObject = $"{{ \"id\": \"{this.idstring}\" }}";
+        //ACT
+        var result = JsonSerializer.Serialize(dummy, JsonSerialization.Settings);
+        var obj = JsonDocument.Parse(result);
 
-            //ACT
-            var result = JsonSerializer.Deserialize<DummyClass>(jsonObject, JsonSerialization.JsonSerialization.Settings);
-
-            //ASSERT
-            Assert.Equal(this.idstring, result.Id.OriginalString);
-        }
-
-
-        [Fact]
-        public void CanSerialize_Uri()
-        {
-            //ARRANGE
-            var dummy = new DummyClass
-            {
-                Id = new Uri(this.idstring, UriKind.RelativeOrAbsolute)
-            };
-
-            //ACT
-            var result = JsonSerializer.Serialize(dummy, JsonSerialization.JsonSerialization.Settings);
-            var obj = JsonDocument.Parse(result);
-
-            var id = obj.RootElement.GetProperty("id").ToString();
-            //ASSERT
-            Assert.Equal(this.idstring, id);
-        }
+        var id = obj.RootElement.GetProperty("id").ToString();
+        //ASSERT
+        Assert.Equal(_idstring, id);
+    }
 
 
-        private class DummyClass
-        {
-            public Uri Id { get; set; }
-        }
+    private class DummyClass
+    {
+        public Uri? Id { get; set; }
     }
 }
-

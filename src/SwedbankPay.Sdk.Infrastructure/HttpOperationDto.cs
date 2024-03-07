@@ -1,12 +1,9 @@
-﻿using System;
+namespace SwedbankPay.Sdk.Infrastructure;
 
-namespace SwedbankPay.Sdk
+internal record HttpOperationDto
 {
-    internal class HttpOperationDto
-    {
-        public string ContentType { get; set; }
-        public Uri Href { get; set; }
-        public string Method { get; set; }
-        public string Rel { get; set; }
-    }
+    public string ContentType { get; init; } = null!;
+    public string Href { get; init; } = null!;
+    public string Method { get; init; } = null!;
+    public string Rel { get; init; } = null!;
 }

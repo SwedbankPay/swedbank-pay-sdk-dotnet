@@ -1,5 +1,4 @@
-﻿@using System.Reflection
-@using Sample.AspNetCore.Data
+﻿@using Sample.AspNetCore.Data
 @inject Cart CartService
 @inject StoreDbContext StoreContext
 <!DOCTYPE html>
@@ -23,6 +22,9 @@
             <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                 <ul class="navbar-nav flex-grow-1">
 
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" data-automation="tokenslink" asp-controller="Tokens" asp-action="Index">My Page</a>
+                    </li>
 
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">Products</a>
@@ -30,11 +32,11 @@
                     @if (StoreContext.Orders.Any())
                     {
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="Details">Orders</a>
+                            <a class="nav-link text-dark" asp-area="" data-automation="orderslink" asp-controller="Orders" asp-action="Details">Orders</a>
                         </li>
                         <li class="nav-item">
                             <form asp-action="Clear" asp-controller="Orders" method="post">
-                                <button type="submit" class="btn btn-danger" automation="button-clearorders">
+                                <button type="submit" class="btn btn-danger" data-automation="button-clearorders">
                                     Clear Orders
                                 </button>
                             </form>
@@ -55,7 +57,7 @@
 
 <footer class="border-top footer text-muted">
     <div class="container">
-        &copy; 2019 - Sample.AspNetCore - <a asp-area="" asp-controller="Cart" asp-action="Privacy">Privacy</a>, Version : <AssemblyVersion />
+        &copy; 2019 - Sample.AspNetCore - <a asp-area="" asp-controller="Cart" asp-action="Privacy">Privacy</a>, Version : <AssemblyVersion/>
     </div>
 </footer>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>

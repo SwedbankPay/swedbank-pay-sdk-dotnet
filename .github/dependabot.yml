@@ -7,7 +7,7 @@ updates:
     time: "03:00"
     timezone: Europe/Oslo
   open-pull-requests-limit: 99
-  reviewers: [zunkas, perhassle]
+  reviewers: [zunkas]
   assignees: [zunkas]
 - package-ecosystem: github-actions
   directory: "/"
