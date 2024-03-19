@@ -19,14 +19,17 @@ public class TokensController : Controller
     private readonly ISwedbankPayClient _swedbankPayClient;
     private readonly ILogger<TokensController> _logger;
     private readonly Cart _cart;
+    private readonly PayerReference _payerReference;
 
     public TokensController(ISwedbankPayClient swedbankPayClient,
         ILogger<TokensController> logger,
-        Cart cart)
+        Cart cart,
+        PayerReference payerReference)
     {
         _swedbankPayClient = swedbankPayClient;
         _logger = logger;
         _cart = cart;
+        _payerReference = payerReference;
     }
 
 
@@ -106,7 +109,7 @@ public class TokensController : Controller
 
         try
         {
-            var tokenResponse = await _swedbankPayClient.PaymentOrders.GetOwnedTokens("AB1234");
+            var tokenResponse = await _swedbankPayClient.PaymentOrders.GetOwnedTokens(_payerReference.Id);
             viewModel.Id = tokenResponse?.Id;
             viewModel.PayerReference = tokenResponse?.PayerReference;
             viewModel.Tokens = tokenResponse?.Tokens;

@@ -29,6 +29,7 @@ public class CheckOutController : Controller
     private readonly StoreDbContext _context;
     private readonly PayeeInfoConfig _payeeInfoOptions;
     private readonly ISwedbankPayClient _swedbankPayClient;
+    private readonly PayerReference _payerReference;
     private readonly UrlsOptions _urls;
 
 
@@ -37,7 +38,8 @@ public class CheckOutController : Controller
         Cart cart,
         ILogger<CheckOutController> logger,
         StoreDbContext storeDbContext,
-        ISwedbankPayClient payClient)
+        ISwedbankPayClient payClient,
+        PayerReference payerReference)
     {
         _payeeInfoOptions = payeeInfoOptionsAccessor.Value;
         _urls = urlsAccessor.Value;
@@ -45,6 +47,7 @@ public class CheckOutController : Controller
         _logger = logger;
         _context = storeDbContext;
         _swedbankPayClient = payClient;
+        _payerReference = payerReference;
     }
 
     public void Callback([FromBody] CallbackInfo callbackInfo)
@@ -172,13 +175,12 @@ public class CheckOutController : Controller
             paymentOrderRequest.Metadata = null;
             paymentOrderRequest.GenerateRecurrenceToken = generateRecurrenceToken;
             paymentOrderRequest.GenerateUnscheduledToken = generateUnscheduledToken;
-            ;
 
             paymentOrderRequest.Payer = new Payer
             {
                 FirstName = "Olivia",
                 LastName = "Nyhuus",
-                PayerReference = "AB1234",
+                PayerReference = _payerReference.Id,
                 Email = new EmailAddress("olivia.nyhuus@payex.com"),
                 Msisdn = new Msisdn("+46739000001"),
                 WorkPhoneNumber = new Msisdn("+4787654321"),
