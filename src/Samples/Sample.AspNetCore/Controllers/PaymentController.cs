@@ -29,6 +29,7 @@ public class PaymentController : Controller
     private readonly StoreDbContext _context;
     private readonly PayeeInfoConfig _payeeInfoOptions;
     private readonly ISwedbankPayClient _swedbankPayClient;
+    private readonly PayerReference _payerReference;
     private readonly UrlsOptions _urls;
 
 
@@ -37,12 +38,14 @@ public class PaymentController : Controller
         Cart cart,
         StoreDbContext dbContext,
         ISwedbankPayClient payClient,
-        IOptionsSnapshot<UrlsOptions> urlsAccessor)
+        IOptionsSnapshot<UrlsOptions> urlsAccessor,
+        PayerReference payerReference)
     {
         _payeeInfoOptions = payeeInfoOptionsAccessor.Value;
         _cartService = cart;
         _context = dbContext;
         _swedbankPayClient = payClient;
+        _payerReference = payerReference;
         _urls = urlsAccessor.Value;
     }
 
@@ -293,7 +296,7 @@ public class PaymentController : Controller
             OrderItems = orderItems.ToList(),
             Payer = new Payer
             {
-                PayerReference = "AB1234",
+                PayerReference = _payerReference.Id,
             }
         };
 
@@ -322,7 +325,7 @@ public class PaymentController : Controller
             OrderItems = orderItems.ToList(),
             Payer = new Payer
             {
-                PayerReference = "AB1234",
+                PayerReference = _payerReference.Id,
             }
         };
 

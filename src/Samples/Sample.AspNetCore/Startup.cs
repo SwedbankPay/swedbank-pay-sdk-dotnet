@@ -80,6 +80,9 @@ public class Startup
 
         services.Configure<UrlsOptions>(Configuration.GetSection("Urls"));
         services.AddScoped(provider => SessionCart.GetCart(provider));
+        
+        services.AddSingleton<PayerReference>();  
+        
         services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
         services.AddSwedbankPayClient(swedBankPayOptions.ApiBaseUrl, swedBankPayOptions.Token);
         services.AddSession();

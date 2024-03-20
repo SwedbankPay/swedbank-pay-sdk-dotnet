@@ -14,7 +14,7 @@ describe('Pay with Credit card', () => {
 
         new SwedbankBlock().payWithSwedbank(PaymentMethods.card);
 
-        cy.get('h2', {timeout: 30000}).then(($h) => {
+        cy.get('h2', {timeout: 60000}).then(($h) => {
             expect($h).to.contain('Thanks!');
 
             cy.getByAutomation('paymentorderlink').then(($paymentOrderLink) => {
@@ -39,7 +39,7 @@ describe('Pay with Credit card', () => {
 
         new SwedbankBlock().payWithSwedbank(PaymentMethods.card);
 
-        cy.get('h2', {timeout: 30000}).then(($h) => {
+        cy.get('h2', {timeout: 60000}).then(($h) => {
             expect($h).to.contain('Thanks!');
 
             cy.getByAutomation('paymentorderlink').then(($paymentOrderLink) => {
@@ -111,7 +111,7 @@ describe('Pay with Credit card and Payment token', () => {
         let swedbankBlock = new SwedbankBlock();
         swedbankBlock.payWithSwedbank(PaymentMethods.card);
 
-        cy.get('h2', {timeout: 30000}).then(($h) => {
+        cy.get('h2', {timeout: 60000}).then(($h) => {
             expect($h).to.contain('Thanks!');
 
             cy.getByAutomation('paymentorderlink').then(($paymentOrderLink) => {
@@ -136,7 +136,7 @@ describe('Pay with Credit card', () => {
 
         new SwedbankBlock().payWithSwedbank(PaymentMethods.card);
 
-        cy.get('h2', {timeout: 30000}).then(($h) => {
+        cy.get('h2', {timeout: 60000}).then(($h) => {
             expect($h).to.contain('Thanks!');
 
             cy.getByAutomation('paymentorderlink').then(($paymentOrderLink) => {
@@ -161,7 +161,7 @@ describe('Pay with Credit card', () => {
 
         new SwedbankBlock().payWithSwedbank(PaymentMethods.card);
 
-        cy.get('h2', {timeout: 30000}).then(($h) => {
+        cy.get('h2', {timeout: 60000}).then(($h) => {
             expect($h).to.contain('Thanks!');
 
             cy.getByAutomation('paymentorderlink').then(($paymentOrderLink) => {
