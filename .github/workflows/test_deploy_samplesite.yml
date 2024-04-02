@@ -61,9 +61,17 @@ jobs:
           wait-on: 'https://localhost:5001'
           browser: chrome
         env:
-          NODE_TLS_REJECT_UNAUTHORIZED: 0          
-     
-
+          NODE_TLS_REJECT_UNAUTHORIZED: 0
+          
+          
+      - name: Upload Cypress artifact
+        uses: actions/upload-artifact@v4
+        if: ${{ always() }}
+        with:
+          name: cypress-screenshots
+          path: ./src/Samples/Sample.AspNetCore.UiTests/cypress/screenshots
+          if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
+      
       - name: Commit Action Status
         if: ${{ always() }}
         uses: LouisBrunner/checks-action@v2.0.0

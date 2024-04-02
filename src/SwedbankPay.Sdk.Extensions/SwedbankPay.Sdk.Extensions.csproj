@@ -32,7 +32,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\SwedbankPay.Sdk.Infrastructure\SwedbankPay.Sdk.Infrastructure.csproj" />
-      <ProjectReference Include="..\SwedbankPay.Sdk\SwedbankPay.Sdk.csproj" />
+      <ProjectReference Include="..\SwedbankPay.Sdk\SwedbankPay.Sdk.csproj" PrivateAssets="All" />
     </ItemGroup>
 
 </Project>
