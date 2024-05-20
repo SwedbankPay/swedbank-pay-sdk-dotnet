@@ -9,4 +9,6 @@ public interface IPayeeInfoResponse
     public string? CorporationId { get; }
     public string? CorporationName { get; }
     public string? SalesChannel { get; }
+    public string? Subsite { get; init; }
+    public string? SiteId { get; init; }
 }

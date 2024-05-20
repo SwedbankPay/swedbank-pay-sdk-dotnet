@@ -11,6 +11,8 @@ internal record PayeeInfoResponseDto : IdentifiableDto
     public string? CorporationId { get; init; }
     public string? CorporationName { get; init; }
     public string? SalesChannel { get; init; }
+    public string? Subsite { get; init; }
+    public string? SiteId { get; init; }
     
     public IPayeeInfoResponse Map()
     {
