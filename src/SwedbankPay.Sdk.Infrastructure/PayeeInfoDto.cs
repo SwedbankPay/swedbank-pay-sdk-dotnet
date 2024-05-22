@@ -8,10 +8,14 @@ internal record PayeeInfoDto
         PayeeReference = payeeInfo.PayeeReference;
         PayeeName = payeeInfo.PayeeName;
         OrderReference = payeeInfo.OrderReference;
+        Subsite = payeeInfo.Subsite;
+        SiteId = payeeInfo.SiteId;
     }
 
     public string? PayeeId { get; init; }
     public string PayeeReference { get; init; }
     public string? PayeeName { get; init; }
     public string? OrderReference { get; init; }
+    public string? Subsite { get; init; }
+    public string? SiteId { get; init; }
 }

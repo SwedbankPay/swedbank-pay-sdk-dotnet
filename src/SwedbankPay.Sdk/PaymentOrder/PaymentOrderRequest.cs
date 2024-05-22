@@ -27,6 +27,8 @@ public record PaymentOrderRequest(
     public bool? GeneratePaymentToken { get; set; }
     public string? PaymentToken { get; set; }
     public Language Language { get; } = Language;
+    public bool? ExpandFirstInstrument { get; set; }
+    public List<PaymentInstrument>? RestrictedToInstruments { get; set; }
     public bool? GenerateRecurrenceToken { get; set; }
     public bool? GenerateUnscheduledToken { get; set; }
     public bool? DisableStoredPaymentDetails { get; set; }

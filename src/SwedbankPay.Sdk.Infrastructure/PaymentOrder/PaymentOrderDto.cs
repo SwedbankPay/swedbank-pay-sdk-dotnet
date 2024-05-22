@@ -22,6 +22,8 @@ internal record PaymentOrderDto
         PaymentToken = paymentOrderRequest.PaymentToken;
         GeneratePaymentToken = paymentOrderRequest.GeneratePaymentToken;
         Language = paymentOrderRequest.Language.ToString();
+        ExpandFirstInstrument = paymentOrderRequest.ExpandFirstInstrument;
+        RestrictedToInstruments = paymentOrderRequest.RestrictedToInstruments?.Select(x => x.Value).ToArray();
         GenerateRecurrenceToken = paymentOrderRequest.GenerateRecurrenceToken;
         GenerateUnscheduledToken = paymentOrderRequest.GenerateUnscheduledToken;
         DisableStoredPaymentDetails = paymentOrderRequest.DisableStoredPaymentDetails;
@@ -59,6 +61,8 @@ internal record PaymentOrderDto
     public bool? GeneratePaymentToken { get;  }
     public string? PaymentToken { get; }
     public string Language { get; }
+    public string[]? RestrictedToInstruments { get; }
+    public bool? ExpandFirstInstrument { get; }
     public bool? GenerateRecurrenceToken { get; }  
     public bool? GenerateUnscheduledToken { get; }
     public bool? DisableStoredPaymentDetails { get;  }

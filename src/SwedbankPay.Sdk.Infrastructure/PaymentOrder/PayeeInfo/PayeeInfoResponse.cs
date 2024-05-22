@@ -11,6 +11,8 @@ internal record PayeeInfoResponse : Identifiable, IPayeeInfoResponse
     public string? CorporationId { get; init; }
     public string? CorporationName { get; init; }
     public string? SalesChannel { get; init; }
+    public string? Subsite { get; init; }
+    public string? SiteId { get; init; }
     
     internal PayeeInfoResponse(PayeeInfoResponseDto dto) : base(dto.Id)
     {
@@ -21,5 +23,7 @@ internal record PayeeInfoResponse : Identifiable, IPayeeInfoResponse
         CorporationId = dto.CorporationId;
         CorporationName = dto.CorporationName;
         SalesChannel = dto.SalesChannel;
+        Subsite = dto.Subsite;
+        SiteId = dto.SiteId;
     }
 }
