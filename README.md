@@ -44,6 +44,7 @@ support, please wait for a future, stable release.
     - Collect and store payment details for future usage.
     - Collect and replace current payment details (Subscriptions)
   - Instrument Mode (Build your own menu)
+  - Customise payment selection & favorite method
     
 ## Sample App
 
