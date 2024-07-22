@@ -13,7 +13,7 @@ internal record RiskIndicatorRequestDto
         ShipIndicator = riskIndicator.ShipIndicator?.Value;
         GiftCardPurchase = riskIndicator.GiftCardPurchase;
         ReOrderPurchaseIndicator = riskIndicator.ReOrderPurchaseIndicator?.Value;
-        PickUpAddress = new AddressDto(riskIndicator.PickUpAddress);
+        PickUpAddress = riskIndicator.PickUpAddress != null ? new AddressDto(riskIndicator.PickUpAddress) : null;
     }
     
     public string? DeliveryEmailAddress { get; }
