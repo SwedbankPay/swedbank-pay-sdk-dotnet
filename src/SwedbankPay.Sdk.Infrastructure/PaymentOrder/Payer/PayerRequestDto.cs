@@ -11,8 +11,8 @@ internal record PayerRequestDto
         Msisdn = payer.Msisdn?.ToString();
         WorkPhoneNumber = payer.WorkPhoneNumber?.ToString();
         HomePhoneNumber = payer.HomePhoneNumber?.ToString();
-        BillingAddress = new AddressDto(payer.BillingAddress);
-        ShippingAddress = new AddressDto(payer.ShippingAddress);
+        BillingAddress = payer.BillingAddress != null ? new AddressDto(payer.BillingAddress) :  null;
+        ShippingAddress = payer.ShippingAddress != null ? new AddressDto(payer.ShippingAddress) : null;
         AccountInfo = new AccountInfoDto(payer.AccountInfo);
     }
 

@@ -2,18 +2,18 @@ namespace SwedbankPay.Sdk.Infrastructure;
 
 internal record AddressDto
 {
-    public AddressDto(Sdk.PaymentOrder.Address? address)
+    public AddressDto(Sdk.PaymentOrder.Address address)
     {
-        Name = address?.Name;
-        FirstName = address?.FirstName;
-        LastName = address?.LastName;
-        Email = address?.Email?.ToString();
-        Msisdn = address?.Msisdn?.ToString();
-        StreetAddress = address?.StreetAddress;
-        CoAddress = address?.CoAddress;
-        City = address?.City;
-        ZipCode = address?.ZipCode;
-        CountryCode = address?.CountryCode?.ToString();
+        Name = address.Name;
+        FirstName = address.FirstName;
+        LastName = address.LastName;
+        Email = address.Email?.ToString();
+        Msisdn = address.Msisdn?.ToString();
+        StreetAddress = address.StreetAddress;
+        CoAddress = address.CoAddress;
+        City = address.City;
+        ZipCode = address.ZipCode;
+        CountryCode = address.CountryCode?.ToString();
     }
 
     public string? Name { get; }
