@@ -19,10 +19,10 @@ jobs:
           fetch-depth: 0   
 
       - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v1
+        uses: gittools/actions/gitversion/setup@v2
         with:
           versionSpec: '5.x'
  
       - name: Use GitVersion
         id: gitversion # step id used as reference for output values
-        uses: gittools/actions/gitversion/execute@v1
+        uses: gittools/actions/gitversion/execute@v2
