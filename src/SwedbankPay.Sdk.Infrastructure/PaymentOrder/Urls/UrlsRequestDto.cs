@@ -12,6 +12,7 @@ internal record UrlsRequestDto
         CancelUrl = urls.CancelUrl?.ToString();
         CallbackUrl = urls.CallbackUrl?.ToString();
         LogoUrl = urls.LogoUrl?.ToString();
+        TermsOfServiceUrl = urls.TermsOfServiceUrl?.ToString();
     }
     
     public string? Id { get; set; }
@@ -21,4 +22,5 @@ internal record UrlsRequestDto
     public string? CancelUrl { get; set; }
     public string? CallbackUrl { get; set; }
     public string? LogoUrl { get; set; }
+    public string? TermsOfServiceUrl { get; set; }
 }
