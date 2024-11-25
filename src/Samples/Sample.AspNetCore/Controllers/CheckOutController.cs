@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -25,6 +26,7 @@ namespace Sample.AspNetCore.Controllers;
 public class CheckOutController : Controller
 {
     private readonly Cart _cartService;
+    private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly ILogger<CheckOutController> _logger;
     private readonly StoreDbContext _context;
     private readonly PayeeInfoConfig _payeeInfoOptions;
@@ -36,6 +38,7 @@ public class CheckOutController : Controller
     public CheckOutController(IOptionsSnapshot<PayeeInfoConfig> payeeInfoOptionsAccessor,
         IOptionsSnapshot<UrlsOptions> urlsAccessor,
         Cart cart,
+        IHttpContextAccessor httpContextAccessor,
         ILogger<CheckOutController> logger,
         StoreDbContext storeDbContext,
         ISwedbankPayClient payClient,
@@ -44,6 +47,7 @@ public class CheckOutController : Controller
         _payeeInfoOptions = payeeInfoOptionsAccessor.Value;
         _urls = urlsAccessor.Value;
         _cartService = cart;
+        _httpContextAccessor = httpContextAccessor;
         _logger = logger;
         _context = storeDbContext;
         _swedbankPayClient = payClient;
@@ -148,6 +152,11 @@ public class CheckOutController : Controller
                 LogoUrl = _urls.LogoUrl,
                 CancelUrl = _urls.CancelUrl
             };
+            
+            if (_httpContextAccessor.HttpContext != null){
+                var httpContextRequest = _httpContextAccessor.HttpContext.Request;
+                urls.TermsOfServiceUrl = new Uri($"{httpContextRequest.Scheme}://{httpContextRequest.Host.Value}/terms", UriKind.Absolute);
+            }
 
             var paymentOrderRequest = new PaymentOrderRequest(
                 generateRecurrenceToken.HasValue && generateRecurrenceToken.Value || generateUnscheduledToken.HasValue && generateUnscheduledToken.Value

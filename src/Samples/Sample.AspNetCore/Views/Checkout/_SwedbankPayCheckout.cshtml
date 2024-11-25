@@ -68,6 +68,7 @@
 	function onTermsOfServiceRequested(obj){
 		console.log("Terms of service requested event:");
 		console.log(obj)
+		window.open(obj.termsOfServiceUrl, '_blank');
 	}
 	
 	function onEventNotification(obj){
