@@ -171,6 +171,7 @@ public class CheckOutController : Controller
                 {
                     PayeeId = _payeeInfoOptions.PayeeId,
                     OrderReference = $"PO-{DateTime.UtcNow.Ticks}",
+                    ProductCategory = "A100",
                     Subsite = "TestSubsiteId",
                     SiteId = "TestSiteId"
                 })
