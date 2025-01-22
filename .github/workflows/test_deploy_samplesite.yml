@@ -28,7 +28,7 @@ jobs:
    
     steps:
       - name: "Get information about the origin 'CI' run"
-        uses: potiuk/get-workflow-origin@v1_1
+        uses: potiuk/get-workflow-origin@v1_6
         id: source-run-info
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
