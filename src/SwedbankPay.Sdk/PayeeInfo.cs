@@ -11,6 +11,13 @@ public record PayeeInfo(string PayeeReference)
     public string? PayeeName { get; init; }
 
     /// <summary>
+    ///     A product category or number sent in from the payee/merchant. This is not validated by Swedbank Pay,
+    ///     but will be passed through the payment process and may be used in the settlement process.
+    ///     You therefore need to ensure that the value given here is valid in the settlement.
+    /// </summary>
+    public string? ProductCategory { get; init; }
+    
+    /// <summary>
     ///     The order reference should reflect the order reference found in the merchant's systems.
     /// </summary>
     public string? OrderReference { get; init; }
