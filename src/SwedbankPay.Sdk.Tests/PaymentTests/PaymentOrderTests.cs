@@ -325,6 +325,92 @@ public class PaymentOrderTests : ResourceTestsBase
   ]
 }";
 
+    private const string PaymentOrderResponseWithFailedAttempts = @"{
+  ""paymentOrder"": {
+    ""id"": ""/psp/paymentorders/8be318c1-1caa-4db1-e2c6-08d7bf41224d"",
+    ""created"": ""2020-03-03T07:19:27.5636519Z"",
+    ""updated"": ""2020-03-03T07:21:00.5605905Z"",
+    ""operation"": ""Purchase"",
+    ""status"": ""Reversed"",
+    ""currency"": ""SEK"",
+    ""amount"": 1500,
+    ""vatAmount"": 375,
+    ""remainingCaptureAmount"": 0,
+    ""remainingReversalAmount"": 0,
+    ""description"": ""Test Purchase"",
+    ""initiatingSystemUserAgent"": ""<should be set by the system calling POST:/psp/paymentorders>"",
+    ""language"": ""sv-SE"",
+    ""availableInstruments"": [ ""CreditCard"", ""Invoice-PayExFinancingSe"", ""Invoice-PayMonthlyInvoiceSe"", ""Swish"", ""CreditAccount"", ""Trustly"" ],
+    ""implementation"": ""PaymentsOnly"",
+    ""integration"": ""HostedView|Redirect"",
+    ""instrumentMode"": true,
+    ""guestMode"": true,
+    ""orderItems"": {
+      ""id"": ""/psp/paymentorders/8be318c1-1caa-4db1-e2c6-08d7bf41224d/orderitems""
+    },
+    ""urls"": {
+      ""id"": ""/psp/paymentorders/8be318c1-1caa-4db1-e2c6-08d7bf41224d/urls""
+    },
+    ""payeeInfo"": {
+      ""id"": ""/psp/paymentorders/8be318c1-1caa-4db1-e2c6-08d7bf41224d/payeeInfo""
+    },
+    ""payer"": {
+      ""id"": ""/psp/paymentorders/8be318c1-1caa-4db1-e2c6-08d7bf41224d/payers""
+    },
+    ""history"": {
+      ""id"": ""/psp/paymentorders/8be318c1-1caa-4db1-e2c6-08d7bf41224d/history""
+    },
+    ""failed"": {
+      ""id"": ""/psp/paymentorders/8be318c1-1caa-4db1-e2c6-08d7bf41224d/failed""
+    },
+    ""aborted"": {
+      ""id"": ""/psp/paymentorders/8be318c1-1caa-4db1-e2c6-08d7bf41224d/aborted""
+    },
+    ""paid"": {
+      ""id"": ""/psp/paymentorders/8be318c1-1caa-4db1-e2c6-08d7bf41224d/paid""
+    },
+    ""cancelled"": {
+      ""id"": ""/psp/paymentorders/8be318c1-1caa-4db1-e2c6-08d7bf41224d/cancelled""
+    },
+    ""financialTransactions"": {
+      ""id"": ""/psp/paymentorders/8be318c1-1caa-4db1-e2c6-08d7bf41224d/financialtransactions""
+    },
+    ""failedAttempts"": {
+      ""id"": ""/psp/paymentorders/8be318c1-1caa-4db1-e2c6-08d7bf41224d/failedattempts"",
+      ""failedAttemptList"": [
+        {
+          ""created"": ""2025-05-08T14:11:52.5478943Z"",
+          ""instrument"": ""ClickToPay"",
+          ""number"": 0,
+          ""problem"": {
+            ""type"": ""3dsecureusercancelled"",
+            ""title"": ""Verify Authentication rejected with state CANCELED"",
+            ""status"": 403,
+            ""instance"": ""paymentOrder"",
+            ""detail"": ""Unable to complete VerifyAuthentication transaction, look at problem node!"",
+            ""problems"": [
+              {
+                ""name"": ""ExternalResponse"",
+                ""description"": ""CANCELED-UnableToCompleteAuthorization""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    ""postpurchaseFailedAttempts"": {
+      ""id"": ""/psp/paymentorders/8be318c1-1caa-4db1-e2c6-08d7bf41224d/postpurchasefailedattempts""
+    },
+    ""metadata"": {
+      ""id"": ""/psp/paymentorders/8be318c1-1caa-4db1-e2c6-08d7bf41224d/metadata""
+    }
+  },
+  ""operations"": [
+  ]
+
+}";
+
+
     private static Uri GetUri() => new("http://api.externalintegration.payex.com", UriKind.Absolute);
 
     private readonly PaymentOrderRequestBuilder _paymentOrderRequestBuilder = new();
@@ -592,6 +678,19 @@ public class PaymentOrderTests : ResourceTestsBase
                 JsonSerialization.Settings);
         Assert.NotNull(callbackInfo);
         Assert.NotNull(callbackInfo.PaymentOrder);
+    }
+
+    [Fact]
+    public void CanDeserialize_FailedAttempts_WithoutStatus()
+    {
+        // See https://github.com/SwedbankPay/swedbank-pay-sdk-dotnet/issues/659
+        var dto = JsonSerializer.Deserialize<PaymentOrderResponseDto>(PaymentOrderResponseWithFailedAttempts,
+            JsonSerialization.Settings);
+        Assert.NotNull(dto);
+        var sut = new PaymentOrderResponse(dto, new HttpClient());
+
+        Assert.NotNull(sut);
+        Assert.NotNull(sut.PaymentOrder);
     }
 
 

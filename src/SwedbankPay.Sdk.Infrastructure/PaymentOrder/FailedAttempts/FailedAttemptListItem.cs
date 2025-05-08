@@ -15,7 +15,7 @@ internal record FailedAttemptListItem : IFailedAttemptListItem
         Created = dto.Created;
         Instrument = dto.Instrument;
         Number = dto.Number;
-        Status = dto.Status;
+        Status = dto.Status ?? (FailedStatus?)null;
         Problem = dto.Problem?.Map();
     }
 }
