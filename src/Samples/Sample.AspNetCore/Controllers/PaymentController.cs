@@ -26,6 +26,7 @@ namespace Sample.AspNetCore.Controllers;
 public class PaymentController : Controller
 {
     private readonly Cart _cartService;
+    private readonly Merchant _merchantService;
     private readonly StoreDbContext _context;
     private readonly PayeeInfoConfig _payeeInfoOptions;
     private readonly ISwedbankPayClient _swedbankPayClient;
@@ -36,6 +37,7 @@ public class PaymentController : Controller
     public PaymentController(
         IOptionsSnapshot<PayeeInfoConfig> payeeInfoOptionsAccessor,
         Cart cart,
+        Merchant merchantService,
         StoreDbContext dbContext,
         ISwedbankPayClient payClient,
         IOptionsSnapshot<UrlsOptions> urlsAccessor,
@@ -43,6 +45,7 @@ public class PaymentController : Controller
     {
         _payeeInfoOptions = payeeInfoOptionsAccessor.Value;
         _cartService = cart;
+        _merchantService = merchantService;
         _context = dbContext;
         _swedbankPayClient = payClient;
         _payerReference = payerReference;
@@ -58,7 +61,7 @@ public class PaymentController : Controller
         {
             var paymentOrder =
                 await _swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute),
-                    PaymentOrderExpand.All);
+                    PaymentOrderExpand.All, _merchantService.MerchantId);
 
             var response = await paymentOrder.Operations.Abort(new PaymentOrderAbortRequest("CanceledByUser"));
 
@@ -83,7 +86,7 @@ public class PaymentController : Controller
     {
         var paymentOrder =
             await _swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute),
-                PaymentOrderExpand.All);
+                PaymentOrderExpand.All, _merchantService.MerchantId);
         return Json(paymentOrder, JsonSerialization.Settings);
     }
 
@@ -93,7 +96,7 @@ public class PaymentController : Controller
         try
         {
             var paymentOrder =
-                await _swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
+                await _swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute), PaymentOrderExpand.All, _merchantService.MerchantId);
 
             if (paymentOrder.Operations.Cancel != null)
             {
@@ -125,7 +128,7 @@ public class PaymentController : Controller
             var transActionRequestObject = await GetCaptureRequest(paymentOrderId, "Capturing the authorized payment",
                 DateTime.Now.Ticks.ToString());
             var paymentOrder =
-                await _swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
+                await _swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute), PaymentOrderExpand.All,  _merchantService.MerchantId);
 
             if (paymentOrder?.Operations.Capture != null)
             {
@@ -250,7 +253,7 @@ public class PaymentController : Controller
             var transActionRequestObject = await GetReversalRequest(paymentOrderId, "Reversing the capture amount");
             var paymentOrder =
                 await _swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute),
-                    PaymentOrderExpand.All);
+                    PaymentOrderExpand.All,  _merchantService.MerchantId);
 
             if (paymentOrder?.Operations.Reverse != null)
             {

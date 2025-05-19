@@ -73,13 +73,15 @@ public class Startup
         {
             options.PayeeId = swedBankPayOptions.PayeeId;
             options.PayeeReference = DateTime.Now.Ticks.ToString();
+            options.Merchants = swedBankPayOptions.Merchants;
         });
         
         Console.WriteLine("Token: " + swedBankPayOptions.Token);
         Console.WriteLine("PayeeId: " + swedBankPayOptions.PayeeId);
 
         services.Configure<UrlsOptions>(Configuration.GetSection("Urls"));
-        services.AddScoped(provider => SessionCart.GetCart(provider));
+        services.AddScoped(SessionCart.GetCart);
+        services.AddScoped(SessionMerchant.GetMerchant);
         
         services.AddSingleton<PayerReference>();  
         
