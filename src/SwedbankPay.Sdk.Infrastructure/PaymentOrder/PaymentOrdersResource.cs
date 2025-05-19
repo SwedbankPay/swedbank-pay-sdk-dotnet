@@ -8,6 +8,10 @@ public class PaymentOrdersResource : ResourceBase, IPaymentOrdersResource
     public PaymentOrdersResource(HttpClient httpClient) : base(httpClient)
     {
     }
+    
+    public PaymentOrdersResource(IHttpClientFactory httpClientFactory) : base(httpClientFactory)
+    {
+    }
 
     /// <summary>
     /// Create a payment order asynchronously with the given request.
@@ -34,13 +38,15 @@ public class PaymentOrdersResource : ResourceBase, IPaymentOrdersResource
 
         var request = new PaymentOrderRequestDto(paymentOrderRequest);
 
-        var paymentOrderResponseDto = await HttpClient.PostAsJsonAsync<PaymentOrderResponseDto>(url, request);
+        var httpClient = GetHttpClient(paymentOrderRequest.PayeeInfo.PayeeId);
+
+        var paymentOrderResponseDto = await httpClient.PostAsJsonAsync<PaymentOrderResponseDto>(url, request);
 
         return paymentOrderResponseDto != null ? new PaymentOrderResponse(paymentOrderResponseDto, HttpClient) : null;
     }
 
     /// <summary>
-    /// Retrieves a payment order by its ID.
+    /// Retrieves a payment order by its ID.∫
     /// </summary>
     /// <param name="id">The ID of the payment order to retrieve.</param>
     /// <returns>The payment order response if found; otherwise, it returns null.</returns>
@@ -51,26 +57,33 @@ public class PaymentOrdersResource : ResourceBase, IPaymentOrdersResource
     {
         return await Get(id, PaymentOrderExpand.None);
     }
+    
+    public async Task<IPaymentOrderResponse?> Get(Uri id, string payeeId)
+    {
+        return await Get(id, PaymentOrderExpand.None, payeeId);
+    }
+
 
     /// <summary>
     /// Retrieves a payment order by its ID.
     /// </summary>
     /// <param name="id">The ID of the payment order to retrieve.</param>
     /// <param name="paymentOrderExpand">The expansion options for the payment order.</param>
+    /// <param name="payeeId"></param>
     /// <returns>The retrieved payment order response, or null if not found.</returns>
     /// <exception cref="System.ArgumentNullException">Thrown when <paramref name="id"/> is null.</exception>
     /// <exception cref="System.InvalidOperationException">Thrown when the operation is invalid.</exception>
     /// <exception cref="System.Net.Http.HttpRequestException">Thrown when an error occurs during the HTTP request.</exception>
-    public async Task<IPaymentOrderResponse?> Get(Uri id, PaymentOrderExpand paymentOrderExpand)
+    public async Task<IPaymentOrderResponse?> Get(Uri id, PaymentOrderExpand paymentOrderExpand, string? payeeId = null)
     {
         if (id == null)
         {
             throw new ArgumentNullException(nameof(id), $"{id} cannot be null");
         }
-
+        
         Uri url = id.GetUrlWithQueryString(paymentOrderExpand);
-
-        var paymentOrderResponseContainer = await HttpClient.GetAsJsonAsync<PaymentOrderResponseDto>(url);
+        var httpClient = GetHttpClient(payeeId);
+        var paymentOrderResponseContainer = await httpClient.GetAsJsonAsync<PaymentOrderResponseDto>(url);
 
         return paymentOrderResponseContainer != null ? new PaymentOrderResponse(paymentOrderResponseContainer, HttpClient) : null;
     }
@@ -79,15 +92,18 @@ public class PaymentOrdersResource : ResourceBase, IPaymentOrdersResource
     /// Retrieves user-owned tokens for a specific payer reference.
     /// </summary>
     /// <param name="payerReference">The payer reference for which to retrieve the tokens.</param>
+    /// <param name="payeeId"></param>
     /// <returns>
     /// The <see cref="IUserTokenResponse"/> object representing the user-owned tokens,
     /// or <c>null</c> if no tokens are found for the specified payer reference.
     /// </returns>
-    public async Task<IUserTokenResponse?> GetOwnedTokens(string payerReference)
+    public async Task<IUserTokenResponse?> GetOwnedTokens(string payerReference, string? payeeId = null)
     {
         var url = new Uri($"/psp/paymentorders/payerownedtokens/{payerReference}", UriKind.Relative);
 
-        var tokenResponseDto = await HttpClient.GetAsJsonAsync<UserTokenResponseDto>(url);
+        var httpClient = GetHttpClient(payeeId);
+        
+        var tokenResponseDto = await httpClient.GetAsJsonAsync<UserTokenResponseDto>(url);
 
         return tokenResponseDto != null ? new UserTokenResponse(tokenResponseDto, HttpClient) : null;
     }

@@ -33,6 +33,7 @@ public class CheckOutController : Controller
     private readonly ISwedbankPayClient _swedbankPayClient;
     private readonly PayerReference _payerReference;
     private readonly UrlsOptions _urls;
+    private readonly string _payeeId;
 
 
     public CheckOutController(IOptionsSnapshot<PayeeInfoConfig> payeeInfoOptionsAccessor,
@@ -52,6 +53,8 @@ public class CheckOutController : Controller
         _context = storeDbContext;
         _swedbankPayClient = payClient;
         _payerReference = payerReference;
+
+        _payeeId = "e9f4d090-f9b1-434a-bbf0-7f72af2ec1c7";
     }
 
     public void Callback([FromBody] CallbackInfo callbackInfo)
@@ -83,7 +86,7 @@ public class CheckOutController : Controller
         bool? generateUnscheduledToken,
         Uri paymentUrl = null)
     {
-        var paymentOrder = await _swedbankPayClient.PaymentOrders.Get(orderId, PaymentOrderExpand.All);
+        var paymentOrder = await _swedbankPayClient.PaymentOrders.Get(orderId, PaymentOrderExpand.All, _payeeId);
         if (paymentOrder?.Operations.Update == null)
         {
             if (paymentOrder?.Operations.Abort != null)
@@ -169,7 +172,7 @@ public class CheckOutController : Controller
                 urls,
                 new PayeeInfo(_payeeInfoOptions.PayeeReference)
                 {
-                    PayeeId = _payeeInfoOptions.PayeeId,
+                    PayeeId = _payeeId,
                     OrderReference = $"PO-{DateTime.UtcNow.Ticks}",
                     ProductCategory = "A100",
                     Subsite = "TestSubsiteId",

@@ -84,7 +84,8 @@ public class Startup
         services.AddSingleton<PayerReference>();  
         
         services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
-        services.AddSwedbankPayClient(swedBankPayOptions.ApiBaseUrl, swedBankPayOptions.Token);
+        //services.AddSwedbankPayClient(swedBankPayOptions.ApiBaseUrl, swedBankPayOptions.Token);
+        services.AddSwedbankPayClients(swedBankPayOptions.ApiBaseUrl, swedBankPayOptions.Merchants);
         services.AddSession();
 
         // Code copied from:

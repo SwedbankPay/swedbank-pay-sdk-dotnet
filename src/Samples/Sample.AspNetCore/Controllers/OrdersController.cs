@@ -19,12 +19,14 @@ public class OrdersController : Controller
 {
     private readonly StoreDbContext _storeDbContext;
     private readonly ISwedbankPayClient _swedbankPayClient;
+    private readonly string _payeeId;
 
     public OrdersController(StoreDbContext storeDbStoreDbContext,
         ISwedbankPayClient swedbankPayClient)
     {
         _storeDbContext = storeDbStoreDbContext;
         _swedbankPayClient = swedbankPayClient;
+        _payeeId = "e9f4d090-f9b1-434a-bbf0-7f72af2ec1c7";
     }
 
 
@@ -103,7 +105,7 @@ public class OrdersController : Controller
             string recurringToken = null;
             if (order.PaymentOrderLink != null)
             {
-                var paymentOrder = await _swedbankPayClient.PaymentOrders.Get(order.PaymentOrderLink, PaymentOrderExpand.All);
+                var paymentOrder = await _swedbankPayClient.PaymentOrders.Get(order.PaymentOrderLink, PaymentOrderExpand.All, _payeeId);
                 var paymentOrderOperations = paymentOrder?.Operations.Select(x => x.Value);
                 operations = paymentOrderOperations?.ToList() ?? [];
 
