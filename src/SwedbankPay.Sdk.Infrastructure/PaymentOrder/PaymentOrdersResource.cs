@@ -107,19 +107,29 @@ public class PaymentOrdersResource : ResourceBase, IPaymentOrdersResource
     /// Retrieves user-owned tokens for a specific payer reference.
     /// </summary>
     /// <param name="payerReference">The payer reference for which to retrieve the tokens.</param>
+    /// <returns>
+    /// The <see cref="IUserTokenResponse"/> object representing the user-owned tokens,
+    /// or <c>null</c> if no tokens are found for the specified payer reference.
+    /// </returns>
+    public async Task<IUserTokenResponse?> GetOwnedTokens(string payerReference)
+    {
+        return await GetOwnedTokens(payerReference, null);
+    }
+    
+    /// <summary>
+    /// Retrieves user-owned tokens for a specific payer reference.
+    /// </summary>
+    /// <param name="payerReference">The payer reference for which to retrieve the tokens.</param>
     /// <param name="payeeId"></param>
     /// <returns>
     /// The <see cref="IUserTokenResponse"/> object representing the user-owned tokens,
     /// or <c>null</c> if no tokens are found for the specified payer reference.
     /// </returns>
-    public async Task<IUserTokenResponse?> GetOwnedTokens(string payerReference, string? payeeId = null)
+    public async Task<IUserTokenResponse?> GetOwnedTokens(string payerReference, string? payeeId)
     {
         var url = new Uri($"/psp/paymentorders/payerownedtokens/{payerReference}", UriKind.Relative);
-
         var httpClient = GetHttpClient(payeeId);
-        
         var tokenResponseDto = await httpClient.GetAsJsonAsync<UserTokenResponseDto>(url);
-
         return tokenResponseDto != null ? new UserTokenResponse(tokenResponseDto, httpClient) : null;
     }
 }
