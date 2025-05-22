@@ -1,5 +1,3 @@
-using System.Linq;
-
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
@@ -11,11 +9,11 @@ namespace Sample.AspNetCore.Components;
 public class MerchantSelectorViewComponent : ViewComponent
 {
     private readonly Merchant _merchantService;
-    private readonly PayeeInfoConfig _options;
+    private readonly SwedbankPayConfig _options;
 
     public MerchantSelectorViewComponent(
         Merchant merchantService,
-        IOptionsSnapshot<PayeeInfoConfig> options)
+        IOptionsSnapshot<SwedbankPayConfig> options)
     {
         _merchantService = merchantService;
         _options = options.Value;
@@ -32,6 +30,4 @@ public class MerchantSelectorViewComponent : ViewComponent
         
         return View(model);
     }
-    
-    
 }

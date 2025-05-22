@@ -1,19 +1,22 @@
 @model Sample.AspNetCore.Models.ViewModels.MerchantSelectorViewModel
 
-<form asp-action="SetMerchant" asp-controller="Merchant" method="post">
+@if (Model.Merchants != null && Model.Merchants.Any())
+{
+    <form asp-action="SetMerchant" asp-controller="Merchant" method="post">
 
-    <div class="dropdown">
-        <input type="hidden" name="merchantId"/>
+        <div class="dropdown">
+            <input type="hidden" name="merchantId"/>
 
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="merchantMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Merchant: @Model.SelectedMerchant
-        </button>
-        <div id="merchantMenuDropdown" class="dropdown-menu" aria-labelledby="merchantMenuButton">
-            @foreach (var merchant in Model.Merchants)
-            {
-                <a onclick="updateSettings($(this))" class="dropdown-item" href="#">@merchant.PayeeId</a>
-            }
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="merchantMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Merchant: @Model.SelectedMerchant
+            </button>
+            <div id="merchantMenuDropdown" class="dropdown-menu" aria-labelledby="merchantMenuButton">
+                @foreach (var merchant in Model.Merchants)
+                {
+                    <a onclick="updateSettings($(this))" class="dropdown-item" href="#">@merchant.PayeeId</a>
+                }
+            </div>
+
         </div>
-
-    </div>
-</form>
+    </form>    
+}

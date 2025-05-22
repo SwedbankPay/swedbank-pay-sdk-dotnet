@@ -30,12 +30,12 @@ public class CheckOutController : Controller
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly ILogger<CheckOutController> _logger;
     private readonly StoreDbContext _context;
-    private readonly PayeeInfoConfig _payeeInfoOptions;
+    private readonly SwedbankPayConfig _swedbankPayOptions;
     private readonly ISwedbankPayClient _swedbankPayClient;
     private readonly PayerReference _payerReference;
     private readonly UrlsOptions _urls;
 
-    public CheckOutController(IOptionsSnapshot<PayeeInfoConfig> payeeInfoOptionsAccessor,
+    public CheckOutController(IOptionsSnapshot<SwedbankPayConfig> payeeInfoOptionsAccessor,
         IOptionsSnapshot<UrlsOptions> urlsAccessor,
         Cart cart,
         Merchant merchantService,
@@ -45,7 +45,7 @@ public class CheckOutController : Controller
         ISwedbankPayClient payClient,
         PayerReference payerReference)
     {
-        _payeeInfoOptions = payeeInfoOptionsAccessor.Value;
+        _swedbankPayOptions = payeeInfoOptionsAccessor.Value;
         _urls = urlsAccessor.Value;
         _cartService = cart;
         _merchantService = merchantService;
@@ -85,7 +85,7 @@ public class CheckOutController : Controller
         bool? generateUnscheduledToken,
         Uri paymentUrl = null)
     {
-        var paymentOrder = await _swedbankPayClient.PaymentOrders.Get(orderId, PaymentOrderExpand.All, _merchantService.MerchantId);
+        var paymentOrder = await _swedbankPayClient.PaymentOrders.Get(orderId, _merchantService.MerchantId, PaymentOrderExpand.All);
         if (paymentOrder?.Operations.Update == null)
         {
             if (paymentOrder?.Operations.Abort != null)
@@ -169,9 +169,9 @@ public class CheckOutController : Controller
                 new Amount(0), "Test description", "useragent",
                 new Language("sv-SE"),
                 urls,
-                new PayeeInfo(_payeeInfoOptions.PayeeReference)
+                new PayeeInfo(_swedbankPayOptions.PayeeReference)
                 {
-                    PayeeId = _merchantService.MerchantId,
+                    PayeeId = _merchantService.PayeeId,
                     OrderReference = $"PO-{DateTime.UtcNow.Ticks}",
                     ProductCategory = "A100",
                     Subsite = "TestSubsiteId",

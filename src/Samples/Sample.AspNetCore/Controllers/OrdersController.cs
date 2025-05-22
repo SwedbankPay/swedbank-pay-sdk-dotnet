@@ -94,11 +94,6 @@ public class OrdersController : Controller
     public async Task<IActionResult> Details(int? _)
     {
         var orders = await _storeDbContext.Orders.Where(x => x.MerchantId == _merchantService.MerchantId).ToListAsync();
-        if (!orders.Any())
-        {
-            return NotFound();
-        }
-
 
         var completedPayments = new List<OrderViewModel>();
 
@@ -108,7 +103,7 @@ public class OrdersController : Controller
             string recurringToken = null;
             if (order.PaymentOrderLink != null)
             {
-                var paymentOrder = await _swedbankPayClient.PaymentOrders.Get(order.PaymentOrderLink, PaymentOrderExpand.All, _merchantService.MerchantId);
+                var paymentOrder = await _swedbankPayClient.PaymentOrders.Get(order.PaymentOrderLink, _merchantService.MerchantId, PaymentOrderExpand.All);
                 var paymentOrderOperations = paymentOrder?.Operations.Select(x => x.Value);
                 operations = paymentOrderOperations?.ToList() ?? [];
 

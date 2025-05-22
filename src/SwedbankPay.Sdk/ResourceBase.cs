@@ -65,9 +65,5 @@ public class ResourceBase
         {
             throw new ArgumentException($"Please configure the {nameof(httpClient)} with an Authorization header.");
         }
-        if (!httpClient.DefaultRequestHeaders.Contains("User-Agent"))
-        {
-            httpClient.DefaultRequestHeaders.Add("User-Agent", UserAgent.Default);
-        }
     }
 }

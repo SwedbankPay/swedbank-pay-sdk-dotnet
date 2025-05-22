@@ -150,7 +150,6 @@ public class PaymentOrderTests : ResourceTestsBase
         //ASSERT
         Assert.NotNull(paymentOrder);
         Assert.NotNull(paymentOrder.PaymentOrder);
-        Assert.Equal(UserAgent.Default, paymentOrder.PaymentOrder.InitiatingSystemUserAgent);
         Assert.NotNull(paymentOrder.PaymentOrder.OrderItems);
         Assert.NotNull(paymentOrder.PaymentOrder.OrderItems.OrderItemList);
         Assert.NotEmpty(paymentOrder.PaymentOrder.OrderItems.OrderItemList);

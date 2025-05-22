@@ -69,7 +69,7 @@ public class Startup
         var swedBankPayOptions = swedbankPayConSettings.Get<SwedbankPayConnectionSettings>();
         services.AddSingleton(s => swedBankPayOptions);
 
-        services.Configure<PayeeInfoConfig>(options =>
+        services.Configure<SwedbankPayConfig>(options =>
         {
             options.PayeeId = swedBankPayOptions.PayeeId;
             options.PayeeReference = DateTime.Now.Ticks.ToString();
@@ -86,8 +86,16 @@ public class Startup
         services.AddSingleton<PayerReference>();  
         
         services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
-        //services.AddSwedbankPayClient(swedBankPayOptions.ApiBaseUrl, swedBankPayOptions.Token);
-        services.AddSwedbankPayClients(swedBankPayOptions.ApiBaseUrl, swedBankPayOptions.Merchants);
+
+        if (swedBankPayOptions.Merchants != null)
+        {
+            services.AddSwedbankPayClients(swedBankPayOptions.ApiBaseUrl, swedBankPayOptions.Merchants); 
+        }
+        else
+        {
+            services.AddSwedbankPayClient(swedBankPayOptions.ApiBaseUrl, swedBankPayOptions.Token);    
+        }
+        
         services.AddSession();
 
         // Code copied from:

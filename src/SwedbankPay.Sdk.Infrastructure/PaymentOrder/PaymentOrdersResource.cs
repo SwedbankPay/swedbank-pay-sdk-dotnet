@@ -58,12 +58,27 @@ public class PaymentOrdersResource : ResourceBase, IPaymentOrdersResource
         return await Get(id, PaymentOrderExpand.None);
     }
     
-    public async Task<IPaymentOrderResponse?> Get(Uri id, string payeeId)
+    public async Task<IPaymentOrderResponse?> Get(Uri id, string? payeeId)
     {
-        return await Get(id, PaymentOrderExpand.None, payeeId);
+        return await Get(id, payeeId, PaymentOrderExpand.None);
     }
 
 
+    /// <summary>
+    /// Retrieves a payment order by its ID.
+    /// </summary>
+    /// <param name="id">The ID of the payment order to retrieve.</param>
+    /// <param name="paymentOrderExpand">The expansion options for the payment order.</param>
+    /// <returns>The retrieved payment order response, or null if not found.</returns>
+    /// <exception cref="System.ArgumentNullException">Thrown when <paramref name="id"/> is null.</exception>
+    /// <exception cref="System.InvalidOperationException">Thrown when the operation is invalid.</exception>
+    /// <exception cref="System.Net.Http.HttpRequestException">Thrown when an error occurs during the HTTP request.</exception>
+    public async Task<IPaymentOrderResponse?> Get(Uri id, PaymentOrderExpand paymentOrderExpand)
+    {
+        return await Get(id, null, paymentOrderExpand);
+    }
+    
+    
     /// <summary>
     /// Retrieves a payment order by its ID.
     /// </summary>
@@ -74,7 +89,7 @@ public class PaymentOrdersResource : ResourceBase, IPaymentOrdersResource
     /// <exception cref="System.ArgumentNullException">Thrown when <paramref name="id"/> is null.</exception>
     /// <exception cref="System.InvalidOperationException">Thrown when the operation is invalid.</exception>
     /// <exception cref="System.Net.Http.HttpRequestException">Thrown when an error occurs during the HTTP request.</exception>
-    public async Task<IPaymentOrderResponse?> Get(Uri id, PaymentOrderExpand paymentOrderExpand, string? payeeId = null)
+    public async Task<IPaymentOrderResponse?> Get(Uri id, string? payeeId, PaymentOrderExpand paymentOrderExpand)
     {
         if (id == null)
         {
@@ -85,7 +100,7 @@ public class PaymentOrdersResource : ResourceBase, IPaymentOrdersResource
         var httpClient = GetHttpClient(payeeId);
         var paymentOrderResponseContainer = await httpClient.GetAsJsonAsync<PaymentOrderResponseDto>(url);
 
-        return paymentOrderResponseContainer != null ? new PaymentOrderResponse(paymentOrderResponseContainer, HttpClient) : null;
+        return paymentOrderResponseContainer != null ? new PaymentOrderResponse(paymentOrderResponseContainer, httpClient) : null;
     }
 
     /// <summary>
@@ -105,6 +120,6 @@ public class PaymentOrdersResource : ResourceBase, IPaymentOrdersResource
         
         var tokenResponseDto = await httpClient.GetAsJsonAsync<UserTokenResponseDto>(url);
 
-        return tokenResponseDto != null ? new UserTokenResponse(tokenResponseDto, HttpClient) : null;
+        return tokenResponseDto != null ? new UserTokenResponse(tokenResponseDto, httpClient) : null;
     }
 }

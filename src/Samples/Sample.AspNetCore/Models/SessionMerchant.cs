@@ -26,13 +26,14 @@ public class SessionMerchant : Merchant
     public static Merchant GetMerchant(IServiceProvider services)
     {
         var session = services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
-        var merchants = services.GetRequiredService<IOptionsSnapshot<PayeeInfoConfig>>();
+        var swedbankPayConfig = services.GetRequiredService<IOptionsSnapshot<SwedbankPayConfig>>();
 
-        var merchant = session?.GetJson<SessionMerchant>(MerchantSessionKey) ?? new SessionMerchant();
+        var sessionMerchant = session?.GetJson<SessionMerchant>(MerchantSessionKey) ?? new SessionMerchant();
 
-        merchant.AvailableMerchants = merchants.Value.Merchants.Select(x => x.PayeeId).ToList();
-        merchant.Session = session;
-        return merchant;
+        sessionMerchant.AvailableMerchants = swedbankPayConfig.Value.Merchants?.Select(x => x.PayeeId).ToList();
+        sessionMerchant.Session = session;
+        sessionMerchant.PayeeId ??= swedbankPayConfig.Value.PayeeId;
+        return sessionMerchant;
     }
 
 }
