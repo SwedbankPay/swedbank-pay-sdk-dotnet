@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using SwedbankPay.Sdk;
+using SwedbankPay.Sdk.Extensions;
 
 namespace Sample.AspNetCore.Models;
 

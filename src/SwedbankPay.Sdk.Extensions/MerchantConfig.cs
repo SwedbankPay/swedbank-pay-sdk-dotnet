@@ -1,4 +1,4 @@
-namespace SwedbankPay.Sdk;
+namespace SwedbankPay.Sdk.Extensions;
 
 public class MerchantConfig
 {

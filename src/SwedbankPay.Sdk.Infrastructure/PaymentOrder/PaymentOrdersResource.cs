@@ -42,7 +42,7 @@ public class PaymentOrdersResource : ResourceBase, IPaymentOrdersResource
 
         var paymentOrderResponseDto = await httpClient.PostAsJsonAsync<PaymentOrderResponseDto>(url, request);
 
-        return paymentOrderResponseDto != null ? new PaymentOrderResponse(paymentOrderResponseDto, HttpClient) : null;
+        return paymentOrderResponseDto != null ? new PaymentOrderResponse(paymentOrderResponseDto, httpClient) : null;
     }
 
     /// <summary>

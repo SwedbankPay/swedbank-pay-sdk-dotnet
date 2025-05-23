@@ -5,12 +5,12 @@ namespace SwedbankPay.Sdk;
 /// </summary>
 public class ResourceBase
 {
-    protected IHttpClientFactory? HttpClientFactory { get; }
+    private IHttpClientFactory? HttpClientFactory { get; }
 
     /// <summary>
     /// <seealso cref="HttpClient"/> ready to communicate with SwedbankPay.
     /// </summary>
-    protected HttpClient? HttpClient { get; set; }
+    private HttpClient? HttpClient { get; }
 
     /// <summary>
     /// Instantiates a derived class with a <paramref name="httpClient"/>.
