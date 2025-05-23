@@ -7,7 +7,7 @@ internal record FailedAttemptListItemDto
     public DateTime Created { get; init; }
     public string? Instrument { get; init; }
     public long Number { get; init; }
-    public string Status { get; init; } = null!;
+    public string? Status { get; init; }
     public ProblemDto? Problem { get; init; }
 
     public IFailedAttemptListItem Map()
