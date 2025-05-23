@@ -75,7 +75,6 @@ public static class ServiceCollectionExtensions
         services.AddScoped<ISwedbankPayClient, SwedbankPayClient>(a =>
         {
             var httpClientFactory = a.GetRequiredService<IHttpClientFactory>();
-            // var client = httpClientFactory.CreateClient(clientName);
             return new SwedbankPayClient(httpClientFactory);
         });
 
@@ -112,9 +111,6 @@ public static class ServiceCollectionExtensions
         Action<HttpClient> configureClient)
     {
         services.AddScoped<LoggingDelegatingHandler>();
-
-        // services.AddHttpClient<IPaymentOrdersResource, PaymentOrdersResource>(configureClient)
-        //     .AddHttpMessageHandler<LoggingDelegatingHandler>();
 
         services.AddScoped<ISwedbankPayClient, SwedbankPayClient>(a =>
         {
