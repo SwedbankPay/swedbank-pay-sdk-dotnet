@@ -19,16 +19,19 @@ public class TokensController : Controller
     private readonly ISwedbankPayClient _swedbankPayClient;
     private readonly ILogger<TokensController> _logger;
     private readonly Cart _cart;
+    private readonly Merchant _merchantService;
     private readonly PayerReference _payerReference;
 
     public TokensController(ISwedbankPayClient swedbankPayClient,
         ILogger<TokensController> logger,
         Cart cart,
+        Merchant merchantService,
         PayerReference payerReference)
     {
         _swedbankPayClient = swedbankPayClient;
         _logger = logger;
         _cart = cart;
+        _merchantService = merchantService;
         _payerReference = payerReference;
     }
 
@@ -109,7 +112,7 @@ public class TokensController : Controller
 
         try
         {
-            var tokenResponse = await _swedbankPayClient.PaymentOrders.GetOwnedTokens(_payerReference.Id);
+            var tokenResponse = await _swedbankPayClient.PaymentOrders.GetOwnedTokens(_payerReference.Id, _merchantService.MerchantId);
             viewModel.Id = tokenResponse?.Id;
             viewModel.PayerReference = tokenResponse?.PayerReference;
             viewModel.Tokens = tokenResponse?.Tokens;

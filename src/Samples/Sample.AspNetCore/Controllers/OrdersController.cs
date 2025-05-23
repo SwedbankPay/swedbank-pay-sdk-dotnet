@@ -17,12 +17,16 @@ namespace Sample.AspNetCore.Controllers;
 
 public class OrdersController : Controller
 {
+    private readonly Merchant _merchantService;
     private readonly StoreDbContext _storeDbContext;
     private readonly ISwedbankPayClient _swedbankPayClient;
 
-    public OrdersController(StoreDbContext storeDbStoreDbContext,
+    public OrdersController(
+        Merchant merchantService,
+        StoreDbContext storeDbStoreDbContext,
         ISwedbankPayClient swedbankPayClient)
     {
+        _merchantService = merchantService;
         _storeDbContext = storeDbStoreDbContext;
         _swedbankPayClient = swedbankPayClient;
     }
@@ -76,6 +80,7 @@ public class OrdersController : Controller
     {
         if (ModelState.IsValid)
         {
+            order.MerchantId = _merchantService.MerchantId;
             _storeDbContext.Add(order);
             await _storeDbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -88,12 +93,7 @@ public class OrdersController : Controller
     // GET: Orders/Details/5
     public async Task<IActionResult> Details(int? _)
     {
-        var orders = await _storeDbContext.Orders.ToListAsync();
-        if (orders == null || !orders.Any())
-        {
-            return NotFound();
-        }
-
+        var orders = await _storeDbContext.Orders.Where(x => x.MerchantId == _merchantService.MerchantId).ToListAsync();
 
         var completedPayments = new List<OrderViewModel>();
 
@@ -103,7 +103,7 @@ public class OrdersController : Controller
             string recurringToken = null;
             if (order.PaymentOrderLink != null)
             {
-                var paymentOrder = await _swedbankPayClient.PaymentOrders.Get(order.PaymentOrderLink, PaymentOrderExpand.All);
+                var paymentOrder = await _swedbankPayClient.PaymentOrders.Get(order.PaymentOrderLink, _merchantService.MerchantId, PaymentOrderExpand.All);
                 var paymentOrderOperations = paymentOrder?.Operations.Select(x => x.Value);
                 operations = paymentOrderOperations?.ToList() ?? [];
 

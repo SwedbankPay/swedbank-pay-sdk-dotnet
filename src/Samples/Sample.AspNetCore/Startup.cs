@@ -69,22 +69,33 @@ public class Startup
         var swedBankPayOptions = swedbankPayConSettings.Get<SwedbankPayConnectionSettings>();
         services.AddSingleton(s => swedBankPayOptions);
 
-        services.Configure<PayeeInfoConfig>(options =>
+        services.Configure<SwedbankPayConfig>(options =>
         {
             options.PayeeId = swedBankPayOptions.PayeeId;
             options.PayeeReference = DateTime.Now.Ticks.ToString();
+            options.Merchants = swedBankPayOptions.Merchants;
         });
         
         Console.WriteLine("Token: " + swedBankPayOptions.Token);
         Console.WriteLine("PayeeId: " + swedBankPayOptions.PayeeId);
 
         services.Configure<UrlsOptions>(Configuration.GetSection("Urls"));
-        services.AddScoped(provider => SessionCart.GetCart(provider));
+        services.AddScoped(SessionCart.GetCart);
+        services.AddScoped(SessionMerchant.GetMerchant);
         
         services.AddSingleton<PayerReference>();  
         
         services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
-        services.AddSwedbankPayClient(swedBankPayOptions.ApiBaseUrl, swedBankPayOptions.Token);
+
+        if (swedBankPayOptions.Merchants != null)
+        {
+            services.AddSwedbankPayClients(swedBankPayOptions.ApiBaseUrl, swedBankPayOptions.Merchants); 
+        }
+        else
+        {
+            services.AddSwedbankPayClient(swedBankPayOptions.ApiBaseUrl, swedBankPayOptions.Token);    
+        }
+        
         services.AddSession();
 
         // Code copied from:

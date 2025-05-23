@@ -14,4 +14,6 @@ public class Order
     public Uri PaymentLink { get; set; }
 
     public Uri PaymentOrderLink { get; set; }
+
+    public string MerchantId { get; set; } = null!;
 }

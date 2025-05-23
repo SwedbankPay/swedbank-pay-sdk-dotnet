@@ -40,6 +40,46 @@ public static class ServiceCollectionExtensions
             a.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authenticationToken);
         });
     }
+    
+    
+    public static void AddSwedbankPayClients(this IServiceCollection services, Uri baseAddress,
+        IEnumerable<MerchantConfig> merchants)
+    {
+        if (Uri.IsWellFormedUriString(baseAddress.OriginalString, UriKind.Absolute) == false)
+        {
+            throw new ArgumentException($"{nameof(baseAddress)} is not a well formed and absolute {nameof(Uri)}.");
+        }
+        
+        services.AddScoped<LoggingDelegatingHandler>();
+        
+        foreach (var merchant in merchants)
+        {
+            if (string.IsNullOrWhiteSpace(merchant.Token))
+            {
+                throw new ArgumentNullException(nameof(merchant.Token));
+            }
+
+            AddNamedClientAndHandler(services, merchant.PayeeId, a =>
+            {
+                a.BaseAddress = baseAddress;
+                a.DefaultRequestHeaders.Add("Accept", "application/json;version=3.1");
+                a.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", merchant.Token);
+            });
+        }
+    }
+    
+    
+    private static void AddNamedClientAndHandler(IServiceCollection services, string clientName,
+        Action<HttpClient> configureClient)
+    {
+        services.AddScoped<ISwedbankPayClient, SwedbankPayClient>(a =>
+        {
+            var httpClientFactory = a.GetRequiredService<IHttpClientFactory>();
+            return new SwedbankPayClient(httpClientFactory);
+        });
+
+        services.AddHttpClient<SwedbankPayClient>(clientName, configureClient).AddHttpMessageHandler<LoggingDelegatingHandler>();
+    }
 
     /// <summary>
     /// Configures the named HttpClient <seealso cref="SwedbankPay.Sdk.Infrastructure.SwedbankPayClient"/> with <paramref name="configureClient"/>.
@@ -71,9 +111,6 @@ public static class ServiceCollectionExtensions
         Action<HttpClient> configureClient)
     {
         services.AddScoped<LoggingDelegatingHandler>();
-
-        services.AddHttpClient<IPaymentOrdersResource, PaymentOrdersResource>(configureClient)
-            .AddHttpMessageHandler<LoggingDelegatingHandler>();
 
         services.AddScoped<ISwedbankPayClient, SwedbankPayClient>(a =>
         {

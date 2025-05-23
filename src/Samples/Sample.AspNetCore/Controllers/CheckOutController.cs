@@ -26,27 +26,29 @@ namespace Sample.AspNetCore.Controllers;
 public class CheckOutController : Controller
 {
     private readonly Cart _cartService;
+    private readonly Merchant _merchantService;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly ILogger<CheckOutController> _logger;
     private readonly StoreDbContext _context;
-    private readonly PayeeInfoConfig _payeeInfoOptions;
+    private readonly SwedbankPayConfig _swedbankPayOptions;
     private readonly ISwedbankPayClient _swedbankPayClient;
     private readonly PayerReference _payerReference;
     private readonly UrlsOptions _urls;
 
-
-    public CheckOutController(IOptionsSnapshot<PayeeInfoConfig> payeeInfoOptionsAccessor,
+    public CheckOutController(IOptionsSnapshot<SwedbankPayConfig> payeeInfoOptionsAccessor,
         IOptionsSnapshot<UrlsOptions> urlsAccessor,
         Cart cart,
+        Merchant merchantService,
         IHttpContextAccessor httpContextAccessor,
         ILogger<CheckOutController> logger,
         StoreDbContext storeDbContext,
         ISwedbankPayClient payClient,
         PayerReference payerReference)
     {
-        _payeeInfoOptions = payeeInfoOptionsAccessor.Value;
+        _swedbankPayOptions = payeeInfoOptionsAccessor.Value;
         _urls = urlsAccessor.Value;
         _cartService = cart;
+        _merchantService = merchantService;
         _httpContextAccessor = httpContextAccessor;
         _logger = logger;
         _context = storeDbContext;
@@ -83,7 +85,7 @@ public class CheckOutController : Controller
         bool? generateUnscheduledToken,
         Uri paymentUrl = null)
     {
-        var paymentOrder = await _swedbankPayClient.PaymentOrders.Get(orderId, PaymentOrderExpand.All);
+        var paymentOrder = await _swedbankPayClient.PaymentOrders.Get(orderId, _merchantService.MerchantId, PaymentOrderExpand.All);
         if (paymentOrder?.Operations.Update == null)
         {
             if (paymentOrder?.Operations.Abort != null)
@@ -167,9 +169,9 @@ public class CheckOutController : Controller
                 new Amount(0), "Test description", "useragent",
                 new Language("sv-SE"),
                 urls,
-                new PayeeInfo(_payeeInfoOptions.PayeeReference)
+                new PayeeInfo(_swedbankPayOptions.PayeeReference)
                 {
-                    PayeeId = _payeeInfoOptions.PayeeId,
+                    PayeeId = _merchantService.PayeeId,
                     OrderReference = $"PO-{DateTime.UtcNow.Ticks}",
                     ProductCategory = "A100",
                     Subsite = "TestSubsiteId",
@@ -317,7 +319,8 @@ public class CheckOutController : Controller
                 PaymentOrderLink = _cartService.PaymentOrderLink != null ? new Uri(_cartService.PaymentOrderLink, UriKind.RelativeOrAbsolute) : null,
                 PaymentLink = _cartService.PaymentLink != null ? new Uri(_cartService.PaymentLink, UriKind.RelativeOrAbsolute) : null,
                 // Instrument = this._cartService.Instrument,
-                Lines = _cartService.CartLines.ToList()
+                Lines = _cartService.CartLines.ToList(),
+                MerchantId = _merchantService.MerchantId
             });
             _context.SaveChanges(true);
             _cartService.Clear();

@@ -26,23 +26,26 @@ namespace Sample.AspNetCore.Controllers;
 public class PaymentController : Controller
 {
     private readonly Cart _cartService;
+    private readonly Merchant _merchantService;
     private readonly StoreDbContext _context;
-    private readonly PayeeInfoConfig _payeeInfoOptions;
+    private readonly SwedbankPayConfig _swedbankPayOptions;
     private readonly ISwedbankPayClient _swedbankPayClient;
     private readonly PayerReference _payerReference;
     private readonly UrlsOptions _urls;
 
 
     public PaymentController(
-        IOptionsSnapshot<PayeeInfoConfig> payeeInfoOptionsAccessor,
+        IOptionsSnapshot<SwedbankPayConfig> payeeInfoOptionsAccessor,
         Cart cart,
+        Merchant merchantService,
         StoreDbContext dbContext,
         ISwedbankPayClient payClient,
         IOptionsSnapshot<UrlsOptions> urlsAccessor,
         PayerReference payerReference)
     {
-        _payeeInfoOptions = payeeInfoOptionsAccessor.Value;
+        _swedbankPayOptions = payeeInfoOptionsAccessor.Value;
         _cartService = cart;
+        _merchantService = merchantService;
         _context = dbContext;
         _swedbankPayClient = payClient;
         _payerReference = payerReference;
@@ -57,8 +60,7 @@ public class PaymentController : Controller
         try
         {
             var paymentOrder =
-                await _swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute),
-                    PaymentOrderExpand.All);
+                await _swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute), _merchantService.MerchantId, PaymentOrderExpand.All);
 
             var response = await paymentOrder.Operations.Abort(new PaymentOrderAbortRequest("CanceledByUser"));
 
@@ -82,7 +84,7 @@ public class PaymentController : Controller
     public async Task<IActionResult> GetPaymentOrder(string paymentOrderId)
     {
         var paymentOrder =
-            await _swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute),
+            await _swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute), _merchantService.MerchantId,
                 PaymentOrderExpand.All);
         return Json(paymentOrder, JsonSerialization.Settings);
     }
@@ -93,12 +95,12 @@ public class PaymentController : Controller
         try
         {
             var paymentOrder =
-                await _swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
+                await _swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute), _merchantService.MerchantId, PaymentOrderExpand.All);
 
             if (paymentOrder.Operations.Cancel != null)
             {
                 var cancelRequest = new PaymentOrderCancelRequest("Cancelling parts of the total amount",
-                    _payeeInfoOptions.PayeeReference);
+                    _swedbankPayOptions.PayeeReference);
                 var response = await paymentOrder.Operations.Cancel(cancelRequest);
                 TempData["CancelMessage"] = $"Payment has been cancelled: {response.PaymentOrder.Cancelled.Id}";
             }
@@ -125,7 +127,7 @@ public class PaymentController : Controller
             var transActionRequestObject = await GetCaptureRequest(paymentOrderId, "Capturing the authorized payment",
                 DateTime.Now.Ticks.ToString());
             var paymentOrder =
-                await _swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
+                await _swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute), _merchantService.MerchantId, PaymentOrderExpand.All);
 
             if (paymentOrder?.Operations.Capture != null)
             {
@@ -155,9 +157,9 @@ public class PaymentController : Controller
         {
             var description = "Recurring the authorized payment";
             var recurringRequest = await GetRecurringRequest(description, recurringToken);
-            
+
             var response = await _swedbankPayClient.PaymentOrders.Create(recurringRequest, PaymentOrderExpand.All);
-            
+
             _context.Orders.Add(new Order
             {
                 PaymentOrderLink = response?.PaymentOrder.Id,
@@ -249,7 +251,7 @@ public class PaymentController : Controller
         {
             var transActionRequestObject = await GetReversalRequest(paymentOrderId, "Reversing the capture amount");
             var paymentOrder =
-                await _swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute),
+                await _swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute), _merchantService.MerchantId,
                     PaymentOrderExpand.All);
 
             if (paymentOrder?.Operations.Reverse != null)
@@ -287,9 +289,9 @@ public class PaymentController : Controller
         var request = new PaymentOrderRequest(Operation.Recur, new Currency("SEK"),
             new Amount(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
             new Amount(0), description, "userAgent", new Language("sv-SE"), urls,
-            new PayeeInfo(_payeeInfoOptions.PayeeReference)
+            new PayeeInfo(_swedbankPayOptions.PayeeReference)
             {
-                PayeeId = _payeeInfoOptions.PayeeId
+                PayeeId = _swedbankPayOptions.PayeeId
             })
         {
             RecurrenceToken = recurrenceToken,
@@ -316,9 +318,9 @@ public class PaymentController : Controller
         var request = new PaymentOrderRequest(Operation.UnscheduledPurchase, new Currency("SEK"),
             new Amount(order.Lines.Sum(e => e.Quantity * e.Product.Price)),
             new Amount(0), description, "userAgent", new Language("sv-SE"), urls,
-            new PayeeInfo(_payeeInfoOptions.PayeeReference)
+            new PayeeInfo(_swedbankPayOptions.PayeeReference)
             {
-                PayeeId = _payeeInfoOptions.PayeeId
+                PayeeId = _swedbankPayOptions.PayeeId
             })
         {
             UnscheduledToken = recurrenceToken,
