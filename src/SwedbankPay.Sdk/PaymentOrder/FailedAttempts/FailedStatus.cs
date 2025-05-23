@@ -24,8 +24,13 @@ public sealed class FailedStatus : TypeSafeEnum<FailedStatus>
     /// Converts from a <c>string</c> to a <see cref="SwedbankPay.Sdk.Status"/>.
     /// </summary>
     /// <param name="originalState">he API value of the state.</param>
-    public static implicit operator FailedStatus(string originalState)
+    public static implicit operator FailedStatus?(string? originalState)
     {
+        if (string.IsNullOrWhiteSpace(originalState))
+        {
+            return null;
+        }
+        
         return originalState switch
         {
             "Aborted" => Aborted,
