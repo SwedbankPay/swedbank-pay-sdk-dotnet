@@ -9,30 +9,30 @@ using Microsoft.Extensions.Logging;
 using Sample.AspNetCore.Models;
 using Sample.AspNetCore.Models.ViewModels;
 
-using SwedbankPay.Sdk;
+using SwedbankPay.Sdk.Extensions;
 using SwedbankPay.Sdk.PaymentOrder.OperationRequest.RemoveToken;
 
 namespace Sample.AspNetCore.Controllers;
 
 public class TokensController : Controller
 {
-    private readonly ISwedbankPayClient _swedbankPayClient;
+    private readonly ISwedbankPayClientFactory _swedbankPayClientFactory;
     private readonly ILogger<TokensController> _logger;
     private readonly Cart _cart;
-    private readonly Merchant _merchantService;
     private readonly PayerReference _payerReference;
+    private readonly Merchant _merchantService;
 
-    public TokensController(ISwedbankPayClient swedbankPayClient,
+    public TokensController(ISwedbankPayClientFactory swedbankPayClientFactory,
         ILogger<TokensController> logger,
         Cart cart,
-        Merchant merchantService,
-        PayerReference payerReference)
+        PayerReference payerReference,
+        Merchant merchantService)
     {
-        _swedbankPayClient = swedbankPayClient;
+        _swedbankPayClientFactory = swedbankPayClientFactory;
         _logger = logger;
         _cart = cart;
-        _merchantService = merchantService;
         _payerReference = payerReference;
+        _merchantService = merchantService;
     }
 
 
@@ -112,7 +112,8 @@ public class TokensController : Controller
 
         try
         {
-            var tokenResponse = await _swedbankPayClient.PaymentOrders.GetOwnedTokens(_payerReference.Id, _merchantService.MerchantId);
+            var swedbankPayClient = _swedbankPayClientFactory.CreateClient(_merchantService.Token);
+            var tokenResponse = await swedbankPayClient.PaymentOrders.GetOwnedTokens(_payerReference.Id);
             viewModel.Id = tokenResponse?.Id;
             viewModel.PayerReference = tokenResponse?.PayerReference;
             viewModel.Tokens = tokenResponse?.Tokens;

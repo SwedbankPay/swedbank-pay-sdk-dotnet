@@ -5,9 +5,10 @@ namespace Sample.AspNetCore.Models;
 
 public class Merchant
 {
-    public List<string> AvailableMerchants { get; set; }
+    public List<MerchantConfig> AvailableMerchants { get; set; }
     
     public string? PayeeId { get; set; }
+    public string? Token { get; set; }
     
     public string? _merchantId;
     public string? MerchantId
@@ -17,7 +18,7 @@ public class Merchant
             if (string.IsNullOrWhiteSpace(_merchantId))
             {
                 _merchantId = AvailableMerchants != null && AvailableMerchants.Any() 
-                    ? AvailableMerchants?.FirstOrDefault() 
+                    ? AvailableMerchants?.FirstOrDefault()?.PayeeId 
                     : null;
             }
     
@@ -26,9 +27,12 @@ public class Merchant
         set => _merchantId = value;
     } 
     
-    public virtual void SetMerchant(string? merchantId)
+    public virtual void SetMerchant(string merchantId)
     {
-        PayeeId = merchantId;
-        MerchantId = merchantId;
+        var merchantConfig = AvailableMerchants.FirstOrDefault(x => x.PayeeId == merchantId);
+        
+        PayeeId = merchantConfig?.PayeeId;
+        MerchantId = merchantConfig?.PayeeId;
+        Token = merchantConfig?.Token;
     }
 }

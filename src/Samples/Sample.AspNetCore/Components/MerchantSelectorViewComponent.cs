@@ -9,11 +9,11 @@ namespace Sample.AspNetCore.Components;
 public class MerchantSelectorViewComponent : ViewComponent
 {
     private readonly Merchant _merchantService;
-    private readonly SwedbankPayConfig _options;
+    private readonly SwedbankPayConnectionSettings _options;
 
     public MerchantSelectorViewComponent(
         Merchant merchantService,
-        IOptionsSnapshot<SwedbankPayConfig> options)
+        IOptionsSnapshot<SwedbankPayConnectionSettings> options)
     {
         _merchantService = merchantService;
         _options = options.Value;
