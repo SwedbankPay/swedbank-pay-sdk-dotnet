@@ -1,5 +1,4 @@
 using System.Net;
-using System.Net.Http.Headers;
 using System.Text.Json;
 
 using SwedbankPay.Sdk.Exceptions;
@@ -417,7 +416,7 @@ public class PaymentOrderTests : ResourceTestsBase
                                                                         ]
                                                                       }
                                                                       """;
-    
+
     private static Uri GetUri() => new("http://api.externalintegration.payex.com", UriKind.Absolute);
 
     private readonly PaymentOrderRequestBuilder _paymentOrderRequestBuilder = new();
@@ -540,8 +539,7 @@ public class PaymentOrderTests : ResourceTestsBase
         var handler = new FakeDelegatingHandler();
         var client = new HttpClient(handler)
         {
-            BaseAddress = GetUri(),
-            DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", "token") }
+            BaseAddress = GetUri()
         };
         handler.FakeResponseList.Add(new HttpResponseMessage
         {
@@ -577,8 +575,7 @@ public class PaymentOrderTests : ResourceTestsBase
         var handler = new FakeDelegatingHandler();
         var client = new HttpClient(handler)
         {
-            BaseAddress = GetUri(),
-            DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", "token") }
+            BaseAddress = GetUri()
         };
         handler.FakeResponseList.Add(new HttpResponseMessage
         {
@@ -626,8 +623,7 @@ public class PaymentOrderTests : ResourceTestsBase
         var handler = new FakeDelegatingHandler();
         var client = new HttpClient(handler)
         {
-            BaseAddress = GetUri(),
-            DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", "token") }
+            BaseAddress = GetUri()
         };
         handler.FakeResponseList.Add(new HttpResponseMessage
         {

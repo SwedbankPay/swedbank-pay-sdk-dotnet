@@ -2,9 +2,3 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-
-var updateSettings = function(element) {
-    let form = element.closest('form');
-    form.find('[type="hidden"]:first').val(element.html());
-    form.submit();
-};

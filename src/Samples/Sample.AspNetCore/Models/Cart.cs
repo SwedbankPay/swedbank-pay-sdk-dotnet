@@ -21,6 +21,7 @@ public class Cart
     public string ConsumerUiScriptSource { get; set; }
     public string ConsumerProfileRef { get; set; }
 
+
     public virtual void AddItem(Product product, int quantity)
     {
         var line = CartLineCollection.FirstOrDefault(p => p.Product.ProductId == product.ProductId);
@@ -68,6 +69,7 @@ public class Cart
             }
         }
     }
+
 
     public virtual void Update()
     {
