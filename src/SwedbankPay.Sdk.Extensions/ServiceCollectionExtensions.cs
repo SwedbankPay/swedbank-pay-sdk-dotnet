@@ -1,25 +1,23 @@
-using System.Net;
 using System.Net.Http.Headers;
 
 using Microsoft.Extensions.DependencyInjection;
 
 using SwedbankPay.Sdk.Infrastructure;
-using SwedbankPay.Sdk.Infrastructure.PaymentOrder;
-using SwedbankPay.Sdk.PaymentOrder;
 
 namespace SwedbankPay.Sdk.Extensions;
 
 public static class ServiceCollectionExtensions
 {
     /// <summary>
-    /// Configures the named HttpClient <seealso cref="SwedbankPay.Sdk.Infrastructure.SwedbankPayClient"/> with <paramref name="baseAddress"/>
-    ///    and default <seealso cref="Authorization"/> to be <paramref name="authenticationToken"/>.
-    ///    This also configures up a <seealso cref="LoggingDelegatingHandler"/> to log on exceptions.
+    /// Configures the named HttpClient for the <seealso cref="SwedbankPay.Sdk.Infrastructure.SwedbankPayClient"/> with the specified <paramref name="baseAddress"/> and <paramref name="authenticationToken"/>.
+    /// This also configures a default request header for JSON-based API communication and sets the authentication token.
     /// </summary>
-    /// <param name="services"></param>
-    /// <param name="baseAddress"></param>
-    /// <param name="authenticationToken"></param>
-    /// <returns></returns>
+    /// <param name="services">The <see cref="IServiceCollection"/> to add the services to.</param>
+    /// <param name="baseAddress">The base address of the SwedbankPay API.</param>
+    /// <param name="authenticationToken">The authentication token for authorizing requests to the SwedbankPay API.</param>
+    /// <returns>A configured <see cref="IHttpClientBuilder"/> instance for the SwedbankPay client.</returns>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="authenticationToken"/> is null or empty.</exception>
+    /// <exception cref="ArgumentException">Thrown when <paramref name="baseAddress"/> is not well-formed or not an absolute URI.</exception>
     public static IHttpClientBuilder AddSwedbankPayClient(this IServiceCollection services, Uri baseAddress,
         string authenticationToken)
     {
@@ -40,46 +38,30 @@ public static class ServiceCollectionExtensions
             a.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authenticationToken);
         });
     }
-    
-    
-    public static void AddSwedbankPayClients(this IServiceCollection services, Uri baseAddress,
-        IEnumerable<MerchantConfig> merchants)
+
+
+    /// <summary>
+    /// Configures the named HttpClient for the <seealso cref="SwedbankPay.Sdk.Infrastructure.SwedbankPayClient"/> with the specified <paramref name="baseAddress"/>.
+    /// This also configures a default request header for JSON-based API communication.
+    /// </summary>
+    /// <param name="services">The <see cref="IServiceCollection"/> to add the services to.</param>
+    /// <param name="baseAddress">The base address of the SwedbankPay API.</param>
+    /// <returns>A configured <see cref="IHttpClientBuilder"/> instance for the SwedbankPay client.</returns>
+    /// <exception cref="ArgumentException">Thrown when <paramref name="baseAddress"/> is not well-formed or not an absolute URI.</exception>
+    public static IHttpClientBuilder AddSwedbankPayClient(this IServiceCollection services, Uri baseAddress)
     {
         if (Uri.IsWellFormedUriString(baseAddress.OriginalString, UriKind.Absolute) == false)
         {
             throw new ArgumentException($"{nameof(baseAddress)} is not a well formed and absolute {nameof(Uri)}.");
         }
-        
-        services.AddScoped<LoggingDelegatingHandler>();
-        
-        foreach (var merchant in merchants)
-        {
-            if (string.IsNullOrWhiteSpace(merchant.Token))
-            {
-                throw new ArgumentNullException(nameof(merchant.Token));
-            }
 
-            AddNamedClientAndHandler(services, merchant.PayeeId, a =>
-            {
-                a.BaseAddress = baseAddress;
-                a.DefaultRequestHeaders.Add("Accept", "application/json;version=3.1");
-                a.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", merchant.Token);
-            });
-        }
-    }
-    
-    
-    private static void AddNamedClientAndHandler(IServiceCollection services, string clientName,
-        Action<HttpClient> configureClient)
-    {
-        services.AddScoped<ISwedbankPayClient, SwedbankPayClient>(a =>
+        return AddClientAndHandler(services, a =>
         {
-            var httpClientFactory = a.GetRequiredService<IHttpClientFactory>();
-            return new SwedbankPayClient(httpClientFactory);
+            a.BaseAddress = baseAddress;
+            a.DefaultRequestHeaders.Add("Accept", "application/json;version=3.1");
         });
-
-        services.AddHttpClient<SwedbankPayClient>(clientName, configureClient).AddHttpMessageHandler<LoggingDelegatingHandler>();
     }
+
 
     /// <summary>
     /// Configures the named HttpClient <seealso cref="SwedbankPay.Sdk.Infrastructure.SwedbankPayClient"/> with <paramref name="configureClient"/>.
@@ -110,8 +92,10 @@ public static class ServiceCollectionExtensions
     private static IHttpClientBuilder AddClientAndHandler(IServiceCollection services,
         Action<HttpClient> configureClient)
     {
+        services.AddScoped<ISwedbankPayClientFactory, SwedbankPayClientFactory>();
+        
         services.AddScoped<LoggingDelegatingHandler>();
-
+        
         services.AddScoped<ISwedbankPayClient, SwedbankPayClient>(a =>
         {
             var httpClientFactory = a.GetRequiredService<IHttpClientFactory>();
@@ -126,10 +110,9 @@ public static class ServiceCollectionExtensions
     private static IHttpClientBuilder AddClientAndHandler(IServiceCollection services,
         Action<IServiceProvider, HttpClient> configureClient)
     {
+        services.AddScoped<ISwedbankPayClientFactory, SwedbankPayClientFactory>();
+        
         services.AddScoped<LoggingDelegatingHandler>();
-
-        services.AddHttpClient<IPaymentOrdersResource, PaymentOrdersResource>(configureClient)
-            .AddHttpMessageHandler<LoggingDelegatingHandler>();
 
         services.AddScoped<ISwedbankPayClient, SwedbankPayClient>(a =>
         {

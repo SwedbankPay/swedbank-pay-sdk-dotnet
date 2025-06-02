@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 
-using SwedbankPay.Sdk.Extensions;
-
 namespace Sample.AspNetCore.Models.ViewModels;
 
 public class MerchantSelectorViewModel

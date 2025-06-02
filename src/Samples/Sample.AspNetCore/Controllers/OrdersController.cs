@@ -11,24 +11,24 @@ using Sample.AspNetCore.Models;
 using Sample.AspNetCore.Models.ViewModels;
 
 using SwedbankPay.Sdk;
+using SwedbankPay.Sdk.Extensions;
 using SwedbankPay.Sdk.PaymentOrder;
 
 namespace Sample.AspNetCore.Controllers;
 
 public class OrdersController : Controller
 {
-    private readonly Merchant _merchantService;
     private readonly StoreDbContext _storeDbContext;
-    private readonly ISwedbankPayClient _swedbankPayClient;
+    private readonly ISwedbankPayClientFactory _swedbankPayClientFactory;
+    private readonly Merchant _merchantService;
 
-    public OrdersController(
-        Merchant merchantService,
-        StoreDbContext storeDbStoreDbContext,
-        ISwedbankPayClient swedbankPayClient)
+    public OrdersController(StoreDbContext storeDbStoreDbContext,
+        ISwedbankPayClientFactory swedbankPayClientFactory,
+        Merchant merchantService)
     {
-        _merchantService = merchantService;
         _storeDbContext = storeDbStoreDbContext;
-        _swedbankPayClient = swedbankPayClient;
+        _swedbankPayClientFactory = swedbankPayClientFactory;
+        _merchantService = merchantService;
     }
 
 
@@ -79,8 +79,7 @@ public class OrdersController : Controller
     public async Task<IActionResult> Create([Bind("Id,PaymentOrderId")] Order order)
     {
         if (ModelState.IsValid)
-        {
-            order.MerchantId = _merchantService.MerchantId;
+        {   
             _storeDbContext.Add(order);
             await _storeDbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -95,6 +94,7 @@ public class OrdersController : Controller
     {
         var orders = await _storeDbContext.Orders.Where(x => x.MerchantId == _merchantService.MerchantId).ToListAsync();
 
+
         var completedPayments = new List<OrderViewModel>();
 
         foreach (var order in orders)
@@ -103,7 +103,8 @@ public class OrdersController : Controller
             string recurringToken = null;
             if (order.PaymentOrderLink != null)
             {
-                var paymentOrder = await _swedbankPayClient.PaymentOrders.Get(order.PaymentOrderLink, _merchantService.MerchantId, PaymentOrderExpand.All);
+                var swedbankPayClient = _swedbankPayClientFactory.CreateClient(_merchantService.Token);
+                var paymentOrder = await swedbankPayClient.PaymentOrders.Get(order.PaymentOrderLink, PaymentOrderExpand.All);
                 var paymentOrderOperations = paymentOrder?.Operations.Select(x => x.Value);
                 operations = paymentOrderOperations?.ToList() ?? [];
 

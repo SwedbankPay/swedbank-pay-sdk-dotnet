@@ -1,4 +1,4 @@
-namespace SwedbankPay.Sdk.Extensions;
+namespace Sample.AspNetCore.Models;
 
 public class MerchantConfig
 {

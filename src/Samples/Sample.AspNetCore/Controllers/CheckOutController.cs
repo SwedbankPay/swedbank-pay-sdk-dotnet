@@ -14,6 +14,7 @@ using Sample.AspNetCore.Extensions;
 using Sample.AspNetCore.Models;
 
 using SwedbankPay.Sdk;
+using SwedbankPay.Sdk.Extensions;
 using SwedbankPay.Sdk.PaymentOrder;
 using SwedbankPay.Sdk.PaymentOrder.OperationRequest.Abort;
 using SwedbankPay.Sdk.PaymentOrder.OperationRequest.Update;
@@ -26,34 +27,33 @@ namespace Sample.AspNetCore.Controllers;
 public class CheckOutController : Controller
 {
     private readonly Cart _cartService;
-    private readonly Merchant _merchantService;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly ILogger<CheckOutController> _logger;
     private readonly StoreDbContext _context;
-    private readonly SwedbankPayConfig _swedbankPayOptions;
-    private readonly ISwedbankPayClient _swedbankPayClient;
+    private readonly ISwedbankPayClientFactory _swedbankPayClientFactory;
     private readonly PayerReference _payerReference;
+    private readonly Merchant _merchantService;
     private readonly UrlsOptions _urls;
 
-    public CheckOutController(IOptionsSnapshot<SwedbankPayConfig> payeeInfoOptionsAccessor,
+
+    public CheckOutController(
         IOptionsSnapshot<UrlsOptions> urlsAccessor,
         Cart cart,
-        Merchant merchantService,
         IHttpContextAccessor httpContextAccessor,
         ILogger<CheckOutController> logger,
         StoreDbContext storeDbContext,
-        ISwedbankPayClient payClient,
-        PayerReference payerReference)
+        ISwedbankPayClientFactory payClientFactory,
+        PayerReference payerReference,
+        Merchant merchantService)
     {
-        _swedbankPayOptions = payeeInfoOptionsAccessor.Value;
         _urls = urlsAccessor.Value;
         _cartService = cart;
-        _merchantService = merchantService;
         _httpContextAccessor = httpContextAccessor;
         _logger = logger;
         _context = storeDbContext;
-        _swedbankPayClient = payClient;
+        _swedbankPayClientFactory = payClientFactory;
         _payerReference = payerReference;
+        _merchantService = merchantService;
     }
 
     public void Callback([FromBody] CallbackInfo callbackInfo)
@@ -85,7 +85,8 @@ public class CheckOutController : Controller
         bool? generateUnscheduledToken,
         Uri paymentUrl = null)
     {
-        var paymentOrder = await _swedbankPayClient.PaymentOrders.Get(orderId, _merchantService.MerchantId, PaymentOrderExpand.All);
+        var swedbankPayClient = _swedbankPayClientFactory.CreateClient(_merchantService.Token);
+        var paymentOrder = await swedbankPayClient.PaymentOrders.Get(orderId, PaymentOrderExpand.All);
         if (paymentOrder?.Operations.Update == null)
         {
             if (paymentOrder?.Operations.Abort != null)
@@ -169,7 +170,7 @@ public class CheckOutController : Controller
                 new Amount(0), "Test description", "useragent",
                 new Language("sv-SE"),
                 urls,
-                new PayeeInfo(_swedbankPayOptions.PayeeReference)
+                new PayeeInfo(DateTime.Now.Ticks.ToString())
                 {
                     PayeeId = _merchantService.PayeeId,
                     OrderReference = $"PO-{DateTime.UtcNow.Ticks}",
@@ -255,7 +256,8 @@ public class CheckOutController : Controller
                 paymentOrderRequest.PaymentToken ??= paymentToken;
             }
 
-            var paymentOrder = await _swedbankPayClient.PaymentOrders.Create(paymentOrderRequest, PaymentOrderExpand.All);
+            var swedbankPayClient = _swedbankPayClientFactory.CreateClient(_merchantService.Token);
+            var paymentOrder = await swedbankPayClient.PaymentOrders.Create(paymentOrderRequest, PaymentOrderExpand.All);
 
             _cartService.PaymentOrderLink = paymentOrder?.PaymentOrder.Id.OriginalString;
             _cartService.PaymentLink = null;
@@ -316,11 +318,11 @@ public class CheckOutController : Controller
 
             _context.Orders.Add(new Order
             {
+                MerchantId = _merchantService.MerchantId,
                 PaymentOrderLink = _cartService.PaymentOrderLink != null ? new Uri(_cartService.PaymentOrderLink, UriKind.RelativeOrAbsolute) : null,
                 PaymentLink = _cartService.PaymentLink != null ? new Uri(_cartService.PaymentLink, UriKind.RelativeOrAbsolute) : null,
                 // Instrument = this._cartService.Instrument,
-                Lines = _cartService.CartLines.ToList(),
-                MerchantId = _merchantService.MerchantId
+                Lines = _cartService.CartLines.ToList()
             });
             _context.SaveChanges(true);
             _cartService.Clear();
