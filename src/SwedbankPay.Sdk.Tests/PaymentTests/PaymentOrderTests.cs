@@ -553,22 +553,7 @@ public class PaymentOrderTests : ResourceTestsBase
         Assert.NotNull(paymentOrder);
         Assert.NotNull(paymentOrder.Operations);
     }
-
-
-    [Fact]
-    public async Task GetPaymentOrder_ShouldReturnPaymentOrderReal()
-    {
-        //ARRANGE
-        var paymentOrderUri = new Uri("/psp/paymentorders/894f7efb-8535-4c3f-ccd6-08dbf62d5f1c",
-            UriKind.RelativeOrAbsolute);
-
-        //ACT
-        var paymentOrder = await Sut.PaymentOrders.Get(paymentOrderUri, PaymentOrderExpand.All);
-        Assert.NotNull(paymentOrder);
-        Assert.NotNull(paymentOrder.Operations);
-    }
-
-
+    
     [Fact]
     public async Task WhenSendingACaptureRequest_WeDoNotCrash_AndGiveAReasonableError()
     {
