@@ -1,3 +1,4 @@
+using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
@@ -11,15 +12,18 @@ public static class HttpClientExtensions
     private static readonly JsonSerializerOptions? SerializationSettings = JsonSerialization.JsonSerialization.Settings;
 
     public static async Task<T?> GetAsJsonAsync<T>(this HttpClient httpClient, Uri uri)
-    {
-        using var apiResponse = await httpClient.GetAsync(uri);
-        return await ProcessResponse<T>(apiResponse, httpClient, uri);
-    }
-
-    public static Task<T?> PostAsJsonAsync<T>(this HttpClient httpClient, Uri uri, object? payload)
         where T : class
     {
-        return httpClient.SendAndProcessAsync<T>(HttpMethod.Post, uri, payload);
+        using var apiResponse = await httpClient.GetAsync(uri);
+        var (_, body) = await ProcessResponse<T>(apiResponse, httpClient, uri);
+        return body;
+    }
+
+    public static async Task<T?> PostAsJsonAsync<T>(this HttpClient httpClient, Uri uri, object? payload)
+        where T : class
+    {
+        var (_, body) = await httpClient.SendAndProcessAsync<T>(HttpMethod.Post, uri, payload);
+        return body;
     }
 
     public static Task<T?> SendAsJsonAsync<T>(this HttpClient httpClient, HttpMethod httpMethod, Uri uri)
@@ -27,14 +31,15 @@ public static class HttpClientExtensions
     {
         return SendAsJsonAsync<T>(httpClient, httpMethod, uri, null);
     }
-    
-    public static Task<T?> SendAsJsonAsync<T>(this HttpClient httpClient, HttpMethod httpMethod, Uri uri, object? payload)
+
+    public static async Task<T?> SendAsJsonAsync<T>(this HttpClient httpClient, HttpMethod httpMethod, Uri uri, object? payload)
         where T : class
     {
-        return httpClient.SendAndProcessAsync<T>(httpMethod, uri, payload);
+        var (_, body) = await httpClient.SendAndProcessAsync<T>(httpMethod, uri, payload);
+        return body;
     }
 
-    private static async Task<T?> SendAndProcessAsync<T>(this HttpClient httpClient, HttpMethod httpMethod, Uri uri,
+    internal static async Task<(HttpStatusCode StatusCode, T? Body)> SendAndProcessAsync<T>(this HttpClient httpClient, HttpMethod httpMethod, Uri uri,
         object? payload = null)
         where T : class
     {
@@ -52,7 +57,8 @@ public static class HttpClientExtensions
         return await ProcessResponse<T>(httpResponseMessage, httpClient, uri);
     }
 
-    private static async Task<T?> ProcessResponse<T>(HttpResponseMessage httpResponseMessage, HttpClient httpClient, Uri uri)
+    private static async Task<(HttpStatusCode StatusCode, T? Body)> ProcessResponse<T>(HttpResponseMessage httpResponseMessage, HttpClient httpClient, Uri uri)
+        where T : class
     {
         var httpResponseContent = await httpResponseMessage.Content.ReadAsStringAsync();
         if (!httpResponseMessage.IsSuccessStatusCode)
@@ -60,7 +66,8 @@ public static class HttpClientExtensions
             HandleUnsuccessfulResponse(httpResponseContent, httpResponseMessage, httpClient, uri);
         }
 
-        return JsonSerializer.Deserialize<T>(httpResponseContent, SerializationSettings);
+        var body = JsonSerializer.Deserialize<T>(httpResponseContent, SerializationSettings);
+        return (httpResponseMessage.StatusCode, body);
     }
 
     private static void HandleUnsuccessfulResponse(string httpResponseContent, HttpResponseMessage httpResponseMessage, HttpClient httpClient, Uri uri)
@@ -77,7 +84,7 @@ public static class HttpClientExtensions
             errorMessage = BuildErrorMessage(httpResponseContent, httpClient, httpResponseMessage);
             throw new HttpResponseException(httpResponseMessage, problem, errorMessage);
         }
-        
+
         if (!string.IsNullOrEmpty(httpResponseContent))
         {
             problemResponseDto = JsonSerializer.Deserialize<ProblemDto>(httpResponseContent, SerializationSettings)?.Map();
@@ -97,7 +104,7 @@ public static class HttpClientExtensions
         return
             $"{httpResponseMessage.RequestMessage?.Method}: {httpResponseMessage.RequestMessage?.RequestUri} failed with error code {httpResponseMessage.StatusCode} using bearer token {httpClient.DefaultRequestHeaders?.Authorization?.Parameter}. Response body: {httpResponseBody}";
     }
-    
+
     private static string BuildErrorMessage(string httpResponseBody, Uri uri, HttpResponseMessage httpResponse)
     {
         return $"GET: {uri} failed with error code {httpResponse.StatusCode}. Response body: {httpResponseBody}";
