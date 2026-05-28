@@ -15,43 +15,42 @@ describe('Pay with Swish', () => {
 
         new SwedbankBlock().payWithSwedbank(PaymentMethods.swish);
 
-        cy.get('h2', {timeout: 30000}).then(($h) => {
-            expect($h).to.contain('Thanks!');
+        cy.url({timeout: 60000}).should('contain', '/Checkout/Thankyou');
+        cy.contains('h2', 'Thanks!', {timeout: 30000});
 
-            cy.getByAutomation('paymentorderlink').then(($paymentOrderLink) => {
-                let paymentOrderLink = $paymentOrderLink.text();
-                cy.getByAutomation('orderslink', true, {timeout: 30000}).click();
+        cy.getByAutomation('paymentorderlink').then(($paymentOrderLink) => {
+            let paymentOrderLink = $paymentOrderLink.text();
+            cy.getByAutomation('orderslink', true, {timeout: 30000}).click();
 
-                cy.getPaymentOrder(paymentOrderLink).then((response) => {
-                    expect(response.status).to.eq(200);
-                    let responseBody = response.body;
+            cy.getPaymentOrder(paymentOrderLink).then((response) => {
+                expect(response.status).to.eq(200);
+                let responseBody = response.body;
 
-                    expect(responseBody.paymentOrder.status.value).to.eq('Paid');
-                    expect(responseBody.paymentOrder.paid.instrument.value).to.eq('Swish');
-                    expect(responseBody.paymentOrder.paid.transactionType.value).to.eq('Sale');
-                    expect(responseBody.paymentOrder.paid.details.msisdn.value).to.eq(Data.payment.swishPhone);
-                    expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[0].type.value).to.eq('Sale');
+                expect(responseBody.paymentOrder.status.value).to.eq('Paid');
+                expect(responseBody.paymentOrder.paid.instrument.value).to.eq('Swish');
+                expect(responseBody.paymentOrder.paid.transactionType.value).to.eq('Sale');
+                expect(responseBody.paymentOrder.paid.details.msisdn.value).to.eq(Data.payment.swishPhone);
+                expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[0].type.value).to.eq('Sale');
 
-                    expect(responseBody.operations.capture).to.be.undefined;
-                    expect(responseBody.operations.reversal).to.not.be.undefined;
-                });
-                
-                
-                cy.get('[data-paymentorderlink="' + paymentOrderLink + '"]').within(($paymentOrder) => {
-                    cy.getByAutomation('a-paymentorderreversal').should('be.visible').click();
-                });
+                expect(responseBody.operations.capture).to.be.undefined;
+                expect(responseBody.operations.reversal).to.not.be.undefined;
+            });
 
-                cy.get('.alert.alert-success', {timeout: 5000}).should('have.class', 'alert-success');
 
-                cy.getPaymentOrder(paymentOrderLink).then((response) => {
-                    expect(response.status).to.eq(200);
-                    let responseBody = response.body;
-                    expect(responseBody.paymentOrder.status.value).to.eq('Reversed');
-                    expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[1].type.value).to.eq('Reversal');
-                    expect(responseBody.operations.capture).to.be.undefined;
-                    expect(responseBody.operations.reversal).to.be.undefined;
-                });
-            })
+            cy.get('[data-paymentorderlink="' + paymentOrderLink + '"]').within(($paymentOrder) => {
+                cy.getByAutomation('a-paymentorderreversal').should('be.visible').click();
+            });
+
+            cy.get('.alert.alert-success', {timeout: 5000}).should('have.class', 'alert-success');
+
+            cy.getPaymentOrder(paymentOrderLink).then((response) => {
+                expect(response.status).to.eq(200);
+                let responseBody = response.body;
+                expect(responseBody.paymentOrder.status.value).to.eq('Reversed');
+                expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[1].type.value).to.eq('Reversal');
+                expect(responseBody.operations.capture).to.be.undefined;
+                expect(responseBody.operations.reversal).to.be.undefined;
+            });
         });
     })
 }) 
