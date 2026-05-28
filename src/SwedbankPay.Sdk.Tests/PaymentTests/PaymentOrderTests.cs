@@ -685,7 +685,7 @@ public class PaymentOrderTests : ResourceTestsBase
         var result = await sut!.Operations.Reverse!.Invoke(reversalRequest);
 
         Assert.NotNull(result);
-        Assert.Equal(HttpStatusCode.Accepted, result.StatusCode);
+        Assert.True(result.IsPending);
     }
 
     [Fact]
