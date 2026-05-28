@@ -166,6 +166,7 @@ public class PaymentController : Controller
             
             _context.Orders.Add(new Order
             {
+                MerchantId = _merchantService.MerchantId,
                 PaymentOrderLink = response?.PaymentOrder.Id,
                 Lines = response?.PaymentOrder.OrderItems?.OrderItemList?.Select(x =>
                 {
@@ -202,6 +203,7 @@ public class PaymentController : Controller
 
             _context.Orders.Add(new Order
             {
+                MerchantId = _merchantService.MerchantId,
                 PaymentOrderLink = response?.PaymentOrder.Id,
                 Lines = response?.PaymentOrder.OrderItems?.OrderItemList?.Select(x =>
                 {
