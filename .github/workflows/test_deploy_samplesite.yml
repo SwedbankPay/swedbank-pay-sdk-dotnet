@@ -7,8 +7,8 @@ on:
 
 env:
   dotnetVersion: |
-    6.x
     8.x
+    10.x
 
 jobs:
   test-unit-ui:
@@ -28,16 +28,16 @@ jobs:
    
     steps:
       - name: "Get information about the origin 'CI' run"
-        uses: potiuk/get-workflow-origin@v1_5
+        uses: potiuk/get-workflow-origin@e2dae063368361e4cd1f510e8785cd73bca9352e # v1_5
         id: source-run-info
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           sourceRunId: ${{ github.event.workflow_run.id }}
      
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
                     
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4
         with:
           dotnet-version: ${{ env.dotnetVersion }}
 
@@ -54,7 +54,7 @@ jobs:
           dotnet test ./src/SwedbankPay.Sdk.Tests/SwedbankPay.Sdk.Tests.csproj
 
       - name: Cypress run
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@f790eee7a50d9505912f50c2095510be7de06aa7 # v6.10.9
         with:
           working-directory: ./src/Samples/Sample.AspNetCore.UiTests
           start: dotnet run --project ../Sample.AspNetCore/Sample.AspNetCore.csproj --urls https://localhost:5001 --SwedbankPay:PayeeId ${{ secrets.MERCHANT_PAYEEID }} --SwedbankPay:Token ${{ secrets.MERCHANT_TOKEN }}
@@ -65,7 +65,7 @@ jobs:
           
           
       - name: Upload Cypress artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         if: ${{ always() }}
         with:
           name: cypress-screenshots
@@ -74,7 +74,7 @@ jobs:
       
       - name: Commit Action Status
         if: ${{ always() }}
-        uses: LouisBrunner/checks-action@v2.0.0
+        uses: LouisBrunner/checks-action@6b626ffbad7cc56fd58627f774b9067e6118af23 # v2.0.0
         with:
           sha: ${{ steps.source-run-info.outputs.sourceHeadSha }}
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -91,7 +91,7 @@ jobs:
     steps:
       - name: Download artifact
         id: download-artifact
-        uses: dawidd6/action-download-artifact@v10
+        uses: dawidd6/action-download-artifact@4c1e823582f43b179e2cbb49c3eade4e41f992e2 # v10
         with:
           workflow_conclusion: success
           run_id: ${{ github.event.workflow_run.id }}
