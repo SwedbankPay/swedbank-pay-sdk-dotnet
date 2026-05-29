@@ -116,8 +116,14 @@ public class TokensController : Controller
             var tokenResponse = await swedbankPayClient.PaymentOrders.GetOwnedTokens(_payerReference.Id);
             viewModel.Id = tokenResponse?.Id;
             viewModel.PayerReference = tokenResponse?.PayerReference;
-            viewModel.Tokens = tokenResponse?.Tokens;
-            viewModel.OperationList = tokenResponse?.Operations;
+            if (tokenResponse?.Tokens != null)
+            {
+                viewModel.Tokens = tokenResponse.Tokens;
+            }
+            if (tokenResponse?.Operations != null)
+            {
+                viewModel.OperationList = tokenResponse.Operations;
+            }
             viewModel.Cart = _cart;
         }
         catch (Exception)

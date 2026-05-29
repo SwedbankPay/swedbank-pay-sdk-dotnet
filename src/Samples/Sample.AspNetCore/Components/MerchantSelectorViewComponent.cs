@@ -6,26 +6,20 @@ using Sample.AspNetCore.Models.ViewModels;
 
 namespace Sample.AspNetCore.Components;
 
-public class MerchantSelectorViewComponent : ViewComponent
+public class MerchantSelectorViewComponent(
+    Merchant merchantService,
+    IOptionsSnapshot<SwedbankPayConnectionSettings> options)
+    : ViewComponent
 {
-    private readonly Merchant _merchantService;
-    private readonly SwedbankPayConnectionSettings _options;
+    private readonly SwedbankPayConnectionSettings _options = options.Value;
 
-    public MerchantSelectorViewComponent(
-        Merchant merchantService,
-        IOptionsSnapshot<SwedbankPayConnectionSettings> options)
-    {
-        _merchantService = merchantService;
-        _options = options.Value;
-    }
-    
-    
+
     public IViewComponentResult Invoke()
     {
         var model = new MerchantSelectorViewModel
         {
-            SelectedMerchant = _merchantService.MerchantId,
-            Merchants = _options.Merchants
+            SelectedMerchant = merchantService.MerchantId,
+            Merchants = _options.Merchants ?? []
         };
         
         return View(model);

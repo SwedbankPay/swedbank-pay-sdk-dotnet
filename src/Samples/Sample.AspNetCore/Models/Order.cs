@@ -7,13 +7,13 @@ namespace Sample.AspNetCore.Models;
 
 public class Order
 {
-    [BindNever] public ICollection<CartLine> Lines { get; set; }
+    [BindNever] public ICollection<CartLine> Lines { get; set; } = new List<CartLine>();
 
     [BindNever] public int OrderId { get; set; }
 
-    public Uri PaymentLink { get; set; }
+    public Uri? PaymentLink { get; set; }
 
-    public Uri PaymentOrderLink { get; set; }
+    public Uri? PaymentOrderLink { get; set; }
     
     public string MerchantId { get; set; } = null!;
 }

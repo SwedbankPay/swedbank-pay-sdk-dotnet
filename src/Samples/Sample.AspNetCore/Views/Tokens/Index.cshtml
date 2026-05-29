@@ -21,7 +21,7 @@
 </div>
 
 @{
-    void RenderInfo(string name, string value)
+    void RenderInfo(string name, string? value)
     {
         if (!string.IsNullOrWhiteSpace(value))
         {
@@ -50,7 +50,7 @@
                 {
                     <tr data-automation="@token.TokenType">
                         <td>
-                            @Html.DisplayFor(modelItem => token.Instrument.Value)
+                            @Html.DisplayFor(modelItem => token.Instrument!.Value)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => token.InstrumentDisplayName)
@@ -119,7 +119,7 @@
                 {
                     <tr data-automation="@token.TokenType">
                         <td>
-                            @Html.DisplayFor(modelItem => token.Instrument.Value)
+                            @Html.DisplayFor(modelItem => token.Instrument!.Value)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => token.InstrumentDisplayName)

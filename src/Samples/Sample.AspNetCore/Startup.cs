@@ -66,9 +66,10 @@ public class Startup
         var swedbankPayConSettings = Configuration.GetSection("SwedbankPay");
         services.Configure<SwedbankPayConnectionSettings>(swedbankPayConSettings);
 
-        var swedBankPayOptions = swedbankPayConSettings.Get<SwedbankPayConnectionSettings>();
+        var swedBankPayOptions = swedbankPayConSettings.Get<SwedbankPayConnectionSettings>()
+            ?? throw new InvalidOperationException("Missing SwedbankPay configuration section.");
         services.AddSingleton(s => swedBankPayOptions);
-        
+
         Console.WriteLine("Token: " + swedBankPayOptions.Token);
         Console.WriteLine("PayeeId: " + swedBankPayOptions.PayeeId);
 

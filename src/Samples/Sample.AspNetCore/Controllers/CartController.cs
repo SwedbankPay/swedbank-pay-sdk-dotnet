@@ -27,7 +27,10 @@ public class CartController : Controller
     {
         var productList = await _storesContext.Products.ToListAsync();
         var product = productList.FirstOrDefault(p => p.ProductId == id);
-        _cartService.AddItem(product, 1);
+        if (product != null)
+        {
+            _cartService.AddItem(product, 1);
+        }
 
         return RedirectToAction("Index", "Products");
     }

@@ -4,6 +4,6 @@ namespace Sample.AspNetCore.Models.ViewModels;
 
 public class MerchantSelectorViewModel
 {
-    public string SelectedMerchant { get; set; }
-    public IEnumerable<MerchantConfig> Merchants { get; set; }
+    public string? SelectedMerchant { get; set; }
+    public IEnumerable<MerchantConfig> Merchants { get; set; } = [];
 }

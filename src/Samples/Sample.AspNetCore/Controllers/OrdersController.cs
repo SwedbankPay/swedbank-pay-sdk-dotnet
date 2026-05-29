@@ -100,26 +100,26 @@ public class OrdersController : Controller
         foreach (var order in orders)
         {
             List<HttpOperation> operations = new List<HttpOperation>();
-            string recurringToken = null;
+            string? recurringToken = null;
             if (order.PaymentOrderLink != null)
             {
                 var swedbankPayClient = _swedbankPayClientFactory.CreateClient(_merchantService.Token);
                 var paymentOrder = await swedbankPayClient.PaymentOrders.Get(order.PaymentOrderLink, PaymentOrderExpand.All);
-                var paymentOrderOperations = paymentOrder?.Operations.Select(x => x.Value);
+                var paymentOrderOperations = paymentOrder?.Operations?.Select(x => x.Value).Where(x => x != null).Cast<HttpOperation>();
                 operations = paymentOrderOperations?.ToList() ?? [];
 
                 var recurringTokenItem = paymentOrder?.PaymentOrder.Paid?.Tokens?.FirstOrDefault(x => x.Type == "recurrence");
                 if (recurringTokenItem != null)
                 {
-                    var uri = new Uri("https://api.externalintegration.payex.com" + paymentOrder.PaymentOrder.Id);
+                    var uri = new Uri("https://api.externalintegration.payex.com" + paymentOrder!.PaymentOrder.Id);
                     operations.Add(new HttpOperation(uri, new LinkRelation("recurrence", "recurrence"), "POST", "text/html"));
                     recurringToken = recurringTokenItem.Token;
                 }
-                
+
                 var unscheduledTokenItem = paymentOrder?.PaymentOrder.Paid?.Tokens?.FirstOrDefault(x => x.Type == "unscheduled");
                 if (unscheduledTokenItem != null)
                 {
-                    var uri = new Uri("https://api.externalintegration.payex.com" + paymentOrder.PaymentOrder.Id);
+                    var uri = new Uri("https://api.externalintegration.payex.com" + paymentOrder!.PaymentOrder.Id);
                     operations.Add(new HttpOperation(uri, new LinkRelation("unscheduled", "unscheduled"), "POST", "text/html"));
                     recurringToken = unscheduledTokenItem.Token;
                 }

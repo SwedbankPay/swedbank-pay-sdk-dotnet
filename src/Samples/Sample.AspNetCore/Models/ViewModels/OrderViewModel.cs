@@ -5,8 +5,8 @@ namespace Sample.AspNetCore.Models.ViewModels;
 
 public class OrderViewModel
 {
-    public List<HttpOperation> OperationList { get; set; }
+    public List<HttpOperation> OperationList { get; set; } = [];
 
-    public Order Order { get; set; }
-    public string RecurringToken { get; set; }
+    public Order Order { get; set; } = null!;
+    public string? RecurringToken { get; set; }
 }

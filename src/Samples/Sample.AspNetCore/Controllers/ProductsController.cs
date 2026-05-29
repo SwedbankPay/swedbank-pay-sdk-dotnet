@@ -53,6 +53,10 @@ public class ProductsController : Controller
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
         var product = await _storeDbContext.Products.FindAsync(id);
+        if (product == null)
+        {
+            return NotFound();
+        }
         _storeDbContext.Products.Remove(product);
         await _storeDbContext.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
