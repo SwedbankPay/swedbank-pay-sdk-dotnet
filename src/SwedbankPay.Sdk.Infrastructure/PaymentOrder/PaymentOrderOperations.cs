@@ -62,8 +62,8 @@ internal class PaymentOrderOperations : OperationsBase, IPaymentOrderOperations
                     {
                         var url = httpOperation.Href.GetUrlWithQueryString(PaymentOrderExpand.All);
                         var requestDto = new PaymentOrderReversalRequestDto(payload);
-                        var dto = await httpClient.SendAsJsonAsync<PaymentOrderResponseDto>(httpOperation.Method, url, requestDto);
-                        return dto != null ? new PaymentOrderResponse(dto, httpClient) : null;
+                        var (statusCode, dto) = await httpClient.SendAndProcessAsync<PaymentOrderResponseDto>(httpOperation.Method, url, requestDto);
+                        return dto != null ? new PaymentOrderResponse(dto, httpClient, statusCode) : null;
                     };
                     break;
                 case PaymentOrderResourceOperations.RedirectCheckout:
