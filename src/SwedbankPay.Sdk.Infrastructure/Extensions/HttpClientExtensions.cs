@@ -6,29 +6,29 @@ using SwedbankPay.Sdk.Exceptions;
 
 namespace SwedbankPay.Sdk.Infrastructure.Extensions;
 
-public static class HttpClientExtensions
+internal static class HttpClientExtensions
 {
     private static readonly JsonSerializerOptions? SerializationSettings = JsonSerialization.JsonSerialization.Settings;
 
-    public static async Task<T?> GetAsJsonAsync<T>(this HttpClient httpClient, Uri uri)
+    internal static async Task<T?> GetAsJsonAsync<T>(this HttpClient httpClient, Uri uri)
     {
         using var apiResponse = await httpClient.GetAsync(uri);
         return await ProcessResponse<T>(apiResponse, httpClient, uri);
     }
 
-    public static Task<T?> PostAsJsonAsync<T>(this HttpClient httpClient, Uri uri, object? payload)
+    internal static Task<T?> PostAsJsonAsync<T>(this HttpClient httpClient, Uri uri, object? payload)
         where T : class
     {
         return httpClient.SendAndProcessAsync<T>(HttpMethod.Post, uri, payload);
     }
 
-    public static Task<T?> SendAsJsonAsync<T>(this HttpClient httpClient, HttpMethod httpMethod, Uri uri)
+    internal static Task<T?> SendAsJsonAsync<T>(this HttpClient httpClient, HttpMethod httpMethod, Uri uri)
         where T : class
     {
         return SendAsJsonAsync<T>(httpClient, httpMethod, uri, null);
     }
-    
-    public static Task<T?> SendAsJsonAsync<T>(this HttpClient httpClient, HttpMethod httpMethod, Uri uri, object? payload)
+
+    internal static Task<T?> SendAsJsonAsync<T>(this HttpClient httpClient, HttpMethod httpMethod, Uri uri, object? payload)
         where T : class
     {
         return httpClient.SendAndProcessAsync<T>(httpMethod, uri, payload);
