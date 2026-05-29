@@ -13,6 +13,12 @@ public sealed class TransactionType : TypeSafeEnum<TransactionType>
     /// </summary>
     public static readonly TransactionType Authorization = new TransactionType(nameof(Authorization), "Authorization");
     
+    
+    /// <summary>
+    /// Type of transaction is Verification.
+    /// </summary>
+    public static readonly TransactionType Verification = new TransactionType(nameof(Verification), "Verification");
+    
     /// <summary>
     /// Initializes a <see cref="name"/> with the provided parameters.
     /// </summary>
@@ -37,6 +43,7 @@ public sealed class TransactionType : TypeSafeEnum<TransactionType>
         {
             "Sale" => Sale,
             "Authorization" => Authorization,
+            "Verification" => Verification,
             
             _ => new TransactionType(originalState!, originalState!),
         };
