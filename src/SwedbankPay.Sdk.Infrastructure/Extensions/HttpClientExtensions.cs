@@ -11,27 +11,27 @@ internal static class HttpClientExtensions
 {
     private static readonly JsonSerializerOptions? SerializationSettings = JsonSerialization.JsonSerialization.Settings;
 
-    internal static async Task<T?> GetAsJsonAsync<T>(this HttpClient httpClient, Uri uri)
+    internal static async Task<T?> GetAsJsonAsync<T>(this HttpClient httpClient, Uri uri) where T : class
     {
         using var apiResponse = await httpClient.GetAsync(uri);
         var (_, body) = await ProcessResponse<T>(apiResponse, httpClient, uri);
         return body;
     }
 
-    internal static Task<T?> PostAsJsonAsync<T>(this HttpClient httpClient, Uri uri, object? payload)
+    internal static async Task<T?> PostAsJsonAsync<T>(this HttpClient httpClient, Uri uri, object? payload)
         where T : class
     {
         var (_, body) = await httpClient.SendAndProcessAsync<T>(HttpMethod.Post, uri, payload);
         return body;
     }
 
-    internal static Task<T?> SendAsJsonAsync<T>(this HttpClient httpClient, HttpMethod httpMethod, Uri uri)
+    internal static async Task<T?> SendAsJsonAsync<T>(this HttpClient httpClient, HttpMethod httpMethod, Uri uri)
         where T : class
     {
-        return SendAsJsonAsync<T>(httpClient, httpMethod, uri, null);
+        return await SendAsJsonAsync<T>(httpClient, httpMethod, uri, null);
     }
 
-    internal static Task<T?> SendAsJsonAsync<T>(this HttpClient httpClient, HttpMethod httpMethod, Uri uri, object? payload)
+    internal static  async Task<T?> SendAsJsonAsync<T>(this HttpClient httpClient, HttpMethod httpMethod, Uri uri, object? payload)
         where T : class
     {
         var (_, body) = await httpClient.SendAndProcessAsync<T>(httpMethod, uri, payload);
