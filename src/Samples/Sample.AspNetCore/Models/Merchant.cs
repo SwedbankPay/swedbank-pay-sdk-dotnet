@@ -5,7 +5,7 @@ namespace Sample.AspNetCore.Models;
 
 public class Merchant
 {
-    public List<MerchantConfig> AvailableMerchants { get; set; }
+    public List<MerchantConfig>? AvailableMerchants { get; set; }
     
     public string? PayeeId { get; set; }
     public string? Token { get; set; }
@@ -29,8 +29,8 @@ public class Merchant
     
     public virtual void SetMerchant(string merchantId)
     {
-        var merchantConfig = AvailableMerchants.FirstOrDefault(x => x.PayeeId == merchantId);
-        
+        var merchantConfig = AvailableMerchants?.FirstOrDefault(x => x.PayeeId == merchantId);
+
         PayeeId = merchantConfig?.PayeeId;
         MerchantId = merchantConfig?.PayeeId;
         Token = merchantConfig?.Token;

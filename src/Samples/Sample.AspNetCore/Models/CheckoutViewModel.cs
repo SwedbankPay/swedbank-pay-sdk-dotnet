@@ -2,5 +2,5 @@ namespace Sample.AspNetCore.Models;
 
 public class CheckoutViewModel
 {
-    public string PaymentOrderLink { get; set; }
+    public string? PaymentOrderLink { get; set; }
 }

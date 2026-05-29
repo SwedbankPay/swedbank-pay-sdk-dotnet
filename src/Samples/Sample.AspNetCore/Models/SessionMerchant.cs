@@ -14,21 +14,21 @@ public class SessionMerchant : Merchant
 {
     private const string MerchantSessionKey = "_Merchant";
     
-    [JsonIgnore] public ISession Session { get; set; }
-    
+    [JsonIgnore] public ISession Session { get; set; } = null!;
+
     public override void SetMerchant(string merchantId)
     {
         base.SetMerchant(merchantId);
         Session.SetJson(MerchantSessionKey, this);
     }
 
-    
+
     public static Merchant GetMerchant(IServiceProvider services)
     {
-        var session = services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
+        var session = services.GetRequiredService<IHttpContextAccessor>().HttpContext!.Session;
         var swedbankPayConfig = services.GetRequiredService<IOptionsSnapshot<SwedbankPayConnectionSettings>>();
 
-        var sessionMerchant = session?.GetJson<SessionMerchant>(MerchantSessionKey) ?? new SessionMerchant();
+        var sessionMerchant = session.GetJson<SessionMerchant>(MerchantSessionKey) ?? new SessionMerchant();
 
         sessionMerchant.AvailableMerchants = swedbankPayConfig.Value.Merchants?.ToList();
         sessionMerchant.Session = session;

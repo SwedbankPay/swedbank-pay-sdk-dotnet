@@ -15,11 +15,11 @@ public class Cart
         get => CartLineCollection;
         private set => CartLineCollection = value.ToList();
     }
-    public string PaymentOrderLink { get; set; }
-    public string PaymentLink { get; set; }
+    public string? PaymentOrderLink { get; set; }
+    public string? PaymentLink { get; set; }
     public bool Vat { get; set; }
-    public string ConsumerUiScriptSource { get; set; }
-    public string ConsumerProfileRef { get; set; }
+    public string? ConsumerUiScriptSource { get; set; }
+    public string? ConsumerProfileRef { get; set; }
 
 
     public virtual void AddItem(Product product, int quantity)
@@ -79,7 +79,7 @@ public class Cart
 public class CartLine
 {
     public int CartLineId { get; set; }
-    public Product Product { get; set; }
+    public Product Product { get; set; } = null!;
 
     [Required(ErrorMessage = "Please provide a number greater than zero!")]
     [Display(Name = "Unit quantity")]

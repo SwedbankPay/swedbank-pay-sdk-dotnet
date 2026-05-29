@@ -62,11 +62,16 @@ public class PaymentController : Controller
                 await swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute),
                     PaymentOrderExpand.All);
 
+            if (paymentOrder?.Operations?.Abort == null)
+            {
+                TempData["ErrorMessage"] = "Operation not available";
+                return RedirectToAction(nameof(Index), "Orders");
+            }
             var response = await paymentOrder.Operations.Abort(new PaymentOrderAbortRequest("CanceledByUser"));
 
-            TempData["PaymentOrderLink"] = response.PaymentOrder.Id.ToString();
+            TempData["PaymentOrderLink"] = response?.PaymentOrder.Id.ToString();
             TempData["AbortMessage"] =
-                $"Payment Order: {response.PaymentOrder.Id} has been {response.PaymentOrder.Status}";
+                $"Payment Order: {response?.PaymentOrder.Id} has been {response?.PaymentOrder.Status}";
             _cartService.PaymentOrderLink = null;
             _cartService.Update();
 
@@ -98,12 +103,12 @@ public class PaymentController : Controller
             var paymentOrder =
                 await swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
 
-            if (paymentOrder.Operations.Cancel != null)
+            if (paymentOrder?.Operations?.Cancel != null)
             {
                 var cancelRequest = new PaymentOrderCancelRequest("Cancelling parts of the total amount",
                     DateTime.Now.Ticks.ToString());
                 var response = await paymentOrder.Operations.Cancel(cancelRequest);
-                TempData["CancelMessage"] = $"Payment has been cancelled: {response.PaymentOrder.Cancelled.Id}";
+                TempData["CancelMessage"] = $"Payment has been cancelled: {response?.PaymentOrder.Cancelled?.Id}";
             }
             else
             {
@@ -132,12 +137,12 @@ public class PaymentController : Controller
             var paymentOrder =
                 await swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute));
 
-            if (paymentOrder?.Operations.Capture != null)
+            if (paymentOrder?.Operations?.Capture != null)
             {
                 var response = await paymentOrder.Operations.Capture(transActionRequestObject);
                 var financialTransactionListItem =
                     response?.PaymentOrder.FinancialTransactions?.FinancialTransactionsList?.FirstOrDefault(x =>
-                        x.Type.Equals(FinancialTransactionType.Capture));
+                        x.Type?.Equals(FinancialTransactionType.Capture) == true);
                 TempData["CaptureMessage"] =
                     $"{financialTransactionListItem?.Id}, {financialTransactionListItem?.Number}, {response?.PaymentOrder.Status}";
             }
@@ -166,7 +171,7 @@ public class PaymentController : Controller
             
             _context.Orders.Add(new Order
             {
-                MerchantId = _merchantService.MerchantId,
+                MerchantId = _merchantService.MerchantId ?? string.Empty,
                 PaymentOrderLink = response?.PaymentOrder.Id,
                 Lines = response?.PaymentOrder.OrderItems?.OrderItemList?.Select(x =>
                 {
@@ -175,9 +180,9 @@ public class PaymentController : Controller
                     return new CartLine
                     {
                         Quantity = (int)x.Quantity,
-                        Product = product
+                        Product = product!
                     };
-                }).ToList()
+                }).ToList() ?? []
             });
             _context.SaveChanges(true);
             TempData["PaymentOrderLink"] = response?.PaymentOrder.Id.ToString();
@@ -203,7 +208,7 @@ public class PaymentController : Controller
 
             _context.Orders.Add(new Order
             {
-                MerchantId = _merchantService.MerchantId,
+                MerchantId = _merchantService.MerchantId ?? string.Empty,
                 PaymentOrderLink = response?.PaymentOrder.Id,
                 Lines = response?.PaymentOrder.OrderItems?.OrderItemList?.Select(x =>
                 {
@@ -212,9 +217,9 @@ public class PaymentController : Controller
                     return new CartLine
                     {
                         Quantity = (int)x.Quantity,
-                        Product = product
+                        Product = product!
                     };
-                }).ToList()
+                }).ToList() ?? []
             });
             _context.SaveChanges(true);
             TempData["PaymentOrderLink"] = response?.PaymentOrder.Id.ToString();
@@ -262,12 +267,12 @@ public class PaymentController : Controller
                 await swedbankPayClient.PaymentOrders.Get(new Uri(paymentOrderId, UriKind.RelativeOrAbsolute),
                     PaymentOrderExpand.All);
 
-            if (paymentOrder?.Operations.Reverse != null)
+            if (paymentOrder?.Operations?.Reverse != null)
             {
                 var response = await paymentOrder.Operations.Reverse(transActionRequestObject);
                 var financialTransactionListItem =
                     response?.PaymentOrder.FinancialTransactions?.FinancialTransactionsList?.FirstOrDefault(x =>
-                        x.Type.Equals(FinancialTransactionType.Reversal));
+                        x.Type?.Equals(FinancialTransactionType.Reversal) == true);
                 TempData["ReversalMessage"] =
                     $"{financialTransactionListItem?.Id}, {financialTransactionListItem?.Number}, {response?.PaymentOrder.Status}";
             }
@@ -286,10 +291,11 @@ public class PaymentController : Controller
 
     private async Task<PaymentOrderRequest> GetRecurringRequest(string description, string recurrenceToken)
     {
-        var order = await _context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
+        var order = await _context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync()
+            ?? throw new InvalidOperationException("No order found.");
         var orderItems = order.Lines.ToOrderItems();
 
-        var urls = new Urls(_urls.HostUrls.ToList(), _urls.CompleteUrl, _urls.CallbackUrl)
+        var urls = new Urls(_urls.HostUrls?.ToList()!, _urls.CompleteUrl!, _urls.CallbackUrl!)
         {
             CancelUrl = _urls.CancelUrl
         };
@@ -315,10 +321,11 @@ public class PaymentController : Controller
 
     private async Task<PaymentOrderRequest> GetUnscheduledRequest(string description, string recurrenceToken)
     {
-        var order = await _context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync();
+        var order = await _context.Orders.Include(l => l.Lines).ThenInclude(p => p.Product).FirstOrDefaultAsync()
+            ?? throw new InvalidOperationException("No order found.");
         var orderItems = order.Lines.ToOrderItems();
 
-        var urls = new Urls(_urls.HostUrls.ToList(), _urls.CompleteUrl, _urls.CallbackUrl)
+        var urls = new Urls(_urls.HostUrls?.ToList()!, _urls.CompleteUrl!, _urls.CallbackUrl!)
         {
             CancelUrl = _urls.CancelUrl
         };
@@ -347,10 +354,11 @@ public class PaymentController : Controller
         string receiptReference)
     {
         var order = await _context.Orders.Where(x =>
-                x.PaymentOrderLink.ToString().Equals(paymentOrderId, StringComparison.InvariantCultureIgnoreCase))
+                x.PaymentOrderLink!.ToString().Equals(paymentOrderId, StringComparison.InvariantCultureIgnoreCase))
             .Include(l => l.Lines)
             .ThenInclude(p => p.Product)
-            .FirstOrDefaultAsync();
+            .FirstOrDefaultAsync()
+            ?? throw new InvalidOperationException("No order found.");
 
         var orderItems = order.Lines.ToOrderItems();
 
@@ -368,10 +376,11 @@ public class PaymentController : Controller
     private async Task<PaymentOrderReversalRequest> GetReversalRequest(string paymentOrderId, string description)
     {
         var order = await _context.Orders.Where(x =>
-                x.PaymentOrderLink.ToString().Equals(paymentOrderId, StringComparison.InvariantCultureIgnoreCase))
+                x.PaymentOrderLink!.ToString().Equals(paymentOrderId, StringComparison.InvariantCultureIgnoreCase))
             .Include(l => l.Lines)
             .ThenInclude(p => p.Product)
-            .FirstOrDefaultAsync();
+            .FirstOrDefaultAsync()
+            ?? throw new InvalidOperationException("No order found.");
 
         var orderItems = order.Lines.ToOrderItems();
 

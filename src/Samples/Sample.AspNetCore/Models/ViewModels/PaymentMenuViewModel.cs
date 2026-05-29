@@ -2,6 +2,6 @@
 
 public class PaymentMenuViewModel
 {
-    public string PaymentLink { get; set; }
-    public string JsSource { get; set; }
+    public string? PaymentLink { get; set; }
+    public string? JsSource { get; set; }
 }
