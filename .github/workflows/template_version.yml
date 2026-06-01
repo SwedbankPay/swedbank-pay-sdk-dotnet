@@ -3,9 +3,9 @@ name: Create version number
 on:
   workflow_call:
     outputs:
-      NUGETVERSIONV2:
+      nugetVersion:
         description: "Nuget version"
-        value: ${{ jobs.version.outputs.NUGETVERSIONV2 }}
+        value: ${{ jobs.version.outputs.nugetVersion }}
 
 permissions:
   contents: read
@@ -14,7 +14,9 @@ jobs:
   version:
     runs-on: ubuntu-latest
     outputs:
-      NUGETVERSIONV2: ${{ steps.gitversion.outputs.NUGETVERSIONV2 }}
+      # GitVersion 6 removed the NuGetVersionV2 variable; SemVer is the
+      # SemVer 2.0-compatible value for NuGet (no +buildmetadata, unlike FullSemVer).
+      nugetVersion: ${{ steps.gitversion.outputs.semVer }}
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -24,8 +26,8 @@ jobs:
       - name: Install GitVersion
         uses: gittools/actions/gitversion/setup@bc6623af8fc07d5a8903052dd46da33403eec8e8 # v4.5.0
         with:
-          versionSpec: '5.x'
- 
+          versionSpec: '6.x'
+
       - name: Use GitVersion
         id: gitversion # step id used as reference for output values
         uses: gittools/actions/gitversion/execute@bc6623af8fc07d5a8903052dd46da33403eec8e8 # v4.5.0
