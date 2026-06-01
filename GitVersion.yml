@@ -28,7 +28,7 @@ branches:
     is-release-branch: true
     pre-release-weight: 1000
   feature:
-    regex: ^feature?[/-]
+    regex: ^features?[\/-](?<BranchName>.+)
     mode: ManualDeployment
     label: alpha.{BranchName}
     increment: Inherit
@@ -38,7 +38,7 @@ branches:
     tracks-release-branches: false
     is-release-branch: false
   pull-request:
-    regex: ^(pull|pull\-requests|pr)[/-]
+    regex: ^(pull-requests|pull|pr)[\/-](?<Number>\d*)
     mode: ManualDeployment
     label: PullRequest{Number}
     increment: Inherit
