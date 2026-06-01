@@ -22,7 +22,7 @@ jobs:
     secrets: inherit
     with:
       Configuration: Release
-      NUGETVERSIONV2: ${{ needs.callVersion.outputs.NUGETVERSIONV2 }} 
+      nugetVersion: ${{ needs.callVersion.outputs.nugetVersion }} 
       SlnPath: ./src/SwedbankPay.Sdk.sln
       SdkCsprojPath: ./src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj
       SampleSiteCsprojPath: ./src/Samples/Sample.AspNetCore/Sample.AspNetCore.csproj

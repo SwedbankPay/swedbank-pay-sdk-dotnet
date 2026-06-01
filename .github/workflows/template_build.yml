@@ -6,7 +6,7 @@ on:
       Configuration:
         required: true
         type: string
-      NUGETVERSIONV2:
+      nugetVersion:
         required: true
         type: string
       SlnPath:
@@ -60,7 +60,7 @@ jobs:
           --filter "FullyQualifiedName~SwedbankPay.Sdk.Tests.UnitTests|FullyQualifiedName~SwedbankPay.Sdk.Tests.Json"
 
       - name: Publish Sdk Sample site
-        run: dotnet publish --configuration ${{ inputs.Configuration }} -p:Version=${{ inputs.NUGETVERSIONV2 }} --no-restore ${{ inputs.SampleSiteCsprojPath }} --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/samplesite'
+        run: dotnet publish --configuration ${{ inputs.Configuration }} -p:Version=${{ inputs.nugetVersion }} --no-restore ${{ inputs.SampleSiteCsprojPath }} --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/samplesite'
 
       - name: Archive Sample.AspNetCore
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -69,10 +69,10 @@ jobs:
           path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/samplesite
 
       - name: Nuget pack SwedbankPay.Sdk
-        run: dotnet pack ${{ inputs.SdkCsprojPath }} -p:PackageVersion=${{ inputs.NUGETVERSIONV2 }} -p:Version=${{ inputs.NUGETVERSIONV2 }} --no-restore --configuration=${{ inputs.Configuration }} --output=artifacts
+        run: dotnet pack ${{ inputs.SdkCsprojPath }} -p:PackageVersion=${{ inputs.nugetVersion }} -p:Version=${{ inputs.nugetVersion }} --no-restore --configuration=${{ inputs.Configuration }} --output=artifacts
 
       - name: Nuget pack SwedbankPay.Sdk.Extensions
-        run: dotnet pack ./src/SwedbankPay.Sdk.Extensions/SwedbankPay.Sdk.Extensions.csproj -p:PackageVersion=${{ inputs.NUGETVERSIONV2 }} -p:Version=${{ inputs.NUGETVERSIONV2 }} --no-restore --configuration=${{ inputs.Configuration }} --output=artifacts
+        run: dotnet pack ./src/SwedbankPay.Sdk.Extensions/SwedbankPay.Sdk.Extensions.csproj -p:PackageVersion=${{ inputs.nugetVersion }} -p:Version=${{ inputs.nugetVersion }} --no-restore --configuration=${{ inputs.Configuration }} --output=artifacts
 
       - name: Archive nuget packages artifacts
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
