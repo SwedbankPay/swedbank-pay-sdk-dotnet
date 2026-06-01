@@ -28,4 +28,17 @@ beforeEach(() => {
     // Destroying the request instead causes the iframe to re-fire it in a loop. Aliased as
     // @beacon so it is visible in the test runner. No effect on the payment flow.
     cy.intercept({ url: /\/checkout\/Beacon\// }, { statusCode: 204, body: "" }).as("beacon");
+
+    // The order store is an in-memory DB shared by the whole sample-site process, so orders
+    // accumulate across every spec in a run. Orders/Details makes a live Swedbank Pay API call
+    // per stored order, so a full store makes that page slow and lets a single stale/reversed
+    // order error the whole render — which is why later specs fail to find their order link.
+    // Reset to a clean store before each test so Details only ever fetches the current order.
+    // The "Clear Orders" button only renders when orders exist, so guard on its presence.
+    cy.visit(Cypress.expose("baseUrl"));
+    cy.get("body").then(($body) => {
+        if ($body.find('[data-automation="button-clearorders"]').length) {
+            cy.getByAutomation("button-clearorders").click();
+        }
+    });
 });
