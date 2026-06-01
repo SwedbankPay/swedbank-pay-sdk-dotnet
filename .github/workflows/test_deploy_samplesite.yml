@@ -26,6 +26,7 @@ jobs:
     permissions:
       contents: read
       actions: read   # get-workflow-origin reads the triggering run
+      pull-requests: read # get-workflow-origin reads PR metadata/labels
       checks: write   # checks-action posts the commit status
     runs-on: ubuntu-latest
     environment: ${{ github.event.workflow_run.name }}
