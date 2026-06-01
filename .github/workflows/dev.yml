@@ -25,7 +25,7 @@ jobs:
     uses: ./.github/workflows/template_build.yml
     with:
       Configuration: Debug
-      NUGETVERSIONV2: ${{ needs.callVersion.outputs.NUGETVERSIONV2 }} 
+      nugetVersion: ${{ needs.callVersion.outputs.nugetVersion }} 
       SlnPath: ./src/SwedbankPay.Sdk.sln
       SdkCsprojPath: ./src/SwedbankPay.Sdk.Infrastructure/SwedbankPay.Sdk.Infrastructure.csproj
       SampleSiteCsprojPath: ./src/Samples/Sample.AspNetCore/Sample.AspNetCore.csproj
