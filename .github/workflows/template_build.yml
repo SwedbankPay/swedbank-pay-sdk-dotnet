@@ -29,6 +29,9 @@ env:
     10.x
   AZURE_WEBAPP_PACKAGE_PATH: '.'
 
+permissions:
+  contents: read
+
 jobs:
   build:
     name: Build
@@ -44,7 +47,18 @@ jobs:
  
       - name: Install dependencies
         run: dotnet restore ${{ inputs.SlnPath }}
- 
+
+      # Runs the credential-free unit tests on every PR (including Dependabot PRs,
+      # which have no access to repository secrets). The live-API tests in the
+      # PaymentTests namespace need MERCHANT secrets and run later in the
+      # workflow_run stage (test_deploy_samplesite.yml).
+      - name: Run unit tests
+        run: >
+          dotnet test ${{ inputs.UnitTestsCsprojPath }}
+          --configuration ${{ inputs.Configuration }}
+          --no-restore
+          --filter "FullyQualifiedName~SwedbankPay.Sdk.Tests.UnitTests|FullyQualifiedName~SwedbankPay.Sdk.Tests.Json"
+
       - name: Publish Sdk Sample site
         run: dotnet publish --configuration ${{ inputs.Configuration }} -p:Version=${{ inputs.nuGetVersionV2 }} --no-restore ${{ inputs.SampleSiteCsprojPath }} --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/samplesite'
 

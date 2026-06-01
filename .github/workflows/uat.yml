@@ -7,6 +7,9 @@ on:
       - release/**
       - hotfix/**
 
+permissions:
+  contents: read
+
 jobs:
   callVersion:
     name: Create version number

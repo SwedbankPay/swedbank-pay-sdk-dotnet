@@ -5,7 +5,10 @@ on:
     outputs:
       NUGETVERSIONV2:
         description: "Nuget version"
-        value: ${{ jobs.version.outputs.NUGETVERSIONV2 }} 
+        value: ${{ jobs.version.outputs.NUGETVERSIONV2 }}
+
+permissions:
+  contents: read
 
 jobs:
   version:

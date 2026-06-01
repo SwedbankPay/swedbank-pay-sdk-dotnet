@@ -9,7 +9,11 @@ on:
       WorkflowRunId:
         required: true
         type: string
-  
+
+permissions:
+  contents: read
+  actions: read   # action-download-artifact reads the triggering run's artifacts
+
 jobs:
   publish_sample_site:
     name: Publish sample site
