@@ -6,15 +6,37 @@ updates:
     interval: daily
     time: "03:00"
     timezone: Europe/Oslo
-  open-pull-requests-limit: 99
+  open-pull-requests-limit: 10
   reviewers: [zunkas]
   assignees: [zunkas]
+  # Bundle non-major bumps into one PR per run; majors stay separate for review.
+  groups:
+    nuget-minor-and-patch:
+      update-types: [minor, patch]
+
 - package-ecosystem: github-actions
   directory: "/"
   schedule:
     interval: daily
     time: "03:00"
     timezone: Europe/Oslo
-  open-pull-requests-limit: 99
+  open-pull-requests-limit: 10
   reviewers: [zunkas, perhassle]
   assignees: [zunkas]
+  groups:
+    actions-minor-and-patch:
+      update-types: [minor, patch]
+
+# Cypress / Node tooling for the sample-site UI tests.
+- package-ecosystem: npm
+  directory: "/src/Samples/Sample.AspNetCore.UiTests"
+  schedule:
+    interval: daily
+    time: "03:00"
+    timezone: Europe/Oslo
+  open-pull-requests-limit: 10
+  reviewers: [zunkas]
+  assignees: [zunkas]
+  groups:
+    npm-minor-and-patch:
+      update-types: [minor, patch]

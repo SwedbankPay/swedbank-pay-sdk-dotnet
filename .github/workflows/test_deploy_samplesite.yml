@@ -10,9 +10,24 @@ env:
     8.x
     10.x
 
+# Default to read-only; jobs elevate only what they need.
+permissions:
+  contents: read
+
 jobs:
   test-unit-ui:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    # Post-merge only. Integration/UI tests need merchant secrets + the Dev
+    # environment, so they must NOT run against untrusted PR code (forks,
+    # Dependabot). PRs are gated by the secret-free build + unit tests in the
+    # Dev workflow; these run after the change lands on develop/release.
+    if: >
+      ${{ github.event.workflow_run.conclusion == 'success' &&
+          github.event.workflow_run.event != 'pull_request' }}
+    permissions:
+      contents: read
+      actions: read   # get-workflow-origin reads the triggering run
+      pull-requests: read # get-workflow-origin reads PR metadata/labels
+      checks: write   # checks-action posts the commit status
     runs-on: ubuntu-latest
     environment: ${{ github.event.workflow_run.name }}
     outputs:
@@ -85,6 +100,10 @@ jobs:
     needs: [test-unit-ui]
     if: ${{ needs.test-unit-ui.outputs.sourceEvent != 'pull_request' && github.event.workflow_run.name == 'Dev' }}
     name: Publish alpha nuget
+    permissions:
+      contents: read
+      actions: read    # action-download-artifact reads the triggering run
+      packages: write  # push to GitHub Packages
     runs-on: ubuntu-latest
     environment: ${{ github.event.workflow_run.name }}
 
@@ -104,7 +123,10 @@ jobs:
   publish_sample_site:
     needs: [test-unit-ui]
     if: ${{ needs.test-unit-ui.outputs.sourceEvent != 'pull_request' }}
-    uses: ./.github/workflows/template_publish_webapp.yml  
+    permissions:
+      contents: read
+      actions: read
+    uses: ./.github/workflows/template_publish_webapp.yml
     secrets: inherit
     with:
       Environment: ${{ github.event.workflow_run.name }}
