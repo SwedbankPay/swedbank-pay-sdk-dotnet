@@ -8,7 +8,9 @@ name: Dependabot auto-merge
 # with a write token. It is safe ONLY because it never checks out or executes
 # the PR's code — it just reads metadata and calls the GitHub API. Do not add a
 # checkout step or run any PR-controlled scripts here.
-on: pull_request_target
+on:
+  pull_request_target:
+    types: [opened, reopened, synchronize]
 
 permissions:
   contents: write        # enable auto-merge / merge
