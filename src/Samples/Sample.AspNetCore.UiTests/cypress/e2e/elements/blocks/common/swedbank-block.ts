@@ -26,8 +26,27 @@ class SwedbankBlock {
 
     deleteToken(tokenType: string) {
         cy.getByAutomation('tokenslink', true, {timeout: 30000}).click();
-        cy.get('table.table tr[data-automation="' + tokenType + '"] td a.btn', {timeout: 30000}).first().click()
+        // A token from a just-completed payment can lag before GetOwnedTokens returns it. The
+        // My Page is server-rendered, so a normal cy.get retry would never see the row appear —
+        // reload the page until the token shows up (or give up after several attempts).
+        this.clickTokenRowWhenAvailable(tokenType, 10);
         cy.get('.alert.alert-success', {timeout: 5000}).should('have.class', 'alert-success');
+    }
+
+    private clickTokenRowWhenAvailable(tokenType: string, attemptsLeft: number) {
+        const selector = 'table.table tr[data-automation="' + tokenType + '"] td a.btn';
+        cy.get('body').then(($body) => {
+            if ($body.find(selector).length) {
+                cy.get(selector).first().click();
+            } else if (attemptsLeft > 1) {
+                cy.wait(3000);
+                cy.reload();
+                this.clickTokenRowWhenAvailable(tokenType, attemptsLeft - 1);
+            } else {
+                // Out of retries: let cy.get fail with its normal, descriptive assertion error.
+                cy.get(selector, {timeout: 30000}).first().click();
+            }
+        });
     }
 
     payWithCard() {

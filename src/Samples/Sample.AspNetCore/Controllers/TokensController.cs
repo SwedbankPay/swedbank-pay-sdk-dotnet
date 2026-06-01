@@ -126,9 +126,12 @@ public class TokensController : Controller
             }
             viewModel.Cart = _cart;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            _logger.LogError("No existing tokens for user");
+            // GetOwnedTokens throws when the payer owns no tokens yet (e.g. the token from a
+            // just-completed payment has not propagated). Log the real exception so CI can tell
+            // a benign "no tokens" 404 apart from auth/timeout failures instead of masking it.
+            _logger.LogError(ex, "Could not fetch tokens for payer {PayerReference}", _payerReference.Id);
         }
 
         return viewModel;
