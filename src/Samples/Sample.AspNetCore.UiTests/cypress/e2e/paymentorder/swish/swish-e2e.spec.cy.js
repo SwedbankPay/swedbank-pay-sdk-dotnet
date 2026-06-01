@@ -4,7 +4,7 @@ import {Data} from "../../../support/data";
 
 describe('Pay with Swish', () => {
     beforeEach(() => {
-        cy.visit(Cypress.env("baseUrl"))
+        cy.visit(Cypress.expose("baseUrl"))
     })
 
     it('Should succeed and create reversal', () => {

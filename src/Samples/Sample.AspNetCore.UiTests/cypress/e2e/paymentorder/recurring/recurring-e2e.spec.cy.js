@@ -3,7 +3,7 @@ import {PaymentMethods, TokenType} from "../../../support/enums";
 
 describe('Create recurring payments', () => {
     beforeEach(() => {
-        cy.visit(Cypress.env("baseUrl"))
+        cy.visit(Cypress.expose("baseUrl"))
     });
 
     it('Should succeed recurring, create a new payment order and cancel it', () => {

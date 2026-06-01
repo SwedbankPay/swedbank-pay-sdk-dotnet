@@ -3,7 +3,7 @@ import {PaymentMethods, TokenType} from "../../../support/enums";
 
 describe('Pay with Credit card', () => {
     beforeEach(() => {
-        cy.visit(Cypress.env("baseUrl"))
+        cy.visit(Cypress.expose("baseUrl"))
     });
 
     it('Should succeed payment and create cancellation', () => {

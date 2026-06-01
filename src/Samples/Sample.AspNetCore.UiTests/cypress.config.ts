@@ -7,9 +7,10 @@ module.exports = defineConfig({
       return require("./cypress/plugins/index.ts")(on, config);
     },
   },
-  env:{
+  expose: {
     baseUrl: "https://localhost:5001"
   },
+  allowCypressEnv: false,
   chromeWebSecurity: false,
   reporter: "junit",
   reporterOptions: {
