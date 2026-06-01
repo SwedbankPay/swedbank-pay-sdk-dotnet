@@ -63,7 +63,7 @@ jobs:
         run: dotnet publish --configuration ${{ inputs.Configuration }} -p:Version=${{ inputs.NUGETVERSIONV2 }} --no-restore ${{ inputs.SampleSiteCsprojPath }} --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/samplesite'
 
       - name: Archive Sample.AspNetCore
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: Sample.AspNetCore
           path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/samplesite
@@ -75,7 +75,7 @@ jobs:
         run: dotnet pack ./src/SwedbankPay.Sdk.Extensions/SwedbankPay.Sdk.Extensions.csproj -p:PackageVersion=${{ inputs.NUGETVERSIONV2 }} -p:Version=${{ inputs.NUGETVERSIONV2 }} --no-restore --configuration=${{ inputs.Configuration }} --output=artifacts
 
       - name: Archive nuget packages artifacts
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           # Artifact name
           name: packages
