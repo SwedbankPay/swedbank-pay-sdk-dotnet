@@ -70,7 +70,7 @@ describe('Create recurring payments', () => {
                 let paymentOrderLink = $paymentOrderLink.text();
                 cy.getByAutomation('orderslink', true, {timeout: 30000}).click();
 
-                cy.getPaymentOrder(paymentOrderLink).then((response) => {
+                cy.getPaymentOrderUntil(paymentOrderLink, (body) => body.operations.capture != null).then((response) => {
                     expect(response.status).to.eq(200);
                     let responseBody = response.body;
 
@@ -85,7 +85,7 @@ describe('Create recurring payments', () => {
                     cy.getByAutomation('a-paymentordercapture').should('be.visible').click();
                 });
 
-                cy.getPaymentOrder(paymentOrderLink).then((response) => {
+                cy.getPaymentOrderUntil(paymentOrderLink, (body) => body.operations.reversal != null).then((response) => {
                     expect(response.status).to.eq(200);
                     let responseBody = response.body;
 
@@ -103,7 +103,7 @@ describe('Create recurring payments', () => {
                     cy.getByAutomation('a-paymentorderreversal').should('be.visible').click();
                 });
 
-                cy.getPaymentOrder(paymentOrderLink).then((response) => {
+                cy.getPaymentOrderUntil(paymentOrderLink, (body) => body.paymentOrder.status.value === 'Reversed').then((response) => {
                     expect(response.status).to.eq(200);
                     let responseBody = response.body;
 
@@ -186,7 +186,7 @@ describe('Create recurring payments', () => {
                 let paymentOrderLink = $paymentOrderLink.text();
                 cy.getByAutomation('orderslink', true, {timeout: 30000}).click();
 
-                cy.getPaymentOrder(paymentOrderLink).then((response) => {
+                cy.getPaymentOrderUntil(paymentOrderLink, (body) => body.operations.capture != null).then((response) => {
                     expect(response.status).to.eq(200);
                     let responseBody = response.body;
 
@@ -201,7 +201,7 @@ describe('Create recurring payments', () => {
                     cy.getByAutomation('a-paymentordercapture').should('be.visible').click();
                 });
 
-                cy.getPaymentOrder(paymentOrderLink).then((response) => {
+                cy.getPaymentOrderUntil(paymentOrderLink, (body) => body.operations.reversal != null).then((response) => {
                     expect(response.status).to.eq(200);
                     let responseBody = response.body;
 
@@ -219,7 +219,7 @@ describe('Create recurring payments', () => {
                     cy.getByAutomation('a-paymentorderreversal').should('be.visible').click();
                 });
 
-                cy.getPaymentOrder(paymentOrderLink).then((response) => {
+                cy.getPaymentOrderUntil(paymentOrderLink, (body) => body.paymentOrder.status.value === 'Reversed').then((response) => {
                     expect(response.status).to.eq(200);
                     let responseBody = response.body;
 

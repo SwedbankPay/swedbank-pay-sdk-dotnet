@@ -22,7 +22,7 @@ describe('Pay with Swish', () => {
             let paymentOrderLink = $paymentOrderLink.text();
             cy.getByAutomation('orderslink', true, {timeout: 30000}).click();
 
-            cy.getPaymentOrder(paymentOrderLink).then((response) => {
+            cy.getPaymentOrderUntil(paymentOrderLink, (body) => body.operations.reversal != null).then((response) => {
                 expect(response.status).to.eq(200);
                 let responseBody = response.body;
 
@@ -43,7 +43,7 @@ describe('Pay with Swish', () => {
 
             cy.get('.alert.alert-success', {timeout: 5000}).should('have.class', 'alert-success');
 
-            cy.getPaymentOrder(paymentOrderLink).then((response) => {
+            cy.getPaymentOrderUntil(paymentOrderLink, (body) => body.paymentOrder.status.value === 'Reversed').then((response) => {
                 expect(response.status).to.eq(200);
                 let responseBody = response.body;
                 expect(responseBody.paymentOrder.status.value).to.eq('Reversed');
