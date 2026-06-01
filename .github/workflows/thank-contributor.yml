@@ -12,7 +12,7 @@ on:
 
 permissions:
   pull-requests: write
-
+  issues: write
 jobs:
   thank:
     runs-on: ubuntu-latest
