@@ -10,6 +10,11 @@ on:
 permissions:
   contents: read
 
+# Release builds: never cancel an in-flight run for the same ref.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   callVersion:
     name: Create version number
@@ -24,6 +29,6 @@ jobs:
       Configuration: Release
       nugetVersion: ${{ needs.callVersion.outputs.nugetVersion }} 
       SlnPath: ./src/SwedbankPay.Sdk.sln
-      SdkCsprojPath: ./src/SwedbankPay.Sdk/SwedbankPay.Sdk.csproj
+      SdkCsprojPath: ./src/SwedbankPay.Sdk.Infrastructure/SwedbankPay.Sdk.Infrastructure.csproj
       SampleSiteCsprojPath: ./src/Samples/Sample.AspNetCore/Sample.AspNetCore.csproj
       UnitTestsCsprojPath: ./src/SwedbankPay.Sdk.Tests/SwedbankPay.Sdk.Tests.csproj

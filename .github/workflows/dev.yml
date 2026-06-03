@@ -14,6 +14,12 @@ on:
 permissions:
   contents: read
 
+# Cancel superseded runs for the same branch/PR so we don't waste runner time
+# and live-API test calls on commits that are already obsolete.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   callVersion:
     name: Create version number

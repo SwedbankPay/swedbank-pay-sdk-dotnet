@@ -17,9 +17,9 @@ public class Merchant
         {
             if (string.IsNullOrWhiteSpace(_merchantId))
             {
-                _merchantId = AvailableMerchants != null && AvailableMerchants.Any() 
-                    ? AvailableMerchants?.FirstOrDefault()?.PayeeId 
-                    : null;
+                _merchantId = AvailableMerchants != null && AvailableMerchants.Any()
+                    ? AvailableMerchants?.FirstOrDefault()?.PayeeId
+                    : PayeeId;
             }
     
             return _merchantId;
