@@ -13,6 +13,7 @@ permissions:
 jobs:
   version:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     outputs:
       # GitVersion 6 removed the NuGetVersionV2 variable; SemVer is the
       # SemVer 2.0-compatible value for NuGet (no +buildmetadata, unlike FullSemVer).

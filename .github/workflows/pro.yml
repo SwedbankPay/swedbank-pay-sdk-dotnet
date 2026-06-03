@@ -9,6 +9,11 @@ on:
 permissions:
   contents: read
 
+# Release builds: never cancel an in-flight run for the same ref.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   callVersion:
     name: Create version number

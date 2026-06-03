@@ -18,6 +18,7 @@ jobs:
   publish_sample_site:
     name: Publish sample site
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     environment: ${{ inputs.Environment }}
 
     steps:

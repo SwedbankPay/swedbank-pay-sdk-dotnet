@@ -14,6 +14,11 @@ env:
 permissions:
   contents: read
 
+# Don't cancel an in-flight deploy; serialize per triggering commit instead.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.workflow_run.head_sha }}
+  cancel-in-progress: false
+
 jobs:
   test-unit-ui:
     # Post-merge only. Integration/UI tests need merchant secrets + the Dev
@@ -27,6 +32,7 @@ jobs:
       contents: read
       checks: write   # checks-action posts the commit status
     runs-on: ubuntu-latest
+    timeout-minutes: 30   # live-API + Cypress against the hosted payment pages
     environment: ${{ github.event.workflow_run.name }}
     outputs:
       sourceEvent: ${{ github.event.workflow_run.event }}
@@ -88,6 +94,7 @@ jobs:
       actions: read    # action-download-artifact reads the triggering run
       packages: write  # push to GitHub Packages
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     environment: ${{ github.event.workflow_run.name }}
 
     steps:
