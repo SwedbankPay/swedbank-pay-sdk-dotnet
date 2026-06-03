@@ -25,30 +25,13 @@ jobs:
           github.event.workflow_run.event != 'pull_request' }}
     permissions:
       contents: read
-      actions: read   # get-workflow-origin reads the triggering run
-      pull-requests: read # get-workflow-origin reads PR metadata/labels
       checks: write   # checks-action posts the commit status
     runs-on: ubuntu-latest
     environment: ${{ github.event.workflow_run.name }}
     outputs:
-      sourceHeadRepo: ${{ steps.source-run-info.outputs.sourceHeadRepo }}
-      sourceHeadBranch: ${{ steps.source-run-info.outputs.sourceHeadBranch }}
-      sourceHeadSha: ${{ steps.source-run-info.outputs.sourceHeadSha }}
-      mergeCommitSha: ${{ steps.source-run-info.outputs.mergeCommitSha }}
-      targetCommitSha: ${{ steps.source-run-info.outputs.targetCommitSha }}
-      pullRequestNumber: ${{ steps.source-run-info.outputs.pullRequestNumber }}
-      pullRequestLabels: ${{ steps.source-run-info.outputs.pullRequestLabels }}
-      targetBranch: ${{ steps.source-run-info.outputs.targetBranch }}
-      sourceEvent: ${{ steps.source-run-info.outputs.sourceEvent }}
-   
+      sourceEvent: ${{ github.event.workflow_run.event }}
+
     steps:
-      - name: "Get information about the origin 'CI' run"
-        uses: potiuk/get-workflow-origin@e2dae063368361e4cd1f510e8785cd73bca9352e # v1_5
-        id: source-run-info
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          sourceRunId: ${{ github.event.workflow_run.id }}
-     
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
                     
       - name: Setup .NET
@@ -91,7 +74,7 @@ jobs:
         if: ${{ always() }}
         uses: LouisBrunner/checks-action@937cbbcde3259005b50746dc91cde29098aac2ff # v3.1.0
         with:
-          sha: ${{ steps.source-run-info.outputs.sourceHeadSha }}
+          sha: ${{ github.event.workflow_run.head_sha }}
           token: ${{ secrets.GITHUB_TOKEN }}
           name: Run Unit and UI tests
           conclusion: ${{ job.status }}
