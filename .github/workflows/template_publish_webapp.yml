@@ -39,6 +39,9 @@ jobs:
         env:
           MERCHANT_TOKEN: ${{ secrets.MERCHANT_TOKEN }}
           MERCHANT_PAYEEID: ${{ secrets.MERCHANT_PAYEEID }}
+          MERCHANT_TOKEN_1: ${{ secrets.MERCHANT_TOKEN_1 }}
+          MERCHANT_TOKEN_2: ${{ secrets.MERCHANT_TOKEN_2 }}
+          MERCHANT_TOKEN_3: ${{ secrets.MERCHANT_TOKEN_3 }}
           BASE_URL: https://swedbankpay-sdk-001-${{ inputs.Environment }}.azurewebsites.net
         run: |
           file=Sample.AspNetCore/appsettings.json
@@ -46,9 +49,15 @@ jobs:
           jq \
             --arg token "$MERCHANT_TOKEN" \
             --arg payeeId "$MERCHANT_PAYEEID" \
+            --arg merchantToken1 "$MERCHANT_TOKEN_1" \
+            --arg merchantToken2 "$MERCHANT_TOKEN_2" \
+            --arg merchantToken3 "$MERCHANT_TOKEN_3" \
             --arg base "$BASE_URL" \
             '.SwedbankPay.Token = $token
              | .SwedbankPay.PayeeId = $payeeId
+             | .SwedbankPay.Merchants[0].Token = $merchantToken1
+             | .SwedbankPay.Merchants[1].Token = $merchantToken2
+             | .SwedbankPay.Merchants[2].Token = $merchantToken3
              | .Urls.TermsOfServiceUrl = $base + "/Checkout/Thankyou"
              | .Urls.CallBackUrl       = $base + "/Checkout/Callback"
              | .Urls.CancelUrl         = $base + "/Checkout/Aborted"
