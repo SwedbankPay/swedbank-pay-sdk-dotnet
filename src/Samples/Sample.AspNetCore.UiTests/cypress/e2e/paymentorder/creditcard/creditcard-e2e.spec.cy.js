@@ -1,9 +1,12 @@
 import SwedbankBlock from "../../elements/blocks/common/swedbank-block";
 import {PaymentMethods, TokenType} from "../../../support/enums";
 
+// The shared in-memory order store is reset before every test by the global beforeEach in
+// cypress/support/e2e.ts, so Orders/Details only ever has this test's order to fetch.
+
 describe('Pay with Credit card', () => {
     beforeEach(() => {
-        cy.visit(Cypress.env("baseUrl"))
+        cy.visit(Cypress.expose("baseUrl"))
     });
 
     it('Should succeed payment and create cancellation', () => {
@@ -14,92 +17,90 @@ describe('Pay with Credit card', () => {
 
         new SwedbankBlock().payWithSwedbank(PaymentMethods.card);
 
-        cy.get('h2', {timeout: 60000}).then(($h) => {
-            expect($h).to.contain('Thanks!');
+        cy.url({timeout: 60000}).should('contain', '/Checkout/Thankyou');
+        cy.contains('h2', 'Thanks!', {timeout: 30000});
 
-            cy.getByAutomation('paymentorderlink').then(($paymentOrderLink) => {
-                let paymentOrderLink = $paymentOrderLink.text();
-                cy.getByAutomation('orderslink', true, {timeout: 30000}).click();
+        cy.getByAutomation('paymentorderlink').then(($paymentOrderLink) => {
+            let paymentOrderLink = $paymentOrderLink.text();
+            cy.getByAutomation('orderslink', true, {timeout: 30000}).click();
 
-                cy.get('[data-paymentorderlink="' + paymentOrderLink + '"]').within(($paymentOrder) => {
-                    cy.getByAutomation('a-paymentordercancel').should('be.visible').click();
-                });
+            cy.get('[data-paymentorderlink="' + paymentOrderLink + '"]', {timeout: 30000}).within(($paymentOrder) => {
+                cy.getByAutomation('a-paymentordercancel').should('be.visible').click();
+            });
 
-                cy.get('.alert.alert-success', {timeout: 5000}).should('have.class', 'alert-success');
-            })
+            cy.get('.alert.alert-success', {timeout: 5000}).should('have.class', 'alert-success');
         });
     })
 
 
     it('Should succeed payment and create capture and reversal', () => {
 
-        //Add to cart and go to checkout    
+        //Add to cart and go to checkout
         cy.get('[data-automation="button-addtocart"]').first().click()
         cy.get('[data-automation="button-checkout"]').first().click()
 
         new SwedbankBlock().payWithSwedbank(PaymentMethods.card);
 
-        cy.get('h2', {timeout: 60000}).then(($h) => {
-            expect($h).to.contain('Thanks!');
+        cy.url({timeout: 60000}).should('contain', '/Checkout/Thankyou');
+        cy.contains('h2', 'Thanks!', {timeout: 30000});
 
-            cy.getByAutomation('paymentorderlink').then(($paymentOrderLink) => {
-                let paymentOrderLink = $paymentOrderLink.text();
-                cy.getByAutomation('orderslink', true, {timeout: 30000}).click();
+        cy.getByAutomation('paymentorderlink').then(($paymentOrderLink) => {
+            let paymentOrderLink = $paymentOrderLink.text();
+            cy.getByAutomation('orderslink', true, {timeout: 30000}).click();
 
-                cy.getPaymentOrder(paymentOrderLink).then((response) => {
-                    expect(response.status).to.eq(200);
-                    let responseBody = response.body;
+            cy.getPaymentOrderUntil(paymentOrderLink, (body) => body.operations.capture != null).then((response) => {
+                expect(response.status).to.eq(200);
+                let responseBody = response.body;
 
-                    expect(responseBody.paymentOrder.status.value).to.eq('Paid');
-                    expect(responseBody.paymentOrder.paid.instrument.value).to.eq('CreditCard');
-                    expect(responseBody.paymentOrder.paid.transactionType.value).to.eq('Authorization');
-                    expect(responseBody.operations.capture).to.not.be.undefined;
-                    expect(responseBody.operations.reversal).to.be.undefined;
-                });
+                expect(responseBody.paymentOrder.status.value).to.eq('Paid');
+                expect(responseBody.paymentOrder.paid.instrument.value).to.eq('CreditCard');
+                expect(responseBody.paymentOrder.paid.transactionType.value).to.eq('Authorization');
+                expect(responseBody.operations.capture).to.not.be.undefined;
+                expect(responseBody.operations.reversal).to.be.undefined;
+            });
 
-                cy.get('[data-paymentorderlink="' + paymentOrderLink + '"]').within(($paymentOrder) => {
-                    cy.getByAutomation('a-paymentordercapture').should('be.visible').click();
-                });
+            cy.get('[data-paymentorderlink="' + paymentOrderLink + '"]', {timeout: 30000}).within(($paymentOrder) => {
+                cy.getByAutomation('a-paymentordercapture').should('be.visible').click();
+            });
 
-                cy.getPaymentOrder(paymentOrderLink).then((response) => {
-                    expect(response.status).to.eq(200);
-                    let responseBody = response.body;
+            cy.getPaymentOrderUntil(paymentOrderLink, (body) => body.operations.reversal != null).then((response) => {
+                expect(response.status).to.eq(200);
+                let responseBody = response.body;
 
-                    expect(responseBody.paymentOrder.status.value).to.eq('Paid');
-                    expect(responseBody.paymentOrder.paid.instrument.value).to.eq('CreditCard');
-                    expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[0].type.value).to.eq('Capture');
-                    expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[0].amount.inLowestMonetaryUnit).to.eq(responseBody.paymentOrder.amount.inLowestMonetaryUnit);
-                    expect(responseBody.operations.capture).to.be.undefined;
-                    expect(responseBody.operations.reversal).to.not.be.undefined;
-                });
+                expect(responseBody.paymentOrder.status.value).to.eq('Paid');
+                expect(responseBody.paymentOrder.paid.instrument.value).to.eq('CreditCard');
+                expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[0].type.value).to.eq('Capture');
+                expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[0].amount.inLowestMonetaryUnit).to.eq(responseBody.paymentOrder.amount.inLowestMonetaryUnit);
+                expect(responseBody.operations.capture).to.be.undefined;
+                expect(responseBody.operations.reversal).to.not.be.undefined;
+            });
 
-                cy.get('.alert.alert-success', {timeout: 5000}).should('have.class', 'alert-success');
+            cy.get('.alert.alert-success', {timeout: 5000}).should('have.class', 'alert-success');
 
-                cy.get('[data-paymentorderlink="' + paymentOrderLink + '"]').within(($paymentOrder) => {
-                    cy.getByAutomation('a-paymentorderreversal').should('be.visible').click();
-                });
+            cy.get('[data-paymentorderlink="' + paymentOrderLink + '"]', {timeout: 30000}).within(($paymentOrder) => {
+                cy.getByAutomation('a-paymentorderreversal').should('be.visible').click();
+            });
 
 
-                cy.getPaymentOrder(paymentOrderLink).then((response) => {
-                    expect(response.status).to.eq(200);
-                    let responseBody = response.body;
+            cy.getPaymentOrderUntil(paymentOrderLink, (body) => body.paymentOrder.status.value === 'Reversed').then((response) => {
+                expect(response.status).to.eq(200);
+                let responseBody = response.body;
 
-                    expect(responseBody.paymentOrder.status.value).to.eq('Reversed');
-                    expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[1].type.value).to.eq('Reversal');
-                    expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[1].amount.inLowestMonetaryUnit).to.eq(responseBody.paymentOrder.amount.inLowestMonetaryUnit);
-                    expect(responseBody.operations.capture).to.be.undefined;
-                    expect(responseBody.operations.reversal).to.be.undefined;
-                });
+                expect(responseBody.paymentOrder.status.value).to.eq('Reversed');
+                expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[1].type.value).to.eq('Reversal');
+                expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[1].amount.inLowestMonetaryUnit).to.eq(responseBody.paymentOrder.amount.inLowestMonetaryUnit);
+                expect(responseBody.operations.capture).to.be.undefined;
+                expect(responseBody.operations.reversal).to.be.undefined;
+            });
 
-                cy.get('.alert.alert-success', {timeout: 5000}).should('have.class', 'alert-success');
-            })
+            cy.get('.alert.alert-success', {timeout: 5000}).should('have.class', 'alert-success');
         });
     })
 })
 
 describe('Pay with Credit card and Payment token', () => {
     beforeEach(() => {
-        cy.visit('https://localhost:5001')
+        cy.visit(Cypress.expose("baseUrl"))
     });
 
     it('Should succeed payment and delete token', () => {
@@ -111,110 +112,11 @@ describe('Pay with Credit card and Payment token', () => {
         let swedbankBlock = new SwedbankBlock();
         swedbankBlock.payWithSwedbank(PaymentMethods.card);
 
-        cy.get('h2', {timeout: 60000}).then(($h) => {
-            expect($h).to.contain('Thanks!');
+        cy.url({timeout: 60000}).should('contain', '/Checkout/Thankyou');
+        cy.contains('h2', 'Thanks!', {timeout: 30000});
 
-            cy.getByAutomation('paymentorderlink').then(($paymentOrderLink) => {
-                let paymentOrderLink = $paymentOrderLink.text();
-
-                swedbankBlock.deleteToken(TokenType.Payment);
-            })
-        });
-    })
-})
-
-describe('Pay with Credit card', () => {
-    beforeEach(() => {
-        cy.visit('https://localhost:5001')
-    });
-
-    it('Should succeed payment and create cancellation', () => {
-
-        //Add to cart and go to checkout
-        cy.get('[data-automation="button-addtocart"]').first().click()
-        cy.get('[data-automation="button-checkout"]').first().click()
-
-        new SwedbankBlock().payWithSwedbank(PaymentMethods.card);
-
-        cy.get('h2', {timeout: 60000}).then(($h) => {
-            expect($h).to.contain('Thanks!');
-
-            cy.getByAutomation('paymentorderlink').then(($paymentOrderLink) => {
-                let paymentOrderLink = $paymentOrderLink.text();
-                cy.getByAutomation('orderslink', true, {timeout: 30000}).click();
-
-                cy.get('[data-paymentorderlink="' + paymentOrderLink + '"]').within(($paymentOrder) => {
-                    cy.getByAutomation('a-paymentordercancel').should('be.visible').click();
-                });
-
-                cy.get('.alert.alert-success', {timeout: 5000}).should('have.class', 'alert-success');
-            })
-        });
-    })
-
-
-    it('Should succeed payment and create capture and reversal', () => {
-
-        //Add to cart and go to checkout    
-        cy.get('[data-automation="button-addtocart"]').first().click()
-        cy.get('[data-automation="button-checkout"]').first().click()
-
-        new SwedbankBlock().payWithSwedbank(PaymentMethods.card);
-
-        cy.get('h2', {timeout: 60000}).then(($h) => {
-            expect($h).to.contain('Thanks!');
-
-            cy.getByAutomation('paymentorderlink').then(($paymentOrderLink) => {
-                let paymentOrderLink = $paymentOrderLink.text();
-                cy.getByAutomation('orderslink', true, {timeout: 30000}).click();
-
-                cy.getPaymentOrder(paymentOrderLink).then((response) => {
-                    expect(response.status).to.eq(200);
-                    let responseBody = response.body;
-
-                    expect(responseBody.paymentOrder.status.value).to.eq('Paid');
-                    expect(responseBody.paymentOrder.paid.instrument.value).to.eq('CreditCard');
-                    expect(responseBody.paymentOrder.paid.transactionType.value).to.eq('Authorization');
-                    expect(responseBody.operations.capture).to.not.be.undefined;
-                    expect(responseBody.operations.reversal).to.be.undefined;
-                });
-
-                cy.get('[data-paymentorderlink="' + paymentOrderLink + '"]').within(($paymentOrder) => {
-                    cy.getByAutomation('a-paymentordercapture').should('be.visible').click();
-                });
-
-                cy.getPaymentOrder(paymentOrderLink).then((response) => {
-                    expect(response.status).to.eq(200);
-                    let responseBody = response.body;
-
-                    expect(responseBody.paymentOrder.status.value).to.eq('Paid');
-                    expect(responseBody.paymentOrder.paid.instrument.value).to.eq('CreditCard');
-                    expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[0].type.value).to.eq('Capture');
-                    expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[0].amount.inLowestMonetaryUnit).to.eq(responseBody.paymentOrder.amount.inLowestMonetaryUnit);
-                    expect(responseBody.operations.capture).to.be.undefined;
-                    expect(responseBody.operations.reversal).to.not.be.undefined;
-                });
-
-                cy.get('.alert.alert-success', {timeout: 5000}).should('have.class', 'alert-success');
-
-                cy.get('[data-paymentorderlink="' + paymentOrderLink + '"]').within(($paymentOrder) => {
-                    cy.getByAutomation('a-paymentorderreversal').should('be.visible').click();
-                });
-
-
-                cy.getPaymentOrder(paymentOrderLink).then((response) => {
-                    expect(response.status).to.eq(200);
-                    let responseBody = response.body;
-
-                    expect(responseBody.paymentOrder.status.value).to.eq('Reversed');
-                    expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[1].type.value).to.eq('Reversal');
-                    expect(responseBody.paymentOrder.financialTransactions.financialTransactionsList[1].amount.inLowestMonetaryUnit).to.eq(responseBody.paymentOrder.amount.inLowestMonetaryUnit);
-                    expect(responseBody.operations.capture).to.be.undefined;
-                    expect(responseBody.operations.reversal).to.be.undefined;
-                });
-
-                cy.get('.alert.alert-success', {timeout: 5000}).should('have.class', 'alert-success');
-            })
+        cy.getByAutomation('paymentorderlink').then(($paymentOrderLink) => {
+            swedbankBlock.deleteToken(TokenType.Payment);
         });
     })
 })

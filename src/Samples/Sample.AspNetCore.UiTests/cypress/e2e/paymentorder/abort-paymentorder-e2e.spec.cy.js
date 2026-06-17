@@ -1,6 +1,6 @@
 describe('Abort paymentorder', () => {
     beforeEach(() => {
-        cy.visit(Cypress.env("baseUrl"))
+        cy.visit(Cypress.expose("baseUrl"))
     })
 
     it('Should abort paymentorder', () => {

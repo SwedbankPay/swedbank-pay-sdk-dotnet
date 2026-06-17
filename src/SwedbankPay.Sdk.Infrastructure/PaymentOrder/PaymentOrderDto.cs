@@ -11,6 +11,7 @@ internal record PaymentOrderDto
 {
     internal PaymentOrderDto(PaymentOrderRequest paymentOrderRequest)
     {
+        ClientInfo = new ClientInfoDto();
         Operation = paymentOrderRequest.Operation.Value;
         RecurrenceToken = paymentOrderRequest.RecurrenceToken;
         UnscheduledToken = paymentOrderRequest.UnscheduledToken;
@@ -50,6 +51,7 @@ internal record PaymentOrderDto
         }
     }
 
+    public ClientInfoDto ClientInfo { get; }
     public string Operation { get; }
     public string? RecurrenceToken { get; }
     public string? UnscheduledToken { get; }

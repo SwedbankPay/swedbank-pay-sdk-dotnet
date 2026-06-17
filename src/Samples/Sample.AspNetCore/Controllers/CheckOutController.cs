@@ -14,6 +14,7 @@ using Sample.AspNetCore.Extensions;
 using Sample.AspNetCore.Models;
 
 using SwedbankPay.Sdk;
+using SwedbankPay.Sdk.Extensions;
 using SwedbankPay.Sdk.PaymentOrder;
 using SwedbankPay.Sdk.PaymentOrder.OperationRequest.Abort;
 using SwedbankPay.Sdk.PaymentOrder.OperationRequest.Update;
@@ -29,29 +30,30 @@ public class CheckOutController : Controller
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly ILogger<CheckOutController> _logger;
     private readonly StoreDbContext _context;
-    private readonly PayeeInfoConfig _payeeInfoOptions;
-    private readonly ISwedbankPayClient _swedbankPayClient;
+    private readonly ISwedbankPayClientFactory _swedbankPayClientFactory;
     private readonly PayerReference _payerReference;
+    private readonly Merchant _merchantService;
     private readonly UrlsOptions _urls;
 
 
-    public CheckOutController(IOptionsSnapshot<PayeeInfoConfig> payeeInfoOptionsAccessor,
+    public CheckOutController(
         IOptionsSnapshot<UrlsOptions> urlsAccessor,
         Cart cart,
         IHttpContextAccessor httpContextAccessor,
         ILogger<CheckOutController> logger,
         StoreDbContext storeDbContext,
-        ISwedbankPayClient payClient,
-        PayerReference payerReference)
+        ISwedbankPayClientFactory payClientFactory,
+        PayerReference payerReference,
+        Merchant merchantService)
     {
-        _payeeInfoOptions = payeeInfoOptionsAccessor.Value;
         _urls = urlsAccessor.Value;
         _cartService = cart;
         _httpContextAccessor = httpContextAccessor;
         _logger = logger;
         _context = storeDbContext;
-        _swedbankPayClient = payClient;
+        _swedbankPayClientFactory = payClientFactory;
         _payerReference = payerReference;
+        _merchantService = merchantService;
     }
 
     public void Callback([FromBody] CallbackInfo callbackInfo)
@@ -59,15 +61,15 @@ public class CheckOutController : Controller
         _logger.LogInformation($"Callback received for id {callbackInfo?.PaymentOrder?.Id}", callbackInfo);
     }
 
-    public async Task<IPaymentOrderResponse> CreateOrUpdatePaymentOrder(bool? generatePaymentToken, bool? generateRecurrenceToken, bool? generateUnscheduledToken)
+    public async Task<IPaymentOrderResponse?> CreateOrUpdatePaymentOrder(bool? generatePaymentToken, bool? generateRecurrenceToken, bool? generateUnscheduledToken)
     {
         return await CreateOrUpdatePaymentOrder(generatePaymentToken, generateRecurrenceToken, generateUnscheduledToken, null, null);
     }
 
-    public async Task<IPaymentOrderResponse> CreateOrUpdatePaymentOrder(bool? generatePaymentToken, bool? generateRecurrenceToken, bool? generateUnscheduledToken,
-        Uri paymentUrl, string paymentToken)
+    public async Task<IPaymentOrderResponse?> CreateOrUpdatePaymentOrder(bool? generatePaymentToken, bool? generateRecurrenceToken, bool? generateUnscheduledToken,
+        Uri? paymentUrl, string? paymentToken)
     {
-        Uri orderId = null;
+        Uri? orderId = null;
         var paymentOrderLink = _cartService.PaymentOrderLink;
         if (!string.IsNullOrWhiteSpace(paymentOrderLink))
         {
@@ -79,14 +81,15 @@ public class CheckOutController : Controller
             : await UpdatePaymentOrder(orderId, generatePaymentToken, generateRecurrenceToken, generateUnscheduledToken);
     }
 
-    private async Task<IPaymentOrderResponse> UpdatePaymentOrder(Uri orderId, bool? generatePaymentToken, bool? generateRecurrenceToken,
+    private async Task<IPaymentOrderResponse?> UpdatePaymentOrder(Uri orderId, bool? generatePaymentToken, bool? generateRecurrenceToken,
         bool? generateUnscheduledToken,
-        Uri paymentUrl = null)
+        Uri? paymentUrl = null)
     {
-        var paymentOrder = await _swedbankPayClient.PaymentOrders.Get(orderId, PaymentOrderExpand.All);
-        if (paymentOrder?.Operations.Update == null)
+        var swedbankPayClient = _swedbankPayClientFactory.CreateClient(_merchantService.Token);
+        var paymentOrder = await swedbankPayClient.PaymentOrders.Get(orderId, PaymentOrderExpand.All);
+        if (paymentOrder?.Operations?.Update == null)
         {
-            if (paymentOrder?.Operations.Abort != null)
+            if (paymentOrder?.Operations?.Abort != null)
             {
                 await paymentOrder.Operations.Abort(new PaymentOrderAbortRequest("UpdateNotAvailable"));
                 return await CreatePaymentOrder(generatePaymentToken, generateRecurrenceToken, generateUnscheduledToken, paymentUrl, null);
@@ -117,7 +120,10 @@ public class CheckOutController : Controller
                 var paymentOrderStatus = paymentOrder.PaymentOrder.Status;
                 if (!paymentOrderStatus.Equals(Status.Initialized))
                 {
-                    await paymentOrder.Operations.Abort(new PaymentOrderAbortRequest("UpdatedOrderItems"));
+                    if (paymentOrder.Operations.Abort != null)
+                    {
+                        await paymentOrder.Operations.Abort(new PaymentOrderAbortRequest("UpdatedOrderItems"));
+                    }
                     return await CreatePaymentOrder(generatePaymentToken, generateRecurrenceToken, generateUnscheduledToken, paymentUrl, null);
                 }
                 else
@@ -132,13 +138,13 @@ public class CheckOutController : Controller
         return paymentOrder;
     }
 
-    public async Task<IPaymentOrderResponse> CreatePaymentOrder(bool? generatePaymentToken, bool? generateRecurrenceToken, bool? generateUnscheduledToken)
+    public async Task<IPaymentOrderResponse?> CreatePaymentOrder(bool? generatePaymentToken, bool? generateRecurrenceToken, bool? generateUnscheduledToken)
     {
         return await CreatePaymentOrder(generatePaymentToken, generateRecurrenceToken, generateUnscheduledToken, null, null);
     }
 
-    public async Task<IPaymentOrderResponse> CreatePaymentOrder(bool? generatePaymentToken, bool? generateRecurrenceToken, bool? generateUnscheduledToken,
-        Uri paymentUrl, string paymentToken)
+    public async Task<IPaymentOrderResponse?> CreatePaymentOrder(bool? generatePaymentToken, bool? generateRecurrenceToken, bool? generateUnscheduledToken,
+        Uri? paymentUrl, string? paymentToken)
     {
         var totalAmount = _cartService.CalculateTotal();
 
@@ -146,7 +152,7 @@ public class CheckOutController : Controller
         var paymentOrderItems = orderItems?.ToList();
         try
         {
-            var urls = new Urls(_urls.HostUrls.ToList(), _urls.CompleteUrl, _urls.CallbackUrl)
+            var urls = new Urls(_urls.HostUrls?.ToList()!, _urls.CompleteUrl!, _urls.CallbackUrl!)
             {
                 PaymentUrl = paymentUrl ?? _urls.PaymentUrl,
                 LogoUrl = _urls.LogoUrl,
@@ -167,9 +173,9 @@ public class CheckOutController : Controller
                 new Amount(0), "Test description", "useragent",
                 new Language("sv-SE"),
                 urls,
-                new PayeeInfo(_payeeInfoOptions.PayeeReference)
+                new PayeeInfo(DateTime.Now.Ticks.ToString())
                 {
-                    PayeeId = _payeeInfoOptions.PayeeId,
+                    PayeeId = _merchantService.PayeeId,
                     OrderReference = $"PO-{DateTime.UtcNow.Ticks}",
                     ProductCategory = "A100",
                     Subsite = "TestSubsiteId",
@@ -253,7 +259,8 @@ public class CheckOutController : Controller
                 paymentOrderRequest.PaymentToken ??= paymentToken;
             }
 
-            var paymentOrder = await _swedbankPayClient.PaymentOrders.Create(paymentOrderRequest, PaymentOrderExpand.All);
+            var swedbankPayClient = _swedbankPayClientFactory.CreateClient(_merchantService.Token);
+            var paymentOrder = await swedbankPayClient.PaymentOrders.Create(paymentOrderRequest, PaymentOrderExpand.All);
 
             _cartService.PaymentOrderLink = paymentOrder?.PaymentOrder.Id.OriginalString;
             _cartService.PaymentLink = null;
@@ -270,22 +277,22 @@ public class CheckOutController : Controller
 
 
     public async Task<IActionResult> LoadPaymentMenu(bool? generatePaymentToken, bool? generateRecurrenceToken, bool? generateUnscheduledToken,
-        string paymentToken = null, bool isRedirect = false)
+        string? paymentToken = null, bool isRedirect = false)
     {
         var paymentOrder =
-            await CreateOrUpdatePaymentOrder(generatePaymentToken, generateRecurrenceToken, generateUnscheduledToken, _urls.AnonymousCheckoutPaymentUrl,
+            await CreateOrUpdatePaymentOrder(generatePaymentToken, generateRecurrenceToken, generateUnscheduledToken, _urls.AnonymousCheckoutPaymentUrl!,
                 paymentToken);
         if (isRedirect)
         {
-            return Redirect(paymentOrder?.Operations.Redirect?.Href.ToString()!);
+            return Redirect(paymentOrder?.Operations?.Redirect?.Href.ToString()!);
         }
 
         var swedbankPaySource = new SwedbankPayCheckoutSource
         {
-            JavascriptSource = paymentOrder?.Operations.View?.Href,
+            JavascriptSource = paymentOrder?.Operations?.View?.Href,
             Culture = CultureInfo.GetCultureInfo("sv-SE"),
             UseAnonymousCheckout = true,
-            AbortOperationLink = paymentOrder?.Operations[LinkRelation.UpdateAbort]?.Href,
+            AbortOperationLink = paymentOrder?.Operations?[LinkRelation.UpdateAbort]?.Href,
             PaymentOrderLink = paymentOrder?.PaymentOrder.Id
         };
 
@@ -314,6 +321,7 @@ public class CheckOutController : Controller
 
             _context.Orders.Add(new Order
             {
+                MerchantId = _merchantService.MerchantId ?? string.Empty,
                 PaymentOrderLink = _cartService.PaymentOrderLink != null ? new Uri(_cartService.PaymentOrderLink, UriKind.RelativeOrAbsolute) : null,
                 PaymentLink = _cartService.PaymentLink != null ? new Uri(_cartService.PaymentLink, UriKind.RelativeOrAbsolute) : null,
                 // Instrument = this._cartService.Instrument,

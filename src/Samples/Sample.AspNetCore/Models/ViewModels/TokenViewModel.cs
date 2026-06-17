@@ -6,11 +6,11 @@ namespace Sample.AspNetCore.Models.ViewModels;
 
 public class TokenViewModel
 {
-    public string Id { get;set; }
-    public string PayerReference { get;set; }
-    
-    public Cart Cart { get; set; }
-    public IUserTokenOperations OperationList { get; set; }
-    public List<IUserToken> Tokens { get; set; }
+    public string? Id { get;set; }
+    public string? PayerReference { get;set; }
+
+    public Cart Cart { get; set; } = null!;
+    public IUserTokenOperations OperationList { get; set; } = null!;
+    public List<IUserToken> Tokens { get; set; } = [];
     
 }

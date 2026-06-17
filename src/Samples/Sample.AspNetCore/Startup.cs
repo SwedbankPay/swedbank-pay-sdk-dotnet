@@ -66,25 +66,22 @@ public class Startup
         var swedbankPayConSettings = Configuration.GetSection("SwedbankPay");
         services.Configure<SwedbankPayConnectionSettings>(swedbankPayConSettings);
 
-        var swedBankPayOptions = swedbankPayConSettings.Get<SwedbankPayConnectionSettings>();
+        var swedBankPayOptions = swedbankPayConSettings.Get<SwedbankPayConnectionSettings>()
+            ?? throw new InvalidOperationException("Missing SwedbankPay configuration section.");
         services.AddSingleton(s => swedBankPayOptions);
 
-        services.Configure<PayeeInfoConfig>(options =>
-        {
-            options.PayeeId = swedBankPayOptions.PayeeId;
-            options.PayeeReference = DateTime.Now.Ticks.ToString();
-        });
-        
         Console.WriteLine("Token: " + swedBankPayOptions.Token);
         Console.WriteLine("PayeeId: " + swedBankPayOptions.PayeeId);
 
         services.Configure<UrlsOptions>(Configuration.GetSection("Urls"));
-        services.AddScoped(provider => SessionCart.GetCart(provider));
+        services.AddScoped(SessionCart.GetCart);
+        services.AddScoped(SessionMerchant.GetMerchant);
         
         services.AddSingleton<PayerReference>();  
         
         services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
-        services.AddSwedbankPayClient(swedBankPayOptions.ApiBaseUrl, swedBankPayOptions.Token);
+        // services.AddSwedbankPayClient(swedBankPayOptions.ApiBaseUrl, swedBankPayOptions.Token);
+        services.AddSwedbankPayClient(swedBankPayOptions.ApiBaseUrl);
         services.AddSession();
 
         // Code copied from:

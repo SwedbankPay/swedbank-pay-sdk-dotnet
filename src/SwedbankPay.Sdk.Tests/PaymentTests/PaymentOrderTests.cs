@@ -7,6 +7,7 @@ using SwedbankPay.Sdk.Infrastructure.PaymentOrder;
 using SwedbankPay.Sdk.PaymentOrder;
 using SwedbankPay.Sdk.PaymentOrder.OperationRequest.Abort;
 using SwedbankPay.Sdk.PaymentOrder.OperationRequest.Capture;
+using SwedbankPay.Sdk.PaymentOrder.OperationRequest.Reversal;
 using SwedbankPay.Sdk.PaymentOrder.OperationRequest.Update;
 using SwedbankPay.Sdk.PaymentOrder.OrderItems;
 using SwedbankPay.Sdk.Tests.TestBuilders;
@@ -553,22 +554,7 @@ public class PaymentOrderTests : ResourceTestsBase
         Assert.NotNull(paymentOrder);
         Assert.NotNull(paymentOrder.Operations);
     }
-
-
-    [Fact]
-    public async Task GetPaymentOrder_ShouldReturnPaymentOrderReal()
-    {
-        //ARRANGE
-        var paymentOrderUri = new Uri("/psp/paymentorders/894f7efb-8535-4c3f-ccd6-08dbf62d5f1c",
-            UriKind.RelativeOrAbsolute);
-
-        //ACT
-        var paymentOrder = await Sut.PaymentOrders.Get(paymentOrderUri, PaymentOrderExpand.All);
-        Assert.NotNull(paymentOrder);
-        Assert.NotNull(paymentOrder.Operations);
-    }
-
-
+    
     [Fact]
     public async Task WhenSendingACaptureRequest_WeDoNotCrash_AndGiveAReasonableError()
     {
@@ -669,6 +655,37 @@ public class PaymentOrderTests : ResourceTestsBase
 
         Assert.NotNull(sut);
         Assert.NotNull(sut.PaymentOrder);
+    }
+
+    [Fact]
+    public async Task Reverse_PropagatesAcceptedStatus_WhenBankLinkPending()
+    {
+        var handler = new FakeDelegatingHandler();
+        var client = new HttpClient(handler)
+        {
+            BaseAddress = GetUri()
+        };
+        handler.FakeResponseList.Add(new HttpResponseMessage
+        {
+            StatusCode = HttpStatusCode.OK,
+            Content = new StringContent(PaymentOrderResponse31)
+        });
+        handler.FakeResponseList.Add(new HttpResponseMessage
+        {
+            StatusCode = HttpStatusCode.Accepted,
+            Content = new StringContent(PaymentOrderReversalResponse)
+        });
+
+        var paymentOrderRequest = _paymentOrderRequestBuilder.WithTestValues(PayeeId).WithOrderItems().Build();
+        var sut = await new PaymentOrdersResource(client).Create(paymentOrderRequest);
+
+        var reversalRequest = new PaymentOrderReversalRequest(new Amount(1500), new Amount(375),
+            "Reversing the capture amount", "ABC123");
+
+        var result = await sut!.Operations.Reverse!.Invoke(reversalRequest);
+
+        Assert.NotNull(result);
+        Assert.True(result.IsPending);
     }
 
     [Fact]

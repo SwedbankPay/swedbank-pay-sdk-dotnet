@@ -7,37 +7,41 @@ on:
 
 env:
   dotnetVersion: |
-    6.x
     8.x
+    10.x
+
+# Default to read-only; jobs elevate only what they need.
+permissions:
+  contents: read
+
+# Don't cancel an in-flight deploy; serialize per triggering commit instead.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.workflow_run.head_sha }}
+  cancel-in-progress: false
 
 jobs:
   test-unit-ui:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    # Post-merge only. Integration/UI tests need merchant secrets + the Dev
+    # environment, so they must NOT run against untrusted PR code (forks,
+    # Dependabot). PRs are gated by the secret-free build + unit tests in the
+    # Dev workflow; these run after the change lands on develop/release.
+    if: >
+      ${{ github.event.workflow_run.conclusion == 'success' &&
+          github.event.workflow_run.event != 'pull_request' }}
+    permissions:
+      contents: read
+      checks: write   # checks-action posts the commit status
     runs-on: ubuntu-latest
+    timeout-minutes: 30   # live-API + Cypress against the hosted payment pages
     environment: ${{ github.event.workflow_run.name }}
     outputs:
-      sourceHeadRepo: ${{ steps.source-run-info.outputs.sourceHeadRepo }}
-      sourceHeadBranch: ${{ steps.source-run-info.outputs.sourceHeadBranch }}
-      sourceHeadSha: ${{ steps.source-run-info.outputs.sourceHeadSha }}
-      mergeCommitSha: ${{ steps.source-run-info.outputs.mergeCommitSha }}
-      targetCommitSha: ${{ steps.source-run-info.outputs.targetCommitSha }}
-      pullRequestNumber: ${{ steps.source-run-info.outputs.pullRequestNumber }}
-      pullRequestLabels: ${{ steps.source-run-info.outputs.pullRequestLabels }}
-      targetBranch: ${{ steps.source-run-info.outputs.targetBranch }}
-      sourceEvent: ${{ steps.source-run-info.outputs.sourceEvent }}
-   
+      sourceEvent: ${{ github.event.workflow_run.event }}
+
     steps:
-      - name: "Get information about the origin 'CI' run"
-        uses: potiuk/get-workflow-origin@v1_5
-        id: source-run-info
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          sourceRunId: ${{ github.event.workflow_run.id }}
-     
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
                     
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@9a946fdbd5fb07b82b2f5a4466058b876ab72bb2 # v5.3.0
         with:
           dotnet-version: ${{ env.dotnetVersion }}
 
@@ -54,7 +58,7 @@ jobs:
           dotnet test ./src/SwedbankPay.Sdk.Tests/SwedbankPay.Sdk.Tests.csproj
 
       - name: Cypress run
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@948d67d3074f1bbb6379c8bdbb04e95d2f8e593f # v7.4.0
         with:
           working-directory: ./src/Samples/Sample.AspNetCore.UiTests
           start: dotnet run --project ../Sample.AspNetCore/Sample.AspNetCore.csproj --urls https://localhost:5001 --SwedbankPay:PayeeId ${{ secrets.MERCHANT_PAYEEID }} --SwedbankPay:Token ${{ secrets.MERCHANT_TOKEN }}
@@ -65,7 +69,7 @@ jobs:
           
           
       - name: Upload Cypress artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: ${{ always() }}
         with:
           name: cypress-screenshots
@@ -74,9 +78,9 @@ jobs:
       
       - name: Commit Action Status
         if: ${{ always() }}
-        uses: LouisBrunner/checks-action@v2.0.0
+        uses: LouisBrunner/checks-action@937cbbcde3259005b50746dc91cde29098aac2ff # v3.1.0
         with:
-          sha: ${{ steps.source-run-info.outputs.sourceHeadSha }}
+          sha: ${{ github.event.workflow_run.head_sha }}
           token: ${{ secrets.GITHUB_TOKEN }}
           name: Run Unit and UI tests
           conclusion: ${{ job.status }}
@@ -85,13 +89,18 @@ jobs:
     needs: [test-unit-ui]
     if: ${{ needs.test-unit-ui.outputs.sourceEvent != 'pull_request' && github.event.workflow_run.name == 'Dev' }}
     name: Publish alpha nuget
+    permissions:
+      contents: read
+      actions: read    # action-download-artifact reads the triggering run
+      packages: write  # push to GitHub Packages
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     environment: ${{ github.event.workflow_run.name }}
 
     steps:
       - name: Download artifact
         id: download-artifact
-        uses: dawidd6/action-download-artifact@v6
+        uses: dawidd6/action-download-artifact@b6e2e70617bc3265edd6dab6c906732b2f1ae151 # v21
         with:
           workflow_conclusion: success
           run_id: ${{ github.event.workflow_run.id }}
@@ -104,7 +113,10 @@ jobs:
   publish_sample_site:
     needs: [test-unit-ui]
     if: ${{ needs.test-unit-ui.outputs.sourceEvent != 'pull_request' }}
-    uses: ./.github/workflows/template_publish_webapp.yml  
+    permissions:
+      contents: read
+      actions: read
+    uses: ./.github/workflows/template_publish_webapp.yml
     secrets: inherit
     with:
       Environment: ${{ github.event.workflow_run.name }}

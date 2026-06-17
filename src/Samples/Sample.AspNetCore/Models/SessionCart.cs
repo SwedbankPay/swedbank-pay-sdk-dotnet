@@ -12,7 +12,7 @@ public class SessionCart : Cart
 {
     private const string CartSessionKey = "_Cart";
 
-    [JsonIgnore] public ISession Session { get; set; }
+    [JsonIgnore] public ISession Session { get; set; } = null!;
 
 
     public override void AddItem(Product product, int quantity)
@@ -31,9 +31,9 @@ public class SessionCart : Cart
 
     public static Cart GetCart(IServiceProvider services)
     {
-        var session = services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
+        var session = services.GetRequiredService<IHttpContextAccessor>().HttpContext!.Session;
 
-        var cart = session?.GetJson<SessionCart>(CartSessionKey) ?? new SessionCart();
+        var cart = session.GetJson<SessionCart>(CartSessionKey) ?? new SessionCart();
 
         cart.Session = session;
         return cart;

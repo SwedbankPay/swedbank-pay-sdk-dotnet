@@ -160,6 +160,12 @@ declare namespace Cypress {
         getPaymentOrder<T = any>(
             paymentOrderId: string
         ): Cypress.Chainable<Response<T>>
+
+        getPaymentOrderUntil<T = any>(
+            paymentOrderId: string,
+            predicate: (body: any) => boolean,
+            attempts?: number
+        ): Cypress.Chainable<Response<T>>
     }
 }
 
@@ -377,5 +383,25 @@ Cypress.Commands.add("findInIframeIf",
 Cypress.Commands.add("getPaymentOrder",
     (paymentOrderId: string) => {
         return cy.request('https://localhost:5001/payment/getpaymentorder?paymentorderid=' + paymentOrderId)
+    }
+);
+
+// Operations such as capture and reversal settle asynchronously at Swedbank Pay: the operation
+// POST can succeed while a follow-up GET still reports the previous state for a short window.
+// Poll the payment order until `predicate(body)` holds (or attempts run out) so assertions run
+// against the settled state instead of racing the transition.
+Cypress.Commands.add("getPaymentOrderUntil",
+    (paymentOrderId: string, predicate: (body: any) => boolean, attempts: number = 10) => {
+        const request = (attemptsLeft: number): any =>
+            cy.request('https://localhost:5001/payment/getpaymentorder?paymentorderid=' + paymentOrderId)
+                .then((response) => {
+                    if (predicate(response.body) || attemptsLeft <= 1) {
+                        return response;
+                    }
+                    cy.wait(2000);
+                    return request(attemptsLeft - 1);
+                });
+
+        return request(attempts);
     }
 );

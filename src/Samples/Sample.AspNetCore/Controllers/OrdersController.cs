@@ -11,6 +11,7 @@ using Sample.AspNetCore.Models;
 using Sample.AspNetCore.Models.ViewModels;
 
 using SwedbankPay.Sdk;
+using SwedbankPay.Sdk.Extensions;
 using SwedbankPay.Sdk.PaymentOrder;
 
 namespace Sample.AspNetCore.Controllers;
@@ -18,13 +19,16 @@ namespace Sample.AspNetCore.Controllers;
 public class OrdersController : Controller
 {
     private readonly StoreDbContext _storeDbContext;
-    private readonly ISwedbankPayClient _swedbankPayClient;
+    private readonly ISwedbankPayClientFactory _swedbankPayClientFactory;
+    private readonly Merchant _merchantService;
 
     public OrdersController(StoreDbContext storeDbStoreDbContext,
-        ISwedbankPayClient swedbankPayClient)
+        ISwedbankPayClientFactory swedbankPayClientFactory,
+        Merchant merchantService)
     {
         _storeDbContext = storeDbStoreDbContext;
-        _swedbankPayClient = swedbankPayClient;
+        _swedbankPayClientFactory = swedbankPayClientFactory;
+        _merchantService = merchantService;
     }
 
 
@@ -75,7 +79,7 @@ public class OrdersController : Controller
     public async Task<IActionResult> Create([Bind("Id,PaymentOrderId")] Order order)
     {
         if (ModelState.IsValid)
-        {
+        {   
             _storeDbContext.Add(order);
             await _storeDbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -88,11 +92,7 @@ public class OrdersController : Controller
     // GET: Orders/Details/5
     public async Task<IActionResult> Details(int? _)
     {
-        var orders = await _storeDbContext.Orders.ToListAsync();
-        if (orders == null || !orders.Any())
-        {
-            return NotFound();
-        }
+        var orders = await _storeDbContext.Orders.Where(x => x.MerchantId == _merchantService.MerchantId).ToListAsync();
 
 
         var completedPayments = new List<OrderViewModel>();
@@ -100,25 +100,26 @@ public class OrdersController : Controller
         foreach (var order in orders)
         {
             List<HttpOperation> operations = new List<HttpOperation>();
-            string recurringToken = null;
+            string? recurringToken = null;
             if (order.PaymentOrderLink != null)
             {
-                var paymentOrder = await _swedbankPayClient.PaymentOrders.Get(order.PaymentOrderLink, PaymentOrderExpand.All);
-                var paymentOrderOperations = paymentOrder?.Operations.Select(x => x.Value);
+                var swedbankPayClient = _swedbankPayClientFactory.CreateClient(_merchantService.Token);
+                var paymentOrder = await swedbankPayClient.PaymentOrders.Get(order.PaymentOrderLink, PaymentOrderExpand.All);
+                var paymentOrderOperations = paymentOrder?.Operations?.Select(x => x.Value).Where(x => x != null).Cast<HttpOperation>();
                 operations = paymentOrderOperations?.ToList() ?? [];
 
                 var recurringTokenItem = paymentOrder?.PaymentOrder.Paid?.Tokens?.FirstOrDefault(x => x.Type == "recurrence");
                 if (recurringTokenItem != null)
                 {
-                    var uri = new Uri("https://api.externalintegration.payex.com" + paymentOrder.PaymentOrder.Id);
+                    var uri = new Uri("https://api.externalintegration.payex.com" + paymentOrder!.PaymentOrder.Id);
                     operations.Add(new HttpOperation(uri, new LinkRelation("recurrence", "recurrence"), "POST", "text/html"));
                     recurringToken = recurringTokenItem.Token;
                 }
-                
+
                 var unscheduledTokenItem = paymentOrder?.PaymentOrder.Paid?.Tokens?.FirstOrDefault(x => x.Type == "unscheduled");
                 if (unscheduledTokenItem != null)
                 {
-                    var uri = new Uri("https://api.externalintegration.payex.com" + paymentOrder.PaymentOrder.Id);
+                    var uri = new Uri("https://api.externalintegration.payex.com" + paymentOrder!.PaymentOrder.Id);
                     operations.Add(new HttpOperation(uri, new LinkRelation("unscheduled", "unscheduled"), "POST", "text/html"));
                     recurringToken = unscheduledTokenItem.Token;
                 }

@@ -9,27 +9,30 @@ using Microsoft.Extensions.Logging;
 using Sample.AspNetCore.Models;
 using Sample.AspNetCore.Models.ViewModels;
 
-using SwedbankPay.Sdk;
+using SwedbankPay.Sdk.Extensions;
 using SwedbankPay.Sdk.PaymentOrder.OperationRequest.RemoveToken;
 
 namespace Sample.AspNetCore.Controllers;
 
 public class TokensController : Controller
 {
-    private readonly ISwedbankPayClient _swedbankPayClient;
+    private readonly ISwedbankPayClientFactory _swedbankPayClientFactory;
     private readonly ILogger<TokensController> _logger;
     private readonly Cart _cart;
     private readonly PayerReference _payerReference;
+    private readonly Merchant _merchantService;
 
-    public TokensController(ISwedbankPayClient swedbankPayClient,
+    public TokensController(ISwedbankPayClientFactory swedbankPayClientFactory,
         ILogger<TokensController> logger,
         Cart cart,
-        PayerReference payerReference)
+        PayerReference payerReference,
+        Merchant merchantService)
     {
-        _swedbankPayClient = swedbankPayClient;
+        _swedbankPayClientFactory = swedbankPayClientFactory;
         _logger = logger;
         _cart = cart;
         _payerReference = payerReference;
+        _merchantService = merchantService;
     }
 
 
@@ -109,16 +112,26 @@ public class TokensController : Controller
 
         try
         {
-            var tokenResponse = await _swedbankPayClient.PaymentOrders.GetOwnedTokens(_payerReference.Id);
+            var swedbankPayClient = _swedbankPayClientFactory.CreateClient(_merchantService.Token);
+            var tokenResponse = await swedbankPayClient.PaymentOrders.GetOwnedTokens(_payerReference.Id);
             viewModel.Id = tokenResponse?.Id;
             viewModel.PayerReference = tokenResponse?.PayerReference;
-            viewModel.Tokens = tokenResponse?.Tokens;
-            viewModel.OperationList = tokenResponse?.Operations;
+            if (tokenResponse?.Tokens != null)
+            {
+                viewModel.Tokens = tokenResponse.Tokens;
+            }
+            if (tokenResponse?.Operations != null)
+            {
+                viewModel.OperationList = tokenResponse.Operations;
+            }
             viewModel.Cart = _cart;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            _logger.LogError("No existing tokens for user");
+            // GetOwnedTokens throws when the payer owns no tokens yet (e.g. the token from a
+            // just-completed payment has not propagated). Log the real exception so CI can tell
+            // a benign "no tokens" 404 apart from auth/timeout failures instead of masking it.
+            _logger.LogError(ex, "Could not fetch tokens for payer {PayerReference}", _payerReference.Id);
         }
 
         return viewModel;

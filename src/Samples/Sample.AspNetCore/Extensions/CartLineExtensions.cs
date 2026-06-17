@@ -12,8 +12,8 @@ public static class CartLineExtensions
     {
         foreach (var line in lines)
         {
-            yield return new OrderItem(line.Product.Reference, line.Product.Name, OrderItemType.FromValue(line.Product.Type),
-                line.Product.Class,
+            yield return new OrderItem(line.Product.Reference ?? string.Empty, line.Product.Name ?? string.Empty, OrderItemType.FromValue(line.Product.Type ?? string.Empty)!,
+                line.Product.Class ?? string.Empty,
                 line.Quantity, "pcs", new Amount(line.Product.Price), 0,
                 new Amount(line.CalculateTotal()),
                 new Amount(line.Product.VatPercentage == 0

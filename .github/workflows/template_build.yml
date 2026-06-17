@@ -6,7 +6,7 @@ on:
       Configuration:
         required: true
         type: string
-      NUGETVERSIONV2:
+      nugetVersion:
         required: true
         type: string
       SlnPath:
@@ -24,44 +24,60 @@ on:
 
 env:
   dotnetVersion: |
-    6.x
-    7.x
     8.x
+    9.x
+    10.x
   AZURE_WEBAPP_PACKAGE_PATH: '.'
+
+permissions:
+  contents: read
 
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    
+    timeout-minutes: 20
+
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@9a946fdbd5fb07b82b2f5a4466058b876ab72bb2 # v5.3.0
         with:
           dotnet-version: ${{ env.dotnetVersion }}
  
       - name: Install dependencies
         run: dotnet restore ${{ inputs.SlnPath }}
- 
+
+      # Runs the credential-free unit tests on every PR (including Dependabot PRs,
+      # which have no access to repository secrets). The live-API tests in the
+      # PaymentTests namespace need MERCHANT secrets and run later in the
+      # workflow_run stage (test_deploy_samplesite.yml).
+      - name: Run unit tests
+        run: >
+          dotnet test ${{ inputs.UnitTestsCsprojPath }}
+          --configuration ${{ inputs.Configuration }}
+          -p:Version=${{ inputs.nugetVersion }}
+          --no-restore
+          --filter "FullyQualifiedName~SwedbankPay.Sdk.Tests.UnitTests|FullyQualifiedName~SwedbankPay.Sdk.Tests.Json"
+
       - name: Publish Sdk Sample site
-        run: dotnet publish --configuration ${{ inputs.Configuration }} -p:Version=${{ inputs.nuGetVersionV2 }} --no-restore ${{ inputs.SampleSiteCsprojPath }} --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/samplesite'
+        run: dotnet publish --configuration ${{ inputs.Configuration }} -p:Version=${{ inputs.nugetVersion }} --no-restore ${{ inputs.SampleSiteCsprojPath }} --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/samplesite'
 
       - name: Archive Sample.AspNetCore
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: Sample.AspNetCore
           path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/samplesite
 
       - name: Nuget pack SwedbankPay.Sdk
-        run: dotnet pack ${{ inputs.SdkCsprojPath }} -p:PackageVersion=${{ inputs.NUGETVERSIONV2 }} -p:Version=${{ inputs.NUGETVERSIONV2 }} --no-restore --configuration=${{ inputs.Configuration }} --output=artifacts
+        run: dotnet pack ${{ inputs.SdkCsprojPath }} -p:PackageVersion=${{ inputs.nugetVersion }} -p:Version=${{ inputs.nugetVersion }} --no-restore --configuration=${{ inputs.Configuration }} --output=artifacts
 
       - name: Nuget pack SwedbankPay.Sdk.Extensions
-        run: dotnet pack ./src/SwedbankPay.Sdk.Extensions/SwedbankPay.Sdk.Extensions.csproj -p:PackageVersion=${{ inputs.NUGETVERSIONV2 }} -p:Version=${{ inputs.NUGETVERSIONV2 }} --no-restore --configuration=${{ inputs.Configuration }} --output=artifacts
+        run: dotnet pack ./src/SwedbankPay.Sdk.Extensions/SwedbankPay.Sdk.Extensions.csproj -p:PackageVersion=${{ inputs.nugetVersion }} -p:Version=${{ inputs.nugetVersion }} --no-restore --configuration=${{ inputs.Configuration }} --output=artifacts
 
       - name: Archive nuget packages artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           # Artifact name
           name: packages

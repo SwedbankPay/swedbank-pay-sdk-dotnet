@@ -5,11 +5,11 @@
   "author": "",
   "license": "ISC",
   "engines": {
-    "node": ">=18.14.0 <19.0.0"
+    "node": ">=20.0.0"
   },
   "devDependencies": {
-    "cypress": "^13.3.1",
-    "typescript": "^5.2.2"
+    "cypress": "^15.17.0",
+    "typescript": "^6.0.3"
   },
   "scripts": {
     "cy:open": "cypress open",
