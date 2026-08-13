@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "cypress": "^15.20.0",
-    "typescript": "^6.0.3"
+    "typescript": "^7.0.2"
   },
   "scripts": {
     "cy:open": "cypress open",
