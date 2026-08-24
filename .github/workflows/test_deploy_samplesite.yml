@@ -58,7 +58,7 @@ jobs:
           dotnet test ./src/SwedbankPay.Sdk.Tests/SwedbankPay.Sdk.Tests.csproj
 
       - name: Cypress run
-        uses: cypress-io/github-action@c32f12761482a282d24ca0fd7466d8ae86f54ba8 # v7.4.2
+        uses: cypress-io/github-action@09090944bd8aaa2a517cefb6e38bf1aae336b42b # v7.4.3
         with:
           working-directory: ./src/Samples/Sample.AspNetCore.UiTests
           start: dotnet run --project ../Sample.AspNetCore/Sample.AspNetCore.csproj --urls https://localhost:5001 --SwedbankPay:PayeeId ${{ secrets.MERCHANT_PAYEEID }} --SwedbankPay:Token ${{ secrets.MERCHANT_TOKEN }}
