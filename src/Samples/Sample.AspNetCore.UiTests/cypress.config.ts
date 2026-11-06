@@ -10,8 +10,10 @@ module.exports = defineConfig({
   expose: {
     baseUrl: "https://localhost:5001"
   },
-  allowCypressEnv: false,
   chromeWebSecurity: false,
+  // Cypress 16 changed the default from 10 to 0. Swedbank Pay's card form formats
+  // input as you type (e.g. MM/YY), so keep the previous per-keystroke delay.
+  keystrokeDelay: 10,
   reporter: "junit",
   reporterOptions: {
     mochaFile: "cypress/reports/report-[hash].xml",

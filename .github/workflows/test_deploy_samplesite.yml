@@ -57,6 +57,14 @@ jobs:
           export SwedbankPay__Token=${{ secrets.MERCHANT_TOKEN }}
           dotnet test ./src/SwedbankPay.Sdk.Tests/SwedbankPay.Sdk.Tests.csproj
 
+      # The sample site serves the ASP.NET Core development certificate, which is
+      # self-signed. Export it so Node (the action's wait-on check and Cypress) can trust
+      # exactly that certificate via NODE_EXTRA_CA_CERTS.
+      - name: Export ASP.NET Core dev certificate
+        run: |
+          dotnet dev-certs https
+          dotnet dev-certs https --export-path "$RUNNER_TEMP/aspnet-dev-cert.pem" --format Pem --no-password
+
       - name: Cypress run
         uses: cypress-io/github-action@18016a55674bd02cabf197de5762a1710cb5577c # v7.4.9
         with:
@@ -65,6 +73,7 @@ jobs:
           wait-on: 'https://localhost:5001'
           browser: chrome
         env:
+          NODE_EXTRA_CA_CERTS: ${{ runner.temp }}/aspnet-dev-cert.pem
           NODE_TLS_REJECT_UNAUTHORIZED: 0
           
           

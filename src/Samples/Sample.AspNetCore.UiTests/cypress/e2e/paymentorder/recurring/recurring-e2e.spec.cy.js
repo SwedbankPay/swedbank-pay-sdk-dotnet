@@ -20,22 +20,18 @@ describe('Create recurring payments', () => {
 
         cy.getByAutomation('paymentorderlink').then(($paymentOrderLink) => {
             let paymentOrderLink = $paymentOrderLink.text();
-            cy.getByAutomation('orderslink', true, {timeout: 30000}).click();
+            cy.openOrders();
 
-            cy.get('[data-paymentorderlink="' + paymentOrderLink + '"]', {timeout: 30000}).within(($paymentOrder) => {
-                cy.getByAutomation('a-recurring').should('be.visible').click();
-            });
+            cy.clickOrderAction(paymentOrderLink, 'a-recurring');
 
             cy.get('.alert.alert-success', {timeout: 5000}).should('have.class', 'alert-success');
 
             cy.getByAutomation('paymentorderlink').then(($paymentOrderLink) => {
                 let paymentOrderLink = $paymentOrderLink.text();
-                cy.getByAutomation('orderslink', true, {timeout: 30000}).click();
+                cy.openOrders();
 
 
-                cy.get('[data-paymentorderlink="' + paymentOrderLink + '"]', {timeout: 30000}).within(($paymentOrder) => {
-                    cy.getByAutomation('a-paymentordercancel').should('be.visible').click();
-                });
+                cy.clickOrderAction(paymentOrderLink, 'a-paymentordercancel');
 
                 cy.get('.alert.alert-success', {timeout: 5000}).should('have.class', 'alert-success');
 
@@ -58,17 +54,15 @@ describe('Create recurring payments', () => {
 
         cy.getByAutomation('paymentorderlink').then(($paymentOrderLink) => {
             let paymentOrderLink = $paymentOrderLink.text();
-            cy.getByAutomation('orderslink', true, {timeout: 30000}).click();
+            cy.openOrders();
 
-            cy.get('[data-paymentorderlink="' + paymentOrderLink + '"]', {timeout: 30000}).within(($paymentOrder) => {
-                cy.getByAutomation('a-recurring').should('be.visible').click();
-            });
+            cy.clickOrderAction(paymentOrderLink, 'a-recurring');
 
             cy.get('.alert.alert-success', {timeout: 5000}).should('have.class', 'alert-success');
 
             cy.getByAutomation('paymentorderlink').then(($paymentOrderLink) => {
                 let paymentOrderLink = $paymentOrderLink.text();
-                cy.getByAutomation('orderslink', true, {timeout: 30000}).click();
+                cy.openOrders();
 
                 cy.getPaymentOrderUntil(paymentOrderLink, (body) => body.operations.capture != null).then((response) => {
                     expect(response.status).to.eq(200);
@@ -81,9 +75,7 @@ describe('Create recurring payments', () => {
                     expect(responseBody.operations.reversal).to.be.undefined;
                 });
 
-                cy.get('[data-paymentorderlink="' + paymentOrderLink + '"]', {timeout: 30000}).within(($paymentOrder) => {
-                    cy.getByAutomation('a-paymentordercapture').should('be.visible').click();
-                });
+                cy.clickOrderAction(paymentOrderLink, 'a-paymentordercapture');
 
                 cy.getPaymentOrderUntil(paymentOrderLink, (body) => body.operations.reversal != null).then((response) => {
                     expect(response.status).to.eq(200);
@@ -99,9 +91,7 @@ describe('Create recurring payments', () => {
 
                 cy.get('.alert.alert-success', {timeout: 5000}).should('have.class', 'alert-success');
 
-                cy.get('[data-paymentorderlink="' + paymentOrderLink + '"]', {timeout: 30000}).within(($paymentOrder) => {
-                    cy.getByAutomation('a-paymentorderreversal').should('be.visible').click();
-                });
+                cy.clickOrderAction(paymentOrderLink, 'a-paymentorderreversal');
 
                 cy.getPaymentOrderUntil(paymentOrderLink, (body) => body.paymentOrder.status.value === 'Reversed').then((response) => {
                     expect(response.status).to.eq(200);
@@ -136,22 +126,18 @@ describe('Create recurring payments', () => {
 
         cy.getByAutomation('paymentorderlink').then(($paymentOrderLink) => {
             let paymentOrderLink = $paymentOrderLink.text();
-            cy.getByAutomation('orderslink', true, {timeout: 30000}).click();
+            cy.openOrders();
 
-            cy.get('[data-paymentorderlink="' + paymentOrderLink + '"]', {timeout: 30000}).within(($paymentOrder) => {
-                cy.getByAutomation('a-unscheduled').should('be.visible').click();
-            });
+            cy.clickOrderAction(paymentOrderLink, 'a-unscheduled');
 
             cy.get('.alert.alert-success', {timeout: 5000}).should('have.class', 'alert-success');
 
             cy.getByAutomation('paymentorderlink').then(($paymentOrderLink) => {
                 let paymentOrderLink = $paymentOrderLink.text();
-                cy.getByAutomation('orderslink', true, {timeout: 30000}).click();
+                cy.openOrders();
 
 
-                cy.get('[data-paymentorderlink="' + paymentOrderLink + '"]', {timeout: 30000}).within(($paymentOrder) => {
-                    cy.getByAutomation('a-paymentordercancel').should('be.visible').click();
-                });
+                cy.clickOrderAction(paymentOrderLink, 'a-paymentordercancel');
 
                 cy.get('.alert.alert-success', {timeout: 5000}).should('have.class', 'alert-success');
 
@@ -174,17 +160,15 @@ describe('Create recurring payments', () => {
 
         cy.getByAutomation('paymentorderlink').then(($paymentOrderLink) => {
             let paymentOrderLink = $paymentOrderLink.text();
-            cy.getByAutomation('orderslink', true, {timeout: 30000}).click();
+            cy.openOrders();
 
-            cy.get('[data-paymentorderlink="' + paymentOrderLink + '"]', {timeout: 30000}).within(($paymentOrder) => {
-                cy.getByAutomation('a-unscheduled').should('be.visible').click();
-            });
+            cy.clickOrderAction(paymentOrderLink, 'a-unscheduled');
 
             cy.get('.alert.alert-success', {timeout: 5000}).should('have.class', 'alert-success');
 
             cy.getByAutomation('paymentorderlink').then(($paymentOrderLink) => {
                 let paymentOrderLink = $paymentOrderLink.text();
-                cy.getByAutomation('orderslink', true, {timeout: 30000}).click();
+                cy.openOrders();
 
                 cy.getPaymentOrderUntil(paymentOrderLink, (body) => body.operations.capture != null).then((response) => {
                     expect(response.status).to.eq(200);
@@ -197,9 +181,7 @@ describe('Create recurring payments', () => {
                     expect(responseBody.operations.reversal).to.be.undefined;
                 });
 
-                cy.get('[data-paymentorderlink="' + paymentOrderLink + '"]', {timeout: 30000}).within(($paymentOrder) => {
-                    cy.getByAutomation('a-paymentordercapture').should('be.visible').click();
-                });
+                cy.clickOrderAction(paymentOrderLink, 'a-paymentordercapture');
 
                 cy.getPaymentOrderUntil(paymentOrderLink, (body) => body.operations.reversal != null).then((response) => {
                     expect(response.status).to.eq(200);
@@ -215,9 +197,7 @@ describe('Create recurring payments', () => {
 
                 cy.get('.alert.alert-success', {timeout: 5000}).should('have.class', 'alert-success');
 
-                cy.get('[data-paymentorderlink="' + paymentOrderLink + '"]', {timeout: 30000}).within(($paymentOrder) => {
-                    cy.getByAutomation('a-paymentorderreversal').should('be.visible').click();
-                });
+                cy.clickOrderAction(paymentOrderLink, 'a-paymentorderreversal');
 
                 cy.getPaymentOrderUntil(paymentOrderLink, (body) => body.paymentOrder.status.value === 'Reversed').then((response) => {
                     expect(response.status).to.eq(200);

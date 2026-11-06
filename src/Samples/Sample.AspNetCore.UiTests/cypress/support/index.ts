@@ -108,7 +108,7 @@ declare namespace Cypress {
          * Custom command to wait seconds.
          * @example cy.waitSeconds(1)
          */
-        waitSeconds(seconds: number, ...args: any): Chainable<JQuery<HTMLElement>>;
+        waitSeconds(seconds: number, ...args: any): Chainable<undefined>;
 
         /**
          * Custom command to fetch errors.
@@ -157,6 +157,21 @@ declare namespace Cypress {
             ...args: any
         ): Cypress.Chainable<JQuery<HTMLElement | Document | Text | Comment>>;
 
+        /**
+         * Clicks the Orders link and waits until the page has actually reloaded.
+         * The link points at Orders/Details, which is often the page already shown,
+         * so without waiting, later queries can match elements on the old page.
+         * @example cy.openOrders()
+         */
+        openOrders(): Chainable<undefined>;
+        /**
+         * Clicks an action button (data-automation) in the order row for a payment order
+         * and waits until the resulting page has loaded.
+         * Uses one selector instead of .within(): the click navigates away, which would
+         * detach the .within() subject while Cypress is still finishing that command.
+         * @example cy.clickOrderAction(paymentOrderLink, 'a-paymentordercapture')
+         */
+        clickOrderAction(paymentOrderLink: string, action: string): Chainable<undefined>;
         getPaymentOrder<T = any>(
             paymentOrderId: string
         ): Cypress.Chainable<Response<T>>
@@ -279,27 +294,27 @@ Cypress.Commands.add("performIfAttr", {prevSubject: "element"},
         subject,
         attr: string,
         value: string | boolean | number,
-        callback: () => any
+        callback?: () => any
     ) => {
         cy.wrap(subject)
             .invoke("attr", attr)
             .then((attr) => {
-                cy.log(attr);
+                cy.log(String(attr));
                 if (attr == value) {
-                    return callback();
+                    return callback?.();
                 }
             });
     }
 );
 
 Cypress.Commands.add("performIfClass", {prevSubject: "element"},
-    (subject, value: string, callback: () => any) => {
+    (subject, value: string, callback?: () => any) => {
         cy.wrap(subject)
             .invoke("attr", "class")
             .then((className) => {
-                cy.log(className);
-                if (className.includes(value)) {
-                    return callback();
+                cy.log(className ?? "");
+                if (className?.includes(value)) {
+                    return callback?.();
                 }
             });
     }
@@ -345,7 +360,7 @@ Cypress.Commands.add("iframeLoaded", (
         iframe: string,
         element: string,
         timeout: number,
-        callback: ($iframe: JQuery<HTMLElement>) => any
+        callback?: ($iframe: JQuery<HTMLElement>) => any
     ) => {
         console.log(iframe);
         return cy
@@ -356,14 +371,16 @@ Cypress.Commands.add("iframeLoaded", (
                 expect($iframe.contents().find(element)).to.exist;
             })
             .then(($iframe) => {
-                callback($iframe);
+                callback?.($iframe);
             });
     }
 );
 
+// Let Cypress run the find (instead of jQuery up front) so it retries until the element
+// renders and names the selector in the error when it never appears.
 Cypress.Commands.add("findInIframe",
     ($iframe: JQuery<HTMLElement>, element: string) => {
-        return cy.wrap($iframe.contents().find(element));
+        return cy.wrap($iframe.contents(), {log: false}).find(element);
     }
 );
 
@@ -380,9 +397,45 @@ Cypress.Commands.add("findInIframeIf",
 );
 
 
+// Runs `navigate` (e.g. a click on a link) and waits until it has replaced the page.
+// The browser keeps showing the old page until the server responds, so without this,
+// later queries can match the old page. A fresh window has no marker, so the
+// assertion only passes once the new page has loaded.
+function waitForNavigation(navigate: () => void, timeout: number) {
+    const marker = "__beforeNavigation";
+    cy.window({log: false}).then((win) => {
+        (win as any)[marker] = true;
+    });
+    navigate();
+    cy.window({timeout}).should((win) => {
+        expect((win as any)[marker], "page replaced").to.be.undefined;
+    });
+}
+
+Cypress.Commands.add("openOrders", () => {
+    waitForNavigation(() => cy.getByAutomation("orderslink", true, {timeout: 30000}).click(), 30000);
+    return cy.wrap(undefined, {log: false});
+});
+
+Cypress.Commands.add("clickOrderAction", (paymentOrderLink: string, action: string) => {
+    // Order actions call the Swedbank Pay API server-side before redirecting, which can take a while.
+    waitForNavigation(() => cy
+        .get(`[data-paymentorderlink="${paymentOrderLink}"] [data-automation="${action}"]`, {timeout: 30000})
+        .should("be.visible")
+        .click(), 60000);
+    return cy.wrap(undefined, {log: false});
+});
+
+// Same deployment as the pages under test (localhost, or dev/UAT via --expose baseUrl=...).
+function paymentOrderUrl(paymentOrderId: string): string {
+    const url = new URL("/payment/getpaymentorder", Cypress.expose("baseUrl"));
+    url.searchParams.set("paymentorderid", paymentOrderId);
+    return url.toString();
+}
+
 Cypress.Commands.add("getPaymentOrder",
     (paymentOrderId: string) => {
-        return cy.request('https://localhost:5001/payment/getpaymentorder?paymentorderid=' + paymentOrderId)
+        return cy.request(paymentOrderUrl(paymentOrderId))
     }
 );
 
@@ -393,7 +446,7 @@ Cypress.Commands.add("getPaymentOrder",
 Cypress.Commands.add("getPaymentOrderUntil",
     (paymentOrderId: string, predicate: (body: any) => boolean, attempts: number = 10) => {
         const request = (attemptsLeft: number): any =>
-            cy.request('https://localhost:5001/payment/getpaymentorder?paymentorderid=' + paymentOrderId)
+            cy.request(paymentOrderUrl(paymentOrderId))
                 .then((response) => {
                     if (predicate(response.body) || attemptsLeft <= 1) {
                         return response;

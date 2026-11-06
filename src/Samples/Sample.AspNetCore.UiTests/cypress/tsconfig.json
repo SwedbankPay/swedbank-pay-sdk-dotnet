@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es2021",
     "lib": ["es2021", "dom"],
-    "types": ["cypress", "node", "cypress-wait-until"]
+    "types": ["cypress", "node"]
   },
   "include": [
     "**/*.ts"
