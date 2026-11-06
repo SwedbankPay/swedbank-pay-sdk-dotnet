@@ -157,6 +157,20 @@ declare namespace Cypress {
             ...args: any
         ): Cypress.Chainable<JQuery<HTMLElement | Document | Text | Comment>>;
 
+        /**
+         * Clicks the Orders link and waits until the page has actually reloaded.
+         * The link points at Orders/Details, which is often the page already shown,
+         * so without waiting, later queries can match elements on the old page.
+         * @example cy.openOrders()
+         */
+        openOrders(): Chainable<undefined>;
+        /**
+         * Clicks an action button (data-automation) in the order row for a payment order.
+         * Uses one selector instead of .within(): the click navigates away, which would
+         * detach the .within() subject while Cypress is still finishing that command.
+         * @example cy.clickOrderAction(paymentOrderLink, 'a-paymentordercapture')
+         */
+        clickOrderAction(paymentOrderLink: string, action: string): Chainable<JQuery<HTMLElement>>;
         getPaymentOrder<T = any>(
             paymentOrderId: string
         ): Cypress.Chainable<Response<T>>
@@ -381,6 +395,26 @@ Cypress.Commands.add("findInIframeIf",
     }
 );
 
+
+Cypress.Commands.add("openOrders", () => {
+    const marker = "__beforeOrdersNavigation";
+    cy.window({log: false}).then((win) => {
+        (win as any)[marker] = true;
+    });
+    cy.getByAutomation("orderslink", true, {timeout: 30000}).click();
+    // A fresh window has no marker, so this passes only once the reload has replaced the page.
+    cy.window({timeout: 30000}).should((win) => {
+        expect((win as any)[marker], "page reloaded").to.be.undefined;
+    });
+    return cy.wrap(undefined, {log: false});
+});
+
+Cypress.Commands.add("clickOrderAction", (paymentOrderLink: string, action: string) => {
+    return cy
+        .get(`[data-paymentorderlink="${paymentOrderLink}"] [data-automation="${action}"]`, {timeout: 30000})
+        .should("be.visible")
+        .click();
+});
 
 Cypress.Commands.add("getPaymentOrder",
     (paymentOrderId: string) => {
