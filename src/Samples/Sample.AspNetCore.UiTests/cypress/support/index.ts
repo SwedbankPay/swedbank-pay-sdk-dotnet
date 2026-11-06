@@ -416,9 +416,16 @@ Cypress.Commands.add("clickOrderAction", (paymentOrderLink: string, action: stri
         .click();
 });
 
+// Same deployment as the pages under test (localhost, or dev/UAT via --expose baseUrl=...).
+function paymentOrderUrl(paymentOrderId: string): string {
+    const url = new URL("/payment/getpaymentorder", Cypress.expose("baseUrl"));
+    url.searchParams.set("paymentorderid", paymentOrderId);
+    return url.toString();
+}
+
 Cypress.Commands.add("getPaymentOrder",
     (paymentOrderId: string) => {
-        return cy.request('https://localhost:5001/payment/getpaymentorder?paymentorderid=' + paymentOrderId)
+        return cy.request(paymentOrderUrl(paymentOrderId))
     }
 );
 
@@ -429,7 +436,7 @@ Cypress.Commands.add("getPaymentOrder",
 Cypress.Commands.add("getPaymentOrderUntil",
     (paymentOrderId: string, predicate: (body: any) => boolean, attempts: number = 10) => {
         const request = (attemptsLeft: number): any =>
-            cy.request('https://localhost:5001/payment/getpaymentorder?paymentorderid=' + paymentOrderId)
+            cy.request(paymentOrderUrl(paymentOrderId))
                 .then((response) => {
                     if (predicate(response.body) || attemptsLeft <= 1) {
                         return response;
