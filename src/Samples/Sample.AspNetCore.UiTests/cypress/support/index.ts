@@ -165,12 +165,13 @@ declare namespace Cypress {
          */
         openOrders(): Chainable<undefined>;
         /**
-         * Clicks an action button (data-automation) in the order row for a payment order.
+         * Clicks an action button (data-automation) in the order row for a payment order
+         * and waits until the resulting page has loaded.
          * Uses one selector instead of .within(): the click navigates away, which would
          * detach the .within() subject while Cypress is still finishing that command.
          * @example cy.clickOrderAction(paymentOrderLink, 'a-paymentordercapture')
          */
-        clickOrderAction(paymentOrderLink: string, action: string): Chainable<JQuery<HTMLElement>>;
+        clickOrderAction(paymentOrderLink: string, action: string): Chainable<undefined>;
         getPaymentOrder<T = any>(
             paymentOrderId: string
         ): Cypress.Chainable<Response<T>>
@@ -396,24 +397,33 @@ Cypress.Commands.add("findInIframeIf",
 );
 
 
-Cypress.Commands.add("openOrders", () => {
-    const marker = "__beforeOrdersNavigation";
+// Runs `navigate` (e.g. a click on a link) and waits until it has replaced the page.
+// The browser keeps showing the old page until the server responds, so without this,
+// later queries can match the old page. A fresh window has no marker, so the
+// assertion only passes once the new page has loaded.
+function waitForNavigation(navigate: () => void, timeout: number) {
+    const marker = "__beforeNavigation";
     cy.window({log: false}).then((win) => {
         (win as any)[marker] = true;
     });
-    cy.getByAutomation("orderslink", true, {timeout: 30000}).click();
-    // A fresh window has no marker, so this passes only once the reload has replaced the page.
-    cy.window({timeout: 30000}).should((win) => {
-        expect((win as any)[marker], "page reloaded").to.be.undefined;
+    navigate();
+    cy.window({timeout}).should((win) => {
+        expect((win as any)[marker], "page replaced").to.be.undefined;
     });
+}
+
+Cypress.Commands.add("openOrders", () => {
+    waitForNavigation(() => cy.getByAutomation("orderslink", true, {timeout: 30000}).click(), 30000);
     return cy.wrap(undefined, {log: false});
 });
 
 Cypress.Commands.add("clickOrderAction", (paymentOrderLink: string, action: string) => {
-    return cy
+    // Order actions call the Swedbank Pay API server-side before redirecting, which can take a while.
+    waitForNavigation(() => cy
         .get(`[data-paymentorderlink="${paymentOrderLink}"] [data-automation="${action}"]`, {timeout: 30000})
         .should("be.visible")
-        .click();
+        .click(), 60000);
+    return cy.wrap(undefined, {log: false});
 });
 
 // Same deployment as the pages under test (localhost, or dev/UAT via --expose baseUrl=...).
