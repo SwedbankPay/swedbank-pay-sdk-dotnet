@@ -108,7 +108,7 @@ declare namespace Cypress {
          * Custom command to wait seconds.
          * @example cy.waitSeconds(1)
          */
-        waitSeconds(seconds: number, ...args: any): Chainable<JQuery<HTMLElement>>;
+        waitSeconds(seconds: number, ...args: any): Chainable<undefined>;
 
         /**
          * Custom command to fetch errors.
@@ -293,27 +293,27 @@ Cypress.Commands.add("performIfAttr", {prevSubject: "element"},
         subject,
         attr: string,
         value: string | boolean | number,
-        callback: () => any
+        callback?: () => any
     ) => {
         cy.wrap(subject)
             .invoke("attr", attr)
             .then((attr) => {
-                cy.log(attr);
+                cy.log(String(attr));
                 if (attr == value) {
-                    return callback();
+                    return callback?.();
                 }
             });
     }
 );
 
 Cypress.Commands.add("performIfClass", {prevSubject: "element"},
-    (subject, value: string, callback: () => any) => {
+    (subject, value: string, callback?: () => any) => {
         cy.wrap(subject)
             .invoke("attr", "class")
             .then((className) => {
-                cy.log(className);
-                if (className.includes(value)) {
-                    return callback();
+                cy.log(className ?? "");
+                if (className?.includes(value)) {
+                    return callback?.();
                 }
             });
     }
@@ -359,7 +359,7 @@ Cypress.Commands.add("iframeLoaded", (
         iframe: string,
         element: string,
         timeout: number,
-        callback: ($iframe: JQuery<HTMLElement>) => any
+        callback?: ($iframe: JQuery<HTMLElement>) => any
     ) => {
         console.log(iframe);
         return cy
@@ -370,7 +370,7 @@ Cypress.Commands.add("iframeLoaded", (
                 expect($iframe.contents().find(element)).to.exist;
             })
             .then(($iframe) => {
-                callback($iframe);
+                callback?.($iframe);
             });
     }
 );
