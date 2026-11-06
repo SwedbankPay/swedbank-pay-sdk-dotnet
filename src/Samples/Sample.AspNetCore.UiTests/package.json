@@ -5,16 +5,17 @@
   "author": "",
   "license": "ISC",
   "engines": {
-    "node": ">=20.0.0"
+    "node": "^22.0.0 || ^24.0.0 || >=26.0.0"
   },
   "devDependencies": {
-    "cypress": "^15.21.1",
+    "@types/node": "^24.19.2",
+    "cypress": "^16.2.1",
     "typescript": "^7.0.2"
   },
   "scripts": {
     "cy:open": "cypress open",
     "cy:run": "cypress run -b chrome",
-    "cy:run:dev": "cypress run -b chrome --env baseUrl=https://swedbankpay-sdk-001-dev.azurewebsites.net/",
-    "cy:run:uat": "cypress run -b chrome --env baseUrl=https://swedbankpay-sdk-001-uat.azurewebsites.net/"
+    "cy:run:dev": "cypress run -b chrome --expose baseUrl=https://swedbankpay-sdk-001-dev.azurewebsites.net/",
+    "cy:run:uat": "cypress run -b chrome --expose baseUrl=https://swedbankpay-sdk-001-uat.azurewebsites.net/"
   }
 }
