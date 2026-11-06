@@ -361,9 +361,11 @@ Cypress.Commands.add("iframeLoaded", (
     }
 );
 
+// Let Cypress run the find (instead of jQuery up front) so it retries until the element
+// renders and names the selector in the error when it never appears.
 Cypress.Commands.add("findInIframe",
     ($iframe: JQuery<HTMLElement>, element: string) => {
-        return cy.wrap($iframe.contents().find(element));
+        return cy.wrap($iframe.contents(), {log: false}).find(element);
     }
 );
 

@@ -77,11 +77,11 @@ class SwedbankBlock {
                                                     Data.payment.creditCardNumber,
                                                     {force: true}
                                                 );
-                                                cy.findInIframe($iframe2, "#expiryInput").type(
+                                                cy.findInIframe($iframe2, "#expiry-input").type(
                                                     `${Data.payment.creditCardExpirationMonth}/${Data.payment.creditCardExpirationYear}`,
                                                     {force: true}
                                                 );
-                                                cy.findInIframe($iframe2, "#cvcInput-1").type(
+                                                cy.findInIframe($iframe2, "input[id^='cvc-input']").type(
                                                     Data.payment.creditCardCvc,
                                                     {force: true}
                                                 );
@@ -139,11 +139,11 @@ class SwedbankBlock {
                                 Data.payment.creditCardNumber3DS,
                                 {force: true}
                             );
-                            cy.findInIframe($iframe, "#expiryInput").type(
+                            cy.findInIframe($iframe, "#expiry-input").type(
                                 `${Data.payment.creditCardExpirationMonth}/${Data.payment.creditCardExpirationYear}`,
                                 {force: true}
                             );
-                            cy.findInIframe($iframe, "#cvcInput-1").type(
+                            cy.findInIframe($iframe, "input[id^='cvc-input']").type(
                                 Data.payment.creditCardCvc,
                                 {force: true}
                             );
